@@ -1,7 +1,7 @@
 ---
 external help file: TeamViewerPS-help.xml
 Module Name: TeamViewerPS
-online version:
+online version: https://github.com/teamviewer/TeamViewerPS/blob/main/docs/commands/Connect-TeamViewerApi.md
 schema: 2.0.0
 ---
 
@@ -67,4 +67,4 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## RELATED LINKS
 
-[Disconnect-TeamViewerApi](Disconnect-TeamViewerApi)
+[Disconnect-TeamViewerApi](Disconnect-TeamViewerApi.md)

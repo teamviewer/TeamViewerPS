@@ -1,7 +1,7 @@
 ---
 external help file: TeamViewerPS-help.xml
 Module Name: TeamViewerPS
-online version:
+online version: https://github.com/teamviewer/TeamViewerPS/blob/main/docs/commands/Add-TeamViewerManager.md
 schema: 2.0.0
 ---
 
@@ -279,7 +279,10 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## RELATED LINKS
 
-[Get-TeamViewerManager](Get-TeamViewerManager)
-[Get-TeamViewerManagedDevice](Get-TeamViewerManagedDevice)
-[Get-TeamViewerManagedGroup](Get-TeamViewerManagedGroup)
-[Get-TeamViewerUser](Get-TeamViewerUser)
+[Get-TeamViewerManager](Get-TeamViewerManager.md)
+
+[Get-TeamViewerManagedDevice](Get-TeamViewerManagedDevice.md)
+
+[Get-TeamViewerManagedGroup](Get-TeamViewerManagedGroup.md)
+
+[Get-TeamViewerUser](Get-TeamViewerUser.md)

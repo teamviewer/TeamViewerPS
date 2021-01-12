@@ -20,19 +20,31 @@ Remotely manage the Computers & Contacts list via the TeamViewer Web API.
 
 The following functions are available in this category:
 
-- `Get-TeamViewerContact`
-- `Get-TeamViewerDevice`
-- `Get-TeamViewerGroup`
-- `New-TeamViewerContact`
-- `New-TeamViewerDevice`
-- `New-TeamViewerGroup`
-- `Remove-TeamViewerContact`
-- `Remove-TeamViewerDevice`
-- `Remove-TeamViewerGroup`
-- `Set-TeamViewerDevice`
-- `Set-TeamViewerGroup`
-- `Publish-TeamViewerGroup`
-- `Unpublish-TeamViewerGroup`
+[`Get-TeamViewerContact`](commands/Get-TeamViewerContact.md)
+
+[`Get-TeamViewerDevice`](commands/Get-TeamViewerDevice.md)
+
+[`Get-TeamViewerGroup`](commands/Get-TeamViewerGroup.md)
+
+[`New-TeamViewerContact`](commands/New-TeamViewerContact.md)
+
+[`New-TeamViewerDevice`](commands/New-TeamViewerDevice.md)
+
+[`New-TeamViewerGroup`](commands/New-TeamViewerGroup.md)
+
+[`Remove-TeamViewerContact`](commands/Remove-TeamViewerContact.md)
+
+[`Remove-TeamViewerDevice`](commands/Remove-TeamViewerDevice.md)
+
+[`Remove-TeamViewerGroup`](commands/Remove-TeamViewerGroup.md)
+
+[`Set-TeamViewerDevice`](commands/Set-TeamViewerDevice.md)
+
+[`Set-TeamViewerGroup`](commands/Set-TeamViewerGroup.md)
+
+[`Publish-TeamViewerGroup`](commands/Publish-TeamViewerGroup.md)
+
+[`Unpublish-TeamViewerGroup`](commands/Unpublish-TeamViewerGroup.md)
 
 ## User management
 
@@ -41,10 +53,13 @@ Web API.
 
 The following functions are available in this category:
 
-- `Get-TeamViewerUser`
-- `New-TeamViewerUser`
-- `Remove-TeamViewerUser`
-- `Set-TeamViewerUser`
+[`Get-TeamViewerUser`](commands/Get-TeamViewerUser.md)
+
+[`New-TeamViewerUser`](commands/New-TeamViewerUser.md)
+
+[`Remove-TeamViewerUser`](commands/Remove-TeamViewerUser.md)
+
+[`Set-TeamViewerUser`](commands/Set-TeamViewerUser.md)
 
 ## Managed groups
 
@@ -53,17 +68,27 @@ TeamViewer Web API.
 
 The following functions are available in this category:
 
-- `Get-TeamViewerManagedDevice`
-- `Get-TeamViewerManagedGroup`
-- `Get-TeamViewerManager`
-- `New-TeamViewerManagedGroup`
-- `Set-TeamViewerManagedGroup`
-- `Set-TeamViewerManager`
-- `Add-TeamViewerManagedDevice`
-- `Add-TeamViewerManager`
-- `Remove-TeamViewerManagedDevice`
-- `Remove-TeamViewerManagedGroup`
-- `Remove-TeamViewerManager`
+[`Get-TeamViewerManagedDevice`](commands/Get-TeamViewerManagedDevice.md)
+
+[`Get-TeamViewerManagedGroup`](commands/Get-TeamViewerManagedGroup.md)
+
+[`Get-TeamViewerManager`](commands/Get-TeamViewerManager.md)
+
+[`New-TeamViewerManagedGroup`](commands/New-TeamViewerManagedGroup.md)
+
+[`Set-TeamViewerManagedGroup`](commands/Set-TeamViewerManagedGroup.md)
+
+[`Set-TeamViewerManager`](commands/Set-TeamViewerManager.md)
+
+[`Add-TeamViewerManagedDevice`](commands/Add-TeamViewerManagedDevice.md)
+
+[`Add-TeamViewerManager`](commands/Add-TeamViewerManager.md)
+
+[`Remove-TeamViewerManagedDevice`](commands/Remove-TeamViewerManagedDevice.md)
+
+[`Remove-TeamViewerManagedGroup`](commands/Remove-TeamViewerManagedGroup.md)
+
+[`Remove-TeamViewerManager`](commands/Remove-TeamViewerManager.md)
 
 ## Policy management
 
@@ -71,10 +96,13 @@ Remotely manage the policies of a TeamViewer company via the TeamViewer Web API.
 
 The following functions are available in this category:
 
-- `Get-TeamViewerPolicy`
-- `New-TeamViewerPolicy`
-- `Remove-TeamViewerPolicy`
-- `Set-TeamViewerPolicy`
+[`Get-TeamViewerPolicy`](commands/Get-TeamViewerPolicy.md)
+
+[`New-TeamViewerPolicy`](commands/New-TeamViewerPolicy.md)
+
+[`Remove-TeamViewerPolicy`](commands/Remove-TeamViewerPolicy.md)
+
+[`Set-TeamViewerPolicy`](commands/Set-TeamViewerPolicy.md)
 
 ## Local TeamViewer utilities
 
@@ -82,15 +110,35 @@ Utilities that help managing the local TeamViewer installation.
 
 The following functions are available in this category:
 
-- `Get-TeamViewerId`
-- `Get-TeamViewerService`
-- `Get-TeamViewerVersion`
-- `Invoke-TeamViewerPackageDownload`
-- `Restart-TeamViewerService`
-- `Start-TeamViewerService`
-- `Stop-TeamViewerService`
-- `Test-TeamViewerConnectivity`
-- `Test-TeamViewerInstallation`
+[`Get-TeamViewerId`](commands/Get-TeamViewerId.md)
+
+[`Get-TeamViewerService`](commands/Get-TeamViewerService.md)
+
+[`Get-TeamViewerVersion`](commands/Get-TeamViewerVersion.md)
+
+[`Invoke-TeamViewerPackageDownload`](commands/Invoke-TeamViewerPackageDownload.md)
+
+[`Restart-TeamViewerService`](commands/Restart-TeamViewerService.md)
+
+[`Start-TeamViewerService`](commands/Start-TeamViewerService.md)
+
+[`Stop-TeamViewerService`](commands/Stop-TeamViewerService.md)
+
+[`Test-TeamViewerConnectivity`](commands/Test-TeamViewerConnectivity.md)
+
+[`Test-TeamViewerInstallation`](commands/Test-TeamViewerInstallation.md)
+
+## Web API utilities
+
+Utilities that help working with the TeamViewer Web API related functions.
+
+The following functions are available in this category:
+
+[`Connect-TeamViewerApi`](commands/Connect-TeamViewerApi.md)
+
+[`Disconnect-TeamViewerApi`](commands/Disconnect-TeamViewerApi.md)
+
+[`Invoke-TeamViewerPing`](commands/Invoke-TeamViewerPing.md)
 
 # SEE ALSO
 
