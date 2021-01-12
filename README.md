@@ -3,7 +3,7 @@
 TeamViewerPS allows to interact with the TeamViewer Web API as well as a locally
 installed TeamViewer client.
 
-## Installation
+## Installation & Update
 
 Install TeamViewerPS from the Powershell Gallery using the following command:
 
@@ -24,20 +24,27 @@ The following example code shows how to interact with the TeamViewer Web API
 functions by retrieving the list of users of a TeamViewer company:
 
 ```powershell
+# Downloads and installs the module from Powershell Gallery
 Install-Module TeamViewerPS
+
+# Stores API token for future usage
 Connect-TeamViewerApi
 # Enter the TeamViewer API access token that has been created via the
 # Management Console: https://login.teamviewer.com
 
+# Retrieves users of a TeamViewer company
 Get-TeamViewerUser
 ```
-
 Another example below shows how to display the TeamViewer ID as well as the
 version of the locally installed TeamViewer client:
 
 ```powershell
 Install-Module TeamViewerPS
+
+# Returns the TeamViewer Id of the locally installed TeamViewer client
 Get-TeamViewerId
+
+# Returns the version of the locally installed TeamViewer client
 Get-TeamViewerVersion
 ```
 
@@ -74,5 +81,5 @@ Please see the file `LICENSE`.
 ## Links
 
 - [TeamViewerPS project page on Github](https://github.com/TeamViewer/TeamViewerPS)
-- [TeamViewer Web API Documentation](https://webapi.teamviewer.com/api/v1/docs/index)
-- [TeamViewer Homepage](https://www.teamviewer.com/)
+- [TeamViewer Web API documentation](https://webapi.teamviewer.com/api/v1/docs/index)
+- [TeamViewer website](https://www.teamviewer.com/)
