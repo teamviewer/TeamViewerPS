@@ -1,5 +1,7 @@
 # TeamViewerPS
 
+![CI](https://github.com/teamviewer/TeamViewerPS/workflows/CI/badge.svg)
+
 TeamViewerPS allows to interact with the TeamViewer Web API as well as a locally
 installed TeamViewer client.
 
