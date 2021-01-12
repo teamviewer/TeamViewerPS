@@ -88,11 +88,10 @@
             # Tags applied to this module. These help with module discovery in online galleries.
             # Tags = @()
             Tags       = @(
-                'TeamViewer',
-                'Remote Control',
-                'Configuration',
-                'Api',
-                'Powershell'
+                'teamviewer',
+                'remotecontrol',
+                'webapi',
+                'api'
             )
 
             # A URL to the license for this module.
