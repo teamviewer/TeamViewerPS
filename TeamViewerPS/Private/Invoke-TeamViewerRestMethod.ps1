@@ -34,6 +34,9 @@ function Invoke-TeamViewerRestMethod {
     $PSBoundParameters.Remove("ApiToken") | Out-Null
     $PSBoundParameters.Remove("WriteErrorTo") | Out-Null
 
+    $currentTlsSettings = [Net.ServicePointManager]::SecurityProtocol
+    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+
     # Using `Invoke-WebRequest` instead of `Invoke-RestMethod`:
     # There is a known issue for PUT and DELETE operations to hang on Windows Server 2012.
     try {
@@ -57,5 +60,8 @@ function Invoke-TeamViewerRestMethod {
         else {
             throw $err
         }
+    }
+    finally {
+        [Net.ServicePointManager]::SecurityProtocol = $currentTlsSettings
     }
 }
