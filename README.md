@@ -30,9 +30,9 @@ functions by retrieving the list of users of a TeamViewer company:
 Install-Module TeamViewerPS
 
 # Stores API token for future usage
-Connect-TeamViewerApi
-# Enter the TeamViewer API access token that has been created via the
-# Management Console: https://login.teamviewer.com
+# 1. Create a TeamViewer API access token in the Management Console: https://login.teamviewer.com
+# 2. Enter the API token in the shown dialog
+Connect-TeamViewerApi -ApiToken (Read-Host -Prompt 'Enter or paste your TeamViewer API token' -AsSecureString)
 
 # Retrieves users of a TeamViewer company
 Get-TeamViewerUser
