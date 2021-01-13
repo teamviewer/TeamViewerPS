@@ -40,6 +40,7 @@ function Test-TeamViewerConnectivity {
     else {
         $results | `
             ForEach-Object { New-Object PSObject -Property $_ } | `
-            Select-Object -Property Hostname, Succeeded, TcpPort
+            Select-Object -Property Hostname, TcpPort, Succeeded | `
+            Sort-Object Hostname
     }
 }
