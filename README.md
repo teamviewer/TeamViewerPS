@@ -29,7 +29,7 @@ functions by retrieving the list of users of a TeamViewer company:
 # Downloads and installs the module from Powershell Gallery
 Install-Module TeamViewerPS
 
-# Stores API token for future usage
+# Stores API token for Powershell session
 # 1. Create a TeamViewer API access token in the Management Console: https://login.teamviewer.com
 # 2. Enter the API token in the shown dialog
 Connect-TeamViewerApi -ApiToken (Read-Host -Prompt 'Enter or paste your TeamViewer API token' -AsSecureString)
