@@ -28,8 +28,16 @@ Use this command to troubleshoot possible connection related issues.
 ### Example 1
 
 ```powershell
+PS /> Test-TeamViewerConnectivity -Quiet
+```
+
+### Example 2
+
+```powershell
 PS /> Test-TeamViewerConnectivity -Verbose
 ```
+
+Shows an overview of the connected endpoints including ports.
 
 ## PARAMETERS
 
