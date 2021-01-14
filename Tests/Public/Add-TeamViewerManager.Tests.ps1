@@ -130,4 +130,15 @@ Describe 'Add-TeamViewerManager' {
         $body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
         $body.accountId | Should -Be 123456
     }
+
+    It 'Should send a JSON array' {
+        Add-TeamViewerManager `
+            -ApiToken $testApiToken `
+            -GroupId $testGroupId `
+            -AccountId $testAccountId
+        $mockArgs.Body | Should -Not -BeNullOrEmpty
+        $bodyText = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body)
+        $bodyText[0] | Should -Be '['
+        $bodyText[$bodyText.Length - 1] | Should -Be ']'
+    }
 }

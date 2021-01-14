@@ -85,7 +85,7 @@ function Add-TeamViewerManager {
             -Uri $resourceUri `
             -Method Post `
             -ContentType "application/json; charset=utf-8" `
-            -Body ([System.Text.Encoding]::UTF8.GetBytes((@($body) | ConvertTo-Json -AsArray))) `
+            -Body ([System.Text.Encoding]::UTF8.GetBytes((ConvertTo-Json -InputObject @($body)))) `
             -WriteErrorTo $PSCmdlet | `
             Out-Null
     }
