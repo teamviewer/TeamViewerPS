@@ -71,6 +71,7 @@ The module provides functions for the following categories:
 - _User management_
 - _Managed groups_
 - _Policy management_
+- _Single Sign-On management_
 - _Local TeamViewer utilities_
 
 Please see the [about_TeamViewerPS](docs/about_TeamViewerPS.md) article for a

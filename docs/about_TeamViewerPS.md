@@ -104,6 +104,20 @@ The following functions are available in this category:
 
 [`Set-TeamViewerPolicy`](commands/Set-TeamViewerPolicy.md)
 
+## Single Sign-On management
+
+Remotely manage Single Sign-On configurations via the TeamViewer Web API.
+
+The following functions are available in this category:
+
+[Get-TeamViewerSsoDomain](commands/Get-TeamViewerSsoDomain.md)
+
+[Get-TeamViewerSsoExclusion](commands/Get-TeamViewerSsoExclusion.md)
+
+[Add-TeamViewerSsoExclusion](commands/Add-TeamViewerSsoExclusion.md)
+
+[Remove-TeamViewerSsoExclusion](commands/Remove-TeamViewerSsoExclusion.md)
+
 ## Local TeamViewer utilities
 
 Utilities that help managing the local TeamViewer installation.
