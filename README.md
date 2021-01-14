@@ -32,7 +32,7 @@ Install-Module TeamViewerPS
 # Stores API token for Powershell session
 # 1. Create a TeamViewer API access token in the Management Console: https://login.teamviewer.com
 # 2. Enter the API token in the shown dialog
-Connect-TeamViewerApi -ApiToken
+Connect-TeamViewerApi
 
 # Retrieves users of a TeamViewer company
 Get-TeamViewerUser
