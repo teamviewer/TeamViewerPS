@@ -29,4 +29,5 @@ jobs:
           Publish-Module `
             -Path $env:GITHUB_WORKSPACE/BuildOutput/TeamViewerPS/ `
             -NuGetApiKey $env:NUGET_APIKEY_TESTING `
-            -Repository PSTestGallery
+            -Repository PSTestGallery `
+            -Force
