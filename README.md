@@ -77,6 +77,14 @@ The module provides functions for the following categories:
 Please see the [about_TeamViewerPS](docs/about_TeamViewerPS.md) article for a
 more detailed list.
 
+## Prerequisites
+
+TeamViewerPS requires one of the following environments to run:
+
+- PowerShell 5.1 (Windows) 
+- PowerShell Core 6 (Windows, Linux)
+- PowerShell 7 (Windows, Linux)
+
 ## License
 
 Please see the file `LICENSE`.
