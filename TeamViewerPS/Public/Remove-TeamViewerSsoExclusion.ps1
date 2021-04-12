@@ -19,18 +19,12 @@ function Remove-TeamViewerSsoExclusion {
         $id = $DomainId | Resolve-TeamViewerSsoDomainId
         $resourceUri = "$(Get-TeamViewerApiUri)/ssoDomain/$id/exclusion"
         $emailsToRemove = @()
-    }
-    Process {
-        if ($PSCmdlet.ShouldProcess($Email, "Remove SSO exclusion")) {
-            $emailsToRemove += $Email
-        }
-    }
-    End {
-        $body = @{
-            emails = @($emailsToRemove)
-        }
+        $null = $ApiToken   # https://github.com/PowerShell/PSScriptAnalyzer/issues/1472
 
-        if ($emailsToRemove.Length -gt 0) {
+        function Invoke-RequestInternal {
+            $body = @{
+                emails = @($emailsToRemove)
+            }
             Invoke-TeamViewerRestMethod `
                 -ApiToken $ApiToken `
                 -Uri $resourceUri `
@@ -40,6 +34,20 @@ function Remove-TeamViewerSsoExclusion {
                 -WriteErrorTo $PSCmdlet `
                 -ErrorAction Stop | `
                 Out-Null
+        }
+    }
+    Process {
+        if ($PSCmdlet.ShouldProcess($Email, "Remove SSO exclusion")) {
+            $emailsToRemove += $Email
+        }
+        if ($emailsToRemove.Length -eq 100) {
+            Invoke-RequestInternal
+            $emailsToRemove = @()
+        }
+    }
+    End {
+        if ($emailsToRemove.Length -gt 0) {
+            Invoke-RequestInternal
         }
     }
 }
