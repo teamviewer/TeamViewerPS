@@ -9,9 +9,16 @@ BeforeAll {
 Describe 'Test-TeamViewerInstallation' {
     Context 'Windows' {
         BeforeAll {
+            function Get-TestItemValue([object]$obj) {}
+            Mock Get-TestItemValue { 'testPath' }
+            $testItem = [PSCustomObject]@{}
+            $testItem | Add-Member `
+                -MemberType ScriptMethod `
+                -Name GetValue `
+                -Value { param($obj) Get-TestItemValue @PSBoundParameters }
             Mock Get-OperatingSystem { 'Windows' }
             Mock Get-TeamViewerRegKeyPath { 'testRegistry' }
-            Mock Get-ItemPropertyValue { 'testPath' }
+            Mock Get-Item { $testItem }
             Mock Test-Path { $true }
         }
 
@@ -23,8 +30,11 @@ Describe 'Test-TeamViewerInstallation' {
             Assert-MockCalled Test-Path -Scope It -Times 1 -ParameterFilter {
                 $Path -eq 'testPath/TeamViewer.exe'
             }
-            Assert-MockCalled Get-ItemPropertyValue -Scope It -Times 1 -ParameterFilter {
-                $Path -eq 'testRegistry' -And $Name -eq 'InstallationDirectory'
+            Assert-MockCalled Get-Item -Scope It -Times 1 -ParameterFilter {
+                $Path -eq 'testRegistry'
+            }
+            Assert-MockCalled Get-TestItemValue -Scope It -Times 1 -ParameterFilter {
+                $obj -eq 'InstallationDirectory'
             }
         }
 
