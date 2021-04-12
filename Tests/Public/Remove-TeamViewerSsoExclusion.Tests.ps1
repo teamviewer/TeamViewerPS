@@ -58,4 +58,16 @@ Describe 'Remove-TeamViewerSsoExclusion' {
                 $Uri -eq "//unit.test/ssoDomain/$testDomainId/exclusion" -And `
                 $Method -eq 'Delete' }
     }
+
+    It 'Should create bulks' {
+        $testAddresses = @()
+        1..250 | ForEach-Object { $testAddresses += "foo$_@example.test" }
+        $testAddresses | Remove-TeamViewerSsoExclusion `
+            -ApiToken $testApiToken `
+            -DomainId $testDomainId
+        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 3 -Scope It
+        $mockArgs.Body | Should -Not -BeNullOrEmpty
+        $body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
+        $body.emails | Should -HaveCount 50
+    }
 }
