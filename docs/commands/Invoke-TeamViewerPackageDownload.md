@@ -81,7 +81,7 @@ available on Windows platforms.
 Type: String
 Parameter Sets: (All)
 Aliases:
-Accepted values: Full, Host, Portable, QuickJoin, QuickSupport
+Accepted values: Full, Host, Portable, QuickJoin, QuickSupport, Full64Bit
 
 Required: False
 Position: 0
