@@ -1,9 +1,11 @@
 function Test-TeamViewerInstallation {
     switch (Get-OperatingSystem) {
         'Windows' {
+            $regKey = Get-TeamViewerRegKeyPath
+            $installationDirectory = if (Test-Path $regKey) { (Get-Item $regKey).GetValue('InstallationDirectory') }
             Write-Output (
-                (Test-Path (Get-TeamViewerRegKeyPath)) -And `
-                (Test-Path "$(Get-ItemPropertyValue -Path (Get-TeamViewerRegKeyPath) -Name 'InstallationDirectory')/TeamViewer.exe")
+                $installationDirectory -And `
+                (Test-Path "$installationDirectory/TeamViewer.exe")
             )
         }
         'Linux' {

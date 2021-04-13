@@ -1,7 +1,7 @@
 function Invoke-TeamViewerPackageDownload {
     Param(
         [Parameter()]
-        [ValidateSet('Full', 'Host', 'Portable', 'QuickJoin', 'QuickSupport')]
+        [ValidateSet('Full', 'Host', 'Portable', 'QuickJoin', 'QuickSupport', 'Full64Bit')]
         [ValidateScript( {
                 if (($_ -ne 'Full') -And ((Get-OperatingSystem) -ne 'Windows')) {
                     $PSCmdlet.ThrowTerminatingError(
@@ -48,6 +48,7 @@ function Invoke-TeamViewerPackageDownload {
                 'Portable' { 'TeamViewerPortable.zip' }
                 'QuickJoin' { 'TeamViewerQJ.exe' }
                 'QuickSupport' { 'TeamViewerQS.exe' }
+                'Full64Bit' { 'TeamViewer_Setup_x64.exe' }
             }
             if ($MajorVersion) {
                 $additionalPath = "/version_$($MajorVersion)x"
