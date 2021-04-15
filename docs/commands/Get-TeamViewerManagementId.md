@@ -43,8 +43,6 @@ PS /> Get-TeamViewerManagementId
 
 ## OUTPUTS
 
-The command returns the Management ID as GUID object.
-
 ## NOTES
 
 ## RELATED LINKS
