@@ -47,4 +47,4 @@ PS /> Get-TeamViewerManagementId
 
 ## RELATED LINKS
 
-[Get-TeamViewerManagedDevice](Get-TeamViewerManagedGroup.md)
+[Get-TeamViewerManagedDevice](Get-TeamViewerManagedDevice.md)
