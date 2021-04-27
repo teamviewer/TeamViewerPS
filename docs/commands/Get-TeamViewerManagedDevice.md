@@ -67,6 +67,14 @@ PS /> Get-TeamViewerManagedDevice -Id 'c0cb303a-8a85-4e54-b657-a4757c791aef'
 
 Retrieve a single managed device entry for the device with the given ID.
 
+### Example 4
+
+```powershell
+PS /> Get-TeamViewerManagedDevice -Id (Get-TeamViewerManagementId)
+```
+
+Retrieve information about the management state of the current device.
+
 ## PARAMETERS
 
 ### -ApiToken
@@ -158,3 +166,4 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## RELATED LINKS
 
 [Get-TeamViewerManagedGroup](Get-TeamViewerManagedGroup.md)
+[Get-TeamViewerManagementId](Get-TeamViewerManagementId.md)
