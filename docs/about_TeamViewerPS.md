@@ -72,6 +72,8 @@ The following functions are available in this category:
 
 [`Get-TeamViewerManagedGroup`](commands/Get-TeamViewerManagedGroup.md)
 
+[`Get-TeamViewerManagementId`](commands/Get-TeamViewerManagementId.md)
+
 [`Get-TeamViewerManager`](commands/Get-TeamViewerManager.md)
 
 [`New-TeamViewerManagedGroup`](commands/New-TeamViewerManagedGroup.md)
