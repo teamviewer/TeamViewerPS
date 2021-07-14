@@ -39,3 +39,12 @@ jobs:
           Install-Module PSScriptAnalyzer -Force -SkipPublisherCheck -Scope CurrentUser `
             -RequiredVersion 1.19.1 -Verbose
           Invoke-ScriptAnalyzer -Path $env:GITHUB_WORKSPACE -Recurse -ReportSummary -EnableExit
+
+      # Try to build the package
+      - name: Package Build
+        shell: pwsh
+        run: |
+          $ProgressPreference='SilentlyContinue'
+          $ErrorActionPreference='Stop'
+          Install-Module platyPS,BuildHelpers -Force -SkipPublisherCheck -Scope CurrentUser
+          & $env:GITHUB_WORKSPACE/Build/New-TeamViewerPSPackage.ps1 -Verbose
