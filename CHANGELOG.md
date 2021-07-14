@@ -1,5 +1,12 @@
 # Change Log
 
+## 1.2.0
+
+### Added
+
+- Adds command `Set-TeamViewerManagedDevice` to change properties of a managed device.
+- Adds optional `Policy` property to `Get-TeamViewerManagedDevice` result entries.
+
 ## 1.1.0 (2021-04-15)
 
 ### Added
