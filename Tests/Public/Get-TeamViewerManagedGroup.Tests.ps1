@@ -85,4 +85,44 @@ Describe 'Get-TeamViewerManagedGroup' {
             $result.PSObject.TypeNames | Should -Contain 'TeamViewerPS.ManagedGroup'
         }
     }
+
+    Context 'List device managed groups' {
+        BeforeAll {
+            Mock Invoke-TeamViewerRestMethod { @{
+                    nextPaginationToken = $null
+                    resources           = @(
+                        @{ id = 'ae222e9d-a665-4cea-85b7-d4a3a08a5e35'; name = 'test managed group 1' },
+                        @{ id = '6cbfcfb2-a929-4987-a91b-89e2945412cf'; name = 'test managed group 2' },
+                        @{ id = '99a87bed-3d60-46f2-a869-b7e67a6bf2c8'; name = 'test managed group 3' }
+                    )
+                } }
+            $testDeviceId = 'bbeedb62-51a3-4842-8ec2-386f2d8779d8'
+            $null = $testDeviceId
+        }
+
+        It 'Should call the correct API endpoint to fetch the list of groups that the device is part of' {
+            Get-TeamViewerManagedGroup -ApiToken $testApiToken -Device $testDeviceId
+            Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+                $ApiToken -eq $testApiToken -And `
+                    $Uri -eq "//unit.test/managed/devices/$testDeviceId/groups" -And `
+                    $Method -eq 'Get' }
+        }
+
+        It 'Should return managed groups objects' {
+            $result = Get-TeamViewerManagedGroup -ApiToken $testApiToken -Device $testDeviceId
+            $result | Should -HaveCount 3
+            $firstResult = $result[0]
+            $firstResult | Should -BeOfType PSObject
+            $firstResult.PSObject.TypeNames | Should -Contain 'TeamViewerPS.ManagedGroup'
+        }
+
+        It 'Should accept a ManagedDevice object as input' {
+            $testDevice = @{ id = $testDeviceId; name = 'test device' } | ConvertTo-TeamViewerManagedDevice
+            Get-TeamViewerManagedGroup -ApiToken $testApiToken -Device $testDevice
+            Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+                $ApiToken -eq $testApiToken -And `
+                    $Uri -eq "//unit.test/managed/devices/$testDeviceId/groups" -And `
+                    $Method -eq 'Get' }
+        }
+    }
 }

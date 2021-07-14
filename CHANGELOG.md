@@ -6,6 +6,8 @@
 
 - Adds command `Set-TeamViewerManagedDevice` to change properties of a managed device.
 - Adds optional `Policy` property to `Get-TeamViewerManagedDevice` result entries.
+- Adds `-Device` parameter to `Get-TeamViewerManagedGroup` command, allowing to
+  fetch all managed groups that a particular device is part of.
 
 ## 1.1.0 (2021-04-15)
 
