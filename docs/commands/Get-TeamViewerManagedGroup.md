@@ -25,6 +25,12 @@ Get-TeamViewerManagedGroup -ApiToken <SecureString> [<CommonParameters>]
 Get-TeamViewerManagedGroup -ApiToken <SecureString> [-Id <Guid>] [<CommonParameters>]
 ```
 
+### ByDeviceId
+
+```powershell
+Get-TeamViewerManagedGroup -ApiToken <SecureString> [-Device <Object>] [<CommonParameters>]
+```
+
 ## DESCRIPTION
 
 Retrieves managed groups of the manager that is associated with the API access
@@ -60,6 +66,27 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Device
+
+Object that can be used to identify a managed device.
+This can either be the managed device ID (as string or GUID) or a managed device
+object that has been received using other module functions.
+
+If given, this command returns the list of managed groups that the device is
+part of.
+
+```yaml
+Type: Object
+Parameter Sets: ByDeviceId
+Aliases: DeviceId
+
+Required: False
 Position: Named
 Default value: None
 Accept pipeline input: False

@@ -8,6 +8,7 @@ function Get-TeamViewerManagedDevice {
         [Parameter(ParameterSetName = "ByDeviceId")]
         [ValidateScript( { $_ | Resolve-TeamViewerManagedDeviceId } )]
         [Alias("DeviceId")]
+        [Alias("Device")]
         [guid]
         $Id,
 
