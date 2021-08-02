@@ -78,7 +78,7 @@ The following functions are available in this category:
 
 [`New-TeamViewerManagedGroup`](commands/New-TeamViewerManagedGroup.md)
 
-[`Set-TeamViewerManagedDevice](commands/Set-TeamViewerManagedDevice.md)
+[`Set-TeamViewerManagedDevice`](commands/Set-TeamViewerManagedDevice.md)
 
 [`Set-TeamViewerManagedGroup`](commands/Set-TeamViewerManagedGroup.md)
 
