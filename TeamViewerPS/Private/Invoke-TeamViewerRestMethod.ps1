@@ -37,6 +37,9 @@ function Invoke-TeamViewerRestMethod {
     $currentTlsSettings = [Net.ServicePointManager]::SecurityProtocol
     [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
+    $currentProgressPreference = $ProgressPreference
+    $ProgressPreference = 'SilentlyContinue'
+
     # Using `Invoke-WebRequest` instead of `Invoke-RestMethod`:
     # There is a known issue for PUT and DELETE operations to hang on Windows Server 2012.
     try {
@@ -63,5 +66,6 @@ function Invoke-TeamViewerRestMethod {
     }
     finally {
         [Net.ServicePointManager]::SecurityProtocol = $currentTlsSettings
+        $ProgressPreference = $currentProgressPreference
     }
 }
