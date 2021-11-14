@@ -61,6 +61,22 @@ The following functions are available in this category:
 
 [`Set-TeamViewerUser`](commands/Set-TeamViewerUser.md)
 
+## User groups
+
+[`Get-TeamViewerUserGroup`](commands/Get-TeamViewerUserGroup.md)
+
+[`New-TeamViewerUserGroup`](commands/New-TeamViewerUserGroup.md)
+
+[`Set-TeamViewerUserGroup`](commands/Set-TeamViewerUserGroup.md)
+
+[`Remove-TeamViewerUserGroup`](commands/Remove-TeamViewerUserGroup.md)
+
+[`Get-TeamViewerUserGroupMember`](commands/Get-TeamViewerUserGroupMember.md)
+
+[`Add-TeamViewerUserGroupMember`](commands/Add-TeamViewerUserGroupMember.md)
+
+[`Remove-TeamViewerUserGroupMember`](commands/Remove-TeamViewerUserGroupMember.md)
+
 ## Managed groups
 
 Remotely manage the managed groups and managed devices of an account via the
