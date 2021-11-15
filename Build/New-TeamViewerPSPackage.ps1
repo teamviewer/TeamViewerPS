@@ -48,6 +48,9 @@ Write-Verbose "Creating module manifest"
 Copy-Item `
     -Path "$repoPath/TeamViewerPS/TeamViewerPS.psd1" `
     -Destination "$BuildOutputPath/TeamViewerPS/"
+Copy-Item `
+    -Path "$repoPath/TeamViewerPS/*.format.ps1xml" `
+    -Destination "$BuildOutputPath/TeamViewerPS/"
 Update-Metadata `
     -Path "$BuildOutputPath/TeamViewerPS/TeamViewerPS.psd1" `
     -PropertyName 'FunctionsToExport' `
