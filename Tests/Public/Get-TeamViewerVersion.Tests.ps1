@@ -4,6 +4,8 @@ BeforeAll {
     . "$PSScriptRoot/../../TeamViewerPS/Public/Test-TeamViewerInstallation.ps1"
     @(Get-ChildItem -Path "$PSScriptRoot/../../TeamViewerPS/Private/*.ps1") | `
         ForEach-Object { . $_.FullName }
+
+    Mock Get-ItemPropertyValue { '15.10.0' }
 }
 
 Describe "Get-TeamViewerVersion" {
@@ -12,7 +14,6 @@ Describe "Get-TeamViewerVersion" {
             Mock Get-TeamViewerRegKeyPath { 'testRegistry' }
             Mock Get-OperatingSystem { 'Windows' }
             Mock Test-TeamViewerInstallation { $true }
-            Mock Get-ItemPropertyValue { '15.10.0' }
         }
 
         It "Should return the TeamViewer Version from the Windows Registry" {

@@ -4,6 +4,7 @@ BeforeAll {
     . "$PSScriptRoot/../../TeamViewerPS/Public/Test-TeamViewerInstallation.ps1"
     @(Get-ChildItem -Path "$PSScriptRoot/../../TeamViewerPS/Private/*.ps1") | `
         ForEach-Object { . $_.FullName }
+    Mock Get-ItemPropertyValue { 123456 }
 }
 
 Describe 'Get-TeamViewerId' {
@@ -12,7 +13,6 @@ Describe 'Get-TeamViewerId' {
             Mock Get-TeamViewerRegKeyPath { 'testRegistry' }
             Mock Get-OperatingSystem { 'Windows' }
             Mock Test-TeamViewerInstallation { $true }
-            Mock Get-ItemPropertyValue { 123456 }
         }
 
         It 'Should return the TeamViewer ID from the Windows Registry' {
