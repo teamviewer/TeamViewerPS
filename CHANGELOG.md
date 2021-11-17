@@ -1,5 +1,10 @@
 # Change Log
 
+## 1.3.0 (2021-11)
+
+- Adds command `Get-TeamViewerEventLog` to fetch event log entries.
+- Adds user group commands to remotely manage user groups of a TeamViewer company.
+
 ## 1.2.0 (2021-07-19)
 
 ### Added
