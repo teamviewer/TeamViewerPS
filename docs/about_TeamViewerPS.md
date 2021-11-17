@@ -63,6 +63,11 @@ The following functions are available in this category:
 
 ## User groups
 
+Remotely manage the user groups of a TeamViewer company via the
+TeamViewer Web API. Have user groups to organize company members.
+
+The following functions are available in this category:
+
 [`Get-TeamViewerUserGroup`](commands/Get-TeamViewerUserGroup.md)
 
 [`New-TeamViewerUserGroup`](commands/New-TeamViewerUserGroup.md)
@@ -130,13 +135,20 @@ Remotely manage Single Sign-On configurations via the TeamViewer Web API.
 
 The following functions are available in this category:
 
-[Get-TeamViewerSsoDomain](commands/Get-TeamViewerSsoDomain.md)
+[`Get-TeamViewerSsoDomain`](commands/Get-TeamViewerSsoDomain.md)
 
-[Get-TeamViewerSsoExclusion](commands/Get-TeamViewerSsoExclusion.md)
+[`Get-TeamViewerSsoExclusion`](commands/Get-TeamViewerSsoExclusion.md)
 
-[Add-TeamViewerSsoExclusion](commands/Add-TeamViewerSsoExclusion.md)
+[`Add-TeamViewerSsoExclusion`](commands/Add-TeamViewerSsoExclusion.md)
 
-[Remove-TeamViewerSsoExclusion](commands/Remove-TeamViewerSsoExclusion.md)
+[`Remove-TeamViewerSsoExclusion`](commands/Remove-TeamViewerSsoExclusion.md)
+
+## Event logs
+
+Retrieve event log entries of a TeamViewer company via the TeamViewer Web
+API.
+
+[`Get-TeamViewerEventLog`](commands/Get-TeamViewerEventLog.md)
 
 ## Local TeamViewer utilities
 
