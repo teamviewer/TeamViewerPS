@@ -38,6 +38,29 @@ Describe 'Set-TeamViewerPolicy' {
         $body.name | Should -Be 'Updated Policy Name'
     }
 
+    It 'Should change policy settings' {
+        $settings = @{
+            Key     = "BlackWhitelist"
+            Value   = @{
+                UseWhiteList             = $true
+                WhiteListBuddyAccountIds = @(123, 456, 789)
+            }
+            Enforce = $true
+        }
+        Set-TeamViewerPolicy `
+            -ApiToken $testApiToken `
+            -PolicyId $testPolicyId `
+            -Settings $settings
+
+        $mockArgs.Body | Should -Not -BeNullOrEmpty
+        $body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
+        $body.settings | Should -HaveCount 1
+        $body.settings[0].Key | Should -Be 'BlackWhitelist'
+        $body.settings[0].Value.UseWhiteList | Should -BeTrue
+        $body.settings[0].Value.WhiteListBuddyAccountIds | Should -HaveCount 3
+        $body.settings[0].Value.WhiteListBuddyAccountIds | Should -Be @(123,456,789)
+    }
+
     It 'Should accept policy properties as hashtable' {
         Set-TeamViewerPolicy `
             -ApiToken $testApiToken `
