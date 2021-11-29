@@ -15,7 +15,7 @@ function Resolve-TeamViewerUserGroupMemberMemberId {
             return $UserGroupMember
         }
         else {
-            throw "Invalid user group identifier '$UserGroupMember'. Must be either a [TeamViewerPS.UserGroupMember], [ulong], [long] or [string]."
+            throw "Invalid user group identifier '$UserGroupMember'. Must be either a [TeamViewerPS.UserGroupMember], [int] or [string]."
         }
     }
 }
