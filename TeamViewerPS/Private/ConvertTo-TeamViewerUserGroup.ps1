@@ -6,7 +6,7 @@ function ConvertTo-TeamViewerUserGroup {
     )
     process {
         $properties = @{
-            Id   = [ulong]$InputObject.id
+            Id   = [UInt64]$InputObject.id
             Name = $InputObject.name
         }
         $result = New-Object -TypeName PSObject -Property $properties

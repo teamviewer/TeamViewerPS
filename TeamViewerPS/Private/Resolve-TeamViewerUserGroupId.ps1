@@ -6,16 +6,16 @@ function Resolve-TeamViewerUserGroupId {
     )
     Process {
         if ($UserGroup.PSObject.TypeNames -contains 'TeamViewerPS.UserGroup') {
-            return [ulong]$UserGroup.Id
+            return [UInt64]$UserGroup.Id
         }
         elseif ($UserGroup -is [string]) {
-            return [ulong]$UserGroup
+            return [UInt64]$UserGroup
         }
-        elseif ($UserGroup -is [ulong] -or $UserGroup -is [long] -or $UserGroup -is [int]) {
-            return [ulong]$UserGroup
+        elseif ($UserGroup -is [UInt64] -or $UserGroup -is [Int64] -or $UserGroup -is [int]) {
+            return [UInt64]$UserGroup
         }
         else {
-            throw "Invalid user group identifier '$UserGroup'. Must be either a [TeamViewerPS.UserGroup], [ulong], [long] or [string]."
+            throw "Invalid user group identifier '$UserGroup'. Must be either a [TeamViewerPS.UserGroup], [UInt64], [Int64] or [string]."
         }
     }
 }
