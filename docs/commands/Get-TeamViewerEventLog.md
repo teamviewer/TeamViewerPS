@@ -155,6 +155,69 @@ Optionally filter for audit events with specific names. For example only list
 `UserCreated` events that are written when user accounts are created in the
 company. Multiple values can be specified, separated by comma.
 
+Possible values are:
+
+- `AddRemoteWorkerDevice`
+- `ChangedDisabledRemoteInput`
+- `ChangedShowBlackScreen`
+- `CompanyAddressBookDisabled`
+- `CompanyAddressBookEnabled`
+- `CompanyAddressBookMembersHid`
+- `CompanyAddressBookMembersUnhid`
+- `ConditionalAccessBlockMeetingStateChanged`
+- `ConditionalAccessDirectoryGroupAdded`
+- `ConditionalAccessDirectoryGroupDeleted`
+- `ConditionalAccessDirectoryGroupMembersAdded`
+- `ConditionalAccessDirectoryGroupMembersDeleted`
+- `ConditionalAccessRuleAdded`
+- `ConditionalAccessRuleDeleted`
+- `ConditionalAccessRuleModified`
+- `ConditionalAccessRuleVerificationStateChanged`
+- `CreateCustomHost`
+- `DeleteCustomHost`
+- `EditOwnProfile`
+- `EditTFAUsage`
+- `EditUserPermissions`
+- `EditUserProperties`
+- `EmailConfirmed`
+- `EndedRecording`
+- `EndedSession`
+- `GroupAdded`
+- `GroupDeleted`
+- `GroupShared`
+- `GroupUpdated`
+- `IncomingSession`
+- `JoinCompany`
+- `JoinedSession`
+- `LeftSession`
+- `ParticipantJoinedSession`
+- `ParticipantLeftSession`
+- `PausedRecording`
+- `PolicyAdded`
+- `PolicyDeleted`
+- `PolicyUpdated`
+- `ReceivedDisabledLocalInput`
+- `ReceivedFile`
+- `ReceivedShowBlackScreen`
+- `RemoveRemoteWorkerDevice`
+- `ResumedRecording`
+- `ScriptTokenAdded`
+- `ScriptTokenDeleted`
+- `ScriptTokenUpdated`
+- `SentFile`
+- `StartedRecording`
+- `StartedSession`
+- `SwitchedSides`
+- `UpdateCustomHost`
+- `UserCreated`
+- `UserDeleted`
+- `UserGroupCreated`
+- `UserGroupDeleted`
+- `UserGroupMembersAdded`
+- `UserGroupMembersRemoved`
+- `UserGroupUpdated`
+- `UserRemovedFromCompany`
+
 ```yaml
 Type: String[]
 Parameter Sets: (All)
@@ -172,6 +235,19 @@ Accept wildcard characters: False
 Optionally filter for audit events with specific types. For example only list
 `LicenseManagement` events that concern license-related topics.
 Multiple values can be specified, separated by comma.
+
+Possible values are:
+
+- `CompanyAddressBook`
+- `CompanyAdministration`
+- `ConditionalAccess`
+- `CustomModules`
+- `GroupManagement`
+- `LicenseManagement`
+- `Policy`
+- `Session`
+- `UserGroups`
+- `UserProfile`
 
 ```yaml
 Type: String[]
