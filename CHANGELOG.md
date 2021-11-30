@@ -1,6 +1,14 @@
 # Change Log
 
+## 1.3.1 (2021-11)
+
+### Fixed
+
+- Fixed `Set-TeamViewerPolicy` to support changing policy settings.
+
 ## 1.3.0 (2021-11-29)
+
+### Added
 
 - Adds command `Get-TeamViewerEventLog` to fetch event log entries.
 - Adds user group commands to remotely manage user groups of a TeamViewer company.

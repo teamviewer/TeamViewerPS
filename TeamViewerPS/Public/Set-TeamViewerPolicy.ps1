@@ -59,7 +59,7 @@ function Set-TeamViewerPolicy {
             -Uri $resourceUri `
             -Method Put `
             -ContentType "application/json; charset=utf-8" `
-            -Body ([System.Text.Encoding]::UTF8.GetBytes(($body | ConvertTo-Json))) `
+            -Body ([System.Text.Encoding]::UTF8.GetBytes(($body | ConvertTo-Json -Depth 25))) `
             -WriteErrorTo $PSCmdlet | `
             Out-Null
     }
