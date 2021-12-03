@@ -59,6 +59,16 @@ PS /> Set-TeamViewerUser -User 'u1234' -Property $props
 
 Deactivate a user using a properties hashtable.
 
+### Example 4
+
+```powershell
+PS /> $ssoCustomerIdentifier = ("abc" | ConvertTo-SecureString -AsPlainText -Force)
+PS /> Set-TeamViewerUser -UserId 'u1234' -SsoCustomerIdentifier $ssoCustomerIdentifier
+```
+
+Do the SSO activation step for the given user. This can also be used to repair a possibly broken
+SSO login token for that user.
+
 ## PARAMETERS
 
 ### -Active
