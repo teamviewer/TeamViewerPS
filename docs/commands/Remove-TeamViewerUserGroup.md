@@ -33,6 +33,15 @@ PS /> Remove-TeamViewerUserGroup -Id 1001
 
 Deletes the user group with Id `1001`.
 
+### Example 2
+
+```powershell
+PS /> Remove-TeamViewerUserGroup -UserGroup (Get-TeamViewerUserGroup | Where-Object { $_.Name -eq "Test Group" })
+```
+
+Remove a user group object retrieved using `Get-TeamViewerUserGroup` as input.
+In this example, the user group with the name `Test Group`.
+
 ## PARAMETERS
 
 ### -ApiToken
