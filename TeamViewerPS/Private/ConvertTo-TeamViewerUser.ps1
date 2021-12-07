@@ -20,6 +20,18 @@ function ConvertTo-TeamViewerUser {
                 Active         = $InputObject.active
                 LastAccessDate = $InputObject.last_access_date | ConvertTo-DateTime
             }
+            if ($InputObject.activated_license_id) {
+                $properties += @{
+                    ActivatedLicenseId      = [guid]$InputObject.activated_license_id
+                    ActivatedLicenseName    = $InputObject.activated_license_name
+                    ActivatedSubLicenseName = $InputObject.activated_subLicense_name
+                }
+            }
+            if ($InputObject.activated_meeting_license_key) {
+                $properties += @{
+                    ActivatedMeetingLicenseId = [guid]$InputObject.activated_meeting_license_key
+                }
+            }
         }
         $result = New-Object -TypeName PSObject -Property $properties
         $result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.User')
