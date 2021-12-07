@@ -6,6 +6,10 @@
 
 - Fixed `Set-TeamViewerPolicy` to support changing policy settings.
 
+### Changed
+
+- Result of `Get-TeamViewerUser` now also includes license information.
+
 ## 1.3.0 (2021-11-29)
 
 ### Added
