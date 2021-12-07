@@ -19,7 +19,7 @@ jobs:
           Install-Module platyPS,BuildHelpers -Force -SkipPublisherCheck -Scope CurrentUser
           & $env:GITHUB_WORKSPACE/Build/New-TeamViewerPSPackage.ps1 -Verbose
 
-      - name: Publish to poshtestgallery.com
+      - name: Publish to powershellgallery.com
         env:
           NUGET_APIKEY_PRODUCTION: ${{ secrets.NUGET_APIKEY_PRODUCTION }}
         shell: pwsh
