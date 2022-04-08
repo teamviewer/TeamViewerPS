@@ -19,6 +19,7 @@ New-Item -Type Directory "$BuildOutputPath/TeamViewerPS" | Out-Null
 # Compile all functions into a single psm file
 $targetFile = "$BuildOutputPath/TeamViewerPS/TeamViewerPS.psm1"
 Write-Verbose "Compiling single-file TeamViewer module."
+$ModuleTypes = @(Get-ChildItem -Path "$repoPath/TeamViewerPS/TeamViewerPS.Types.ps1")
 $PrivateFunctions = @(Get-ChildItem `
         -Path "$repoPath/TeamViewerPS/Private/*.ps1" `
         -ErrorAction SilentlyContinue)
@@ -27,7 +28,7 @@ $PublicFunctions = @(Get-ChildItem `
         -Path "$repoPath/TeamViewerPS/Public/*.ps1" `
         -ErrorAction SilentlyContinue)
 Write-Verbose "Found $($PublicFunctions.Count) public function files."
-@($PrivateFunctions + $PublicFunctions) | `
+@($ModuleTypes + $PrivateFunctions + $PublicFunctions) | `
     Get-Content -Raw | `
     ForEach-Object { $_; "`r`n" } | `
     Set-Content -Path $targetFile -Encoding utf8NoBOM
