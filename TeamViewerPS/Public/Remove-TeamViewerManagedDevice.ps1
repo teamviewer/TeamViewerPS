@@ -11,7 +11,7 @@ function Remove-TeamViewerManagedDevice {
         [object]
         $Device,
 
-        [Parameter()]
+        [Parameter(Mandatory = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerManagedGroupId } )]
         [Alias("GroupId")]
         [object]

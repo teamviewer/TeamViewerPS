@@ -96,7 +96,7 @@ Type: Object
 Parameter Sets: (All)
 Aliases: GroupId
 
-Required: False
+Required: True
 Position: 2
 Default value: None
 Accept pipeline input: False
