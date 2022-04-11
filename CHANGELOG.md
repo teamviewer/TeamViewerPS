@@ -1,5 +1,15 @@
 # Change Log
 
+## 1.4.0 (planned)
+
+### Fixed
+
+- Fixed `-Group` parameter of `Remove-TeamViewerManagedDevice` to be mandatory.
+
+### Added
+
+- Added `Get-TeamViewerConnectionReport` cmdlet to fetch TeamViewer session/connection reports.
+
 ## 1.3.1 (2021-11)
 
 ### Fixed
