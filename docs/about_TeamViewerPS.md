@@ -143,10 +143,12 @@ The following functions are available in this category:
 
 [`Remove-TeamViewerSsoExclusion`](commands/Remove-TeamViewerSsoExclusion.md)
 
-## Event logs
+## Event logs & reporting
 
-Retrieve event log entries of a TeamViewer company via the TeamViewer Web
+Retrieve event log entries or connection-reports of a TeamViewer company via the TeamViewer Web
 API.
+
+[`Get-TeamViewerConnectionReport`](commands/Get-TeamViewerConnectionReport.md)
 
 [`Get-TeamViewerEventLog`](commands/Get-TeamViewerEventLog.md)
 
