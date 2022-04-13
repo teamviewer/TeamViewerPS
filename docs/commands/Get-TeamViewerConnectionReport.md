@@ -58,10 +58,10 @@ List connection reports of the last 2 weeks
 ### Example 3
 
 ```powershell
-PS /> Get-TeamViewerConnectionReport -SessionId s1122344
+PS /> Get-TeamViewerConnectionReport -SessionCode s1122344
 ```
 
-List connection reports for the given session identifier.
+List connection reports for the given session code.
 
 ### Example 4
 
