@@ -1,6 +1,6 @@
 # Change Log
 
-## 1.4.0 (planned)
+## 1.4.0 (2022-04-19)
 
 ### Fixed
 
