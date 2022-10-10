@@ -14,44 +14,50 @@ Add a manager to a managed device or managed group.
 ## SYNTAX
 
 ### Device_ByAccountId (Default)
-
-```powershell
+```
 Add-TeamViewerManager -ApiToken <SecureString> -AccountId <String> -Device <Object> [-Permissions <String[]>]
  [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### Group_ByAccountId
-
-```powershell
+```
 Add-TeamViewerManager -ApiToken <SecureString> -AccountId <String> -Group <Object> [-Permissions <String[]>]
  [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### Group_ByManagerId
-
-```powershell
+```
 Add-TeamViewerManager -ApiToken <SecureString> -Manager <Object> -Group <Object> [-Permissions <String[]>]
  [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### Device_ByManagerId
-
-```powershell
+```
 Add-TeamViewerManager -ApiToken <SecureString> -Manager <Object> -Device <Object> [-Permissions <String[]>]
  [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### Group_ByUserObject
-
-```powershell
+```
 Add-TeamViewerManager -ApiToken <SecureString> -User <Object> -Group <Object> [-Permissions <String[]>]
  [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### Device_ByUserObject
-
-```powershell
+```
 Add-TeamViewerManager -ApiToken <SecureString> -User <Object> -Device <Object> [-Permissions <String[]>]
+ [-WhatIf] [-Confirm] [<CommonParameters>]
+```
+
+### Device_ByUserGroupId
+```
+Add-TeamViewerManager -ApiToken <SecureString> -UserGroup <Object> -Device <Object> [-Permissions <String[]>]
+ [-WhatIf] [-Confirm] [<CommonParameters>]
+```
+
+### Group_ByUserGroupId
+```
+Add-TeamViewerManager -ApiToken <SecureString> -UserGroup <Object> -Group <Object> [-Permissions <String[]>]
  [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
@@ -82,7 +88,7 @@ PS /> Add-TeamViewerManager -Group '9fd16af0-c224-4242-998e-a7138b038dbb' -Manag
 Add the manager with the given Manager ID to the managed group with the given
 group ID.
 
-### Example 2
+### Example 3
 
 ```powershell
 PS /> Add-TeamViewerManager -Group '9fd16af0-c224-4242-998e-a7138b038dbb' -AccountId 1234
@@ -149,7 +155,7 @@ object that has been received using other module functions.
 
 ```yaml
 Type: Object
-Parameter Sets: Device_ByAccountId, Device_ByManagerId, Device_ByUserObject
+Parameter Sets: Device_ByAccountId, Device_ByManagerId, Device_ByUserObject, Device_ByUserGroupId
 Aliases: DeviceId
 
 Required: True
@@ -167,7 +173,7 @@ object that has been received using other module functions.
 
 ```yaml
 Type: Object
-Parameter Sets: Group_ByAccountId, Group_ByManagerId, Group_ByUserObject
+Parameter Sets: Group_ByAccountId, Group_ByManagerId, Group_ByUserObject, Group_ByUserGroupId
 Aliases: GroupId
 
 Required: True
@@ -248,6 +254,21 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -UserGroup
+UserGroup object as returned from `Get-TeamViewerUserGroup` or Id of the UserGroup which should be added as manager of the targeted managed group or managed device.
+
+```yaml
+Type: Object
+Parameter Sets: Device_ByUserGroupId, Group_ByUserGroupId
+Aliases: UserGroupId
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -WhatIf
 
 Shows what would happen if the cmdlet runs.
@@ -266,7 +287,6 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
-
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
