@@ -77,7 +77,7 @@ function Add-TeamViewerManager {
             $body["id"] = $Manager | Resolve-TeamViewerManagerId
         }
         '*ByUserObject' {
-            $body["accountId"] = $User.Id.TrimStart('u')
+            $body["accountId"] = $User.TrimStart('u')
         }
         '*ByUserGroupId' {
             $body["usergroupId"] = $UserGroup | Resolve-TeamViewerUserGroupId
