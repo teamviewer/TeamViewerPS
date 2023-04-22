@@ -1,33 +1,22 @@
 {
-    "version": "0.1.0",
-    "configurations": [{
+    // See https://go.microsoft.com/fwlink/?linkid=830387 for the documentation about the launch.json format
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Test (via Pester)",
             "type": "PowerShell",
             "request": "launch",
-            "name": "PowerShell Pester Tests",
             "script": "Invoke-Pester",
-            "args": [],
-            "cwd": "${workspaceRoot}"
+            "args": [
+                "-Path '${workspaceFolder}' -Output Detailed"
+            ]
         },
         {
+            "name": "Run (via PowerShell)",
             "type": "PowerShell",
             "request": "launch",
-            "name": "PowerShell launch (current file)",
-            "script": "${file}",
-            "args": [],
-            "cwd": "${file}"
-        },
-        {
-            "type": "PowerShell",
-            "request": "attach",
-            "name": "PowerShell attach to host process",
-            "processId": "${command:PickPSHostProcess}",
-            "runspaceId": 1
-        },
-        {
-            "type": "PowerShell",
-            "request": "launch",
-            "name": "PowerShell interactive session",
-            "cwd": "${workspaceRoot}"
+            "cwd": "${workspaceRoot}",
+            "args": []
         }
     ]
 }
