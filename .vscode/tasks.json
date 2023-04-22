@@ -1,19 +1,20 @@
-﻿{
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558 for the documentation about the tasks.json format
     "version": "2.0.0",
-    "windows": {
-        "options": {
-            "shell": {
-                "executable": "${env:windir}\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
-                "args": [
-                    "-NoProfile",
-                    "-ExecutionPolicy",
-                    "Bypass",
-                    "-Command"
-                ]
-            }
-        }
-    },
     "tasks": [
+        {
+            "label": "Lint (via PSScriptAnalyzer)",
+            "type": "shell",
+            "command": "Invoke-ScriptAnalyzer -Path '${workspaceFolder}' -Severity Information, Warning, Error -Recurse",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "always"
+            },
+            "problemMatcher": []
+        },
         {
             "label": "Clean",
             "type": "shell",
