@@ -23,9 +23,17 @@ function Add-TeamViewerManager {
         [object]
         $User,
 
+        [Parameter(Mandatory = $true, ParameterSetName = 'Group_ByUserGroupId')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'Device_ByUserGroupId')]
+        [ValidateScript( { $_ | Resolve-TeamViewerUserGroupId })]
+        [Alias('UserGroupId')]
+        [object]
+        $UserGroup,
+
         [Parameter(Mandatory = $true, ParameterSetName = 'Group_ByAccountId')]
         [Parameter(Mandatory = $true, ParameterSetName = 'Group_ByManagerId')]
         [Parameter(Mandatory = $true, ParameterSetName = 'Group_ByUserObject')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'Group_ByUserGroupId')]
         [ValidateScript( { $_ | Resolve-TeamViewerManagedGroupId } )]
         [Alias("GroupId")]
         [object]
@@ -34,6 +42,7 @@ function Add-TeamViewerManager {
         [Parameter(Mandatory = $true, ParameterSetName = 'Device_ByAccountId')]
         [Parameter(Mandatory = $true, ParameterSetName = 'Device_ByManagerId')]
         [Parameter(Mandatory = $true, ParameterSetName = 'Device_ByUserObject')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'Device_ByUserGroupId')]
         [ValidateScript( { $_ | Resolve-TeamViewerManagedDeviceId } )]
         [Alias("DeviceId")]
         [object]
@@ -68,7 +77,10 @@ function Add-TeamViewerManager {
             $body["id"] = $Manager | Resolve-TeamViewerManagerId
         }
         '*ByUserObject' {
-            $body["accountId"] = $User.Id.TrimStart('u')
+            $body["accountId"] = ( $User | Resolve-TeamViewerUserId ).TrimStart('u')
+        }
+        '*ByUserGroupId' {
+            $body["usergroupId"] = $UserGroup | Resolve-TeamViewerUserGroupId
         }
     }
 
