@@ -1,5 +1,15 @@
 # Change Log
 
+## 1.x.0 (2023-0x-xx)
+
+### Added
+
+- Added `Remove-TeamViewerUser` cmdlet to remove user from TeamViewer company. (Thanks @OtterKring)
+
+### Changed
+
+- Extended `Add-TeamViewerManager` to add user group as manager. (Thanks @OtterKring)
+
 ## 1.4.0 (2022-04-19)
 
 ### Fixed
