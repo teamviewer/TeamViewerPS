@@ -12,8 +12,8 @@ function ConvertTo-TeamViewerManagedDevice {
             IsOnline     = $InputObject.isOnline
         }
 
-        if ($InputObject.pendingOperation) {
-            $properties["PendingOperation"] = $InputObject.pendingOperation
+        if ($InputObject.last_seen) {
+            $properties['LastSeenAt'] = Get-Date -Date $InputObject.last_seen
         }
 
         if ($InputObject.teamviewerPolicyId) {

@@ -97,12 +97,14 @@ Describe 'Get-TeamViewerManagedDevice' {
                             name         = 'test device 1'
                             teamviewerId = 12345678
                             isOnline     = $false
+                            last_seen    = '2023-02-03T11:14:19Z'
                         },
                         @{
                             id           = 'bc76c466-50dc-4b1f-963d-9b3a10a40ec6'
                             name         = 'test device 2'
                             teamviewerId = 87654321
                             isOnline     = $true
+                            last_seen    = '2023-02-03T11:14:19Z'
                         }
                     )
                 } }
@@ -141,12 +143,14 @@ Describe 'Get-TeamViewerManagedDevice' {
                             name         = 'test device 1'
                             teamviewerId = 12345678
                             isOnline     = $false
+                            last_seen    = '2023-02-03T11:14:19Z'
                         },
                         @{
                             id           = 'bc76c466-50dc-4b1f-963d-9b3a10a40ec6'
                             name         = 'test device 2'
                             teamviewerId = 87654321
                             isOnline     = $true
+                            last_seen    = '2023-02-03T11:14:19Z'
                         }
                     )
                 } }
@@ -158,6 +162,7 @@ Describe 'Get-TeamViewerManagedDevice' {
                             name         = 'test device 3'
                             teamviewerId = 12345678
                             isOnline     = $false
+                            last_seen    = '2023-02-03T11:14:19Z'
                         }
                     )
                 } } -ParameterFilter { $Body -And $Body['paginationToken'] -eq 'abc' }
