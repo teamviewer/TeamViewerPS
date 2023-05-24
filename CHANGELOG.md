@@ -1,14 +1,16 @@
 # Change Log
 
-## 1.x.0 (2023-0x-xx)
+## 1.5.0 (2023-05-24)
 
 ### Added
 
 - Added `Remove-TeamViewerUser` cmdlet to remove user from TeamViewer company. (Thanks @OtterKring)
+- Added `Remove-TeamViewerManagedDeviceManagement` to unmanage a device.
 
 ### Changed
 
 - Extended `Add-TeamViewerManager` to add user group as manager. (Thanks @OtterKring)
+- Extended `TeamViewerManagedDevice` to have "LastSeenAt" available for managed devices
 
 ## 1.4.0 (2022-04-19)
 

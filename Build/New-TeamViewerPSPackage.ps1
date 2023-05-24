@@ -18,7 +18,7 @@ New-Item -Type Directory "$BuildOutputPath/TeamViewerPS" | Out-Null
 
 # Compile all functions into a single psm file
 $targetFile = "$BuildOutputPath/TeamViewerPS/TeamViewerPS.psm1"
-Write-Verbose "Compiling single-file TeamViewer module."
+Write-Verbose 'Compiling single-file TeamViewer module.'
 $ModuleTypes = @(Get-ChildItem -Path "$repoPath/TeamViewerPS/TeamViewerPS.Types.ps1")
 $PrivateFunctions = @(Get-ChildItem `
         -Path "$repoPath/TeamViewerPS/Private/*.ps1" `
@@ -31,10 +31,10 @@ Write-Verbose "Found $($PublicFunctions.Count) public function files."
 @($ModuleTypes + $PrivateFunctions + $PublicFunctions) | `
     Get-Content -Raw | `
     ForEach-Object { $_; "`r`n" } | `
-    Set-Content -Path $targetFile -Encoding utf8NoBOM
+    Set-Content -Path $targetFile -Encoding UTF8
 
 # Create help from markdown
-Write-Verbose "Building help from Markdown"
+Write-Verbose 'Building help from Markdown'
 New-ExternalHelp `
     -Path "$repoPath/docs" `
     -OutputPath "$BuildOutputPath/TeamViewerPS/en-US" | `
@@ -45,7 +45,7 @@ New-ExternalHelp `
     Out-Null
 
 # Create module manifest
-Write-Verbose "Creating module manifest"
+Write-Verbose 'Creating module manifest'
 Copy-Item `
     -Path "$repoPath/TeamViewerPS/TeamViewerPS.psd1" `
     -Destination "$BuildOutputPath/TeamViewerPS/"
@@ -58,7 +58,7 @@ Update-Metadata `
     -Value $PublicFunctions.BaseName
 
 # Copy additional package files
-Write-Verbose "Copying additional files into the package"
+Write-Verbose 'Copying additional files into the package'
 Copy-Item `
     -Path `
     "$repoPath/LICENSE", `
@@ -66,7 +66,7 @@ Copy-Item `
     "$repoPath/README.md"`
     -Destination "$BuildOutputPath/TeamViewerPS/"
 
-Write-Verbose "Listing package files:"
+Write-Verbose 'Listing package files:'
 Push-Location $BuildOutputPath
 Get-ChildItem -Recurse "$BuildOutputPath/TeamViewerPS" | `
     Sort-Object -Property FullName | `
