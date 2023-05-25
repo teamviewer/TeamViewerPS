@@ -3,7 +3,7 @@
     RootModule        = 'TeamViewerPS.psm1'
 
     # Version number of this module.
-    ModuleVersion     = '1.4.0'
+    ModuleVersion     = '1.5.0'
 
     # Supported PSEditions.
     # CompatiblePSEditions = @()
@@ -54,7 +54,7 @@
     # TypesToProcess = @()
 
     # Format files (.ps1xml) to be loaded when importing this module.
-    FormatsToProcess = @('TeamViewerPS.format.ps1xml')
+    FormatsToProcess  = @('TeamViewerPS.format.ps1xml')
 
     # Modules to import as nested modules of the module specified in RootModule/ModuleToProcess.
     # NestedModules = @()

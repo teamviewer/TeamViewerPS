@@ -111,6 +111,8 @@ The following functions are available in this category:
 
 [`Remove-TeamViewerManagedDevice`](commands/Remove-TeamViewerManagedDevice.md)
 
+[`Remove-TeamViewerManagedDeviceManagement`](commands/Remove-TeamViewerManagedDeviceManagement.md)
+
 [`Remove-TeamViewerManagedGroup`](commands/Remove-TeamViewerManagedGroup.md)
 
 [`Remove-TeamViewerManager`](commands/Remove-TeamViewerManager.md)
