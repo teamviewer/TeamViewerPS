@@ -11,10 +11,10 @@ assignees: ''
 Describe clearly and concisely what is not working or is wrong.
 
 **Expected Behavior**
-Descripe what you expected to happen.
+Describe what you expected to happen.
 
 **Setps To Reproduce**
-Descript the steps to reproduce the behavior:
+Describe the steps to reproduce the behavior:
 1. Configure '...' with value '...'
 2. Execute with "..."
 3. See error ...
