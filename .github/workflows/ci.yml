@@ -31,7 +31,7 @@ jobs:
           $ProgressPreference = 'SilentlyContinue'
           $ErrorActionPreference = 'Stop'
           Install-Module -Name PSScriptAnalyzer -SkipPublisherCheck -Scope CurrentUser -MinimumVersion 1.19.1 -Force -Verbose
-          Invoke-ScriptAnalyzer -Path $env:GITHUB_WORKSPACE -Recurse -ReportSummary -EnableExit -ExcludeRule PSReviewUnusedParameter
+          Invoke-ScriptAnalyzer -Path $env:GITHUB_WORKSPACE -Recurse -Settings (Join-Path -Path $env:GITHUB_WORKSPACE -ChildPath 'PSScriptAnalyzerSettings.psd1') -ReportSummary -EnableExit
       # Run tests
       - name: Run tests (via Pester)
         shell: pwsh
