@@ -1,5 +1,5 @@
 function Remove-TeamViewerUserGroupMember {
-    [CmdletBinding(SupportsShouldProcess = $true, DefaultParameterSetName="ByUserGroupMemberId")]
+    [CmdletBinding(SupportsShouldProcess = $true, DefaultParameterSetName = 'ByUserGroupMemberId')]
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
@@ -7,21 +7,21 @@ function Remove-TeamViewerUserGroupMember {
 
         [Parameter(Mandatory = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerUserGroupId } )]
-        [Alias("UserGroupId")]
-        [Alias("Id")]
+        [Alias('UserGroupId')]
+        [Alias('Id')]
         [object]
         $UserGroup,
 
-        [Parameter(Mandatory = $true, ParameterSetName = "ByUserId", ValueFromPipeline = $true)]
+        [Parameter(Mandatory = $true, ParameterSetName = 'ByUserId', ValueFromPipeline = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerUserId } )]
-        [Alias("UserId")]
+        [Alias('UserId')]
         [object[]]
         $User,
 
-        [Parameter(Mandatory = $true, ParameterSetName = "ByUserGroupMemberId", ValueFromPipeline = $true)]
+        [Parameter(Mandatory = $true, ParameterSetName = 'ByUserGroupMemberId', ValueFromPipeline = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerUserGroupMemberMemberId } )]
-        [Alias("UserGroupMemberId")]
-        [Alias("MemberId")]
+        [Alias('UserGroupMemberId')]
+        [Alias('MemberId')]
         [object[]]
         $UserGroupMember
     )
@@ -33,13 +33,13 @@ function Remove-TeamViewerUserGroupMember {
         $null = $ApiToken # https://github.com/PowerShell/PSScriptAnalyzer/issues/1472
         $null = $User
         $null = $UserGroupMember
-        function Invoke-TeamViewerRestMethodForMember {
+        function Invoke-TeamViewerRestMethodInternal {
             Invoke-TeamViewerRestMethod `
                 -ApiToken $ApiToken `
                 -Uri $resourceUri `
                 -Method Delete `
-                -ContentType "application/json; charset=utf-8" `
-                -Body ([System.Text.Encoding]::UTF8.GetBytes(($membersToRemove | ConvertTo-Json))) `
+                -ContentType 'application/json; charset=utf-8' `
+                -Body ([System.Text.Encoding]::UTF8.GetBytes(($body))) `
                 -WriteErrorTo $PSCmdlet `
                 -ErrorAction Stop | `
                 Out-Null
@@ -47,18 +47,22 @@ function Remove-TeamViewerUserGroupMember {
 
         function Get-Target {
             switch ($PsCmdlet.ParameterSetName) {
-                'ByUserId'  { return $User.ToString() }
-                Default     { return $UserGroupMember.ToString() }
+                'ByUserId' {
+                    return $User.ToString()
+                }
+                Default {
+                    return $UserGroupMember.ToString()
+                }
             }
         }
 
         function Get-MemberId {
             switch ($PsCmdlet.ParameterSetName) {
                 'ByUserId' {
-                    $UserId = $User | Resolve-TeamViewerUserId
+                    $UserId = $User
                     $UserId.TrimStart('u')
                 }
-                'ByUserGroupMemberId'{
+                'ByUserGroupMemberId' {
                     return $UserGroupMember | Resolve-TeamViewerUserGroupMemberMemberId
                 }
             }
@@ -66,16 +70,24 @@ function Remove-TeamViewerUserGroupMember {
     }
 
     Process {
-        # when members are provided as pipline input, each meber is provided as separate statment,
-        # thus the members should  be combined to one array, otherwise we will send several request
-        if ($PSCmdlet.ShouldProcess((Get-Target), "Remove user group member")) {
-            $membersToRemove += Get-MemberId
+        # when members are provided as pipeline input, each member is provided as separate statement,
+        # thus the members should  be combined to one array in order to send a single request
+        if ($PSCmdlet.ShouldProcess((Get-Target), 'Remove user group member')) {
+
+            if (Get-MemberId -isnot [array]) {
+                $membersToRemove += @(Get-MemberId)
+            }
+            else {
+                $membersToRemove += Get-MemberId
+            }
+            $payload = $membersToRemove -join ', '
+            $body = "[$payload]"
         }
 
-        # WebAPI accepts max 100 accounts. Thus we send a request, and reset the `membersToAdd`
-        # in order to accept more mebers
+        # WebAPI accepts max 100 accounts. Thus we send a request, and reset the `membersToRemove`
+        # in order to accept more members
         if ($membersToRemove.Length -eq 100) {
-            Invoke-TeamViewerRestMethodForMember
+            Invoke-TeamViewerRestMethodInternal
             $membersToRemove = @()
         }
     }
@@ -83,7 +95,7 @@ function Remove-TeamViewerUserGroupMember {
     End {
         # A request needs to be send if there were less than 100 members
         if ($membersToRemove.Length -gt 0) {
-            Invoke-TeamViewerRestMethodForMember
+            Invoke-TeamViewerRestMethodInternal
         }
     }
 }

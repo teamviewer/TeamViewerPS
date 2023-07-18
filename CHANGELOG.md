@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.5.1 (2023-07-18)
+
+- Fixed `-User` parameter of `Add-TeamViewerUserGroupMember` and `Remove-TeamViewerUserGroupMember` to work for single User ID inputs.
+
 ## 1.5.0 (2023-05-24)
 
 ### Added
