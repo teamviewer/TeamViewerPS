@@ -61,10 +61,10 @@ Removes the users `u123`, `u456`, `u789` from the group with id `1001`.
 ### Example 4
 
 ```powershell
-PS /> @('u123', 'u456', 'u789') | Remove-TeamViewerUserGroupMember -UserGroup 1001
+PS /> Get-TeamViewerUserGroupMember -UserGroup 1001 | Remove-TeamViewerUserGroupMember -UserGroup 1001
 ```
 
-Removes the users `u123`, `u456`, `u789` from the group with id `1001`.
+Removes all the users from the group with id `1001`.
 Ids are passed as pipeline input.
 
 ## PARAMETERS

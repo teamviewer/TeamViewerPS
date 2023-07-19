@@ -8,14 +8,14 @@ function Resolve-TeamViewerUserGroupMemberMemberId {
         if ($UserGroupMember.PSObject.TypeNames -contains 'TeamViewerPS.UserGroupMember') {
             return $UserGroupMember.AccountId
         }
-        elseif ($UserGroupMember -is [string]) {
-            return [int]$UserGroupMember
+        elseif ($UserGroupMember -match 'u[0-9]+') {
+            return $UserGroupMember
         }
         elseif ($UserGroupMember -is [int]) {
             return $UserGroupMember
         }
         else {
-            throw "Invalid user group identifier '$UserGroupMember'. Must be either a [TeamViewerPS.UserGroupMember], [int] or [string]."
+            throw "Invalid user group identifier '$UserGroupMember'. Must be either a [TeamViewerPS.UserGroupMember],[TeamViewerPS.User] or [int] ."
         }
     }
 }
