@@ -14,13 +14,18 @@ function Add-TeamViewerUserGroupMember {
 
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
         [object[]]
+        [Alias('UserGroupMemberId')]
+        [Alias('UserGroupMember')]
+        [Alias('MemberId')]
+        [Alias('UserId')]
+        [Alias('User')]
         $Member
     )
 
     Begin {
-
         $id = $UserGroup | Resolve-TeamViewerUserGroupId
         $resourceUri = "$(Get-TeamViewerApiUri)/usergroups/$id/members"
+        $membersToAdd = @()
         $body = @()
         $null = $ApiToken # https://github.com/PowerShell/PSScriptAnalyzer/issues/1472
 

@@ -12,16 +12,13 @@ function Remove-TeamViewerUserGroupMember {
         [object]
         $UserGroup,
 
-        [Parameter(Mandatory = $true, ParameterSetName = 'ByUserId', ValueFromPipeline = $true)]
-        [ValidateScript( { $_ | Resolve-TeamViewerUserId } )]
-        [Alias('UserId')]
-        [object[]]
-        $User,
 
-        [Parameter(Mandatory = $true, ParameterSetName = 'ByUserGroupMemberId', ValueFromPipeline = $true)]
+        [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerUserGroupMemberMemberId } )]
         [Alias('UserGroupMemberId')]
         [Alias('MemberId')]
+        [Alias('UserId')]
+        [Alias('User')]
         [object[]]
         $UserGroupMember
     )
@@ -31,7 +28,6 @@ function Remove-TeamViewerUserGroupMember {
         $resourceUri = "$(Get-TeamViewerApiUri)/usergroups/$id/members"
         $membersToRemove = @()
         $null = $ApiToken # https://github.com/PowerShell/PSScriptAnalyzer/issues/1472
-        $null = $User
         $null = $UserGroupMember
         function Invoke-TeamViewerRestMethodInternal {
             Invoke-TeamViewerRestMethod `
@@ -45,25 +41,24 @@ function Remove-TeamViewerUserGroupMember {
                 Out-Null
         }
 
-        function Get-Target {
-            switch ($PsCmdlet.ParameterSetName) {
-                'ByUserId' {
-                    return $User.ToString()
+        function Get-MemberId {
+            switch ($UserGroupMember) {
+                { $UserGroupMember[0].PSObject.TypeNames -contains 'TeamViewerPS.UserGroupMember' } {
+                    $UserGroupMember = $UserGroupMember | Resolve-TeamViewerUserGroupMemberMemberId
+                    return $UserGroupMember
                 }
                 Default {
-                    return $UserGroupMember.ToString()
-                }
-            }
-        }
-
-        function Get-MemberId {
-            switch ($PsCmdlet.ParameterSetName) {
-                'ByUserId' {
-                    $UserId = $User
-                    $UserId.TrimStart('u')
-                }
-                'ByUserGroupMemberId' {
-                    return $UserGroupMember | Resolve-TeamViewerUserGroupMemberMemberId
+                    if ($UserGroupMember -notmatch 'u[0-9]+') {
+                        ForEach-Object {
+                            $UserGroupMember = [int[]]$UserGroupMember
+                        }
+                    }
+                    else {
+                        ForEach-Object {
+                            $UserGroupMember = [int[]]$UserGroupMember.trim('u')
+                        }
+                    }
+                    return $UserGroupMember
                 }
             }
         }
@@ -72,8 +67,7 @@ function Remove-TeamViewerUserGroupMember {
     Process {
         # when members are provided as pipeline input, each member is provided as separate statement,
         # thus the members should  be combined to one array in order to send a single request
-        if ($PSCmdlet.ShouldProcess((Get-Target), 'Remove user group member')) {
-
+        if ($PSCmdlet.ShouldProcess((Get-MemberId), 'Remove user group member')) {
             if (Get-MemberId -isnot [array]) {
                 $membersToRemove += @(Get-MemberId)
             }
