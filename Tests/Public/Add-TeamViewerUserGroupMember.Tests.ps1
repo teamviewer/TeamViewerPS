@@ -8,6 +8,8 @@ BeforeAll {
     $null = $testApiToken
     $testMembers = @(123, 456, 789)
     $null = $testMembers
+    $testMemberWithU = @('u101')
+    $null = $testMemberWithU
     $testUserGroupId = 1001
     $null = $testUserGroupId
 
@@ -24,8 +26,8 @@ Describe 'Add-TeamViewerUserGroupMember' {
             -Member $testMembers
         Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
-            $Uri -eq "//unit.test/usergroups/$testUserGroupId/members" -And `
-            $Method -eq 'Post' }
+                $Uri -eq "//unit.test/usergroups/$testUserGroupId/members" -And `
+                $Method -eq 'Post' }
     }
 
     It 'Should handle domain object as input' {
@@ -36,8 +38,19 @@ Describe 'Add-TeamViewerUserGroupMember' {
             -Member $testMembers
         Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
-            $Uri -eq "//unit.test/usergroups/$testUserGroupId/members" -And `
-            $Method -eq 'Post' }
+                $Uri -eq "//unit.test/usergroups/$testUserGroupId/members" -And `
+                $Method -eq 'Post' }
+    }
+
+    It 'Should add a single member to the user group with format u[0-9]+' {
+        Add-TeamViewerUserGroupMember `
+            -ApiToken $testApiToken `
+            -UserGroup $testUserGroupId `
+            -Member $testMemberWithU
+        $mockArgs.Body | Should -Not -BeNullOrEmpty
+        $body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
+        $body | Should -HaveCount 1
+        $body | Should -Contain $testMemberWithU.trim('u')
     }
 
     It 'Should add the given members to the user group' {
