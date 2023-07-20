@@ -11,6 +11,9 @@ function Resolve-TeamViewerUserGroupMemberMemberId {
         elseif ($UserGroupMember -match 'u[0-9]+') {
             return $UserGroupMember
         }
+        elseif ($UserGroupMember -is [string]) {
+            return [int]$UserGroupMember
+        }
         elseif ($UserGroupMember -is [int]) {
             return $UserGroupMember
         }

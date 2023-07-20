@@ -7,6 +7,8 @@ BeforeAll {
     $testApiToken = [securestring]@{}
     $null = $testApiToken
     $testMembers = @(123, 456, 789)
+    $testMemberId = @('u101')
+    $null = $testMemberId
     $testUserGroupMembers = @(
         @{AccountId = $testMembers[0]; Name = 'test account 1' }
         @{AccountId = $testMembers[1]; Name = 'test account 2' }
@@ -25,7 +27,7 @@ BeforeAll {
 
 Describe 'Remove-TeamViewerUserGroupMember' {
 
-    Context 'Should bulk remove members ByUserGroupMemberId' {
+    Context 'Should  remove members ByUserGroupMember' {
 
         It 'Should call the correct API endpoint' {
             Remove-TeamViewerUserGroupMember `
@@ -36,6 +38,17 @@ Describe 'Remove-TeamViewerUserGroupMember' {
                 $ApiToken -eq $testApiToken -And `
                     $Uri -eq "//unit.test/usergroups/$testUserGroupId/members" -And `
                     $Method -eq 'Delete' }
+        }
+
+        It 'Should remove a single user from the user group' {
+            Remove-TeamViewerUserGroupMember `
+                -ApiToken $testApiToken `
+                -UserGroup $testUserGroupId `
+                -UserGroupMember $testMemberId
+            $mockArgs.Body | Should -Not -BeNullOrEmpty
+            $body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
+            $body | Should -HaveCount 1
+            $body | Should -Contain $testMemberId.trim('u')
         }
 
         It 'Should handle domain object as input' {
