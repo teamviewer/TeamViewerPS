@@ -20,6 +20,11 @@ function Set-TeamViewerManagedDevice {
         [object]
         $Policy,
 
+        [ValidateScript( { $_ | Resolve-TeamViewerManagedGroupId } )]
+        [Alias("ManagedGroupId")]
+        [object]
+        $ManagedGroup,
+
         [switch]
         $RemovePolicy
     )
@@ -35,10 +40,19 @@ function Set-TeamViewerManagedDevice {
         elseif ($RemovePolicy) {
             $body['teamviewerPolicyId'] = ""
         }
+        elseif ($ManagedGroup) {
+            $body['managedGroupId'] = $ManagedGroup | Resolve-TeamViewerManagedGroupId
+        }
 
         if ($Policy -And $RemovePolicy) {
             $PSCmdlet.ThrowTerminatingError(
                 ("Parameters -Policy and -RemovePolicy cannot be used together." | `
+                        ConvertTo-ErrorRecord -ErrorCategory InvalidArgument))
+        }
+
+        if (($Policy -or $RemovePolicy) -And $ManagedGroup) {
+            $PSCmdlet.ThrowTerminatingError(
+                ("The combination of parameters -Policy, -PolicyRemove and -ManagedGroup is not allowed." | `
                         ConvertTo-ErrorRecord -ErrorCategory InvalidArgument))
         }
 
