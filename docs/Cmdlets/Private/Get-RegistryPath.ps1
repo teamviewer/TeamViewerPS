@@ -1,4 +1,4 @@
-function Get-RegistryPaths {
+function Get-RegistryPath {
     param(
         [Parameter(ValueFromPipeline = $true)]
         [string]

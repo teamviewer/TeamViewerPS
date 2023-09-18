@@ -40,8 +40,8 @@ Describe "Get-TeamViewerLogFilePath function" {
 
     Context "When TeamViewer is not installed" {
         BeforeAll {
-            function Test-TeamViewerInstallation { return $false }
-            function Write-Error { return }
+            Mock Test-TeamViewerInstallation { return $false }
+            Mock Write-Error { return }
         }
 
         It "Should write an error message" {

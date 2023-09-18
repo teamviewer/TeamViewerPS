@@ -1,4 +1,4 @@
-function Get-Host {
+function Get-HostFile {
     param(
         [Parameter(ValueFromPipeline = $true)]
         [string]

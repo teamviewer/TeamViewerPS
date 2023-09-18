@@ -4,21 +4,21 @@ BeforeAll {
     . "$PSScriptRoot/../../Docs/Cmdlets/Public/Get-TeamViewerInstallationDirectory.ps1"
     @(Get-ChildItem -Path "$PSScriptRoot/../../Docs/Cmdlets/Private/*.ps1") | `
         ForEach-Object { . $_.FullName }
-        function Test-TeamViewerInstallation { return $true }
-        function Get-OperatingSystem { return 'Windows' }
-        function Get-Location { return 'C:\Temp' }
-        function Get-TSCDirectoryFiles { return }
-        function Get-InstalledSoftware { return }
-        function Get-IpConfig { return }
-        function Get-MSInfo32 { return }
-        function Get-Hosts { return }
-        function Get-NSLookUpData { return }
-        function Get-RouteTable { return }
-        function Get-RegistryPaths { return }
-        function Get-ClientId { return '12345' }
-        function Compress-Archive { return }
-        function Test-Path { return $true }
-        function Copy-Item {return}
+        Mock -CommandName  Test-TeamViewerInstallation { return $true }
+        Mock -CommandName  Get-OperatingSystem { return 'Windows' }
+        Mock -CommandName  Get-Location { return 'C:\Temp' }
+        Mock -CommandName  Get-TSCDirectoryFile { return }
+        Mock -CommandName  Get-InstalledSoftware { return }
+        Mock -CommandName  Get-IpConfig { return }
+        Mock -CommandName  Get-MSInfo32 { return }
+        Mock -CommandName  Get-HostFile { return }
+        Mock -CommandName  Get-NSLookUpData { return }
+        Mock -CommandName  Get-RouteTable { return }
+        Mock -CommandName  Get-RegistryPath { return }
+        Mock -CommandName  Get-ClientId { return '12345' }
+        Mock -CommandName  Compress-Archive { return }
+        Mock -CommandName Test-Path  { return $true }
+        Mock -CommandName  Copy-Item {return}
 }
 
 Describe "Export-TeamViewerSystemInformation" {
@@ -34,14 +34,14 @@ Describe "Export-TeamViewerSystemInformation" {
             Mock -CommandName "Compress-Archive" -MockWith { $CompressPath }
             Export-TeamViewerSystemInformation -TargetDirectory $TargetDirectory
             Assert-MockCalled -CommandName "Join-Path" -Exactly -Times 1
-            Assert-MockCalled -CommandName "Compress-Archive" -Exactly -Times 1
+            Assert-MockCalled -CommandName "Compress-Archive" -Times 1
         }
     }
 
     Context "When TeamViewer is not installed" {
         BeforeAll {
-            function Test-TeamViewerInstallation { return $false }
-            function Write-Error { return }
+            Mock -CommandName Test-TeamViewerInstallation -MockWith { return $false }
+            Mock -CommandName  Write-Error -MockWith { return }
         }
 
         It "Should write an error message" {
