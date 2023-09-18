@@ -1,7 +1,7 @@
 ---
 external help file: TeamViewerPS-help.xml
 Module Name: TeamViewerPS
-online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Cmdlets_help/Set-TeamViewerManagedDevice.md
+online version: https://github.com/teamviewer/TeamViewerPS/blob/main/docs/commands/Set-TeamViewerManagedDevice.md
 schema: 2.0.0
 ---
 
@@ -15,7 +15,7 @@ Change properties of a TeamViewer managed device.
 
 ```powershell
 Set-TeamViewerManagedDevice [-ApiToken] <SecureString> [-Device] <Object> [[-Name] <String>]
- [[-Policy] <Object>] [-RemovePolicy] [-WhatIf] [-Confirm] [<CommonParameters>]
+ [[-Policy] <Object>] [-RemovePolicy] [[-ManagedGroup] <Object>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -53,7 +53,15 @@ Sets the policy of the device.
 PS /> Set-TeamViewerManagedDevice -Device '33a2e2e1-27ef-43e2-a175-f97ee0344033' -RemovePolicy
 ```
 
-Removes the policy from the managed device.
+Removes the TeamViewer policy of the device.
+
+### Example 3
+
+```powershell
+PS /> Set-TeamViewerManagedDevice -Device '33a2e2e1-27ef-43e2-a175-f97ee0344033' -ManagedGroup '730ee15a-1ea4-4d80-9cfe-5a01709d0a2f'
+```
+
+Inherit the TeamViewer policy from a managed group to the device (the device has to be part of the managed group specified).
 
 ## PARAMETERS
 
@@ -158,6 +166,24 @@ Required: False
 Position: Named
 Default value: None
 Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ManagedGroup
+
+Object that can be used to identify the managed group.
+This can either be the managed group ID (as string or GUID) or a managed group
+object that has been received using other module functions.
+
+```yaml
+Type: Object
+Parameter Sets: (All)
+Aliases: ManagedGroupId
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 

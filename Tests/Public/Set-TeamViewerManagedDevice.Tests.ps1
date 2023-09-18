@@ -1,7 +1,7 @@
 BeforeAll {
-    . "$PSScriptRoot/../../Docs/Cmdlets/Public/Set-TeamViewerManagedDevice.ps1"
+    . "$PSScriptRoot/../../TeamViewerPS/Public/Set-TeamViewerManagedDevice.ps1"
 
-    @(Get-ChildItem -Path "$PSScriptRoot/../../Docs/Cmdlets/Private/*.ps1") | `
+    @(Get-ChildItem -Path "$PSScriptRoot/../../TeamViewerPS/Private/*.ps1") | `
         ForEach-Object { . $_.FullName }
 
     $testApiToken = [securestring]@{}
@@ -45,11 +45,34 @@ Describe 'Set-TeamViewerManagedDevice' {
         $body.teamviewerPolicyId | Should -Be ''
     }
 
+    It 'Should update the managed device policy to the managed group' {
+        Set-TeamViewerManagedDevice -ApiToken $testApiToken -Device $testDeviceId -ManagedGroup 'e579cfeb-0b29-4d91-9e81-2d9507f53ff8'
+        $mockArgs.Body | Should -Not -BeNullOrEmpty
+        $body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
+        $body.managedGroupId | Should -Be 'e579cfeb-0b29-4d91-9e81-2d9507f53ff8'
+    }
+
     It 'Should not be possible to set and remove the policy at the same time' {
         { Set-TeamViewerManagedDevice `
                 -ApiToken $testApiToken `
                 -Device $testDeviceId `
                 -Policy '2871c013-3040-4969-9ba4-ce970f4375e8' `
+                -RemovePolicy } | Should -Throw
+    }
+
+    It 'Should not be possible to inherit and set a policy at the same time' {
+        { Set-TeamViewerManagedDevice `
+                -ApiToken $testApiToken `
+                -Device $testDeviceId `
+                -Policy '2871c013-3040-4969-9ba4-ce970f4375e8' `
+                -ManagedGroup '6808db5b-f3c1-4e42-8168-3ac96f5d456e' } | Should -Throw
+    }
+
+    It 'Should not be possible to inherit and remove a policy at the same time' {
+        { Set-TeamViewerManagedDevice `
+                -ApiToken $testApiToken `
+                -Device $testDeviceId `
+                -ManagedGroup '2871c013-3040-4969-9ba4-ce970f4375e8' `
                 -RemovePolicy } | Should -Throw
     }
 
