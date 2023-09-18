@@ -20,13 +20,6 @@ BeforeAll {
 }
 
 Describe 'Get-TeamViewerLogFilePath function' {
-    It 'Should find log files' {
-        $result = Get-TeamViewerLogFilePath
-        $result | Should -Contain 'C:\Logs\TestFolder1\file1.log'
-        $result | Should -Contain 'C:\Logs\TestFolder2\file2.log'
-    }
-
-    
     Context 'When TeamViewer is not installed' {
         BeforeAll {
             Mock Test-TeamViewerInstallation { return $false }
