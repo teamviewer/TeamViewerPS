@@ -1,7 +1,7 @@
 BeforeAll {
-    . "$PSScriptRoot/../../TeamViewerPS/Public/Add-TeamViewerManagedDevice.ps1"
+    . "$PSScriptRoot/../../Docs/Cmdlets/Public/Add-TeamViewerManagedDevice.ps1"
 
-    @(Get-ChildItem -Path "$PSScriptRoot/../../TeamViewerPS/Private/*.ps1") | `
+    @(Get-ChildItem -Path "$PSScriptRoot/../../Docs/Cmdlets/Private/*.ps1") | `
         ForEach-Object { . $_.FullName }
 
     $testApiToken = [securestring]@{}

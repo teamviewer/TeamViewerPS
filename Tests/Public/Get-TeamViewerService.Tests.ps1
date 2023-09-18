@@ -1,7 +1,7 @@
 BeforeAll {
-    . "$PSScriptRoot/../../TeamViewerPS/Public/Get-TeamViewerService.ps1"
+    . "$PSScriptRoot/../../Docs/Cmdlets/Public/Get-TeamViewerService.ps1"
 
-    @(Get-ChildItem -Path "$PSScriptRoot/../../TeamViewerPS/Private/*.ps1") | `
+    @(Get-ChildItem -Path "$PSScriptRoot/../../Docs/Cmdlets/Private/*.ps1") | `
         ForEach-Object { . $_.FullName }
 
     if (-Not (Get-Command -Name 'Get-Service' -ErrorAction SilentlyContinue)) {

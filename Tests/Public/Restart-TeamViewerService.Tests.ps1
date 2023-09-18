@@ -1,7 +1,7 @@
 BeforeAll {
-    . "$PSScriptRoot/../../TeamViewerPS/Public/Restart-TeamViewerService.ps1"
+    . "$PSScriptRoot/../../Docs/Cmdlets/Public/Restart-TeamViewerService.ps1"
 
-    @(Get-ChildItem -Path "$PSScriptRoot/../../TeamViewerPS/Private/*.ps1") | `
+    @(Get-ChildItem -Path "$PSScriptRoot/../../Docs/Cmdlets/Private/*.ps1") | `
         ForEach-Object { . $_.FullName }
 
     if (-Not (Get-Command -Name 'Restart-Service' -ErrorAction SilentlyContinue)) {

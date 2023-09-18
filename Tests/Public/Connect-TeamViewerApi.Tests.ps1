@@ -1,8 +1,8 @@
 BeforeAll {
-    . "$PSScriptRoot/../../TeamViewerPS/Public/Invoke-TeamViewerPing.ps1"
-    . "$PSScriptRoot/../../TeamViewerPS/Public/Connect-TeamViewerApi.ps1"
+    . "$PSScriptRoot/../../Docs/Cmdlets/Public/Invoke-TeamViewerPing.ps1"
+    . "$PSScriptRoot/../../Docs/Cmdlets/Public/Connect-TeamViewerApi.ps1"
 
-    @(Get-ChildItem -Path "$PSScriptRoot/../../TeamViewerPS/Private/*.ps1") | `
+    @(Get-ChildItem -Path "$PSScriptRoot/../../Docs/Cmdlets/Private/*.ps1") | `
         ForEach-Object { . $_.FullName }
 
     $testApiToken = [securestring]@{}
