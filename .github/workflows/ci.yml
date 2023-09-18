@@ -1,49 +1,50 @@
 name: CI
 
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the master branch
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
 
 jobs:
   verify:
     runs-on: ubuntu-latest
 
     steps:
-      # Checks-out the repository under $GITHUB_WORKSPACE, so the job can access it
-      - uses: actions/checkout@v3
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
 
-      # Print Powershell version
+      # Print versions
       - name: Powershell Environment
         shell: pwsh
         run: |
           $PSVersionTable
-      # Run linter
-      - name: Run linter (via PSScriptAnalyzer)
-        shell: pwsh
-        run: |
-          $ProgressPreference = 'SilentlyContinue'
-          $ErrorActionPreference = 'Stop'
-          Install-Module -Name PSScriptAnalyzer -SkipPublisherCheck -Scope CurrentUser -MinimumVersion 1.19.1 -Force -Verbose
-          Invoke-ScriptAnalyzer -Path $env:GITHUB_WORKSPACE -Recurse -Settings (Join-Path -Path $env:GITHUB_WORKSPACE -ChildPath 'PSScriptAnalyzerSettings.psd1') -ReportSummary -EnableExit
+
       # Run tests
-      - name: Run tests (via Pester)
+      - name: Run Pester
         shell: pwsh
         run: |
-          $ProgressPreference = 'SilentlyContinue'
-          Install-Module -Name Pester -SkipPublisherCheck -Scope CurrentUser -MinimumVersion 5.1.1 -Force -Verbose
-          Invoke-Pester -Path $env:GITHUB_WORKSPACE -Output Detailed -CI
-      # Build package
+          $ProgressPreference='SilentlyContinue'
+          Install-Module Pester -Force -SkipPublisherCheck -Scope CurrentUser `
+            -RequiredVersion 5.1.1 -Verbose
+          Invoke-Pester $env:GITHUB_WORKSPACE -Output Detailed -CI
+
+      # Run linter
+      - name: Run Script Analyzer
+        shell: pwsh
+        run: |
+          $ProgressPreference='SilentlyContinue'
+          $ErrorActionPreference='Stop'
+          Install-Module PSScriptAnalyzer -Force -SkipPublisherCheck -Scope CurrentUser `
+            -RequiredVersion 1.19.1 -Verbose
+          Invoke-ScriptAnalyzer -Path $env:GITHUB_WORKSPACE/Linters -Recurse -ReportSummary -EnableExit
+
+      # Try to build the package
       - name: Package Build
         shell: pwsh
         run: |
-          $ProgressPreference = 'SilentlyContinue'
-          $ErrorActionPreference = 'Stop'
-          Install-Module -Name platyPS, BuildHelpers -SkipPublisherCheck -Scope CurrentUser -Force
-          & $env:GITHUB_WORKSPACE/Build/New-TeamViewerPSPackage.ps1 -Verbose
+          $ProgressPreference='SilentlyContinue'
+          $ErrorActionPreference='Stop'
+          Install-Module platyPS,BuildHelpers -Force -SkipPublisherCheck -Scope CurrentUser
+          & $env:GITHUB_WORKSPACE/Build/New-Package.ps1 -Verbose
