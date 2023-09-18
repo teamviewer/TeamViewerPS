@@ -17,7 +17,7 @@ jobs:
         run: |
           $ProgressPreference='SilentlyContinue'
           Install-Module platyPS,BuildHelpers -Force -SkipPublisherCheck -Scope CurrentUser
-          & $env:GITHUB_WORKSPACE/Build/New-TeamViewerPSPackage.ps1 -Verbose
+          & $env:GITHUB_WORKSPACE/Build/New-Package.ps1 -Verbose
 
       - name: Publish to powershellgallery.com
         env:
@@ -26,5 +26,5 @@ jobs:
         run: |
           $ProgressPreference='SilentlyContinue'
           Publish-Module `
-            -Path $env:GITHUB_WORKSPACE/BuildOutput/TeamViewerPS/ `
+            -Path $env:GITHUB_WORKSPACE/Build/Output/ `
             -NuGetApiKey $env:NUGET_APIKEY_PRODUCTION
