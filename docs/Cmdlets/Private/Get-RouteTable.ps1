@@ -4,7 +4,7 @@ function Get-RouteTable {
         [string]
         $OutputPath
     )
-
+Process{
     try {
         $processInfo = New-Object System.Diagnostics.ProcessStartInfo
         $processInfo.FileName = 'route.exe'
@@ -20,4 +20,5 @@ function Get-RouteTable {
     catch {
         Write-Error "An error occurred while collecting RouteTable data: $_"
     }
+}
 }

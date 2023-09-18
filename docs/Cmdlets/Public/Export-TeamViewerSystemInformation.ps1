@@ -8,11 +8,11 @@ function Export-TeamViewerSystemInformation {
         if (Get-OperatingSystem -eq 'Windows') {
             $Temp = [System.IO.Path]::Combine([System.IO.Path]::GetTempPath(), [System.Guid]::NewGuid().ToString())
             $CurrentDirectory = Get-Location
-            $Temp | Get-TSCDirectoryFiles
+            $Temp | Get-TSCDirectoryFile
             $Temp | Get-InstalledSoftware
             $Temp | Get-IpConfig
             $Temp | Get-MSInfo32
-            $Temp | Get-Hosts
+            $Temp | Get-Host
             $Temp | Get-NSLookUpData
             $Temp | Get-RouteTable
             $Temp | Get-RegistryPaths

@@ -4,12 +4,13 @@ function Get-IpConfig {
         [string]
         $OutputPath
     )
-
-    try {
-        ipconfig /all | Out-File -FilePath "$OutputPath\Data\ipconfig.txt" -Encoding utf8
-        Write-Output "ipconfig data collected and saved to $OutputPath\Data\ipconfig.txt"
-    }
-    catch {
-        Write-Error "An error occurred while collecting ipconfig data: $_"
+    Process {
+        try {
+            ipconfig /all | Out-File -FilePath "$OutputPath\Data\ipconfig.txt" -Encoding utf8
+            Write-Output "ipconfig data collected and saved to $OutputPath\Data\ipconfig.txt"
+        }
+        catch {
+            Write-Error "An error occurred while collecting ipconfig data: $_"
+        }
     }
 }
