@@ -1,8 +1,8 @@
 BeforeAll {
-    . "$PSScriptRoot/../../Docs/Cmdlets/Public/Remove-TeamViewerCustomization.ps1"
-    . "$PSScriptRoot/../../Docs/Cmdlets/Public/Get-TeamViewerInstallationDirectory.ps1"
-    . "$PSScriptRoot/../../Docs/Cmdlets/Public/Test-TeamViewerInstallation.ps1"
-    @(Get-ChildItem -Path "$PSScriptRoot/../../Docs/Cmdlets/Private/*.ps1") | `
+    . "$PSScriptRoot/../../docs/Cmdlets/Public/Remove-TeamViewerCustomization.ps1"
+    . "$PSScriptRoot/../../docs/Cmdlets/Public/Get-TeamViewerInstallationDirectory.ps1"
+    . "$PSScriptRoot/../../docs/Cmdlets/Public/Test-TeamViewerInstallation.ps1"
+    @(Get-ChildItem -Path "$PSScriptRoot/../../docs/Cmdlets/Private/*.ps1") | `
         ForEach-Object { . $_.FullName }
 }
 

@@ -1,5 +1,5 @@
 BeforeAll {
-    . "$PSScriptRoot/../../Docs/Cmdlets/Public/Disconnect-TeamViewerApi.ps1"
+    . "$PSScriptRoot/../../docs/Cmdlets/Public/Disconnect-TeamViewerApi.ps1"
 }
 
 Describe 'Disconnect-TeamViewerApi' {

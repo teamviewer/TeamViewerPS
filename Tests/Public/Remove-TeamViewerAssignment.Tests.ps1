@@ -1,9 +1,9 @@
 BeforeAll {
-    . "$PSScriptRoot/../../Docs/Cmdlets/Public/Remove-TeamViewerAssignment.ps1"
-    . "$PSScriptRoot/../../Docs/Cmdlets/Public/Get-TeamViewerInstallationDirectory.ps1"
-    . "$PSScriptRoot/../../Docs/Cmdlets/Public/Get-TeamViewerVersion.ps1"
-    . "$PSScriptRoot/../../Docs/Cmdlets/Public/Test-TeamViewerInstallation.ps1"
-    @(Get-ChildItem -Path "$PSScriptRoot/../../Docs/Cmdlets/Private/*.ps1") | `
+    . "$PSScriptRoot/../../docs/Cmdlets/Public/Remove-TeamViewerAssignment.ps1"
+    . "$PSScriptRoot/../../docs/Cmdlets/Public/Get-TeamViewerInstallationDirectory.ps1"
+    . "$PSScriptRoot/../../docs/Cmdlets/Public/Get-TeamViewerVersion.ps1"
+    . "$PSScriptRoot/../../docs/Cmdlets/Public/Test-TeamViewerInstallation.ps1"
+    @(Get-ChildItem -Path "$PSScriptRoot/../../docs/Cmdlets/Private/*.ps1") | `
         ForEach-Object { . $_.FullName }
 }
 Describe 'Remove-TeamViewerAssignment' {

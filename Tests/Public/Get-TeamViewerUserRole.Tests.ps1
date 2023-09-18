@@ -1,8 +1,8 @@
 
 BeforeAll {
-    . "$PSScriptRoot/../../Docs/Cmdlets/Public/Get-TeamViewerUserRole.ps1"
+    . "$PSScriptRoot/../../docs/Cmdlets/Public/Get-TeamViewerUserRole.ps1"
 
-    @(Get-ChildItem -Path "$PSScriptRoot/../../Docs/Cmdlets/Private/*.ps1") | `
+    @(Get-ChildItem -Path "$PSScriptRoot/../../docs/Cmdlets/Private/*.ps1") | `
         ForEach-Object { . $_.FullName }
 
     $testApiToken = [securestring]@{}
@@ -54,7 +54,7 @@ Describe 'Get-TeamViewerUserRole' {
     }
 
     It 'Should call the correct API endpoint for assigned users' {
-        Get-TeamViewerUserRole -ApiToken $testApiToken 
+        Get-TeamViewerUserRole -ApiToken $testApiToken
 
         Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
