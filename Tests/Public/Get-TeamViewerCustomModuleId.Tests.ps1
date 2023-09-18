@@ -12,6 +12,11 @@ Describe 'Get-TeamViewerCustomModuleId' {
             Mock Test-TeamViewerInstallation { $true }
             Mock Test-Path { $true }
             Mock Get-Content { '{"id": "customModuleId"}' }
+            Mock Get-TeamViewerInstallationDirectory {return 'C:\'}
+            $installationDirectory = Get-TeamViewerInstallationDirectory
+            $fileName ='TeamViewer.Json'
+            $filePath = Join-Path -Path $installationDirectory -ChildPath $fileName
+            Mock -CommandName Join-Path -MockWith {$filePath}
         }
 
         It 'Should return the custom module ID' {
