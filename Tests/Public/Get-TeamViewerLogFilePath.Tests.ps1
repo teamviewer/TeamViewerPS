@@ -1,8 +1,11 @@
 BeforeAll {
     . "$PSScriptRoot/../../docs/Cmdlets/Public/Get-TeamViewerLogFilePath.ps1"
     . "$PSScriptRoot/../../docs/Cmdlets/Public/Test-TeamViewerInstallation.ps1"
+    . "$PSScriptRoot/../../docs/Cmdlets/Public/Get-TeamViewerInstallationDirectory.ps1"
     @(Get-ChildItem -Path "$PSScriptRoot/../../docs/Cmdlets/Private/*.ps1") | `
         ForEach-Object { . $_.FullName }
+
+    Mock Get-TSCSearchDirectory { return C:\ }
 
 }
 
