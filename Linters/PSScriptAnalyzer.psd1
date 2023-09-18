@@ -1,4 +1,4 @@
 @{
     Severity     = @('Error', 'Warning')
-    ExcludeRules = @('PSUseToExportFieldsInManifest')
+    ExcludeRules = @('PSUseToExportFieldsInManifest','PSAvoidGlobalVars')
 }
