@@ -1,7 +1,7 @@
 BeforeAll {
-    . "$PSScriptRoot/../../TeamViewerPS/Public/Test-TeamViewerConnectivity.ps1"
+    . "$PSScriptRoot/../../docs/Cmdlets/Public/Test-TeamViewerConnectivity.ps1"
 
-    @(Get-ChildItem -Path "$PSScriptRoot/../../TeamViewerPS/Private/*.ps1") | `
+    @(Get-ChildItem -Path "$PSScriptRoot/../../docs/Cmdlets/Private/*.ps1") | `
         ForEach-Object { . $_.FullName }
 
     Mock Test-TcpConnection { $true }

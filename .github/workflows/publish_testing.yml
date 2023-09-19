@@ -5,7 +5,7 @@ on:
 
 jobs:
   publish:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
       - uses: actions/checkout@v2
@@ -15,7 +15,7 @@ jobs:
         run: |
           $ProgressPreference='SilentlyContinue'
           Install-Module platyPS,BuildHelpers -Force -SkipPublisherCheck -Scope CurrentUser
-          & $env:GITHUB_WORKSPACE/Build/New-TeamViewerPSPackage.ps1 -Verbose
+          & $env:GITHUB_WORKSPACE/Build/New-Package.ps1 -Verbose
 
       - name: Publish to poshtestgallery.com
         env:
@@ -27,7 +27,7 @@ jobs:
             -Name PSTestGallery `
             -SourceLocation https://www.poshtestgallery.com/api/v2
           Publish-Module `
-            -Path $env:GITHUB_WORKSPACE/BuildOutput/TeamViewerPS/ `
+            -Path $env:GITHUB_WORKSPACE/Build/Output/ `
             -NuGetApiKey $env:NUGET_APIKEY_TESTING `
             -Repository PSTestGallery `
             -Force
