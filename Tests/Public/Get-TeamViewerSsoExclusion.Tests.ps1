@@ -1,7 +1,7 @@
 BeforeAll {
-    . "$PSScriptRoot/../../TeamViewerPS/Public/Get-TeamViewerSsoExclusion.ps1"
+    . "$PSScriptRoot/../../docs/Cmdlets/Public/Get-TeamViewerSsoExclusion.ps1"
 
-    @(Get-ChildItem -Path "$PSScriptRoot/../../TeamViewerPS/Private/*.ps1") | `
+    @(Get-ChildItem -Path "$PSScriptRoot/../../docs/Cmdlets/Private/*.ps1") | `
         ForEach-Object { . $_.FullName }
 
     $testApiToken = [securestring]@{}

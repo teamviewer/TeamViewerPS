@@ -5,7 +5,7 @@
         {
             "label": "Lint (via PSScriptAnalyzer)",
             "type": "shell",
-            "command": "Invoke-ScriptAnalyzer -Path '${workspaceFolder}' -Severity Information, Warning, Error -Recurse",
+            "command": "Invoke-ScriptAnalyzer -Path '${workspaceFolder}/Linters' -Severity Information, Warning, Error -Recurse",
             "group": {
                 "kind": "build",
                 "isDefault": true
