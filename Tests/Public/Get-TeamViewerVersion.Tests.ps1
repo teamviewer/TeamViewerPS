@@ -1,8 +1,8 @@
 BeforeAll {
-    . "$PSScriptRoot/../../TeamViewerPS/Public/Get-TeamViewerVersion.ps1"
+    . "$PSScriptRoot/../../docs/Cmdlets/Public/Get-TeamViewerVersion.ps1"
 
-    . "$PSScriptRoot/../../TeamViewerPS/Public/Test-TeamViewerInstallation.ps1"
-    @(Get-ChildItem -Path "$PSScriptRoot/../../TeamViewerPS/Private/*.ps1") | `
+    . "$PSScriptRoot/../../docs/Cmdlets/Public/Test-TeamViewerInstallation.ps1"
+    @(Get-ChildItem -Path "$PSScriptRoot/../../docs/Cmdlets/Private/*.ps1") | `
         ForEach-Object { . $_.FullName }
 
     Mock Get-ItemPropertyValue { '15.10.0' }

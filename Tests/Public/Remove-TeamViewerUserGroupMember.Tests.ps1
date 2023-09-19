@@ -1,9 +1,7 @@
 BeforeAll {
-    . "$PSScriptRoot/../../TeamViewerPS/Public/Remove-TeamViewerUserGroupMember.ps1"
-
-    @(Get-ChildItem -Path "$PSScriptRoot/../../TeamViewerPS/Private/*.ps1") | `
+    . "$PSScriptRoot/../../docs/Cmdlets/Public/Remove-TeamViewerUserGroupMember.ps1"
+    @(Get-ChildItem -Path "$PSScriptRoot/../../docs/Cmdlets/Private/*.ps1") | `
         ForEach-Object { . $_.FullName }
-
     $testApiToken = [securestring]@{}
     $null = $testApiToken
     $testMembers = @(123, 456, 789)

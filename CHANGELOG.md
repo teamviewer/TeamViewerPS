@@ -1,5 +1,28 @@
 # Change Log
 
+## 2.0.0 (2023-09-13)
+
+### Added
+
+  -Added 'Set-TeamViewerApiURi' to use TeamViewer test API.
+  -Added user role commands to remotely manage user roles of a TeamViewer company.
+  -Added `Add-TeamViewerAssignment` and `Remove-TeamViewerAssignment` commands to assign and unassign a device from a TeamViewer company.
+  -Added `Add-TeamViewerCustomization` and `Remove-TeamViewerCustomization` commands to apply and remove customization.
+  -Added `Export-TeamViewerSystemInformation` to create zip file for support.
+  -Added `Set-TeamViewerPSProxy` and `Remove-TeamViewerPSProxy` to set proxy to access WebAPI.
+  -Added `Get-TeamViewerInstallationDirectory` to return installation directory.
+  -Added `Remove-TeamViewerPolicyFromManagedDevice` to remove policies from managed devices.
+  
+### Changed
+  
+  -Extended `Invoke-TeamViewerPackageDownload` with MSI package type.
+  -Folder structure modified.
+  -`-RemovePolicy` switch removed from `Set-TeamViewerManagedDevice`.
+
+### Fixed
+  
+  -Fixed `Get-TeamViewerLinuxGlobalConfig` to handle null values.
+  
 ## 1.5.1 (2023-07-18)
 
 - Improved `User ID` parameter handling for `Add-TeamViewerUserGroupMember` and `Remove-TeamViewerUserGroupMember`
