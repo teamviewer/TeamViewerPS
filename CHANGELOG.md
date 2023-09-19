@@ -17,7 +17,7 @@
   
   -Extended `Invoke-TeamViewerPackageDownload` with MSI package type.
   -Folder structure modified.
-  -`-RemovePolicy` switched removed from `Set-TeamViewerManagedDevice`.
+  -`-RemovePolicy` switch removed from `Set-TeamViewerManagedDevice`.
 
 ### Fixed
   
