@@ -15,7 +15,7 @@ Change properties of a TeamViewer managed device.
 
 ```powershell
 Set-TeamViewerManagedDevice [-ApiToken] <SecureString> [-Device] <Object> [[-Name] <String>]
- [[-Policy] <Object>] [-RemovePolicy] [[-ManagedGroup] <Object>] [-WhatIf] [-Confirm] [<CommonParameters>]
+ [[-Policy] <Object>] [[-ManagedGroup] <Object>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -46,14 +46,6 @@ PS /> Set-TeamViewerManagedDevice -Device '33a2e2e1-27ef-43e2-a175-f97ee0344033'
 ```
 
 Sets the policy of the device.
-
-### Example 3
-
-```powershell
-PS /> Set-TeamViewerManagedDevice -Device '33a2e2e1-27ef-43e2-a175-f97ee0344033' -RemovePolicy
-```
-
-Removes the TeamViewer policy of the device.
 
 ### Example 3
 
@@ -137,8 +129,6 @@ Object that can be used to identify the policy.
 This can either be the policy ID (as string or GUID) or a policy object that has
 been received using other module functions.
 
-Cannot be used in conjunction with the `-RemovePolicy` parameter.
-
 ```yaml
 Type: Object
 Parameter Sets: (All)
@@ -146,24 +136,6 @@ Aliases: PolicyId
 
 Required: False
 Position: 3
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -RemovePolicy
-
-Removes the policy from the managed device.
-
-Cannot be used in conjunction with the `-Policy` parameter.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False

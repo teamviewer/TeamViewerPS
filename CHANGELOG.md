@@ -11,11 +11,13 @@
   -Added `Export-TeamViewerSystemInformation` to create zip file for support.
   -Added `Set-TeamViewerPSProxy` and `Remove-TeamViewerPSProxy` to set proxy to access WebAPI.
   -Added `Get-TeamViewerInstallationDirectory` to return installation directory.
+  -Added `Remove-TeamViewerPolicyFromManagedDevice` to remove policies from managed devices.
   
 ### Changed
   
   -Extended `Invoke-TeamViewerPackageDownload` with MSI package type.
   -Folder structure modified.
+  -`-RemovePolicy` switched removed from `Set-TeamViewerManagedDevice`.
 
 ### Fixed
   
