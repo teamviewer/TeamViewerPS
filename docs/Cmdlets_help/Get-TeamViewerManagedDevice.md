@@ -1,7 +1,7 @@
 ---
 external help file: TeamViewerPS-help.xml
 Module Name: TeamViewerPS
-online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Cmdlets_help/Get-TeamViewerManagedDevice.md
+online version: https://github.com/teamviewer/TeamViewerPS/blob/main/docs/Cmdlets_help/Get-TeamViewerManagedDevice.md
 schema: 2.0.0
 ---
 
