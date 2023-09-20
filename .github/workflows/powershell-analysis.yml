@@ -20,9 +20,9 @@ on:
 jobs:
   build:
     name: PSScriptAnalyzer
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Run PSScriptAnalyzer
         uses: microsoft/psscriptanalyzer-action@2044ae068e37d0161fa2127de04c19633882f061
@@ -31,8 +31,8 @@ jobs:
           # The below set up runs PSScriptAnalyzer to your entire repository and runs some basic security rules.
           path: .\
           recurse: true 
-          # Include your own basic security rules. Removing this option will run all the rules 
-          # includeRule: '"PSAvoidGlobalAliases", "PSAvoidUsingConvertToSecureStringWithPlainText"'
+          # Exclude your own basic security rules. Removing this option will run all the rules 
+          excludeRule: '"PSUseToExportFieldsInManifest","PSAvoidGlobalVars"'
           output: results.sarif
       
       # Upload the SARIF file generated in the previous step

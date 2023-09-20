@@ -1,8 +1,8 @@
 BeforeAll {
-    . "$PSScriptRoot/../../TeamViewerPS/TeamViewerPS.Types.ps1"
-    . "$PSScriptRoot/../../TeamViewerPS/Public/Get-TeamViewerConnectionReport.ps1"
+    . "$PSScriptRoot/../../Docs/TeamViewerPS.Types.ps1"
+    . "$PSScriptRoot/../../docs/Cmdlets/Public/Get-TeamViewerConnectionReport.ps1"
 
-    @(Get-ChildItem -Path "$PSScriptRoot/../../TeamViewerPS/Private/*.ps1") | `
+    @(Get-ChildItem -Path "$PSScriptRoot/../../docs/Cmdlets/Private/*.ps1") | `
         ForEach-Object { . $_.FullName }
 
     $testApiToken = [securestring]@{}
@@ -52,7 +52,7 @@ Describe 'Get-TeamViewerConnectionReport' {
 
     It 'Should fetch consecutive pages' {
         Mock Invoke-TeamViewerRestMethod { @{
-                records   = @(
+                records     = @(
                     @{
                         id                   = '0755a8dd-df19-4ea7-af47-cabb6b2a97e4'
                         userid               = 'u1234'
@@ -67,7 +67,7 @@ Describe 'Get-TeamViewerConnectionReport' {
                 next_offset = '0755a8dd-df19-4ea7-af47-cabb6b2a97e4'
             } }
         Mock Invoke-TeamViewerRestMethod { @{
-                records   = @(
+                records     = @(
                     @{
                         id                   = '5ae6d2a9-57e9-4c62-b236-280390954b6f'
                         userid               = 'u5678'
@@ -81,7 +81,7 @@ Describe 'Get-TeamViewerConnectionReport' {
                 )
                 next_offset = '5ae6d2a9-57e9-4c62-b236-280390954b6f'
             } } -ParameterFilter { $Body.offset_id -eq '0755a8dd-df19-4ea7-af47-cabb6b2a97e4' }
-        Mock Invoke-TeamViewerRestMethod { @{
+	        Mock Invoke-TeamViewerRestMethod { @{
                 records = @(
                     @{
                         id                   = '018d007c-9faf-474a-b39a-4021251860e7'
@@ -95,6 +95,7 @@ Describe 'Get-TeamViewerConnectionReport' {
                     }
                 )
             } }  -ParameterFilter { $Body.offset_id -eq '5ae6d2a9-57e9-4c62-b236-280390954b6f' }
+
 
         $result = Get-TeamViewerConnectionReport -ApiToken $testApiToken
         $result | Should -HaveCount 3
