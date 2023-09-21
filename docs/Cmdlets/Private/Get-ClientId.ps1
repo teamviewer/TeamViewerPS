@@ -7,5 +7,6 @@ function Get-ClientId {
         $mainKey = Get-ItemProperty -Path 'HKLM:\Software\TeamViewer'
         $id = [int]$mainKey.ClientID
     }
+    
     return $id
 }
