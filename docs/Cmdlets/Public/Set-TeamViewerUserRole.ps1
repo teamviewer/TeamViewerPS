@@ -34,6 +34,7 @@ function Set-TeamViewerUserRole {
             $body.Permissions = @($Permissions)
         }
     }
+    
     Process {
         if ($PSCmdlet.ShouldProcess($Name, 'Update User Role')) {
             $response = Invoke-TeamViewerRestMethod `
