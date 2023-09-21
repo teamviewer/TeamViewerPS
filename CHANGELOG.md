@@ -22,12 +22,7 @@
 ### Fixed
   
   -Fixed `Get-TeamViewerLinuxGlobalConfig` to handle null values.
- 
-## 1.5.2 (2023-09-18)
-
-- Remove-TeamViewerPolicyFromManagedDevice has been added.
-- ManagedGroupId parameter has been added to Set-TeamViewerManagedDevice.
-
+  
 ## 1.5.1 (2023-07-18)
 
 - Improved `User ID` parameter handling for `Add-TeamViewerUserGroupMember` and `Remove-TeamViewerUserGroupMember`
