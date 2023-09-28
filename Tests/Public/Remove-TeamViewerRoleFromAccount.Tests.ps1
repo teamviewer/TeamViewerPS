@@ -1,6 +1,6 @@
 BeforeAll {
-    . "$PSScriptRoot/../../docs/Cmdlets/Public/Remove-TeamViewerRoleFromAccount.ps1"
-    @(Get-ChildItem -Path "$PSScriptRoot/../../docs/Cmdlets/Private/*.ps1") | `
+    . "$PSScriptRoot\..\..\Cmdlets\Public\Remove-TeamViewerRoleFromAccount.ps1"
+    @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | `
         ForEach-Object { . $_.FullName }
 
     $testApiToken = [securestring]@{}

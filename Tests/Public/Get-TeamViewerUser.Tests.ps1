@@ -1,7 +1,7 @@
 BeforeAll {
-    . "$PSScriptRoot/../../docs/Cmdlets/Public/Get-TeamViewerUser.ps1"
+    . "$PSScriptRoot\..\..\Cmdlets\Public\Get-TeamViewerUser.ps1"
 
-    @(Get-ChildItem -Path "$PSScriptRoot/../../docs/Cmdlets/Private/*.ps1") | `
+    @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | `
         ForEach-Object { . $_.FullName }
 
     $testApiToken = [securestring]@{}
