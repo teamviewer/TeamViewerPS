@@ -37,6 +37,7 @@ Connect-TeamViewerApi
 # Retrieves users of a TeamViewer company
 Get-TeamViewerUser
 ```
+
 Another example below shows how to display the TeamViewer ID as well as the
 version of the locally installed TeamViewer client:
 
