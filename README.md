@@ -2,8 +2,7 @@
 
 ![CI](https://github.com/teamviewer/TeamViewerPS/workflows/CI/badge.svg)
 
-TeamViewerPS allows to interact with the TeamViewer Web API as well as a locally
-installed TeamViewer client.
+TeamViewerPS allows to interact with the TeamViewer Web API as well as a locally installed TeamViewer client.
 
 ## Installation & Update
 
@@ -13,8 +12,7 @@ Install TeamViewerPS from the Powershell Gallery using the following command:
 Install-Module TeamViewerPS
 ```
 
-Execute the following command to update an existing installation of
-TeamViewerPS:
+Execute the following command to update an existing installation of TeamViewerPS:
 
 ```powershell
 Update-Module TeamViewerPS
@@ -22,8 +20,7 @@ Update-Module TeamViewerPS
 
 ## Usage
 
-The following example code shows how to interact with the TeamViewer Web API
-functions by retrieving the list of users of a TeamViewer company:
+The following example code shows how to interact with the TeamViewer Web API functions by retrieving the list of users of a TeamViewer company:
 
 ```powershell
 # Downloads and installs the module from Powershell Gallery
@@ -38,8 +35,7 @@ Connect-TeamViewerApi
 Get-TeamViewerUser
 ```
 
-Another example below shows how to display the TeamViewer ID as well as the
-version of the locally installed TeamViewer client:
+Another example below shows how to display the TeamViewer ID as well as the version of the locally installed TeamViewer client:
 
 ```powershell
 Install-Module TeamViewerPS
@@ -76,8 +72,7 @@ The module provides functions for the following categories:
 - _Single Sign-On management_
 - _Local TeamViewer utilities_
 
-Please see the [about_TeamViewerPS](docs/about_TeamViewerPS.md) article for a
-more detailed list.
+Please see the [about_TeamViewerPS](docs/about_TeamViewerPS.md) article for a more detailed list.
 
 ## Prerequisites
 
@@ -89,7 +84,7 @@ TeamViewerPS requires one of the following environments to run:
 
 ## License
 
-Please see the file `LICENSE`.
+Please see the file `LICENSE.md`.
 
 ## Links
 
