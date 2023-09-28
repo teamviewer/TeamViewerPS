@@ -46,4 +46,4 @@ jobs:
                   $ProgressPreference = 'SilentlyContinue'
                   $ErrorActionPreference = 'Stop'
                   Install-Module -Name platyPS, BuildHelpers -SkipPublisherCheck -Scope CurrentUser -Force
-                  & (Join-Path -Path $env:GITHUB_WORKSPACE -ChildPath 'Build\New-Package.ps1' -Verbose
+                  & (Join-Path -Path $env:GITHUB_WORKSPACE -ChildPath 'Build\New-Package.ps1') -Verbose
