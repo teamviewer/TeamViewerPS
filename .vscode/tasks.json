@@ -5,15 +5,20 @@
         {
             "label": "Lint (via PSScriptAnalyzer)",
             "type": "shell",
-            "command": "Invoke-ScriptAnalyzer -Path '${workspaceFolder}/Linters' -Severity Information, Warning, Error -Recurse",
+            "command": "& Invoke-ScriptAnalyzer -Path \\\"${workspaceFolder}\\\" -Recurse -Settings \\\"${workspaceFolder}/Linters/PSScriptAnalyzer.psd1\\\"",
             "group": {
-                "kind": "build",
+                "kind": "test",
                 "isDefault": true
-            },
-            "presentation": {
-                "reveal": "always"
-            },
-            "problemMatcher": []
+            }
+        },
+        {
+            "label": "Test (via Pester)",
+            "type": "shell",
+            "command": "& Invoke-Pester -Path \\\"${workspaceFolder}\\\"",
+            "group": {
+                "kind": "test",
+                "isDefault": false
+            }
         },
         {
             "label": "Clean",
