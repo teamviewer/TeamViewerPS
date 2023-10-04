@@ -1,7 +1,7 @@
 BeforeAll {
-    . "$PSScriptRoot/../../docs/Cmdlets/Public/Get-TeamViewerUserGroup.ps1"
+    . "$PSScriptRoot\..\..\Cmdlets\Public\Get-TeamViewerUserGroup.ps1"
 
-    @(Get-ChildItem -Path "$PSScriptRoot/../../docs/Cmdlets/Private/*.ps1") | `
+    @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | `
         ForEach-Object { . $_.FullName }
 
     $testApiToken = [securestring]@{}
@@ -32,8 +32,8 @@ Describe 'Get-TeamViewerUserGroup' {
 
             Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
                 $ApiToken -eq $testApiToken -And `
-                $Uri -eq '//unit.test/usergroups' -And `
-                $Method -eq 'Get' }
+                    $Uri -eq '//unit.test/usergroups' -And `
+                    $Method -eq 'Get' }
         }
 
         It 'Should return UserGroup objects' {
@@ -71,8 +71,8 @@ Describe 'Get-TeamViewerUserGroup' {
 
             Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
                 $ApiToken -eq $testApiToken -And `
-                $Uri -eq "//unit.test/usergroups/$testUserGroupId" -And `
-                $Method -eq 'Get' }
+                    $Uri -eq "//unit.test/usergroups/$testUserGroupId" -And `
+                    $Method -eq 'Get' }
         }
 
         It 'Should handle domain object as input' {
@@ -81,8 +81,8 @@ Describe 'Get-TeamViewerUserGroup' {
 
             Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
                 $ApiToken -eq $testApiToken -And `
-                $Uri -eq "//unit.test/usergroups/$testUserGroupId" -And `
-                $Method -eq 'Get' }
+                    $Uri -eq "//unit.test/usergroups/$testUserGroupId" -And `
+                    $Method -eq 'Get' }
         }
 
         It 'Should return a UserGroup object' {

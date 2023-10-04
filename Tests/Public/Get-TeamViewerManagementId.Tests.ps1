@@ -1,8 +1,8 @@
 BeforeAll {
-    . "$PSScriptRoot/../../docs/Cmdlets/Public/Get-TeamViewerManagementId.ps1"
+    . "$PSScriptRoot\..\..\Cmdlets\Public\Get-TeamViewerManagementId.ps1"
 
-    . "$PSScriptRoot/../../docs/Cmdlets/Public/Test-TeamViewerInstallation.ps1"
-    @(Get-ChildItem -Path "$PSScriptRoot/../../docs/Cmdlets/Private/*.ps1") | `
+    . "$PSScriptRoot\..\..\Cmdlets\Public\Test-TeamViewerInstallation.ps1"
+    @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | `
         ForEach-Object { . $_.FullName }
     $testManagementId = New-Guid
     $null = $testManagementId
@@ -11,11 +11,12 @@ BeforeAll {
 Describe 'Get-TeamViewerManagementId' {
     Context 'Windows' {
         BeforeAll {
-            function Get-TestItemValue([object]$obj) {}
+            function Get-TestItemValue([object]$obj) {
+            }
             Mock Get-TestItemValue `
                 -ParameterFilter { $obj -eq 'Unmanaged' } { }
             Mock Get-TestItemValue `
-                -ParameterFilter { $obj -eq 'ManagementId' } { $testManagementId.ToString("B") }
+                -ParameterFilter { $obj -eq 'ManagementId' } { $testManagementId.ToString('B') }
             $testItem = [PSCustomObject]@{}
             $testItem | Add-Member `
                 -MemberType ScriptMethod `
@@ -77,7 +78,7 @@ Describe 'Get-TeamViewerManagementId' {
                 -MockWith { }
             Mock Get-TeamViewerLinuxGlobalConfig `
                 -ParameterFilter { $Name -eq 'DeviceManagementV2\ManagementId' } `
-                -MockWith { $testManagementId.ToString("B") }
+                -MockWith { $testManagementId.ToString('B') }
         }
 
         It 'Should return the Management ID from the global configuration' {

@@ -1,7 +1,7 @@
 BeforeAll {
-    . "$PSScriptRoot/../../docs/Cmdlets/Public/Set-TeamViewerPSProxy.ps1"
-    . "$PSScriptRoot/../../docs/Cmdlets/Public/Remove-TeamViewerPSProxy.ps1"
-    @(Get-ChildItem -Path "$PSScriptRoot/../../docs/Cmdlets/Private/*.ps1") | ForEach-Object { . $_.FullName }
+    . "$PSScriptRoot\..\..\Cmdlets\Public\Set-TeamViewerPSProxy.ps1"
+    . "$PSScriptRoot\..\..\Cmdlets\Public\Remove-TeamViewerPSProxy.ps1"
+    @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
 
     Mock -CommandName 'Set-TeamViewerPSProxy' -MockWith {
         param (
