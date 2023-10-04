@@ -5,7 +5,7 @@
 ### Added
 
 - Added 'Set-TeamViewerApiURi' to use TeamViewer test API.
-- Added commands to remotely manage user roles of a TeamViewer company.
+- Added user role commands to remotely manage user roles of a TeamViewer company.
 - Added `Add-TeamViewerAssignment` and `Remove-TeamViewerAssignment` commands to assign and unassign a device from a TeamViewer company.
 - Added `Add-TeamViewerCustomization` and `Remove-TeamViewerCustomization` commands to apply and remove customization.
 - Added `Export-TeamViewerSystemInformation` to create zip file for support.
@@ -16,8 +16,8 @@
 ### Changed
   
 - Extended `Invoke-TeamViewerPackageDownload` with MSI package type.
+- Folder structure modified.
 - `-RemovePolicy` switch removed from `Set-TeamViewerManagedDevice`.
-- Optimized folder structure.
 
 ### Fixed
   
@@ -37,7 +37,7 @@
 ### Added
 
 - Added `Remove-TeamViewerUser` cmdlet to remove user from TeamViewer company. (Thanks @OtterKring)
-- Added `Remove-TeamViewerManagedDeviceManagement` to un-manage a device.
+- Added `Remove-TeamViewerManagedDeviceManagement` to unmanage a device.
 
 ### Changed
 
