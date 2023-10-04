@@ -1,22 +1,20 @@
 {
-    // See https://go.microsoft.com/fwlink/?linkid=830387 for the documentation about the launch.json format
+    // See https://go.microsoft.com/fwlink/?linkid=830387 for the documentation about the tasks.json format
     "version": "0.2.0",
     "configurations": [
+        {
+            "name": "Lint (via PSScriptAnalyzer)",
+            "type": "PowerShell",
+            "request": "launch",
+            "script": "Invoke-ScriptAnalyzer -Path '${workspaceFolder}' -Recurse -Settings '${workspaceFolder}/Linters/PSScriptAnalyzer.psd1'",
+            "createTemporaryIntegratedConsole": true
+        },
         {
             "name": "Test (via Pester)",
             "type": "PowerShell",
             "request": "launch",
-            "script": "Invoke-Pester",
-            "args": [
-                "-Path '${workspaceFolder}' -Output Detailed"
-            ]
-        },
-        {
-            "name": "Run (via PowerShell)",
-            "type": "PowerShell",
-            "request": "launch",
-            "cwd": "${workspaceRoot}",
-            "args": []
+            "script": "Invoke-Pester -Path '${workspaceFolder}'",
+            "createTemporaryIntegratedConsole": true
         }
     ]
 }
