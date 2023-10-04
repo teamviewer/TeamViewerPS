@@ -1,14 +1,14 @@
 BeforeAll {
-    . "$PSScriptRoot/../../docs/Cmdlets/Public/Get-TeamViewerVersion.ps1"
+    . "$PSScriptRoot\..\..\Cmdlets\Public\Get-TeamViewerVersion.ps1"
 
-    . "$PSScriptRoot/../../docs/Cmdlets/Public/Test-TeamViewerInstallation.ps1"
-    @(Get-ChildItem -Path "$PSScriptRoot/../../docs/Cmdlets/Private/*.ps1") | `
+    . "$PSScriptRoot\..\..\Cmdlets\Public\Test-TeamViewerInstallation.ps1"
+    @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | `
         ForEach-Object { . $_.FullName }
 
     Mock Get-ItemPropertyValue { '15.10.0' }
 }
 
-Describe "Get-TeamViewerVersion" {
+Describe 'Get-TeamViewerVersion' {
     Context 'Windows' {
         BeforeAll {
             Mock Get-TeamViewerRegKeyPath { 'testRegistry' }
@@ -16,7 +16,7 @@ Describe "Get-TeamViewerVersion" {
             Mock Test-TeamViewerInstallation { $true }
         }
 
-        It "Should return the TeamViewer Version from the Windows Registry" {
+        It 'Should return the TeamViewer Version from the Windows Registry' {
             Get-TeamViewerVersion | Should -Be '15.10.0'
             Assert-MockCalled Get-ItemPropertyValue -Scope It -Times 1 -ParameterFilter {
                 $Path -Eq 'testRegistry' -And $Name -Eq 'Version'
