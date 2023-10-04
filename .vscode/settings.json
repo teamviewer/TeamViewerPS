@@ -41,12 +41,12 @@
     },
     "cSpell.dictionaryDefinitions": [
         {
-            "name": "customDictionary",
-            "path": "./.spelling"
+            "name": "ProjectDictionary",
+            "path": "${workspaceRoot}/.vscode/spelling"
         }
     ],
     "cSpell.dictionaries": [
-        "customDictionary"
+        "ProjectDictionary"
     ],
-    "cSpell.language": "en"
+    "cSpell.language": "en",
 }
