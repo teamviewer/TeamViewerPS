@@ -1,4 +1,4 @@
-name: PublishProduction
+name: Publish_Production
 
 on:
   workflow_dispatch:
@@ -10,8 +10,10 @@ jobs:
     runs-on: windows-latest
 
     steps:
+      # Checks-out the repository under $GITHUB_WORKSPACE, so the job can access it
       - uses: actions/checkout@v3
 
+      # Build package
       - name: Build package
         shell: pwsh
         run: |
@@ -19,12 +21,11 @@ jobs:
           Install-Module platyPS,BuildHelpers -Force -SkipPublisherCheck -Scope CurrentUser
           & $env:GITHUB_WORKSPACE/Build/New-Package.ps1 -Verbose
 
-      - name: Publish to powershellgallery.com
+      # Publish to PowershellGallery.com
+      - name: Publish to PowershellGallery.com
         env:
           NUGET_APIKEY_PRODUCTION: ${{ secrets.NUGET_APIKEY_PRODUCTION }}
         shell: pwsh
         run: |
           $ProgressPreference='SilentlyContinue'
-          Publish-Module `
-            -Path $env:GITHUB_WORKSPACE/Build/Output/ `
-            -NuGetApiKey $env:NUGET_APIKEY_PRODUCTION
+          Publish-Module -Path $env:GITHUB_WORKSPACE/Build/Output/ -NuGetApiKey $env:NUGET_APIKEY_PRODUCTION
