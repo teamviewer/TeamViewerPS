@@ -1,4 +1,4 @@
-﻿@{
+@{
     # Script module or binary module file associated with this manifest.
     RootModule        = 'TeamViewerPS.psm1'
 
@@ -60,7 +60,7 @@
     # NestedModules = @()
 
     # Functions to export from this module.
-    FunctionsToExport = @('Add-TeamViewerAssignment','Add-TeamViewerCustomization','Add-TeamViewerManagedDevice','Add-TeamViewerManager','Add-TeamViewerRoleToAccount','Add-TeamViewerRoleToUserGroup','Add-TeamViewerSsoExclusion','Add-TeamViewerUserGroupMember','Connect-TeamViewerApi','Disconnect-TeamViewerApi','Export-TeamViewerSystemInformation','Get-TeamViewerAccount','Get-TeamViewerConnectionReport','Get-TeamViewerContact','Get-TeamViewerCustomModuleId','Get-TeamViewerDevice','Get-TeamViewerEventLog','Get-TeamViewerGroup','Get-TeamViewerId','Get-TeamViewerInstallationDirectory','Get-TeamViewerLogFilePath','Get-TeamViewerManagedDevice','Get-TeamViewerManagedGroup','Get-TeamViewerManagementId','Get-TeamViewerManager','Get-TeamViewerPolicy','Get-TeamViewerRoleAssignmentToAccount','Get-TeamViewerRoleAssignmentToUserGroup','Get-TeamViewerService','Get-TeamViewerSsoDomain','Get-TeamViewerSsoExclusion','Get-TeamViewerUser','Get-TeamViewerUserGroup','Get-TeamViewerUserGroupMember','Get-TeamViewerUserRole','Get-TeamViewerVersion','Invoke-TeamViewerPackageDownload','Invoke-TeamViewerPing','New-TeamViewerContact','New-TeamViewerDevice','New-TeamViewerGroup','New-TeamViewerManagedGroup','New-TeamViewerPolicy','New-TeamViewerUser','New-TeamViewerUserGroup','New-TeamViewerUserRole','Publish-TeamViewerGroup','Remove-TeamViewerAssignment','Remove-TeamViewerContact','Remove-TeamViewerCustomization','Remove-TeamViewerDevice','Remove-TeamViewerGroup','Remove-TeamViewerManagedDevice','Remove-TeamViewerManagedDeviceManagement','Remove-TeamViewerManagedGroup','Remove-TeamViewerManager','Remove-TeamViewerPolicy','Remove-TeamViewerPolicyFromManagedDevice','Remove-TeamViewerPSProxy','Remove-TeamViewerRoleFromAccount','Remove-TeamViewerRoleFromUserGroup','Remove-TeamViewerSsoExclusion','Remove-TeamViewerUser','Remove-TeamViewerUserGroup','Remove-TeamViewerUserGroupMember','Remove-TeamViewerUserRole','Restart-TeamViewerService','Set-TeamViewerAccount','Set-TeamViewerAPIUri','Set-TeamViewerDevice','Set-TeamViewerGroup','Set-TeamViewerManagedDevice','Set-TeamViewerManagedGroup','Set-TeamViewerManager','Set-TeamViewerPolicy','Set-TeamViewerPSProxy','Set-TeamViewerUser','Set-TeamViewerUserGroup','Set-TeamViewerUserRole','Start-TeamViewerService','Stop-TeamViewerService','Test-TeamViewerConnectivity','Test-TeamViewerInstallation','Unpublish-TeamViewerGroup')
+    FunctionsToExport = @('Add-TeamViewerAssignment', 'Add-TeamViewerCustomization', 'Add-TeamViewerManagedDevice', 'Add-TeamViewerManager', 'Add-TeamViewerRoleToAccount', 'Add-TeamViewerRoleToUserGroup', 'Add-TeamViewerSsoExclusion', 'Add-TeamViewerUserGroupMember', 'Connect-TeamViewerApi', 'Disconnect-TeamViewerApi', 'Export-TeamViewerSystemInformation', 'Get-TeamViewerAccount', 'Get-TeamViewerConnectionReport', 'Get-TeamViewerContact', 'Get-TeamViewerCustomModuleId', 'Get-TeamViewerDevice', 'Get-TeamViewerEventLog', 'Get-TeamViewerGroup', 'Get-TeamViewerId', 'Get-TeamViewerInstallationDirectory', 'Get-TeamViewerLogFilePath', 'Get-TeamViewerManagedDevice', 'Get-TeamViewerManagedGroup', 'Get-TeamViewerManagementId', 'Get-TeamViewerManager', 'Get-TeamViewerPolicy', 'Get-TeamViewerRoleAssignmentToAccount', 'Get-TeamViewerRoleAssignmentToUserGroup', 'Get-TeamViewerService', 'Get-TeamViewerSsoDomain', 'Get-TeamViewerSsoExclusion', 'Get-TeamViewerUser', 'Get-TeamViewerUserGroup', 'Get-TeamViewerUserGroupMember', 'Get-TeamViewerUserRole', 'Get-TeamViewerVersion', 'Invoke-TeamViewerPackageDownload', 'Invoke-TeamViewerPing', 'New-TeamViewerContact', 'New-TeamViewerDevice', 'New-TeamViewerGroup', 'New-TeamViewerManagedGroup', 'New-TeamViewerPolicy', 'New-TeamViewerUser', 'New-TeamViewerUserGroup', 'New-TeamViewerUserRole', 'Publish-TeamViewerGroup', 'Remove-TeamViewerAssignment', 'Remove-TeamViewerContact', 'Remove-TeamViewerCustomization', 'Remove-TeamViewerDevice', 'Remove-TeamViewerGroup', 'Remove-TeamViewerManagedDevice', 'Remove-TeamViewerManagedDeviceManagement', 'Remove-TeamViewerManagedGroup', 'Remove-TeamViewerManager', 'Remove-TeamViewerPolicy', 'Remove-TeamViewerPolicyFromManagedDevice', 'Remove-TeamViewerPSProxy', 'Remove-TeamViewerRoleFromAccount', 'Remove-TeamViewerRoleFromUserGroup', 'Remove-TeamViewerSsoExclusion', 'Remove-TeamViewerUser', 'Remove-TeamViewerUserGroup', 'Remove-TeamViewerUserGroupMember', 'Remove-TeamViewerUserRole', 'Restart-TeamViewerService', 'Set-TeamViewerAccount', 'Set-TeamViewerAPIUri', 'Set-TeamViewerDevice', 'Set-TeamViewerGroup', 'Set-TeamViewerManagedDevice', 'Set-TeamViewerManagedGroup', 'Set-TeamViewerManager', 'Set-TeamViewerPolicy', 'Set-TeamViewerPSProxy', 'Set-TeamViewerUser', 'Set-TeamViewerUserGroup', 'Set-TeamViewerUserRole', 'Start-TeamViewerService', 'Stop-TeamViewerService', 'Test-TeamViewerConnectivity', 'Test-TeamViewerInstallation', 'Unpublish-TeamViewerGroup')
 
     # Cmdlets to export from this module.
     CmdletsToExport   = @()
@@ -82,14 +82,14 @@
 
     # Private data to pass to the module specified in RootModule/ModuleToProcess. This may also contain a PSData hashtable with additional module metadata used by PowerShell.
     PrivateData       = @{
-
         PSData = @{
-
             #Prerelease = '-alpha1'
-
             # Tags applied to this module. These help with module discovery in online galleries.
             # Tags = @()
             Tags       = @(
+                'PowerShell',
+                'scripting',
+                'automation',
                 'teamviewer',
                 'remotecontrol',
                 'webapi',
@@ -97,20 +97,19 @@
             )
 
             # A URL to the license for this module.
-            LicenseUri = 'https://github.com/teamviewer/TeamViewerPS/blob/main/LICENSE'
+            LicenseUri = 'https://github.com/teamviewer/TeamViewerPS/blob/main/LICENSE.md'
 
             # A URL to the main website for this project.
             ProjectUri = 'https://github.com/teamviewer/TeamViewerPS'
 
             # ReleaseNotes of this module.
-            # ReleaseNotes = 'Initial release'
+            # ReleaseNotes = 'https://github.com/teamviewer/TeamViewerPS/blob/main/CHANGELOG.md'
 
         } # End of PSData hashtable
-
     } # End of PrivateData hashtable
 
     # HelpInfo URI of this module.
-    # HelpInfoURI = ''
+    # HelpInfoURI = 'https://github.com/teamviewer/TeamViewerPS/tree/main/Docs'
 
     # Default prefix for commands exported from this module. Override the default prefix using Import-Module -Prefix.
     # DefaultCommandPrefix = ''
