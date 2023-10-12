@@ -51,7 +51,7 @@ The documentation and help can be accessed using the following commands:
 
 ```powershell
 # Starting point of the documentation
-Get-Help about_TeamViewerPS
+Get-Help TeamViewerPS
 
 # List of available commands of this module
 Get-Command -Module TeamViewerPS
@@ -72,7 +72,7 @@ The module provides functions for the following categories:
 - _Single Sign-On management_
 - _Local TeamViewer utilities_
 
-Please see the [about_TeamViewerPS](docs/about_TeamViewerPS.md) article for a more detailed list.
+Please see the [TeamViewerPS](docs/TeamViewerPS.md) article for a more detailed list.
 
 ## Prerequisites
 
