@@ -1,69 +1,61 @@
 function Get-TeamViewerUser {
-    [CmdletBinding(DefaultParameterSetName = "FilteredList")]
+    [CmdletBinding(DefaultParameterSetName = 'FilteredList')]
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
         $ApiToken,
 
-        [Parameter(ParameterSetName = "ByUserId")]
+        [Parameter(ParameterSetName = 'ByUserId')]
         [ValidateScript( { $_ | Resolve-TeamViewerUserId } )]
-        [Alias("UserId")]
+        [Alias('UserId')]
         [string]
         $Id,
 
-        [Parameter(ParameterSetName = "FilteredList")]
-        [Alias("PartialName")]
+        [Parameter(ParameterSetName = 'FilteredList')]
+        [Alias('PartialName')]
         [string]
         $Name,
 
-        [Parameter(ParameterSetName = "FilteredList")]
+        [Parameter(ParameterSetName = 'FilteredList')]
         [string[]]
         $Email,
 
-        [Parameter(ParameterSetName = "FilteredList")]
-        [string[]]
-        $Permissions,
-
         [Parameter()]
-        [ValidateSet("All", "Minimal")]
-        $PropertiesToLoad = "All"
+        [ValidateSet('All', 'Minimal')]
+        $PropertiesToLoad = 'All'
     )
 
     $parameters = @{ }
     switch ($PropertiesToLoad) {
-        "All" { $parameters.full_list = $true }
-        "Minimal" { }
+        'All' {
+            $parameters.full_list = $true 
+        }
+        'Minimal' { 
+        }
     }
 
     $resourceUri = "$(Get-TeamViewerApiUri)/users"
 
     switch ($PsCmdlet.ParameterSetName) {
-        "ByUserId" {
+        'ByUserId' {
             $resourceUri += "/$Id"
             $parameters = $null
         }
-        "FilteredList" {
+        'FilteredList' {
             if ($Name) {
                 $parameters['name'] = $Name
             }
+
             if ($Email) {
                 $parameters['email'] = ($Email -join ',')
-            }
-            if ($Permissions) {
-                $parameters['permissions'] = ($Permissions -join ',')
             }
         }
     }
 
     $response = Invoke-TeamViewerRestMethod `
-        -ApiToken $ApiToken `
-        -Uri $resourceUri `
-        -Method Get `
-        -Body $parameters `
-        -WriteErrorTo $PSCmdlet `
-        -ErrorAction Stop
+        -ApiToken $ApiToken -Uri $resourceUri -Method Get -Body $parameters -WriteErrorTo $PSCmdlet -ErrorAction Stop
 
-    if ($PsCmdlet.ParameterSetName -Eq "ByUserId") {
+    if ($PsCmdlet.ParameterSetName -Eq 'ByUserId') {
         Write-Output ($response | ConvertTo-TeamViewerUser -PropertiesToLoad $PropertiesToLoad)
     }
     else {

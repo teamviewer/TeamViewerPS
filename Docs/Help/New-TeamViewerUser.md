@@ -17,16 +17,14 @@ Create a new TeamViewer company user.
 
 ```powershell
 New-TeamViewerUser -ApiToken <SecureString> -Email <String> -Name <String> -Password <SecureString>
- [-SsoCustomerIdentifier <SecureString>] [-Permissions <Array>] [-Culture <CultureInfo>] [-WhatIf] [-Confirm]
- [<CommonParameters>]
+ [-SsoCustomerIdentifier <SecureString>] [-Culture <CultureInfo>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### WithoutPassword
 
 ```powershell
 New-TeamViewerUser -ApiToken <SecureString> -Email <String> -Name <String> [-WithoutPassword]
- [-SsoCustomerIdentifier <SecureString>] [-Permissions <Array>] [-Culture <CultureInfo>] [-WhatIf] [-Confirm]
- [<CommonParameters>]
+ [-SsoCustomerIdentifier <SecureString>] [-Culture <CultureInfo>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -41,8 +39,7 @@ Creates a new user for the company that is associated to the API access token.
 PS /> New-TeamViewerUser -Email 'test@example.test' -Name 'Test User'
 ```
 
-Create a new user with the given email address and name. The password will be
-prompted.
+Create a new user with the given email address and name. The password will be prompted.
 
 ### Example 2
 
@@ -50,9 +47,8 @@ prompted.
 PS /> New-TeamViewerUser -Email 'test@example.test' -Name 'Test User' -WithoutPassword
 ```
 
-Create a new user with the given email address and name. It will be created
-without a password. The user must reset the password through the TeamViewer
-web page.
+Create a new user with the given email address and name.
+It will be created without a password. The user must reset the password through the TeamViewer web page.
 
 ## PARAMETERS
 
@@ -146,22 +142,6 @@ Parameter Sets: WithPassword
 Aliases:
 
 Required: True
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Permissions
-
-Optional list of permissions to give to the new user.
-
-```yaml
-Type: Array
-Parameter Sets: (All)
-Aliases:
-
-Required: False
 Position: Named
 Default value: None
 Accept pipeline input: False
