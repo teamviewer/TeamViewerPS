@@ -15,7 +15,9 @@ BeforeAll {
         # We do this only for testing
         [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingConvertToSecureStringWithPlainText', '')]
         param()
-        Process { $_ | ConvertTo-SecureString -AsPlainText -Force }
+        Process {
+            $_ | ConvertTo-SecureString -AsPlainText -Force 
+        }
     }
 }
 
@@ -25,9 +27,7 @@ Describe 'New-TeamViewerUser' {
         New-TeamViewerUser -ApiToken $testApiToken -Name 'Unit Test User' -Email 'user1@unit.test' -WithoutPassword
 
         Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -And `
-                $Uri -eq '//unit.test/users' -And `
-                $Method -eq 'Post' }
+            $ApiToken -eq $testApiToken -And $Uri -eq '//unit.test/users' -And $Method -eq 'Post' }
     }
 
     It 'Should include the given name and email in the request' {
@@ -64,6 +64,7 @@ Describe 'New-TeamViewerUser' {
 
     It 'Should allow to specify a password for the new user' {
         $testPassword = 'Test1234' | ConvertTo-TestPassword
+
         New-TeamViewerUser -ApiToken $testApiToken -Name 'Unit Test User' -Email 'user1@unit.test' -Password $testPassword
 
         $mockArgs.Body | Should -Not -BeNullOrEmpty
@@ -73,6 +74,7 @@ Describe 'New-TeamViewerUser' {
 
     It 'Should allow to create a SSO-enabled user' {
         $testSsoCustomerId = 'my-sso-customer-id' | ConvertTo-TestPassword
+
         New-TeamViewerUser -ApiToken $testApiToken -Name 'Unit Test User' -Email 'user1@unit.test' -WithoutPassword -SsoCustomerIdentifier $testSsoCustomerId
 
         $mockArgs.Body | Should -Not -BeNullOrEmpty
