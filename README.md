@@ -6,7 +6,7 @@ TeamViewerPS allows to interact with the TeamViewer Web API as well as a locally
 
 ## Installation & Update
 
-Install TeamViewerPS from the Powershell Gallery using the following command:
+Downloads and installs TeamViewerPS from the Powershell Gallery using the following command:
 
 ```powershell
 Install-Module TeamViewerPS
@@ -23,9 +23,6 @@ Update-Module TeamViewerPS
 The following example code shows how to interact with the TeamViewer Web API functions by retrieving the list of users of a TeamViewer company:
 
 ```powershell
-# Downloads and installs the module from Powershell Gallery
-Install-Module TeamViewerPS
-
 # Stores API token for Powershell session
 # 1. Create a TeamViewer API access token in the Management Console: https://login.teamviewer.com
 # 2. Enter the API token in the shown dialog
@@ -38,8 +35,6 @@ Get-TeamViewerUser
 Another example below shows how to display the TeamViewer ID as well as the version of the locally installed TeamViewer client:
 
 ```powershell
-Install-Module TeamViewerPS
-
 # Returns the TeamViewer Id of the locally installed TeamViewer client
 Get-TeamViewerId
 
@@ -67,12 +62,13 @@ The module provides functions for the following categories:
 - _Computers & Contacts list_
 - _User management_
 - _User groups_
+- _User roles_
 - _Managed groups_
 - _Policy management_
-- _Single Sign-On management_
+- _Single Sign-On (SSO) management_
 - _Local TeamViewer utilities_
 
-Please see the [TeamViewerPS](docs/TeamViewerPS.md) article for a more detailed list.
+Please see the [TeamViewerPS](Docs/TeamViewerPS.md) article for a more detailed list.
 
 ## Prerequisites
 
@@ -88,6 +84,7 @@ Please see the file `LICENSE.md`.
 
 ## Links
 
-- [TeamViewerPS project page on Github](https://github.com/TeamViewer/TeamViewerPS)
-- [TeamViewer Web API documentation](https://webapi.teamviewer.com/api/v1/docs/index)
-- [TeamViewer website](https://www.teamviewer.com/)
+- [TeamViewer company website](https://www.teamviewer.com/)
+- [TeamViewerPS project on Github](https://github.com/TeamViewer/TeamViewerPS)
+- [TeamViewer web API documentation](https://webapi.teamviewer.com/api/v1/docs/index)
+- [TeamViewerPS on Powershell Gallery](https://www.powershellgallery.com/packages/TeamViewerPS)
