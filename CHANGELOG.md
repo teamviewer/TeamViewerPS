@@ -16,8 +16,9 @@
 ### Changed
   
 - Extends `Invoke-TeamViewerPackageDownload` with MSI package type.
-- Modifies general folder structure.
 - Removes `-RemovePolicy` switch from `Set-TeamViewerManagedDevice`.
+- Removes `-Permissions` switch from `Get-TeamViewerUser`, `New-TeamViewerUser` and `Remove-TeamViewerUser`.
+- Modifies general module folder structure.
 
 ### Fixed
   
