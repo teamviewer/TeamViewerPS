@@ -16,8 +16,7 @@ Retrieve users of a TeamViewer company.
 ### FilteredList (Default)
 
 ```powershell
-Get-TeamViewerUser -ApiToken <SecureString> [-Name <String>] [-Email <String[]>] [-Permissions <String[]>]
- [-PropertiesToLoad <Object>] [<CommonParameters>]
+Get-TeamViewerUser -ApiToken <SecureString> [-Name <String>] [-Email <String[]>] [-PropertiesToLoad <Object>] [<CommonParameters>]
 ```
 
 ### ByUserId
@@ -78,8 +77,7 @@ Accept wildcard characters: False
 
 ### -Email
 
-Optional list of email addresses. Can be used to only return users that exactly
-match one of the given email addresses.
+Optional list of email addresses. Can be used to only return users that exactly match one of the given email addresses.
 
 ```yaml
 Type: String[]
@@ -111,8 +109,7 @@ Accept wildcard characters: False
 
 ### -Name
 
-Optional name filter parameter that can be used to only list users that have
-the given string in their name.
+Optional name filter parameter that can be used to only list users that have the given string in their name.
 
 ```yaml
 Type: String
@@ -126,27 +123,9 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Permissions
-
-Optional permissions filter that can be used to only list users that have
-certain permissions. Multiple values can be given.
-
-```yaml
-Type: String[]
-Parameter Sets: FilteredList
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### -PropertiesToLoad
 
-Can be used to retrieve all available properties of a user or just a
-stripped-down minimal set of user properties.
+Can be used to retrieve all available properties of a user or just a stripped-down minimal set of user properties.
 
 ```yaml
 Type: Object

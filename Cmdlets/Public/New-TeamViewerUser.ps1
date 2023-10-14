@@ -1,5 +1,5 @@
 function New-TeamViewerUser {
-    [CmdletBinding(SupportsShouldProcess = $true, DefaultParameterSetName = "WithPassword")]
+    [CmdletBinding(SupportsShouldProcess = $true, DefaultParameterSetName = 'WithPassword')]
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
@@ -15,11 +15,11 @@ function New-TeamViewerUser {
         [string]
         $Name,
 
-        [Parameter(Mandatory = $true, ParameterSetName = "WithPassword")]
+        [Parameter(Mandatory = $true, ParameterSetName = 'WithPassword')]
         [securestring]
         $Password,
 
-        [Parameter(ParameterSetName = "WithoutPassword")]
+        [Parameter(ParameterSetName = 'WithoutPassword')]
         [Alias('NoPassword')]
         [switch]
         $WithoutPassword,
@@ -29,25 +29,24 @@ function New-TeamViewerUser {
         $SsoCustomerIdentifier,
 
         [Parameter()]
-        [array]
-        $Permissions,
-
-        [Parameter()]
         [ValidateScript( { $_ | Resolve-TeamViewerLanguage } )]
         [cultureinfo]
         $Culture
     )
 
     if (-Not $Culture) {
-        try { $Culture = Get-Culture }
-        catch { $Culture = 'en' }
+        try {
+            $Culture = Get-Culture 
+        }
+        catch {
+            $Culture = 'en' 
+        }
     }
 
     $body = @{
-        email       = $Email
-        name        = $Name
-        language    = $Culture | Resolve-TeamViewerLanguage
-        permissions = $Permissions -join ','
+        email    = $Email
+        name     = $Name
+        language = $Culture | Resolve-TeamViewerLanguage
     }
 
     if ($Password -And -Not $WithoutPassword) {
@@ -63,18 +62,12 @@ function New-TeamViewerUser {
     }
 
     $resourceUri = "$(Get-TeamViewerApiUri)/users"
-    if ($PSCmdlet.ShouldProcess("$Name <$Email>", "Create user")) {
-        $response = Invoke-TeamViewerRestMethod `
-            -ApiToken $ApiToken `
-            -Uri $resourceUri `
-            -Method Post `
-            -ContentType "application/json; charset=utf-8" `
-            -Body ([System.Text.Encoding]::UTF8.GetBytes(($body | ConvertTo-Json))) `
-            -WriteErrorTo $PSCmdlet `
-            -ErrorAction Stop
-
+    if ($PSCmdlet.ShouldProcess("$Name <$Email>", 'Create user')) {
+        $response = Invoke-TeamViewerRestMethod -ApiToken $ApiToken -Uri $resourceUri -Method Post -ContentType 'application/json; charset=utf-8' `
+            -Body ([System.Text.Encoding]::UTF8.GetBytes(($body | ConvertTo-Json))) -WriteErrorTo $PSCmdlet -ErrorAction Stop
         $result = ($response | ConvertTo-TeamViewerUser)
         $result.Email = $Email
+
         Write-Output $result
     }
 }

@@ -17,15 +17,13 @@ Change properties of a TeamViewer company user.
 
 ```powershell
 Set-TeamViewerUser -ApiToken <SecureString> -User <Object> [-Active <Boolean>] [-Email <String>]
- [-Name <String>] [-Password <SecureString>] [-SsoCustomerIdentifier <SecureString>] [-Permissions <Array>]
- [-WhatIf] [-Confirm] [<CommonParameters>]
+ [-Name <String>] [-Password <SecureString>] [-SsoCustomerIdentifier <SecureString>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### ByProperties
 
 ```powershell 
-Set-TeamViewerUser -ApiToken <SecureString> -User <Object> -Property <Hashtable> [-WhatIf] [-Confirm]
- [<CommonParameters>]
+Set-TeamViewerUser -ApiToken <SecureString> -User <Object> -Property <Hashtable> [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -66,8 +64,7 @@ PS /> $ssoCustomerIdentifier = ("abc" | ConvertTo-SecureString -AsPlainText -For
 PS /> Set-TeamViewerUser -UserId 'u1234' -SsoCustomerIdentifier $ssoCustomerIdentifier
 ```
 
-Do the SSO activation step for the given user. This can also be used to repair a possibly broken
-SSO login token for that user.
+Do the SSO activation step for the given user. This can also be used to repair a possibly broken SSO login token for that user.
 
 ## PARAMETERS
 
@@ -167,28 +164,11 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Permissions
-
-Updated set of permissions of the company user.
-Please see the TeamViewer API documentation for a list of valid values.
-
-```yaml
-Type: Array
-Parameter Sets: ByParameters
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### -Property
 
 Change policy information using a hashtable object.
 Valid hashtable keys are:
-`active`, `email`, `name`, `password`, `sso_customer_id`, `permissions`
+`active`, `email`, `name`, `password`, `sso_customer_id`
 
 ```yaml
 Type: Hashtable
@@ -204,9 +184,8 @@ Accept wildcard characters: False
 
 ### -SsoCustomerIdentifier
 
-Optional TeamViewer SSO customer identifier. If given, the user will be updated
-with SSO activation step already done. With this option, the user must not
-enter the TeamViewer password at when doing Single Sign-On.
+Optional TeamViewer SSO customer identifier. If given, the user will be updated with SSO activation step already done.
+With this option, the user must not enter the TeamViewer password at when doing Single Sign-On.
 
 ```yaml
 Type: SecureString
@@ -223,8 +202,7 @@ Accept wildcard characters: False
 ### -User
 
 Object that can be used to identify the user.
-This can either be the user ID or a user object that has been received using
-other module functions.
+This can either be the user ID or a user object that has been received using other module functions.
 
 ```yaml
 Type: Object

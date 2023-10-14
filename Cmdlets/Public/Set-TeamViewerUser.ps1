@@ -7,8 +7,8 @@ function Set-TeamViewerUser {
 
         [Parameter(Mandatory = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerUserId } )]
-        [Alias("UserId")]
-        [Alias("Id")]
+        [Alias('UserId')]
+        [Alias('Id')]
         [object]
         $User,
 
@@ -33,10 +33,6 @@ function Set-TeamViewerUser {
         [Parameter(ParameterSetName = 'ByParameters')]
         [securestring]
         $SsoCustomerIdentifier,
-
-        [Parameter(ParameterSetName = 'ByParameters')]
-        [array]
-        $Permissions,
 
         [Parameter(Mandatory = $true, ParameterSetName = 'ByProperties')]
         [hashtable]
@@ -65,34 +61,23 @@ function Set-TeamViewerUser {
                 $body['sso_customer_id'] = [System.Runtime.InteropServices.Marshal]::PtrToStringBSTR($bstr)
                 [System.Runtime.InteropServices.Marshal]::ZeroFreeBSTR($bstr) | Out-Null
             }
-            if ($Permissions) {
-                $body['permissions'] = $Permissions -join ','
-            }
         }
         'ByProperties' {
-            @('active', 'email', 'name', 'password', 'sso_customer_id', 'permissions') | `
-                Where-Object { $Property[$_] } | `
-                ForEach-Object { $body[$_] = $Property[$_] }
+            @('active', 'email', 'name', 'password', 'sso_customer_id') | Where-Object { $Property[$_] } | ForEach-Object { $body[$_] = $Property[$_] }
         }
     }
 
     if ($body.Count -eq 0) {
         $PSCmdlet.ThrowTerminatingError(
-            ("The given input does not change the user." | `
-                    ConvertTo-ErrorRecord -ErrorCategory InvalidArgument))
+            ('The given input does not change the user.' | `
+                ConvertTo-ErrorRecord -ErrorCategory InvalidArgument))
     }
 
     $userId = Resolve-TeamViewerUserId -User $User
     $resourceUri = "$(Get-TeamViewerApiUri)/users/$userId"
 
-    if ($PSCmdlet.ShouldProcess($userId, "Update user profile")) {
-        Invoke-TeamViewerRestMethod `
-            -ApiToken $ApiToken `
-            -Uri $resourceUri `
-            -Method Put `
-            -ContentType "application/json; charset=utf-8" `
-            -Body ([System.Text.Encoding]::UTF8.GetBytes(($body | ConvertTo-Json))) `
-            -WriteErrorTo $PSCmdlet | `
-            Out-Null
+    if ($PSCmdlet.ShouldProcess($userId, 'Update user profile')) {
+        Invoke-TeamViewerRestMethod -ApiToken $ApiToken -Uri $resourceUri -Method Put -ContentType 'application/json; charset=utf-8' `
+            -Body ([System.Text.Encoding]::UTF8.GetBytes(($body | ConvertTo-Json))) -WriteErrorTo $PSCmdlet | Out-Null
     }
 }
