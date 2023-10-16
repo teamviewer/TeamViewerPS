@@ -8,8 +8,10 @@ function Remove-TeamViewerCustomization {
             $currentDirectory = Get-Location
             Set-Location $installationDirectory
             $cmd = 'customize --remove'
-            $process = Start-Process -FilePath TeamViewer.exe -ArgumentList $cmd -Wait -PassThru
-            $process.ExitCode | Resolve-CustomizationErrorCode
+            if ($PSCmdlet.ShouldProcess($installationDirectory, 'Remove Client Customization')) {
+                $process = Start-Process -FilePath TeamViewer.exe -ArgumentList $cmd -Wait -PassThru
+                $process.ExitCode | Resolve-CustomizationErrorCode
+            }
             Set-Location $currentDirectory
         }
         else {

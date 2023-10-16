@@ -16,9 +16,11 @@ function Remove-TeamViewerAssignment {
             $cmd = 'teamviewer unassign'
             $FilePath = 'sudo'
         }
-        $process = Start-Process -FilePath $FilePath -ArgumentList $cmd -Wait -PassThru
-        $process.ExitCode | Resolve-AssignmentErrorCode
-        Set-Location $CurrentDirectory
+        if ($PSCmdlet.ShouldProcess($installationDirectory, 'Remove device assignment')) {
+            $process = Start-Process -FilePath $FilePath -ArgumentList $cmd -Wait -PassThru
+            $process.ExitCode | Resolve-AssignmentErrorCode
+            Set-Location $CurrentDirectory
+        }
     }
     else {
         Write-Output 'TeamViewer is not installed.'
