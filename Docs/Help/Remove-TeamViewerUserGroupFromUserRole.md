@@ -5,29 +5,29 @@ online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/R
 schema: 2.0.0
 ---
 
-# Remove-TeamViewerAccountFromUserRole
+# Remove-TeamViewerUserGroupFromUserRole
 
 ## SYNOPSIS
 
-Unassign a user group from a role.
+Unassign a user group from a user role.
 
 ## SYNTAX
 
 ```powershell
-Remove-TeamViewerAccountFromUserRole [-ApiToken] <SecureString> [-UserGroup] <Object> [-WhatIf]
+Remove-TeamViewerUserGroupFromUserRole [-ApiToken] <SecureString> [-UserGroup] <Object> [-WhatIf]
  [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 
-Unassigns user group from a role of the TeamViewer company associated with the API access token.
+Unassigns user group from a user role of the TeamViewer company associated with the API access token.
 
 ## EXAMPLES
 
 ### Example 1
 
 ```powershell
-PS /> Remove-TeamViewerAccountFromUserRole -UserGroup 1001
+PS /> Remove-TeamViewerUserGroupFromUserRole -UserGroup 1001
 ```
 
 The given user group `1001` gets unassigned from its user role.
