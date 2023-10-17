@@ -123,7 +123,7 @@ The following functions are available in this category:
 
 [`Remove-TeamViewerAccountFromRole`](Help/Remove-TeamViewerAccountFromRole)
 
-[`Remove-TeamViewerRoleFromUserroup`](Help/Remove-TeamViewerRoleFromUserGroup)
+[`Remove-TeamViewerRoleFromUserroup`](Help/Remove-TeamViewerUserGroupFromRole)
 
 ## Managed groups
 
