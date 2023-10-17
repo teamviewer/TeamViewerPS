@@ -1,11 +1,11 @@
 ---
 external help file: TeamViewerPS-help.xml
 Module Name: TeamViewerPS
-online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/Add-TeamViewerRoleToUserGroup.md 
+online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/Add-TeamViewerUserGroupToRole.md
 schema: 2.0.0
 ---
 
-# Add-TeamViewerRoleToUserGroup
+# Add-TeamViewerUserGroupToRole
 
 ## SYNOPSIS
 
@@ -14,7 +14,7 @@ Assign user role to a user group.
 ## SYNTAX
 
 ```powershell
-Add-TeamViewerRoleToUserGroup [-ApiToken] <SecureString> [-UserRole] <Object> [-UserGroup] <Object> [-WhatIf]
+Add-TeamViewerUserGroupToRole [-ApiToken] <SecureString> [-UserRole] <Object> [-UserGroup] <Object> [-WhatIf]
  [-Confirm] [<CommonParameters>]
 ```
 
@@ -27,7 +27,7 @@ Assigns user role to a user group of the TeamViewer company associated with the 
 ### Example 1
 
 ```powershell
-PS /> Add-TeamViewerRoleToUserGroup -UserRole  '9b465ea2-2f75-4101-a057-58a81ed0e57b' -UserGroup 1001
+PS /> Add-TeamViewerUserGroupToRole -UserRole  '9b465ea2-2f75-4101-a057-58a81ed0e57b' -UserGroup 1001
 ```
 
 The given user group `1001` gets assigned to the user role with Id `9b465ea2-2f75-4101-a057-58a81ed0e57b`.
