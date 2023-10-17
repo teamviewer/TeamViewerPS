@@ -9,7 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Unassign a given list of accounts from role.
+Unassign a given list of accounts from user role.
 
 ## SYNTAX
 
@@ -39,7 +39,7 @@ Unassigns one or many users from user role. User role should belong to the TeamV
 PS /> Remove-TeamViewerAccountFromUserRole -UserRoleId '9b465ea2-2f75-4101-a057-58a81ed0e57b' -Account @('123', '456', '789')
 ```
 
-Unassigns users with id `123`, `456`, `789` from role with id `9b465ea2-2f75-4101-a057-58a81ed0e57b`.
+Unassigns users with id `123`, `456`, `789` from user role with id `9b465ea2-2f75-4101-a057-58a81ed0e57b`.
 
 ### Example 2
 
@@ -47,7 +47,7 @@ Unassigns users with id `123`, `456`, `789` from role with id `9b465ea2-2f75-410
 PS /> @('123', '456', '789') | Remove-TeamViewerAccountFromUserRole -UserRoleId '9b465ea2-2f75-4101-a057-58a81ed0e57b'
 ```
 
-Unassigns users with id `123`, `456`, `789` from role with id `9b465ea2-2f75-4101-a057-58a81ed0e57b`.
+Unassigns users with id `123`, `456`, `789` from user role with id `9b465ea2-2f75-4101-a057-58a81ed0e57b`.
 Ids are passed as pipeline input.
 
 ## PARAMETERS
