@@ -121,7 +121,7 @@ The following functions are available in this category:
 
 [`Remove-TeamViewerAccountFromRole`](Help/Remove-TeamViewerAccountFromRole)
 
-[`Remove-TeamViewerRoleFromUserGroup`](Help/Remove-TeamViewerUserGroupFromUserRole)
+[`Remove-TeamViewerUserGroupFromUserRole`](Help/Remove-TeamViewerUserGroupFromUserRole)
 
 ## Managed Groups & Managed Devices
 
