@@ -1,11 +1,11 @@
 ---
 external help file: TeamViewerPS-help.xml
 Module Name: TeamViewerPS
-online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/Remove-TeamViewerAccountFromRole.md
+online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/Remove-TeamViewerAccountFromUserRole.md
 schema: 2.0.0
 ---
 
-# Remove-TeamViewerAccountFromRole
+# Remove-TeamViewerAccountFromUserRole
 
 ## SYNOPSIS
 
@@ -16,14 +16,14 @@ Unassign a given list of accounts from role.
 ### ByUserRoleIdMemberId (All)
 
 ```powershell
-Remove-TeamViewerAccountFromRole [-ApiToken] <SecureString>  [-UserRoleId] <Object[]> [-Account] <Object>
+Remove-TeamViewerAccountFromUserRole [-ApiToken] <SecureString>  [-UserRoleId] <Object[]> [-Account] <Object>
  [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### ByUserId
 
 ```powershell
-Remove-TeamViewerAccountFromRole [-ApiToken] <SecureString> [-UserRoleId] <Object> [-Account] <Object[]>
+Remove-TeamViewerAccountFromUserRole [-ApiToken] <SecureString> [-UserRoleId] <Object> [-Account] <Object[]>
  [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
@@ -36,7 +36,7 @@ Unassigns one or many users from user role. User role should belong to the TeamV
 ### Example 1
 
 ```powershell
-PS /> Remove-TeamViewerAccountFromRole -UserRoleId '9b465ea2-2f75-4101-a057-58a81ed0e57b' -Account @('123', '456', '789')
+PS /> Remove-TeamViewerAccountFromUserRole -UserRoleId '9b465ea2-2f75-4101-a057-58a81ed0e57b' -Account @('123', '456', '789')
 ```
 
 Unassigns users with id `123`, `456`, `789` from role with id `9b465ea2-2f75-4101-a057-58a81ed0e57b`.
@@ -44,7 +44,7 @@ Unassigns users with id `123`, `456`, `789` from role with id `9b465ea2-2f75-410
 ### Example 2
 
 ```powershell
-PS /> @('123', '456', '789') | Remove-TeamViewerAccountFromRole -UserRoleId '9b465ea2-2f75-4101-a057-58a81ed0e57b'
+PS /> @('123', '456', '789') | Remove-TeamViewerAccountFromUserRole -UserRoleId '9b465ea2-2f75-4101-a057-58a81ed0e57b'
 ```
 
 Unassigns users with id `123`, `456`, `789` from role with id `9b465ea2-2f75-4101-a057-58a81ed0e57b`.
