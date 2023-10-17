@@ -77,7 +77,7 @@ Accept wildcard characters: False
 
 ### -UserRoleId
 
-The role to which users will be assigned to.
+the user role to which users will be assigned to.
 
 ```yaml
 Type: Object

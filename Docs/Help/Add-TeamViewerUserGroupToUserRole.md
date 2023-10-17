@@ -68,7 +68,7 @@ Accept wildcard characters: False
 
 ### -UserRole
 
-The role to be assigned to the accountIds
+The user role to be assigned to the accountIds
 
 ```yaml
 Type: Object
@@ -84,7 +84,7 @@ Accept wildcard characters: False
 
 ### -UserGroup
 
-The user group to which the role should be assigned.
+The user group to which the user role should be assigned.
 
 ```yaml
 Type: Object

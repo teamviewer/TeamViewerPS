@@ -86,7 +86,7 @@ Accept wildcard characters: False
 
 ### -UserRoleId
 
-The role where users will be unassigned from.
+The user role where users will be unassigned from.
 
 ```yaml
 Type: Object
