@@ -1,4 +1,4 @@
-function Remove-TeamViewerUserGroupFromRole {
+function Remove-TeamViewerUserGroupFromUserRole {
     [CmdletBinding(SupportsShouldProcess = $true)]
     param(
         [Parameter(Mandatory = $true)]
