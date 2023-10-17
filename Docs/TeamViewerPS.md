@@ -117,7 +117,7 @@ The following functions are available in this category:
 
 [`Add-TeamViewerAccountToUserRole`](Help/Add-TeamViewerAccountToUserRole)
 
-[`Add-TeamViewerUserGroupToRole`](Help/Add-TeamViewerAccountToUserRole)
+[`Add-TeamViewerUserGroupToUserRole`](Help/Add-TeamViewerAccountToUserRole)
 
 [`Remove-TeamViewerAccountFromRole`](Help/Remove-TeamViewerAccountFromRole)
 

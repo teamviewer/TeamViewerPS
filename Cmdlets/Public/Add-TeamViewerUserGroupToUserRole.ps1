@@ -1,4 +1,4 @@
-function Add-TeamViewerUserGroupToRole {
+function Add-TeamViewerUserGroupToUserRole {
     [CmdletBinding(SupportsShouldProcess = $true)]
     param(
         [Parameter(Mandatory = $true)]
