@@ -1,5 +1,5 @@
 BeforeAll {
-    . "$PSScriptRoot\..\..\Cmdlets\Public\Add-TeamViewerRoleToAccount.ps1"
+    . "$PSScriptRoot\..\..\Cmdlets\Public\Add-TeamViewerAccountToRole.ps1"
     @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | `
         ForEach-Object { . $_.FullName }
 
@@ -19,10 +19,10 @@ BeforeAll {
         }
     }
 }
-Describe 'Add-TeamViewerRoleToAccount' {
+Describe 'Add-TeamViewerAccountToRole' {
 
     It 'Should call the correct API endpoint' {
-        Add-TeamViewerRoleToAccount -ApiToken $testApiToken -UserRoleId $testUserRoleId -Accounts $testAccount
+        Add-TeamViewerAccountToRole -ApiToken $testApiToken -UserRoleId $testUserRoleId -Accounts $testAccount
 
         Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
@@ -33,7 +33,7 @@ Describe 'Add-TeamViewerRoleToAccount' {
 
 
     It 'Should assign the given account to the user role' {
-        Add-TeamViewerRoleToAccount `
+        Add-TeamViewerAccountToRole `
             -ApiToken $testApiToken `
             -UserRoleId $testUserRoleId `
             -Accounts $testAccount
@@ -47,7 +47,7 @@ Describe 'Add-TeamViewerRoleToAccount' {
     }
 
     It 'Should accept pipeline input' {
-        $testAccount | Add-TeamViewerRoleToAccount `
+        $testAccount | Add-TeamViewerAccountToRole `
             -ApiToken $testApiToken `
             -UserRoleId $testUserRoleId
         $mockArgs.Body | Should -Not -BeNullOrEmpty

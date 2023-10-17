@@ -14,7 +14,7 @@ The module provides functions for the following categories:
 
 ## Device Assignment
 
-Assign or unassign a device to a company 
+Assign or unassign a device to a company
 
 The following functions are available in this category:
 
@@ -100,7 +100,7 @@ The following functions are available in this category:
 
 ## Role Management
 
-Remotely manage the user roles of a TeamViewer company via the 
+Remotely manage the user roles of a TeamViewer company via the
 TeamViewer Web API. Have user roles to assign roles to company members.
 
 The following functions are available in this category:
@@ -117,9 +117,9 @@ The following functions are available in this category:
 
 [`Get-TeamViewerRoleAssignmentToUserGroup`](Help/Get-TeamViewerRoleAssignmentToUserGroup.md)
 
-[`Add-TeamViewerRoleToAccount`](Help/Add-TeamViewerRoleToAccount)
+[`Add-TeamViewerAccountToRole`](Help/Add-TeamViewerAccountToRole)
 
-[`Add-TeamViewerRoleToUserGroup`](Help/Add-TeamViewerRoleToAccount)
+[`Add-TeamViewerRoleToUserGroup`](Help/Add-TeamViewerAccountToRole)
 
 [`Remove-TeamViewerRoleFromAccount`](Help/Remove-TeamviewerRoleFromAccount)
 
