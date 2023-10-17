@@ -1,4 +1,4 @@
-function Remove-TeamViewerRoleFromAccount {
+function Remove-TeamViewerAccountFromRole {
     [CmdletBinding(SupportsShouldProcess = $true)]
     param(
         [Parameter(Mandatory = $true)]
