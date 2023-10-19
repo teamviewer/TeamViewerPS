@@ -1,36 +1,36 @@
 ---
 external help file: TeamViewerPS-help.xml
 Module Name: TeamViewerPS
-online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/Remove-TeamViewerRoleFromUserGroup.md
+online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/Add-TeamViewerUserGroupToUserRole.md
 schema: 2.0.0
 ---
 
-# Remove-TeamViewerRoleFromAccount
+# Add-TeamViewerUserGroupToUserRole
 
 ## SYNOPSIS
 
-Unassign user role from a user group.
+Assign user role to a user group.
 
 ## SYNTAX
 
 ```powershell
-Remove-TeamViewerRoleFromAccount [-ApiToken] <SecureString> [-UserGroup] <Object> [-WhatIf]
+Add-TeamViewerUserGroupToUserRole [-ApiToken] <SecureString> [-UserRole] <Object> [-UserGroup] <Object> [-WhatIf]
  [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 
-Unassigns user role from a user group of the TeamViewer company associated with the API access token.
+Assigns user role to a user group of the TeamViewer company associated with the API access token.
 
 ## EXAMPLES
 
 ### Example 1
 
 ```powershell
-PS /> Remove-TeamViewerRoleFromAccount -UserGroup 1001
+PS /> Add-TeamViewerUserGroupToUserRole -UserRole  '9b465ea2-2f75-4101-a057-58a81ed0e57b' -UserGroup 1001
 ```
 
-The given user group `1001` gets unassigned from its user role.
+The given user group `1001` gets assigned to the user role with Id `9b465ea2-2f75-4101-a057-58a81ed0e57b`.
 
 ## PARAMETERS
 
@@ -66,9 +66,25 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -UserRole
+
+The user role to be assigned to the accountIds
+
+```yaml
+Type: Object
+Parameter Sets: (All)
+Aliases: UserRole
+
+Required: True
+Position: 1
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -UserGroup
 
-The user group from which user role should be unassigned.
+The user group to which the user role should be assigned.
 
 ```yaml
 Type: Object

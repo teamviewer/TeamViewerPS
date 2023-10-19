@@ -2,19 +2,17 @@
 
 # SHORT DESCRIPTION
 
-TeamViewerPS allows to interact with the TeamViewer Web API as well as a locally
-installed TeamViewer client.
+Interact with the TeamViewer Web API as well as a locally installed TeamViewer client.
 
 # LONG DESCRIPTION
 
-TeamViewerPS allows to interact with the TeamViewer Web API as well as a locally
-installed TeamViewer client.
+TeamViewerPS allows to interact with the TeamViewer Web API as well as a locally installed TeamViewer client.
 
 The module provides functions for the following categories:
 
 ## Device Assignment
 
-Assign or unassign a device to a company 
+Assign or unassign a device to a company
 
 The following functions are available in this category:
 
@@ -30,9 +28,9 @@ Manage customization of the locally installed TeamViewer Client.
 
 [`Remove-TeamViewerCustomization`](Help/Remove-TeamViewerCustomization.md)
 
-## Computers & Contacts list
+## Computers & Contacts
 
-Remotely manage the Computers & Contacts list via the TeamViewer Web API.
+Remotely manage the Computers & Contacts via the TeamViewer Web API.
 
 The following functions are available in this category:
 
@@ -62,7 +60,7 @@ The following functions are available in this category:
 
 [`Unpublish-TeamViewerGroup`](Help/Unpublish-TeamViewerGroup.md)
 
-## User management
+## User Management
 
 Remotely manage the user accounts of a TeamViewer company via the TeamViewer
 Web API.
@@ -77,7 +75,7 @@ The following functions are available in this category:
 
 [`Set-TeamViewerUser`](Help/Set-TeamViewerUser.md)
 
-## User groups
+## User Groups
 
 Remotely manage the user groups of a TeamViewer company via the
 TeamViewer Web API. Have user groups to organize company members.
@@ -98,9 +96,9 @@ The following functions are available in this category:
 
 [`Remove-TeamViewerUserGroupMember`](Help/Remove-TeamViewerUserGroupMember.md)
 
-## Role Management
+## User Roles
 
-Remotely manage the user roles of a TeamViewer company via the 
+Remotely manage the user roles of a TeamViewer company via the
 TeamViewer Web API. Have user roles to assign roles to company members.
 
 The following functions are available in this category:
@@ -117,18 +115,17 @@ The following functions are available in this category:
 
 [`Get-TeamViewerRoleAssignmentToUserGroup`](Help/Get-TeamViewerRoleAssignmentToUserGroup.md)
 
-[`Add-TeamViewerRoleToAccount`](Help/Add-TeamViewerRoleToAccount)
+[`Add-TeamViewerAccountToUserRole`](Help/Add-TeamViewerAccountToUserRole)
 
-[`Add-TeamViewerRoleToUserGroup`](Help/Add-TeamViewerRoleToAccount)
+[`Add-TeamViewerUserGroupToUserRole`](Help/Add-TeamViewerAccountToUserRole)
 
-[`Remove-TeamViewerRoleFromAccount`](Help/Remove-TeamviewerRoleFromAccount)
+[`Remove-TeamViewerAccountFromUserRole`](Help/Remove-TeamViewerAccountFromUserRole)
 
-[`Remove-TeamViewerRoleFromUserroup`](Help/Remove-TeamViewerRoleFromUserGroup)
+[`Remove-TeamViewerUserGroupFromUserRole`](Help/Remove-TeamViewerUserGroupFromUserRole)
 
-## Managed groups
+## Managed Groups & Managed Devices
 
-Remotely manage the managed groups and managed devices of an account via the
-TeamViewer Web API.
+Remotely manage the managed groups and managed devices of an account via the TeamViewer Web API.
 
 The following functions are available in this category:
 
@@ -162,7 +159,7 @@ The following functions are available in this category:
 
 [`Remove-TeamViewerPolicyFromManagedDevice`](Cmdlets/Pulic/Remove-TeamViewerpolicyFromManagedDevice.md)
 
-## Policy management
+## Policy Management
 
 Remotely manage the policies of a TeamViewer company via the TeamViewer Web API.
 
@@ -176,7 +173,7 @@ The following functions are available in this category:
 
 [`Set-TeamViewerPolicy`](Help/Set-TeamViewerPolicy.md)
 
-## Single Sign-On management
+## Single Sign-On (SSO) Management
 
 Remotely manage Single Sign-On configurations via the TeamViewer Web API.
 
@@ -190,7 +187,7 @@ The following functions are available in this category:
 
 [`Remove-TeamViewerSsoExclusion`](Help/Remove-TeamViewerSsoExclusion.md)
 
-## Event logs & reporting
+## Event Logs & Reporting
 
 Retrieve event log entries or connection-reports of a TeamViewer company via the TeamViewer Web
 API.
@@ -199,9 +196,9 @@ API.
 
 [`Get-TeamViewerEventLog`](Help/Get-TeamViewerEventLog.md)
 
-## Local TeamViewer utilities
+## Local Client Utilities
 
-Utilities that help managing the local TeamViewer installation.
+Utilities that help managing the local TeamViewer client.
 
 The following functions are available in this category:
 
@@ -229,7 +226,7 @@ The following functions are available in this category:
 
 [`Test-TeamViewerInstallation`](Help/Test-TeamViewerInstallation.md)
 
-## Web API utilities
+## Web API Utilities
 
 Utilities that help working with the TeamViewer Web API related functions.
 
@@ -243,7 +240,7 @@ The following functions are available in this category:
 
 ## Web API proxy
 
-Functions that manage proxy when working with TeamViewer Web API reated functions.
+Functions that manage proxy when working with TeamViewer Web API related functions.
 
 The following functions are available in this category:
 
