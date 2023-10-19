@@ -157,7 +157,7 @@ The following functions are available in this category:
 
 [`Remove-TeamViewerManager`](Help/Remove-TeamViewerManager.md)
 
-[`Remove-TeamViewerPolicyFromManagedDevice`](Cmdlets/Pulic/Remove-TeamViewerpolicyFromManagedDevice.md)
+[`Remove-TeamViewerPolicyFromManagedDevice`](Cmdlets/Pulic/Remove-TeamViewerPolicyFromManagedDevice.md)
 
 ## Policy Management
 
