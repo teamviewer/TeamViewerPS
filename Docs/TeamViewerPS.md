@@ -111,7 +111,7 @@ The following functions are available in this category:
 
 [`Remove-TeamViewerUserRole`](Help/Remove-TeamViewerUserRole.md)
 
-[`Get-TeamViewerRoleAssignmentToAccount`](Help/Get-TeamviewerRoleAssignmentToAccount.md)
+[`Get-TeamViewerRoleAssignmentToAccount`](Help/Get-TeamViewerRoleAssignmentToAccount.md)
 
 [`Get-TeamViewerRoleAssignmentToUserGroup`](Help/Get-TeamViewerRoleAssignmentToUserGroup.md)
 
