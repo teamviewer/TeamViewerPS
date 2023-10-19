@@ -115,13 +115,13 @@ The following functions are available in this category:
 
 [`Get-TeamViewerRoleAssignmentToUserGroup`](Help/Get-TeamViewerRoleAssignmentToUserGroup.md)
 
-[`Add-TeamViewerAccountToUserRole`](Help/Add-TeamViewerAccountToUserRole)
+[`Add-TeamViewerAccountToUserRole`](Help/Add-TeamViewerAccountToUserRole.md)
 
-[`Add-TeamViewerUserGroupToUserRole`](Help/Add-TeamViewerAccountToUserRole)
+[`Add-TeamViewerUserGroupToUserRole`](Help/Add-TeamViewerAccountToUserRole.md)
 
-[`Remove-TeamViewerAccountFromUserRole`](Help/Remove-TeamViewerAccountFromUserRole)
+[`Remove-TeamViewerAccountFromUserRole`](Help/Remove-TeamViewerAccountFromUserRole.md)
 
-[`Remove-TeamViewerUserGroupFromUserRole`](Help/Remove-TeamViewerUserGroupFromUserRole)
+[`Remove-TeamViewerUserGroupFromUserRole`](Help/Remove-TeamViewerUserGroupFromUserRole.md)
 
 ## Managed Groups & Managed Devices
 
