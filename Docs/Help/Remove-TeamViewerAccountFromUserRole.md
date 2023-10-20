@@ -1,53 +1,53 @@
 ---
 external help file: TeamViewerPS-help.xml
 Module Name: TeamViewerPS
-online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/Remove-TeamViewerRoleFromAccount.md
+online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/Remove-TeamViewerAccountFromUserRole.md
 schema: 2.0.0
 ---
 
-# Remove-TeamViewerRoleFromAccount
+# Remove-TeamViewerAccountFromUserRole
 
 ## SYNOPSIS
 
-Unassign role from a given list of accounts.
+Unassign a given list of accounts from user role.
 
 ## SYNTAX
 
 ### ByUserRoleIdMemberId (All)
 
 ```powershell
-Remove-TeamViewerRoleFromAccount [-ApiToken] <SecureString>  [-UserRoleId] <Object[]> [-Account] <Object>
+Remove-TeamViewerAccountFromUserRole [-ApiToken] <SecureString>  [-UserRoleId] <Object[]> [-Account] <Object>
  [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### ByUserId
 
 ```powershell
-Remove-TeamViewerRoleFromAccount [-ApiToken] <SecureString> [-UserRoleId] <Object> [-Account] <Object[]>
+Remove-TeamViewerAccountFromUserRole [-ApiToken] <SecureString> [-UserRoleId] <Object> [-Account] <Object[]>
  [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 
-Unassigns user role from one or many users. User role should belong to the TeamViewer company associated with the API access token.
+Unassigns one or many users from user role. User role should belong to the TeamViewer company associated with the API access token.
 
 ## EXAMPLES
 
 ### Example 1
 
 ```powershell
-PS /> Remove-TeamViewerRoleFromAccount -UserRoleId '9b465ea2-2f75-4101-a057-58a81ed0e57b' -Account @('123', '456', '789')
+PS /> Remove-TeamViewerAccountFromUserRole -UserRoleId '9b465ea2-2f75-4101-a057-58a81ed0e57b' -Account @('123', '456', '789')
 ```
 
-Unassigns role with id `9b465ea2-2f75-4101-a057-58a81ed0e57b` from users with id `123`, `456`, `789`.
+Unassigns users with id `123`, `456`, `789` from user role with id `9b465ea2-2f75-4101-a057-58a81ed0e57b`.
 
 ### Example 2
 
 ```powershell
-PS /> @('123', '456', '789') | Remove-TeamViewerRoleFromAccount -UserRoleId '9b465ea2-2f75-4101-a057-58a81ed0e57b'
+PS /> @('123', '456', '789') | Remove-TeamViewerAccountFromUserRole -UserRoleId '9b465ea2-2f75-4101-a057-58a81ed0e57b'
 ```
 
-Unassigns role with id `9b465ea2-2f75-4101-a057-58a81ed0e57b` from users with id `123`, `456`, `789`.
+Unassigns users with id `123`, `456`, `789` from user role with id `9b465ea2-2f75-4101-a057-58a81ed0e57b`.
 Ids are passed as pipeline input.
 
 ## PARAMETERS
@@ -86,7 +86,7 @@ Accept wildcard characters: False
 
 ### -UserRoleId
 
-The role from where users will be unassigned from.
+The user role where users will be unassigned from.
 
 ```yaml
 Type: Object

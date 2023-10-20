@@ -20,7 +20,7 @@ New-TeamViewerUserRole [-ApiToken] <SecureString> [-Name] <String> [-Permissions
 ## DESCRIPTION
 
 Create a new user role that belongs to the TeamViewer company associated with the API access token.
-The name of the new user role should be unique among the roles of the TeamViewer Company.
+The name of the new user role should be unique among the user roles of the TeamViewer Company.
 
 ## EXAMPLES
 
@@ -40,7 +40,7 @@ PS /> New-TeamViewerUserRole -Name 'New user role'
 ```
 
 Creates a new user role with name `New user role` without any permissions.
-The name should be unique among the roles of the TeamViewer Company.
+The name should be unique among the user roles of the TeamViewer Company.
 
 ## PARAMETERS
 

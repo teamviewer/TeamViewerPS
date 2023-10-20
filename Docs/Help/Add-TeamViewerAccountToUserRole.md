@@ -1,11 +1,11 @@
 ---
 external help file: TeamViewerPS-help.xml
 Module Name: TeamViewerPS
-online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/Add-TeamViewerRoleToAccount.md
+online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/Add-TeamViewerAccountToUserRole.md
 schema: 2.0.0
 ---
 
-# Add-TeamViewerRoleToAccount
+# Add-TeamViewerAccountToUserRole
 
 ## SYNOPSIS
 
@@ -14,7 +14,7 @@ Assign user role to a list of accountIds.
 ## SYNTAX
 
 ```powershell
-Add-TeamViewerRoleToAccount [-ApiToken] <SecureString> [-UserRoleId] <Object> [-Account] <string[]> [-WhatIf]
+Add-TeamViewerAccountToUserRole [-ApiToken] <SecureString> [-UserRoleId] <Object> [-Account] <string[]> [-WhatIf]
  [-Confirm] [<CommonParameters>]
 ```
 
@@ -27,7 +27,7 @@ Assigns user role to one or many users. User role should belong to the TeamViewe
 ### Example 1
 
 ```powershell
-PS /> Add-TeamViewerRoleToAccount -UserRoleId  '9b465ea2-2f75-4101-a057-58a81ed0e57b' -Account @('123', '456', '789')
+PS /> Add-TeamViewerAccountToUserRole -UserRoleId  '9b465ea2-2f75-4101-a057-58a81ed0e57b' -Account @('123', '456', '789')
 ```
 
 Assigns role with id `9b465ea2-2f75-4101-a057-58a81ed0e57b` to users with id `123`, `456`, `789`.
@@ -35,7 +35,7 @@ Assigns role with id `9b465ea2-2f75-4101-a057-58a81ed0e57b` to users with id `12
 ### Example 2
 
 ```powershell
-PS /> @('123', '456', '789') | Add-TeamViewerRoleToAccount -UserRole '9b465ea2-2f75-4101-a057-58a81ed0e57b'
+PS /> @('123', '456', '789') | Add-TeamViewerAccountToUserRole -UserRole '9b465ea2-2f75-4101-a057-58a81ed0e57b'
 ```
 
 Assigns role with id `9b465ea2-2f75-4101-a057-58a81ed0e57b` to users with id `123`, `456`, `789`.
@@ -77,7 +77,7 @@ Accept wildcard characters: False
 
 ### -UserRoleId
 
-The role to which users will be assigned to.
+the user role to which users will be assigned to.
 
 ```yaml
 Type: Object

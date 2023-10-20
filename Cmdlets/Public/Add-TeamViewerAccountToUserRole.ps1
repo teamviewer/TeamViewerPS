@@ -1,4 +1,4 @@
-function Add-TeamViewerRoleToAccount {
+function Add-TeamViewerAccountToUserRole {
     [CmdletBinding(SupportsShouldProcess = $true)]
     param(
         [Parameter(Mandatory = $true)]

@@ -1,4 +1,4 @@
-function Remove-TeamViewerRoleFromAccount {
+function Remove-TeamViewerAccountFromUserRole {
     [CmdletBinding(SupportsShouldProcess = $true)]
     param(
         [Parameter(Mandatory = $true)]
@@ -41,7 +41,7 @@ function Remove-TeamViewerRoleFromAccount {
     }
 
     Process {
-        if ($PSCmdlet.ShouldProcess($Accounts, 'Unassign Account from Role')) {
+        if ($PSCmdlet.ShouldProcess($Accounts, 'Unassign Account from user role')) {
             if (($Accounts -notmatch 'u[0-9]+') -and ($Accounts -match '[0-9]+')) {
                 $Accounts = $Accounts | ForEach-Object { $_.Insert(0, 'u') }
             }
