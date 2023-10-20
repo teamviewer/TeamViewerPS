@@ -17,7 +17,7 @@ Write-Verbose 'Creating build output directories...'
 New-Item -Type Directory $Build_OutputPath | Out-Null
 
 # Compile all functions into a single psm file
-$Build_ModulePath = (Join-Path -Path $Repo_CmdletPath -ChildPath 'TeamViewerPS.psm1')
+$Build_ModulePath = (Join-Path -Path $Build_OutputPath -ChildPath 'TeamViewerPS.psm1')
 
 Write-Verbose 'Compiling single-file TeamViewer module...'
 $ModuleTypes = @(Get-ChildItem -Path (Join-Path -Path $Repo_CmdletPath -ChildPath 'TeamViewerPS.Types.ps1'))
