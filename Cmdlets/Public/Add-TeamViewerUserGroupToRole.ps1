@@ -7,7 +7,7 @@ function Add-TeamViewerUserGroupToRole {
 
         [Parameter(Mandatory = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerRoleId } )]
-        [Alias('UserRoleId')]
+        [Alias('RoleId')]
         [object]
         $UserRole,
 
@@ -24,7 +24,7 @@ function Add-TeamViewerUserGroupToRole {
         $null = $ApiToken
         $resourceUri = "$(Get-TeamViewerApiUri)/userroles/assign/usergroup"
         $body = @{
-            UserRoleId  = $RoleId
+            RoleId  = $RoleId
             UserGroupId = $UserGroup
 
         }

@@ -13,24 +13,24 @@ BeforeAll {
 
     $testApiToken = [securestring]@{}
     $null = $testApiToken
-    $testUserRoleId = '72abbedc-9853-4fc8-9d28-fa35e207b048'
-    $null = $testUserRoleId
+    $testRoleId = '72abbedc-9853-4fc8-9d28-fa35e207b048'
+    $null = $testRoleId
 }
 
 Describe 'Get-TeamViewerUserGroupByRole' {
     Context 'When retrieving role assignments' {
         It 'Should call the correct API endpoint' {
-            Get-TeamViewerUserGroupByRole -ApiToken $testApiToken -UserRoleId $testUserRoleId
+            Get-TeamViewerUserGroupByRole -ApiToken $testApiToken -RoleId $testRoleId
 
             Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
                 $ApiToken -eq $testApiToken -And `
-                    $Uri -eq "//unit.test/userroles/assignments/usergroups?userRoleId=$testUserRoleId" -And `
+                    $Uri -eq "//unit.test/userroles/assignments/usergroups?RoleId=$testRoleId" -And `
                     $Method -eq 'Get'
             }
         }
 
         It 'Should return assigned groups' {
-            $result = Get-TeamViewerUserGroupByRole -ApiToken $testApiToken -UserRoleId $testUserRoleId
+            $result = Get-TeamViewerUserGroupByRole -ApiToken $testApiToken -RoleId $testRoleId
             $result | Should -HaveCount 2
         }
 

@@ -14,7 +14,7 @@ Deletes one specific role from the TeamViewer company.
 ## SYNTAX
 
 ```powershell
-Remove-TeamViewerRole [-ApiToken] <SecureString> [-UserRoleId] <Object> [-WhatIf] [-Confirm]
+Remove-TeamViewerRole [-ApiToken] <SecureString> [-RoleId] <Object> [-WhatIf] [-Confirm]
  [<CommonParameters>]
 ```
 
@@ -28,7 +28,7 @@ All permissions and user assignments of the role will be deleted too.
 ### Example 1
 
 ```powershell
-PS /> Remove-TeamViewerRole -UserRoleId '9b465ea2-2f75-4101-a057-58a81ed0e57b'
+PS /> Remove-TeamViewerRole -RoleId '9b465ea2-2f75-4101-a057-58a81ed0e57b'
 ```
 
 Deletes the role with Id `9b465ea2-2f75-4101-a057-58a81ed0e57b`.
@@ -36,7 +36,7 @@ Deletes the role with Id `9b465ea2-2f75-4101-a057-58a81ed0e57b`.
 ### Example 2
 
 ```powershell
-PS />  Remove-TeamViewerRole -UserRoleId (Get-TeamViewerRole | Where-Object { ($_.RoleName -eq 'Test Role') } ).RoleID
+PS />  Remove-TeamViewerRole -RoleId (Get-TeamViewerRole | Where-Object { ($_.RoleName -eq 'Test Role') } ).RoleID
 ```
 
 Deletes a role with the role Id retrieved from `Get-TeamViewerRole` as input.
@@ -76,7 +76,7 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -UserRoleId
+### -RoleId
 
 The role to be deleted.
 

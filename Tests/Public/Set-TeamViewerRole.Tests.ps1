@@ -10,8 +10,8 @@ BeforeAll {
     $null = $testUserRoleName
     $testPermissions = 'AllowGroupSharing', 'AssignBackupPolicies'
     $null = $testPermissions
-    $testUserRoleId = '9b465ea2-2f75-4101-a057-58a81ed0e57b'
-    $null = $testUserRoleId
+    $testRoleId = '9b465ea2-2f75-4101-a057-58a81ed0e57b'
+    $null = $testRoleId
 
     Mock Get-TeamViewerApiUri { '//unit.test' }
     Mock Invoke-TeamViewerRestMethod {
@@ -19,7 +19,7 @@ BeforeAll {
         @{
             Name        = $testUserRoleName
             Permissions = @($testPermissions)
-            UserRoleId  = $testUserRoleId
+            RoleId      = $testRoleId
 
         }
     }
@@ -27,7 +27,7 @@ BeforeAll {
 
 Describe 'Set-TeamViewerRole' {
     It 'Should call the correct API endpoint' {
-        Set-TeamViewerRole -ApiToken $testApiToken -Name $testUserRoleName -UserRoleId $testUserRoleId
+        Set-TeamViewerRole -ApiToken $testApiToken -Name $testUserRoleName -RoleId $testRoleId
 
         Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
@@ -37,7 +37,7 @@ Describe 'Set-TeamViewerRole' {
     }
 
     It 'Should include the given name in the request' {
-        Set-TeamViewerRole -ApiToken $testApiToken -Name $testUserRoleName -UserRoleId $testUserRoleId
+        Set-TeamViewerRole -ApiToken $testApiToken -Name $testUserRoleName -RoleId $testRoleId
 
         $mockArgs.Body | Should -Not -BeNullOrEmpty
         $body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
@@ -45,7 +45,7 @@ Describe 'Set-TeamViewerRole' {
     }
 
     It 'Should include the given permissions in the request' {
-        Set-TeamViewerRole -ApiToken $testApiToken -Name $testUserRoleName -Permissions $testPermissions -UserRoleId $testUserRoleId
+        Set-TeamViewerRole -ApiToken $testApiToken -Name $testUserRoleName -Permissions $testPermissions -RoleId $testRoleId
 
         $mockArgs.Body | Should -Not -BeNullOrEmpty
         $body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
@@ -63,7 +63,7 @@ Describe 'Set-TeamViewerRole' {
             -ApiToken $testApiToken `
             -Name $TestNameChange `
             -Permissions $testPermissionsChange `
-            -UserRoleId $testUserRoleId
+            -RoleId $testRoleId
         $mockArgs.Body | Should -Not -BeNullOrEmpty
         $body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
         $body.Name | Should -Be 'Test1234'

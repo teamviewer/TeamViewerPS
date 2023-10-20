@@ -14,7 +14,7 @@ Assign a list of accountIds to a role.
 ## SYNTAX
 
 ```powershell
-Add-TeamViewerUserToRole [-ApiToken] <SecureString> [-UserRoleId] <Object> [-Account] <string[]> [-WhatIf]
+Add-TeamViewerUserToRole [-ApiToken] <SecureString> [-RoleId] <Object> [-Account] <string[]> [-WhatIf]
  [-Confirm] [<CommonParameters>]
 ```
 
@@ -27,7 +27,7 @@ Assigns one or many users to a role. A role should belong to the TeamViewer comp
 ### Example 1
 
 ```powershell
-PS /> Add-TeamViewerUserToRole -UserRoleId  '9b465ea2-2f75-4101-a057-58a81ed0e57b' -Account @('123', '456', '789')
+PS /> Add-TeamViewerUserToRole -RoleId  '9b465ea2-2f75-4101-a057-58a81ed0e57b' -Account @('123', '456', '789')
 ```
 
 Assigns role with id `9b465ea2-2f75-4101-a057-58a81ed0e57b` to users with id `123`, `456`, `789`.
@@ -75,7 +75,7 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -UserRoleId
+### -RoleId
 
 the role to which users will be assigned to.
 

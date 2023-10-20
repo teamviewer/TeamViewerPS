@@ -14,7 +14,7 @@ Remove existing predefined role.
 ## SYNTAX
 
 ```powershell
-Remove-TeamViewerPredefinedRole [-ApiToken] <SecureString> [-UserRoleId] <Object> [-WhatIf] [-Confirm]
+Remove-TeamViewerPredefinedRole [-ApiToken] <SecureString> [-RoleId] <Object> [-WhatIf] [-Confirm]
  [<CommonParameters>]
 ```
 

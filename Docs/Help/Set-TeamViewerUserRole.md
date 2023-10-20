@@ -14,7 +14,7 @@ Update properties of a user role.
 ## SYNTAX
 
 ```powershell
-Set-TeamViewerRole [-ApiToken] <SecureString> [-Name] <String> [-UserRoleId] <Object> [-Permissions] <Array> [-WhatIf] [-Confirm]  [<CommonParameters>]
+Set-TeamViewerRole [-ApiToken] <SecureString> [-Name] <String> [-RoleId] <Object> [-Permissions] <Array> [-WhatIf] [-Confirm]  [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -26,7 +26,7 @@ Update properties of a user role. It allows to rename and alter permissions.
 ### Example 1
 
 ```powershell
-PS /> Set-TeamViewerRole -Name 'New name of role' -Permissions 'AllowGroupSharing','ModifyConnections' -UserRoleId '9b465ea2-2f75-4101-a057-58a81ed0e57b'
+PS /> Set-TeamViewerRole -Name 'New name of role' -Permissions 'AllowGroupSharing','ModifyConnections' -RoleId '9b465ea2-2f75-4101-a057-58a81ed0e57b'
 ```
 
 Renames the role with id `9b465ea2-2f75-4101-a057-58a81ed0e57b` to `New name of role` and enables the permissions `AllowGroupSharing` and `ModifyConnections`.
@@ -65,7 +65,7 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -UserRoleId
+### -RoleId
 
 The role to be updated.
 

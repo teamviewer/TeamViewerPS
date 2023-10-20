@@ -13,17 +13,17 @@ Un-assigns one or many users from a role.
 
 ## SYNTAX
 
-### ByUserRoleIdMemberId (All)
+### ByRoleIdMemberId (All)
 
 ```powershell
-Remove-TeamViewerUserFromRole [-ApiToken] <SecureString>  [-UserRoleId] <Object[]> [-Account] <Object>
+Remove-TeamViewerUserFromRole [-ApiToken] <SecureString>  [-RoleId] <Object[]> [-Account] <Object>
  [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### ByUserId
 
 ```powershell
-Remove-TeamViewerUserFromRole [-ApiToken] <SecureString> [-UserRoleId] <Object> [-Account] <Object[]>
+Remove-TeamViewerUserFromRole [-ApiToken] <SecureString> [-RoleId] <Object> [-Account] <Object[]>
  [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
@@ -36,7 +36,7 @@ Un-assigns one or many users from a role. A role belongs to the TeamViewer compa
 ### Example 1
 
 ```powershell
-PS /> Remove-TeamViewerUserFromRole -UserRoleId '9b465ea2-2f75-4101-a057-58a81ed0e57b' -Account @('123', '456', '789')
+PS /> Remove-TeamViewerUserFromRole -RoleId '9b465ea2-2f75-4101-a057-58a81ed0e57b' -Account @('123', '456', '789')
 ```
 
 Un-assigns users with id `123`, `456`, `789` from the role with id `9b465ea2-2f75-4101-a057-58a81ed0e57b`.
@@ -44,7 +44,7 @@ Un-assigns users with id `123`, `456`, `789` from the role with id `9b465ea2-2f7
 ### Example 2
 
 ```powershell
-PS /> @('123', '456', '789') | Remove-TeamViewerUserFromRole -UserRoleId '9b465ea2-2f75-4101-a057-58a81ed0e57b'
+PS /> @('123', '456', '789') | Remove-TeamViewerUserFromRole -RoleId '9b465ea2-2f75-4101-a057-58a81ed0e57b'
 ```
 
 Un-assigns users with id `123`, `456`, `789` from role with id `9b465ea2-2f75-4101-a057-58a81ed0e57b`.
@@ -84,7 +84,7 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -UserRoleId
+### -RoleId
 
 The role where users will be unassigned from.
 

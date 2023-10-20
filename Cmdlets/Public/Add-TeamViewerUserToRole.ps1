@@ -24,7 +24,7 @@ function Add-TeamViewerUserToRole {
         $AccountsToAdd = @()
         $body = @{
             UserIds    = @()
-            UserRoleId = $id
+            RoleId = $id
         }
         function Invoke-TeamViewerRestMethodInternal {
             $result = Invoke-TeamViewerRestMethod `

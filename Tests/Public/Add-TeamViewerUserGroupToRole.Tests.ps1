@@ -7,20 +7,20 @@ BeforeAll {
     $null = $testApiToken
     $testUserGroup = 1234
     $null = $testUserGroup
-    $testUserRoleId = '9b465ea2-2f75-4101-a057-58a81ed0e57b'
-    $null = $testUserRoleId
+    $testRoleId = '9b465ea2-2f75-4101-a057-58a81ed0e57b'
+    $null = $testRoleId
     Mock Get-TeamViewerApiUri { '//unit.test' }
     $mockArgs = @{}
     Mock Invoke-TeamViewerRestMethod { $mockArgs.Body = $Body
         @{
-            UserRoleId  = $testUserRoleId
+            RoleId      = $testRoleId
             UserGroupId = $testUserGroup
         }
     }
 }
 Describe 'Add-TeamViewerUserGroupToRole' {
     It 'Should call the correct API endpoint' {
-        Add-TeamViewerUserGroupToRole -ApiToken $testApiToken -UserRoleId $testUserRoleId -UserGroup $testUserGroup
+        Add-TeamViewerUserGroupToRole -ApiToken $testApiToken -RoleId $testRoleId -UserGroup $testUserGroup
         Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
                 $Uri -eq '//unit.test/userroles/assign/usergroup' -And `
