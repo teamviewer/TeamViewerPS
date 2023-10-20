@@ -7,7 +7,7 @@ function Add-TeamViewerUserToRole {
 
         [Parameter(Mandatory = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerRoleId } )]
-        [Alias('UserRole')]
+        [Alias('Role')]
         [object]
         $RoleId,
 
@@ -23,8 +23,8 @@ function Add-TeamViewerUserToRole {
         $resourceUri = "$(Get-TeamViewerApiUri)/userroles/assign/account"
         $AccountsToAdd = @()
         $body = @{
-            UserIds    = @()
-            RoleId = $id
+            UserIds = @()
+            RoleId  = $id
         }
         function Invoke-TeamViewerRestMethodInternal {
             $result = Invoke-TeamViewerRestMethod `

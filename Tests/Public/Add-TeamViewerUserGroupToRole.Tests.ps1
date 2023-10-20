@@ -28,7 +28,7 @@ Describe 'Add-TeamViewerUserGroupToRole' {
         }
     }
 
-    # It 'Should return a UserRole/UserGroup object' {
+    # It 'Should return a Role/UserGroup object' {
     #Request doesn't return a response body
     # }
 

@@ -25,8 +25,8 @@ Describe 'Remove-TeamViewerRole' {
     }
 
     It 'Should handle domain object as input' {
-        $testUserRole = @{Id = $testRoleId; Name = 'test user role' } | ConvertTo-TeamViewerRole
-        Remove-TeamViewerRole -ApiToken $testApiToken -RoleId $testUserRole.RoleID
+        $testRole = @{Id = $testRoleId; Name = 'test user role' } | ConvertTo-TeamViewerRole
+        Remove-TeamViewerRole -ApiToken $testApiToken -RoleId $testRole.RoleID
 
         Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `

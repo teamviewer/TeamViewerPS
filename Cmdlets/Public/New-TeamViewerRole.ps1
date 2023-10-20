@@ -7,7 +7,7 @@ function New-TeamViewerRole {
         $ApiToken,
 
         [Parameter(Mandatory = $true)]
-        [Alias('UserRoleName')]
+        [Alias('RoleName')]
         [string]
         $Name,
 

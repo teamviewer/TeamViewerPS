@@ -65,7 +65,7 @@ The role to be set as Predefined Role.
 ```yaml
 Type: Object
 Parameter Sets: (All)
-Aliases: UserRole
+Aliases: Role
 
 Required: True
 Position: 1

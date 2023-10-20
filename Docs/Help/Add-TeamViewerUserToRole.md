@@ -35,7 +35,7 @@ Assigns role with id `9b465ea2-2f75-4101-a057-58a81ed0e57b` to users with id `12
 ### Example 2
 
 ```powershell
-PS /> @('123', '456', '789') | Add-TeamViewerUserToRole -UserRole '9b465ea2-2f75-4101-a057-58a81ed0e57b'
+PS /> @('123', '456', '789') | Add-TeamViewerUserToRole -Role '9b465ea2-2f75-4101-a057-58a81ed0e57b'
 ```
 
 Assigns role with id `9b465ea2-2f75-4101-a057-58a81ed0e57b` to users with id `123`, `456`, `789`.
@@ -82,7 +82,7 @@ the role to which users will be assigned to.
 ```yaml
 Type: Object
 Parameter Sets: (All)
-Aliases: UserRole
+Aliases: Role
 
 Required: True
 Position: 1

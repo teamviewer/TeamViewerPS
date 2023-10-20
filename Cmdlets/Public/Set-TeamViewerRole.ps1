@@ -7,7 +7,7 @@ function Set-TeamViewerRole {
         $ApiToken,
 
         [Parameter(Mandatory = $true)]
-        [Alias('UserRoleName')]
+        [Alias('RoleName')]
         [string]
         $Name,
 
@@ -18,7 +18,7 @@ function Set-TeamViewerRole {
 
         [Parameter(Mandatory = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerRoleId } )]
-        [Alias('UserRole')]
+        [Alias('Role')]
         [object]
         $RoleId
     )

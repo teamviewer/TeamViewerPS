@@ -7,7 +7,7 @@ function Remove-TeamViewerRole {
 
         [Parameter(Mandatory = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerRoleId } )]
-        [Alias('UserRole')]
+        [Alias('Role')]
         [Alias('Id')]
         [object]
         $RoleId

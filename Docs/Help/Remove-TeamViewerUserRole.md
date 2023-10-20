@@ -83,7 +83,7 @@ The role to be deleted.
 ```yaml
 Type: Object
 Parameter Sets: (All)
-Aliases: Id, UserRole
+Aliases: Id, Role
 
 Required: True
 Position: 1

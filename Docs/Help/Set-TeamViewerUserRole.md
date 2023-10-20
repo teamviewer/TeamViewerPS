@@ -56,7 +56,7 @@ The new name of the User role.
 ```yaml
 Type: String
 Parameter Sets: (All)
-Aliases: UserRoleName
+Aliases: RoleName
 
 Required: True
 Position: 1
@@ -72,7 +72,7 @@ The role to be updated.
 ```yaml
 Type: Object
 Parameter Sets: (All)
-Aliases: UserRole
+Aliases: Role
 
 Required: True
 Position: 2

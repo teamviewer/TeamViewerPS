@@ -7,7 +7,7 @@ function Remove-TeamViewerUserFromRole {
 
         [Parameter(Mandatory = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerRoleId } )]
-        [Alias('UserRole')]
+        [Alias('Role')]
         [object]
         $RoleId,
 
@@ -23,8 +23,8 @@ function Remove-TeamViewerUserFromRole {
         $resourceUri = "$(Get-TeamViewerApiUri)/userroles/unassign/account"
         $AccountsToRemove = @()
         $body = @{
-            UserIds    = @()
-            RoleId = $id
+            UserIds = @()
+            RoleId  = $id
         }
         function Invoke-TeamViewerRestMethodInternal {
             $result = Invoke-TeamViewerRestMethod `

@@ -51,12 +51,12 @@ Accept wildcard characters: False
 
 ### -RoleId
 
-UserRole to list its assigned users.
+Role to list its assigned users.
 
 ```yaml
 Type: Object
 Parameter Sets: (All)
-Aliases: UserRole
+Aliases: Role
 
 Required: True
 Position: 1

@@ -34,7 +34,7 @@ Describe 'Remove-TeamViewerUserFromRole' {
     It 'Should unassign the given account from the user role' {
         Remove-TeamViewerUserFromRole `
             -ApiToken $testApiToken `
-            -UserRoleId $testRoleId `
+            -RoleId $testRoleId `
             -Accounts $testAccount
         $mockArgs.Body | Should -Not -BeNullOrEmpty
         $body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json

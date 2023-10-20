@@ -6,7 +6,7 @@ function Get-TeamViewerUserGroupByRole {
 
         [Parameter(Mandatory = $true)]
         [ValidateScript({ $_ | Resolve-TeamViewerRoleId })]
-        [Alias('UserRole')]
+        [Alias('Role')]
         [string]
         $RoleId
     )

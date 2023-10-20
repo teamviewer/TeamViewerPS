@@ -91,7 +91,7 @@ The role where users will be unassigned from.
 ```yaml
 Type: Object
 Parameter Sets: (All)
-Aliases: UserRole
+Aliases: Role
 
 Required: True
 Position: Named

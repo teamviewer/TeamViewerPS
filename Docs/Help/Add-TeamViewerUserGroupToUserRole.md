@@ -14,7 +14,7 @@ Assign a user group to a role.
 ## SYNTAX
 
 ```powershell
-Add-TeamViewerUserGroupToRole [-ApiToken] <SecureString> [-UserRole] <Object> [-UserGroup] <Object> [-WhatIf]
+Add-TeamViewerUserGroupToRole [-ApiToken] <SecureString> [-Role] <Object> [-UserGroup] <Object> [-WhatIf]
  [-Confirm] [<CommonParameters>]
 ```
 
@@ -27,7 +27,7 @@ Assigns a user group to a role of the TeamViewer company associated with the API
 ### Example 1
 
 ```powershell
-PS /> Add-TeamViewerUserGroupToRole -UserRole  '9b465ea2-2f75-4101-a057-58a81ed0e57b' -UserGroup 1001
+PS /> Add-TeamViewerUserGroupToRole -Role  '9b465ea2-2f75-4101-a057-58a81ed0e57b' -UserGroup 1001
 ```
 
 The given user group `1001` gets assigned to the role with Id `9b465ea2-2f75-4101-a057-58a81ed0e57b`.
@@ -66,14 +66,14 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -UserRole
+### -Role
 
 The role to be assigned to the accountIds
 
 ```yaml
 Type: Object
 Parameter Sets: (All)
-Aliases: UserRole
+Aliases: Role
 
 Required: True
 Position: 1

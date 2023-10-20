@@ -6,8 +6,8 @@ BeforeAll {
     $testApiToken = [securestring]@{}
     $null = $testApiToken
     $mockArgs = @{}
-    $testUserRoleName = 'Test Role'
-    $null = $testUserRoleName
+    $testRoleName = 'Test Role'
+    $null = $testRoleName
     $testPermissions = 'AllowGroupSharing', 'AssignBackupPolicies'
     $null = $testPermissions
     $testRoleId = '9b465ea2-2f75-4101-a057-58a81ed0e57b'
@@ -17,7 +17,7 @@ BeforeAll {
     Mock Invoke-TeamViewerRestMethod {
         $mockArgs.Body = $Body
         @{
-            Name        = $testUserRoleName
+            Name        = $testRoleName
             Permissions = @($testPermissions)
             RoleId      = $testRoleId
 
@@ -27,7 +27,7 @@ BeforeAll {
 
 Describe 'Set-TeamViewerRole' {
     It 'Should call the correct API endpoint' {
-        Set-TeamViewerRole -ApiToken $testApiToken -Name $testUserRoleName -RoleId $testRoleId
+        Set-TeamViewerRole -ApiToken $testApiToken -Name $testRoleName -RoleId $testRoleId
 
         Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
@@ -37,22 +37,22 @@ Describe 'Set-TeamViewerRole' {
     }
 
     It 'Should include the given name in the request' {
-        Set-TeamViewerRole -ApiToken $testApiToken -Name $testUserRoleName -RoleId $testRoleId
+        Set-TeamViewerRole -ApiToken $testApiToken -Name $testRoleName -RoleId $testRoleId
 
         $mockArgs.Body | Should -Not -BeNullOrEmpty
         $body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
-        $body.Name | Should -Be $testUserRoleName
+        $body.Name | Should -Be $testRoleName
     }
 
     It 'Should include the given permissions in the request' {
-        Set-TeamViewerRole -ApiToken $testApiToken -Name $testUserRoleName -Permissions $testPermissions -RoleId $testRoleId
+        Set-TeamViewerRole -ApiToken $testApiToken -Name $testRoleName -Permissions $testPermissions -RoleId $testRoleId
 
         $mockArgs.Body | Should -Not -BeNullOrEmpty
         $body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
         $body.Permissions | Should -Be $testPermissions
     }
 
-    # It 'Should return a UserRole object' {
+    # It 'Should return a Role object' {
     #Request doesn't return a response body
     # }
 
