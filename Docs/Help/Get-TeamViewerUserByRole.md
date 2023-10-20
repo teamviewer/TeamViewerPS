@@ -29,7 +29,7 @@ Lists all users of role in the TeamViewer company associated with the API access
 PS /> Get-TeamViewerUserByRole -RoleId '72abbedc-9853-4fc8-9d28-fa35e207b048'
 ```
 
-Lists all users of the ole `72abbedc-9853-4fc8-9d28-fa35e207b048`.
+Lists all users of the role `72abbedc-9853-4fc8-9d28-fa35e207b048`.
 
 ## PARAMETERS
 
