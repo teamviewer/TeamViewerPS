@@ -1,9 +1,15 @@
-function Remove-TeamViewerUserGroupFromUserRole {
+function Add-TeamViewerUserGroupToRole {
     [CmdletBinding(SupportsShouldProcess = $true)]
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
         $ApiToken,
+
+        [Parameter(Mandatory = $true)]
+        [ValidateScript( { $_ | Resolve-TeamViewerRoleId } )]
+        [Alias('UserRoleId')]
+        [object]
+        $UserRole,
 
         [Parameter(Mandatory = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerUserGroupId } )]
@@ -14,16 +20,19 @@ function Remove-TeamViewerUserGroupFromUserRole {
     )
 
     Begin {
+        $RoleId = $UserRole | Resolve-TeamViewerRoleId
         $null = $ApiToken
-        $resourceUri = "$(Get-TeamViewerApiUri)/userroles/unassign/usergroup"
+        $resourceUri = "$(Get-TeamViewerApiUri)/userroles/assign/usergroup"
         $body = @{
+            UserRoleId  = $RoleId
             UserGroupId = $UserGroup
+
         }
     }
 
 
     Process {
-        if ($PSCmdlet.ShouldProcess($UserGroupId, 'Unassign User Group from user role')) {
+        if ($PSCmdlet.ShouldProcess($UserGroup, 'Assign Role to User Group')) {
             $result = Invoke-TeamViewerRestMethod `
                 -ApiToken $ApiToken `
                 -Uri $resourceUri `

@@ -1,5 +1,5 @@
 BeforeAll {
-    . "$PSScriptRoot\..\..\Cmdlets\Public\Set-TeamViewerUserRole.ps1"
+    . "$PSScriptRoot\..\..\Cmdlets\Public\Set-TeamViewerRole.ps1"
 
     @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
 
@@ -25,9 +25,9 @@ BeforeAll {
     }
 }
 
-Describe 'Set-TeamViewerUserRole' {
+Describe 'Set-TeamViewerRole' {
     It 'Should call the correct API endpoint' {
-        Set-TeamViewerUserRole -ApiToken $testApiToken -Name $testUserRoleName -UserRoleId $testUserRoleId
+        Set-TeamViewerRole -ApiToken $testApiToken -Name $testUserRoleName -UserRoleId $testUserRoleId
 
         Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
@@ -37,7 +37,7 @@ Describe 'Set-TeamViewerUserRole' {
     }
 
     It 'Should include the given name in the request' {
-        Set-TeamViewerUserRole -ApiToken $testApiToken -Name $testUserRoleName -UserRoleId $testUserRoleId
+        Set-TeamViewerRole -ApiToken $testApiToken -Name $testUserRoleName -UserRoleId $testUserRoleId
 
         $mockArgs.Body | Should -Not -BeNullOrEmpty
         $body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
@@ -45,7 +45,7 @@ Describe 'Set-TeamViewerUserRole' {
     }
 
     It 'Should include the given permissions in the request' {
-        Set-TeamViewerUserRole -ApiToken $testApiToken -Name $testUserRoleName -Permissions $testPermissions -UserRoleId $testUserRoleId
+        Set-TeamViewerRole -ApiToken $testApiToken -Name $testUserRoleName -Permissions $testPermissions -UserRoleId $testUserRoleId
 
         $mockArgs.Body | Should -Not -BeNullOrEmpty
         $body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
@@ -56,10 +56,10 @@ Describe 'Set-TeamViewerUserRole' {
     #Request doesn't return a response body
     # }
 
-    It 'Should change user role properties' {
+    It 'Should change role properties' {
         $TestNameChange = 'Test1234'
         $testPermissionsChange = 'ModifyConnections'
-        Set-TeamViewerUserRole `
+        Set-TeamViewerRole `
             -ApiToken $testApiToken `
             -Name $TestNameChange `
             -Permissions $testPermissionsChange `

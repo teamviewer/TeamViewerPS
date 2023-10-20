@@ -1,4 +1,4 @@
-function Add-TeamViewerAccountToUserRole {
+function Remove-TeamViewerUserFromRole {
     [CmdletBinding(SupportsShouldProcess = $true)]
     param(
         [Parameter(Mandatory = $true)]
@@ -6,10 +6,10 @@ function Add-TeamViewerAccountToUserRole {
         $ApiToken,
 
         [Parameter(Mandatory = $true)]
-        [ValidateScript( { $_ | Resolve-TeamViewerUserRoleId } )]
+        [ValidateScript( { $_ | Resolve-TeamViewerRoleId } )]
         [Alias('UserRole')]
         [object]
-        $UserRoleId,
+        $RoleId,
 
         [Parameter(Mandatory = $true, ValueFromPipeline = $true, ValueFromPipelineByPropertyName = $true)]
         [Alias('Id', 'UserIds')]
@@ -18,10 +18,10 @@ function Add-TeamViewerAccountToUserRole {
     )
 
     Begin {
-        $id = $UserRoleId | Resolve-TeamViewerUserRoleId
+        $id = $RoleId | Resolve-TeamViewerRoleId
         $null = $ApiToken
-        $resourceUri = "$(Get-TeamViewerApiUri)/userroles/assign/account"
-        $AccountsToAdd = @()
+        $resourceUri = "$(Get-TeamViewerApiUri)/userroles/unassign/account"
+        $AccountsToRemove = @()
         $body = @{
             UserIds    = @()
             UserRoleId = $id
@@ -37,28 +37,27 @@ function Add-TeamViewerAccountToUserRole {
                 -ErrorAction Stop
             Write-Output ($result)
         }
+
     }
 
-
     Process {
-        if ($PSCmdlet.ShouldProcess($Accounts, 'Assign Account to Role')) {
+        if ($PSCmdlet.ShouldProcess($Accounts, 'Unassign Account from user role')) {
             if (($Accounts -notmatch 'u[0-9]+') -and ($Accounts -match '[0-9]+')) {
                 $Accounts = $Accounts | ForEach-Object { $_.Insert(0, 'u') }
             }
             foreach ($Account in $Accounts) {
-                $AccountsToAdd += $Account
-                $body.UserIds = @($AccountsToAdd)
+                $AccountsToRemove += $Account
+                $body.UserIds = @($AccountsToRemove)
             }
         }
-        if ($AccountsToAdd.Length -eq 100) {
+        if ($AccountsToRemove.Length -eq 100) {
             Invoke-TeamViewerRestMethodInternal
-            $AccountsToAdd = @()
+            $AccountsToRemove = @()
         }
     }
     End {
-        if ($AccountsToAdd.Length -gt 0) {
+        if ($AccountsToRemove.Length -gt 0) {
             Invoke-TeamViewerRestMethodInternal
         }
     }
 }
-

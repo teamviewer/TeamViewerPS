@@ -1,11 +1,11 @@
 ---
 external help file: TeamViewerPS-help.xml
 Module Name: TeamViewerPS
-online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/Set-TeamViewerUserRole.md
+online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/Set-TeamViewerRole.md
 schema: 2.0.0
 ---
 
-# Set-TeamViewerUserRole
+# Set-TeamViewerRole
 
 ## SYNOPSIS
 
@@ -14,7 +14,7 @@ Update properties of a user role.
 ## SYNTAX
 
 ```powershell
-Set-TeamViewerUserRole [-ApiToken] <SecureString> [-Name] <String> [-UserRoleId] <Object> [-Permissions] <Array> [-WhatIf] [-Confirm]  [<CommonParameters>]
+Set-TeamViewerRole [-ApiToken] <SecureString> [-Name] <String> [-UserRoleId] <Object> [-Permissions] <Array> [-WhatIf] [-Confirm]  [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -26,10 +26,10 @@ Update properties of a user role. It allows to rename and alter permissions.
 ### Example 1
 
 ```powershell
-PS /> Set-TeamViewerUserRole -Name 'New name of user role' -Permissions 'AllowGroupSharing','ModifyConnections' -UserRoleId '9b465ea2-2f75-4101-a057-58a81ed0e57b'
+PS /> Set-TeamViewerRole -Name 'New name of role' -Permissions 'AllowGroupSharing','ModifyConnections' -UserRoleId '9b465ea2-2f75-4101-a057-58a81ed0e57b'
 ```
 
-Renames a user role with id `9b465ea2-2f75-4101-a057-58a81ed0e57b` to `New name of user role` and enables the permissions `AllowGroupSharing` and `ModifyConnections`.
+Renames the role with id `9b465ea2-2f75-4101-a057-58a81ed0e57b` to `New name of role` and enables the permissions `AllowGroupSharing` and `ModifyConnections`.
 
 ## PARAMETERS
 
@@ -67,7 +67,7 @@ Accept wildcard characters: False
 
 ### -UserRoleId
 
-The user role to be updated.
+The role to be updated.
 
 ```yaml
 Type: Object

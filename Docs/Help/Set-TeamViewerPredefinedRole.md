@@ -9,7 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Add Predefined User Role.
+Sets an existing role as predefined role.
 
 ## SYNTAX
 
@@ -19,7 +19,8 @@ Set-TeamViewerPredefinedRole [-ApiToken] <SecureString> [-RoleId] <Object> [<Com
 
 ## DESCRIPTION
 
-Set an existing role as Predefined Role. It allows user creation with Predefined role assigned to the new user.
+Sets an existing role as predefined role.
+Every new user will get the predefined role assigned automatically during creation.
 
 ## EXAMPLES
 
@@ -29,15 +30,15 @@ Set an existing role as Predefined Role. It allows user creation with Predefined
 PS /> Set-TeamViewerPredefinedRole -RoleId '9b465ea2-2f75-4101-a057-58a81ed0e57b'
 ```
 
-Sets user role with id `9b465ea2-2f75-4101-a057-58a81ed0e57b` as Predefined Role.
+Sets the role with the id `9b465ea2-2f75-4101-a057-58a81ed0e57b` as predefined role.
 
 ### Example 1
 
 ```powershell
-PS /> Get-TeamViewerUserRole | where-Object { ($_.RoleName -eq 'Test Role') } | Set-TeamViewerPredefinedRole
+PS /> Get-TeamViewerRole | where-Object { ($_.RoleName -eq 'Test Role') } | Set-TeamViewerPredefinedRole
 ```
 
-Sets user role with name `Test Role` as Predefined Role.
+Sets the role with name `Test Role` as predefined role.
 
 ## PARAMETERS
 
@@ -59,7 +60,7 @@ Accept wildcard characters: False
 
 ### -RoleId
 
-The user role to be set as Predefined Role.
+The role to be set as Predefined Role.
 
 ```yaml
 Type: Object

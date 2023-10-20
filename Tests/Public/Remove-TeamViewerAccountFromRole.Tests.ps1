@@ -1,5 +1,5 @@
 BeforeAll {
-    . "$PSScriptRoot\..\..\Cmdlets\Public\Remove-TeamViewerAccountFromUserRole.ps1"
+    . "$PSScriptRoot\..\..\Cmdlets\Public\Remove-TeamViewerUserFromRole.ps1"
     @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | `
         ForEach-Object { . $_.FullName }
 
@@ -19,10 +19,10 @@ BeforeAll {
         }
     }
 }
-Describe 'Remove-TeamViewerAccountFromUserRole' {
+Describe 'Remove-TeamViewerUserFromRole' {
 
     It 'Should call the correct API endpoint' {
-        Remove-TeamViewerAccountFromUserRole -ApiToken $testApiToken -UserRoleId $testUserRoleId -Accounts $testAccount
+        Remove-TeamViewerUserFromRole -ApiToken $testApiToken -UserRoleId $testUserRoleId -Accounts $testAccount
 
         Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
@@ -32,7 +32,7 @@ Describe 'Remove-TeamViewerAccountFromUserRole' {
     }
 
     It 'Should unassign the given account from the user role' {
-        Remove-TeamViewerAccountFromUserRole `
+        Remove-TeamViewerUserFromRole `
             -ApiToken $testApiToken `
             -UserRoleId $testUserRoleId `
             -Accounts $testAccount
@@ -46,7 +46,7 @@ Describe 'Remove-TeamViewerAccountFromUserRole' {
     }
 
     It 'Should accept pipeline input' {
-        $testAccount | Remove-TeamViewerAccountFromUserRole `
+        $testAccount | Remove-TeamViewerUserFromRole `
             -ApiToken $testApiToken `
             -UserRoleId $testUserRoleId
         $mockArgs.Body | Should -Not -BeNullOrEmpty

@@ -1,35 +1,35 @@
 ---
 external help file: TeamViewerPS-help.xml
 Module Name: TeamViewerPS
-online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/Get-TeamViewerRoleAssignmentToUserGroup.md
+online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/Get-TeamViewerUserByRole.md
 schema: 2.0.0
 ---
 
-# Get-TeamViewerRoleAssignmentToUserGroup
+# Get-TeamViewerUserByRole
 
 ## SYNOPSIS
 
-Lists all user group assignments of a user role.
+Lists users assigned to one specific role.
 
 ## SYNTAX
 
 ```powershell
-Get-TeamViewerRoleAssignmentToUserGroup [-ApiToken] <SecureString> [-UserRoleId] <Object> [<CommonParameters>]
+Get-TeamViewerUserByRole [-ApiToken] <SecureString> [-UserRoleId] <Object> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 
-Lists all user group assignments of a user role in the TeamViewer company associated with the API access token.
+Lists all users of role in the TeamViewer company associated with the API access token.
 
 ## EXAMPLES
 
 ### Example 1
 
 ```powershell
-PS /> Get-TeamViewerRoleAssignmentToUserGroup -UserRoleId '72abbedc-9853-4fc8-9d28-fa35e207b048'
+PS /> Get-TeamViewerUserByRole -UserRoleId '72abbedc-9853-4fc8-9d28-fa35e207b048'
 ```
 
-Lists all user group assignments of user role `72abbedc-9853-4fc8-9d28-fa35e207b048`.
+Lists all users of the ole `72abbedc-9853-4fc8-9d28-fa35e207b048`.
 
 ## PARAMETERS
 
@@ -77,7 +77,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ### System.Object
 
-An array of `TeamViewerPS.RoleAssignedUserGroup` objects.
+An array of `TeamViewerPS.RoleAssignedUser` objects.
 
 ## NOTES
 

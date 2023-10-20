@@ -1,5 +1,5 @@
 BeforeAll {
-    . "$PSScriptRoot\..\..\Cmdlets\Public\New-TeamViewerUserRole.ps1"
+    . "$PSScriptRoot\..\..\Cmdlets\Public\New-TeamViewerRole.ps1"
 
     @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
 
@@ -23,9 +23,9 @@ BeforeAll {
     }
 }
 
-Describe 'New-TeamViewerUserRole' {
+Describe 'New-TeamViewerRole' {
     It 'Should call the correct API endpoint' {
-        New-TeamViewerUserRole -ApiToken $testApiToken -Name $testUserRoleName
+        New-TeamViewerRole -ApiToken $testApiToken -Name $testUserRoleName
 
         Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
@@ -35,7 +35,7 @@ Describe 'New-TeamViewerUserRole' {
     }
 
     It 'Should include the given name in the request' {
-        New-TeamViewerUserRole -ApiToken $testApiToken -Name $testUserRoleName
+        New-TeamViewerRole -ApiToken $testApiToken -Name $testUserRoleName
 
         $mockArgs.Body | Should -Not -BeNullOrEmpty
         $body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
@@ -43,7 +43,7 @@ Describe 'New-TeamViewerUserRole' {
     }
 
     It 'Should include the given permissions in the request' {
-        New-TeamViewerUserRole -ApiToken $testApiToken -Name $testUserRoleName -Permissions $testPermissions
+        New-TeamViewerRole -ApiToken $testApiToken -Name $testUserRoleName -Permissions $testPermissions
 
         $mockArgs.Body | Should -Not -BeNullOrEmpty
         $body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
@@ -51,10 +51,10 @@ Describe 'New-TeamViewerUserRole' {
     }
 
     It 'Should return a UserRole object' {
-        $result = New-TeamViewerUserRole -ApiToken $testApiToken -Name $testUserRoleName -Permissions $testPermissions
+        $result = New-TeamViewerRole -ApiToken $testApiToken -Name $testUserRoleName -Permissions $testPermissions
         $result | Should -Not -BeNullOrEmpty
         $result | Should -BeOfType [PSObject]
-        $result.PSObject.TypeNames | Should -Contain 'TeamViewerPS.UserRole'
+        $result.PSObject.TypeNames | Should -Contain 'TeamViewerPS.Role'
         $result.RoleName | Should -Be $testUserRoleName
         foreach ($Rule in $result.Permissions) {
             $result.Permissions.$Rule | Should -Be $testPermissions

@@ -1,5 +1,5 @@
 BeforeAll {
-    . "$PSScriptRoot\..\..\Cmdlets\Public\Get-TeamViewerRoleAssignmentToAccount.ps1"
+    . "$PSScriptRoot\..\..\Cmdlets\Public\Get-TeamViewerUserByRole.ps1"
 
     @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | `
         ForEach-Object { . $_.FullName }
@@ -17,20 +17,19 @@ BeforeAll {
     $null = $testUserRoleId
 }
 
-Describe 'Get-TeamViewerRoleAssignmentToAccount' {
+Describe 'Get-TeamViewerUserByRole' {
     Context 'When retrieving role assignments' {
         It 'Should call the correct API endpoint' {
-            Get-TeamViewerRoleAssignmentToAccount -ApiToken $testApiToken -UserRoleId $testUserRoleId
+            Get-TeamViewerUserByRole -ApiToken $testApiToken -UserRoleId $testUserRoleId
 
             Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
                 $ApiToken -eq $testApiToken -And `
-                    $Uri -eq "//unit.test/userroles/assignments/account?userRoleId=$testUserRoleId" -And `
-                    $Method -eq 'Get'
+                    $Uri -eq "//unit.test/userroles/assignments/account?userRoleId=$testUserRoleId" -And $Method -eq 'Get'
             }
         }
 
         It 'Should return assigned users' {
-            $result = Get-TeamViewerRoleAssignmentToAccount -ApiToken $testApiToken -UserRoleId $testUserRoleId
+            $result = Get-TeamViewerUserByRole -ApiToken $testApiToken -UserRoleId $testUserRoleId
             $result | Should -HaveCount 2
         }
 

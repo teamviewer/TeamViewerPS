@@ -1,5 +1,5 @@
 
-function Set-TeamViewerUserRole {
+function Set-TeamViewerRole {
     [CmdletBinding(SupportsShouldProcess = $true)]
     param(
         [Parameter(Mandatory = $true )]
@@ -17,17 +17,17 @@ function Set-TeamViewerUserRole {
         $Permissions,
 
         [Parameter(Mandatory = $true)]
-        [ValidateScript( { $_ | Resolve-TeamViewerUserRoleId } )]
+        [ValidateScript( { $_ | Resolve-TeamViewerRoleId } )]
         [Alias('UserRole')]
         [object]
-        $UserRoleId
+        $RoleId
     )
     Begin {
         $resourceUri = "$(Get-TeamViewerApiUri)/userroles"
         $body = @{
             Name        = $Name
             Permissions = @()
-            UserRoleId  = $UserRoleId
+            UserRoleId  = $RoleId
 
         }
         if ($Permissions) {
@@ -35,7 +35,7 @@ function Set-TeamViewerUserRole {
         }
     }
     Process {
-        if ($PSCmdlet.ShouldProcess($Name, 'Update User Role')) {
+        if ($PSCmdlet.ShouldProcess($Name, 'Update Role')) {
             $response = Invoke-TeamViewerRestMethod `
                 -ApiToken $ApiToken `
                 -Uri $resourceUri `

@@ -7,7 +7,7 @@ function ConvertTo-TeamViewerPredefinedRole {
     process {
         if($InputObject){
         $properties = @{
-            PredefinedRoleId = $InputObject.PredefineduserRoleId
+            PredefinedRoleId = $InputObject.PredefinedRoleId
         }
     }
 

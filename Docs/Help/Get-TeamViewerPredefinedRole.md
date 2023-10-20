@@ -34,7 +34,7 @@ Retrieves the Predefined Role ID.
 ### Example 2
 
 ```powershell
-PS /> forEach-Object { Get-TeamViewerUserRole | Where-Object { $_.RoleID -eq (Get-TeamViewerPredefinedRole).PredefinedRoleID } }
+PS /> forEach-Object { Get-TeamViewerRole | Where-Object { $_.RoleID -eq (Get-TeamViewerPredefinedRole).PredefinedRoleID } }
 ```
 
 Retrieves the complete information about the predefined role.

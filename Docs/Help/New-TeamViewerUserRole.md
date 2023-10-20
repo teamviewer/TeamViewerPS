@@ -1,11 +1,11 @@
 ---
 external help file: TeamViewerPS-help.xml
 Module Name: TeamViewerPS
-online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/New-TeamViewerUserRole.md
+online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/New-TeamViewerRole.md
 schema: 2.0.0
 ---
 
-# New-TeamViewerUserRole
+# New-TeamViewerRole
 
 ## SYNOPSIS
 
@@ -14,33 +14,33 @@ Create a new user role.
 ## SYNTAX
 
 ``` powershell
-New-TeamViewerUserRole [-ApiToken] <SecureString> [-Name] <String> [-Permissions] <String> [-WhatIf] [-Confirm] [<CommonParameters>]
+New-TeamViewerRole [-ApiToken] <SecureString> [-Name] <String> [-Permissions] <String> [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 
-Create a new user role that belongs to the TeamViewer company associated with the API access token.
-The name of the new user role should be unique among the user roles of the TeamViewer Company.
+Create a new role that belongs to the TeamViewer company associated with the API access token.
+The name of the new role should be unique among the roles of the TeamViewer Company.
 
 ## EXAMPLES
 
 ### Example 1
 
 ```powershell
-PS /> New-TeamViewerUserRole -Name 'New user role' -Permissions 'AllowGroupharing','ManageConnections'
+PS /> New-TeamViewerRole -Name 'New role' -Permissions 'AllowGroupharing','ManageConnections'
 ```
 
-Creates a new user role with name `New user role` with permissions `AllowGroupSharing` and `ManageConnections` enabled.
+Creates a new role with name `New role` with permissions `AllowGroupSharing` and `ManageConnections` enabled.
 Please see the TeamViewer API documentation for a list of valid values.
 
 ### Example 2
 
 ```powershell
-PS /> New-TeamViewerUserRole -Name 'New user role' 
+PS /> New-TeamViewerRole -Name 'New role' 
 ```
 
-Creates a new user role with name `New user role` without any permissions.
-The name should be unique among the user roles of the TeamViewer Company.
+Creates a new role with name `New role` without any permissions.
+The name should be unique among the roles of the TeamViewer Company.
 
 ## PARAMETERS
 
@@ -137,7 +137,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ### System.Object
 
-A `TeamViewerPS.UserRole` object.
+A `TeamViewerPS.Role` object.
 
 ## NOTES
 

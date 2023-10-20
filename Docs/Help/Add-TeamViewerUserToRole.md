@@ -1,33 +1,33 @@
 ---
 external help file: TeamViewerPS-help.xml
 Module Name: TeamViewerPS
-online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/Add-TeamViewerAccountToUserRole.md
+online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/Add-TeamViewerUserToRole.md
 schema: 2.0.0
 ---
 
-# Add-TeamViewerAccountToUserRole
+# Add-TeamViewerUserToRole
 
 ## SYNOPSIS
 
-Assign user role to a list of accountIds.
+Assign a list of accountIds to a role.
 
 ## SYNTAX
 
 ```powershell
-Add-TeamViewerAccountToUserRole [-ApiToken] <SecureString> [-UserRoleId] <Object> [-Account] <string[]> [-WhatIf]
+Add-TeamViewerUserToRole [-ApiToken] <SecureString> [-UserRoleId] <Object> [-Account] <string[]> [-WhatIf]
  [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 
-Assigns user role to one or many users. User role should belong to the TeamViewer company associated with the API access token.
+Assigns one or many users to a role. A role should belong to the TeamViewer company associated with the API access token.
 
 ## EXAMPLES
 
 ### Example 1
 
 ```powershell
-PS /> Add-TeamViewerAccountToUserRole -UserRoleId  '9b465ea2-2f75-4101-a057-58a81ed0e57b' -Account @('123', '456', '789')
+PS /> Add-TeamViewerUserToRole -UserRoleId  '9b465ea2-2f75-4101-a057-58a81ed0e57b' -Account @('123', '456', '789')
 ```
 
 Assigns role with id `9b465ea2-2f75-4101-a057-58a81ed0e57b` to users with id `123`, `456`, `789`.
@@ -35,7 +35,7 @@ Assigns role with id `9b465ea2-2f75-4101-a057-58a81ed0e57b` to users with id `12
 ### Example 2
 
 ```powershell
-PS /> @('123', '456', '789') | Add-TeamViewerAccountToUserRole -UserRole '9b465ea2-2f75-4101-a057-58a81ed0e57b'
+PS /> @('123', '456', '789') | Add-TeamViewerUserToRole -UserRole '9b465ea2-2f75-4101-a057-58a81ed0e57b'
 ```
 
 Assigns role with id `9b465ea2-2f75-4101-a057-58a81ed0e57b` to users with id `123`, `456`, `789`.
@@ -77,7 +77,7 @@ Accept wildcard characters: False
 
 ### -UserRoleId
 
-the user role to which users will be assigned to.
+the role to which users will be assigned to.
 
 ```yaml
 Type: Object

@@ -1,36 +1,36 @@
 ---
 external help file: TeamViewerPS-help.xml
 Module Name: TeamViewerPS
-online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/Remove-TeamViewerUserGroupFromUserRole.md
+online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/Remove-TeamViewerUserGroupFromRole.md
 schema: 2.0.0
 ---
 
-# Remove-TeamViewerUserGroupFromUserRole
+# Remove-TeamViewerUserGroupFromRole
 
 ## SYNOPSIS
 
-Unassign a user group from a user role.
+Un-assigns a user group from one specific role.
 
 ## SYNTAX
 
 ```powershell
-Remove-TeamViewerUserGroupFromUserRole [-ApiToken] <SecureString> [-UserGroup] <Object> [-WhatIf]
+Remove-TeamViewerUserGroupFromRole [-ApiToken] <SecureString> [-UserGroup] <Object> [-WhatIf]
  [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 
-Unassigns user group from a user role of the TeamViewer company associated with the API access token.
+Un-assigns a user group from one specific role of the TeamViewer company associated with the API access token.
 
 ## EXAMPLES
 
 ### Example 1
 
 ```powershell
-PS /> Remove-TeamViewerUserGroupFromUserRole -UserGroup 1001
+PS /> Remove-TeamViewerUserGroupFromRole -UserGroup 1001
 ```
 
-The given user group `1001` gets unassigned from its user role.
+The given user group `1001` gets unassigned from the role.
 
 ## PARAMETERS
 
@@ -68,7 +68,7 @@ Accept wildcard characters: False
 
 ### -UserGroup
 
-The user group from which user role should be unassigned.
+The user group from which role should be unassigned.
 
 ```yaml
 Type: Object

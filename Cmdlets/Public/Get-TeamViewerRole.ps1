@@ -1,4 +1,4 @@
-function Get-TeamViewerUserRole {
+function Get-TeamViewerRole {
     [CmdletBinding(DefaultParameterSetName = '')]
     param(
         [Parameter(Mandatory = $true)]
@@ -19,6 +19,6 @@ Process{
         -Body $parameters `
         -WriteErrorTo $PSCmdlet `
         -ErrorAction Stop
-    Write-Output ($response.Roles | ConvertTo-TeamViewerUserRole )
+    Write-Output ($response.Roles | ConvertTo-TeamViewerRole )
 }
 }

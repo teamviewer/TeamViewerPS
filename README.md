@@ -62,7 +62,7 @@ The module provides functions for the following categories:
 - _Computers & Contacts list_
 - _User management_
 - _User groups_
-- _User roles_
+- _Roles_
 - _Managed groups_
 - _Policy management_
 - _Single Sign-On (SSO) management_
