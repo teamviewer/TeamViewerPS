@@ -18,7 +18,7 @@ function Add-TeamViewerUserToRole {
     )
 
     Begin {
-        $id = D | Resolve-TeamViewerRoleId
+        $id = $RoleId | Resolve-TeamViewerRoleId
         $null = $ApiToken
         $resourceUri = "$(Get-TeamViewerApiUri)/userroles/assign/account"
         $AccountsToAdd = @()
