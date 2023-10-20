@@ -9,7 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Remove existing predefined role.
+Sets the existing predefined role to a not predefined one.
 
 ## SYNTAX
 

@@ -19,7 +19,7 @@ Describe 'Remove-TeamViewerRole' {
 
         Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
-                $Uri -eq "//unit.test/userroles?RoleId=$testRoleId" -And `
+                $Uri -eq "//unit.test/userroles?userRoleId=$testRoleId" -And `
                 $Method -eq 'Delete'
         }
     }
@@ -30,7 +30,7 @@ Describe 'Remove-TeamViewerRole' {
 
         Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
-                $Uri -eq "//unit.test/userroles?RoleId=$testRoleId" -And `
+                $Uri -eq "//unit.test/userroles?userRoleId=$testRoleId" -And `
                 $Method -eq 'Delete'
         }
     }

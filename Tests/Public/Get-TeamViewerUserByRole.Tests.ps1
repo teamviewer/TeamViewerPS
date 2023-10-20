@@ -24,7 +24,7 @@ Describe 'Get-TeamViewerUserByRole' {
 
             Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
                 $ApiToken -eq $testApiToken -And `
-                    $Uri -eq "//unit.test/userroles/assignments/account?RoleId=$testRoleId" -And `
+                    $Uri -eq "//unit.test/userroles/assignments/account?userRoleId=$testRoleId" -And `
                     $Method -eq 'Get'
             }
         }
