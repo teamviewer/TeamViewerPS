@@ -2,7 +2,7 @@
 function Resolve-TeamViewerUserRoleId {
     param(
         [Parameter(ValueFromPipeline = $true, Mandatory = $true)]
-        [object]
+        [Object]
         $UserRole
     )
     Process {
