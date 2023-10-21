@@ -23,8 +23,8 @@ function Add-TeamViewerUserToRole {
         $resourceUri = "$(Get-TeamViewerApiUri)/userroles/assign/account"
         $AccountsToAdd = @()
         $body = @{
-            UserIds = @()
-            RoleId  = $id
+            UserIds    = @()
+            UserRoleId = $id
         }
         function Invoke-TeamViewerRestMethodInternal {
             $result = Invoke-TeamViewerRestMethod `

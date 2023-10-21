@@ -27,7 +27,7 @@ function Set-TeamViewerRole {
         $body = @{
             Name        = $Name
             Permissions = @()
-            RoleId      = $RoleId
+            UserRoleId  = $RoleId
 
         }
         if ($Permissions) {
