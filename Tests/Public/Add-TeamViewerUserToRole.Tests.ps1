@@ -14,8 +14,8 @@ BeforeAll {
     $mockArgs = @{}
     Mock Invoke-TeamViewerRestMethod { $mockArgs.Body = $Body
         @{
-            UserIds = @($testAccount)
-            RoleId  = $testRoleId
+            UserIds    = @($testAccount)
+            UserRoleId = $testRoleId
         }
     }
 }
@@ -43,7 +43,7 @@ Describe 'Add-TeamViewerUserToRole' {
         foreach ($id in $testAccount) {
             $body.UserIds | Should -Contain $id
         }
-        $body.RoleId | Should -Be $testRoleId
+        $body.UserRoleId | Should -Be $testRoleId
     }
 
     It 'Should accept pipeline input' {
@@ -56,6 +56,6 @@ Describe 'Add-TeamViewerUserToRole' {
         foreach ($id in $testAccount) {
             $body.UserIds | Should -Contain $id
         }
-        $body.RoleId | Should -Be $testRoleId
+        $body.UserRoleId | Should -Be $testRoleId
     }
 }

@@ -9,10 +9,9 @@ BeforeAll {
 
     Mock Get-TeamViewerApiUri { '//unit.test' }
     Mock Invoke-TeamViewerRestMethod {
-        @{ PredefinedRoleId = 'e1631449-6321-4a58-920c-5440029b092e' }
+        @{ PredefineduserRoleId = 'e1631449-6321-4a58-920c-5440029b092e' }
     }
 }
-
 
 Describe 'Get-TeamViewerPredefinedRole' {
 
@@ -27,7 +26,7 @@ Describe 'Get-TeamViewerPredefinedRole' {
 
     It 'Should convert input object to TeamViewerPS.PrefinedRole' {
         $inputObject = @{
-            PredefinedRoleId = 'a9c9435d-8544-4e6a-9830-9337078c9aab'
+            PredefineduserRoleId = 'a9c9435d-8544-4e6a-9830-9337078c9aab'
         } | ConvertTo-Json
 
         $result = $inputObject | ConvertFrom-Json | ConvertTo-TeamViewerPredefinedRole
@@ -36,7 +35,6 @@ Describe 'Get-TeamViewerPredefinedRole' {
         $result.PSObject.TypeNames | Should -Contain 'TeamViewerPS.PredefinedRole'
         $result.PredefinedRoleID | Should -Be 'a9c9435d-8544-4e6a-9830-9337078c9aab'
     }
-
 
     It 'Should return PredefinedRole objects' {
         $result = Get-TeamViewerPredefinedRole -ApiToken $testApiToken
