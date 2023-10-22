@@ -13,7 +13,6 @@ BeforeAll {
     }
 }
 
-
 Describe 'Get-TeamViewerPredefinedRole' {
 
     It 'Should call the correct API endpoint to list PredefinedRole' {
@@ -36,7 +35,6 @@ Describe 'Get-TeamViewerPredefinedRole' {
         $result.PSObject.TypeNames | Should -Contain 'TeamViewerPS.PredefinedRole'
         $result.PredefinedRoleID | Should -Be 'a9c9435d-8544-4e6a-9830-9337078c9aab'
     }
-
 
     It 'Should return PredefinedRole objects' {
         $result = Get-TeamViewerPredefinedRole -ApiToken $testApiToken

@@ -1,36 +1,36 @@
 ---
 external help file: TeamViewerPS-help.xml
 Module Name: TeamViewerPS
-online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/Add-TeamViewerUserGroupToUserRole.md
+online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/Add-TeamViewerUserGroupToRole.md
 schema: 2.0.0
 ---
 
-# Add-TeamViewerUserGroupToUserRole
+# Add-TeamViewerUserGroupToRole
 
 ## SYNOPSIS
 
-Assign user role to a user group.
+Assign a user group to a role.
 
 ## SYNTAX
 
 ```powershell
-Add-TeamViewerUserGroupToUserRole [-ApiToken] <SecureString> [-UserRole] <Object> [-UserGroup] <Object> [-WhatIf]
+Add-TeamViewerUserGroupToRole [-ApiToken] <SecureString> [-Role] <Object> [-UserGroup] <Object> [-WhatIf]
  [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 
-Assigns user role to a user group of the TeamViewer company associated with the API access token.
+Assigns a user group to a role of the TeamViewer company associated with the API access token.
 
 ## EXAMPLES
 
 ### Example 1
 
 ```powershell
-PS /> Add-TeamViewerUserGroupToUserRole -UserRole  '9b465ea2-2f75-4101-a057-58a81ed0e57b' -UserGroup 1001
+PS /> Add-TeamViewerUserGroupToRole -Role  '9b465ea2-2f75-4101-a057-58a81ed0e57b' -UserGroup 1001
 ```
 
-The given user group `1001` gets assigned to the user role with Id `9b465ea2-2f75-4101-a057-58a81ed0e57b`.
+The given user group `1001` gets assigned to the role with Id `9b465ea2-2f75-4101-a057-58a81ed0e57b`.
 
 ## PARAMETERS
 
@@ -66,14 +66,14 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -UserRole
+### -Role
 
-The user role to be assigned to the accountIds
+The role to be assigned to the accountIds
 
 ```yaml
 Type: Object
 Parameter Sets: (All)
-Aliases: UserRole
+Aliases: Role
 
 Required: True
 Position: 1
@@ -84,7 +84,7 @@ Accept wildcard characters: False
 
 ### -UserGroup
 
-The user group to which the user role should be assigned.
+The user group to which the role should be assigned.
 
 ```yaml
 Type: Object

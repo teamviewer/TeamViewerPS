@@ -1,4 +1,4 @@
-function Remove-TeamViewerAccountFromUserRole {
+function Remove-TeamViewerUserFromRole {
     [CmdletBinding(SupportsShouldProcess = $true)]
     param(
         [Parameter(Mandatory = $true)]
@@ -6,10 +6,10 @@ function Remove-TeamViewerAccountFromUserRole {
         $ApiToken,
 
         [Parameter(Mandatory = $true)]
-        [ValidateScript( { $_ | Resolve-TeamViewerUserRoleId } )]
-        [Alias('UserRole')]
+        [ValidateScript( { $_ | Resolve-TeamViewerRoleId } )]
+        [Alias('Role')]
         [object]
-        $UserRoleId,
+        $RoleId,
 
         [Parameter(Mandatory = $true, ValueFromPipeline = $true, ValueFromPipelineByPropertyName = $true)]
         [Alias('Id', 'UserIds')]
@@ -18,7 +18,7 @@ function Remove-TeamViewerAccountFromUserRole {
     )
 
     Begin {
-        $id = $UserRoleId | Resolve-TeamViewerUserRoleId
+        $id = $RoleId | Resolve-TeamViewerRoleId
         $null = $ApiToken
         $resourceUri = "$(Get-TeamViewerApiUri)/userroles/unassign/account"
         $AccountsToRemove = @()

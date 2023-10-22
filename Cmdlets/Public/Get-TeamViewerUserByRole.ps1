@@ -1,18 +1,18 @@
-function Get-TeamViewerRoleAssignmentToAccount {
+function Get-TeamViewerUserByRole {
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
         $ApiToken,
 
         [Parameter(Mandatory = $true)]
-        [ValidateScript( { $_ | Resolve-TeamViewerUserRoleId } )]
-        [Alias('UserRole')]
+        [ValidateScript( { $_ | Resolve-TeamViewerRoleId } )]
+        [Alias('Role')]
         [string]
-        $UserRoleId
+        $RoleId
     )
 
 
-    $resourceUri = "$(Get-TeamViewerApiUri)/userroles/assignments/account?userRoleId=$UserRoleId"
+    $resourceUri = "$(Get-TeamViewerApiUri)/userroles/assignments/account?userRoleId=$RoleId"
     $parameters = $null
     do {
         $response = Invoke-TeamViewerRestMethod `

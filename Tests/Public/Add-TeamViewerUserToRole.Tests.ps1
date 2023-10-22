@@ -1,5 +1,5 @@
 BeforeAll {
-    . "$PSScriptRoot\..\..\Cmdlets\Public\Add-TeamViewerAccountToUserRole.ps1"
+    . "$PSScriptRoot\..\..\Cmdlets\Public\Add-TeamViewerUserToRole.ps1"
     @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | `
         ForEach-Object { . $_.FullName }
 
@@ -7,22 +7,22 @@ BeforeAll {
     $null = $testApiToken
     $testAccount = @('u123', 'u124')
     $null = $testAccount
-    $testUserRoleId = '9b465ea2-2f75-4101-a057-58a81ed0e57b'
-    $null = $testUserRoleId
+    $testRoleId = '9b465ea2-2f75-4101-a057-58a81ed0e57b'
+    $null = $testRoleId
 
     Mock Get-TeamViewerApiUri { '//unit.test' }
     $mockArgs = @{}
     Mock Invoke-TeamViewerRestMethod { $mockArgs.Body = $Body
         @{
             UserIds    = @($testAccount)
-            UserRoleId = $testUserRoleId
+            UserRoleId = $testRoleId
         }
     }
 }
-Describe 'Add-TeamViewerAccountToUserRole' {
+Describe 'Add-TeamViewerUserToRole' {
 
     It 'Should call the correct API endpoint' {
-        Add-TeamViewerAccountToUserRole -ApiToken $testApiToken -UserRoleId $testUserRoleId -Accounts $testAccount
+        Add-TeamViewerUserToRole -ApiToken $testApiToken -RoleId $testRoleId -Accounts $testAccount
 
         Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
@@ -33,9 +33,9 @@ Describe 'Add-TeamViewerAccountToUserRole' {
 
 
     It 'Should assign the given account to the user role' {
-        Add-TeamViewerAccountToUserRole `
+        Add-TeamViewerUserToRole `
             -ApiToken $testApiToken `
-            -UserRoleId $testUserRoleId `
+            -RoleId $testRoleId `
             -Accounts $testAccount
         $mockArgs.Body | Should -Not -BeNullOrEmpty
         $body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
@@ -43,19 +43,19 @@ Describe 'Add-TeamViewerAccountToUserRole' {
         foreach ($id in $testAccount) {
             $body.UserIds | Should -Contain $id
         }
-        $body.UserRoleId | Should -Be $testUserRoleId
+        $body.UserRoleId | Should -Be $testRoleId
     }
 
     It 'Should accept pipeline input' {
-        $testAccount | Add-TeamViewerAccountToUserRole `
+        $testAccount | Add-TeamViewerUserToRole `
             -ApiToken $testApiToken `
-            -UserRoleId $testUserRoleId
+            -RoleId $testRoleId
         $mockArgs.Body | Should -Not -BeNullOrEmpty
         $body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
         $body.UserIds | Should -HaveCount 2
         foreach ($id in $testAccount) {
             $body.UserIds | Should -Contain $id
         }
-        $body.UserRoleId | Should -Be $testUserRoleId
+        $body.UserRoleId | Should -Be $testRoleId
     }
 }

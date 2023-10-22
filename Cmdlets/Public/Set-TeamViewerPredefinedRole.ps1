@@ -6,13 +6,13 @@ function Set-TeamViewerPredefinedRole {
         $ApiToken,
 
         [Parameter(Mandatory = $true, ValueFromPipeline = $true )]
-        [ValidateScript({ $_ | Resolve-TeamViewerUserRoleId })]
+        [ValidateScript({ $_ | Resolve-TeamViewerRoleId })]
         [object]
         $RoleId
     )
 
     Process {
-        $Role = $RoleId | Resolve-TeamViewerUserRoleId
+        $Role = $RoleId | Resolve-TeamViewerRoleId
         $resourceUri = "$(Get-TeamViewerApiUri)/userroles/$Role/predefined"
         if ($PSCmdlet.ShouldProcess($Role, 'Set Predefined Role')) {
             Invoke-TeamViewerRestMethod `

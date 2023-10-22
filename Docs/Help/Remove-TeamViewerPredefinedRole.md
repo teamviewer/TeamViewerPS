@@ -9,19 +9,19 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Remove existing Predefined Role.
+Sets the existing predefined role to a not predefined one.
 
 ## SYNTAX
 
 ```powershell
-Remove-TeamViewerPredefinedRole [-ApiToken] <SecureString> [-UserRoleId] <Object> [-WhatIf] [-Confirm]
+Remove-TeamViewerPredefinedRole [-ApiToken] <SecureString> [-RoleId] <Object> [-WhatIf] [-Confirm]
  [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 
-Sets the existing Predefined Role not as Predefined. The role is still available under User Roles. 
-Existing User assignments to this role are unaffected.
+Sets the existing predefined role to a not predefined one. The role is still available.
+The user assignments of this role are unaffected.
 
 ## EXAMPLES
 
@@ -31,7 +31,7 @@ Existing User assignments to this role are unaffected.
 PS /> Remove-TeamViewerPredefinedRole 
 ```
 
-Removes the Predefined Role tag from the Existing Predefined Role.
+Removes the predefined role flag from the role.
 
 ## PARAMETERS
 

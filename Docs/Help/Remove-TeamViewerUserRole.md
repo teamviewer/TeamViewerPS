@@ -1,46 +1,46 @@
 ---
 external help file: TeamViewerPS-help.xml
 Module Name: TeamViewerPS
-online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/Remove-TeamViewerUserRole.md
+online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/Remove-TeamViewerRole.md
 schema: 2.0.0
 ---
 
-# Remove-TeamViewerUserRole
+# Remove-TeamViewerRole
 
 ## SYNOPSIS
 
-Delete a user role from the TeamViewer company.
+Deletes one specific role from the TeamViewer company.
 
 ## SYNTAX
 
 ```powershell
-Remove-TeamViewerUserRole [-ApiToken] <SecureString> [-UserRoleId] <Object> [-WhatIf] [-Confirm]
+Remove-TeamViewerRole [-ApiToken] <SecureString> [-RoleId] <Object> [-WhatIf] [-Confirm]
  [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 
-Deletes a user role from the TeamViewer company.
-All permissions and assignments of the user role will be deleted too.
+Deletes one specific role from the TeamViewer company.
+All permissions and user assignments of the role will be deleted too.
 
 ## EXAMPLES
 
 ### Example 1
 
 ```powershell
-PS /> Remove-TeamViewerUserRole -UserRoleId '9b465ea2-2f75-4101-a057-58a81ed0e57b'
+PS /> Remove-TeamViewerRole -RoleId '9b465ea2-2f75-4101-a057-58a81ed0e57b'
 ```
 
-Deletes the user role with Id `9b465ea2-2f75-4101-a057-58a81ed0e57b`.
+Deletes the role with Id `9b465ea2-2f75-4101-a057-58a81ed0e57b`.
 
 ### Example 2
 
 ```powershell
-PS />  Remove-TeamViewerUserRole -UserRoleId (Get-TeamViewerUserRole | Where-Object { ($_.RoleName -eq 'Test Role') } ).RoleID
+PS />  Remove-TeamViewerRole -RoleId (Get-TeamViewerRole | Where-Object { ($_.RoleName -eq 'Test Role') } ).RoleID
 ```
 
-Removes a user role with RoleId retrieved using `Get-TeamViewerUserRole` as input.
-In this example, the user role with the name `Test Role`.
+Deletes a role with the role Id retrieved from `Get-TeamViewerRole` as input.
+In this example, the role with the name `Test Role`.
 
 ## PARAMETERS
 
@@ -76,14 +76,14 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -UserRoleId
+### -RoleId
 
-The user role to be deleted.
+The role to be deleted.
 
 ```yaml
 Type: Object
 Parameter Sets: (All)
-Aliases: Id, UserRole
+Aliases: Id, Role
 
 Required: True
 Position: 1

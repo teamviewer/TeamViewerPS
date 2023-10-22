@@ -16,7 +16,7 @@ Assign or unassign a device to a company
 
 The following functions are available in this category:
 
-[`Add-TeamViewerAssinment.md`](Help/Add-TeamViewerAssignment.md)
+[`Add-TeamViewerAssignment.md`](Help/Add-TeamViewerAssignment.md)
 
 [`Remove-TeamViewerAssignment.md`](Help/Remove-TeamViewerAssignment.md)
 
@@ -96,32 +96,32 @@ The following functions are available in this category:
 
 [`Remove-TeamViewerUserGroupMember`](Help/Remove-TeamViewerUserGroupMember.md)
 
-## User Roles
+## Roles
 
-Remotely manage the user roles of a TeamViewer company via the
-TeamViewer Web API. Have user roles to assign roles to company members.
+Remotely manage the roles of a TeamViewer company via the
+TeamViewer Web API. Have roles to assign permissions to company users.
 
 The following functions are available in this category:
 
-[`Get-TeamViewerUserRole`](Help/Get-TeamViewerUserRole.md)
+[`Get-TeamViewerRole`](Help/Get-TeamViewerRole.md)
 
-[`New-TeamViewerUserRole`](Help/New-TeamViewerUserRole.md)
+[`New-TeamViewerRole`](Help/New-TeamViewerRole.md)
 
-[`Set-TeamViewerUserRole`](Help/Set-TeamViewerUserRole.md)
+[`Set-TeamViewerRole`](Help/Set-TeamViewerRole.md)
 
-[`Remove-TeamViewerUserRole`](Help/Remove-TeamViewerUserRole.md)
+[`Remove-TeamViewerRole`](Help/Remove-TeamViewerRole.md)
 
-[`Get-TeamViewerRoleAssignmentToAccount`](Help/Get-TeamViewerRoleAssignmentToAccount.md)
+[`Get-TeamViewerUserByRole`](Help/Get-TeamViewerUserByRole.md)
 
-[`Get-TeamViewerRoleAssignmentToUserGroup`](Help/Get-TeamViewerRoleAssignmentToUserGroup.md)
+[`Get-TeamViewerUserGroupByRole`](Help/Get-TeamViewerUserGroupByRole.md)
 
-[`Add-TeamViewerAccountToUserRole`](Help/Add-TeamViewerAccountToUserRole.md)
+[`Add-TeamViewerUserToRole`](Help/Add-TeamViewerUserToRole.md)
 
-[`Add-TeamViewerUserGroupToUserRole`](Help/Add-TeamViewerUserGroupToUserRole.md)
+[`Add-TeamViewerUserGroupToRole`](Help/Add-TeamViewerUserGroupToRole.md)
 
-[`Remove-TeamViewerAccountFromUserRole`](Help/Remove-TeamViewerAccountFromUserRole.md)
+[`Remove-TeamViewerUserFromRole`](Help/Remove-TeamViewerUserFromRole.md)
 
-[`Remove-TeamViewerUserGroupFromUserRole`](Help/Remove-TeamViewerUserGroupFromUserRole.md)
+[`Remove-TeamViewerUserGroupFromRole`](Help/Remove-TeamViewerUserGroupFromRole.md)
 
 ## Managed Groups & Managed Devices
 

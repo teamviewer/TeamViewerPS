@@ -1,6 +1,6 @@
 
 BeforeAll {
-    . "$PSScriptRoot\..\..\Cmdlets\Public\Get-TeamViewerUserRole.ps1"
+    . "$PSScriptRoot\..\..\Cmdlets\Public\Get-TeamViewerRole.ps1"
 
     @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | `
         ForEach-Object { . $_.FullName }
@@ -18,10 +18,10 @@ BeforeAll {
     }
 }
 
-Describe 'Get-TeamViewerUserRole' {
+Describe 'Get-TeamViewerRole' {
 
     It 'Should call the correct API endpoint to list roles' {
-        Get-TeamViewerUserRole -ApiToken $testApiToken
+        Get-TeamViewerRole -ApiToken $testApiToken
 
         Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
@@ -29,7 +29,7 @@ Describe 'Get-TeamViewerUserRole' {
                 $Method -eq 'Get' }
     }
 
-    It 'Should convert input object to TeamViewerPS.UserRole' {
+    It 'Should convert input object to TeamViewerPS.Role' {
         $inputObject = @{
             id          = 'a9c9435d-8544-4e6a-9830-9337078c9aab'
             name        = 'Role 1'
@@ -41,10 +41,10 @@ Describe 'Get-TeamViewerUserRole' {
             }
         } | ConvertTo-Json
 
-        $result = $inputObject | ConvertFrom-Json | ConvertTo-TeamViewerUserRole
+        $result = $inputObject | ConvertFrom-Json | ConvertTo-TeamViewerRole
 
         $result | Should -BeOfType [PSCustomObject]
-        $result.PSObject.TypeNames | Should -Contain 'TeamViewerPS.UserRole'
+        $result.PSObject.TypeNames | Should -Contain 'TeamViewerPS.Role'
         $result.RoleName | Should -Be 'Role 1'
         $result.RoleID | Should -Be 'a9c9435d-8544-4e6a-9830-9337078c9aab'
         $result.AllowGroupSharing | Should -Be $true
@@ -54,7 +54,7 @@ Describe 'Get-TeamViewerUserRole' {
     }
 
     It 'Should call the correct API endpoint for assigned users' {
-        Get-TeamViewerUserRole -ApiToken $testApiToken
+        Get-TeamViewerRole -ApiToken $testApiToken
 
         Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
@@ -63,8 +63,8 @@ Describe 'Get-TeamViewerUserRole' {
     }
 
     It 'Should return Role objects' {
-        $result = Get-TeamViewerUserRole -ApiToken $testApiToken
+        $result = Get-TeamViewerRole -ApiToken $testApiToken
         $result | Should -HaveCount 2
-        $result[0].PSObject.TypeNames | Should -Contain 'TeamViewerPS.UserRole'
+        $result[0].PSObject.TypeNames | Should -Contain 'TeamViewerPS.Role'
     }
 }

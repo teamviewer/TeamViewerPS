@@ -1,4 +1,4 @@
-function Add-TeamViewerAccountToUserRole {
+function Add-TeamViewerUserToRole {
     [CmdletBinding(SupportsShouldProcess = $true)]
     param(
         [Parameter(Mandatory = $true)]
@@ -6,10 +6,10 @@ function Add-TeamViewerAccountToUserRole {
         $ApiToken,
 
         [Parameter(Mandatory = $true)]
-        [ValidateScript( { $_ | Resolve-TeamViewerUserRoleId } )]
-        [Alias('UserRole')]
+        [ValidateScript( { $_ | Resolve-TeamViewerRoleId } )]
+        [Alias('Role')]
         [object]
-        $UserRoleId,
+        $RoleId,
 
         [Parameter(Mandatory = $true, ValueFromPipeline = $true, ValueFromPipelineByPropertyName = $true)]
         [Alias('Id', 'UserIds')]
@@ -18,7 +18,7 @@ function Add-TeamViewerAccountToUserRole {
     )
 
     Begin {
-        $id = $UserRoleId | Resolve-TeamViewerUserRoleId
+        $id = $RoleId | Resolve-TeamViewerRoleId
         $null = $ApiToken
         $resourceUri = "$(Get-TeamViewerApiUri)/userroles/assign/account"
         $AccountsToAdd = @()

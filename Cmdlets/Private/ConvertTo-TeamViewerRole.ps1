@@ -1,4 +1,4 @@
-function ConvertTo-TeamViewerUserRole {
+function ConvertTo-TeamViewerRole {
     param(
         [Parameter(ValueFromPipeline)]
         [PSObject]
@@ -15,7 +15,7 @@ function ConvertTo-TeamViewerUserRole {
             }
         }
         $result = New-Object -TypeName PSObject -Property $properties
-        $result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.UserRole')
+        $result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.Role')
         $result | Add-Member -MemberType ScriptMethod -Name 'ToString' -Force -Value {
             Write-Output "[$($this.RoleName)] [$($this.RoleID)] $($this.Permissions))"
         }

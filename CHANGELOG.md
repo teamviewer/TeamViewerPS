@@ -4,7 +4,7 @@
 
 ### Added
 
-- Adds commands to manage the user roles of a TeamViewer company.
+- Adds commands to manage the roles of a TeamViewer company.
 - Adds `Set-TeamViewerApiURi` to use TeamViewer test API.
 - Adds `Add-TeamViewerAssignment` and `Remove-TeamViewerAssignment` commands to assign and unassign a device from a TeamViewer company.
 - Adds `Add-TeamViewerCustomization` and `Remove-TeamViewerCustomization` commands to apply and remove customization.

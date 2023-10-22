@@ -1,5 +1,5 @@
 BeforeAll {
-    . "$PSScriptRoot\..\..\Cmdlets\Public\Remove-TeamViewerAccountFromUserRole.ps1"
+    . "$PSScriptRoot\..\..\Cmdlets\Public\Remove-TeamViewerUserFromRole.ps1"
     @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | `
         ForEach-Object { . $_.FullName }
 
@@ -7,22 +7,22 @@ BeforeAll {
     $null = $testApiToken
     $testAccount = @('u123', 'u124')
     $null = $testAccount
-    $testUserRoleId = '9b465ea2-2f75-4101-a057-58a81ed0e57b'
-    $null = $testUserRoleId
+    $testRoleId = '9b465ea2-2f75-4101-a057-58a81ed0e57b'
+    $null = $testRoleId
 
     Mock Get-TeamViewerApiUri { '//unit.test' }
     $mockArgs = @{}
     Mock Invoke-TeamViewerRestMethod { $mockArgs.Body = $Body
         @{
-            UserIds    = @($testAccount)
-            UserRoleId = $testUserRoleId
+            UserIds = @($testAccount)
+            RoleId  = $testRoleId
         }
     }
 }
-Describe 'Remove-TeamViewerAccountFromUserRole' {
+Describe 'Remove-TeamViewerUserFromRole' {
 
     It 'Should call the correct API endpoint' {
-        Remove-TeamViewerAccountFromUserRole -ApiToken $testApiToken -UserRoleId $testUserRoleId -Accounts $testAccount
+        Remove-TeamViewerUserFromRole -ApiToken $testApiToken -RoleId $testRoleId -Accounts $testAccount
 
         Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
@@ -32,9 +32,9 @@ Describe 'Remove-TeamViewerAccountFromUserRole' {
     }
 
     It 'Should unassign the given account from the user role' {
-        Remove-TeamViewerAccountFromUserRole `
+        Remove-TeamViewerUserFromRole `
             -ApiToken $testApiToken `
-            -UserRoleId $testUserRoleId `
+            -RoleId $testRoleId `
             -Accounts $testAccount
         $mockArgs.Body | Should -Not -BeNullOrEmpty
         $body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
@@ -42,19 +42,19 @@ Describe 'Remove-TeamViewerAccountFromUserRole' {
         foreach ($id in $testAccount) {
             $body.UserIds | Should -Contain $id
         }
-        $body.UserRoleId | Should -Be $testUserRoleId
+        $body.RoleId | Should -Be $testRoleId
     }
 
     It 'Should accept pipeline input' {
-        $testAccount | Remove-TeamViewerAccountFromUserRole `
+        $testAccount | Remove-TeamViewerUserFromRole `
             -ApiToken $testApiToken `
-            -UserRoleId $testUserRoleId
+            -RoleId $testRoleId
         $mockArgs.Body | Should -Not -BeNullOrEmpty
         $body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
         $body.UserIds | Should -HaveCount 2
         foreach ($id in $testAccount) {
             $body.UserIds | Should -Contain $id
         }
-        $body.UserRoleId | Should -Be $testUserRoleId
+        $body.RoleId | Should -Be $testRoleId
     }
 }

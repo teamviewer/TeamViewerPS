@@ -1,5 +1,5 @@
 
-function New-TeamViewerUserRole {
+function New-TeamViewerRole {
     [CmdletBinding(SupportsShouldProcess = $true)]
     param(
         [Parameter(Mandatory = $true )]
@@ -7,7 +7,7 @@ function New-TeamViewerUserRole {
         $ApiToken,
 
         [Parameter(Mandatory = $true)]
-        [Alias('UserRoleName')]
+        [Alias('RoleName')]
         [string]
         $Name,
 
@@ -29,7 +29,7 @@ function New-TeamViewerUserRole {
     }
 
     Process {
-        if ($PSCmdlet.ShouldProcess($Name, 'Create User Role')) {
+        if ($PSCmdlet.ShouldProcess($Name, 'Create Role')) {
             $response = Invoke-TeamViewerRestMethod `
                 -ApiToken $ApiToken `
                 -Uri $resourceUri `
@@ -39,7 +39,7 @@ function New-TeamViewerUserRole {
                 -WriteErrorTo $PSCmdlet `
                 -ErrorAction Stop
 
-            $result = ($response.Role | ConvertTo-TeamViewerUserRole)
+            $result = ($response.Role | ConvertTo-TeamViewerRole)
             Write-Output $result
         }
     }
