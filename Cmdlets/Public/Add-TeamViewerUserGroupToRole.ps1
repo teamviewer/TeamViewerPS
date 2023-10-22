@@ -24,7 +24,7 @@ function Add-TeamViewerUserGroupToRole {
         $null = $ApiToken
         $resourceUri = "$(Get-TeamViewerApiUri)/userroles/assign/usergroup"
         $body = @{
-            RoleId      = $RoleId
+            UserRoleId  = $RoleId
             UserGroupId = $UserGroup
 
         }
