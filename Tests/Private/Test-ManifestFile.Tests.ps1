@@ -1,8 +1,8 @@
 BeforeAll {
     $Script:Module_RootPath = (Resolve-Path -Path (Join-Path -Path $PSScriptRoot -ChildPath '..\..'))
-    $Script:Module_FilePath = (Get-ChildItem -Path (Join-Path -Path $Module_RootPath -ChildPath 'Cmdlets') -Filter '*.psm1' -File)
-    $Script:Module_Name = (Get-ChildItem -Path $Module_FilePath -Filter '*.psm1' -File) -Replace '.psm1'
-    $Script:Module_ManifestFilePath = (Join-Path -Path $Module_RootPath -ChildPath "Cmdlets\$Module_Name.psd1")
+    $Script:Module_FilePath = (Get-ChildItem -Path (Join-Path -Path $Module_RootPath -ChildPath 'Cmdlets') -Filter '*.psm1' -File).FullName
+    $Script:Module_Name = (Split-Path -Path $Module_FilePath -Leaf).Replace('.psm1', '')
+    $Script:Module_ManifestFilePath = (Get-ChildItem -Path (Join-Path -Path $Module_RootPath -ChildPath 'Cmdlets') -Filter '*.psd1' -File).FullName
 }
 
 Context 'Test-ManifestFile' {
