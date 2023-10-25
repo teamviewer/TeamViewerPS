@@ -40,7 +40,7 @@ Write-Verbose 'Creating module manifest...'
 Copy-Item -Path (Join-Path -Path $Repo_CmdletPath -ChildPath 'TeamViewerPS.psd1') -Destination $Build_OutputPath
 Copy-Item -Path (Join-Path -Path $Repo_CmdletPath -ChildPath '*.format.ps1xml') -Destination $Build_OutputPath
 
-Update-Metadata -Path (Join-Path -Path $Repo_CmdletPath -ChildPath 'TeamViewerPS.psd1') -PropertyName 'FunctionsToExport' -Value $PublicFunctions.BaseName
+Update-Metadata -Path (Join-Path -Path $Build_OutputPath -ChildPath 'TeamViewerPS.psd1') -PropertyName 'FunctionsToExport' -Value $PublicFunctions.BaseName
 
 # Copy additional package files
 Write-Verbose 'Copying additional files into the package...'
