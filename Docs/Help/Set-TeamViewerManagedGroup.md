@@ -43,6 +43,22 @@ PS /> Set-TeamViewerManagedGroup -Group '9fd16af0-c224-4242-998e-a7138b038dbb' -
 
 Change the name of the managed group with the given ID.
 
+### Example 2
+
+```powershell
+PS /> Set-TeamviewerManagedGroup -GroupId '6808db5b-f3c1-4e42-8168-3ac96f5d456e' -PolicyId '926d7a7e-b640-43a9-bc95-4f71ed7e6878' -PolicyType 4
+```
+
+Change the policy of the managed group with the given ID.
+
+### Example 3
+
+```powershell
+PS /> Set-TeamViewerManagedGroup -GroupId '6808db5b-f3c1-4e42-8168-3ac96f5d456e' -Property {'policy_id' = 'e563798b-b988-4917-b1d3-a012ce6ba929' 'policy_type' = 1}
+```
+
+Change the policy of the managed group with the given ID using property parameters.
+
 ## PARAMETERS
 
 ### -ApiToken
@@ -106,6 +122,37 @@ Aliases:
 
 Required: True
 Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -PolicyId
+
+Change the policy assigned to the group and assign it the given policy.
+
+```yaml
+Type: Object
+Parameter Sets: ByParameters
+Aliases: Policy
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -PolicyType
+
+The type of policy to be set to the managed group.
+
+```yaml
+Type: PolicyType (Enum)
+Parameter Sets: (All)
+Aliases:
+Required: True
+Position: 2
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
