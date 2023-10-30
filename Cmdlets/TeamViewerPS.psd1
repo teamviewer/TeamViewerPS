@@ -61,7 +61,6 @@
 
     # Functions to export from this module.
     FunctionsToExport = '*'
-
     # Cmdlets to export from this module.
     CmdletsToExport   = @()
 
