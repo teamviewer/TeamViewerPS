@@ -9,7 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Change TeamViewer WebAPI Uri.
+Change uri of the TeamViewer web API for TeamViewerPS.
 
 ## SYNTAX
 
@@ -19,7 +19,7 @@ Set-TeamViewerAPIUri [-NewUri <String>]
 
 ## DESCRIPTION
 
-Changes the WebAPI Uri for internal testing.
+Change uri of TeamViewer web API for TeamViewer internal testing purposes.
 
 ## EXAMPLES
 
@@ -29,7 +29,7 @@ Changes the WebAPI Uri for internal testing.
 PS /> Set-TeamViewerAPIUri -NewUri 'www.example.com'
 ```
 
-Change the WebAPI Uri.
+Sets the uri of the web API to `www.example.com`.
 
 ### Example 2
 
@@ -37,13 +37,13 @@ Change the WebAPI Uri.
 PS /> Set-TeamViewerAPIUri -Default $true
 ```
 
-Sets the WebAPI Uri to default.
+Sets the WebAPI for TeamViewerPS to the default value.
 
 ## PARAMETERS
 
 ### -NewUri
 
-New WebAPI Uri for the module. 
+Sets a specific uri to the web API for TeamViewerPS. 
 
 ```yaml
 Type: String
@@ -59,7 +59,7 @@ Accept wildcard characters: False
 
 ### -Default
 
-Default Web API Uri.
+Sets the web API for TeamViewerPS to the default value.
 
 ```yaml
 Type: Bool
