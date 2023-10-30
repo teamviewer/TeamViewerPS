@@ -14,8 +14,8 @@ BeforeAll {
     $mockArgs = @{}
     Mock Invoke-TeamViewerRestMethod { $mockArgs.Body = $Body
         @{
-            UserIds = @($testAccount)
-            RoleId  = $testRoleId
+            UserIds    = @($testAccount)
+            UserRoleId = $testRoleId
         }
     }
 }
@@ -42,7 +42,7 @@ Describe 'Remove-TeamViewerUserFromRole' {
         foreach ($id in $testAccount) {
             $body.UserIds | Should -Contain $id
         }
-        $body.RoleId | Should -Be $testRoleId
+        $body.UserRoleId | Should -Be $testRoleId
     }
 
     It 'Should accept pipeline input' {
@@ -55,6 +55,6 @@ Describe 'Remove-TeamViewerUserFromRole' {
         foreach ($id in $testAccount) {
             $body.UserIds | Should -Contain $id
         }
-        $body.RoleId | Should -Be $testRoleId
+        $body.UserRoleId | Should -Be $testRoleId
     }
 }

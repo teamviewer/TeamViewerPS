@@ -7,11 +7,10 @@ BeforeAll {
 }
 
 Context 'Test-PrivateFunctions' {
-    $Test_Case = $Module_PrivFunctionNames | ForEach-Object { @{ PrivFunction = $_ } }
 
-    It 'Private functions not accessible from outside' -TestCases $Test_Case {
-        param($PrivFunction)
-
-        { . $PrivFunction } | Should -Throw
+    It 'Private functions not accessible from outside' {
+        foreach ($PrivFunction in $Module_PrivFunctionNames.BaseName) {
+            { . $PrivFunction } | Should -Throw
+        }
     }
 }
