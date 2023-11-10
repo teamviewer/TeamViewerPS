@@ -16,14 +16,14 @@ Create a new TeamViewer company user.
 ### WithPassword (Default)
 
 ```powershell
-New-TeamViewerUser -ApiToken <SecureString> -Email <String> -Name <String> -Password <SecureString> [-RoleId <String>]
+New-TeamViewerUser -ApiToken <SecureString> -Email <String> -Name <String> -Password <SecureString> [-RoleId <String>][-IgnorePredefined <switch>]
  [-SsoCustomerIdentifier <SecureString>] [-Culture <CultureInfo>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### WithoutPassword
 
 ```powershell
-New-TeamViewerUser -ApiToken <SecureString> -Email <String> -Name <String> [-WithoutPassword]
+New-TeamViewerUser -ApiToken <SecureString> -Email <String> -Name <String> [-WithoutPassword][-IgnorePredefined <switch>]
  [-SsoCustomerIdentifier <SecureString>] [-Culture <CultureInfo>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
