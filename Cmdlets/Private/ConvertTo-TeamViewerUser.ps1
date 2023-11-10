@@ -15,6 +15,11 @@ function ConvertTo-TeamViewerUser {
             Name  = $InputObject.name
             Email = $InputObject.email
         }
+        if ($InputObject.userRoleId) {
+            $properties += @{
+                RoleId = $InputObject.userRoleId
+            }
+        }
 
         if ($PropertiesToLoad -Eq 'All') {
             $properties += @{

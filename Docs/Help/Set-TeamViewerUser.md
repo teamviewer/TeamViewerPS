@@ -16,7 +16,7 @@ Change properties of a TeamViewer company user.
 ### ByParameters (Default)
 
 ```powershell
-Set-TeamViewerUser -ApiToken <SecureString> -User <Object> [-Active <Boolean>] [-Email <String>]
+Set-TeamViewerUser -ApiToken <SecureString> -User <Object> [-Active <Boolean>] [-Email <String>][-AssignRoleId <String[]>][-UnassignRoleId <String[]>]
  [-Name <String>] [-Password <SecureString>] [-SsoCustomerIdentifier <SecureString>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
@@ -65,6 +65,15 @@ PS /> Set-TeamViewerUser -UserId 'u1234' -SsoCustomerIdentifier $ssoCustomerIden
 ```
 
 Do the SSO activation step for the given user. This can also be used to repair a possibly broken SSO login token for that user.
+
+### Example 5
+
+```powershell
+PS /> Set-TeamViewerUser -User 'u1234' -Name 'New user name' -AssignRoleId 'dd1cb784-bd1e-4056-a60b-3764ffe69e35' 
+-UnassignRoleId 'a6776890-d687-4c70-b180-9b563f15d1ab' 
+```
+
+Assign and unassign Roles of the user `u1234`
 
 ## PARAMETERS
 
@@ -156,6 +165,38 @@ New password of the user (as secure string).
 Type: SecureString
 Parameter Sets: ByParameters
 Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -AssignRoleId
+
+Role assigned to the user.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases: AssignRole
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -UnassignRoleId
+
+Role unassigned from the user.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases: UnassignRole
 
 Required: False
 Position: Named

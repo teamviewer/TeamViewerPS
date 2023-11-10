@@ -36,7 +36,19 @@ function Set-TeamViewerUser {
 
         [Parameter(Mandatory = $true, ParameterSetName = 'ByProperties')]
         [hashtable]
-        $Property
+        $Property,
+
+        [Parameter()]
+        [Alias('AssignRole')]
+        [ValidateScript({ $_ | Resolve-TeamViewerRoleId })]
+        [string[]]
+        $AssignRoleId,
+
+        [Parameter()]
+        [Alias('UnassignRole')]
+        [ValidateScript({ $_ | Resolve-TeamViewerRoleId })]
+        [string[]]
+        $UnassignRoleId
     )
 
     $body = @{}
@@ -60,6 +72,12 @@ function Set-TeamViewerUser {
                 $bstr = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($SsoCustomerIdentifier)
                 $body['sso_customer_id'] = [System.Runtime.InteropServices.Marshal]::PtrToStringBSTR($bstr)
                 [System.Runtime.InteropServices.Marshal]::ZeroFreeBSTR($bstr) | Out-Null
+            }
+            if($AssignRoleId){
+                $body['assignUserRoleIds'] = @($AssignRoleId)
+            }
+            if($UnassignRoleId){
+                $body['unassignUserRoleIds'] = @($UnassignRoleId)
             }
         }
         'ByProperties' {

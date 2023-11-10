@@ -31,15 +31,24 @@ function New-TeamViewerUser {
         [Parameter()]
         [ValidateScript( { $_ | Resolve-TeamViewerLanguage } )]
         [cultureinfo]
-        $Culture
+        $Culture,
+
+        [Parameter()]
+        [ValidateScript({ $_ | Resolve-TeamViewerRoleId })]
+        [object]
+        $RoleId,
+
+        [Parameter()]
+        [switch]
+        $IgnorePredefinedRole
     )
 
     if (-Not $Culture) {
         try {
-            $Culture = Get-Culture 
+            $Culture = Get-Culture
         }
         catch {
-            $Culture = 'en' 
+            $Culture = 'en'
         }
     }
 
@@ -59,6 +68,14 @@ function New-TeamViewerUser {
         $bstr = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($SsoCustomerIdentifier)
         $body['sso_customer_id'] = [System.Runtime.InteropServices.Marshal]::PtrToStringBSTR($bstr)
         [System.Runtime.InteropServices.Marshal]::ZeroFreeBSTR($bstr) | Out-Null
+    }
+
+    if($RoleId){
+        $body['userRoleId'] = $RoleId | Resolve-TeamViewerRoleId
+    }
+
+    if($IgnorePredefinedRole){
+        $body['ignorePredefinedRole'] = $true
     }
 
     $resourceUri = "$(Get-TeamViewerApiUri)/users"
