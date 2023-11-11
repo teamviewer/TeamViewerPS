@@ -191,6 +191,22 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -IgnorePredefinedRole
+
+Ignore Predefined Role from being assigned.
+
+```yaml
+Type: switch
+Parameter Sets: (All)
+Aliases: None
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -WhatIf
 
 Shows what would happen if the cmdlet runs.
