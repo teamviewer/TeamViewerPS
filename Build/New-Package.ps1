@@ -2,7 +2,7 @@
 
 param(
     [Parameter()]
-    [string]$Build_OutputPath = "$(Resolve-Path "$PSScriptRoot\..")\Build\Output"
+    [string]$Build_OutputPath = "$(Resolve-Path "$PSScriptRoot\..")\Build\TeamViewerPS"
 )
 
 $Repo_RootPath = Resolve-Path -Path "$PSScriptRoot\.."
