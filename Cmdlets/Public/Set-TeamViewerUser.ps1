@@ -34,6 +34,10 @@ function Set-TeamViewerUser {
         [securestring]
         $SsoCustomerIdentifier,
 
+        [Parameter(ParameterSetName = 'ByParameters')]
+        [array]
+        $Permissions,
+
         [Parameter(Mandatory = $true, ParameterSetName = 'ByProperties')]
         [hashtable]
         $Property,
@@ -73,6 +77,9 @@ function Set-TeamViewerUser {
                 $body['sso_customer_id'] = [System.Runtime.InteropServices.Marshal]::PtrToStringBSTR($bstr)
                 [System.Runtime.InteropServices.Marshal]::ZeroFreeBSTR($bstr) | Out-Null
             }
+            if ($Permissions) {
+                $body['permissions'] = $Permissions -join ','
+            }
             if($AssignRoleId){
                 $body['assignUserRoleIds'] = @($AssignRoleId)
             }
@@ -81,7 +88,9 @@ function Set-TeamViewerUser {
             }
         }
         'ByProperties' {
-            @('active', 'email', 'name', 'password', 'sso_customer_id') | Where-Object { $Property[$_] } | ForEach-Object { $body[$_] = $Property[$_] }
+            @('active', 'email', 'name', 'password', 'sso_customer_id', 'permissions') | `
+                Where-Object { $Property[$_] } | `
+                ForEach-Object { $body[$_] = $Property[$_] }
         }
     }
 

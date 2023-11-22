@@ -20,6 +20,10 @@ function Get-TeamViewerUser {
         [string[]]
         $Email,
 
+        [Parameter(ParameterSetName = "FilteredList")]
+        [string[]]
+        $Permissions,
+
         [Parameter()]
         [ValidateSet('All', 'Minimal')]
         $PropertiesToLoad = 'All'
@@ -28,9 +32,9 @@ function Get-TeamViewerUser {
     $parameters = @{ }
     switch ($PropertiesToLoad) {
         'All' {
-            $parameters.full_list = $true 
+            $parameters.full_list = $true
         }
-        'Minimal' { 
+        'Minimal' {
         }
     }
 
@@ -48,6 +52,9 @@ function Get-TeamViewerUser {
 
             if ($Email) {
                 $parameters['email'] = ($Email -join ',')
+            }
+            if ($Permissions) {
+                $parameters['permissions'] = ($Permissions -join ',')
             }
         }
     }
