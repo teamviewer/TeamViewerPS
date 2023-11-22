@@ -32,8 +32,9 @@ Write-Verbose "Found $($PublicFunctions.Count) public function files."
 
 # Create help from markdown
 Write-Verbose 'Building help from Markdown...'
-New-ExternalHelp -Path (Join-Path -Path $Repo_RootPath -ChildPath 'Docs') -OutputPath (Join-Path -Path $Build_OutputPath -ChildPath 'en-US') | Out-Null
 New-ExternalHelp -Path (Join-Path -Path $Repo_RootPath -ChildPath 'Docs\Help') -OutputPath (Join-Path -Path $Build_OutputPath -ChildPath 'en-US') | Out-Null
+Copy-Item -Path (Join-Path -Path $Repo_RootPath -ChildPath 'Docs\about_TeamViewerPS.md') -Destination (Join-Path -Path $Build_OutputPath -ChildPath 'en-US\TeamViewerPS.md')
+
 
 # Create module manifest
 Write-Verbose 'Creating module manifest...'
