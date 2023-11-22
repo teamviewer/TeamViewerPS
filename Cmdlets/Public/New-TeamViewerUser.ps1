@@ -29,6 +29,10 @@ function New-TeamViewerUser {
         $SsoCustomerIdentifier,
 
         [Parameter()]
+        [array]
+        $Permissions,
+
+        [Parameter()]
         [ValidateScript( { $_ | Resolve-TeamViewerLanguage } )]
         [cultureinfo]
         $Culture,
@@ -56,6 +60,7 @@ function New-TeamViewerUser {
         email    = $Email
         name     = $Name
         language = $Culture | Resolve-TeamViewerLanguage
+        permissions = $Permissions -join ','
     }
 
     if ($Password -And -Not $WithoutPassword) {

@@ -33,7 +33,15 @@ Describe 'Set-TeamViewerUser' {
         $testPassword = 'Test1234' | ConvertTo-TestPassword
         $testSsoCustomerId = 'SsoTest' | ConvertTo-TestPassword
 
-        Set-TeamViewerUser -ApiToken $testApiToken -User 'u1234' -Name 'Updated User Name' -Email 'foo@bar.com' -Password $testPassword -SsoCustomerIdentifier $testSsoCustomerId -Active $false
+        Set-TeamViewerUser `
+            -ApiToken $testApiToken `
+            -User 'u1234' `
+            -Name 'Updated User Name' `
+            -Email 'foo@bar.com' `
+            -Password $testPassword `
+            -SsoCustomerIdentifier $testSsoCustomerId `
+            -Permissions 'ManageAdmins', 'ManageUsers' `
+            -Active $false
 
         $mockArgs.Body | Should -Not -BeNullOrEmpty
         $body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
@@ -41,15 +49,20 @@ Describe 'Set-TeamViewerUser' {
         $body.email | Should -Be 'foo@bar.com'
         $body.password | Should -Be 'Test1234'
         $body.sso_customer_id | Should -Be 'SsoTest'
+        $body.permissions | Should -Be 'ManageAdmins,ManageUsers'
         $body.active | Should -BeFalse
     }
 
     It 'Should accept user properties as hashtable' {
-        Set-TeamViewerUser -ApiToken $testApiToken -User 'u1234' -Property @{
+        Set-TeamViewerUser `
+            -ApiToken $testApiToken `
+            -User 'u1234' `
+            -Property @{
             name            = 'Updated User Name'
             email           = 'foo@bar.com'
             password        = 'Test1234'
             sso_customer_id = 'SsoTest'
+            permissions     = 'ManageAdmins,ManageUsers'
             active          = $false
         }
 
@@ -59,6 +72,7 @@ Describe 'Set-TeamViewerUser' {
         $body.email | Should -Be 'foo@bar.com'
         $body.password | Should -Be 'Test1234'
         $body.sso_customer_id | Should -Be 'SsoTest'
+        $body.permissions | Should -Be 'ManageAdmins,ManageUsers'
         $body.active | Should -BeFalse
     }
 

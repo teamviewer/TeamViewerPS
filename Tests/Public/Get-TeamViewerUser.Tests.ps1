@@ -52,6 +52,12 @@ Describe 'Get-TeamViewerUser' {
             $Body -And $Body['email'] -eq 'user1@unit.test,user2@unit.test' }
     }
 
+    It 'Should allow to filter by permissions' {
+        Get-TeamViewerUser -ApiToken $testApiToken -Permissions 'p1', 'p2', 'p3'
+        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+            $Body -And $Body['permissions'] -eq 'p1,p2,p3' }
+    }
+    
     It 'Should allow to retrieve all properties' {
         Get-TeamViewerUser -ApiToken $testApiToken -PropertiesToLoad 'All'
 

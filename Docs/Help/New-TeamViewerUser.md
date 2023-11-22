@@ -17,14 +17,14 @@ Create a new TeamViewer company user.
 
 ```powershell
 New-TeamViewerUser -ApiToken <SecureString> -Email <String> -Name <String> -Password <SecureString> [-RoleId <String>][-IgnorePredefinedRole <switch>]
- [-SsoCustomerIdentifier <SecureString>] [-Culture <CultureInfo>] [-WhatIf] [-Confirm] [<CommonParameters>]
+ [-SsoCustomerIdentifier <SecureString>][-Permissions <Array>][-Culture <CultureInfo>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### WithoutPassword
 
 ```powershell
 New-TeamViewerUser -ApiToken <SecureString> -Email <String> -Name <String> [-WithoutPassword][-IgnorePredefinedRole <switch>]
- [-SsoCustomerIdentifier <SecureString>] [-Culture <CultureInfo>] [-WhatIf] [-Confirm] [<CommonParameters>]
+ [-SsoCustomerIdentifier <SecureString>][-Permissions <Array>][-Culture <CultureInfo>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -151,6 +151,22 @@ Parameter Sets: WithPassword
 Aliases:
 
 Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Permissions
+
+Optional list of permissions to give to the new user.
+
+```yaml
+Type: Array
+Parameter Sets: (All)
+Aliases:
+
+Required: False
 Position: Named
 Default value: None
 Accept pipeline input: False

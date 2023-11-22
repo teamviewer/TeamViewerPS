@@ -11,13 +11,14 @@
 - Adds `Export-TeamViewerSystemInformation` to create zip file for support.
 - Adds `Set-TeamViewerPSProxy` and `Remove-TeamViewerPSProxy` to set proxy to access WebAPI.
 - Adds `Get-TeamViewerInstallationDirectory` to return installation directory.
+- Adds `Get-TeamViewerCustomModuleId` to return custom module ID.
+- Adds `Get-TeamViewerLogFilePath` to return log file paths for different logs present.
 - Adds `Remove-TeamViewerPolicyFromManagedDevice` to remove policies from managed devices.
 
 ### Changed
 
 - Extends `Invoke-TeamViewerPackageDownload` with MSI package type.
 - Removes `-RemovePolicy` switch from `Set-TeamViewerManagedDevice`.
-- Removes `-Permissions` switch from `Get-TeamViewerUser`, `New-TeamViewerUser` and `Remove-TeamViewerUser`.
 - Modifies general module folder structure.
 
 ### Fixed

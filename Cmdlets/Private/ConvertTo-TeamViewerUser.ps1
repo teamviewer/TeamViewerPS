@@ -23,6 +23,7 @@ function ConvertTo-TeamViewerUser {
 
         if ($PropertiesToLoad -Eq 'All') {
             $properties += @{
+                Permissions = $InputObject.permissions -split ','
                 Active         = $InputObject.active
                 LastAccessDate = $InputObject.last_access_date | ConvertTo-DateTime
             }

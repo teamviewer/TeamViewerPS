@@ -17,7 +17,7 @@ Change properties of a TeamViewer company user.
 
 ```powershell
 Set-TeamViewerUser -ApiToken <SecureString> -User <Object> [-Active <Boolean>] [-Email <String>][-AssignRoleId <String[]>][-UnassignRoleId <String[]>]
- [-Name <String>] [-Password <SecureString>] [-SsoCustomerIdentifier <SecureString>] [-WhatIf] [-Confirm] [<CommonParameters>]
+ [-Name <String>] [-Password <SecureString>] [-SsoCustomerIdentifier <SecureString>] [-Permissions <Array>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### ByProperties
@@ -173,6 +173,23 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -Permissions
+
+Updated set of permissions of the company user.
+Please see the TeamViewer API documentation for a list of valid values.
+
+```yaml
+Type: Array
+Parameter Sets: ByParameters
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -AssignRoleId
 
 Role assigned to the user.
@@ -209,7 +226,7 @@ Accept wildcard characters: False
 
 Change policy information using a hashtable object.
 Valid hashtable keys are:
-`active`, `email`, `name`, `password`, `sso_customer_id`
+`active`, `email`, `name`, `password`, `sso_customer_id`, `permissions`
 
 ```yaml
 Type: Hashtable
