@@ -28,4 +28,4 @@ jobs:
         shell: pwsh
         run: |
           $ProgressPreference='SilentlyContinue'
-          Publish-Module -Path $env:GITHUB_WORKSPACE/Build/Output/ -NuGetApiKey $env:NUGET_APIKEY_PRODUCTION
+          Publish-Module -Path $env:GITHUB_WORKSPACE/Build/TeamViewerPS/ -NuGetApiKey $env:NUGET_APIKEY_PRODUCTION
