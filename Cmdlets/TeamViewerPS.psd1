@@ -3,7 +3,7 @@
     RootModule        = 'TeamViewerPS.psm1'
 
     # Version number of this module.
-    ModuleVersion     = '2.0.1'
+    ModuleVersion     = '2.0.2'
 
     # Supported PSEditions.
     # CompatiblePSEditions = @()
@@ -18,7 +18,7 @@
     CompanyName       = 'TeamViewer Germany GmbH'
 
     # Copyright statement for this module.
-    Copyright         = '(c) 2021-2023 TeamViewer Germany GmbH. All rights reserved.'
+    Copyright         = '(c) 2021-2024 TeamViewer Germany GmbH. All rights reserved.'
 
     # Description of the functionality provided by this module.
     Description       = 'TeamViewerPS allows to interact with the TeamViewer Web API as well as a locally installed TeamViewer client.'
