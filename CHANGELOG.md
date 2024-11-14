@@ -1,5 +1,10 @@
 # Change Log
 
+## 2.0.1 (2024-11-14)
+
+### Added
+- Add-TeamViewerSsoInclusion command to add SSO Inclusion list items.
+
 ## 2.0.0 (2023-11-22)
 
 ### Added
