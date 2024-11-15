@@ -37,6 +37,12 @@
 
 - Adds `Get-TeamViewerCompanyManagedDevice` to return all company-managed devices.
 
+## 2.0.1 (2024-11-14)
+
+### Added
+
+- Adds `Get-TeamViewerCompanyManagedDevice` to return all company-managed devices.
+
 ## 2.0.2 (2024-11-14)
 
 ### Added
