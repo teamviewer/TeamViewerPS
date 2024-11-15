@@ -133,6 +133,8 @@ The following functions are available in this category:
 
 [`Get-TeamViewerManagedGroup`](Help/Get-TeamViewerManagedGroup.md)
 
+[`Get-TeamViewerCompanyManagedDevice`](Help/Get-TeamViewerCompanyManagedDevice.md)
+
 [`Get-TeamViewerManagementId`](Help/Get-TeamViewerManagementId.md)
 
 [`Get-TeamViewerManager`](Help/Get-TeamViewerManager.md)
