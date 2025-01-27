@@ -9,17 +9,17 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Customizes a TeamViewer Installation.
+Adds a customization (custom module) to the local TeamViewer client.
 
 ## SYNTAX
 
 ```powershell
-Add-TeamViewerCustomization [[-Id] || [-Path]] [-RestartGUI][-RemoveExisting] 
+Add-TeamViewerCustomization [[-Id] || [-Path]] [-RestartGUI] [-RemoveExisting]
 ```
 
 ## DESCRIPTION
 
-Customizes a TeamViewer Installation and includes assignment of the particular device to a company if included.
+Adds a customization (custom module) to the local TeamViewer client..
 Customization can be perfomed in Management console under Design & Deploy.
 
 ## EXAMPLES

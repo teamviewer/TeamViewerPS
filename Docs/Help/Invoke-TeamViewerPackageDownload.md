@@ -36,6 +36,14 @@ PS /> Invoke-TeamViewerPackageDownload
 PS C:\> Invoke-TeamViewerPackageDownload -PackageType QuickSupport
 ```
 
+### Example 3
+
+```powershell
+PS C:\> Invoke-TeamViewerPackageDownload -PackageType MSI64 -TargetDirectory (Join-Path -Path $env:UserProfile -ChildPath "Downloads")
+```
+
+Downloads the MSI for 64-bit architecture and stores the file in the downloads folder of the current user.
+
 ## PARAMETERS
 
 ### -Force

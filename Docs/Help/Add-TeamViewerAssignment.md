@@ -9,7 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Assigns the device to a company.
+Assigns the local device to a TeamViewer company.
 
 ## SYNTAX
 
@@ -19,21 +19,29 @@ Add-TeamViewerAssignment [-AssignmentId] [-DeviceAlias] [-Retries]
 
 ## DESCRIPTION
 
-Assigns the particular device to a company listed in managed devices.
-Assignment ID can be obtained from Management console under Design & Deploy.
+Assigns the local / current device to a TeamViewer company where it's listed in "managed devices".
+The Assignment Id can be obtained from the Management Console (MCO) under Design & Deploy.
 
 ## EXAMPLES
 
 ### Example 1
 
 ```powershell
-PS /> Add-TeamViewerAssignment -AssignmentId '0001CoABChCiJnyAKf0R7r6'
-PS /> Add-TeamViewerAssignment -AssignmentId '0001CoABChCiJnyAKf0R7r6' -DeviceAlias  'Test Device 1' 
-PS /> Add-TeamViewerAssignment -AssignmentId '0001CoABChD3RCXwL6IR7pS' -DeviceAlias  'Test Device 2' -Retries 3
+Add-TeamViewerAssignment -AssignmentId '0001CoABChCiJnyAKf0R7r6'
 
 ```
 
-Assigns the devices with default Hostname or with names `Test Device 1` and `Test Device 2` to a Company with the given assignment id.
+Assigns the local device with default alias (hostname of device) to the TeamViewer company corresponding to the Assignment Id.
+
+### Example 2
+
+```powershell
+Add-TeamViewerAssignment -AssignmentId '0001CoABChD3RCXwL6IR7pS' -DeviceAlias  'My Test Device' -Retries 3
+
+```
+
+Assigns the local device with alias "My Test Device" to the corresponding TeamViewer company.
+Three assignment retries are done.
 
 ## PARAMETERS
 
@@ -71,7 +79,7 @@ Accept wildcard characters: False
 
 ### -Retries
 
-The assignment is retried in case of temporary errors. There is a waiting time of 1 second between each try.
+The assignment is retried in case of temporary connection errors. There is a waiting time of 1 second between each try.
 
 ```yaml
 Type: int
