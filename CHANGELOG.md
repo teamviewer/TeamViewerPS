@@ -1,6 +1,17 @@
 # Change Log
 
-<<<<<<< HEAD
+## 2.2.0 (2025-xx-xx)
+
+### Added
+
+- Adds commands to manage the organizational units of a TeamViewer company.
+
+## 2.2.0 (2025-xx-xx)
+
+### Added
+
+- Adds commands to manage the organizational units of a TeamViewer company.
+
 ## 2.1.1 (2025-02-05)
 
 ### Fixed
@@ -8,15 +19,12 @@
 - Fixed documentation for Api parameter of the Get-TeamViewerCompanyManagedDevice Cmdlet. The targeted endpoint requires 'company admin' and 'Device Groups: read operations' permissions
 
 ## 2.1.0 (2024-11-15)
-=======
-## 2.1.0 (2024-11-15)
 
 ### Added
 
 - Adds `Get-TeamViewerCompanyManagedDevice` to return all company-managed devices.
 
 ## 2.0.1 (2024-11-14)
->>>>>>> a169998 (Added Get-TeamViewerCompanyManagedDevice cmdlet)
 
 ### Added
 
@@ -26,7 +34,7 @@
 
 ### Added
 
-- Add-TeamViewerSsoInclusion command to add SSO Inclusion list items.
+- Adds `Add-TeamViewerSsoInclusion` command to add items to Single Sign-On (SSO) inclusion list.
 
 ## 2.0.0 (2023-11-22)
 

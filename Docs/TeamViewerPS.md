@@ -60,6 +60,21 @@ The following functions are available in this category:
 
 [`Unpublish-TeamViewerGroup`](Help/Unpublish-TeamViewerGroup.md)
 
+## Organizational Units
+
+Remotely manage the organizational units of a TeamViewer company via the
+TeamViewer web API. Have organizational units to further organize / structure users and user groups.
+
+The following functions are available in this category:
+
+[`Get-TeamViewerOrganizationalUnit`](Help/Get-TeamViewerOrganizationalUnit.md)
+
+[`New-TeamViewerOrganizationalUnit`](Help/New-TeamViewerOrganizationalUnit.md)
+
+[`Set-TeamViewerOrganizationalUnit`](Help/Set-TeamViewerOrganizationalUnit.md)
+
+[`Remove-TeamViewerOrganizationalUnit`](Help/Remove-TeamViewerOrganizationalUnit.md)
+
 ## User Management
 
 Remotely manage the user accounts of a TeamViewer company via the TeamViewer
