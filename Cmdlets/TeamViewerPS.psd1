@@ -18,10 +18,10 @@
     CompanyName       = 'TeamViewer Germany GmbH'
 
     # Copyright statement for this module.
-    Copyright         = '(c) 2021-2024 TeamViewer Germany GmbH. All rights reserved.'
+    Copyright         = '(c) 2021-2025 TeamViewer Germany GmbH. All rights reserved.'
 
     # Description of the functionality provided by this module.
-    Description       = 'TeamViewerPS allows to interact with the TeamViewer Web API as well as a locally installed TeamViewer client.'
+    Description       = 'TeamViewerPS allows to interact with the TeamViewer web API as well as a locally installed TeamViewer client.'
 
     # Minimum version of the Windows PowerShell engine required by this module.
     PowerShellVersion = '5.1'

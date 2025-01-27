@@ -47,7 +47,7 @@
 
 ### Added
 
-- Add-TeamViewerSsoInclusion command to add SSO Inclusion list items.
+- Adds `Add-TeamViewerSsoInclusion` command to add items to Single Sign-On (SSO) inclusion list.
 
 ## 2.0.0 (2023-11-22)
 
