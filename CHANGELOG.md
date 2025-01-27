@@ -1,5 +1,11 @@
 # Change Log
 
+## 2.2.0 (2025-xx-xx)
+
+### Added
+
+- Adds commands to manage the organizational units of a TeamViewer company.
+
 ## 2.1.0 (2024-11-15)
 
 ### Added
@@ -9,7 +15,8 @@
 ## 2.0.2 (2024-11-14)
 
 ### Added
-- Add-TeamViewerSsoInclusion command to add SSO Inclusion list items.
+
+- Adds `Add-TeamViewerSsoInclusion` command to add items to Single Sign-On (SSO) inclusion list.
 
 ## 2.0.0 (2023-11-22)
 

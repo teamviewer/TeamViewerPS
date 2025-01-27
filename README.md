@@ -59,14 +59,15 @@ Get-Help -Full Get-TeamViewerUser # ... or any other command
 
 The module provides functions for the following categories:
 
-- _Computers & Contacts list_
-- _User management_
-- _User groups_
+- _Organizational units_
 - _Roles_
+- _Users_
+- _User groups_
+- _Computers & Contacts_
 - _Managed groups_
-- _Policy management_
-- _Single Sign-On (SSO) management_
-- _Local TeamViewer utilities_
+- _Policies_
+- _Single Sign-On (SSO)_
+- _TeamViewer client utilities_
 
 Please see the [TeamViewerPS](Docs/TeamViewerPS.md) article for a more detailed list.
 
