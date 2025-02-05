@@ -1,5 +1,11 @@
 # Change Log
 
+## 2.1.1 (2025-02-05)
+
+### Fixed
+
+- Fixed documentation for Api parameter of the Get-TeamViewerCompanyManagedDevice Cmdlet. The targeted endpoint requires 'company admin' and 'Device Groups: read operations' permissions
+
 ## 2.1.0 (2024-11-15)
 
 ### Added
@@ -9,6 +15,7 @@
 ## 2.0.2 (2024-11-14)
 
 ### Added
+
 - Add-TeamViewerSsoInclusion command to add SSO Inclusion list items.
 
 ## 2.0.0 (2023-11-22)
