@@ -9,7 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Retrieves TeamViewer company-managed devices. Requires an API Token with company admin permissions.
+Retrieves TeamViewer company-managed devices. Requires an API Token with 'company admin' and 'Device Groups: read operations' permissions.
 
 ## SYNTAX
 
@@ -38,7 +38,7 @@ List all company-managed devices of this company.
 
 ### -ApiToken
 
-The TeamViewer API access token. Needs to have company admin permissions to successfully retrieve the devices.
+The TeamViewer API access token. Needs to have 'company admin' and 'Device Groups: read operations' permissions to successfully retrieve the devices.
 
 ```yaml
 Type: SecureString
