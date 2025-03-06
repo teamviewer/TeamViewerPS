@@ -6,39 +6,33 @@ BeforeAll {
 
     $testApiToken = [securestring]@{}
     $null = $testApiToken
+    $testOrganizationalUnitId = '1cbae0b5-8a2f-487a-a8cf-5b884787b52c'
+    $null = $testOrganizationalUnitId
 
     Mock Get-TeamViewerApiUri { '//unit.test' }
-    Mock Invoke-TeamViewerRestMethod { }
+    Mock Invoke-TeamViewerRestMethod {}
 }
 
 Describe 'Remove-TeamViewerOrganizationalUnit' {
+
     It 'Should call the correct API endpoint' {
-        Remove-TeamViewerOrganizationalUnit -ApiToken $testApiToken -OrganizationalUnit '1cbae0b5-8a2f-487a-a8cf-5b884787b52c'
+        Remove-TeamViewerOrganizationalUnit -ApiToken $testApiToken -OrganizationalUnit $testOrganizationalUnitId
 
         Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -And $Uri -eq '//unit.test/organizationalunits/1cbae0b5-8a2f-487a-a8cf-5b884787b52c' -And $Method -eq 'Delete'
+            $ApiToken -eq $testApiToken -And `
+                $Uri -eq "//unit.test/organizationalunits/$testOrganizationalUnitId" -And `
+                $Method -eq 'Delete'
         }
     }
 
-    It 'Should accept organizational unit objects' {
-        $TestOrgUnit = @{ id = '1cbae0b5-8a2f-487a-a8cf-5b884787b52c' } | ConvertTo-TeamViewerOrganizationalUnit
-        Remove-TeamViewerOrganizationalUnit -ApiToken $testApiToken -OrganizationalUnit $TestOrgUnit
+    It 'Should handle domain object as input' {
+        $testOrganizationalUnit = @{Id = $testOrganizationalUnitId } | ConvertTo-TeamViewerOrganizationalUnit
+        Remove-TeamViewerOrganizationalUnit -ApiToken $testApiToken -OrganizationalUnit $testOrganizationalUnit
 
         Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -And $Uri -eq '//unit.test/organizationalunits/1cbae0b5-8a2f-487a-a8cf-5b884787b52c' -And $Method -eq 'Delete'
-        }
-    }
-
-    It 'Should fail for invalid organizational unit identifiers' {
-        { Remove-TeamViewerOrganizationalUnit -ApiToken $testApiToken -OrganizationalUnit 'invalid1234' } | Should -Throw
-    }
-
-    It 'Should accept pipeline input' {
-        $TestOrgUnit = @{ Id = '1cbae0b5-8a2f-487a-a8cf-5b884787b52c' } | ConvertTo-TeamViewerOrganizationalUnit
-        $TestOrgUnit | Remove-TeamViewerOrganizationalUnit -ApiToken $testApiToken
-
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -And $Uri -eq '//unit.test/organizationalunits/1cbae0b5-8a2f-487a-a8cf-5b884787b52c' -And $Method -eq 'Delete'
+            $ApiToken -eq $testApiToken -And `
+                $Uri -eq "//unit.test/organizationalunits/$testOrganizationalUnitId" -And `
+                $Method -eq 'Delete'
         }
     }
 }

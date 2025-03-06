@@ -59,10 +59,10 @@ Get-Help -Full Get-TeamViewerUser # ... or any other command
 
 The module provides functions for the following categories:
 
-- _Organizational units_
-- _Roles_
 - _Users_
+- _Roles_
 - _User groups_
+- _Organizational units_
 - _Computers & Contacts_
 - _Managed groups_
 - _Policies_

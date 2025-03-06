@@ -15,7 +15,7 @@ function New-TeamViewerOrganizationalUnit {
 
         [Parameter(Mandatory = $false)]
         [string]
-        $Parent
+        $ParentId
     )
 
     $body = @{ name = $Name }
@@ -24,8 +24,8 @@ function New-TeamViewerOrganizationalUnit {
         $body = @{ description = $Description }
     }
 
-    if ($Parent) {
-        $body = @{ parentId = $Parent }
+    if ($ParentId) {
+        $body = @{ parentId = $ParentId }
     }
 
     $resourceUri = "$(Get-TeamViewerApiUri)/organizationalunits"
@@ -39,6 +39,7 @@ function New-TeamViewerOrganizationalUnit {
             -Body ([System.Text.Encoding]::UTF8.GetBytes(($body | ConvertTo-Json))) `
             -WriteErrorTo $PSCmdlet `
             -ErrorAction Stop
+
         Write-Output ($response | ConvertTo-TeamViewerOrganizationalUnit)
     }
 }
