@@ -9,9 +9,9 @@ function ConvertTo-TeamViewerOrganizationalUnit {
             Id          = $InputObject.id
             Name        = $InputObject.name
             Description = $InputObject.description
-            ParentId    = $InputObject.parentid
-            CreatedAt   = $InputObject.createdat
-            UpdatedAt   = $InputObject.updatedat
+            ParentId    = $InputObject.parentId
+            CreatedAt   = $InputObject.createdAt
+            UpdatedAt   = $InputObject.updatedAt
         }
 
         $result = New-Object -TypeName PSObject -Property $properties
