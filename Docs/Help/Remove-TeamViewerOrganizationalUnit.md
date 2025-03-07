@@ -9,17 +9,13 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Delete an organizational unit in the associated TeamViewer company.
+Deletes an organizational unit from the associated TeamViewer company.
 
 ## SYNTAX
 
 ```powershell
-Remove-TeamViewerOrganizationalUnit [-ApiToken] <SecureString> [-OrganizationalUnit] <Object> [-WhatIf] [-Confirm] [<CommonParameters>]
+Remove-TeamViewerOrganizationalUnit [-ApiToken] <SecureString> [-OrganizationalUnit] <PSObject> [-Confirm] [-WhatIf] [<CommonParameters>]
 ```
-
-## DESCRIPTION
-
-Deletes an existing organizational unit in the associated TeamViewer company.
 
 ## EXAMPLES
 
@@ -29,7 +25,7 @@ Deletes an existing organizational unit in the associated TeamViewer company.
 PS /> Remove-TeamViewerOrganizationalUnit -Id '1cbae0b5-8a2f-487a-a8cf-5b884787b52c'
 ```
 
-Delete an organizational unit with the given Id `1cbae0b5-8a2f-487a-a8cf-5b884787b52c` in the associated TeamViewer company.
+Deletes one specific organizational unit with the given Id `1cbae0b5-8a2f-487a-a8cf-5b884787b52c` from the associated TeamViewer company.
 
 ## PARAMETERS
 
@@ -40,10 +36,10 @@ The TeamViewer API access token.
 ```yaml
 Type: SecureString
 Parameter Sets: (All)
-Aliases:
+Aliases: Token
 
 Required: True
-Position: 0
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -52,18 +48,18 @@ Accept wildcard characters: False
 ### -OrganizationalUnit
 
 Object that can be used to identify the organizational unit.
-This can either be the organizational unit Id or a organizational unit object
+This can either be the organizational unit Id or an organizational unit object
 that has been received using other module functions.
 
 ```yaml
-Type: Object
-Parameter Sets: (All)
+Type: PSObject
+Parameter Sets:
 Aliases: Id, OrganizationalUnitId
 
 Required: True
-Position: 1
+Position: Named
 Default value: None
-Accept pipeline input: True (ByValue)
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
@@ -74,7 +70,7 @@ Prompts you for confirmation before running the cmdlet.
 ```yaml
 Type: SwitchParameter
 Parameter Sets: (All)
-Aliases: cf
+Aliases:
 
 Required: False
 Position: Named
@@ -86,12 +82,11 @@ Accept wildcard characters: False
 ### -WhatIf
 
 Shows what would happen if the cmdlet runs.
-The cmdlet is not run.
 
 ```yaml
 Type: SwitchParameter
 Parameter Sets: (All)
-Aliases: wi
+Aliases:
 
 Required: False
 Position: Named

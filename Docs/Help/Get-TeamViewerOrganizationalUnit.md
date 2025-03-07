@@ -9,26 +9,21 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Returns TeamViewer organizational units.
+Returns a single or multiple TeamViewer organizational units of the associated TeamViewer company.
 
 ## SYNTAX
 
-### FilteredList (Default)
+### List (Default)
 
 ```powershell
-Get-TeamViewerOrganizationalUnit -ApiToken <SecureString> [-Name <String>] [-Description <String>] [-Parent <String>] [<CommonParameters>]
+Get-TeamViewerOrganizationalUnit -ApiToken <SecureString> [-Recursive <Switch>] [-ParentId <String>] [-Filter <String>] [-SortBy <String>] [-SortOrder <String>] [-PageSize <int>] [-PageNumber <int>][<CommonParameters>]
 ```
 
-### ByOrganizationalUnitId
+### ById
 
 ```powershell
-Get-TeamViewerOrganizationalUnit -ApiToken <SecureString> [-Id <String>] [<CommonParameters>]
+Get-TeamViewerOrganizationalUnit -ApiToken <SecureString> [-OrganizationalUnit <PSObject>] [<CommonParameters>]
 ```
-
-## DESCRIPTION
-
-Returns either a list of TeamViewer organizational units or a single TeamViewer organizational unit
-that are associated to the current account (API access token) and TV company.
 
 ## EXAMPLES
 
@@ -38,7 +33,7 @@ that are associated to the current account (API access token) and TV company.
 PS /> Get-TeamViewerOrganizationalUnit
 ```
 
-List all TeamViewer organizational units that are associated to the current account and TV company.
+Lists all TeamViewer organizational units that are associated to the TV company.
 
 ### Example 2
 
@@ -46,15 +41,15 @@ List all TeamViewer organizational units that are associated to the current acco
 PS /> Get-TeamViewerOrganizationalUnit -Id '1cbae0b5-8a2f-487a-a8cf-5b884787b52c'
 ```
 
-Get a single TeamViewer organizational unit with the given Id `1cbae0b5-8a2f-487a-a8cf-5b884787b52c`.
+Gets one specific TeamViewer organizational unit with the given Id `1cbae0b5-8a2f-487a-a8cf-5b884787b52c`.
 
 ### Example 3
 
 ```powershell
-PS /> Get-TeamViewerOrganizationalUnit -Name 'test'
+PS /> Get-TeamViewerOrganizationalUnit -Filter 'test'
 ```
 
-List all TeamViewer organizational units of the current account and TV company that have the string `test` in their name.
+Lists all TeamViewer organizational units of the TV company that have the string `test` in their name or description.
 
 ## PARAMETERS
 
@@ -65,7 +60,7 @@ The TeamViewer API access token.
 ```yaml
 Type: SecureString
 Parameter Sets: (All)
-Aliases:
+Aliases: Token
 
 Required: True
 Position: Named
@@ -74,14 +69,48 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Id
+### -OrganizationalUnit
 
-Organizational unit identifier used to get only a single specific organizational unit.
+Object that can be used to identify the organizational unit.
+This can either be the organizational unit Id or an organizational unit object
+that has been received using other module functions.
+
+```yaml
+Type: PSObject
+Parameter Sets: ById
+Aliases: Id, OrganizationalUnitId
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Recursive
+
+A breadth-first traversal through all levels of the organizational unit hierarchy.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: List
+Aliases: IncludeChildren
+
+Required: False
+Position: Named
+Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ParentId
+
+Define the organizational unit where processing starts. If not set, the root OU will be used as starting point.
 
 ```yaml
 Type: String
-Parameter Sets: ByOrganizationalUnitId
-Aliases: OrganizationalUnitId
+Parameter Sets: List
+Aliases: StartOrganizationalUnitId
 
 Required: False
 Position: Named
@@ -90,19 +119,82 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Name
+### -Filter
 
-Optional name filter parameter that can be used to only list organizational units that have
-the given string in their name.
+Filter organizational units by name and description.
 
 ```yaml
 Type: String
-Parameter Sets: FilteredList
-Aliases: PartialName
+Parameter Sets: List
+Aliases:
 
 Required: False
 Position: Named
 Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -SortBy
+
+Sort organizational units by Name, CreatedAt, or UpdatedAt field.
+
+```yaml
+Type: String
+Parameter Sets: List
+Aliases:
+
+Required: False
+Position: Named
+Default value: Name
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -SortOrder
+
+Sort direction of organizational units.
+
+```yaml
+Type: String
+Parameter Sets: List
+Aliases:
+
+Required: False
+Position: Named
+Default value: Asc
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -PageSize
+
+The number of results per page. The default is 100. The minimum is 50, the maximum is 250.
+
+```yaml
+Type: Integer
+Parameter Sets: List
+Aliases:
+
+Required: False
+Position: Named
+Default value: 100
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -PageNumber
+
+The page number of results to retrieve. The first page is 1.
+
+```yaml
+Type: Integer
+Parameter Sets: List
+Aliases:
+
+Required: False
+Position: Named
+Default value: 1
 Accept pipeline input: False
 Accept wildcard characters: False
 ```

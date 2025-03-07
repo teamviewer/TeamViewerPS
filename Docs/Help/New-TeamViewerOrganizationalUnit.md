@@ -9,18 +9,13 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Create a new organizational unit in the associated TeamViewer company.
+Creates a TeamViewer organizational unit in the associated TeamViewer company.
 
 ## SYNTAX
 
 ```powershell
-New-TeamViewerOrganizationalUnit [-ApiToken] <SecureString> [-Name] <String> [-Description] <String> [-Parent] <String> [-WhatIf] [-Confirm]
- [<CommonParameters>]
+New-TeamViewerOrganizationalUnit [-ApiToken] <SecureString> [-Name] <String> [-Description] <String> [-ParentId] <String> [-Confirm] [-WhatIf] [<CommonParameters>]
 ```
-
-## DESCRIPTION
-
-Create a new organizational unit in the associated TV company.
 
 ## EXAMPLES
 
@@ -30,7 +25,7 @@ Create a new organizational unit in the associated TV company.
 PS /> New-TeamViewerOrganizationalUnit -Name 'Test'
 ```
 
-Create a new organizational unit with the given name `Test` directly below root organizational unit.
+Creates a new organizational unit with the given name `Test` directly below the root organizational unit.
 
 ### Example 2
 
@@ -38,7 +33,7 @@ Create a new organizational unit with the given name `Test` directly below root 
 PS /> New-TeamViewerOrganizationalUnit -Name 'Test' -Description 'Test organizational unit' -Parent '1cbae0b5-8a2f-487a-a8cf-5b884787b52c'
 ```
 
-Create a new organizational unit with the given name `Test` with description below an specific organizational unit.
+Creates a new organizational unit with the given name `Test` with description below a specific organizational unit.
 
 ## PARAMETERS
 
@@ -49,10 +44,10 @@ The TeamViewer API access token.
 ```yaml
 Type: SecureString
 Parameter Sets: (All)
-Aliases:
+Aliases: Token
 
 Required: True
-Position: 0
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -60,7 +55,7 @@ Accept wildcard characters: False
 
 ### -Name
 
-Name of the new organizational unit.
+The name of the new organizational unit.
 
 ```yaml
 Type: String
@@ -68,7 +63,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: True
-Position: 1
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -76,7 +71,7 @@ Accept wildcard characters: False
 
 ### -Description
 
-Description of the new organizational unit.
+The description of the new organizational unit.
 
 ```yaml
 Type: String
@@ -84,13 +79,13 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 2
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Parent
+### -ParentId
 
 Id of the parent organizational unit.
 
@@ -100,7 +95,7 @@ Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: 3
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -109,12 +104,11 @@ Accept wildcard characters: False
 ### -WhatIf
 
 Shows what would happen if the cmdlet runs.
-The cmdlet is not run.
 
 ```yaml
 Type: SwitchParameter
 Parameter Sets: (All)
-Aliases: wi
+Aliases:
 
 Required: False
 Position: Named
