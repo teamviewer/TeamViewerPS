@@ -1,32 +1,44 @@
 function Remove-TeamViewerOrganizationalUnit {
     [CmdletBinding(SupportsShouldProcess = $true)]
+
     param(
-        [Parameter(Mandatory = $true)]
+        [Parameter(ValueFromPipeline = $true, Mandatory = $true)]
+        [ValidateNotNullOrEmpty()]
+        [Alias('Token')]
         [securestring]
         $ApiToken,
 
-        [Parameter(Mandatory = $true)]
-        [ValidateScript( { $_ | Resolve-TeamViewerOrganizationalUnitId } )]
-        [Alias('OrganizationalUnitId')]
-        [Alias('Id')]
-        [object]
+        [Parameter(ValueFromPipeline = $true, Mandatory = $true)]
+        [ValidateScript({ $_ | Resolve-TeamViewerOrganizationalUnitId })]
+        [Alias('Id', 'OrganizationalUnitId')]
+        [PSObject]
         $OrganizationalUnit
     )
 
     Begin {
-        $id = $OrganizationalUnit | Resolve-TeamViewerOrganizationalUnitId
-        $resourceUri = "$(Get-TeamViewerApiUri)/organizationalunits/$id"
+        # Construct the API base URI
+        $Uri = "$(Get-TeamViewerApiUri)/organizationalunits"
+
+        # Append Organizational Unit Id to base URI
+        $OrganizationalUnitId = $OrganizationalUnit | Resolve-TeamViewerOrganizationalUnitId
+        $Uri += "/$OrganizationalUnitId"
     }
 
     Process {
         if ($PSCmdlet.ShouldProcess($OrganizationalUnit.ToString(), 'Remove organizational unit')) {
-            Invoke-TeamViewerRestMethod `
-                -ApiToken $ApiToken `
-                -Uri $resourceUri `
-                -Method Delete `
-                -WriteErrorTo $PSCmdlet `
-                -ErrorAction Stop | `
-                Out-Null
+            try {
+                # Execute request
+                Invoke-TeamViewerRestMethod `
+                    -ApiToken $ApiToken `
+                    -Uri $Uri `
+                    -Method Delete `
+                    -WriteErrorTo $PSCmdlet `
+                    -ErrorAction Stop
+            }
+            catch {
+                # Handle any errors that occur
+                Write-Error "Failed to remove organizational unit: $_"
+            }
         }
     }
 }

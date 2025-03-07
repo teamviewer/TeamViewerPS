@@ -1,10 +1,13 @@
 function ConvertTo-TeamViewerOrganizationalUnit {
     param(
-        [Parameter(ValueFromPipeline)]
+        [Parameter(ValueFromPipeline = $true, Mandatory = $true)]
+        [ValidateNotNullOrEmpty()]
         [PSObject]
         $InputObject
     )
+
     process {
+        # Extract properties from the input object
         $properties = @{
             Id          = $InputObject.id
             Name        = $InputObject.name
@@ -14,9 +17,10 @@ function ConvertTo-TeamViewerOrganizationalUnit {
             UpdatedAt   = $InputObject.updatedAt
         }
 
-        $result = New-Object -TypeName PSObject -Property $properties
-        $result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.OrganizationalUnit')
+        # Create a new object with the extracted properties
+        $Result = New-Object -TypeName PSObject -Property $properties
+        $Result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.OrganizationalUnit')
 
-        Write-Output $result
+        Write-Output $Result
     }
 }

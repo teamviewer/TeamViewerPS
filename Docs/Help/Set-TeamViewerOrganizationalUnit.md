@@ -9,27 +9,13 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Change an existing organizational unit in the associated TeamViewer company.
+Changes a TeamViewer organizational unit in the associated TeamViewer company.
 
 ## SYNTAX
 
-### ByParameters (Default)
-
 ```powershell
-Set-TeamViewerOrganizationalUnit -ApiToken <SecureString> -OrganizationalUnit <Object> [-Name <String>] [-Description <String>] [-Parent <String>] [-WhatIf]
- [-Confirm] [<CommonParameters>]
+Set-TeamViewerOrganizationalUnit -ApiToken <SecureString> -OrganizationalUnit <PSObject> [-Name <String>] [-Description <String>] [-ParentId <String>] [-Confirm] [-WhatIf] [<CommonParameters>]
 ```
-
-### ByProperties
-
-```powershell
-Set-TeamViewerOrganizationalUnit -ApiToken <SecureString> -OrganizationalUnit <Object> -Property <Hashtable> [-WhatIf] [-Confirm]
- [<CommonParameters>]
-```
-
-## DESCRIPTION
-
-Changes an existing organizational unit in the associated TeamViewer company.
 
 ## EXAMPLES
 
@@ -39,7 +25,7 @@ Changes an existing organizational unit in the associated TeamViewer company.
 PS /> Set-TeamViewerOrganizationalUnit -OrganizationalUnit '1cbae0b5-8a2f-487a-a8cf-5b884787b52c' -Name 'New organizational unit name'
 ```
 
-Change the name of the organizational unit with the given Id `1cbae0b5-8a2f-487a-a8cf-5b884787b52c` to `New organizational unit name`.
+Changes the name of the organizational unit with the given Id `1cbae0b5-8a2f-487a-a8cf-5b884787b52c` to `New organizational unit name`.
 
 ## PARAMETERS
 
@@ -50,7 +36,7 @@ The TeamViewer API access token.
 ```yaml
 Type: SecureString
 Parameter Sets: (All)
-Aliases:
+Aliases: Token
 
 Required: True
 Position: Named
@@ -62,30 +48,31 @@ Accept wildcard characters: False
 ### -OrganizationalUnit
 
 Object that can be used to identify the organizational unit.
-This can either be the organizational unit Id or a organizational unit object that has been received using other module functions.
+This can either be the organizational unit Id or an organizational unit object
+that has been received using other module functions.
 
 ```yaml
-Type: Object
-Parameter Sets: (All)
+Type: PSObject
+Parameter Sets:
 Aliases: Id, OrganizationalUnitId
 
 Required: True
 Position: Named
 Default value: None
-Accept pipeline input: True (ByValue)
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -Name
 
-The new name of the organizational unit.
+The name of the new organizational unit.
 
 ```yaml
 Type: String
-Parameter Sets: ByParameters
+Parameter Sets: (All)
 Aliases:
 
-Required: False
+Required: True
 Position: Named
 Default value: None
 Accept pipeline input: False
@@ -94,11 +81,11 @@ Accept wildcard characters: False
 
 ### -Description
 
-The new description of the organizational unit.
+The description of the new organizational unit.
 
 ```yaml
 Type: String
-Parameter Sets: ByParameters
+Parameter Sets: (All)
 Aliases:
 
 Required: False
@@ -108,33 +95,16 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Parent
+### -ParentId
 
-The new parent of the organizational unit.
+Id of the parent organizational unit.
 
 ```yaml
 Type: String
-Parameter Sets: ByParameters
+Parameter Sets: (All)
 Aliases:
 
 Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Property
-
-Change organizational unit information using a hashtable object.
-Valid hashtable keys are: `name`, `description`, `parent`
-
-```yaml
-Type: Hashtable
-Parameter Sets: ByProperties
-Aliases:
-
-Required: True
 Position: Named
 Default value: None
 Accept pipeline input: False
@@ -148,7 +118,7 @@ Prompts you for confirmation before running the cmdlet.
 ```yaml
 Type: SwitchParameter
 Parameter Sets: (All)
-Aliases: cf
+Aliases:
 
 Required: False
 Position: Named
@@ -160,12 +130,11 @@ Accept wildcard characters: False
 ### -WhatIf
 
 Shows what would happen if the cmdlet runs.
-The cmdlet is not run.
 
 ```yaml
 Type: SwitchParameter
 Parameter Sets: (All)
-Aliases: wi
+Aliases:
 
 Required: False
 Position: Named
