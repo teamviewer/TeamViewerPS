@@ -1,5 +1,11 @@
 # Change Log
 
+## 2.2.0 (2025-03-11)
+
+### Added
+
+- Adds `Move-TeamViewerManagedDevice` to move a specific device from one managed group to another.
+
 ## 2.1.1 (2025-02-05)
 
 ### Fixed
