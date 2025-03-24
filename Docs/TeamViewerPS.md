@@ -75,6 +75,8 @@ The following functions are available in this category:
 
 [`Remove-TeamViewerOrganizationalUnit`](Help/Remove-TeamViewerOrganizationalUnit.md)
 
+
+
 ## User Management
 
 Remotely manage the user accounts of a TeamViewer company via the TeamViewer
@@ -135,6 +137,8 @@ The following functions are available in this category:
 [`Get-TeamViewerUserByRole`](Help/Get-TeamViewerUserByRole.md)
 
 [`Get-TeamViewerUserGroupByRole`](Help/Get-TeamViewerUserGroupByRole.md)
+
+[`Get-TeamViewerRoleByUserGroup`](Help/Get-TeamViewerRoleByUserGroup.md)
 
 [`Add-TeamViewerUserToRole`](Help/Add-TeamViewerUserToRole.md)
 
@@ -206,7 +210,11 @@ The following functions are available in this category:
 
 [`Get-TeamViewerSsoExclusion`](Help/Get-TeamViewerSsoExclusion.md)
 
+[`Get-TeamViewerSsoInclusion`](Help/Get-TeamViewerSsoInclusion.md)
+
 [`Add-TeamViewerSsoExclusion`](Help/Add-TeamViewerSsoExclusion.md)
+
+[`Add-TeamViewerSsoInclusion`](Help/Add-TeamViewerSsoInclusion.md)
 
 [`Remove-TeamViewerSsoExclusion`](Help/Remove-TeamViewerSsoExclusion.md)
 

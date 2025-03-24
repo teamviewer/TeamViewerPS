@@ -1,5 +1,4 @@
----
-external help file: TeamViewerPS-help.xml
+xternal help file: TeamViewerPS-help.xml
 Module Name: TeamViewerPS
 online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/Get-TeamViewerOrganizationalUnit.md
 schema: 2.0.0
@@ -68,13 +67,10 @@ Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
-
 ### -OrganizationalUnit
-
 Object that can be used to identify the organizational unit.
 This can either be the organizational unit Id or an organizational unit object
 that has been received using other module functions.
-
 ```yaml
 Type: PSObject
 Parameter Sets: ById
@@ -86,11 +82,8 @@ Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
-
 ### -Recursive
-
 A breadth-first traversal through all levels of the organizational unit hierarchy.
-
 ```yaml
 Type: SwitchParameter
 Parameter Sets: List
@@ -102,11 +95,8 @@ Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
-
 ### -ParentId
-
 Define the organizational unit where processing starts. If not set, the root OU will be used as starting point.
-
 ```yaml
 Type: String
 Parameter Sets: List
@@ -118,11 +108,8 @@ Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
-
 ### -Filter
-
 Filter organizational units by name and description.
-
 ```yaml
 Type: String
 Parameter Sets: List
@@ -134,11 +121,8 @@ Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
-
 ### -SortBy
-
 Sort organizational units by Name, CreatedAt, or UpdatedAt field.
-
 ```yaml
 Type: String
 Parameter Sets: List
@@ -150,11 +134,8 @@ Default value: Name
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
-
 ### -SortOrder
-
 Sort direction of organizational units.
-
 ```yaml
 Type: String
 Parameter Sets: List
@@ -166,11 +147,8 @@ Default value: Asc
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
-
 ### -PageSize
-
 The number of results per page. The default is 100. The minimum is 50, the maximum is 250.
-
 ```yaml
 Type: Integer
 Parameter Sets: List
@@ -182,11 +160,8 @@ Default value: 100
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
-
 ### -PageNumber
-
 The page number of results to retrieve. The first page is 1.
-
 ```yaml
 Type: Integer
 Parameter Sets: List
@@ -198,17 +173,10 @@ Default value: 1
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
-
 ### CommonParameters
-
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
-
 ## INPUTS
-
 ### None
-
 ## OUTPUTS
-
 ## NOTES
-
 ## RELATED LINKS
