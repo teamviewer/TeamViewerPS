@@ -1,20 +1,20 @@
 ---
 external help file: TeamViewerPS-help.xml
 Module Name: TeamViewerPS
-online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/Set-TeamViewerOrganizationalUnit.md
+online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/Remove-TeamViewerOrganizationalUnit.md
 schema: 2.0.0
 ---
 
-# Set-TeamViewerOrganizationalUnit
+# Remove-TeamViewerOrganizationalUnit
 
 ## SYNOPSIS
 
-Changes a TeamViewer organizational unit in the associated TeamViewer company.
+Deletes an organizational unit from the associated TeamViewer company.
 
 ## SYNTAX
 
 ```powershell
-Set-TeamViewerOrganizationalUnit -ApiToken <SecureString> -OrganizationalUnit <PSObject> [-Name <String>] [-Description <String>] [-ParentId <String>] [-Confirm] [-WhatIf] [<CommonParameters>]
+Remove-TeamViewerOrganizationalUnit [-ApiToken] <SecureString> [-OrganizationalUnit] <PSObject> [-Confirm] [-WhatIf] [<CommonParameters>]
 ```
 
 ## EXAMPLES
@@ -22,10 +22,10 @@ Set-TeamViewerOrganizationalUnit -ApiToken <SecureString> -OrganizationalUnit <P
 ### Example 1
 
 ```powershell
-PS /> Set-TeamViewerOrganizationalUnit -OrganizationalUnit '1cbae0b5-8a2f-487a-a8cf-5b884787b52c' -Name 'New organizational unit name'
+PS /> Remove-TeamViewerOrganizationalUnit -Id '1cbae0b5-8a2f-487a-a8cf-5b884787b52c'
 ```
 
-Changes the name of the organizational unit with the given Id `1cbae0b5-8a2f-487a-a8cf-5b884787b52c` to `New organizational unit name`.
+Deletes one specific organizational unit with the given Id `1cbae0b5-8a2f-487a-a8cf-5b884787b52c` from the associated TeamViewer company.
 
 ## PARAMETERS
 
@@ -54,45 +54,6 @@ Parameter Sets:
 Aliases: Id, OrganizationalUnitId
 
 Required: True
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-### -Name
-The name of the new organizational unit.
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: True
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-### -Description
-The description of the new organizational unit.
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-### -ParentId
-Id of the parent organizational unit.
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: False
 Position: Named
 Default value: None
 Accept pipeline input: False

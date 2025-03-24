@@ -2,152 +2,103 @@ BeforeAll {
     . "$PSScriptRoot\..\..\Cmdlets\Public\Get-TeamViewerOrganizationalUnit.ps1"
 
     @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
+
+    $testApiToken = [securestring]@{}
+    $null = $testApiToken
+    $example_uuid = '7042bac2-7ce0-47c6-8c1a-fb00505bd6ed'
+    $null = $example_uuid
+    Mock Get-TeamViewerApiUri { '//unit.test' }
+    Mock Invoke-TeamViewerRestMethod { @{
+            data = @(
+                @{
+                    Name        = 'Root'
+                    ParentId    = ''
+                    Id          = 'd696ef85-d40a-479e-8331-4813f59e6481'
+                    Description = ''
+                    CreatedAt   = '24/03/2025 12:49:25'
+                    UpdatedAt   = '24/03/2025 12:49:25'
+                },
+                @{
+                    Name        = 'TestOU2'
+                    ParentId    = 'd696ef85-d40a-479e-8331-4813f59e6481'
+                    Id          = '7042bac2-7ce0-47c6-8c1a-fb00505bd6ed'
+                    Description = ''
+                    CreatedAt   = '24/03/2025 13:30:38'
+                    UpdatedAt   = '24/03/2025 13:30:38'
+                },
+                @{
+                    Name        = 'TestOUCMD'
+                    ParentId    = 'd696ef85-d40a-479e-8331-4813f59e6481'
+                    Id          = 'a400ad06-9c59-4a33-b110-4649fcce6f45'
+                    Description = ''
+                    CreatedAt   = '24/03/2025 13:43:02'
+                    UpdatedAt   = '24/03/2025 13:43:02'
+                }
+            )
+        } }
+
+
+
+
 }
 
 Describe 'Get-TeamViewerOrganizationalUnit' {
-    # Mock the required functions
-    Mock -CommandName Get-TeamViewerApiUri -MockWith { return 'https://api.teamviewer.com/v1' }
-    Mock -CommandName Resolve-TeamViewerOrganizationalUnitId -MockWith { return 'mocked-id' }
-    Mock -CommandName Invoke-TeamViewerRestMethod -MockWith { return @{ id = 'mocked-id'; name = 'Mocked OU' } }
-    Mock -CommandName ConvertTo-TeamViewerOrganizationalUnit -MockWith { param($InputObj) return $InputObj }
 
-    Context 'When called with ParameterSetName List' {
-        It 'should construct the correct URI and body' {
-            $params = @{
-                ApiToken   = [securestring]@{}
-                Recursive  = $true
-                ParentId   = 'mocked-parent-id'
-                Filter     = 'mocked-filter'
-                SortBy     = 'Name'
-                SortOrder  = 'Asc'
-                PageSize   = 100
-                PageNumber = 1
-            }
+    It 'Should call the correct API endpoint to list users' {
+        Get-TeamViewerOrganizationalUnit -ApiToken $testApiToken
 
-            Get-TeamViewerOrganizationalUnit @params
-
-            # Verify the URI construction
-            Assert-MockCalled -CommandName Invoke-TeamViewerRestMethod -Exactly 1 -Scope It -ParameterFilter {
-                $Uri -eq 'https://api.teamviewer.com/v1/organizationalunits' -and
-                $Body.includeChildren -eq $true -and
-                $Body.startOrganizationalUnitId -eq 'mocked-parent-id' -and
-                $Body.filter -eq 'mocked-filter' -and
-                $Body.sortBy -eq 'Name' -and
-                $Body.sortOrder -eq 'Asc' -and
-                $Body.pageSize -eq 100 -and
-                $Body.pageNumber -eq 1
-            }
-        }
+        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+            $ApiToken -eq $testApiToken -And $Uri -eq '//unit.test/organizationalunits' -And $Method -eq 'Get' }
     }
 
-    Context 'When called with ParameterSetName ById' {
-        It 'should construct the correct URI without body' {
-            $params = @{
-                ApiToken           = [securestring]@{}
-                OrganizationalUnit = 'mocked-ou'
-            }
+    It 'Should call the correct API endpoint for single ID' {
+        Get-TeamViewerOrganizationalUnit -ApiToken $testApiToken -Id $example_uuid
 
-            Get-TeamViewerOrganizationalUnit @params -ParameterSetName 'ById'
-
-            # Verify the URI construction
-            Assert-MockCalled -CommandName Invoke-TeamViewerRestMethod -Exactly 1 -Scope It -ParameterFilter {
-                $Uri -eq 'https://api.teamviewer.com/v1/organizationalunits/mocked-id' -and
-                $Body -eq $null
-            }
-        }
+        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+            $ApiToken -eq $testApiToken -And $Uri -eq '//unit.test/organizationalunits/' + $example_uuid -And $Method -eq 'Get' }
     }
 
-    Context 'When an error occurs' {
-        It 'should handle the error and write an error message' {
-            Mock -CommandName Invoke-TeamViewerRestMethod -MockWith { throw 'Mocked error' }
-
-            $params = @{
-                ApiToken  = [securestring]@{}
-                Recursive = $true
-            }
-
-            { Get-TeamViewerOrganizationalUnit @params } | Should -Throw -ErrorMessage 'Failed to get organizational unit: Mocked error'
-        }
+    It 'Should return Org unit objects' {
+        $result = Get-TeamViewerOrganizationalUnit -ApiToken $testApiToken
+        $result | Should -HaveCount 3
+        $result[0].PSObject.TypeNames | Should -Contain 'TeamViewerPS.OrganizationalUnit'
     }
 
-    Context 'When called with minimal parameters' {
-        It 'should construct the correct URI and default body' {
-            $params = @{
-                ApiToken = [securestring]@{}
-            }
+    It 'Should allow to filter by name' {
+        Get-TeamViewerOrganizationalUnit -ApiToken $testApiToken -Filter 'Test'
 
-            Get-TeamViewerOrganizationalUnit @params
-
-            # Verify the URI construction
-            Assert-MockCalled -CommandName Invoke-TeamViewerRestMethod -Exactly 1 -Scope It -ParameterFilter {
-                $Uri -eq 'https://api.teamviewer.com/v1/organizationalunits' -and
-                $Body.sortBy -eq 'Name' -and
-                $Body.sortOrder -eq 'Asc' -and
-                $Body.pageSize -eq 100 -and
-                $Body.pageNumber -eq 1
-            }
-        }
+        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+            $Body -And $Body['filter'] -eq 'Test' }
     }
 
-    Context 'When called with custom sorting and pagination' {
-        It 'should construct the correct URI and body with custom parameters' {
-            $params = @{
-                ApiToken   = [securestring]@{}
-                SortBy     = 'CreatedAt'
-                SortOrder  = 'Desc'
-                PageSize   = 200
-                PageNumber = 2
-            }
+    It 'Should allow to specification of IncludeChildren, StartOrganizationalUnitId, SortBy and Sort Order, Page Size and Page Number' {
+        Get-TeamViewerOrganizationalUnit -ApiToken $testApiToken -IncludeChildren -StartOrganizationalUnitId $example_uuid -SortBy 'Name' -SortOrder 'Asc' -PageSize 200 -PageNumber 2
 
-            Get-TeamViewerOrganizationalUnit @params
-
-            # Verify the URI construction
-            Assert-MockCalled -CommandName Invoke-TeamViewerRestMethod -Exactly 1 -Scope It -ParameterFilter {
-                $Uri -eq 'https://api.teamviewer.com/v1/organizationalunits' -and
-                $Body.sortBy -eq 'CreatedAt' -and
-                $Body.sortOrder -eq 'Desc' -and
-                $Body.pageSize -eq 200 -and
-                $Body.pageNumber -eq 2
-            }
-        }
+        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+            $Body -And $Body['IncludeChildren'] -eq $true -And $Body['StartOrganizationalUnitId'] -eq $example_uuid -And $Body['SortBy'] -eq 'Name' -And $Body['PageNumber'] -eq '2' -And $Body['SortOrder'] -eq 'Asc' -And $Body['PageSize'] -eq '200' }
     }
 
-    Context 'When called with invalid parameters' {
-        It 'should throw a validation error' {
-            $params = @{
-                ApiToken = [securestring]@{}
-                PageSize = 300  # Invalid value, should be between 50 and 250
-            }
+    It 'Should fail with empty filter' {
+        { Get-TeamViewerOrganizationalUnit -ApiToken $testApiToken -Filter '' } | Should -Throw
 
-            { Get-TeamViewerOrganizationalUnit @params } | Should -Throw -ErrorMessage 'Cannot validate argument on parameter'
-        }
+    }
+    It 'Should accept OrgUnit object as input' {
+        $testGroupObj = @{ id = $example_uuid } | ConvertTo-TeamViewerOrganizationalUnit
+        Get-TeamViewerOrganizationalUnit -ApiToken $testApiToken -Id $testGroupObj
+
+        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+            $ApiToken -eq $testApiToken -And `
+                $Uri -eq '//unit.test/organizationalunits/' + $example_uuid -And `
+                $Method -eq 'Get' }
     }
 
-    Context 'When called with a valid OrganizationalUnitId' {
-        It 'should resolve the OrganizationalUnitId and construct the correct URI' {
-            $params = @{
-                ApiToken           = [securestring]@{}
-                OrganizationalUnit = 'mocked-ou'
-            }
+    It 'Should accept pipeline objects' {
+        $testGroupObj = @{ id = $example_uuid } | ConvertTo-TeamViewerOrganizationalUnit
+        $testGroupObj | Get-TeamViewerOrganizationalUnit -ApiToken $testApiToken
 
-            Get-TeamViewerOrganizationalUnit @params -ParameterSetName 'ById'
-
-            # Verify the URI construction
-            Assert-MockCalled -CommandName Invoke-TeamViewerRestMethod -Exactly 1 -Scope It -ParameterFilter {
-                $Uri -eq 'https://api.teamviewer.com/v1/organizationalunits/mocked-id' -and
-                $Body -eq $null
-            }
-        }
-    }
-
-    Context 'When called with a null OrganizationalUnitId' {
-        It 'should throw an error' {
-            $params = @{
-                ApiToken           = [securestring]@{}
-                OrganizationalUnit = $null
-            }
-
-            { Get-TeamViewerOrganizationalUnit @params -ParameterSetName 'ById' } | Should -Throw -ErrorMessage 'Cannot bind argument to parameter'
-        }
+        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+            $ApiToken -eq $testApiToken -And `
+                $Uri -eq '//unit.test/organizationalunits/' + $example_uuid -And `
+                $Method -eq 'Get' }
     }
 }

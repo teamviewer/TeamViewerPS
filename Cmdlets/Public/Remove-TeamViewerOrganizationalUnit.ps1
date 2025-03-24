@@ -2,7 +2,7 @@ function Remove-TeamViewerOrganizationalUnit {
     [CmdletBinding(SupportsShouldProcess = $true)]
 
     param(
-        [Parameter(ValueFromPipeline = $true, Mandatory = $true)]
+        [Parameter(Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
         [Alias('Token')]
         [securestring]
@@ -15,16 +15,11 @@ function Remove-TeamViewerOrganizationalUnit {
         $OrganizationalUnit
     )
 
-    Begin {
-        # Construct the API base URI
-        $Uri = "$(Get-TeamViewerApiUri)/organizationalunits"
-
-        # Append Organizational Unit Id to base URI
-        $OrganizationalUnitId = $OrganizationalUnit | Resolve-TeamViewerOrganizationalUnitId
-        $Uri += "/$OrganizationalUnitId"
-    }
 
     Process {
+        # Append Organizational Unit Id to base URI
+        $OrganizationalUnitId = $OrganizationalUnit | Resolve-TeamViewerOrganizationalUnitId
+        $Uri = "$(Get-TeamViewerApiUri)/organizationalunits/$OrganizationalUnitId"
         if ($PSCmdlet.ShouldProcess($OrganizationalUnit.ToString(), 'Remove organizational unit')) {
             try {
                 # Execute request

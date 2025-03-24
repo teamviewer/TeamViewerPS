@@ -63,7 +63,7 @@ The module provides functions for the following categories:
 - _Roles_
 - _User groups_
 - _Organizational units_
-- _Computers & Contacts_
+- _Roles_
 - _Managed groups_
 - _Policies_
 - _Single Sign-On (SSO)_
