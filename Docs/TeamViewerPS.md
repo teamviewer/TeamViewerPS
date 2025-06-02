@@ -75,6 +75,9 @@ The following functions are available in this category:
 
 [`Set-TeamViewerUser`](Help/Set-TeamViewerUser.md)
 
+[`Remove-TeamViewerUserTFA`](Help/Remove-TeamViewerUserTFA.md)
+
+
 ## User Groups
 
 Remotely manage the user groups of a TeamViewer company via the
@@ -95,6 +98,9 @@ The following functions are available in this category:
 [`Add-TeamViewerUserGroupMember`](Help/Add-TeamViewerUserGroupMember.md)
 
 [`Remove-TeamViewerUserGroupMember`](Help/Remove-TeamViewerUserGroupMember.md)
+
+[`Get-TeamViewerRoleByUserGroup`](Help/Get-TeamViewerRoleByUserGroup.md)
+
 
 ## Roles
 
@@ -188,6 +194,11 @@ The following functions are available in this category:
 [`Add-TeamViewerSsoExclusion`](Help/Add-TeamViewerSsoExclusion.md)
 
 [`Remove-TeamViewerSsoExclusion`](Help/Remove-TeamViewerSsoExclusion.md)
+
+[`Get-TeamViewerSsoInclusion`](Help/Get-TeamViewerSsoInclusion.md)
+
+[`Remove-TeamViewerSsoInclusion`](Help/Remove-TeamViewerSsoInclusion.md)
+
 
 ## Event Logs & Reporting
 

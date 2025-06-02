@@ -35,8 +35,28 @@ function Set-TeamViewerUser {
         $SsoCustomerIdentifier,
 
         [Parameter(ParameterSetName = 'ByParameters')]
-        [array]
-        $Permissions,
+        [bool]
+        $LogSessions,
+
+        [Parameter(ParameterSetName = 'ByParameters')]
+        [bool]
+        $ShowCommentWindow,
+
+        [Parameter(ParameterSetName = 'ByParameters')]
+        [bool]
+        $TFAEnforcement,
+
+        [Parameter(ParameterSetName = 'ByParameters')]
+        [string]
+        $CustomQuickSupportId,
+
+        [Parameter(ParameterSetName = 'ByParameters')]
+        [string]
+        $CustomQuickJoinId,
+
+        [Parameter(ParameterSetName = 'ByParameters')]
+        [string]
+        $LicenseKey,
 
         [Parameter(Mandatory = $true, ParameterSetName = 'ByProperties')]
         [hashtable]
@@ -77,18 +97,39 @@ function Set-TeamViewerUser {
                 $body['sso_customer_id'] = [System.Runtime.InteropServices.Marshal]::PtrToStringBSTR($bstr)
                 [System.Runtime.InteropServices.Marshal]::ZeroFreeBSTR($bstr) | Out-Null
             }
-            if ($Permissions) {
-                $body['permissions'] = $Permissions -join ','
-            }
-            if($AssignRoleId){
+            if ($AssignRoleId) {
                 $body['assignUserRoleIds'] = @($AssignRoleId)
             }
-            if($UnassignRoleId){
+            if ($UnassignRoleId) {
                 $body['unassignUserRoleIds'] = @($UnassignRoleId)
             }
+            if ($PSBoundParameters.ContainsKey('LogSessions')) {
+                $body['log_sessions'] = $LogSessions
+            }
+
+            if ($PSBoundParameters.ContainsKey('ShowCommentWindow')) {
+                $body['show_comment_window'] = $ShowCommentWindow
+            }
+
+            if ($PSBoundParameters.ContainsKey('TFAEnforcement')) {
+                $body['tfa_enforcement'] = $TFAEnforcement
+            }
+
+            if ($PSBoundParameters.ContainsKey('CustomQuickSupportId')) {
+                $body['custom_quicksupport_id'] = $CustomQuickSupportId
+            }
+
+            if ($PSBoundParameters.ContainsKey('CustomQuickJoinId')) {
+                $body['custom_quickjoin_id'] = $CustomQuickJoinId
+            }
+
+            if ($PSBoundParameters.ContainsKey('LicenseKey')) {
+                $body['license_key'] = $LicenseKey
+            }
+
         }
         'ByProperties' {
-            @('active', 'email', 'name', 'password', 'sso_customer_id', 'permissions') | `
+            @('active', 'email', 'name', 'password', 'sso_customer_id', 'permissions', 'tfa_enforcement' , 'license_key', 'custom_quickjoin_id', 'custom_quicksupport_id', 'show_comment_window', 'log_sessions' , 'AssignUserRoleIds', 'UnassignUserRoleIds') | `
                 Where-Object { $Property[$_] } | `
                 ForEach-Object { $body[$_] = $Property[$_] }
         }

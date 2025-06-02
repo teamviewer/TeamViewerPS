@@ -23,9 +23,14 @@ function ConvertTo-TeamViewerUser {
 
         if ($PropertiesToLoad -Eq 'All') {
             $properties += @{
-                Permissions = $InputObject.permissions -split ','
-                Active         = $InputObject.active
-                LastAccessDate = $InputObject.last_access_date | ConvertTo-DateTime
+                Active            = $InputObject.active
+                LastAccessDate    = $InputObject.last_access_date
+                TFAEnforcement    = $InputObject.tfa_enforcement
+                TFAEnabled        = $InputObject.tfa_enabled
+                LogSessions       = $InputObject.log_sessions
+                ShowCommentWindow = $InputObject.show_comment_window
+                SSOStatus         = $InputObject.sso_status
+
             }
 
             if ($InputObject.activated_license_id) {
@@ -39,6 +44,21 @@ function ConvertTo-TeamViewerUser {
             if ($InputObject.activated_meeting_license_key) {
                 $properties += @{
                     ActivatedMeetingLicenseId = [guid]$InputObject.activated_meeting_license_key
+                }
+            }
+            if ($InputObject.online_state) {
+                $properties += @{
+                    OnlineState = $InputObject.online_state
+                }
+            }
+            if ($InputObject.custom_quicksupport_id) {
+                $properties += @{
+                    CustomQuickSupportId = $InputObject.custom_quicksupport_id
+                }
+            }
+            if ($InputObject.custom_quickjoin_id) {
+                $properties += @{
+                    CustomQuickJoinId = $InputObject.custom_quickjoin_id
                 }
             }
         }
