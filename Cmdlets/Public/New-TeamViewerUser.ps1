@@ -28,9 +28,6 @@ function New-TeamViewerUser {
         [securestring]
         $SsoCustomerIdentifier,
 
-        [Parameter()]
-        [array]
-        $Permissions,
 
         [Parameter()]
         [ValidateScript( { $_ | Resolve-TeamViewerLanguage } )]
@@ -41,6 +38,39 @@ function New-TeamViewerUser {
         [ValidateScript({ $_ | Resolve-TeamViewerRoleId })]
         [object]
         $RoleId,
+
+
+        [Parameter()]
+        [bool]
+        $Active,
+
+        [Parameter()]
+        [bool]
+        $LogSessions,
+
+        [Parameter()]
+        [bool]
+        $ShowCommentWindow,
+
+        [Parameter()]
+        [bool]
+        $SubscribeNewsletter,
+
+        [Parameter()]
+        [string]
+        $CustomQuickSupportId,
+
+        [Parameter()]
+        [string]
+        $CustomQuickJoinId,
+
+        [Parameter()]
+        [string]
+        $LicenseKey,
+
+        [Parameter()]
+        [string]
+        $MeetingLicenseKey,
 
         [Parameter()]
         [switch]
@@ -60,7 +90,6 @@ function New-TeamViewerUser {
         email    = $Email
         name     = $Name
         language = $Culture | Resolve-TeamViewerLanguage
-        permissions = $Permissions -join ','
     }
 
     if ($Password -And -Not $WithoutPassword) {
@@ -75,12 +104,44 @@ function New-TeamViewerUser {
         [System.Runtime.InteropServices.Marshal]::ZeroFreeBSTR($bstr) | Out-Null
     }
 
-    if($RoleId){
+    if ($RoleId) {
         $body['userRoleId'] = $RoleId | Resolve-TeamViewerRoleId
     }
 
-    if($IgnorePredefinedRole){
+    if ($IgnorePredefinedRole) {
         $body['ignorePredefinedRole'] = $true
+    }
+
+    if ($PSBoundParameters.ContainsKey('Active')) {
+        $body['active'] = $Active
+    }
+
+    if ($PSBoundParameters.ContainsKey('LogSessions')) {
+        $body['log_sessions'] = $LogSessions
+    }
+
+    if ($PSBoundParameters.ContainsKey('ShowCommentWindow')) {
+        $body['show_comment_window'] = $ShowCommentWindow
+    }
+
+    if ($PSBoundParameters.ContainsKey('SubscribeNewsletter')) {
+        $body['subscribe_newsletter'] = $SubscribeNewsletter
+    }
+
+    if ($PSBoundParameters.ContainsKey('CustomQuickSupportId')) {
+        $body['custom_quicksupport_id'] = $CustomQuickSupportId
+    }
+
+    if ($PSBoundParameters.ContainsKey('CustomQuickJoinId')) {
+        $body['custom_quickjoin_id'] = $CustomQuickJoinId
+    }
+
+    if ($PSBoundParameters.ContainsKey('LicenseKey')) {
+        $body['license_key'] = $LicenseKey
+    }
+
+    if ($PSBoundParameters.ContainsKey('MeetingLicenseKey')) {
+        $body['meeting_license_key'] = $MeetingLicenseKey
     }
 
     $resourceUri = "$(Get-TeamViewerApiUri)/users"

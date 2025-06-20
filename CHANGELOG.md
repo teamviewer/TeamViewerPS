@@ -1,5 +1,16 @@
 # Change Log
 
+## 2.4.0 (2025-06-19)
+
+### Added
+
+- Adds `Remove-TeamViewerUserTFA` to remove two-factor authentication from an account
+
+### Updated
+
+- Updates `Get-TeamViewerUser`, `Set-TeamViewerUser` and `New-TeamViewerUser` to reflect updated user attributes. This involves the addition of several attributes, as well as the removal of the deprecated Permissions attribute
+
+
 ## 2.3.0 (2025-05-12)
 
 ### Added

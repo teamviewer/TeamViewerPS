@@ -16,7 +16,7 @@ Retrieve users of a TeamViewer company.
 ### FilteredList (Default)
 
 ```powershell
-Get-TeamViewerUser -ApiToken <SecureString> [-Name <String>] [-Email <String[]>] [-Permissions <String[]>]
+Get-TeamViewerUser -ApiToken <SecureString> [-Name <String>] [-Email <String[]>]
  [-PropertiesToLoad <Object>] [<CommonParameters>]
 ```
 
@@ -116,23 +116,6 @@ Optional name filter parameter that can be used to only list users that have the
 Type: String
 Parameter Sets: FilteredList
 Aliases: PartialName
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Permissions
-
-Optional permissions filter that can be used to only list users that have
-certain permissions. Multiple values can be given.
-
-```yaml
-Type: String[]
-Parameter Sets: FilteredList
-Aliases:
 
 Required: False
 Position: Named

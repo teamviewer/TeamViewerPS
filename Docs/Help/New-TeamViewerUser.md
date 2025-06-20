@@ -17,14 +17,14 @@ Create a new TeamViewer company user.
 
 ```powershell
 New-TeamViewerUser -ApiToken <SecureString> -Email <String> -Name <String> -Password <SecureString> [-RoleId <String>][-IgnorePredefinedRole <switch>]
- [-SsoCustomerIdentifier <SecureString>][-Permissions <Array>][-Culture <CultureInfo>] [-WhatIf] [-Confirm] [<CommonParameters>]
+ [-SsoCustomerIdentifier <SecureString>][-Culture <CultureInfo>] [-LogSessions <Boolean>] [-ShowCommentWindow <Boolean>] [-SubscribeNewsletter <Boolean>] [-TFAEnforcement <Boolean>] [-CustomQuickSupportId <String>] [-CustomQuickJoinId <String>] [-LicenseKey <String>] [-MeetingLicenseKey <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### WithoutPassword
 
 ```powershell
 New-TeamViewerUser -ApiToken <SecureString> -Email <String> -Name <String> [-WithoutPassword][-IgnorePredefinedRole <switch>]
- [-SsoCustomerIdentifier <SecureString>][-Permissions <Array>][-Culture <CultureInfo>] [-WhatIf] [-Confirm] [<CommonParameters>]
+ [-SsoCustomerIdentifier <SecureString>][-Culture <CultureInfo>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -157,22 +157,6 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Permissions
-
-Optional list of permissions to give to the new user.
-
-```yaml
-Type: Array
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### -SsoCustomerIdentifier
 
 Optional TeamViewer SSO customer identifier. If given, the user will be created
@@ -215,6 +199,132 @@ Ignore Predefined Role from being assigned.
 Type: switch
 Parameter Sets: (All)
 Aliases: None
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -LogSessions
+
+Enables (`$true`) or disables (`$false`) session logging.
+
+```yaml
+Type: Boolean
+Parameter Sets: ByParameters
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+### -SubscribeNewsletter
+
+Enables (`$true`) or disables (`$false`) the newsletter.
+
+```yaml
+Type: Boolean
+Parameter Sets: ByParameters
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ShowCommentWindow
+
+Displays (`$true`) or hides (`$false`) the comment field.
+
+```yaml
+Type: Boolean
+Parameter Sets: ByParameters
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### TFAEnforcement
+
+Enables (`$true`) or disables (`$false`) the enforcement of the two-factor authentication (TFA) for the user.
+
+```yaml
+Type: Boolean
+Parameter Sets: ByParameters
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### CustomQuickSupportId
+
+Defines the ID of a custom QuickSupport module assigned to the user.
+
+```yaml
+Type: String
+Parameter Sets: ByParameters
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### CustomQuickJoinId
+
+Specifies the ID of a custom QuickJoin module assigned to the user.
+
+```yaml
+Type: String
+Parameter Sets: ByParameters
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+### LicenseKey
+
+Specifies the license key assigned to the user.
+
+```yaml
+Type: String
+Parameter Sets: ByParameters
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### MeetingLicenseKey
+
+Specifies the meeting license key assigned to the user.
+
+```yaml
+Type: String
+Parameter Sets: ByParameters
+Aliases:
 
 Required: False
 Position: Named

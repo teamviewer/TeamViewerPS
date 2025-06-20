@@ -16,7 +16,7 @@ BeforeAll {
         [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingConvertToSecureStringWithPlainText', '')]
         param()
         Process {
-            $_ | ConvertTo-SecureString -AsPlainText -Force 
+            $_ | ConvertTo-SecureString -AsPlainText -Force
         }
     }
 }
@@ -81,4 +81,51 @@ Describe 'New-TeamViewerUser' {
         $body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
         $body.sso_customer_id | Should -Be 'my-sso-customer-id'
     }
+
+    It 'Should allow to create a user with all attributes using -WithoutPassword' {
+        $testSsoCustomerId = 'my-sso-customer-id' | ConvertTo-TestPassword
+        $testCulture = [cultureinfo]'en-US'
+        $testRoleId = '00000000-0000-0000-0000-000000000000'
+
+
+        # Aufruf der Funktion mit allen Parametern
+        New-TeamViewerUser `
+            -ApiToken $testApiToken `
+            -Email 'user1@unit.test' `
+            -Name 'Unit Test User' `
+            -WithoutPassword `
+            -SsoCustomerIdentifier $testSsoCustomerId `
+            -Culture $testCulture `
+            -RoleId $testRoleId `
+            -Active $true `
+            -LogSessions $true `
+            -ShowCommentWindow $true `
+            -SubscribeNewsletter $true `
+            -CustomQuickSupportId 'quick-support-id' `
+            -CustomQuickJoinId 'quick-join-id' `
+            -LicenseKey 'license-key' `
+            -MeetingLicenseKey 'meeting-license-key' `
+            -IgnorePredefinedRole
+
+        $mockArgs.Body | Should -Not -BeNullOrEmpty
+
+        $body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
+
+        $body.email | Should -Be 'user1@unit.test'
+        $body.name | Should -Be 'Unit Test User'
+        $body.sso_customer_id | Should -Be 'my-sso-customer-id'
+        $body.language | Should -Be 'en'
+        $body.userRoleId | Should -Contain '00000000-0000-0000-0000-000000000000'
+        $body.active | Should -Be $true
+        $body.log_sessions | Should -Be $true
+        $body.show_comment_window | Should -Be $true
+        $body.subscribe_newsletter | Should -Be $true
+        $body.custom_quicksupport_id | Should -Be 'quick-support-id'
+        $body.custom_quickjoin_id | Should -Be 'quick-join-id'
+        $body.license_key | Should -Be 'license-key'
+        $body.meeting_license_key | Should -Be 'meeting-license-key'
+        $body.ignorePredefinedRole | Should -Be $true
+    }
+
+
 }
