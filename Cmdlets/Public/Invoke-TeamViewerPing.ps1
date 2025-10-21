@@ -14,3 +14,4 @@ function Invoke-TeamViewerPing {
         -ErrorAction Stop
     Write-Output $result.token_valid
 }
+
