@@ -18,8 +18,8 @@ Describe 'Get-TeamViewerSsoDomain' {
         Mock Invoke-TeamViewerRestMethod {
         @{
             domains = @(
-                @{ Domainid = '45e0d050-15e6-4fcb-91b2-ea4f20fe2085'; DomainName = 'domain1.test' },
-                @{ Domainid = 'b610124c-14b9-4b37-a2a4-a5ef678e16ed'; DomainName = 'domain2.test' }
+                @{ DomainId = '45e0d050-15e6-4fcb-91b2-ea4f20fe2085'; DomainName = 'domain1.test' },
+                @{ DomainId = 'b610124c-14b9-4b37-a2a4-a5ef678e16ed'; DomainName = 'domain2.test' }
             )
         } } 
     }
