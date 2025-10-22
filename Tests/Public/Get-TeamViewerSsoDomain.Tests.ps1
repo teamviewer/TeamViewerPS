@@ -45,7 +45,7 @@ Describe 'Get-TeamViewerSsoDomain' {
         BeforeAll {
             Mock Invoke-TeamViewerRestMethod { @{
                     domains = @(
-                        @{ Domainid = '45e0d050-15e6-4fcb-91b2-ea4f20fe2085'; DomainName = 'domain1.test' }
+                        @{ DomainId = '45e0d050-15e6-4fcb-91b2-ea4f20fe2085'; DomainName = 'domain1.test' }
                     )
                 } }
         }
