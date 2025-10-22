@@ -5,8 +5,8 @@ function Get-TeamViewerSsoDomain {
         [securestring]
         $ApiToken,
         
-        [Parameter(ParameterSetName = "ById")]
-        [Alias("Id")]
+        [Parameter(ParameterSetName = "ByDomainId")]
+        [Alias("DomainId")]
         [guid]
         $Id
     )
@@ -14,7 +14,7 @@ function Get-TeamViewerSsoDomain {
     $resourceUri = "$(Get-TeamViewerApiUri)/ssoDomain";
     $parameters = @{ }
     switch ($PsCmdlet.ParameterSetName) {
-        'ById' {
+        'ByDomainId' {
             $resourceUri += "/$Id"
             $parameters = $null
         }
