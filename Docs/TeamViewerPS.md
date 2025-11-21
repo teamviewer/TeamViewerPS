@@ -77,6 +77,8 @@ The following functions are available in this category:
 
 [`Remove-TeamViewerUserTFA`](Help/Remove-TeamViewerUserTFA.md)
 
+['Get-TeamViewerRoleByUser'](Help/Get-TeamViewerRoleByUser.md)
+
 ['Get-TeamViewerEffectivePermission'](Help/Get-TeamViewerEffectivePermission.md)
 
 ## User Groups
