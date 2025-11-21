@@ -23,9 +23,14 @@ function Set-TeamViewerManagedDevice {
         [ValidateScript( { $_ | Resolve-TeamViewerManagedGroupId } )]
         [Alias('ManagedGroupId')]
         [object]
-        $ManagedGroup
+        $ManagedGroup,
+
+        [Parameter(ParameterSetName = 'UpdateDescription')]
+        [Alias('Description')]
+        [string]
+        $deviceDescription
     )
-    Begin {
+    begin {
         $body = @{}
 
         if ($Name) {
@@ -38,10 +43,20 @@ function Set-TeamViewerManagedDevice {
             $body['managedGroupId'] = $ManagedGroup | Resolve-TeamViewerManagedGroupId
         }
 
-        if ($Policy -And $ManagedGroup) {
+        if ($Policy -and $ManagedGroup) {
             $PSCmdlet.ThrowTerminatingError(
                 ('The combination of parameters -Policy and -ManagedGroup is not allowed.' | `
-                    ConvertTo-ErrorRecord -ErrorCategory InvalidArgument))
+                    ConvertToErrorRecord -ErrorCategory InvalidArgument))
+        }
+
+        if ($deviceDescription -and ($Policy -or $ManagedGroup)) {
+            $PSCmdlet.ThrowTerminatingError(
+                ('The parameter -deviceDescription cannot be combined with -Policy or -ManagedGroup.' |
+                ConvertTo-ErrorRecord -ErrorCategory InvalidArgument))
+        }
+
+        if ($deviceDescription) {
+            $body['deviceDescription'] = $deviceDescription
         }
 
         if ($body.Count -eq 0) {
@@ -50,9 +65,15 @@ function Set-TeamViewerManagedDevice {
                     ConvertTo-ErrorRecord -ErrorCategory InvalidArgument))
         }
     }
-    Process {
+    process {
         $deviceId = $Device | Resolve-TeamViewerManagedDeviceId
         $resourceUri = "$(Get-TeamViewerApiUri)/managed/devices/$deviceId"
+
+        switch ($PsCmdlet.ParameterSetName) {
+            'UpdateDescription' {
+                $resourceUri += '/description'
+            }
+        }
 
         if ($PSCmdlet.ShouldProcess($Device.ToString(), 'Change managed device entry')) {
             Invoke-TeamViewerRestMethod `
