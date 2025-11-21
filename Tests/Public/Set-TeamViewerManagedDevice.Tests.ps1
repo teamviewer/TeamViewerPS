@@ -19,8 +19,8 @@ Describe 'Set-TeamViewerManagedDevice' {
     It 'Should call the correct API endpoint to update a managed device' {
         Set-TeamViewerManagedDevice -ApiToken $testApiToken -Device $testDeviceId -Name 'Foo Bar'
         Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -And `
-                $Uri -eq "//unit.test/managed/devices/$testDeviceId" -And `
+            $ApiToken -eq $testApiToken -and `
+                $Uri -eq "//unit.test/managed/devices/$testDeviceId" -and `
                 $Method -eq 'Put' }
     }
 
@@ -45,6 +45,37 @@ Describe 'Set-TeamViewerManagedDevice' {
         $body.managedGroupId | Should -Be 'e579cfeb-0b29-4d91-9e81-2d9507f53ff8'
     }
 
+    It 'Should update the managed device description' {
+        Set-TeamViewerManagedDevice -ApiToken $testApiToken -Device $testDeviceId -deviceDescription 'Test description'
+        $mockArgs.Body | Should -Not -BeNullOrEmpty
+
+        $body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
+        $body.deviceDescription | Should -Be 'Test description'
+
+        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+            $ApiToken -eq $testApiToken -and `
+                $Uri -eq "//unit.test/managed/devices/$testDeviceId/description" -and `
+                $Method -eq 'Put'
+        }
+    }
+
+    It 'Should not allow description together with policy' {
+        { Set-TeamViewerManagedDevice `
+                -ApiToken $testApiToken `
+                -Device $testDeviceId `
+                -deviceDescription 'Test description' `
+                -Policy '2871c013-3040-4969-9ba4-ce970f4375e8' } | Should -Throw
+    }
+
+    It 'Should not allow description together with managed group' {
+        { Set-TeamViewerManagedDevice `
+                -ApiToken $testApiToken `
+                -Device $testDeviceId `
+                -deviceDescription 'Test description' `
+                -ManagedGroup 'e579cfeb-0b29-4d91-9e81-2d9507f53ff8' } | Should -Throw
+    }
+
+
     It 'Should not be possible to inherit and set a policy at the same time' {
         { Set-TeamViewerManagedDevice `
                 -ApiToken $testApiToken `
@@ -68,8 +99,8 @@ Describe 'Set-TeamViewerManagedDevice' {
         $testDevice = @{ id = $testDeviceId; name = 'test device' } | ConvertTo-TeamViewerManagedDevice
         Set-TeamViewerManagedDevice -ApiToken $testApiToken -Device $testDevice -Name 'Foo Bar'
         Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -And `
-                $Uri -eq "//unit.test/managed/devices/$testDeviceId" -And `
+            $ApiToken -eq $testApiToken -and `
+                $Uri -eq "//unit.test/managed/devices/$testDeviceId" -and `
                 $Method -eq 'Put' }
     }
 
