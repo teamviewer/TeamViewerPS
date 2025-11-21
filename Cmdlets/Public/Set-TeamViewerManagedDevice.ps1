@@ -1,29 +1,46 @@
 function Set-TeamViewerManagedDevice {
     [CmdletBinding(SupportsShouldProcess = $true)]
     param(
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $true, ParameterSetName = 'Default')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'ByPolicyId')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'ByManagedGroupId')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'UpdateDescription')]
         [securestring]
         $ApiToken,
 
-        [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
+        [Parameter(Mandatory = $true, ParameterSetName = 'Default', ValueFromPipeline = $true)]
+        [Parameter(Mandatory = $true, ParameterSetName = 'ByPolicyId', ValueFromPipeline = $true)]
+        [Parameter(Mandatory = $true, ParameterSetName = 'ByManagedGroupId', ValueFromPipeline = $true)]
+        [Parameter(Mandatory = $true, ParameterSetName = 'UpdateDescription', ValueFromPipeline = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerManagedDeviceId } )]
         [Alias('DeviceId')]
         [object]
         $Device,
 
+        [Parameter(Mandatory = $false, ParameterSetName = 'Default')]
+        [Parameter(Mandatory = $false, ParameterSetName = 'ByPolicyId')]
+        [Parameter(Mandatory = $false, ParameterSetName = 'ByManagedGroupId')]
+        [Parameter(Mandatory = $false, ParameterSetName = 'UpdateDescription')]
         [Alias('Alias')]
         [string]
         $Name,
 
+        [Parameter(Mandatory = $true, ParameterSetName = 'ByPolicyId')]
         [ValidateScript( { $_ | Resolve-TeamViewerPolicyId } )]
         [Alias('PolicyId')]
         [object]
         $Policy,
 
+        [Parameter(Mandatory = $true, ParameterSetName = 'ByManagedGroupId')]
         [ValidateScript( { $_ | Resolve-TeamViewerManagedGroupId } )]
         [Alias('ManagedGroupId')]
         [object]
-        $ManagedGroup
+        $ManagedGroup,
+
+        [Parameter(Mandatory = $true, ParameterSetName = 'UpdateDescription')]
+        [Alias('DeviceDescription')]
+        [string]
+        $Description
     )
     Begin {
         $body = @{}
@@ -31,17 +48,17 @@ function Set-TeamViewerManagedDevice {
         if ($Name) {
             $body['name'] = $Name
         }
-        if ($Policy) {
-            $body['teamviewerPolicyId'] = $Policy | Resolve-TeamViewerPolicyId
-        }
-        elseif ($ManagedGroup) {
-            $body['managedGroupId'] = $ManagedGroup | Resolve-TeamViewerManagedGroupId
-        }
 
-        if ($Policy -And $ManagedGroup) {
-            $PSCmdlet.ThrowTerminatingError(
-                ('The combination of parameters -Policy and -ManagedGroup is not allowed.' | `
-                    ConvertTo-ErrorRecord -ErrorCategory InvalidArgument))
+        switch ($PsCmdlet.ParameterSetName) {
+            'ByPolicyId' {
+                $body['teamviewerPolicyId'] = $Policy | Resolve-TeamViewerPolicyId
+            }
+            'ByManagedGroupId' {
+                $body['managedGroupId'] = $ManagedGroup | Resolve-TeamViewerManagedGroupId
+            }
+            'UpdateDescription' {
+                $body['deviceDescription'] = $Description
+            }
         }
 
         if ($body.Count -eq 0) {
@@ -53,6 +70,12 @@ function Set-TeamViewerManagedDevice {
     Process {
         $deviceId = $Device | Resolve-TeamViewerManagedDeviceId
         $resourceUri = "$(Get-TeamViewerApiUri)/managed/devices/$deviceId"
+
+        switch ($PsCmdlet.ParameterSetName) {
+            'UpdateDescription' {
+                $resourceUri += '/description'
+            }
+        }
 
         if ($PSCmdlet.ShouldProcess($Device.ToString(), 'Change managed device entry')) {
             Invoke-TeamViewerRestMethod `
