@@ -15,13 +15,14 @@ Change properties of a TeamViewer managed device.
 
 ```powershell
 Set-TeamViewerManagedDevice [-ApiToken] <SecureString> [-Device] <Object> [[-Name] <String>]
- [[-Policy] <Object>] [[-ManagedGroup] <Object>] [-WhatIf] [-Confirm] [<CommonParameters>]
+ [[-Policy] <Object>] [[-ManagedGroup] <Object>] [[-Description] <String>] [-WhatIf] [-Confirm] [<CommonParameters>] 
 ```
 
 ## DESCRIPTION
 
 Changes properties of a managed device. For example, the name of the managed
-device or the policy can be changed.
+device or the policy or the description can be changed.
+You cannot combine any of those  three parameters together.
 
 For changing the device name, the current account needs `DeviceAdministration`
 manager permissions on the device.
@@ -54,6 +55,14 @@ PS /> Set-TeamViewerManagedDevice -Device '33a2e2e1-27ef-43e2-a175-f97ee0344033'
 ```
 
 Inherit the TeamViewer policy from a managed group to the device (the device has to be part of the managed group specified).
+
+### Example 4
+
+```powershell
+PS /> Set-TeamViewerManagedDevice -Device '33a2e2e1-27ef-43e2-a175-f97ee0344033' -Description 'Test description'
+```
+
+Changes the description of the device.
 
 ## PARAMETERS
 
@@ -156,6 +165,22 @@ Required: True
 Position: Named
 Default value: None
 Accept pipeline input: True (ByValue)
+Accept wildcard characters: False
+```
+
+### -Description
+
+New description for the managed device.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases: DeviceDescription
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 

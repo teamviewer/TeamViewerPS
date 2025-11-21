@@ -45,6 +45,45 @@ Describe 'Set-TeamViewerManagedDevice' {
         $body.managedGroupId | Should -Be 'e579cfeb-0b29-4d91-9e81-2d9507f53ff8'
     }
 
+    It 'Should update the managed device alias and the managed device policy to the managed group' {
+        Set-TeamViewerManagedDevice -ApiToken $testApiToken -Device $testDeviceId -Name 'Foo Bar' -ManagedGroup 'e579cfeb-0b29-4d91-9e81-2d9507f53ff8'
+        $mockArgs.Body | Should -Not -BeNullOrEmpty
+        $body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
+        $body.name | Should -Be 'Foo Bar'
+        $body.managedGroupId | Should -Be 'e579cfeb-0b29-4d91-9e81-2d9507f53ff8'
+    }
+
+    It 'Should update the managed device description' {
+        Set-TeamViewerManagedDevice -ApiToken $testApiToken -Device $testDeviceId -Description 'Test description'
+        $mockArgs.Body | Should -Not -BeNullOrEmpty
+
+        $body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
+        $body.deviceDescription | Should -Be 'Test description'
+
+        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+            $ApiToken -eq $testApiToken -And `
+                $Uri -eq "//unit.test/managed/devices/$testDeviceId/description" -And `
+                $Method -eq 'Put'
+        }
+    }
+
+    It 'Should not allow description together with policy' {
+        { Set-TeamViewerManagedDevice `
+                -ApiToken $testApiToken `
+                -Device $testDeviceId `
+                -Description 'Test description' `
+                -Policy '2871c013-3040-4969-9ba4-ce970f4375e8' } | Should -Throw
+    }
+
+    It 'Should not allow description together with managed group' {
+        { Set-TeamViewerManagedDevice `
+                -ApiToken $testApiToken `
+                -Device $testDeviceId `
+                -Description 'Test description' `
+                -ManagedGroup 'e579cfeb-0b29-4d91-9e81-2d9507f53ff8' } | Should -Throw
+    }
+
+
     It 'Should not be possible to inherit and set a policy at the same time' {
         { Set-TeamViewerManagedDevice `
                 -ApiToken $testApiToken `
