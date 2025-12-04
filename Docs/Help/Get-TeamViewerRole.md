@@ -14,7 +14,7 @@ Lists all roles and their permissions in a TeamViewer company.
 ## SYNTAX
 
 ```powershell
-Get-TeamViewerRole [-ApiToken] <SecureString> [<CommonParameters>]
+Get-TeamViewerRole [-ApiToken] <SecureString> [-Permissions] [<CommonParameters>] 
 ```
 
 ## DESCRIPTION
@@ -31,6 +31,15 @@ PS /> Get-TeamViewerRole
 
 Lists all roles and their permissions.
 
+### Example 2
+
+```powershell
+PS /> Get-TeamViewerRole -ApiToken $token -Permissions
+```
+
+Lists all the possible permissions.
+
+
 ## PARAMETERS
 
 ### -ApiToken
@@ -44,6 +53,21 @@ Aliases:
 
 Required: True
 Position: 0
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+### -Permissions
+
+Return the list of currently supported permissions.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: ListPermissions
+
+Required: False
+Position: 1
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -66,3 +90,4 @@ An array of `TeamViewerPS.Role` objects.
 ## NOTES
 
 ## RELATED LINKS
+
