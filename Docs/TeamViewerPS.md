@@ -222,6 +222,8 @@ The following functions are available in this category:
 
 [`Get-TeamViewerId`](Help/Get-TeamViewerId.md)
 
+[`Get-TeamViewerInstallationType`](Help/Get-TeamViewerInstallationType.md)
+
 [`Get-TeamViewerService`](Help/Get-TeamViewerService.md)
 
 [`Get-TeamViewerVersion`](Help/Get-TeamViewerVersion.md)
