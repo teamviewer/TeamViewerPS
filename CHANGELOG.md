@@ -1,5 +1,21 @@
 # Change Log
 
+
+## 2.5.0 (2026-02-11)
+
+### Updated
+
+- Updates `Get-TeamViewerRole` to list all the possible permissions
+- Updates `Set-TeamViewerManagedDevice`  with additional description endpoint
+
+### Added
+
+- Adds `Get-TeamViewerInstallationType` that returns the TV installation type (MSI, exe or Unknown) from locally installed TV client
+- Adds `Get-TeamViewerRoleByUser` that returns the assigned role ids of the user
+- Adds `Get-TeamViewerEffectivePermission` that lists all effective permissions in a TeamViewer company
+- Adds new endpoint ID for function `Get-TeamViewerSsoDomain`
+
+
 ## 2.4.0 (2025-06-19)
 
 ### Added
