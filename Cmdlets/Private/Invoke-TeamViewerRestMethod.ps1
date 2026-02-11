@@ -48,17 +48,18 @@ function Invoke-TeamViewerRestMethod {
     $PSBoundParameters.Remove('ApiToken') | Out-Null
     $PSBoundParameters.Remove('WriteErrorTo') | Out-Null
 
-    $currentTlsSettings = [Net.ServicePointManager]::SecurityProtocol
-    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+    if ($PSVersionTable.PSVersion.Major -ge 6) {
+        $currentTlsSettings = [Net.ServicePointManager]::SecurityProtocol
+        # This had to be removed for Windows PowerShell 5.1 as it caused issue when Invoke-WebRequest was called
+        [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+    }
 
     $currentProgressPreference = $ProgressPreference
     $ProgressPreference = 'SilentlyContinue'
 
-
     # Using `Invoke-WebRequest` instead of `Invoke-RestMethod`:
     # There is a known issue for PUT and DELETE operations to hang on Windows Server 2012.
     try {
-
         return ((Invoke-WebRequest -UseBasicParsing @PSBoundParameters).Content | ConvertFrom-Json)
     }
     catch {
@@ -81,7 +82,9 @@ function Invoke-TeamViewerRestMethod {
         }
     }
     finally {
-        [Net.ServicePointManager]::SecurityProtocol = $currentTlsSettings
-        $ProgressPreference = $currentProgressPreference
+        if ($PSVersionTable.PSVersion.Major -ge 6) {
+            [Net.ServicePointManager]::SecurityProtocol = $currentTlsSettings
+            $ProgressPreference = $currentProgressPreference
+        }
     }
 }
