@@ -48,11 +48,8 @@ function Invoke-TeamViewerRestMethod {
     $PSBoundParameters.Remove('ApiToken') | Out-Null
     $PSBoundParameters.Remove('WriteErrorTo') | Out-Null
 
-    if ($PSVersionTable.PSVersion.Major -ge 6) {
-        $currentTlsSettings = [Net.ServicePointManager]::SecurityProtocol
-        # This had to be removed for Windows PowerShell 5.1 as it caused issue when Invoke-WebRequest was called
-        [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
-    }
+    $currentTlsSettings = [Net.ServicePointManager]::SecurityProtocol
+    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
     $currentProgressPreference = $ProgressPreference
     $ProgressPreference = 'SilentlyContinue'
@@ -82,9 +79,7 @@ function Invoke-TeamViewerRestMethod {
         }
     }
     finally {
-        if ($PSVersionTable.PSVersion.Major -ge 6) {
-            [Net.ServicePointManager]::SecurityProtocol = $currentTlsSettings
-            $ProgressPreference = $currentProgressPreference
-        }
+        [Net.ServicePointManager]::SecurityProtocol = $currentTlsSettings
+        $ProgressPreference = $currentProgressPreference
     }
 }
