@@ -1,12 +1,7 @@
 # Change Log
 
 
-## 2.5.1 (2026-02-12)
-
-### Fixed
-
-- When the WebAPIUri was changed, we encountered issues in Windows PowerShell 5.1.
-After some investigation, it turned out that the TLS for the Invoke-WebRequest should not be changed from the SystemDefault value. It is recommended to use PowerShell 7 or later instead.
+## 2.5.1 (not released yet)
 
 ### Updated
 
