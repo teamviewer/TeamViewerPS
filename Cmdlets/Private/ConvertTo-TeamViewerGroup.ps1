@@ -9,6 +9,7 @@ function ConvertTo-TeamViewerGroup {
             Id          = $InputObject.id
             Name        = $InputObject.name
             Permissions = $InputObject.permissions
+            PolicyId    = $InputObject.policy_id
             SharedWith  = @($InputObject.shared_with | ConvertTo-TeamViewerGroupShare)
         }
         if ($InputObject.owner) {

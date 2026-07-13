@@ -4,6 +4,7 @@
 
 ### Updated
 
+- Updates `Get-TeamViewerGroup` to list the assigned PolicyID of a defined group
 - Updates `Get-TeamViewerRole` to list all the possible permissions.
 - Updates `Set-TeamViewerManagedDevice`  with additional description endpoint.
 - Updates all tests to support the changed assertion syntax for Pester 6.0.0 or later.
