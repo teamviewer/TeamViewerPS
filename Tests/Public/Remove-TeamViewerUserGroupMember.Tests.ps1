@@ -32,7 +32,7 @@ Describe 'Remove-TeamViewerUserGroupMember' {
                 -ApiToken $testApiToken `
                 -UserGroup $testUserGroupId `
                 -UserGroupMember $testUserGroupMember
-            Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+            Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
                 $ApiToken -eq $testApiToken -And `
                     $Uri -eq "//unit.test/usergroups/$testUserGroupId/members" -And `
                     $Method -eq 'Delete' }
@@ -55,7 +55,7 @@ Describe 'Remove-TeamViewerUserGroupMember' {
                 -ApiToken $testApiToken `
                 -UserGroup $testUserGroup `
                 -UserGroupMember $testUserGroupMember
-            Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+            Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
                 $ApiToken -eq $testApiToken -And `
                     $Uri -eq "//unit.test/usergroups/$testUserGroupId/members" -And `
                     $Method -eq 'Delete' }

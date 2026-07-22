@@ -25,7 +25,7 @@ Describe 'Move-TeamViewerManagedDevice' {
             -Device $testDeviceId `
             -SourceGroup $testSourceGroupId `
             -TargetGroup $testTargetGroupId
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
                 $Uri -eq "//unit.test/managed/devices/$testDeviceId/groups" -And `
                 $Method -eq 'Put' }

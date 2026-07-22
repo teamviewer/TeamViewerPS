@@ -23,7 +23,7 @@ Describe 'Get-TeamViewerRole' {
     It 'Should call the correct API endpoint to list roles' {
         Get-TeamViewerRole -ApiToken $testApiToken
 
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
                 $Uri -eq '//unit.test/userroles' -And `
                 $Method -eq 'Get' }
@@ -56,7 +56,7 @@ Describe 'Get-TeamViewerRole' {
     It 'Should call the correct API endpoint for assigned users' {
         Get-TeamViewerRole -ApiToken $testApiToken
 
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
                 $Uri -eq '//unit.test/userroles' -And `
                 $Method -eq 'Get' }
@@ -64,7 +64,7 @@ Describe 'Get-TeamViewerRole' {
     It 'Should call the correct API endpoint to list permissions' {
         Get-TeamViewerRole -ApiToken $testApiToken -Permissions
 
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
                 $Uri -eq '//unit.test/userroles/permissions' -And `
                 $Method -eq 'Get' }

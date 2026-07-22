@@ -26,7 +26,7 @@ Describe 'Set-TeamViewerManager' {
                 -GroupId $testGroupId `
                 -ManagerId $testManagerId `
                 -Permissions 'ManagerAdministration', 'EasyAccess'
-            Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+            Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
                 $ApiToken -eq $testApiToken -And `
                     $Uri -eq "//unit.test/managed/groups/$testGroupId/managers/$testManagerId" -And `
                     $Method -eq 'Put' }
@@ -38,7 +38,7 @@ Describe 'Set-TeamViewerManager' {
                 -ApiToken $testApiToken `
                 -Manager $testManager `
                 -Permissions 'ManagerAdministration', 'EasyAccess'
-            Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+            Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
                 $ApiToken -eq $testApiToken -And `
                     $Uri -eq "//unit.test/managed/groups/$testGroupId/managers/$testManagerId" -And `
                     $Method -eq 'Put' }
@@ -62,7 +62,7 @@ Describe 'Set-TeamViewerManager' {
                 -DeviceId $testDeviceId `
                 -ManagerId $testManagerId `
                 -Permissions 'ManagerAdministration', 'EasyAccess'
-            Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+            Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
                 $ApiToken -eq $testApiToken -And `
                     $Uri -eq "//unit.test/managed/devices/$testDeviceId/managers/$testManagerId" -And `
                     $Method -eq 'Put' }
@@ -74,7 +74,7 @@ Describe 'Set-TeamViewerManager' {
                 -ApiToken $testApiToken `
                 -Manager $testManager `
                 -Permissions 'ManagerAdministration', 'EasyAccess'
-            Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+            Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
                 $ApiToken -eq $testApiToken -And `
                     $Uri -eq "//unit.test/managed/devices/$testDeviceId/managers/$testManagerId" -And `
                     $Method -eq 'Put' }
@@ -142,7 +142,7 @@ Describe 'Set-TeamViewerManager' {
         $testManager | Set-TeamViewerManager `
             -ApiToken $testApiToken `
             -Permissions 'ManagerAdministration', 'EasyAccess'
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
                 $Uri -eq "//unit.test/managed/groups/$testGroupId/managers/$testManagerId" -And `
                 $Method -eq 'Put' }

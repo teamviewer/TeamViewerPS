@@ -21,7 +21,7 @@ Describe 'Set-TeamViewerPolicy' {
             -PolicyId $testPolicyId `
             -Name 'Updated Policy Name'
 
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
                 $Uri -eq "//unit.test/teamviewerpolicies/$testPolicyId" -And `
                 $Method -eq 'Put' }

@@ -16,7 +16,7 @@ Describe 'Remove-TeamViewerPredefinedRole' {
     It 'Should call the correct API endpoint to remove PredefinedRole' {
         Remove-TeamViewerPredefinedRole -ApiToken $testApiToken
 
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
                 $Uri -eq "//unit.test/userroles/predefined" -And `
                 $Method -eq 'Delete' }

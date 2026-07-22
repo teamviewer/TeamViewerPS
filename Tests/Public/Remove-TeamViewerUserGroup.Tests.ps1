@@ -18,7 +18,7 @@ Describe 'Remove-TeamViewerUserGroup' {
     It 'Should call the correct API endpoint' {
         Remove-TeamViewerUserGroup -ApiToken $testApiToken -UserGroup $testUserGroupId
 
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
             $Uri -eq "//unit.test/usergroups/$testUserGroupId" -And `
             $Method -eq 'Delete'
@@ -29,7 +29,7 @@ Describe 'Remove-TeamViewerUserGroup' {
         $testUserGroup = @{Id = $testUserGroupId; Name = 'test user group' } | ConvertTo-TeamViewerUserGroup
         Remove-TeamViewerUserGroup -ApiToken $testApiToken -UserGroup $testUserGroup
 
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
             $Uri -eq "//unit.test/usergroups/$testUserGroupId" -And `
             $Method -eq 'Delete'

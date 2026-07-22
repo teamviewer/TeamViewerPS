@@ -33,8 +33,8 @@ Describe "Export-TeamViewerSystemInformation" {
             Mock -CommandName "Copy-Item" -MockWith {$null}
             Mock -CommandName "Compress-Archive" -MockWith { $CompressPath }
             Export-TeamViewerSystemInformation -TargetDirectory $TargetDirectory
-            Assert-MockCalled -CommandName "Join-Path" -Exactly -Times 1
-            Assert-MockCalled -CommandName "Compress-Archive" -Times 1
+            Should -Invoke -CommandName "Join-Path" -Exactly -Times 1
+            Should -Invoke -CommandName "Compress-Archive" -Times 1
         }
     }
 
@@ -47,7 +47,7 @@ Describe "Export-TeamViewerSystemInformation" {
         It "Should write an error message" {
             Mock -CommandName "Write-Error" -MockWith { $null }
             Export-TeamViewerSystemInformation
-            Assert-MockCalled -CommandName "Write-Error" -Exactly -Times 1
+            Should -Invoke -CommandName "Write-Error" -Exactly -Times 1
         }
     }
 }

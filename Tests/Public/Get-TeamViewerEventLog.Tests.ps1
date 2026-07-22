@@ -26,7 +26,7 @@ Describe 'Get-TeamViewerEventLog' {
 
     It 'Should call the correct API endpoint to get audit-log events' {
         Get-TeamViewerEventLog -ApiToken $testApiToken
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
                 $Uri -Eq '//unit.test/EventLogging' -And `
                 $Method -eq 'Post' }
@@ -74,7 +74,7 @@ Describe 'Get-TeamViewerEventLog' {
         $result = Get-TeamViewerEventLog -ApiToken $testApiToken
         $result | Should -HaveCount 9
 
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 2 -Scope It
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 2 -Scope It
     }
 
     It 'Should filter by event names' {

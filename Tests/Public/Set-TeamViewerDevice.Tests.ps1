@@ -24,7 +24,7 @@ BeforeAll {
 Describe 'Set-TeamViewerDevice' {
     It 'Should call the correct API endpoint' {
         Set-TeamViewerDevice -ApiToken $testApiToken -Id 'd1234' -Name 'My Updated Name'
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
                 $Uri -eq '//unit.test/devices/d1234' -And `
                 $Method -eq 'Put' }
@@ -48,7 +48,7 @@ Describe 'Set-TeamViewerDevice' {
     It 'Should accept Device objects' {
         $testDeviceObj = @{ device_id = 'd1234' } | ConvertTo-TeamViewerDevice
         Set-TeamViewerDevice -ApiToken $testApiToken -Device $testDeviceObj -Name 'My Updated Name'
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
                 $Uri -eq '//unit.test/devices/d1234' -And `
                 $Method -eq 'Put' }
@@ -57,7 +57,7 @@ Describe 'Set-TeamViewerDevice' {
     It 'Should accept pipeline input' {
         $testDeviceObj = @{ device_id = 'd1234' } | ConvertTo-TeamViewerDevice
         $testDeviceObj | Set-TeamViewerDevice -ApiToken $testApiToken -Name 'My Updated Name'
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
                 $Uri -eq '//unit.test/devices/d1234' -And `
                 $Method -eq 'Put' }

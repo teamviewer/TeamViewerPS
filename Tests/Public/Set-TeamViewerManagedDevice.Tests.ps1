@@ -18,7 +18,7 @@ Describe 'Set-TeamViewerManagedDevice' {
 
     It 'Should call the correct API endpoint to update a managed device' {
         Set-TeamViewerManagedDevice -ApiToken $testApiToken -Device $testDeviceId -Name 'Foo Bar'
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
                 $Uri -eq "//unit.test/managed/devices/$testDeviceId" -And `
                 $Method -eq 'Put' }
@@ -60,7 +60,7 @@ Describe 'Set-TeamViewerManagedDevice' {
         $body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
         $body.deviceDescription | Should -Be 'Test description'
 
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
                 $Uri -eq "//unit.test/managed/devices/$testDeviceId/description" -And `
                 $Method -eq 'Put'
@@ -106,7 +106,7 @@ Describe 'Set-TeamViewerManagedDevice' {
     It 'Should accept a ManagedDevice object as input' {
         $testDevice = @{ id = $testDeviceId; name = 'test device' } | ConvertTo-TeamViewerManagedDevice
         Set-TeamViewerManagedDevice -ApiToken $testApiToken -Device $testDevice -Name 'Foo Bar'
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
                 $Uri -eq "//unit.test/managed/devices/$testDeviceId" -And `
                 $Method -eq 'Put' }

@@ -20,7 +20,7 @@ Describe 'Get-TeamViewerUserGroupByRole' {
         It 'Should call the correct API endpoint' {
             Get-TeamViewerRoleByUserGroup -ApiToken $testApiToken -GroupId $testGroupId
 
-            Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+            Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
                 $ApiToken -eq $testApiToken -And `
                     $Uri -eq "//unit.test/usergroups/$testGroupId/userroles" -And `
                     $Method -eq 'Get'

@@ -18,7 +18,7 @@ Describe 'Set-TeamViewerGroup' {
     It 'Should call the correct API endpoint' {
         Set-TeamViewerGroup -ApiToken $testApiToken -GroupId 'g1234' -Name 'Unit Test Group'
 
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
                 $Uri -eq '//unit.test/groups/g1234' -And `
                 $Method -eq 'Put' }
@@ -44,7 +44,7 @@ Describe 'Set-TeamViewerGroup' {
         $testGroupObj = @{ id = 'g1234' } | ConvertTo-TeamViewerGroup
         Set-TeamViewerGroup -ApiToken $testApiToken -Group $testGroupObj -Name 'Unit Test Group'
 
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
                 $Uri -eq '//unit.test/groups/g1234' -And `
                 $Method -eq 'Put' }
@@ -54,7 +54,7 @@ Describe 'Set-TeamViewerGroup' {
         $testGroupObj = @{ id = 'g1234' } | ConvertTo-TeamViewerGroup
         $testGroupObj | Set-TeamViewerGroup -ApiToken $testApiToken -Name 'Unit Test Group'
 
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
                 $Uri -eq '//unit.test/groups/g1234' -And `
                 $Method -eq 'Put' }

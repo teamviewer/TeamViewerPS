@@ -27,7 +27,7 @@ Describe 'Get-TeamViewerManagedGroup' {
         It 'Should call the correct API endpoint to list managed groups' {
             Get-TeamViewerManagedGroup -ApiToken $testApiToken
 
-            Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+            Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
                 $ApiToken -eq $testApiToken -And `
                     $Uri -eq '//unit.test/managed/groups' -And `
                     $Method -eq 'Get' }
@@ -58,7 +58,7 @@ Describe 'Get-TeamViewerManagedGroup' {
             $result = Get-TeamViewerManagedGroup -ApiToken $testApiToken
             $result | Should -HaveCount 4
 
-            Assert-MockCalled Invoke-TeamViewerRestMethod -Times 2 -Scope It
+            Should -Invoke Invoke-TeamViewerRestMethod -Times 2 -Scope It
         }
     }
 
@@ -73,7 +73,7 @@ Describe 'Get-TeamViewerManagedGroup' {
         It 'Should call the correct API endpoint for single managed group' {
             Get-TeamViewerManagedGroup -ApiToken $testApiToken -Group 'ae222e9d-a665-4cea-85b7-d4a3a08a5e35'
 
-            Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+            Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
                 $ApiToken -eq $testApiToken -And `
                     $Uri -eq '//unit.test/managed/groups/ae222e9d-a665-4cea-85b7-d4a3a08a5e35' -And `
                     $Method -eq 'Get' }
@@ -102,7 +102,7 @@ Describe 'Get-TeamViewerManagedGroup' {
 
         It 'Should call the correct API endpoint to fetch the list of groups that the device is part of' {
             Get-TeamViewerManagedGroup -ApiToken $testApiToken -Device $testDeviceId
-            Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+            Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
                 $ApiToken -eq $testApiToken -And `
                     $Uri -eq "//unit.test/managed/devices/$testDeviceId/groups" -And `
                     $Method -eq 'Get' }
@@ -119,7 +119,7 @@ Describe 'Get-TeamViewerManagedGroup' {
         It 'Should accept a ManagedDevice object as input' {
             $testDevice = @{ id = $testDeviceId; name = 'test device' } | ConvertTo-TeamViewerManagedDevice
             Get-TeamViewerManagedGroup -ApiToken $testApiToken -Device $testDevice
-            Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+            Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
                 $ApiToken -eq $testApiToken -And `
                     $Uri -eq "//unit.test/managed/devices/$testDeviceId/groups" -And `
                     $Method -eq 'Get' }

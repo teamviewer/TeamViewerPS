@@ -26,7 +26,7 @@ Describe 'Add-TeamViewerAssignment' {
 
         It 'Should set the location to the installation directory' {
             Add-TeamViewerAssignment -AssignmentId '123' -DeviceAlias 'TestAlias' -Retries 3
-            Assert-MockCalled Set-Location -Scope It -Times 1 -ParameterFilter {
+            Should -Invoke Set-Location -Scope It -Times 1 -ParameterFilter {
                 $Path -eq 'testPath'
             }
         }
@@ -34,31 +34,31 @@ Describe 'Add-TeamViewerAssignment' {
         It 'Should call TeamViewer.exe assignment with device alias and retries' {
             Mock Start-Process -ParameterFilter { $_.FilePath -eq 'TeamViewer.exe' -and $_.ArgumentList -eq 'assignment --id 123 --device-alias=TestAlias --retries=3' }
             Add-TeamViewerAssignment -AssignmentId '123' -DeviceAlias 'TestAlias' -Retries 3
-            Assert-MockCalled Start-Process -Scope It -Times 1
+            Should -Invoke Start-Process -Scope It -Times 1
         }
 
         It 'Should call TeamViewer.exe assignment with device alias' {
             Mock Start-Process -ParameterFilter { $_.FilePath -eq 'TeamViewer.exe' -and $_.ArgumentList -eq 'assignment --id 123 --device-alias=TestAlias' }
             Add-TeamViewerAssignment -AssignmentId '123' -DeviceAlias 'TestAlias'
-            Assert-MockCalled Start-Process -Scope It -Times 1
+            Should -Invoke Start-Process -Scope It -Times 1
         }
 
         It 'Should call TeamViewer.exe assignment with retries' {
             Mock Start-Process -ParameterFilter { $_.FilePath -eq 'TeamViewer.exe' -and $_.ArgumentList -eq 'assignment --id 123 --retries=3' }
             Add-TeamViewerAssignment -AssignmentId '123' -Retries 3
-            Assert-MockCalled Start-Process -Scope It -Times 1
+            Should -Invoke Start-Process -Scope It -Times 1
         }
 
         It 'Should call TeamViewer.exe assignment without device alias or retries' {
             Mock Start-Process -ParameterFilter { $_.FilePath -eq 'TeamViewer.exe' -and $_.ArgumentList -eq 'assignment --id 123' }
             Add-TeamViewerAssignment -AssignmentId '123'
-            Assert-MockCalled Start-Process -Scope It -Times 1
+            Should -Invoke Start-Process -Scope It -Times 1
         }
 
         It 'Should restore the current directory after calling cmd.exe' {
             $currentDirectory = Get-Location
             Add-TeamViewerAssignment -AssignmentId '123' -DeviceAlias 'TestAlias'
-            Assert-MockCalled Set-Location -Scope It -Times 1 -ParameterFilter {
+            Should -Invoke Set-Location -Scope It -Times 1 -ParameterFilter {
                 $Path -eq $currentDirectory
             }
         }

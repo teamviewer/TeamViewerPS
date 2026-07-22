@@ -24,7 +24,7 @@ BeforeAll {
 Describe 'Get-TeamViewerSsoInclusion' {
     It 'Should call the correct API endpoint' {
         Get-TeamViewerSsoInclusion -ApiToken $testApiToken -DomainId $testDomainId
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
                 $Uri -eq "//unit.test/ssoDomain/$testDomainId/inclusion" -And `
                 $Method -eq 'Get' }
@@ -60,14 +60,14 @@ Describe 'Get-TeamViewerSsoInclusion' {
         $result | Should -Contain 'test6@example.com'
         $result | Should -Contain 'test7@example.com'
 
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 2 -Scope It
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 2 -Scope It
     }
 
     It 'Should handle domain objects as input' {
         $testDomain = @{DomainId = $testDomainId; DomainName = 'test managed group' } | ConvertTo-TeamViewerSsoDomain
         $result = Get-TeamViewerSsoInclusion -ApiToken $testApiToken -Domain $testDomain
         $result | Should -HaveCount 3
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
                 $Uri -eq "//unit.test/ssoDomain/$testDomainId/inclusion" -And `
                 $Method -eq 'Get' }
@@ -78,7 +78,7 @@ Describe 'Get-TeamViewerSsoInclusion' {
         $testDomain = @{DomainId = $testDomainId; DomainName = 'test managed group' } | ConvertTo-TeamViewerSsoDomain
         $result = Get-TeamViewerSsoInclusion -ApiToken $testApiToken -Domain $testDomain
         $result | Should -HaveCount 3
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
                 $Uri -eq "//unit.test/ssoDomain/$testDomainId/inclusion" -And `
                 $Method -eq 'Get' }

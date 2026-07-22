@@ -20,7 +20,7 @@ BeforeAll {
 Describe 'Get-TeamViewerDevice' {
     It 'Should call the correct API endpoint to list devices' {
         Get-TeamViewerDevice -ApiToken $testApiToken
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
                 $Uri -eq '//unit.test/devices' -And `
                 $Method -eq 'Get' }
@@ -28,7 +28,7 @@ Describe 'Get-TeamViewerDevice' {
 
     It 'Should call the correct API endpoint for single device' {
         Get-TeamViewerDevice -ApiToken $testApiToken -Id 'd1234'
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
                 $Uri -eq '//unit.test/devices/d1234' -And `
                 $Method -eq 'Get' }
@@ -42,13 +42,13 @@ Describe 'Get-TeamViewerDevice' {
 
     It 'Should allow to filter by TeamViewer ID' {
         Get-TeamViewerDevice -ApiToken $testApiToken -TeamViewerId 123456789
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $Body -And $Body['remotecontrol_id'] -eq 'r123456789' }
     }
 
     It 'Should allow to filter by online state' {
         Get-TeamViewerDevice -ApiToken $testApiToken -FilterOnlineState 'Busy'
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $Body -And $Body['online_state'] -eq 'busy' }
     }
 }

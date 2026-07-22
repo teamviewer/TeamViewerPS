@@ -24,7 +24,7 @@ Describe 'Get-TeamViewerEffectivePermission' {
     It 'Should call the correct API endpoint to list permission' {
         Get-TeamViewerEffectivePermission -ApiToken $testApiToken
 
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -and `
                 $Uri -eq '//unit.test/users/effectivepermissions' -and `
                 $Method -eq 'Get' }
@@ -50,7 +50,7 @@ Describe 'Get-TeamViewerEffectivePermission' {
         $result = Get-TeamViewerEffectivePermission -ApiToken $testApiToken
         $result | Should -BeOfType [PSCustomObject]
         $result.PSObject.Properties | Should -Be $null
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -and `
                 $Uri -eq '//unit.test/users/effectivepermissions' -and `
                 $Method -eq 'Get' }

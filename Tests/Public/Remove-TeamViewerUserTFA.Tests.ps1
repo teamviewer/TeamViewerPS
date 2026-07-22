@@ -15,7 +15,7 @@ Describe 'Remove-TeamViewerUser' {
     It 'Should call the correct API endpoint' {
         Remove-TeamViewerUserTFA -ApiToken $testApiToken -User 'u1234'
 
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
                 $Uri -eq '//unit.test/users/u1234/tfa' -And `
                 $Method -eq 'Delete' }
@@ -25,7 +25,7 @@ Describe 'Remove-TeamViewerUser' {
         $testUser = @{ id = 'u1234' } | ConvertTo-TeamViewerUser
         Remove-TeamViewerUserTFA -ApiToken $testApiToken -User $testUser
 
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
                 $Uri -eq '//unit.test/users/u1234/tfa' -And `
                 $Method -eq 'Delete' }
@@ -39,7 +39,7 @@ Describe 'Remove-TeamViewerUser' {
         $testUser = @{ id = 'u1234' } | ConvertTo-TeamViewerUser
         $testUser | Remove-TeamViewerUserTFA -ApiToken $testApiToken
 
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
                 $Uri -eq '//unit.test/users/u1234/tfa' -And `
                 $Method -eq 'Delete' }

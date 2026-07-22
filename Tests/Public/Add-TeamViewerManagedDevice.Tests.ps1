@@ -22,7 +22,7 @@ Describe 'Add-TeamViewerManagedDevice' {
             -ApiToken $testApiToken `
             -GroupId $testGroupId `
             -DeviceId $testDeviceId
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
                 $Uri -eq "//unit.test/managed/groups/$testGroupId/devices" -And `
                 $Method -eq 'Post' }
@@ -44,7 +44,7 @@ Describe 'Add-TeamViewerManagedDevice' {
             -ApiToken $testApiToken `
             -Group $groupObj `
             -DeviceId $testDeviceId
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
                 $Uri -eq "//unit.test/managed/groups/$testGroupId/devices" -And `
                 $Method -eq 'Post' }

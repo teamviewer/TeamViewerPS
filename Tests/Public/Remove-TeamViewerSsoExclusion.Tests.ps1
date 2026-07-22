@@ -20,7 +20,7 @@ Describe 'Remove-TeamViewerSsoExclusion' {
             -ApiToken $testApiToken `
             -DomainId $testDomainId `
             -Email 'foo@example.test'
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
                 $Uri -eq "//unit.test/ssoDomain/$testDomainId/exclusion" -And `
                 $Method -eq 'Delete' }
@@ -53,7 +53,7 @@ Describe 'Remove-TeamViewerSsoExclusion' {
             -ApiToken $testApiToken `
             -Domain $testDomain `
             -Email 'foo@example.test'
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
                 $Uri -eq "//unit.test/ssoDomain/$testDomainId/exclusion" -And `
                 $Method -eq 'Delete' }
@@ -65,7 +65,7 @@ Describe 'Remove-TeamViewerSsoExclusion' {
         $testAddresses | Remove-TeamViewerSsoExclusion `
             -ApiToken $testApiToken `
             -DomainId $testDomainId
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 3 -Scope It
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 3 -Scope It
         $mockArgs.Body | Should -Not -BeNullOrEmpty
         $body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
         $body.emails | Should -HaveCount 50

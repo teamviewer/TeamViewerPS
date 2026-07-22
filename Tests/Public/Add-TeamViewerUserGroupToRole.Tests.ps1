@@ -21,7 +21,7 @@ BeforeAll {
 Describe 'Add-TeamViewerUserGroupToRole' {
     It 'Should call the correct API endpoint' {
         Add-TeamViewerUserGroupToRole -ApiToken $testApiToken -RoleId $testRoleId -UserGroup $testUserGroup
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
                 $Uri -eq '//unit.test/userroles/assign/usergroup' -And `
                 $Method -eq 'Post'

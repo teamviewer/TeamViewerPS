@@ -31,19 +31,19 @@ Describe 'Get-TeamViewerManagementId' {
 
         It 'Should return the Management ID from the Windows Registry' {
             Get-TeamViewerManagementId | Should -Be $testManagementId
-            Assert-MockCalled Test-TeamViewerInstallation -Scope It -Times 1
-            Assert-MockCalled Get-OperatingSystem -Scope It -Times 1
-            Assert-MockCalled Get-TeamViewerRegKeyPath -Scope It -Times 1
-            Assert-MockCalled Test-Path -Scope It -Times 1 -ParameterFilter {
+            Should -Invoke Test-TeamViewerInstallation -Scope It -Times 1
+            Should -Invoke Get-OperatingSystem -Scope It -Times 1
+            Should -Invoke Get-TeamViewerRegKeyPath -Scope It -Times 1
+            Should -Invoke Test-Path -Scope It -Times 1 -ParameterFilter {
                 $LiteralPath -eq (Join-Path 'testRegistry' 'DeviceManagementV2')
             }
-            Assert-MockCalled Get-Item -Scope It -Times 1 -ParameterFilter {
+            Should -Invoke Get-Item -Scope It -Times 1 -ParameterFilter {
                 $Path -eq (Join-Path 'testRegistry' 'DeviceManagementV2')
             }
-            Assert-MockCalled Get-TestItemValue -Scope It -Times 1 -ParameterFilter {
+            Should -Invoke Get-TestItemValue -Scope It -Times 1 -ParameterFilter {
                 $obj -eq 'Unmanaged'
             }
-            Assert-MockCalled Get-TestItemValue -Scope It -Times 1 -ParameterFilter {
+            Should -Invoke Get-TestItemValue -Scope It -Times 1 -ParameterFilter {
                 $obj -eq 'ManagementId'
             }
         }
@@ -83,8 +83,8 @@ Describe 'Get-TeamViewerManagementId' {
 
         It 'Should return the Management ID from the global configuration' {
             Get-TeamViewerManagementId | Should -Be $testManagementId
-            Assert-MockCalled Test-TeamViewerInstallation -Scope It -Times 1
-            Assert-MockCalled Get-OperatingSystem -Scope It -Times 1
+            Should -Invoke Test-TeamViewerInstallation -Scope It -Times 1
+            Should -Invoke Get-OperatingSystem -Scope It -Times 1
         }
 
         It 'Should return nothing when TeamViewer is not installed' {

@@ -19,7 +19,7 @@ Describe 'Remove-TeamViewerPolicy' {
         Remove-TeamViewerPolicy `
             -ApiToken $testApiToken `
             -PolicyId $testPolicyId
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
                 $Uri -eq "//unit.test/teamviewerpolicies/$testPolicyId" -And `
                 $Method -eq 'Delete' }
@@ -30,7 +30,7 @@ Describe 'Remove-TeamViewerPolicy' {
         Remove-TeamViewerPolicy `
             -ApiToken $testApiToken `
             -Policy $testPolicyObj
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
                 $Uri -eq "//unit.test/teamviewerpolicies/$testPolicyId" -And `
                 $Method -eq 'Delete' }
@@ -39,7 +39,7 @@ Describe 'Remove-TeamViewerPolicy' {
     It 'Should accept pipeline input' {
         $testPolicyObj = @{ policy_id = $testPolicyId } | ConvertTo-TeamViewerPolicy
         $testPolicyObj | Remove-TeamViewerPolicy -ApiToken $testApiToken
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
                 $Uri -eq "//unit.test/teamviewerpolicies/$testPolicyId" -And `
                 $Method -eq 'Delete' }

@@ -29,7 +29,7 @@ Describe 'Get-TeamViewerCompanyManagedDevice' {
             $base_test_path = '//unit.test'
             $desired_endpoint = 'managed/devices/company'
 
-            Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+            Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
                 $ApiToken -eq $testApiToken -And `
                     $Uri -eq "$base_test_path/$desired_endpoint" -And `
                     $Method -eq 'Get' }
@@ -60,7 +60,7 @@ Describe 'Get-TeamViewerCompanyManagedDevice' {
             $result = Get-TeamViewerCompanyManagedDevice -ApiToken $testApiToken
             $result | Should -HaveCount 4
 
-            Assert-MockCalled Invoke-TeamViewerRestMethod -Times 2 -Scope It
+            Should -Invoke Invoke-TeamViewerRestMethod -Times 2 -Scope It
         }
     }
 }

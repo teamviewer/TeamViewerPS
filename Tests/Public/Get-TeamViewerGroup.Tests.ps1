@@ -22,7 +22,7 @@ Describe 'Get-TeamViewerGroup' {
     It 'Should call the correct API endpoint to list groups' {
         Get-TeamViewerGroup -ApiToken $testApiToken
 
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
                 $Uri -eq '//unit.test/groups' -And `
                 $Method -eq 'Get' }
@@ -31,7 +31,7 @@ Describe 'Get-TeamViewerGroup' {
     It 'Should call the correct API endpoint for single group' {
         Get-TeamViewerGroup -ApiToken $testApiToken -Group 'g1234'
 
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
                 $Uri -eq '//unit.test/groups/g1234' -And `
                 $Method -eq 'Get' }
@@ -45,21 +45,21 @@ Describe 'Get-TeamViewerGroup' {
 
     It 'Should allow to filter for shared-groups' {
         Get-TeamViewerGroup -ApiToken $testApiToken -FilterShared OnlyShared
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $Body -And $Body['shared'] -eq $true }
 
         Get-TeamViewerGroup -ApiToken $testApiToken -FilterShared OnlyNotShared
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $Body -And $Body['shared'] -eq $false }
 
         Get-TeamViewerGroup -ApiToken $testApiToken
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $Body -And $Body['shared'] -eq $null }
     }
 
     It 'Should allow to filter by partial name' {
         Get-TeamViewerGroup -ApiToken $testApiToken -Name 'TestName'
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $Body -And $Body['name'] -eq 'TestName' }
     }
 }

@@ -20,7 +20,7 @@ BeforeAll {
 Describe 'Get-TeamViewerContact' {
     It 'Should call the correct API endpoint to list contacts' {
         Get-TeamViewerContact -ApiToken $testApiToken
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
                 $Uri -eq '//unit.test/contacts' -And `
                 $Method -eq 'Get' }
@@ -28,7 +28,7 @@ Describe 'Get-TeamViewerContact' {
 
     It 'Should call the correct API endpoint for single contact' {
         Get-TeamViewerContact -ApiToken $testApiToken -Id 'c1234'
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
                 $Uri -eq '//unit.test/contacts/c1234' -And `
                 $Method -eq 'Get' }
@@ -42,13 +42,13 @@ Describe 'Get-TeamViewerContact' {
 
     It 'Should allow to filter by partial name' {
         Get-TeamViewerContact -ApiToken $testApiToken -Name 'TestName'
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $Body -And $Body['name'] -eq 'TestName' }
     }
 
     It 'Should allow to filter by online state' {
         Get-TeamViewerContact -ApiToken $testApiToken -FilterOnlineState 'Busy'
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $Body -And $Body['online_state'] -eq 'busy' }
     }
 }

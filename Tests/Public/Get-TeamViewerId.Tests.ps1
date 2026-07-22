@@ -17,7 +17,7 @@ Describe 'Get-TeamViewerId' {
 
         It 'Should return the TeamViewer ID from the Windows Registry' {
             Get-TeamViewerId | Should -Be 123456
-            Assert-MockCalled Get-ItemPropertyValue -Scope It -Times 1 -ParameterFilter {
+            Should -Invoke Get-ItemPropertyValue -Scope It -Times 1 -ParameterFilter {
                 $Path -Eq 'testRegistry' -And $Name -Eq 'ClientID'
             }
         }
@@ -32,7 +32,7 @@ Describe 'Get-TeamViewerId' {
 
         It 'Should return the TeamViewer ID from the global configuration' {
             Get-TeamViewerId | Should -Be 123456
-            Assert-MockCalled Get-TeamViewerLinuxGlobalConfig -Scope It -Times 1 -ParameterFilter {
+            Should -Invoke Get-TeamViewerLinuxGlobalConfig -Scope It -Times 1 -ParameterFilter {
                 $Name -Eq 'ClientID'
             }
         }
@@ -41,7 +41,7 @@ Describe 'Get-TeamViewerId' {
     It 'Should return nothing if TeamViewer if not installed' {
         Mock Test-TeamViewerInstallation { $false }
         Get-TeamViewerId | Should -BeNullOrEmpty
-        Assert-MockCalled Get-ItemPropertyValue -Scope It -Times 0
+        Should -Invoke Get-ItemPropertyValue -Scope It -Times 0
     }
 
     It 'Should return nothing on unsupported platforms' {

@@ -24,7 +24,7 @@ Describe 'Add-TeamViewerUserGroupMember' {
             -ApiToken $testApiToken `
             -UserGroup $testUserGroupId `
             -Member $testMembers
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
                 $Uri -eq "//unit.test/usergroups/$testUserGroupId/members" -And `
                 $Method -eq 'Post' }
@@ -36,7 +36,7 @@ Describe 'Add-TeamViewerUserGroupMember' {
             -ApiToken $testApiToken `
             -UserGroup $testUserGroup `
             -Member $testMembers
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
                 $Uri -eq "//unit.test/usergroups/$testUserGroupId/members" -And `
                 $Method -eq 'Post' }

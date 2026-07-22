@@ -26,7 +26,7 @@ Describe 'Get-TeamViewerUserGroupMember' {
     It 'Should call the correct API endpoint to list user group members' {
         Get-TeamViewerUserGroupMember -ApiToken $testApiToken -UserGroup $testUserGroupId
 
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
             $Uri -eq "//unit.test/usergroups/$testUserGroupId/members" -And `
             $Method -eq 'Get' }
@@ -36,7 +36,7 @@ Describe 'Get-TeamViewerUserGroupMember' {
         $testUserGroup = @{Id = $testUserGroupId; Name = 'test user group' } | ConvertTo-TeamViewerUserGroup
         Get-TeamViewerUserGroupMember -ApiToken $testApiToken -UserGroup $testUserGroup
 
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
             $Uri -eq "//unit.test/usergroups/$testUserGroupId/members" -And `
             $Method -eq 'Get' }
@@ -67,6 +67,6 @@ Describe 'Get-TeamViewerUserGroupMember' {
             -UserGroup $testUserGroupId
         $result | Should -HaveCount 4
 
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 2 -Scope It
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 2 -Scope It
     }
 }

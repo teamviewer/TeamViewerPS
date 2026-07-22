@@ -23,7 +23,7 @@ Describe 'Stop-TeamViewerService' {
         }
         It 'Should stop the TeamViewer Windows service' {
             Stop-TeamViewerService | Out-Null
-            Assert-MockCalled Stop-Service -Scope It -Times 1 -ParameterFilter {
+            Should -Invoke Stop-Service -Scope It -Times 1 -ParameterFilter {
                 $Name -eq 'UnitTestTeamViewer'
             }
         }
@@ -35,7 +35,7 @@ Describe 'Stop-TeamViewerService' {
         }
         It 'Should stop the TeamViewer daemon' {
             Stop-TeamViewerService | Out-Null
-            Assert-MockCalled Invoke-ExternalCommand -Scope It -Times 1 -ParameterFilter {
+            Should -Invoke Invoke-ExternalCommand -Scope It -Times 1 -ParameterFilter {
                 $Command -eq '/opt/teamviewer/tv_bin/script/teamviewer' -And
                 $CommandArgs[0] -eq 'daemon' -and $CommandArgs[1] -eq 'stop'
             }

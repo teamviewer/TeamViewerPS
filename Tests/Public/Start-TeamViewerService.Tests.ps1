@@ -23,7 +23,7 @@ Describe 'Start-TeamViewerService' {
         }
         It 'Should start the TeamViewer Windows service' {
             Start-TeamViewerService | Out-Null
-            Assert-MockCalled Start-Service -Scope It -Times 1 -ParameterFilter {
+            Should -Invoke Start-Service -Scope It -Times 1 -ParameterFilter {
                 $Name -eq 'UnitTestTeamViewer'
             }
         }
@@ -35,7 +35,7 @@ Describe 'Start-TeamViewerService' {
         }
         It 'Should start the TeamViewer daemon' {
             Start-TeamViewerService | Out-Null
-            Assert-MockCalled Invoke-ExternalCommand -Scope It -Times 1 -ParameterFilter {
+            Should -Invoke Invoke-ExternalCommand -Scope It -Times 1 -ParameterFilter {
                 $Command -eq '/opt/teamviewer/tv_bin/script/teamviewer' -And
                 $CommandArgs[0] -eq 'daemon' -and $CommandArgs[1] -eq 'start'
             }

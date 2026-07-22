@@ -27,7 +27,7 @@ Describe 'New-TeamViewerRole' {
     It 'Should call the correct API endpoint' {
         New-TeamViewerRole -ApiToken $testApiToken -Name $testRoleName
 
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
                 $Uri -eq '//unit.test/userroles' -And `
                 $Method -eq 'Post'

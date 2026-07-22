@@ -25,7 +25,7 @@ Describe 'Set-TeamViewerUser' {
     It 'Should call the correct API endpoint' {
         Set-TeamViewerUser -ApiToken $testApiToken -User 'u1234' -Name 'Updated User Name'
 
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And $Uri -eq '//unit.test/users/u1234' -And $Method -eq 'Put' }
     }
 

@@ -14,7 +14,7 @@ BeforeAll {
 Describe 'Remove-TeamViewerContact' {
     It 'Should call the correct API endpoint' {
         Remove-TeamViewerContact -ApiToken $testApiToken -Id 'c1234'
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
                 $Uri -eq '//unit.test/contacts/c1234' -And `
                 $Method -eq 'Delete' }
@@ -23,7 +23,7 @@ Describe 'Remove-TeamViewerContact' {
     It 'Should accept Contact objects' {
         $testContact = @{ contact_id = 'c1234' } | ConvertTo-TeamViewerContact
         Remove-TeamViewerContact -ApiToken $testApiToken -Contact $testContact
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
                 $Uri -eq '//unit.test/contacts/c1234' -And `
                 $Method -eq 'Delete' }
@@ -32,7 +32,7 @@ Describe 'Remove-TeamViewerContact' {
     It 'Should accept pipeline input' {
         $testContact = @{ contact_id = 'c1234' } | ConvertTo-TeamViewerContact
         $testContact | Remove-TeamViewerContact -ApiToken $testApiToken
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
                 $Uri -eq '//unit.test/contacts/c1234' -And `
                 $Method -eq 'Delete' }

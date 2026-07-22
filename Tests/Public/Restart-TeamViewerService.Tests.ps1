@@ -23,7 +23,7 @@ Describe 'Restart-TeamViewerService' {
         }
         It 'Should restart the TeamViewer Windows service' {
             Restart-TeamViewerService | Out-Null
-            Assert-MockCalled Restart-Service -Scope It -Times 1 -ParameterFilter {
+            Should -Invoke Restart-Service -Scope It -Times 1 -ParameterFilter {
                 $Name -eq 'UnitTestTeamViewer'
             }
         }
@@ -35,7 +35,7 @@ Describe 'Restart-TeamViewerService' {
         }
         It 'Should restart the TeamViewer daemon' {
             Restart-TeamViewerService | Out-Null
-            Assert-MockCalled Invoke-ExternalCommand -Scope It -Times 1 -ParameterFilter {
+            Should -Invoke Invoke-ExternalCommand -Scope It -Times 1 -ParameterFilter {
                 $Command -eq '/opt/teamviewer/tv_bin/script/teamviewer'
                 $CommandArgs[0] -eq 'daemon' -and $CommandArgs[1] -eq 'restart'
             }

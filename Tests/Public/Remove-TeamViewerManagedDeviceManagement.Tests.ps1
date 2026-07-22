@@ -17,7 +17,7 @@ Describe 'Remove-TeamViewerManagedDeviceManagement' {
     It 'Should call the correct API endpoint' {
         Remove-TeamViewerManagedDeviceManagement -ApiToken $testApiToken -DeviceId $testDeviceId
 
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
                 $Uri -eq "//unit.test/managed/devices/$testDeviceId" -And `
                 $Method -eq 'Delete' }
@@ -27,7 +27,7 @@ Describe 'Remove-TeamViewerManagedDeviceManagement' {
         $testDeviceObj = @{ id = $testDeviceId } | ConvertTo-TeamViewerManagedDevice
         Remove-TeamViewerManagedDeviceManagement -ApiToken $testApiToken -Device $testDeviceObj
 
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
                 $Uri -eq "//unit.test/managed/devices/$testDeviceId" -And `
                 $Method -eq 'Delete' }
@@ -37,7 +37,7 @@ Describe 'Remove-TeamViewerManagedDeviceManagement' {
         $testDeviceObj = @{ id = $testDeviceId } | ConvertTo-TeamViewerManagedDevice
         $testDeviceObj | Remove-TeamViewerManagedDeviceManagement -ApiToken $testApiToken
 
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
                 $Uri -eq "//unit.test/managed/devices/$testDeviceId" -And `
                 $Method -eq 'Delete' }

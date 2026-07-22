@@ -32,10 +32,10 @@ Describe 'Get-TeamViewerUserByRole' {
         It 'Should call the correct API endpoint' {
             Get-TeamViewerRoleByUser -ApiToken $testApiToken -UserId $testUserId
 
-            Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+            Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
                 $ApiToken -eq $testApiToken -And `
                     $Uri -eq "//unit.test/users/$testUserId/userroles?paginationToken=Test1" -And `
-                    $Method -eq 'Get' 
+                    $Method -eq 'Get'
             }
         }
         It 'Should return assigned users' {

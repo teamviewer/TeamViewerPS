@@ -23,7 +23,7 @@ Describe 'Get-TeamViewerService' {
         }
         It 'Should get the TeamViewer Windows service' {
             Get-TeamViewerService | Out-Null
-            Assert-MockCalled Get-Service -Scope It -Times 1 -ParameterFilter {
+            Should -Invoke Get-Service -Scope It -Times 1 -ParameterFilter {
                 $Name -eq 'UnitTestTeamViewer'
             }
         }
@@ -35,7 +35,7 @@ Describe 'Get-TeamViewerService' {
         }
         It 'Should get the TeamViewer daemon status' {
             Get-TeamViewerService | Out-Null
-            Assert-MockCalled Invoke-ExternalCommand -Scope It -Times 1 -ParameterFilter {
+            Should -Invoke Invoke-ExternalCommand -Scope It -Times 1 -ParameterFilter {
                 $Command -eq '/opt/teamviewer/tv_bin/script/teamviewer' -And
                 $CommandArgs[0] -eq 'daemon' -and $CommandArgs[1] -eq 'status'
             }
