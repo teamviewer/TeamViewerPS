@@ -1,6 +1,5 @@
 # Change Log
 
-
 ## 2.5.2 (not released yet)
 
 ### Updated
@@ -16,6 +15,9 @@
 - Adds `Get-TeamViewerEffectivePermission` that lists all effective permissions in a TeamViewer company.
 - Adds new endpoint ID for function `Get-TeamViewerSsoDomain`.
 
+### Removed
+
+- Removes `Export-TeamViewerSystemInformation`.
 
 ## 2.4.0 (2025-06-19)
 
@@ -26,7 +28,6 @@
 ### Updated
 
 - Updates `Get-TeamViewerUser`, `Set-TeamViewerUser` and `New-TeamViewerUser` to reflect updated user attributes. This involves the addition of several attributes, as well as the removal of the deprecated Permissions attribute.
-
 
 ## 2.3.0 (2025-05-12)
 
@@ -68,7 +69,6 @@
 - Adds `Set-TeamViewerApiURi` to use TeamViewer test API.
 - Adds `Add-TeamViewerAssignment` and `Remove-TeamViewerAssignment` commands to assign and unassign a device from a TeamViewer company.
 - Adds `Add-TeamViewerCustomization` and `Remove-TeamViewerCustomization` commands to apply and remove customization.
-- Adds `Export-TeamViewerSystemInformation` to create zip file for support.
 - Adds `Set-TeamViewerPSProxy` and `Remove-TeamViewerPSProxy` to set proxy to access WebAPI.
 - Adds `Get-TeamViewerInstallationDirectory` to return installation directory.
 - Adds `Get-TeamViewerCustomModuleId` to return custom module ID.
