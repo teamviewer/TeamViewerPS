@@ -8,12 +8,12 @@ BeforeAll {
     $null = $testApiToken
 
     Mock Get-TeamViewerApiUri { '//unit.test' }
-    
+
 }
 
 Describe 'Get-TeamViewerSsoDomain' {
 
-    Context 'List' {  
+    Context 'List' {
        BeforeAll {
         Mock Invoke-TeamViewerRestMethod {
         @{
@@ -21,12 +21,12 @@ Describe 'Get-TeamViewerSsoDomain' {
                 @{ DomainId = '45e0d050-15e6-4fcb-91b2-ea4f20fe2085'; DomainName = 'domain1.test' },
                 @{ DomainId = 'b610124c-14b9-4b37-a2a4-a5ef678e16ed'; DomainName = 'domain2.test' }
             )
-        } } 
+        } }
     }
         It 'Should call the correct API endpoint' {
         Get-TeamViewerSsoDomain -ApiToken $testApiToken
 
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
                 $Uri -eq "//unit.test/ssoDomain" -And `
                 $Method -eq 'Get' }
@@ -41,7 +41,7 @@ Describe 'Get-TeamViewerSsoDomain' {
 
     }
 
-   Context 'Single SsoDomain' {  
+   Context 'Single SsoDomain' {
         BeforeAll {
             Mock Invoke-TeamViewerRestMethod { @{
                     domains = @(
@@ -53,7 +53,7 @@ Describe 'Get-TeamViewerSsoDomain' {
         It 'Should call the correct API endpoint for single domain' {
             Get-TeamViewerSsoDomain -ApiToken $testApiToken -Id '45e0d050-15e6-4fcb-91b2-ea4f20fe2085'
 
-            Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+            Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
                 $ApiToken -eq $testApiToken -And `
                     $Uri -eq '//unit.test/ssoDomain/45e0d050-15e6-4fcb-91b2-ea4f20fe2085' -And `
                     $Method -eq 'Get' }
@@ -63,7 +63,7 @@ Describe 'Get-TeamViewerSsoDomain' {
             $result = Get-TeamViewerSsoDomain -ApiToken $testApiToken -Id '45e0d050-15e6-4fcb-91b2-ea4f20fe2085'
             $result | Should -BeOfType PSObject
             $result.PSObject.TypeNames | Should -Contain 'TeamViewerPS.SsoDomain'
-        }    
+        }
 
    }
 

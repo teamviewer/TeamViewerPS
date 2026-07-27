@@ -28,7 +28,7 @@ Describe 'Set-TeamViewerUserGroup' {
             -UserGroup $testUserGroupId `
             -Name $testUserGroupName
 
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
             $Uri -eq "//unit.test/usergroups/$testUserGroupId" -And `
             $Method -eq 'Put' }
@@ -41,7 +41,7 @@ Describe 'Set-TeamViewerUserGroup' {
             -UserGroup $testUserGroup `
             -Name $testUserGroupName
 
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
             $Uri -eq "//unit.test/usergroups/$testUserGroupId" -And `
             $Method -eq 'Put' }

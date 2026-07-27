@@ -12,13 +12,13 @@ Describe 'Test-TeamViewerConnectivity' {
     It 'Should check TCP connections to various endpoints' {
         Test-TeamViewerConnectivity
 
-        Assert-MockCalled Test-TcpConnection -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Test-TcpConnection -Times 1 -Scope It -ParameterFilter {
             $Hostname -eq 'webapi.teamviewer.com' -And $Port -eq 443
         }
-        Assert-MockCalled Test-TcpConnection -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Test-TcpConnection -Times 1 -Scope It -ParameterFilter {
             $Hostname -eq 'sso.teamviewer.com' -And $Port -eq 443
         }
-        Assert-MockCalled Test-TcpConnection -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Test-TcpConnection -Times 1 -Scope It -ParameterFilter {
             $Hostname -eq 'router1.teamviewer.com' -And $Port -eq 5938
         }
     }
@@ -30,13 +30,13 @@ Describe 'Test-TeamViewerConnectivity' {
 
         Test-TeamViewerConnectivity
 
-        Assert-MockCalled Test-TcpConnection -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Test-TcpConnection -Times 1 -Scope It -ParameterFilter {
             $Hostname -eq 'router1.teamviewer.com' -And $Port -eq 5938
         }
-        Assert-MockCalled Test-TcpConnection -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Test-TcpConnection -Times 1 -Scope It -ParameterFilter {
             $Hostname -eq 'router1.teamviewer.com' -And $Port -eq 443
         }
-        Assert-MockCalled Test-TcpConnection -Times 0 -Scope It -ParameterFilter {
+        Should -Invoke Test-TcpConnection -Times 0 -Scope It -ParameterFilter {
             $Hostname -eq 'router2.teamviewer.com' -And $Port -eq 443
         }
     }

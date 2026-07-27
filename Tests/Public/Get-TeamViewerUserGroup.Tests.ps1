@@ -30,7 +30,7 @@ Describe 'Get-TeamViewerUserGroup' {
         It 'Should call the correct API endpoint to list user groups' {
             Get-TeamViewerUserGroup -ApiToken $testApiToken
 
-            Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+            Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
                 $ApiToken -eq $testApiToken -And `
                     $Uri -eq '//unit.test/usergroups' -And `
                     $Method -eq 'Get' }
@@ -57,7 +57,7 @@ Describe 'Get-TeamViewerUserGroup' {
             $result = Get-TeamViewerUserGroup -ApiToken $testApiToken
             $result | Should -HaveCount 4
 
-            Assert-MockCalled Invoke-TeamViewerRestMethod -Times 2 -Scope It
+            Should -Invoke Invoke-TeamViewerRestMethod -Times 2 -Scope It
         }
     }
 
@@ -69,7 +69,7 @@ Describe 'Get-TeamViewerUserGroup' {
         It 'Should call the correct API endpoint for single user group' {
             Get-TeamViewerUserGroup -ApiToken $testApiToken -UserGroup $testUserGroupId
 
-            Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+            Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
                 $ApiToken -eq $testApiToken -And `
                     $Uri -eq "//unit.test/usergroups/$testUserGroupId" -And `
                     $Method -eq 'Get' }
@@ -79,7 +79,7 @@ Describe 'Get-TeamViewerUserGroup' {
             $testUserGroup = @{Id = $testUserGroupId; Name = 'test user group' } | ConvertTo-TeamViewerUserGroup
             Get-TeamViewerUserGroup -ApiToken $testApiToken -UserGroup $testUserGroup
 
-            Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+            Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
                 $ApiToken -eq $testApiToken -And `
                     $Uri -eq "//unit.test/usergroups/$testUserGroupId" -And `
                     $Method -eq 'Get' }

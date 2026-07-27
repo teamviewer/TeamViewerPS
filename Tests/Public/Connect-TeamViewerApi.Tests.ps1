@@ -20,7 +20,7 @@ Describe 'Connect-TeamViewerApi' {
         Connect-TeamViewerApi -ApiToken $testApiToken
         $global:PSDefaultParameterValues["*-Teamviewer*:ApiToken"] | Should -Be $testApiToken
 
-        Assert-MockCalled Invoke-TeamViewerPing -Scope It -Times 1 -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerPing -Scope It -Times 1 -ParameterFilter {
             $ApiToken -eq $testApiToken
         }
     }

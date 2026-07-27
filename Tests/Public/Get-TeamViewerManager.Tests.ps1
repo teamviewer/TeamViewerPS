@@ -36,7 +36,7 @@ Describe 'Get-TeamViewerManager' {
     Context 'List Group Managers' {
         It 'Should call the correct API endpoint to list managed group managers' {
             Get-TeamViewerManager -ApiToken $testApiToken -GroupId $testGroupId
-            Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+            Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
                 $ApiToken -eq $testApiToken -And `
                     $Uri -eq "//unit.test/managed/groups/$testGroupId/managers" -And `
                     $Method -eq 'Get' }
@@ -61,7 +61,7 @@ Describe 'Get-TeamViewerManager' {
     Context 'List Device Managers' {
         It 'Should call the correct API endpoint to list managed device managers' {
             Get-TeamViewerManager -ApiToken $testApiToken -DeviceId $testDeviceId
-            Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+            Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
                 $ApiToken -eq $testApiToken -And `
                     $Uri -eq "//unit.test/managed/devices/$testDeviceId/managers" -And `
                     $Method -eq 'Get' }

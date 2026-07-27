@@ -19,7 +19,7 @@ Describe 'Set-TeamViewerManagedGroup' {
 
     It 'Should call the correct API endpoint to update managed group' {
         Set-TeamViewerManagedGroup -ApiToken $testApiToken -GroupId $testGroupId -Name 'Foo Bar'
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
                 $Uri -eq "//unit.test/managed/groups/$testGroupId" -And `
                 $Method -eq 'Put' }
@@ -151,7 +151,7 @@ Describe 'Set-TeamViewerManagedGroup' {
     It 'Should accept a ManagedGroup object as input' {
         $testGroup = @{id = $testGroupId; name = 'test managed group' } | ConvertTo-TeamViewerManagedGroup
         Set-TeamViewerManagedGroup -ApiToken $testApiToken -Group $testGroup -Name 'Foo Bar'
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
                 $Uri -eq "//unit.test/managed/groups/$testGroupId" -And `
                 $Method -eq 'Put' }
@@ -160,7 +160,7 @@ Describe 'Set-TeamViewerManagedGroup' {
     It 'Should accept pipeline input' {
         $testGroup = @{id = $testGroupId; name = 'test managed group' } | ConvertTo-TeamViewerManagedGroup
         $testGroup | Set-TeamViewerManagedGroup -ApiToken $testApiToken -Name 'Foo Bar'
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
                 $Uri -eq "//unit.test/managed/groups/$testGroupId" -And `
                 $Method -eq 'Put' }

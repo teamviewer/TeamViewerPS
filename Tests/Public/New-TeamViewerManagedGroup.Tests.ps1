@@ -23,7 +23,7 @@ Describe 'New-TeamViewerManagedGroup' {
     It 'Should call the correct API endpoint' {
         New-TeamViewerManagedGroup -ApiToken $testApiToken -Name 'Unit Test ManagedGroup'
 
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
                 $Uri -eq '//unit.test/managed/groups' -And `
                 $Method -eq 'Post' }

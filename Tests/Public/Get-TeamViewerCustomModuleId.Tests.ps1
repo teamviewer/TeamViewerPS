@@ -36,7 +36,7 @@ Describe 'Get-TeamViewerCustomModuleId' {
         It 'Should write an error message' {
             Mock Write-Error -ParameterFilter { $_ -eq 'TeamViewer is not installed' }
             Get-TeamViewerCustomModuleId
-            Assert-MockCalled Write-Error -Scope It -Times 1
+            Should -Invoke Write-Error -Scope It -Times 1
         }
     }
 

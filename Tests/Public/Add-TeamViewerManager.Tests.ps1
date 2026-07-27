@@ -27,7 +27,7 @@ Describe 'Add-TeamViewerManager' {
                 -ApiToken $testApiToken `
                 -GroupId $testGroupId `
                 -AccountId $testAccountId
-            Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+            Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
                 $ApiToken -eq $testApiToken -And `
                     $Uri -eq "//unit.test/managed/groups/$testGroupId/managers" -And `
                     $Method -eq 'Post' }
@@ -53,7 +53,7 @@ Describe 'Add-TeamViewerManager' {
                 -ApiToken $testApiToken `
                 -Group $groupObj `
                 -AccountId $testAccountId
-            Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+            Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
                 $ApiToken -eq $testApiToken -And `
                     $Uri -eq "//unit.test/managed/groups/$testGroupId/managers" -And `
                     $Method -eq 'Post' }
@@ -66,7 +66,7 @@ Describe 'Add-TeamViewerManager' {
                 -ApiToken $testApiToken `
                 -DeviceId $testDeviceId `
                 -AccountId $testAccountId
-            Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+            Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
                 $ApiToken -eq $testApiToken -And `
                     $Uri -eq "//unit.test/managed/devices/$testDeviceId/managers" -And `
                     $Method -eq 'Post' }
@@ -92,7 +92,7 @@ Describe 'Add-TeamViewerManager' {
                 -ApiToken $testApiToken `
                 -Device $deviceObj `
                 -AccountId $testAccountId
-            Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+            Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
                 $ApiToken -eq $testApiToken -And `
                     $Uri -eq "//unit.test/managed/devices/$testDeviceId/managers" -And `
                     $Method -eq 'Post' }

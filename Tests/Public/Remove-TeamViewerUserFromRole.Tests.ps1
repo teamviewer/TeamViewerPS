@@ -24,7 +24,7 @@ Describe 'Remove-TeamViewerUserFromRole' {
     It 'Should call the correct API endpoint' {
         Remove-TeamViewerUserFromRole -ApiToken $testApiToken -RoleId $testRoleId -Accounts $testAccount
 
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
                 $Uri -eq '//unit.test/userroles/unassign/account' -And `
                 $Method -eq 'Post'

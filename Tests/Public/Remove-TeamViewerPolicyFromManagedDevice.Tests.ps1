@@ -19,7 +19,7 @@ Describe 'Remove-TeamViewerPolicyFromManagedDevice' {
 
     It 'Should call the correct API endpoint to remove a policy from the managed device' {
         Remove-TeamViewerPolicyFromManagedDevice -ApiToken $testApiToken -Device $testDeviceId -PolicyType TeamViewer
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
                 $Uri -eq "//unit.test/managed/devices/$testDeviceId/policy/remove" -And `
                 $Method -eq 'Put' }

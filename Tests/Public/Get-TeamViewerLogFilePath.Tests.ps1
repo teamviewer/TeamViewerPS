@@ -29,7 +29,7 @@ Describe 'Get-TeamViewerLogFilePath function' {
         It 'Should write an error message' {
             Mock -CommandName 'Write-Error' -MockWith { $null }
             Get-TeamViewerLogFilePath
-            Assert-MockCalled -CommandName 'Write-Error' -Exactly -Times 1
+            Should -Invoke -CommandName 'Write-Error' -Exactly -Times 1
         }
     }
 }

@@ -16,7 +16,7 @@ Describe 'Set-TeamViewerPredefinedRole' {
     It 'Should call the correct API endpoint' {
         Set-TeamViewerPredefinedRole -ApiToken $testApiToken -RoleId $testRoleId
 
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
                 $Uri -eq "//unit.test/userroles/$testRoleId/predefined" -And `
                 $Method -eq 'Put'

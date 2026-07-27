@@ -37,7 +37,7 @@ jobs:
               shell: pwsh
               run: |
                   $ProgressPreference = 'SilentlyContinue'
-                  Install-Module -Name Pester -SkipPublisherCheck -Scope CurrentUser -MinimumVersion 5.1.1 -Force -Verbose
+                  Install-Module -Name Pester -SkipPublisherCheck -Scope CurrentUser -MinimumVersion 6.0.0 -Force -Verbose
                   Invoke-Pester -Path $env:GITHUB_WORKSPACE -Output Detailed -CI
             # Build package
             - name: Package Build

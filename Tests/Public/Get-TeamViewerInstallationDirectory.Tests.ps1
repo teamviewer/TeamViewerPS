@@ -24,13 +24,13 @@ Describe 'Get-TeamViewerInstallationDirectory' {
         It 'Should check the registry path and return the installation directory' {
             $result = Get-TeamViewerInstallationDirectory
             $result | Should -Be 'testPath'
-            Assert-MockCalled Test-Path -Scope It -Times 1 -ParameterFilter {
+            Should -Invoke Test-Path -Scope It -Times 1 -ParameterFilter {
                 $Path -eq 'testRegistry'
             }
-            Assert-MockCalled Get-Item -Scope It -Times 1 -ParameterFilter {
+            Should -Invoke Get-Item -Scope It -Times 1 -ParameterFilter {
                 $Path -eq 'testRegistry'
             }
-            Assert-MockCalled Test-Path -Scope It -Times 1 -ParameterFilter {
+            Should -Invoke Test-Path -Scope It -Times 1 -ParameterFilter {
                 $Path -eq 'testPath/TeamViewer.exe'
             }
         }
@@ -51,7 +51,7 @@ Describe 'Get-TeamViewerInstallationDirectory' {
         It 'Should return the Linux installation directory' {
             $result = Get-TeamViewerInstallationDirectory
             $result | Should -Be '/opt/teamviewer/tv_bin/'
-            Assert-MockCalled Test-Path -Scope It -Times 1 -ParameterFilter {
+            Should -Invoke Test-Path -Scope It -Times 1 -ParameterFilter {
                 $Path -eq '/opt/teamviewer/tv_bin/TeamViewer'
             }
         }

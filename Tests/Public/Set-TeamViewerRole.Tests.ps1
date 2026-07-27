@@ -29,7 +29,7 @@ Describe 'Set-TeamViewerRole' {
     It 'Should call the correct API endpoint' {
         Set-TeamViewerRole -ApiToken $testApiToken -Name $testRoleName -RoleId $testRoleId
 
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
                 $Uri -eq '//unit.test/userroles' -And `
                 $Method -eq 'Put'

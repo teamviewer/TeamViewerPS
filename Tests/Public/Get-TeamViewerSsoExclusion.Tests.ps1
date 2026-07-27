@@ -24,7 +24,7 @@ BeforeAll {
 Describe 'Get-TeamViewerSsoExclusion' {
     It 'Should call the correct API endpoint' {
         Get-TeamViewerSsoExclusion -ApiToken $testApiToken -DomainId $testDomainId
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
                 $Uri -eq "//unit.test/ssoDomain/$testDomainId/exclusion" -And `
                 $Method -eq 'Get' }
@@ -60,14 +60,14 @@ Describe 'Get-TeamViewerSsoExclusion' {
         $result | Should -Contain 'test6@example.com'
         $result | Should -Contain 'test7@example.com'
 
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 2 -Scope It
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 2 -Scope It
     }
 
     It 'Should handle domain objects as input' {
         $testDomain = @{DomainId = $testDomainId; DomainName = 'test managed group' } | ConvertTo-TeamViewerSsoDomain
         $result = Get-TeamViewerSsoExclusion -ApiToken $testApiToken -Domain $testDomain
         $result | Should -HaveCount 3
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
                 $Uri -eq "//unit.test/ssoDomain/$testDomainId/exclusion" -And `
                 $Method -eq 'Get' }

@@ -18,7 +18,7 @@ Describe 'Get-TeamViewerPredefinedRole' {
     It 'Should call the correct API endpoint to list PredefinedRole' {
         Get-TeamViewerPredefinedRole -ApiToken $testApiToken
 
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
                 $Uri -eq '//unit.test/userroles/predefined' -And `
                 $Method -eq 'Get' }

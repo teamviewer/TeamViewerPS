@@ -16,7 +16,7 @@ Describe 'New-TeamViewerPolicy' {
     It 'Should call the correct API endpoint' {
         New-TeamViewerPolicy -ApiToken $testApiToken -Name 'Unit Test Policy'
 
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
                 $Uri -eq '//unit.test/teamviewerpolicies' -And `
                 $Method -eq 'Post' }

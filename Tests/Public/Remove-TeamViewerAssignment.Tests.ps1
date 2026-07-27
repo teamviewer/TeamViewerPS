@@ -25,7 +25,7 @@ Describe 'Remove-TeamViewerAssignment' {
 
         It 'Should set the location to the installation directory' {
             Remove-TeamViewerAssignment
-            Assert-MockCalled Set-Location -Scope It -Times 1 -ParameterFilter {
+            Should -Invoke Set-Location -Scope It -Times 1 -ParameterFilter {
                 $Path -eq 'testPath'
             }
         }
@@ -34,14 +34,14 @@ Describe 'Remove-TeamViewerAssignment' {
         It 'Should call TeamViewer.exe unassignment' {
             Mock Start-Process -ParameterFilter { $_.FilePath -eq 'TeamViewer.exe' -and $_.ArgumentList -eq 'unassign' }
             Remove-TeamViewerAssignment
-            Assert-MockCalled Start-Process -Scope It -Times 1
+            Should -Invoke Start-Process -Scope It -Times 1
         }
 
         It 'Should restore the current directory after calling cmd.exe' {
             Mock cmd.exe {}
             $currentDirectory = Get-Location
             Remove-TeamViewerAssignment
-            Assert-MockCalled Set-Location -Scope It -Times 1 -ParameterFilter {
+            Should -Invoke Set-Location -Scope It -Times 1 -ParameterFilter {
                 $Path -eq $currentDirectory
             }
         }

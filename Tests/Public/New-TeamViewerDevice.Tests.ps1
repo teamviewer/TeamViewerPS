@@ -29,7 +29,7 @@ BeforeAll {
 Describe 'New-TeamViewerDevice' {
     It 'Should call the correct API endpoint' {
         New-TeamViewerDevice -ApiToken $testApiToken -TeamViewerId 1234 -Group 'g5678'
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
                 $Uri -eq '//unit.test/devices' -And `
                 $Method -eq 'Post' }

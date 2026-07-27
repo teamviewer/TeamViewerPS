@@ -26,7 +26,7 @@ Describe 'Get-TeamViewerPolicy' {
         It 'Should call the correct API endpoint to list policies' {
             Get-TeamViewerPolicy -ApiToken $testApiToken
 
-            Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+            Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
                 $ApiToken -eq $testApiToken -And `
                     $Uri -eq '//unit.test/teamviewerpolicies' -And `
                     $Method -eq 'Get' }
@@ -51,7 +51,7 @@ Describe 'Get-TeamViewerPolicy' {
         It 'Should call the correct API endpoint for single policy' {
             Get-TeamViewerPolicy -ApiToken $testApiToken -Id 'ae222e9d-a665-4cea-85b7-d4a3a08a5e35'
 
-            Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+            Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
                 $ApiToken -eq $testApiToken -And `
                     $Uri -eq '//unit.test/teamviewerpolicies/ae222e9d-a665-4cea-85b7-d4a3a08a5e35' -And `
                     $Method -eq 'Get' }

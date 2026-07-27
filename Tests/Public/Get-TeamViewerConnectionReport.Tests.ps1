@@ -38,7 +38,7 @@ BeforeAll {
 Describe 'Get-TeamViewerConnectionReport' {
     It 'Should call the correct API endpoint to list connection reports' {
         Get-TeamViewerConnectionReport -ApiToken $testApiToken
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
                 $Uri -eq '//unit.test/reports/connections' -And `
                 $Method -eq 'Get' }
@@ -99,7 +99,7 @@ Describe 'Get-TeamViewerConnectionReport' {
 
         $result = Get-TeamViewerConnectionReport -ApiToken $testApiToken
         $result | Should -HaveCount 3
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 3 -Scope It
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 3 -Scope It
     }
 
     Context 'Filtering' {
@@ -110,55 +110,55 @@ Describe 'Get-TeamViewerConnectionReport' {
 
         It 'Should allow to filter by username' {
             Get-TeamViewerConnectionReport -ApiToken $testApiToken -UserName 'test-user1'
-            Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It
+            Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It
             $mockArgs.Body.username | Should -Be 'test-user1'
         }
 
         It 'Should allow to filter by userid' {
             Get-TeamViewerConnectionReport -ApiToken $testApiToken -UserId 'u1234'
-            Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It
+            Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It
             $mockArgs.Body.userid | Should -Be 'u1234'
         }
 
         It 'Should allow to filter by groupid' {
             Get-TeamViewerConnectionReport -ApiToken $testApiToken -GroupId 'g1234'
-            Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It
+            Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It
             $mockArgs.Body.groupid | Should -Be 'g1234'
         }
 
         It 'Should allow to filter by device name' {
             Get-TeamViewerConnectionReport -ApiToken $testApiToken -DeviceName 'test-device1'
-            Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It
+            Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It
             $mockArgs.Body.devicename | Should -Be 'test-device1'
         }
 
         It 'Should allow to filter by deviceid' {
             Get-TeamViewerConnectionReport -ApiToken $testApiToken -DeviceId 111
-            Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It
+            Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It
             $mockArgs.Body.deviceid | Should -Be '111'
         }
 
         It 'Should allow to filter by session code' {
             Get-TeamViewerConnectionReport -ApiToken $testApiToken -SessionCode 's112233'
-            Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It
+            Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It
             $mockArgs.Body.session_code | Should -Be 's112233'
         }
 
         It 'Should allow to filter for entries with session code' {
             Get-TeamViewerConnectionReport -ApiToken $testApiToken -WithSessionCode
-            Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It
+            Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It
             $mockArgs.Body.has_code | Should -Be $true
         }
 
         It 'Should allow to filter for entries without session code' {
             Get-TeamViewerConnectionReport -ApiToken $testApiToken -WithoutSessionCode
-            Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It
+            Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It
             $mockArgs.Body.has_code | Should -Be $false
         }
 
         It 'Should allow to filter by support session type' {
             Get-TeamViewerConnectionReport -ApiToken $testApiToken -SupportSessionType 'RemoteSupportActiveSdk'
-            Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It
+            Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It
             $mockArgs.Body.support_session_type | Should -Be 3
         }
     }

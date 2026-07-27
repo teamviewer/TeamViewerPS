@@ -13,7 +13,7 @@ Describe 'Unpublish-TeamViewerGroup' {
     It 'Should call the correct API endpoint' {
         Unpublish-TeamViewerGroup -ApiToken $testApiToken -Group 'g1234' -User 'u1234'
 
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
                 $Uri -eq '//unit.test/groups/g1234/unshare_group' -And `
                 $Method -eq 'Post' }
@@ -36,7 +36,7 @@ Describe 'Unpublish-TeamViewerGroup' {
         $testGroup = @{ id = 'g1234'; name = 'test group' } | ConvertTo-TeamViewerGroup
         Unpublish-TeamViewerGroup -ApiToken $testApiToken -Group $testGroup -User 'u1234'
 
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
                 $Uri -eq '//unit.test/groups/g1234/unshare_group' -And `
                 $Method -eq 'Post' }

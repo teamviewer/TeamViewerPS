@@ -15,7 +15,7 @@ Describe 'Remove-TeamViewerUser' {
     It 'Should call the correct API endpoint' {
         Remove-TeamViewerUser -ApiToken $testApiToken -User 'u1234'
 
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
                 $Uri -eq '//unit.test/users/u1234' -And `
                 $Method -eq 'Delete' }
@@ -25,7 +25,7 @@ Describe 'Remove-TeamViewerUser' {
         $testUser = @{ id = 'u1234' } | ConvertTo-TeamViewerUser
         Remove-TeamViewerUser -ApiToken $testApiToken -User $testUser
 
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
                 $Uri -eq '//unit.test/users/u1234' -And `
                 $Method -eq 'Delete' }
@@ -39,7 +39,7 @@ Describe 'Remove-TeamViewerUser' {
         $testUser = @{ id = 'u1234' } | ConvertTo-TeamViewerUser
         $testUser | Remove-TeamViewerUser -ApiToken $testApiToken
 
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
                 $Uri -eq '//unit.test/users/u1234' -And `
                 $Method -eq 'Delete' }
@@ -49,7 +49,7 @@ Describe 'Remove-TeamViewerUser' {
         $testUser = @{ id = 'u1234' } | ConvertTo-TeamViewerUser
         Remove-TeamViewerUser -ApiToken $testApiToken -User $testUser -Permanent
 
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
                 $Uri -eq '//unit.test/users/u1234?isPermanentDelete=true' -And `
                 $Method -eq 'Delete' }

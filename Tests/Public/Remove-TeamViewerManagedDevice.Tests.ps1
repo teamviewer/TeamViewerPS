@@ -19,7 +19,7 @@ Describe 'Remove-TeamViewerManagedDevice' {
     It 'Should call the correct API endpoint' {
         Remove-TeamViewerManagedDevice -ApiToken $testApiToken -DeviceId $testDeviceId -GroupId $testGroupId
 
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
                 $Uri -eq "//unit.test/managed/groups/$testGroupId/devices/$testDeviceId" -And `
                 $Method -eq 'Delete' }
@@ -29,7 +29,7 @@ Describe 'Remove-TeamViewerManagedDevice' {
         $testGroup = @{ id = $testGroupId } | ConvertTo-TeamViewerManagedGroup
         Remove-TeamViewerManagedDevice -ApiToken $testApiToken -DeviceId $testDeviceId -Group $testGroup
 
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
                 $Uri -eq "//unit.test/managed/groups/$testGroupId/devices/$testDeviceId" -And `
                 $Method -eq 'Delete' }
@@ -39,7 +39,7 @@ Describe 'Remove-TeamViewerManagedDevice' {
         $testDeviceObj = @{ id = $testDeviceId } | ConvertTo-TeamViewerManagedDevice
         Remove-TeamViewerManagedDevice -ApiToken $testApiToken -Device $testDeviceObj -GroupId $testGroupId
 
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
                 $Uri -eq "//unit.test/managed/groups/$testGroupId/devices/$testDeviceId" -And `
                 $Method -eq 'Delete' }
@@ -49,7 +49,7 @@ Describe 'Remove-TeamViewerManagedDevice' {
         $testDeviceObj = @{ id = $testDeviceId } | ConvertTo-TeamViewerManagedDevice
         $testDeviceObj | Remove-TeamViewerManagedDevice -ApiToken $testApiToken -GroupId $testGroupId
 
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
                 $Uri -eq "//unit.test/managed/groups/$testGroupId/devices/$testDeviceId" -And `
                 $Method -eq 'Delete' }

@@ -24,7 +24,7 @@ Describe 'Remove-TeamViewerManager' {
                 -ApiToken $testApiToken `
                 -GroupId $testGroupId `
                 -ManagerId $testManagerId
-            Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+            Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
                 $ApiToken -eq $testApiToken -And `
                     $Uri -eq "//unit.test/managed/groups/$testGroupId/managers/$testManagerId" -And `
                     $Method -eq 'Delete' }
@@ -35,7 +35,7 @@ Describe 'Remove-TeamViewerManager' {
             Remove-TeamViewerManager `
                 -ApiToken $testApiToken `
                 -Manager $testManager
-            Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+            Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
                 $ApiToken -eq $testApiToken -And `
                     $Uri -eq "//unit.test/managed/groups/$testGroupId/managers/$testManagerId" -And `
                     $Method -eq 'Delete' }
@@ -44,7 +44,7 @@ Describe 'Remove-TeamViewerManager' {
         It 'Should accept pipeline objects' {
             $testManager = @{id = $testManagerId } | ConvertTo-TeamViewerManager -GroupId $testGroupId
             $testManager | Remove-TeamViewerManager -ApiToken $testApiToken
-            Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+            Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
                 $ApiToken -eq $testApiToken -And `
                     $Uri -eq "//unit.test/managed/groups/$testGroupId/managers/$testManagerId" -And `
                     $Method -eq 'Delete' }
@@ -66,7 +66,7 @@ Describe 'Remove-TeamViewerManager' {
                 -ApiToken $testApiToken `
                 -DeviceId $testDeviceId `
                 -ManagerId $testManagerId
-            Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+            Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
                 $ApiToken -eq $testApiToken -And `
                     $Uri -eq "//unit.test/managed/devices/$testDeviceId/managers/$testManagerId" -And `
                     $Method -eq 'Delete' }
@@ -77,7 +77,7 @@ Describe 'Remove-TeamViewerManager' {
             Remove-TeamViewerManager `
                 -ApiToken $testApiToken `
                 -Manager $testManager
-            Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+            Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
                 $ApiToken -eq $testApiToken -And `
                     $Uri -eq "//unit.test/managed/devices/$testDeviceId/managers/$testManagerId" -And `
                     $Method -eq 'Delete' }
@@ -86,7 +86,7 @@ Describe 'Remove-TeamViewerManager' {
         It 'Should accept pipeline objects' {
             $testManager = @{id = $testManagerId } | ConvertTo-TeamViewerManager -DeviceId $testDeviceId
             $testManager | Remove-TeamViewerManager -ApiToken $testApiToken
-            Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+            Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
                 $ApiToken -eq $testApiToken -And `
                     $Uri -eq "//unit.test/managed/devices/$testDeviceId/managers/$testManagerId" -And `
                     $Method -eq 'Delete' }

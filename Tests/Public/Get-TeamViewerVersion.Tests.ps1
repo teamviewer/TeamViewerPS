@@ -18,7 +18,7 @@ Describe 'Get-TeamViewerVersion' {
 
         It 'Should return the TeamViewer Version from the Windows Registry' {
             Get-TeamViewerVersion | Should -Be '15.10.0'
-            Assert-MockCalled Get-ItemPropertyValue -Scope It -Times 1 -ParameterFilter {
+            Should -Invoke Get-ItemPropertyValue -Scope It -Times 1 -ParameterFilter {
                 $Path -Eq 'testRegistry' -And $Name -Eq 'Version'
             }
         }
@@ -33,7 +33,7 @@ Describe 'Get-TeamViewerVersion' {
 
         It 'Should return the TeamViewer version from the global configuration' {
             Get-TeamViewerVersion | Should -Be '15.10.0'
-            Assert-MockCalled Get-TeamViewerLinuxGlobalConfig -Scope It -Times 1 -ParameterFilter {
+            Should -Invoke Get-TeamViewerLinuxGlobalConfig -Scope It -Times 1 -ParameterFilter {
                 $Name -Eq 'Version'
             }
         }
@@ -42,7 +42,7 @@ Describe 'Get-TeamViewerVersion' {
     It 'Should return nothing if TeamViewer is not installed' {
         Mock Test-TeamViewerInstallation { $false }
         Get-TeamViewerVersion | Should -BeNullOrEmpty
-        Assert-MockCalled Get-ItemPropertyValue -Scope It -Times 0
+        Should -Invoke Get-ItemPropertyValue -Scope It -Times 0
     }
 
     It 'Should return nothing on unsupported platforms' {

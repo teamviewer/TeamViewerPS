@@ -26,7 +26,7 @@ Describe 'Set-TeamViewerAccount' {
             -Name 'Updated Account Name' `
             -Email 'unit@example.test' `
 
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
                 $Uri -eq '//unit.test/account' -And `
                 $Method -eq 'Put' }

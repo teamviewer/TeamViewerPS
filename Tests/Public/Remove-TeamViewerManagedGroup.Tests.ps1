@@ -17,7 +17,7 @@ Describe 'Remove-TeamViewerGroup' {
     It 'Should call the correct API endpoint' {
         Remove-TeamViewerManagedGroup -ApiToken $testApiToken -Id $testGroupId
 
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
                 $Uri -eq "//unit.test/managed/groups/$testGroupId" -And `
                 $Method -eq 'Delete' }
@@ -27,7 +27,7 @@ Describe 'Remove-TeamViewerGroup' {
         $testGroup = @{ id = $testGroupId } | ConvertTo-TeamViewerManagedGroup
         Remove-TeamViewerManagedGroup -ApiToken $testApiToken -Group $testGroup
 
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
                 $Uri -eq "//unit.test/managed/groups/$testGroupId" -And `
                 $Method -eq 'Delete' }
@@ -41,7 +41,7 @@ Describe 'Remove-TeamViewerGroup' {
         $testGroup = @{ id = $testGroupId } | ConvertTo-TeamViewerManagedGroup
         $testGroup | Remove-TeamViewerManagedGroup -ApiToken $testApiToken
 
-        Assert-MockCalled Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -And `
                 $Uri -eq "//unit.test/managed/groups/$testGroupId" -And `
                 $Method -eq 'Delete' }
