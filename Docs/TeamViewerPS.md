@@ -104,7 +104,6 @@ The following functions are available in this category:
 
 [`Get-TeamViewerRoleByUserGroup`](Help/Get-TeamViewerRoleByUserGroup.md)
 
-
 ## Roles
 
 Remotely manage the roles of a TeamViewer company via the
@@ -202,7 +201,6 @@ The following functions are available in this category:
 
 [`Remove-TeamViewerSsoInclusion`](Help/Remove-TeamViewerSsoInclusion.md)
 
-
 ## Event Logs & Reporting
 
 Retrieve event log entries or connection-reports of a TeamViewer company via the TeamViewer Web
@@ -217,8 +215,6 @@ API.
 Utilities that help managing the local TeamViewer client.
 
 The following functions are available in this category:
-
-[`Export-TeamViewerSystemInformation`](Help/Export-TeamViewerSystemInformation.md)
 
 [`Get-TeamViewerId`](Help/Get-TeamViewerId.md)
 
