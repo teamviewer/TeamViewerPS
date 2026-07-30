@@ -1,6 +1,6 @@
 # Change Log
 
-## 2.5.2 (not released yet)
+## 2.6.0 (2026-07-30)
 
 ### Updated
 
