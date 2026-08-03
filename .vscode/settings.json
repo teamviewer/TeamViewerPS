@@ -25,6 +25,7 @@
     "powershell.codeFormatting.whitespaceBeforeOpenParen": true,
     "powershell.codeFormatting.whitespaceBetweenParameters": true,
     "powershell.codeFormatting.whitespaceInsideBrace": true,
+    "terminal.integrated.defaultProfile.windows": "PowerShell",
     "[markdown]": {
         "editor.tabSize": 2,
         "editor.trimAutoWhitespace": false,
@@ -48,5 +49,5 @@
     "cSpell.dictionaries": [
         "ProjectDictionary"
     ],
-    "cSpell.language": "en",
+    "cSpell.language": "en"
 }
