@@ -2,7 +2,7 @@ name: CI
 
 # Controls when the workflow will run
 on:
-    # Triggers the workflow on push or pull request events but only for the master branch
+    # Triggers the workflow on push or pull request events but only for the main branch
     push:
         branches: [main]
     pull_request:
@@ -11,39 +11,76 @@ on:
     # Allows you to run this workflow manually from the Actions tab
     workflow_dispatch:
 
+    # Run the full validation on a regular cadence (Fridays, 2PM UTC) to catch dependency drift and long-term regressions.
+    schedule:
+        - cron: '0 14 * * 5'
+
+permissions:
+    # Read-only access is enough for this validation workflow.
+    contents: read
+
 jobs:
     verify:
         runs-on: windows-latest
+        strategy:
+            # Run the same validation for both Windows PowerShell and PowerShell 7.
+            fail-fast: false
+            matrix:
+                powershell: [powershell, pwsh]
+        defaults:
+            run:
+                shell: ${{ matrix.powershell }}
 
         steps:
             # Checks-out the repository under $GITHUB_WORKSPACE, so the job can access it
-            - uses: actions/checkout@v3
+            - uses: actions/checkout@v4
 
             # Print Powershell version
             - name: Powershell Environment
-              shell: pwsh
               run: |
                   $PSVersionTable
+
+            - name: Install required PowerShell modules
+              run: |
+                  # Ensure the PowerShell modules dependencies are present in the exact versions expected by the repository.
+                  $ProgressPreference = 'SilentlyContinue'
+                  $ErrorActionPreference = 'Stop'
+
+                  $Modules_Required = @(
+                      @{ Name = 'PSScriptAnalyzer'; MinimumVersion = '1.25.0' },
+                      @{ Name = 'Pester'; MinimumVersion = '6.0.1' },
+                      @{ Name = 'platyPS'; MinimumVersion = '0.14.2' },
+                      @{ Name = 'BuildHelpers'; MinimumVersion = '2.0.16' }
+                  )
+
+                  foreach ($Module in $Modules_Required) {
+                      $Installed = Get-InstalledModule -Name $Module.Name -ErrorAction SilentlyContinue | Sort-Object Version -Descending | Select-Object -First 1
+
+                      if (-not $Installed -or $Installed.Version -lt [version]$Module.MinimumVersion) {
+                          Install-Module -Name $Module.Name -MinimumVersion $Module.MinimumVersion -Scope CurrentUser -SkipPublisherCheck -Force -AllowClobber -ErrorAction Stop
+                      }
+                  }
+
             # Run linter
             - name: Run linter (via PSScriptAnalyzer)
-              shell: pwsh
               run: |
                   $ProgressPreference = 'SilentlyContinue'
                   $ErrorActionPreference = 'Stop'
-                  Install-Module -Name PSScriptAnalyzer -SkipPublisherCheck -Scope CurrentUser -MinimumVersion 1.19.1 -Force -Verbose
+
                   Invoke-ScriptAnalyzer -Path $env:GITHUB_WORKSPACE -Recurse -Settings (Join-Path -Path $env:GITHUB_WORKSPACE -ChildPath 'Linters\PSScriptAnalyzer.psd1') -ReportSummary -EnableExit
+
             # Run tests
             - name: Run tests (via Pester)
-              shell: pwsh
-              run: |
-                  $ProgressPreference = 'SilentlyContinue'
-                  Install-Module -Name Pester -SkipPublisherCheck -Scope CurrentUser -MinimumVersion 6.0.0 -Force -Verbose
-                  Invoke-Pester -Path $env:GITHUB_WORKSPACE -Output Detailed -CI
-            # Build package
-            - name: Package Build
-              shell: pwsh
               run: |
                   $ProgressPreference = 'SilentlyContinue'
                   $ErrorActionPreference = 'Stop'
-                  Install-Module -Name platyPS, BuildHelpers -SkipPublisherCheck -Scope CurrentUser -Force
+
+                  Invoke-Pester -Path $env:GITHUB_WORKSPACE -Output Detailed -CI
+
+            # Build package
+            - name: Package Build
+              run: |
+                  $ProgressPreference = 'SilentlyContinue'
+                  $ErrorActionPreference = 'Stop'
+
                   & (Join-Path -Path $env:GITHUB_WORKSPACE -ChildPath 'Build\New-Package.ps1') -Verbose

@@ -5,21 +5,46 @@ on:
   release:
     types: [published]
 
+permissions:
+  # Read-only access is enough for this publication workflow.
+  contents: read
+
 jobs:
   publish:
     runs-on: windows-latest
 
     steps:
       # Checks-out the repository under $GITHUB_WORKSPACE, so the job can access it
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+
+      - name: Install required PowerShell modules
+        shell: pwsh
+        run: |
+          # Ensure the PowerShell modules dependencies are present in the exact versions expected by the repository.
+          $ProgressPreference = 'SilentlyContinue'
+          $ErrorActionPreference = 'Stop'
+
+          $Modules_Required = @(
+              @{ Name = 'platyPS'; Version = '0.14.2' },
+              @{ Name = 'BuildHelpers'; Version = '2.0.16' }
+          )
+
+          foreach ($Module in $Modules_Required) {
+              $Installed = Get-InstalledModule -Name $Module.Name -ErrorAction SilentlyContinue | Sort-Object Version -Descending | Select-Object -First 1
+
+              if (-not $Installed -or $Installed.Version -ne [version]$Module.Version) {
+                  Install-Module -Name $Module.Name -RequiredVersion $Module.Version -Scope CurrentUser -SkipPublisherCheck -Force -AllowClobber -ErrorAction Stop
+              }
+          }
 
       # Build package
       - name: Build package
         shell: pwsh
         run: |
-          $ProgressPreference='SilentlyContinue'
-          Install-Module platyPS,BuildHelpers -Force -SkipPublisherCheck -Scope CurrentUser
-          & $env:GITHUB_WORKSPACE/Build/New-Package.ps1 -Verbose
+          $ProgressPreference = 'SilentlyContinue'
+          $ErrorActionPreference = 'Stop'
+
+          & (Join-Path -Path $env:GITHUB_WORKSPACE -ChildPath 'Build\New-Package.ps1') -Verbose
 
       # Publish to PowershellGallery.com
       - name: Publish to PowershellGallery.com
@@ -27,5 +52,11 @@ jobs:
           NUGET_APIKEY_PRODUCTION: ${{ secrets.NUGET_APIKEY_PRODUCTION }}
         shell: pwsh
         run: |
-          $ProgressPreference='SilentlyContinue'
-          Publish-Module -Path $env:GITHUB_WORKSPACE/Build/TeamViewerPS/ -NuGetApiKey $env:NUGET_APIKEY_PRODUCTION
+          if (-not $env:NUGET_APIKEY_PRODUCTION) {
+              throw 'NUGET_APIKEY_PRODUCTION is not configured!'
+          }
+
+          $ProgressPreference = 'SilentlyContinue'
+          $ErrorActionPreference = 'Stop'
+
+          Publish-Module -Path (Join-Path -Path $env:GITHUB_WORKSPACE -ChildPath 'Build\TeamViewerPS\') -NuGetApiKey $env:NUGET_APIKEY_PRODUCTION
