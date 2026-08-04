@@ -34,6 +34,12 @@ Manage company / tenant details for the TeamViewer company associated with the A
 
 [`Get-TeamViewerCompany`](Help/Get-TeamViewerCompany.md)
 
+[`Get-TeamViewerLicense`](Help/Get-TeamViewerLicense.md)
+
+[`Remove-TeamViewerCompany`](Help/Remove-TeamViewerCompany.md)
+
+[`Set-TeamViewerCompany`](Help/Set-TeamViewerCompany.md)
+
 ## Computers & Contacts
 
 Remotely manage the Computers & Contacts via the TeamViewer Web API.
