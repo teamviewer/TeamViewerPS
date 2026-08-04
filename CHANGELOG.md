@@ -1,5 +1,11 @@
 # Change Log
 
+## x.x.x (2026-xx-xx)
+
+### Added
+
+- Adds `Get-TeamViewerCompany` that returns the company / tenant details associated with the API token.
+
 ## 2.6.0 (2026-07-30)
 
 ### Updated
