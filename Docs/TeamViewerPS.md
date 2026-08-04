@@ -28,6 +28,12 @@ Manage customization of the locally installed TeamViewer Client.
 
 [`Remove-TeamViewerCustomization`](Help/Remove-TeamViewerCustomization.md)
 
+## Company Management
+
+Manage company / tenant details for the TeamViewer company associated with the API token.
+
+[`Get-TeamViewerCompany`](Help/Get-TeamViewerCompany.md)
+
 ## Computers & Contacts
 
 Remotely manage the Computers & Contacts via the TeamViewer Web API.
