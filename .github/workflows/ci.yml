@@ -27,6 +27,9 @@ jobs:
             fail-fast: false
             matrix:
                 powershell: [powershell, pwsh]
+        defaults:
+            run:
+                shell: ${{ matrix.powershell }}
 
         steps:
             # Checks-out the repository under $GITHUB_WORKSPACE, so the job can access it
@@ -34,12 +37,10 @@ jobs:
 
             # Print Powershell version
             - name: Powershell Environment
-              shell: ${{ matrix.powershell }}
               run: |
                   $PSVersionTable
 
             - name: Install required PowerShell modules
-              shell: ${{ matrix.powershell }}
               run: |
                   # Ensure the PowerShell modules dependencies are present in the exact versions expected by the repository.
                   $ProgressPreference = 'SilentlyContinue'
@@ -62,7 +63,6 @@ jobs:
 
             # Run linter
             - name: Run linter (via PSScriptAnalyzer)
-              shell: ${{ matrix.powershell }}
               run: |
                   $ProgressPreference = 'SilentlyContinue'
                   $ErrorActionPreference = 'Stop'
@@ -71,7 +71,6 @@ jobs:
 
             # Run tests
             - name: Run tests (via Pester)
-              shell: ${{ matrix.powershell }}
               run: |
                   $ProgressPreference = 'SilentlyContinue'
                   $ErrorActionPreference = 'Stop'
@@ -80,7 +79,6 @@ jobs:
 
             # Build package
             - name: Package Build
-              shell: ${{ matrix.powershell }}
               run: |
                   $ProgressPreference = 'SilentlyContinue'
                   $ErrorActionPreference = 'Stop'
