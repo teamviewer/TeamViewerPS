@@ -81,7 +81,6 @@ Manage the user accounts of a TeamViewer company / tenant via the TeamViewer web
 ## User Groups
 
 Manage the user groups of a TeamViewer company / tenant via the TeamViewer web API.
-Have user groups to organize company / tenant users.
 
 [`Add-TeamViewerUserGroupMember`](Help/Add-TeamViewerUserGroupMember.md)
 
@@ -102,7 +101,7 @@ Have user groups to organize company / tenant users.
 ## Roles
 
 Manage the roles of a TeamViewer company / tenant via the TeamViewer web API.
-Have roles to assign permissions to company / tenant users.
+Company / tenant users receive permissions by roles that are assigned to them or their groups.
 
 [`Add-TeamViewerUserGroupToRole`](Help/Add-TeamViewerUserGroupToRole.md)
 
