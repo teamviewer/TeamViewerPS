@@ -47,17 +47,17 @@ jobs:
                   $ErrorActionPreference = 'Stop'
 
                   $Modules_Required = @(
-                      @{ Name = 'PSScriptAnalyzer'; Version = '1.25.0' },
-                      @{ Name = 'Pester'; Version = '6.0.1' },
-                      @{ Name = 'platyPS'; Version = '0.14.2' },
-                      @{ Name = 'BuildHelpers'; Version = '2.0.16' }
+                      @{ Name = 'PSScriptAnalyzer'; MinimumVersion = '1.25.0' },
+                      @{ Name = 'Pester'; MinimumVersion = '6.0.1' },
+                      @{ Name = 'platyPS'; MinimumVersion = '0.14.2' },
+                      @{ Name = 'BuildHelpers'; MinimumVersion = '2.0.16' }
                   )
 
                   foreach ($Module in $Modules_Required) {
                       $Installed = Get-InstalledModule -Name $Module.Name -ErrorAction SilentlyContinue | Sort-Object Version -Descending | Select-Object -First 1
 
-                      if (-not $Installed -or $Installed.Version -ne [version]$Module.Version) {
-                          Install-Module -Name $Module.Name -RequiredVersion $Module.Version -Scope CurrentUser -SkipPublisherCheck -Force -AllowClobber -ErrorAction Stop
+                      if (-not $Installed -or $Installed.Version -lt [version]$Module.MinimumVersion) {
+                          Install-Module -Name $Module.Name -MinimumVersion $Module.MinimumVersion -Scope CurrentUser -SkipPublisherCheck -Force -AllowClobber -ErrorAction Stop
                       }
                   }
 
