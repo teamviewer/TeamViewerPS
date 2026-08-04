@@ -9,6 +9,10 @@
 - Adds `Remove-TeamViewerCompany` to delete the company / tenant (Cannot be reverted, use with care!).
 - Adds `Set-TeamViewerCompany` to modify the company / tenant details.
 
+### Fixed
+
+- Fixes, completes, and improves help file `TeamViewerPS.md`.
+
 ## 2.6.0 (2026-07-30)
 
 ### Updated
