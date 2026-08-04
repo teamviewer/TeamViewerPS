@@ -6,7 +6,7 @@
 
 - Adds `Get-TeamViewerCompany` to retrieve the company / tenant details.
 - Adds `Get-TeamViewerLicense` to retrieve company / tenant licenses.
-- Adds `Remove-TeamViewerCompany` to delete the company / tenant (Dangerous!).
+- Adds `Remove-TeamViewerCompany` to delete the company / tenant (Cannot be reverted, use with care!).
 - Adds `Set-TeamViewerCompany` to modify the company / tenant details.
 
 ## 2.6.0 (2026-07-30)
