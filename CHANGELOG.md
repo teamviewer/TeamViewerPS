@@ -1,5 +1,11 @@
 # Change Log
 
+## x.x.x (2026-xx-xx)
+
+### Fixed
+
+- Fixes, completes, and improves help file `TeamViewerPS.md`.
+
 ## 2.6.0 (2026-07-30)
 
 ### Updated
