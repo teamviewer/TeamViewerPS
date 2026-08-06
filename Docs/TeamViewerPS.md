@@ -227,6 +227,8 @@ Utilities that help managing the local TeamViewer client.
 
 [`Get-TeamViewerInstallationDirectory`](Help/Get-TeamViewerInstallationDirectory.md)
 
+[`Get-TeamViewerInstallationPackage`](Help/Get-TeamViewerInstallationPackage.md)
+
 [`Get-TeamViewerInstallationType`](Help/Get-TeamViewerInstallationType.md)
 
 [`Get-TeamViewerLogFilePath`](Help/Get-TeamViewerLogFilePath.md)
