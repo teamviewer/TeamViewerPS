@@ -4,15 +4,16 @@ function Resolve-TeamViewerUserEmail {
         [object]
         $User
     )
-    Process {
+
+    process {
         if (!$User) {
-            return $null
+            $null
         }
         elseif ($User.PSObject.TypeNames -contains 'TeamViewerPS.User') {
-            return $User.Email
+            $User.Email
         }
         elseif ($User -is [string]) {
-            return $User
+            $User
         }
         else {
             throw "Invalid user email '$User'. Must be either a [TeamViewerPS.User] or [string]."

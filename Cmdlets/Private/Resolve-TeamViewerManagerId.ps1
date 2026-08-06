@@ -4,15 +4,16 @@ function Resolve-TeamViewerManagerId {
         [object]
         $Manager
     )
-    Process {
+
+    process {
         if ($Manager.PSObject.TypeNames -contains 'TeamViewerPS.Manager') {
-            return [guid]$Manager.Id
+            [guid]$Manager.Id
         }
         elseif ($Manager -is [string]) {
-            return [guid]$Manager
+            [guid]$Manager
         }
         elseif ($Manager -is [guid]) {
-            return $Manager
+            $Manager
         }
         else {
             throw "Invalid manager identifier '$Manager'. Must be either a [TeamViewerPS.Manager], [guid] or [string]."

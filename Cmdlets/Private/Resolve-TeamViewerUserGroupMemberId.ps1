@@ -4,18 +4,19 @@ function Resolve-TeamViewerUserGroupMemberMemberId {
         [object]
         $UserGroupMember
     )
-    Process {
+
+    process {
         if ($UserGroupMember.PSObject.TypeNames -contains 'TeamViewerPS.UserGroupMember') {
-            return $UserGroupMember.AccountId
+            $UserGroupMember.AccountId
         }
         elseif ($UserGroupMember -match 'u[0-9]+') {
-            return $UserGroupMember
+            $UserGroupMember
         }
         elseif ($UserGroupMember -is [string]) {
-            return [int]$UserGroupMember
+            [int]$UserGroupMember
         }
         elseif ($UserGroupMember -is [int]) {
-            return $UserGroupMember
+            $UserGroupMember
         }
         else {
             throw "Invalid user group identifier '$UserGroupMember'. Must be either a [TeamViewerPS.UserGroupMember],[TeamViewerPS.User] or [int] ."
