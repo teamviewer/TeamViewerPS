@@ -12,6 +12,7 @@
 ### Fixed
 
 - Fixes, completes, and improves help file `TeamViewerPS.md`.
+- Fixes ([#101](https://github.com/teamviewer/TeamViewerPS/issues/101))date fields (e.g. `Get-TeamViewerConnectionReport`) being lost or having day/month swapped in API responses on PowerShell 6+.
 
 ## 2.6.0 (2026-07-30)
 
