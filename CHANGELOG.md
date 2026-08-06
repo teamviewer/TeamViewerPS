@@ -4,6 +4,7 @@
 
 ### Added
 
+- Adds `Get-TeamViewerInstallationPackage` that returns the installed TV package (Full or Host) from locally installed TV client.
 - Adds `Get-TeamViewerCompany` to retrieve the company / tenant details.
 - Adds `Get-TeamViewerLicense` to retrieve company / tenant licenses.
 - Adds `Remove-TeamViewerCompany` to delete the company / tenant (Cannot be reverted, use with care!).
