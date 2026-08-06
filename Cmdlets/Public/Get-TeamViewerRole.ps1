@@ -10,7 +10,7 @@ function Get-TeamViewerRole {
         $Permissions
     )
 
-    Begin {
+    begin {
         $parameters = @{ }
         $resourceUri = "$(Get-TeamViewerApiUri)/userroles"
         if ($Permissions) {
@@ -18,7 +18,7 @@ function Get-TeamViewerRole {
         }
     }
 
-    Process {
+    process {
         $response = Invoke-TeamViewerRestMethod `
             -ApiToken $ApiToken `
             -Uri $resourceUri `
@@ -27,10 +27,10 @@ function Get-TeamViewerRole {
             -WriteErrorTo $PSCmdlet `
             -ErrorAction Stop
         if ($Permissions) {
-            return [PSCustomObject] $response
+            [PSCustomObject] $response
         }
         else {
-            Write-Output ($response.Roles | ConvertTo-TeamViewerRole )
+            $response.Roles | ConvertTo-TeamViewerRole
         }
     }
 }
