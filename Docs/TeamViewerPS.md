@@ -38,6 +38,19 @@ Manage company / tenant details for the TeamViewer company associated with the A
 
 [`Set-TeamViewerCompany`](Help/Set-TeamViewerCompany.md)
 
+## Organizational Units
+
+Manage organizational units of a TeamViewer company via the TeamViewer web API.
+Have organizational units to further group / organize / structure users and user groups.
+
+[`Get-TeamViewerOrganizationalUnit`](Help/Get-TeamViewerOrganizationalUnit.md)
+
+[`New-TeamViewerOrganizationalUnit`](Help/New-TeamViewerOrganizationalUnit.md)
+
+[`Set-TeamViewerOrganizationalUnit`](Help/Set-TeamViewerOrganizationalUnit.md)
+
+[`Remove-TeamViewerOrganizationalUnit`](Help/Remove-TeamViewerOrganizationalUnit.md)
+
 ## Computers & Contacts
 
 Manage the devices & contacts via the TeamViewer web API.
