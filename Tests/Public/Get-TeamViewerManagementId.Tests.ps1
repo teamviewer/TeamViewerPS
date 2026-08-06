@@ -22,7 +22,6 @@ Describe 'Get-TeamViewerManagementId' {
                 -MemberType ScriptMethod `
                 -Name GetValue `
                 -Value { param($obj) Get-TestItemValue @PSBoundParameters }
-            Mock Get-OperatingSystem { 'Windows' }
             Mock Get-TeamViewerRegKeyPath { 'testRegistry' }
             Mock Get-Item { $testItem }
             Mock Test-Path { $true }
@@ -32,7 +31,6 @@ Describe 'Get-TeamViewerManagementId' {
         It 'Should return the Management ID from the Windows Registry' {
             Get-TeamViewerManagementId | Should -Be $testManagementId
             Should -Invoke Test-TeamViewerInstallation -Scope It -Times 1
-            Should -Invoke Get-OperatingSystem -Scope It -Times 1
             Should -Invoke Get-TeamViewerRegKeyPath -Scope It -Times 1
             Should -Invoke Test-Path -Scope It -Times 1 -ParameterFilter {
                 $LiteralPath -eq (Join-Path 'testRegistry' 'DeviceManagementV2')
@@ -65,37 +63,6 @@ Describe 'Get-TeamViewerManagementId' {
 
         It 'Should return nothing when the device is marked as unmanaged' {
             Mock Get-TestItemValue -ParameterFilter { $obj -eq 'Unmanaged' } { 1 }
-            Get-TeamViewerManagementId | Should -BeNullOrEmpty
-        }
-    }
-
-    Context 'Linux' {
-        BeforeAll {
-            Mock Get-OperatingSystem { 'Linux' }
-            Mock Test-TeamViewerInstallation { $true }
-            Mock Get-TeamViewerLinuxGlobalConfig `
-                -ParameterFilter { $Name -eq 'DeviceManagementV2\Unmanaged' } `
-                -MockWith { }
-            Mock Get-TeamViewerLinuxGlobalConfig `
-                -ParameterFilter { $Name -eq 'DeviceManagementV2\ManagementId' } `
-                -MockWith { $testManagementId.ToString('B') }
-        }
-
-        It 'Should return the Management ID from the global configuration' {
-            Get-TeamViewerManagementId | Should -Be $testManagementId
-            Should -Invoke Test-TeamViewerInstallation -Scope It -Times 1
-            Should -Invoke Get-OperatingSystem -Scope It -Times 1
-        }
-
-        It 'Should return nothing when TeamViewer is not installed' {
-            Mock Test-TeamViewerInstallation { $false }
-            Get-TeamViewerManagementId | Should -BeNullOrEmpty
-        }
-
-        It 'Should return nothing when the device is marked as unmanaged' {
-            Mock Get-TeamViewerLinuxGlobalConfig `
-                -ParameterFilter { $Name -eq 'DeviceManagementV2\Unmanaged' } `
-                -MockWith { 1 }
             Get-TeamViewerManagementId | Should -BeNullOrEmpty
         }
     }

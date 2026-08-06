@@ -17,7 +17,6 @@ BeforeAll {
 Describe 'Get-TeamViewerService' {
     Context 'Windows' {
         BeforeAll {
-            Mock Get-OperatingSystem { 'Windows' }
             Mock Get-TeamViewerServiceName { 'UnitTestTeamViewer' }
             Mock Get-Service {}
         }
@@ -25,19 +24,6 @@ Describe 'Get-TeamViewerService' {
             Get-TeamViewerService | Out-Null
             Should -Invoke Get-Service -Scope It -Times 1 -ParameterFilter {
                 $Name -eq 'UnitTestTeamViewer'
-            }
-        }
-    }
-    Context 'Linux' {
-        BeforeAll {
-            Mock Get-OperatingSystem { 'Linux' }
-            Mock Invoke-ExternalCommand {}
-        }
-        It 'Should get the TeamViewer daemon status' {
-            Get-TeamViewerService | Out-Null
-            Should -Invoke Invoke-ExternalCommand -Scope It -Times 1 -ParameterFilter {
-                $Command -eq '/opt/teamviewer/tv_bin/script/teamviewer' -And
-                $CommandArgs[0] -eq 'daemon' -and $CommandArgs[1] -eq 'status'
             }
         }
     }

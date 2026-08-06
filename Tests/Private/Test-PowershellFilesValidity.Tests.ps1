@@ -1,15 +1,13 @@
 BeforeAll {
     $Script:Module_RootPath = (Resolve-Path -Path (Join-Path -Path $PSScriptRoot -ChildPath '..\..'))
+    $Script:TVPS_PSFiles = @(Get-ChildItem -Path "$($Script:Module_RootPath)\*.ps1" -Recurse -ErrorAction SilentlyContinue)
 }
 
 Context 'Test-PowershellFilesValidity' {
-    $TVPS_PSFiles = Get-ChildItem $Module_RootPath -Include *.ps1 -Recurse
-
-    $Test_Case = $TVPS_PSFiles | ForEach-Object {
+    $Test_Case = $Script:TVPS_PSFiles | Where-Object { $_.fullname } | ForEach-Object {
         @{
             FilePath = $_.fullname
             FileName = $_.Name
-
         }
     }
 

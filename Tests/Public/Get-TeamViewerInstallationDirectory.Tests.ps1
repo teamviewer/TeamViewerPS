@@ -7,7 +7,6 @@ BeforeAll {
 Describe 'Get-TeamViewerInstallationDirectory' {
     Context 'Windows' {
         BeforeAll {
-            Mock Get-OperatingSystem { 'Windows' }
             Mock Get-TeamViewerRegKeyPath { 'testRegistry' }
             Mock Test-Path { $true }
             function Get-TestItemValue([object]$obj) {
@@ -39,21 +38,6 @@ Describe 'Get-TeamViewerInstallationDirectory' {
             Mock Test-Path -ParameterFilter { $Path -eq 'testRegistry' } { $false }
             $result = Get-TeamViewerInstallationDirectory
             $result | Should -BeNull
-        }
-    }
-
-    Context 'Linux' {
-        BeforeAll {
-            Mock Get-OperatingSystem { 'Linux' }
-            Mock Test-Path { $true }
-        }
-
-        It 'Should return the Linux installation directory' {
-            $result = Get-TeamViewerInstallationDirectory
-            $result | Should -Be '/opt/teamviewer/tv_bin/'
-            Should -Invoke Test-Path -Scope It -Times 1 -ParameterFilter {
-                $Path -eq '/opt/teamviewer/tv_bin/TeamViewer'
-            }
         }
     }
 

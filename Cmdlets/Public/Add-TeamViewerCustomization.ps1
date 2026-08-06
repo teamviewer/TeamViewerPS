@@ -16,33 +16,28 @@ Function Add-TeamViewerCustomization {
         $RemoveExisting
     )
 
-    if (Get-OperatingSystem -eq 'Windows') {
-        if (Test-TeamViewerInstallation) {
-            $installationDirectory = Get-TeamViewerInstallationDirectory
-            $currentDirectory = Get-Location
-            Set-Location $installationDirectory
-            $cmd = 'customize'
-            if ($Id) {
-                $cmd += " --id $Id"
-            }
-            elseif ($Path) {
-                $cmd += " --path $Path"
-            }
-            if ($RemoveExisting) {
-                $cmd += ' --remove'
-            }
-            if ($RestartGUI) {
-                $cmd += ' --restart-gui'
-            }
-            $process = Start-Process -FilePath TeamViewer.exe -ArgumentList $cmd -Wait -PassThru
-            $process.ExitCode | Resolve-CustomizationErrorCode
-            Set-Location $currentDirectory
+    if (Test-TeamViewerInstallation) {
+        $installationDirectory = Get-TeamViewerInstallationDirectory
+        $currentDirectory = Get-Location
+        Set-Location $installationDirectory
+        $cmd = 'customize'
+        if ($Id) {
+            $cmd += " --id $Id"
         }
-        else {
-            Write-Error 'TeamViewer is not installed'
+        elseif ($Path) {
+            $cmd += " --path $Path"
         }
+        if ($RemoveExisting) {
+            $cmd += ' --remove'
+        }
+        if ($RestartGUI) {
+            $cmd += ' --restart-gui'
+        }
+        $process = Start-Process -FilePath TeamViewer.exe -ArgumentList $cmd -Wait -PassThru
+        $process.ExitCode | Resolve-CustomizationErrorCode
+        Set-Location $currentDirectory
     }
     else {
-        Write-Error 'Customization is currently supported only on Windows.'
+        Write-Error 'TeamViewer is not installed'
     }
 }

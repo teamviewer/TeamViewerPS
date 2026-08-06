@@ -12,7 +12,6 @@ Describe 'Get-TeamViewerVersion' {
     Context 'Windows' {
         BeforeAll {
             Mock Get-TeamViewerRegKeyPath { 'testRegistry' }
-            Mock Get-OperatingSystem { 'Windows' }
             Mock Test-TeamViewerInstallation { $true }
         }
 
@@ -24,30 +23,9 @@ Describe 'Get-TeamViewerVersion' {
         }
     }
 
-    Context 'Linux' {
-        BeforeAll {
-            Mock Get-OperatingSystem { 'Linux' }
-            Mock Test-TeamViewerInstallation { $true }
-            Mock Get-TeamViewerLinuxGlobalConfig { '15.10.0' }
-        }
-
-        It 'Should return the TeamViewer version from the global configuration' {
-            Get-TeamViewerVersion | Should -Be '15.10.0'
-            Should -Invoke Get-TeamViewerLinuxGlobalConfig -Scope It -Times 1 -ParameterFilter {
-                $Name -Eq 'Version'
-            }
-        }
-    }
-
     It 'Should return nothing if TeamViewer is not installed' {
         Mock Test-TeamViewerInstallation { $false }
         Get-TeamViewerVersion | Should -BeNullOrEmpty
         Should -Invoke Get-ItemPropertyValue -Scope It -Times 0
-    }
-
-    It 'Should return nothing on unsupported platforms' {
-        Mock Get-OperatingSystem { 'SomeOtherPlatform' }
-        Mock Test-TeamViewerInstallation { $true }
-        Get-TeamViewerVersion | Should -BeNullOrEmpty
     }
 }

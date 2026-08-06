@@ -17,7 +17,6 @@ BeforeAll {
 Describe 'Restart-TeamViewerService' {
     Context 'Windows' {
         BeforeAll {
-            Mock Get-OperatingSystem { 'Windows' }
             Mock Get-TeamViewerServiceName { 'UnitTestTeamViewer' }
             Mock Restart-Service {}
         }
@@ -25,19 +24,6 @@ Describe 'Restart-TeamViewerService' {
             Restart-TeamViewerService | Out-Null
             Should -Invoke Restart-Service -Scope It -Times 1 -ParameterFilter {
                 $Name -eq 'UnitTestTeamViewer'
-            }
-        }
-    }
-    Context 'Linux' {
-        BeforeAll {
-            Mock Get-OperatingSystem { 'Linux' }
-            Mock Invoke-ExternalCommand {}
-        }
-        It 'Should restart the TeamViewer daemon' {
-            Restart-TeamViewerService | Out-Null
-            Should -Invoke Invoke-ExternalCommand -Scope It -Times 1 -ParameterFilter {
-                $Command -eq '/opt/teamviewer/tv_bin/script/teamviewer'
-                $CommandArgs[0] -eq 'daemon' -and $CommandArgs[1] -eq 'restart'
             }
         }
     }
