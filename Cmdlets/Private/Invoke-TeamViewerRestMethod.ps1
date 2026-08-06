@@ -25,7 +25,7 @@ function Invoke-TeamViewerRestMethod {
 
     )
 
-    if (-Not $Headers) {
+    if (-not $Headers) {
         $Headers = @{ }
         $PSBoundParameters.Add('Headers', $Headers) | Out-Null
     }
@@ -39,7 +39,7 @@ function Invoke-TeamViewerRestMethod {
             $Proxy = $null
         }
     }
-    If ($Proxy) {
+    if ($Proxy) {
         $PSBoundParameters.Add('Proxy', $Proxy) | Out-Null
     }
     $bstr = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($ApiToken)
@@ -57,7 +57,15 @@ function Invoke-TeamViewerRestMethod {
     # Using `Invoke-WebRequest` instead of `Invoke-RestMethod`:
     # There is a known issue for PUT and DELETE operations to hang on Windows Server 2012.
     try {
-        return ((Invoke-WebRequest -UseBasicParsing @PSBoundParameters).Content | ConvertFrom-Json)
+        # -DateKind String (PS 7.5+) prevents auto-deserialization of date strings to DateTime objects,
+        # which avoids locale-dependent day/month swapping and loss of precision.
+        $convertParams = if ($PSVersionTable.PSVersion -ge [version]'7.5') {
+            @{ DateKind = 'String' } 
+        }
+        else {
+            @{} 
+        }
+        return ((Invoke-WebRequest -UseBasicParsing @PSBoundParameters).Content | ConvertFrom-Json @convertParams)
     }
     catch {
         $msg = $null
