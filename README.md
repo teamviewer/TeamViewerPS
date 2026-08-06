@@ -125,7 +125,8 @@ We welcome contributions to improve and expand TeamViewerPS.
 
 - Fork the repository and create a feature branch.
 - Open an issue first if you are unsure about the change.
-- Add tests for new behavior when applicable.
+- Add tests for new function / behavior when applicable.
+- Keep help / documentation up-to-date.
 - Keep code style consistent with existing PowerShell module conventions.
 
 To run the repository tests locally:
