@@ -1,27 +1,14 @@
 function Get-TeamViewerInstallationDirectory {
-    switch (Get-OperatingSystem) {
-        'Windows' {
-            $regKey = Get-TeamViewerRegKeyPath
-            $installationDirectory = if (Test-Path $regKey) {
- (Get-Item $regKey).GetValue('InstallationDirectory')
-            }
-            if (
-                $installationDirectory -And `
-                (Test-Path "$installationDirectory/TeamViewer.exe")
-            ) {
-                return $installationDirectory
-            }
-        }
-        'Linux' {
-            if (
-                (Test-Path '/opt/teamviewer/tv_bin/TeamViewer')
-            ) {
-                return '/opt/teamviewer/tv_bin/'
-            }
-        }
-        default {
-            Write-Error 'TeamViewer not installed'
-        }
+    $TV_RegKey = Get-TeamViewerRegKeyPath
+
+    if (Test-Path -Path $TV_RegKey -PathType Container) {
+        $TV_InstallationDirectory = (Get-Item -Path $TV_RegKey).GetValue('InstallationDirectory')
+    }
+
+    if ($TV_InstallationDirectory -and (Test-Path -Path (Join-Path -Path $TV_InstallationDirectory -ChildPath 'TeamViewer.exe'))) {
+        return $TV_InstallationDirectory
+    }
+    else {
+        return $null
     }
 }
-

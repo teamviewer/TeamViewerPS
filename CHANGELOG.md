@@ -9,9 +9,13 @@
 - Adds `Remove-TeamViewerCompany` to delete the company / tenant (Cannot be reverted, use with care!).
 - Adds `Set-TeamViewerCompany` to modify the company / tenant details.
 
-### Fixed
+### Changed
 
-- Fixes, completes, and improves help file `TeamViewerPS.md`.
+- Removes (temporary) all macOS and Linux support from the module.
+
+### Removed
+
+- Removes all macOS and Linux code paths from public cmdlets.
 
 ## 2.6.0 (2026-07-30)
 

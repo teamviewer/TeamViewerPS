@@ -8,33 +8,15 @@ BeforeAll {
 }
 
 Describe 'Get-TeamViewerId' {
-    Context 'Windows' {
-        BeforeAll {
-            Mock Get-TeamViewerRegKeyPath { 'testRegistry' }
-            Mock Get-OperatingSystem { 'Windows' }
-            Mock Test-TeamViewerInstallation { $true }
-        }
-
-        It 'Should return the TeamViewer ID from the Windows Registry' {
-            Get-TeamViewerId | Should -Be 123456
-            Should -Invoke Get-ItemPropertyValue -Scope It -Times 1 -ParameterFilter {
-                $Path -Eq 'testRegistry' -And $Name -Eq 'ClientID'
-            }
-        }
+    BeforeAll {
+        Mock Get-TeamViewerRegKeyPath { 'testRegistry' }
+        Mock Test-TeamViewerInstallation { $true }
     }
 
-    Context 'Linux' {
-        BeforeAll {
-            Mock Get-OperatingSystem { 'Linux' }
-            Mock Test-TeamViewerInstallation { $true }
-            Mock Get-TeamViewerLinuxGlobalConfig { 123456 }
-        }
-
-        It 'Should return the TeamViewer ID from the global configuration' {
-            Get-TeamViewerId | Should -Be 123456
-            Should -Invoke Get-TeamViewerLinuxGlobalConfig -Scope It -Times 1 -ParameterFilter {
-                $Name -Eq 'ClientID'
-            }
+    It 'Should return the TeamViewer ID from the Windows Registry' {
+        Get-TeamViewerId | Should -Be 123456
+        Should -Invoke Get-ItemPropertyValue -Scope It -Times 1 -ParameterFilter {
+            $Path -eq 'testRegistry' -and $Name -eq 'ClientID'
         }
     }
 
@@ -42,11 +24,5 @@ Describe 'Get-TeamViewerId' {
         Mock Test-TeamViewerInstallation { $false }
         Get-TeamViewerId | Should -BeNullOrEmpty
         Should -Invoke Get-ItemPropertyValue -Scope It -Times 0
-    }
-
-    It 'Should return nothing on unsupported platforms' {
-        Mock Get-OperatingSystem { 'SomeOtherPlatform' }
-        Mock Test-TeamViewerInstallation { $true }
-        Get-TeamViewerId | Should -BeNullOrEmpty
     }
 }

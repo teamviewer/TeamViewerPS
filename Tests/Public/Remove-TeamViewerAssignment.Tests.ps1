@@ -7,43 +7,41 @@ BeforeAll {
         ForEach-Object { . $_.FullName }
 }
 Describe 'Remove-TeamViewerAssignment' {
-    Context 'Windows' {
-        BeforeAll {
-            # Testing independent behavior using mocked dependencies
-            Mock Get-TeamViewerInstallationDirectory { 'testPath' }
-            Mock Get-TeamViewerVersion { '15.50' }
-            Mock Test-TeamViewerInstallation { $true }
-            Mock Set-Location {}
-            Mock Start-Process {
-                $process = New-Object PSObject -Property @{
-                    ExitCode = 0
-                }
-                $process
+    BeforeAll {
+        # Testing independent behavior using mocked dependencies
+        Mock Get-TeamViewerInstallationDirectory { 'testPath' }
+        Mock Get-TeamViewerVersion { '15.50' }
+        Mock Test-TeamViewerInstallation { $true }
+        Mock Set-Location {}
+        Mock Start-Process {
+            $process = New-Object PSObject -Property @{
+                ExitCode = 0
             }
-            Mock Resolve-AssignmentErrorCode {}
+            $process
         }
+        Mock Resolve-AssignmentErrorCode {}
+    }
 
-        It 'Should set the location to the installation directory' {
-            Remove-TeamViewerAssignment
-            Should -Invoke Set-Location -Scope It -Times 1 -ParameterFilter {
-                $Path -eq 'testPath'
-            }
+    It 'Should set the location to the installation directory' {
+        Remove-TeamViewerAssignment
+        Should -Invoke Set-Location -Scope It -Times 1 -ParameterFilter {
+            $Path -eq 'testPath'
         }
+    }
 
 
-        It 'Should call TeamViewer.exe unassignment' {
-            Mock Start-Process -ParameterFilter { $_.FilePath -eq 'TeamViewer.exe' -and $_.ArgumentList -eq 'unassign' }
-            Remove-TeamViewerAssignment
-            Should -Invoke Start-Process -Scope It -Times 1
-        }
+    It 'Should call TeamViewer.exe unassignment' {
+        Mock Start-Process -ParameterFilter { $_.FilePath -eq 'TeamViewer.exe' -and $_.ArgumentList -eq 'unassign' }
+        Remove-TeamViewerAssignment
+        Should -Invoke Start-Process -Scope It -Times 1
+    }
 
-        It 'Should restore the current directory after calling cmd.exe' {
-            Mock cmd.exe {}
-            $currentDirectory = Get-Location
-            Remove-TeamViewerAssignment
-            Should -Invoke Set-Location -Scope It -Times 1 -ParameterFilter {
-                $Path -eq $currentDirectory
-            }
+    It 'Should restore the current directory after calling cmd.exe' {
+        Mock cmd.exe {}
+        $currentDirectory = Get-Location
+        Remove-TeamViewerAssignment
+        Should -Invoke Set-Location -Scope It -Times 1 -ParameterFilter {
+            $Path -eq $currentDirectory
         }
     }
 }

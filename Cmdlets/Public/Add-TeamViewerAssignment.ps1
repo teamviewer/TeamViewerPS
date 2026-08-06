@@ -13,20 +13,13 @@ function Add-TeamViewerAssignment {
 
 
     if (Test-TeamViewerInstallation) {
-        $OS = Get-OperatingSystem
         $CurrentDirectory = Get-Location
         $installationDirectory = Get-TeamViewerInstallationDirectory
         Set-Location $installationDirectory
         $CurrentVersion = Get-TeamViewerVersion
         $VersionTable = $CurrentVersion.split('.')
-        if ($OS -eq 'Windows') {
-            $cmd = "assignment --id $AssignmentId"
-            $FilePath = 'TeamViewer.exe'
-        }
-        elseif ($OS -eq 'Linux') {
-            $cmd = "teamviewer assignment --id $AssignmentId"
-            $FilePath = 'sudo'
-        }
+        $cmd = "assignment --id $AssignmentId"
+        $FilePath = 'TeamViewer.exe'
 
         if ($DeviceAlias) {
             if (($VersionTable[0] -eq 15 -and $VersionTable[1] -ge 44) -or $VersionTable[0] -gt 15) {

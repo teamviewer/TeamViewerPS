@@ -20,13 +20,9 @@ Get-TeamViewerService [<CommonParameters>]
 ## DESCRIPTION
 
 Returns the current state of the TeamViewer service.
-This is platform dependent.
 
 On Windows platforms, the command will return the service object of the
 TeamViewer service.
-
-On Linux platforms, the command will output the current state (running, stopped,
-etc.) of the TeamViewer service.
 
 ## EXAMPLES
 

@@ -3,13 +3,6 @@ function Restart-TeamViewerService {
     param()
 
     if ($PSCmdlet.ShouldProcess('TeamViewer service')) {
-        switch (Get-OperatingSystem) {
-            'Windows' {
-                Restart-Service -Name (Get-TeamViewerServiceName)
-            }
-            'Linux' {
-                Invoke-ExternalCommand /opt/teamviewer/tv_bin/script/teamviewer daemon restart
-            }
-        }
+        Restart-Service -Name (Get-TeamViewerServiceName)
     }
 }
