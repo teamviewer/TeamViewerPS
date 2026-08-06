@@ -4,18 +4,11 @@ function Remove-TeamViewerAssignment {
 
 
     if (Test-TeamViewerInstallation) {
-        $OS = Get-OperatingSystem
         $CurrentDirectory = Get-Location
         $installationDirectory = Get-TeamViewerInstallationDirectory
         Set-Location $installationDirectory
-        if ($OS -eq 'Windows') {
-            $cmd = 'unassign'
-            $FilePath = 'TeamViewer.exe'
-        }
-        elseif ($OS -eq 'Linux') {
-            $cmd = 'teamviewer unassign'
-            $FilePath = 'sudo'
-        }
+        $cmd = 'unassign'
+        $FilePath = 'TeamViewer.exe'
         if ($PSCmdlet.ShouldProcess($installationDirectory, 'Remove device assignment')) {
             $process = Start-Process -FilePath $FilePath -ArgumentList $cmd -Wait -PassThru
             $process.ExitCode | Resolve-AssignmentErrorCode

@@ -3,13 +3,6 @@ function Start-TeamViewerService {
     param()
 
     if ($PSCmdlet.ShouldProcess("TeamViewer service")) {
-        switch (Get-OperatingSystem) {
-            'Windows' {
-                Start-Service -Name (Get-TeamViewerServiceName)
-            }
-            'Linux' {
-                Invoke-ExternalCommand /opt/teamviewer/tv_bin/script/teamviewer daemon start
-            }
-        }
+        Start-Service -Name (Get-TeamViewerServiceName)
     }
 }

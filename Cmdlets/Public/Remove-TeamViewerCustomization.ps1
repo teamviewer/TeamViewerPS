@@ -2,23 +2,18 @@ function Remove-TeamViewerCustomization {
     [CmdletBinding(SupportsShouldProcess = $true)]
     param()
 
-    if (Get-OperatingSystem -eq 'Windows') {
-        if (Test-TeamViewerInstallation) {
-            $installationDirectory = Get-TeamViewerInstallationDirectory
-            $currentDirectory = Get-Location
-            Set-Location $installationDirectory
-            $cmd = 'customize --remove'
-            if ($PSCmdlet.ShouldProcess($installationDirectory, 'Remove Client Customization')) {
-                $process = Start-Process -FilePath TeamViewer.exe -ArgumentList $cmd -Wait -PassThru
-                $process.ExitCode | Resolve-CustomizationErrorCode
-            }
-            Set-Location $currentDirectory
+    if (Test-TeamViewerInstallation) {
+        $installationDirectory = Get-TeamViewerInstallationDirectory
+        $currentDirectory = Get-Location
+        Set-Location $installationDirectory
+        $cmd = 'customize --remove'
+        if ($PSCmdlet.ShouldProcess($installationDirectory, 'Remove Client Customization')) {
+            $process = Start-Process -FilePath TeamViewer.exe -ArgumentList $cmd -Wait -PassThru
+            $process.ExitCode | Resolve-CustomizationErrorCode
         }
-        else {
-            Write-Error 'TeamViewer is not installed'
-        }
+        Set-Location $currentDirectory
     }
     else {
-        Write-Error 'Customization is currently supported only on Windows.'
+        Write-Error 'TeamViewer is not installed'
     }
 }

@@ -29,8 +29,8 @@ Import-Module TeamViewerPS
 TeamViewerPS supports:
 
 - Windows PowerShell 5.1 on Windows
-- PowerShell Core 6+ on Windows and Linux
-- PowerShell 7+ on Windows and Linux
+- PowerShell Core 6+ on Windows
+- PowerShell 7+ on Windows
 
 ## Quick Start
 
