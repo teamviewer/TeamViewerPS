@@ -9,17 +9,15 @@ BeforeAll {
 }
 
 Describe 'Get-TeamViewerVersion' {
-    Context 'Windows' {
-        BeforeAll {
-            Mock Get-TeamViewerRegKeyPath { 'testRegistry' }
-            Mock Test-TeamViewerInstallation { $true }
-        }
+    BeforeAll {
+        Mock Get-TeamViewerRegKeyPath { 'testRegistry' }
+        Mock Test-TeamViewerInstallation { $true }
+    }
 
-        It 'Should return the TeamViewer Version from the Windows Registry' {
-            Get-TeamViewerVersion | Should -Be '15.10.0'
-            Should -Invoke Get-ItemPropertyValue -Scope It -Times 1 -ParameterFilter {
-                $Path -Eq 'testRegistry' -And $Name -Eq 'Version'
-            }
+    It 'Should return the TeamViewer Version from the Windows Registry' {
+        Get-TeamViewerVersion | Should -Be '15.10.0'
+        Should -Invoke Get-ItemPropertyValue -Scope It -Times 1 -ParameterFilter {
+            $Path -eq 'testRegistry' -and $Name -eq 'Version'
         }
     }
 
