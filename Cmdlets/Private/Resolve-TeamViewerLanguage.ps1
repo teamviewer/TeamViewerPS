@@ -4,18 +4,26 @@ function Resolve-TeamViewerLanguage {
         [object]
         $InputObject
     )
-    Process {
+
+    process {
         $supportedLanguages = @(
             'bg', 'cs', 'da', 'de', 'el', 'en', 'es', 'fi', 'fr', 'hr', 'hu', 'id', 'it', 'ja',
             'ko', 'lt', 'nl', 'no', 'pl', 'pt', 'ro', 'ru', 'sk', 'sr', 'sv', 'th', 'tr', 'uk',
             'vi', 'zh_CN', 'zh_TW', 'auto')
 
         $language = $InputObject
+
         if ($InputObject -is [cultureinfo]) {
             $language = switch ($InputObject.Name) {
-                'zh-CN' { 'zh_CN' }
-                'zh-TW' { 'zh_TW' }
-                default { $InputObject.TwoLetterISOLanguageName }
+                'zh-CN' {
+                    'zh_CN'
+                }
+                'zh-TW' {
+                    'zh_TW'
+                }
+                default {
+                    $InputObject.TwoLetterISOLanguageName
+                }
             }
         }
 
@@ -23,6 +31,6 @@ function Resolve-TeamViewerLanguage {
             throw "Invalid culture '$language'. Supported languages are: $supportedLanguages"
         }
 
-        return $language
+        $language
     }
 }

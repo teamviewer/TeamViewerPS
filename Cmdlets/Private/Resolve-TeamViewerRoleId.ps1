@@ -5,12 +5,13 @@ function Resolve-TeamViewerRoleId {
         [Object]
         $Role
     )
-    Process {
+
+    process {
         if ($Role.PSObject.TypeNames -contains 'TeamViewerPS.Role') {
-            return [string]$Role.RoleID
+            [string]$Role.RoleID
         }
         elseif ($Role -match '^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$') {
-            return [string]$Role
+            [string]$Role
         }
         else {
             throw "Invalid role identifier '$Role'. Must be either a [TeamViewerPS.Role] or [UUID] "

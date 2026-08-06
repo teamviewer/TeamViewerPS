@@ -3,7 +3,8 @@ function ConvertTo-TeamViewerRestError {
         [parameter(ValueFromPipeline)]
         $InputError
     )
-    Process {
+
+    process {
         try {
             $errorObject = ($InputError | Out-String | ConvertFrom-Json)
             $result = [PSCustomObject]@{
@@ -12,14 +13,17 @@ function ConvertTo-TeamViewerRestError {
                 ErrorCode      = $errorObject.error_code
                 ErrorSignature = $errorObject.error_signature
             }
+
             $result | Add-Member -MemberType ScriptMethod -Name 'ToString' -Force -Value {
                 Write-Output "$($this.Message) ($($this.ErrorCategory))"
             }
+
             $result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.RestError')
-            return $result
+
+            $result
         }
         catch {
-            return $InputError
+            $InputError
         }
     }
 }

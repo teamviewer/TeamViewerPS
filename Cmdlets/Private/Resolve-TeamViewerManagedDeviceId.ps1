@@ -4,15 +4,16 @@ function Resolve-TeamViewerManagedDeviceId {
         [object]
         $ManagedDevice
     )
-    Process {
+
+    process {
         if ($ManagedDevice.PSObject.TypeNames -contains 'TeamViewerPS.ManagedDevice') {
-            return [guid]$ManagedDevice.Id
+            [guid]$ManagedDevice.Id
         }
         elseif ($ManagedDevice -is [string]) {
-            return [guid]$ManagedDevice
+            [guid]$ManagedDevice
         }
         elseif ($ManagedDevice -is [guid]) {
-            return $ManagedDevice
+            $ManagedDevice
         }
         else {
             throw "Invalid managed device identifier '$ManagedDevice'. Must be either a [TeamViewerPS.ManagedDevice], [guid] or [string]."
