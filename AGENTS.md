@@ -37,7 +37,8 @@ Invoke-Build -Task Test
 - Scope changes to the user request; avoid unrelated refactors.
 - Preserve public function names and parameter contracts unless explicitly asked to change them.
 - Prefer existing helpers in `Cmdlets/Private` over new abstractions.
-- Follow naming conventions: `ConvertTo-*` for mapping, `Resolve-*` for lookups, standard verbs (`Get/Set/New/Remove/Invoke/Test`) for cmdlets.
+- Follow naming conventions: `ConvertTo-*` for mapping, `Resolve-*` for lookups
+- **Pipeline Output Pattern**: Process blocks must use implicit pipeline emission (no `return` or `Write-Output`); non-pipeline functions use explicit `return` statements. This standardizes when values enter the pipeline vs. are explicitly returned.
 - Add or update Pester tests for every behavior change; include a regression test for bug fixes.
 - Run lint and tests before finishing; both must pass.
 
