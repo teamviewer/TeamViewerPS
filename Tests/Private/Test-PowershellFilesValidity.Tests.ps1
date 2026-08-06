@@ -1,15 +1,9 @@
-BeforeAll {
-    $Script:Module_RootPath = (Resolve-Path -Path (Join-Path -Path $PSScriptRoot -ChildPath '..\..'))
-    $Script:TVPS_PSFiles = @(Get-ChildItem -Path "$($Script:Module_RootPath)\*.ps1" -Recurse -ErrorAction SilentlyContinue)
-}
+$Module_RootPath = (Resolve-Path -Path (Join-Path -Path $PSScriptRoot -ChildPath '..\..'))
+$Test_Case = @(Get-ChildItem -Path "$Module_RootPath\*.ps1" -Recurse -ErrorAction SilentlyContinue) |
+    Where-Object { $_.FullName } |
+    ForEach-Object { @{ FilePath = $_.FullName; FileName = $_.Name } }
 
 Context 'Test-PowershellFilesValidity' {
-    $Test_Case = $Script:TVPS_PSFiles | Where-Object { $_.fullname } | ForEach-Object {
-        @{
-            FilePath = $_.fullname
-            FileName = $_.Name
-        }
-    }
 
     It 'Script should be a valid Powershell file' -TestCases $Test_Case {
         param(
