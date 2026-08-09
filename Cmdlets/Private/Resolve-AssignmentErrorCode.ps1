@@ -4,7 +4,8 @@ function  Resolve-AssignmentErrorCode {
         [object]
         $exitCode
     )
-    Begin {
+
+    begin {
         $exitCodeMessages = @{
             0   = 'Operation successful'
             1   = 'Misspelled or used a wrong command'
@@ -22,17 +23,18 @@ function  Resolve-AssignmentErrorCode {
             408 = 'Denied by policy'
         }
     }
-    Process {
+
+    process {
         if ($exitCode) {
             if ($exitCodeMessages.ContainsKey($exitCode)) {
-                Write-Output $exitCodeMessages[$exitCode]
+                $exitCodeMessages[$exitCode]
             }
             else {
-                Write-Output "Unexpected error code: $exitCode. Check TeamViewer documentation!"
+                "Unexpected error code: $exitCode. Check TeamViewer documentation!"
             }
         }
         elseif ($exitCode -eq 0) {
-            Write-Output $exitCodeMessages[$exitCode]
+            $exitCodeMessages[$exitCode]
         }
     }
 }

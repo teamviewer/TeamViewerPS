@@ -1,5 +1,6 @@
-$scriptPath = Split-Path -Parent $PSCommandPath
-$Repo_RootPath = (Split-Path -Parent (Split-Path -Parent (Split-Path -Parent $scriptPath)))
+BeforeAll {
+    $Script:Module_RootPath = (Resolve-Path -Path (Join-Path -Path $PSScriptRoot -ChildPath '..\..'))
+}
 
 Describe 'Option A Compliance - Pipeline Output Pattern' {
     <#
@@ -14,8 +15,8 @@ Describe 'Option A Compliance - Pipeline Output Pattern' {
     It 'Should have no return statements in Process blocks' {
         # Find all .ps1 files (excluding test files which may use various patterns)
         $files = @(
-            Get-ChildItem -Path (Join-Path $Repo_RootPath 'Cmdlets') -Recurse -Filter '*.ps1'
-            Get-ChildItem -Path (Join-Path $Repo_RootPath 'Build') -Recurse -Filter '*.ps1'
+            Get-ChildItem -Path (Join-Path $Module_RootPath 'Cmdlets') -Recurse -Filter '*.ps1'
+            Get-ChildItem -Path (Join-Path $Module_RootPath 'Build') -Recurse -Filter '*.ps1'
         )
 
         $violations = @()
@@ -32,7 +33,7 @@ Describe 'Option A Compliance - Pipeline Output Pattern' {
 
     It 'Should have no Write-Output in Process blocks for pipeline functions' {
         $files = @(
-            Get-ChildItem -Path (Join-Path $Repo_RootPath 'Cmdlets') -Recurse -Filter '*.ps1'
+            Get-ChildItem -Path (Join-Path $Module_RootPath 'Cmdlets') -Recurse -Filter '*.ps1'
         )
 
         $violations = @()
