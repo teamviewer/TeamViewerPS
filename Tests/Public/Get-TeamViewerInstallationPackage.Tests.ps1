@@ -1,4 +1,5 @@
 BeforeAll {
+    . "$PSScriptRoot\..\..\Cmdlets\Public\Get-TeamViewerInstallationDirectory.ps1"
     . "$PSScriptRoot\..\..\Cmdlets\Public\Get-TeamViewerInstallationPackage.ps1"
     . "$PSScriptRoot\..\..\Cmdlets\Public\Test-TeamViewerInstallation.ps1"
     @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
@@ -7,6 +8,7 @@ BeforeAll {
 Describe 'Get-TeamViewerInstallationPackage' {
     BeforeAll {
         Mock Test-TeamViewerInstallation { $true }
+        Mock Get-TeamViewerInstallationDirectory { 'testPath' }
         $script:TV_InstallationDirectory = 'testPath'
 
         $script:testVersionInfo = [PSCustomObject]@{
