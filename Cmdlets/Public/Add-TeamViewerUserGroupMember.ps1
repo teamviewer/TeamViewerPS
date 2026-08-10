@@ -22,7 +22,7 @@ function Add-TeamViewerUserGroupMember {
         $Member
     )
 
-    Begin {
+    begin {
         $id = $UserGroup | Resolve-TeamViewerUserGroupId
         $resourceUri = "$(Get-TeamViewerApiUri)/usergroups/$id/members"
         $membersToAdd = @()
@@ -43,7 +43,7 @@ function Add-TeamViewerUserGroupMember {
         }
     }
 
-    Process {
+    process {
         # when members are provided as pipeline input, each member is provided as a separate statement,
         # thus the members should be combined into one array in order to send a single request.
         if ($PSCmdlet.ShouldProcess($Member, 'Add user groups member')) {
@@ -67,15 +67,14 @@ function Add-TeamViewerUserGroupMember {
             $body = "[$payload]"
         }
 
-        # WebAPI accepts a maximum of 100 accounts. Thus we send a request and reset the `membersToAdd`
-        # in order to accept more members
+        # Web API accepts a maximum of 100 accounts. Thus we send a request and reset the `membersToAdd` in order to accept more members
         if ($membersToAdd.Length -eq 100) {
             Invoke-TeamViewerRestMethodInternal
             $membersToAdd = @()
         }
     }
 
-    End {
+    end {
         # A request needs to be sent if there were less than 100 members
         if ($membersToAdd.Length -gt 0) {
             Invoke-TeamViewerRestMethodInternal

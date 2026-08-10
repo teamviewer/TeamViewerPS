@@ -37,7 +37,7 @@ Sets the uri of the web API to `www.example.com`.
 PS /> Set-TeamViewerAPIUri -Default $true
 ```
 
-Sets the WebAPI for TeamViewerPS to the default value.
+Sets the web API for TeamViewerPS to the default value.
 
 ## PARAMETERS
 

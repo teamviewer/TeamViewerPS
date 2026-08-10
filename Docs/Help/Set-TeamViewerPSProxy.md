@@ -19,7 +19,7 @@ Set-TeamViewerPSProxy [-ProxyUri] <Uri> [<CommonParameters>]
 
 ## DESCRIPTION
 
-Sets a Proxy to access webAPI for TeamViewerPS module functions.
+Sets a Proxy to access web API for TeamViewerPS module functions.
 
 ## EXAMPLES
 

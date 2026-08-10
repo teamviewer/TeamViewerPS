@@ -13,31 +13,31 @@ Describe 'Test-TeamViewerConnectivity' {
         Test-TeamViewerConnectivity
 
         Should -Invoke Test-TcpConnection -Times 1 -Scope It -ParameterFilter {
-            $Hostname -eq 'webapi.teamviewer.com' -And $Port -eq 443
+            $Hostname -eq 'webapi.teamviewer.com' -and $Port -eq 443
         }
         Should -Invoke Test-TcpConnection -Times 1 -Scope It -ParameterFilter {
-            $Hostname -eq 'sso.teamviewer.com' -And $Port -eq 443
+            $Hostname -eq 'sso.teamviewer.com' -and $Port -eq 443
         }
         Should -Invoke Test-TcpConnection -Times 1 -Scope It -ParameterFilter {
-            $Hostname -eq 'router1.teamviewer.com' -And $Port -eq 5938
+            $Hostname -eq 'router1.teamviewer.com' -and $Port -eq 5938
         }
     }
 
     It 'Should check fallback ports' {
         Mock Test-TcpConnection -ParameterFilter {
-            $Hostname -eq 'router1.teamviewer.com' -And $Port -eq 5938
+            $Hostname -eq 'router1.teamviewer.com' -and $Port -eq 5938
         } { $false }
 
         Test-TeamViewerConnectivity
 
         Should -Invoke Test-TcpConnection -Times 1 -Scope It -ParameterFilter {
-            $Hostname -eq 'router1.teamviewer.com' -And $Port -eq 5938
+            $Hostname -eq 'router1.teamviewer.com' -and $Port -eq 5938
         }
         Should -Invoke Test-TcpConnection -Times 1 -Scope It -ParameterFilter {
-            $Hostname -eq 'router1.teamviewer.com' -And $Port -eq 443
+            $Hostname -eq 'router1.teamviewer.com' -and $Port -eq 443
         }
         Should -Invoke Test-TcpConnection -Times 0 -Scope It -ParameterFilter {
-            $Hostname -eq 'router2.teamviewer.com' -And $Port -eq 443
+            $Hostname -eq 'router2.teamviewer.com' -and $Port -eq 443
         }
     }
 

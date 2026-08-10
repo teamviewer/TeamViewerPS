@@ -90,8 +90,7 @@
                 'scripting',
                 'automation',
                 'teamviewer',
-                'remotecontrol',
-                'webapi',
+                'remote control',
                 'api'
             )
 

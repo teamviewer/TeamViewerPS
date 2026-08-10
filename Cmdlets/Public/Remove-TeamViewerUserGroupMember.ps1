@@ -23,7 +23,7 @@ function Remove-TeamViewerUserGroupMember {
         $UserGroupMember
     )
 
-    Begin {
+    begin {
         $id = $UserGroup | Resolve-TeamViewerUserGroupId
         $resourceUri = "$(Get-TeamViewerApiUri)/usergroups/$id/members"
         $membersToRemove = @()
@@ -47,7 +47,7 @@ function Remove-TeamViewerUserGroupMember {
                     $UserGroupMember = $UserGroupMember | Resolve-TeamViewerUserGroupMemberMemberId
                     return $UserGroupMember
                 }
-                Default {
+                default {
                     if ($UserGroupMember -notmatch 'u[0-9]+') {
                         ForEach-Object {
                             $UserGroupMember = [int[]]$UserGroupMember
@@ -64,7 +64,7 @@ function Remove-TeamViewerUserGroupMember {
         }
     }
 
-    Process {
+    process {
         # when members are provided as pipeline input, each member is provided as separate statement,
         # thus the members should  be combined to one array in order to send a single request
         if ($PSCmdlet.ShouldProcess((Get-MemberId), 'Remove user group member')) {
@@ -78,15 +78,14 @@ function Remove-TeamViewerUserGroupMember {
             $body = "[$payload]"
         }
 
-        # WebAPI accepts max 100 accounts. Thus we send a request, and reset the `membersToRemove`
-        # in order to accept more members
+        # Web API accepts max 100 accounts. Thus we send a request, and reset the `membersToRemove` in order to accept more members
         if ($membersToRemove.Length -eq 100) {
             Invoke-TeamViewerRestMethodInternal
             $membersToRemove = @()
         }
     }
 
-    End {
+    end {
         # A request needs to be send if there were less than 100 members
         if ($membersToRemove.Length -gt 0) {
             Invoke-TeamViewerRestMethodInternal

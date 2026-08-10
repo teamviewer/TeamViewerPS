@@ -90,7 +90,7 @@
 - Adds `Add-TeamViewerAssignment` and `Remove-TeamViewerAssignment` commands to assign and unassign a device from a TeamViewer company.
 - Adds `Add-TeamViewerCustomization` and `Remove-TeamViewerCustomization` commands to apply and remove customization.
 - Adds `Export-TeamViewerSystemInformation` to create zip file for support.
-- Adds `Set-TeamViewerPSProxy` and `Remove-TeamViewerPSProxy` to set proxy to access WebAPI.
+- Adds `Set-TeamViewerPSProxy` and `Remove-TeamViewerPSProxy` to set proxy to access web API.
 - Adds `Get-TeamViewerInstallationDirectory` to return installation directory.
 - Adds `Get-TeamViewerCustomModuleId` to return custom module ID.
 - Adds `Get-TeamViewerLogFilePath` to return log file paths for different logs present.
