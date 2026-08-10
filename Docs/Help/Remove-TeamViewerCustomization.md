@@ -14,7 +14,7 @@ Removes the customization from the TeamViewer Installation.
 ## SYNTAX
 
 ```powershell
-Remove-TeamViewerCustomization
+Remove-TeamViewerCustomization [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -27,7 +27,7 @@ Existing customization should be removed before applying new customization.
 ### Example 1
 
 ```powershell
-PS /> Remove-TeamViewerAssignment
+PS /> Remove-TeamViewerCustomization
 ```
 
 Removes the customization.

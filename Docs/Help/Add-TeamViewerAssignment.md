@@ -14,7 +14,7 @@ Assigns the local device to a TeamViewer company.
 ## SYNTAX
 
 ```powershell
-Add-TeamViewerAssignment [-AssignmentId] [-DeviceAlias] [-Retries] 
+Add-TeamViewerAssignment [-AssignmentId] [-DeviceAlias] [-Retries] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
