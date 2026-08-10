@@ -17,7 +17,7 @@ Retrieve users of a TeamViewer company.
 
 ```powershell
 Get-TeamViewerUser -ApiToken <SecureString> [-Name <String>] [-Email <String[]>]
- [-PropertiesToLoad <Object>] [<CommonParameters>]
+ [-Permissions <String[]>] [-PropertiesToLoad <Object>] [<CommonParameters>]
 ```
 
 ### ByUserId
@@ -79,6 +79,22 @@ Accept wildcard characters: False
 ### -Email
 
 Optional list of email addresses. Can be used to only return users that exactly match one of the given email addresses.
+
+```yaml
+Type: String[]
+Parameter Sets: FilteredList
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Permissions
+
+Optional list of permissions. Can be used to only return users that exactly match one of the given permissions.
 
 ```yaml
 Type: String[]
