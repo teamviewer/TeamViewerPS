@@ -3,45 +3,53 @@ BeforeAll {
     . "$PSScriptRoot\..\..\Cmdlets\Public\Get-TeamViewerInstallationDirectory.ps1"
     . "$PSScriptRoot\..\..\Cmdlets\Public\Get-TeamViewerVersion.ps1"
     . "$PSScriptRoot\..\..\Cmdlets\Public\Test-TeamViewerInstallation.ps1"
-    @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | `
-        ForEach-Object { . $_.FullName }
+    @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
 }
 Describe 'Remove-TeamViewerAssignment' {
     BeforeAll {
-        # Testing independent behavior using mocked dependencies
         Mock Get-TeamViewerInstallationDirectory { 'testPath' }
-        Mock Get-TeamViewerVersion { '15.50' }
         Mock Test-TeamViewerInstallation { $true }
-        Mock Set-Location {}
+        Mock Resolve-TeamViewerAssignmentErrorCode {}
         Mock Start-Process {
-            $process = New-Object PSObject -Property @{
-                ExitCode = 0
-            }
-            $process
-        }
-        Mock Resolve-AssignmentErrorCode {}
-    }
-
-    It 'Should set the location to the installation directory' {
-        Remove-TeamViewerAssignment
-        Should -Invoke Set-Location -Scope It -Times 1 -ParameterFilter {
-            $Path -eq 'testPath'
+            [pscustomobject]@{ ExitCode = 0 }
         }
     }
-
 
     It 'Should call TeamViewer.exe unassignment' {
-        Mock Start-Process -ParameterFilter { $_.FilePath -eq 'TeamViewer.exe' -and $_.ArgumentList -eq 'unassign' }
+        Mock Start-Process -ParameterFilter {
+            $FilePath -eq (Join-Path -Path 'testPath' -ChildPath 'TeamViewer.exe') -and
+            $ArgumentList -eq 'unassign'
+        } {
+            [pscustomobject]@{ ExitCode = 0 }
+        }
+
         Remove-TeamViewerAssignment
+
         Should -Invoke Start-Process -Scope It -Times 1
     }
 
-    It 'Should restore the current directory after calling cmd.exe' {
-        Mock cmd.exe {}
-        $currentDirectory = Get-Location
+    It 'Should not start the process when WhatIf is used' {
+        Remove-TeamViewerAssignment -WhatIf
+
+        Should -Invoke Start-Process -Scope It -Times 0
+    }
+
+    It 'Should abort processing when TeamViewer is not installed' {
+        Mock Test-TeamViewerInstallation { $false }
+        Mock Write-Error {}
+        Mock Start-Process {}
+
         Remove-TeamViewerAssignment
-        Should -Invoke Set-Location -Scope It -Times 1 -ParameterFilter {
-            $Path -eq $currentDirectory
+
+        Should -Invoke Write-Error -Scope It -Times 1 -ParameterFilter {
+            $Message -eq 'TeamViewer is not installed!'
         }
+        Should -Invoke Start-Process -Scope It -Times 0
+    }
+
+    It 'Should propagate errors from Start-Process' {
+        Mock Start-Process { throw 'boom' }
+
+        { Remove-TeamViewerAssignment } | Should -Throw
     }
 }
