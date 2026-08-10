@@ -1,3 +1,8 @@
 function Get-TeamViewerService {
-    Get-Service -Name (Get-TeamViewerServiceName)
+    if (Test-TeamViewerInstallation) {
+        Get-Service -Name 'TeamViewer'
+    }
+    else {
+        return $null
+    }
 }
