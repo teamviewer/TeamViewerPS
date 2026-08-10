@@ -36,6 +36,7 @@ Describe 'Remove-TeamViewerAssignment' {
 
     It 'Should abort processing when TeamViewer is not installed' {
         Mock Test-TeamViewerInstallation { $false }
+        Mock Get-TeamViewerInstallationDirectory { 'testPath' }
         Mock Write-Error {}
         Mock Start-Process {}
 

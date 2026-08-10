@@ -41,6 +41,7 @@ Describe 'Remove-TeamViewerCustomization' {
     Context 'When TeamViewer is not installed' {
         BeforeAll {
             Mock Test-TeamViewerInstallation { $false }
+            Mock Get-TeamViewerInstallationDirectory { 'testpath' }
             Mock Write-Error {}
             Mock Start-Process {}
         }
