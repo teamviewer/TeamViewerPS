@@ -16,7 +16,7 @@ function Get-TeamViewerLogFilePath {
             'TVNetwork_Old.log',
             '1EClient-install.log',
             'TeamViewer15_Hooks.log',
-            'TeamViewer15_Hooks_Old.log
+            'TeamViewer15_Hooks_Old.log'
         )
     }
 
