@@ -9,7 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Return the current state of the TeamViewer service.
+Return the TeamViewer service object.
 
 ## SYNTAX
 
@@ -19,10 +19,7 @@ Get-TeamViewerService [<CommonParameters>]
 
 ## DESCRIPTION
 
-Returns the current state of the TeamViewer service.
-
-On Windows platforms, the command will return the service object of the
-TeamViewer service.
+Returns the TeamViewer service object.
 
 ## EXAMPLES
 
