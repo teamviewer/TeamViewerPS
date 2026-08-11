@@ -1,8 +1,8 @@
 BeforeAll {
     . "$PSScriptRoot\..\..\Cmdlets\Public\Get-TeamViewerService.ps1"
+    . "$PSScriptRoot\..\..\Cmdlets\Public\Test-TeamViewerInstallation.ps1"
 
-    @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | `
-        ForEach-Object { . $_.FullName }
+    @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
 
     if (-not (Get-Command -Name 'Get-Service' -ErrorAction SilentlyContinue)) {
         function Get-Service {
@@ -15,14 +15,31 @@ BeforeAll {
 }
 
 Describe 'Get-TeamViewerService' {
-    BeforeAll {
-        Mock Get-TeamViewerServiceName { 'UnitTestTeamViewer' }
-        Mock Get-Service {}
+    Context 'When TeamViewer is installed' {
+        BeforeAll {
+            Mock Test-TeamViewerInstallation { $true }
+            Mock Get-Service {}
+        }
+
+        It 'Should get the TeamViewer Windows service' {
+            Get-TeamViewerService | Out-Null
+
+            Should -Invoke Get-Service -Scope It -Times 1 -ParameterFilter {
+                $Name -eq 'TeamViewer'
+            }
+        }
     }
-    It 'Should get the TeamViewer Windows service' {
-        Get-TeamViewerService | Out-Null
-        Should -Invoke Get-Service -Scope It -Times 1 -ParameterFilter {
-            $Name -eq 'UnitTestTeamViewer'
+
+    Context 'When TeamViewer is not installed' {
+        BeforeAll {
+            Mock Test-TeamViewerInstallation { $false }
+            Mock Get-Service {}
+        }
+
+        It 'Should return null and not query the service' {
+            (Get-TeamViewerService) | Should -BeNull
+
+            Should -Invoke Get-Service -Scope It -Times 0
         }
     }
 }

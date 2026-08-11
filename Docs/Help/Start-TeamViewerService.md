@@ -20,7 +20,6 @@ Start-TeamViewerService [-WhatIf] [-Confirm] [<CommonParameters>]
 ## DESCRIPTION
 
 Start the locally installed TeamViewer service.
-Nothing will happen if TeamViewer is not installed.
 
 ## EXAMPLES
 

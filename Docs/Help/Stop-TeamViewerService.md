@@ -20,7 +20,6 @@ Stop-TeamViewerService [-WhatIf] [-Confirm] [<CommonParameters>]
 ## DESCRIPTION
 
 Stop the locally installed TeamViewer service.
-Nothing will happen if TeamViewer is not installed.
 
 ## EXAMPLES
 
