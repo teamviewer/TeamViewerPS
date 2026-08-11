@@ -1,4 +1,6 @@
 function Add-TeamViewerAssignment {
+    [CmdletBinding(SupportsShouldProcess = $true)]
+
     param(
         [Parameter(Mandatory = $true)]
         [object]
@@ -11,36 +13,38 @@ function Add-TeamViewerAssignment {
         $Retries
     )
 
+    begin {
+        $TV_CurrentVersion = Get-TeamViewerVersion
+        $TV_CurrentVersionTable = $TV_CurrentVersion.Split('.')
+        $TV_ApplicationFilePath = (Join-Path -Path (Get-TeamViewerInstallationDirectory) -ChildPath 'TeamViewer.exe')
+        $TV_AssignmentParams = "assignment --id $AssignmentId"
+    }
 
-    if (Test-TeamViewerInstallation) {
-        $CurrentDirectory = Get-Location
-        $installationDirectory = Get-TeamViewerInstallationDirectory
-        Set-Location $installationDirectory
-        $CurrentVersion = Get-TeamViewerVersion
-        $VersionTable = $CurrentVersion.split('.')
-        $cmd = "assignment --id $AssignmentId"
-        $FilePath = 'TeamViewer.exe'
+    process {
+        if (-not (Test-TeamViewerInstallation)) {
+            Write-Error 'TeamViewer is not installed!'
+
+            continue
+        }
 
         if ($DeviceAlias) {
-            if (($VersionTable[0] -eq 15 -and $VersionTable[1] -ge 44) -or $VersionTable[0] -gt 15) {
-                $cmd += " --device-alias=$DeviceAlias"
+            if (($TV_CurrentVersionTable[0] -eq 15 -and $TV_CurrentVersionTable[1] -ge 44) -or $TV_CurrentVersionTable[0] -gt 15) {
+                $TV_AssignmentParams += " --device-alias=$DeviceAlias"
             }
             else {
-                Write-Error "Current TeamViewer Version: $CurrentVersion does not support the usage of alias. Please update to the latest version."
-                Set-Location $CurrentDirectory
-                exit
+                Write-Error "Current TeamViewer version ($TV_CurrentVersion) does not support the usage of the alias."
+
+                continue
             }
         }
+
         if ($Retries) {
-            $cmd += " --retries=$Retries"
+            $TV_AssignmentParams += " --retries=$Retries"
         }
-        $process = Start-Process -FilePath $FilePath -ArgumentList $cmd -Wait -PassThru
-        $process.ExitCode | Resolve-AssignmentErrorCode
-        Set-Location $CurrentDirectory
-    }
-    else {
-        Write-Output 'TeamViewer is not installed.'
+
+        if ($PSCmdlet.ShouldProcess($TV_ApplicationFilePath, 'Add device assignment')) {
+            $process = Start-Process -FilePath $TV_ApplicationFilePath -ArgumentList $TV_AssignmentParams -Wait -PassThru
+            $process.ExitCode | Resolve-TeamViewerAssignmentErrorCode
+        }
     }
 }
-
-

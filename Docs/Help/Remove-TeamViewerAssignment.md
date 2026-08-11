@@ -14,7 +14,7 @@ Unassigns the device from its current company.
 ## SYNTAX
 
 ```powershell
-Remove-TeamViewerAssignment 
+Remove-TeamViewerAssignment [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION

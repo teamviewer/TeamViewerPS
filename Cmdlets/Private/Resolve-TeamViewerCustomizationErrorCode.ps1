@@ -1,4 +1,4 @@
-function  Resolve-CustomizationErrorCode {
+function  Resolve-TeamViewerCustomizationErrorCode {
     param(
         [Parameter(ValueFromPipeline = $true, Mandatory = $true)]
         [object]
