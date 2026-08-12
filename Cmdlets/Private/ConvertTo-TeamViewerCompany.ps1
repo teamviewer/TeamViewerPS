@@ -9,6 +9,11 @@ function ConvertTo-TeamViewerCompany {
         $properties = @{
             CompanyId   = [int]$InputObject.companyId
             CompanyName = $InputObject.companyName
+            CreatedAt   = $null
+        }
+
+        if ($InputObject.createdAt) {
+            $properties['CreatedAt'] = $InputObject.createdAt | ConvertTo-DateTime
         }
 
         $result = New-Object -TypeName PSObject -Property $properties
