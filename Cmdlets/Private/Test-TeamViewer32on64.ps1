@@ -1,15 +1,21 @@
 function Test-TeamViewer32on64 {
-    if (![Environment]::Is64BitOperatingSystem) {
+    param()
+
+    if (-not([Environment]::Is64BitOperatingSystem)) {
         return $false
     }
-    $registryKey = Get-TeamViewerRegKeyPath -Variant WOW6432
-    if (!(Test-Path $registryKey)) {
+
+    $TV_RegKey = Get-TeamViewerRegKeyPath -Variant WOW6432
+
+    if (-not (Test-Path -Path $TV_RegKey -PathType Container)) {
         return $false
     }
+
     try {
-        $installationDirectory = (Get-Item $registryKey).GetValue('InstallationDirectory')
-        $binaryPath = Join-Path $installationDirectory 'TeamViewer.exe'
-        return Test-Path $binaryPath
+        $TV_InstallationDirectory = (Get-Item -Path $TV_RegKey).GetValue('InstallationDirectory')
+        $TV_AppFilePath = (Join-Path -Path $TV_InstallationDirectory -ChildPath 'TeamViewer.exe')
+
+        return Test-Path -Path $TV_AppFilePath
     }
     catch {
         return $false
