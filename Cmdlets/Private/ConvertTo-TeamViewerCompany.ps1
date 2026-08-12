@@ -4,18 +4,21 @@ function ConvertTo-TeamViewerCompany {
         [PSObject]
         $InputObject
     )
-    process {
+
+    begin {
         $properties = @{
             CompanyId   = [int]$InputObject.companyId
             CompanyName = $InputObject.companyName
         }
+    }
 
+    process {
         $result = New-Object -TypeName PSObject -Property $properties
         $result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.Company')
         $result | Add-Member -MemberType ScriptMethod -Name 'ToString' -Force -Value {
-            Write-Output "$($this.CompanyName)"
+            "$($this.CompanyName)"
         }
 
-        Write-Output $result
+        $result
     }
 }

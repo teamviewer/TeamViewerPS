@@ -9,7 +9,7 @@ function ConvertTo-TeamViewerUser {
         $PropertiesToLoad = 'All'
     )
 
-    process {
+    begin {
         $properties = @{
             Id    = $InputObject.id
             Name  = $InputObject.name
@@ -21,7 +21,7 @@ function ConvertTo-TeamViewerUser {
             }
         }
 
-        if ($PropertiesToLoad -Eq 'All') {
+        if ($PropertiesToLoad -eq 'All') {
             $properties += @{
                 Active            = $InputObject.active
                 LastAccessDate    = $InputObject.last_access_date
@@ -62,13 +62,15 @@ function ConvertTo-TeamViewerUser {
                 }
             }
         }
+    }
 
+    process {
         $result = New-Object -TypeName PSObject -Property $properties
         $result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.User')
         $result | Add-Member -MemberType ScriptMethod -Name 'ToString' -Force -Value {
-            Write-Output "$($this.Name) <$($this.Email)>"
+            "$($this.Name) <$($this.Email)>"
         }
 
-        Write-Output $result
+        $result
     }
 }

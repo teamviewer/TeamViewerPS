@@ -4,16 +4,21 @@ function ConvertTo-TeamViewerSsoDomain {
         [PSObject]
         $InputObject
     )
-    process {
+
+    begin {
         $properties = @{
             Id   = $InputObject.DomainId
             Name = $InputObject.DomainName
         }
+    }
+
+    process {
         $result = New-Object -TypeName PSObject -Property $properties
         $result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.SsoDomain')
-        $result | Add-Member -MemberType ScriptMethod -Name "ToString" -Force -Value {
-            Write-Output "$($this.Name)"
+        $result | Add-Member -MemberType ScriptMethod -Name 'ToString' -Force -Value {
+            "$($this.Name)"
         }
-        Write-Output $result
+
+        $result
     }
 }

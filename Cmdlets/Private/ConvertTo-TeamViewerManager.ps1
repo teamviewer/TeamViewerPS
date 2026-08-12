@@ -4,15 +4,16 @@ function ConvertTo-TeamViewerManager {
         [PSObject]
         $InputObject,
 
-        [Parameter(Mandatory = $true, ParameterSetName = "GroupManager")]
+        [Parameter(Mandatory = $true, ParameterSetName = 'GroupManager')]
         [guid]
         $GroupId,
 
-        [Parameter(Mandatory = $true, ParameterSetName = "DeviceManager")]
+        [Parameter(Mandatory = $true, ParameterSetName = 'DeviceManager')]
         [guid]
         $DeviceId
     )
-    process {
+
+    begin {
         $properties = @{
             Id          = [guid]$InputObject.id
             ManagerType = $InputObject.type
@@ -37,9 +38,12 @@ function ConvertTo-TeamViewerManager {
                 $properties.DeviceId = $DeviceId
             }
         }
+    }
 
+    process {
         $result = New-Object -TypeName PSObject -Property $properties
         $result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.Manager')
-        Write-Output $result
+
+        $result
     }
 }

@@ -4,6 +4,7 @@ function ConvertTo-TeamViewerAuditEvent {
         [PSObject]
         $InputObject
     )
+
     process {
         $properties = @{
             Name         = $InputObject.EventName
@@ -13,11 +14,13 @@ function ConvertTo-TeamViewerAuditEvent {
             AffectedItem = $InputObject.AffectedItem
             EventDetails = $InputObject.EventDetails
         }
+
         $result = New-Object -TypeName PSObject -Property $properties
         $result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.AuditEvent')
-        $result | Add-Member -MemberType ScriptMethod -Name "ToString" -Force -Value {
-            Write-Output "[$($this.Timestamp)] $($this.Name) ($($this.Type))"
+        $result | Add-Member -MemberType ScriptMethod -Name 'ToString' -Force -Value {
+            "[$($this.Timestamp)] $($this.Name) ($($this.Type))"
         }
-        Write-Output $result
+
+        $result
     }
 }
