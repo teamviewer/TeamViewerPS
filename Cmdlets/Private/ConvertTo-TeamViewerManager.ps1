@@ -13,7 +13,7 @@ function ConvertTo-TeamViewerManager {
         $DeviceId
     )
 
-    begin {
+    process {
         $properties = @{
             Id          = [guid]$InputObject.id
             ManagerType = $InputObject.type
@@ -38,9 +38,7 @@ function ConvertTo-TeamViewerManager {
                 $properties.DeviceId = $DeviceId
             }
         }
-    }
 
-    process {
         $result = New-Object -TypeName PSObject -Property $properties
         $result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.Manager')
 

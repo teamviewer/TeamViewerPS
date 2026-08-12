@@ -5,7 +5,7 @@ function ConvertTo-TeamViewerPolicy {
         $InputObject
     )
 
-    begin {
+    process {
         $properties = @{
             Id       = $InputObject.policy_id
             Name     = $InputObject.name
@@ -19,9 +19,7 @@ function ConvertTo-TeamViewerPolicy {
                 }
             )
         }
-    }
 
-    process {
         $result = New-Object -TypeName PSObject -Property $properties
         $result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.Policy')
 

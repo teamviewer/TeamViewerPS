@@ -9,7 +9,7 @@ function ConvertTo-ErrorRecord {
         $ErrorCategory = [System.Management.Automation.ErrorCategory]::NotSpecified
     )
 
-    begin {
+    process {
         $category = $ErrorCategory
         $message = $InputObject.ToString()
         $errorId = 'TeamViewerError'
@@ -53,9 +53,7 @@ function ConvertTo-ErrorRecord {
 
             $errorId = 'TeamViewerRestError'
         }
-    }
 
-    process {
         $exception = [System.Management.Automation.RuntimeException]($message)
         $errorRecord = New-Object System.Management.Automation.ErrorRecord $exception, $errorId, $category, $null
         $errorRecord.ErrorDetails = $message

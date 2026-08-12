@@ -5,7 +5,7 @@ function ConvertTo-TeamViewerConnectionReport {
         $InputObject
     )
 
-    begin {
+    process {
         $properties = @{
             Id                 = $InputObject.id
             UserId             = $InputObject.userid
@@ -23,9 +23,7 @@ function ConvertTo-TeamViewerConnectionReport {
             Currency           = $InputObject.currency
             Notes              = $InputObject.notes
         }
-    }
 
-    process {
         $result = New-Object -TypeName PSObject -Property $properties
         $result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.ConnectionReport')
 

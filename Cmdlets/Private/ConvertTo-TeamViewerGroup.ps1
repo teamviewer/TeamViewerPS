@@ -5,7 +5,7 @@ function ConvertTo-TeamViewerGroup {
         $InputObject
     )
 
-    begin {
+    process {
         $properties = @{
             Id          = $InputObject.id
             Name        = $InputObject.name
@@ -20,9 +20,7 @@ function ConvertTo-TeamViewerGroup {
                 Name   = $InputObject.owner.name
             }
         }
-    }
 
-    process {
         $result = New-Object -TypeName PSObject -Property $properties
         $result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.Group')
 

@@ -5,14 +5,12 @@ function ConvertTo-TeamViewerUserGroup {
         $InputObject
     )
 
-    begin {
+    process {
         $properties = @{
             Id   = [UInt64]$InputObject.id
             Name = $InputObject.name
         }
-    }
 
-    process {
         $result = New-Object -TypeName PSObject -Property $properties
         $result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.UserGroup')
 

@@ -5,7 +5,7 @@ function ConvertTo-TeamViewerDevice {
         $InputObject
     )
 
-    begin {
+    process {
         $remoteControlId = $InputObject.remotecontrol_id | `
             Select-String -Pattern 'r(\d+)' | `
             ForEach-Object { $_.Matches.Groups[1].Value }
@@ -27,9 +27,7 @@ function ConvertTo-TeamViewerDevice {
         if ($InputObject.last_seen) {
             $properties['LastSeenAt'] = [datetime]($InputObject.last_seen)
         }
-    }
 
-    process {
         $result = New-Object -TypeName PSObject -Property $properties
         $result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.Device')
         $result | Add-Member -MemberType ScriptMethod -Name 'ToString' -Force -Value {
