@@ -1,6 +1,6 @@
 # Change Log
 
-## x.x.x (2026-xx-xx)
+## 3.0.0 (2026-08-13)
 
 ### Added
 
@@ -9,11 +9,20 @@
 - Adds `Get-TeamViewerLicense` to retrieve company / tenant licenses.
 - Adds `Remove-TeamViewerCompany` to delete the company / tenant (Cannot be reverted, use with care!).
 - Adds `Set-TeamViewerCompany` to modify the company / tenant details.
+- Adds `AGENTS.md` file for AI coding agents.
 
 ### Changed
 
-- Fixes, completes, and improves help file `TeamViewerPS.md`.
-- Fixes ([#101](https://github.com/teamviewer/TeamViewerPS/issues/101))date fields (e.g. `Get-TeamViewerConnectionReport`) being lost or having day/month swapped in API responses on PowerShell 6+.
+- Sets PowerShell as default Terminal profile in VSCode.
+- Fixes and completes the help file `TeamViewerPS.md`.
+- Harmonizes TeamViewer Windows service commands.
+- Improves and harmonizes private ConvertTo functions.
+- Improves `*-TeamViewerAssignment` and `*-TeamViewerCustomization` commands.
+- Improves GitHub Actions CI workflow.
+
+### Fixed
+
+- Fixes date fields (e.g. `Get-TeamViewerConnectionReport`) being lost or having day/month swapped in API responses on PowerShell 6+ ([#101](https://github.com/teamviewer/TeamViewerPS/issues/101)).
 
 ### Removed
 
@@ -23,7 +32,7 @@
 
 ### Updated
 
-- Updates `Get-TeamViewerGroup` to list the assigned PolicyID of a defined group
+- Updates `Get-TeamViewerGroup` to list the assigned PolicyID of a defined group.
 - Updates `Get-TeamViewerRole` to list all the possible permissions.
 - Updates `Set-TeamViewerManagedDevice`  with additional description endpoint.
 - Updates all tests to support the changed assertion syntax for Pester 6.0.0 or later.
@@ -37,7 +46,7 @@
 
 ### Removed
 
-- Removes `Export-TeamViewerSystemInformation`.
+- Removes `Export-TeamViewerSystemInformation` command.
 
 ## 2.4.0 (2025-06-19)
 
