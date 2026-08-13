@@ -1,5 +1,11 @@
 # Change Log
 
+## x.x.x (YYYY-xx-xx)
+
+### Changed
+
+- Adds `CmdletBinding` to public commands.
+
 ## 3.0.2 (2026-08-13)
 
 ### Added

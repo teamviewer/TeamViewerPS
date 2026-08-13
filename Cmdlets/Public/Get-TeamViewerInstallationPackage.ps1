@@ -1,4 +1,8 @@
 function Get-TeamViewerInstallationPackage {
+    [CmdletBinding()]
+
+    param()
+
     if (Test-TeamViewerInstallation) {
         $TV_InstallationDirectory = Get-TeamViewerInstallationDirectory
 

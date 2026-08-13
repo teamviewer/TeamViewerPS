@@ -1,12 +1,17 @@
 function Get-TeamViewerCustomModuleId {
+    [CmdletBinding()]
 
-    if (Test-TeamViewerinstallation) {
+    param()
+
+    if (Test-TeamViewerInstallation) {
         $fileName = 'TeamViewer.json'
         $installationDirectory = Get-TeamViewerInstallationDirectory
         $filePath = Join-Path -Path $installationDirectory -ChildPath $fileName
+
         if (Test-Path -Path $filePath) {
             $jsonContent = Get-Content -Path $FilePath -Raw
             $jsonObject = ConvertFrom-Json $jsonContent
+
             if ($jsonObject.id) {
                 return $jsonObject.id
             }

@@ -1,4 +1,6 @@
 function Get-TeamViewerSsoInclusion {
+    [CmdletBinding()]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
@@ -14,6 +16,7 @@ function Get-TeamViewerSsoInclusion {
     $id = $DomainId | Resolve-TeamViewerSsoDomainId
     $resourceUri = "$(Get-TeamViewerApiUri)/ssoDomain/$id/inclusion"
     $parameters = @{ }
+
     do {
         $response = Invoke-TeamViewerRestMethod `
             -ApiToken $ApiToken `
@@ -24,6 +27,7 @@ function Get-TeamViewerSsoInclusion {
             -ErrorAction Stop
 
         Write-Output $response.emails
+
         $parameters.ct = $response.continuation_token
     } while ($parameters.ct)
 }
