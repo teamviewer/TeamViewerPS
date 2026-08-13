@@ -38,6 +38,7 @@ Invoke-Build -Task Test
 - Preserve public function names and parameter contracts unless explicitly asked to change them.
 - Prefer existing helpers in `Cmdlets/Private` over new abstractions.
 - Follow naming conventions: `ConvertTo-*` for mapping, `Resolve-*` for lookups
+- **Pipeline Lifecycle Blocks**: Use `begin`, `process`, and `end` blocks only when their pipeline lifecycle semantics are needed. Handle pipeline parameters in `process`, initialize shared state in `begin`, and flush accumulated or final work in `end`. Do not add empty or ceremonial blocks to scalar-only commands.
 - **Pipeline Output Pattern**: Process blocks must use implicit pipeline emission (no `return` or `Write-Output`); non-pipeline functions use explicit `return` statements. This standardizes when values enter the pipeline vs. are explicitly returned.
 - Add or update Pester tests for every behavior change; include a regression test for bug fixes.
 - Run lint and tests before finishing; both must pass.
