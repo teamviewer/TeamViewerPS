@@ -2,7 +2,10 @@
 
 param(
     [Parameter()]
-    [string]$Build_OutputPath = "$(Resolve-Path "$PSScriptRoot\..")\Build\TeamViewerPS"
+    [string]$Build_OutputPath = "$(Resolve-Path "$PSScriptRoot\..")\Build\TeamViewerPS",
+
+    [Parameter()]
+    [version]$Module_Version
 )
 
 $Repo_RootPath = Resolve-Path -Path "$PSScriptRoot\.."
@@ -41,6 +44,10 @@ Copy-Item -Path (Join-Path -Path $Repo_CmdletPath -ChildPath 'TeamViewerPS.psd1'
 Copy-Item -Path (Join-Path -Path $Repo_CmdletPath -ChildPath '*.format.ps1xml') -Destination $Build_OutputPath
 
 Update-Metadata -Path (Join-Path -Path $Build_OutputPath -ChildPath 'TeamViewerPS.psd1') -PropertyName 'FunctionsToExport' -Value $PublicFunctions.BaseName
+
+if ($PSBoundParameters.ContainsKey('Module_Version')) {
+    Update-Metadata -Path (Join-Path -Path $Build_OutputPath -ChildPath 'TeamViewerPS.psd1') -PropertyName 'ModuleVersion' -Value $Module_Version
+}
 
 # Copy additional package files
 Write-Verbose 'Copying additional files into the package...'
