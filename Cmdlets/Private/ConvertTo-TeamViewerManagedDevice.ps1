@@ -4,6 +4,7 @@ function ConvertTo-TeamViewerManagedDevice {
         [PSObject]
         $InputObject
     )
+
     process {
         $properties = @{
             Id           = [guid]$InputObject.id
@@ -17,11 +18,12 @@ function ConvertTo-TeamViewerManagedDevice {
         }
 
         if ($InputObject.teamviewerPolicyId) {
-            $properties["PolicyId"] = [guid]$InputObject.teamviewerPolicyId
+            $properties['PolicyId'] = [guid]$InputObject.teamviewerPolicyId
         }
 
         $result = New-Object -TypeName PSObject -Property $properties
         $result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.ManagedDevice')
-        Write-Output $result
+
+        $result
     }
 }

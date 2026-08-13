@@ -4,18 +4,18 @@ function ConvertTo-TeamViewerPredefinedRole {
         [PSObject]
         $InputObject
     )
+
     process {
-        if ($InputObject) {
-            $properties = @{
-                PredefinedRoleId = $InputObject.PredefinedUserRoleId
-            }
+        $properties = @{
+            PredefinedRoleId = $InputObject.PredefinedUserRoleId
         }
 
         $result = New-Object -TypeName PSObject -Property $properties
         $result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.PredefinedRole')
         $result | Add-Member -MemberType ScriptMethod -Name 'ToString' -Force -Value {
-            Write-Output "[$($this.PredefinedRoleID)]"
+            "[$($this.PredefinedRoleID)]"
         }
-        Write-Output $result
+
+        $result
     }
 }

@@ -25,9 +25,9 @@ function ConvertTo-TeamViewerLicenseInformation {
         $result = New-Object -TypeName PSObject -Property $properties
         $result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.LicenseInformation')
         $result | Add-Member -MemberType ScriptMethod -Name 'ToString' -Force -Value {
-            Write-Output "$($this.LicenseName)"
+            "$($this.LicenseName)"
         }
 
-        Write-Output $result
+        $result
     }
 }

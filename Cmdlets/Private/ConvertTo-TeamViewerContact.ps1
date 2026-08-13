@@ -4,6 +4,7 @@ function ConvertTo-TeamViewerContact {
         [PSObject]
         $InputObject
     )
+
     process {
         $properties = @{
             Id                = $InputObject.contact_id
@@ -15,11 +16,13 @@ function ConvertTo-TeamViewerContact {
             ProfilePictureUrl = $InputObject.profilepicture_url
             SupportedFeatures = $InputObject.supported_features
         }
+
         $result = New-Object -TypeName PSObject -Property $properties
         $result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.Contact')
-        $result | Add-Member -MemberType ScriptMethod -Name "ToString" -Force -Value {
-            Write-Output "$($this.Name)"
+        $result | Add-Member -MemberType ScriptMethod -Name 'ToString' -Force -Value {
+            "$($this.Name)"
         }
-        Write-Output $result
+
+        $result
     }
 }

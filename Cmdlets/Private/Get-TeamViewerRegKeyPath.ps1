@@ -5,10 +5,14 @@ function Get-TeamViewerRegKeyPath {
         [string]
         $Variant = 'Auto'
     )
-    if (($Variant -eq 'WOW6432') -Or (Test-TeamViewer32on64)) {
-        Write-Output 'HKLM:\SOFTWARE\Wow6432Node\TeamViewer'
-    }
-    else {
-        Write-Output 'HKLM:\SOFTWARE\TeamViewer'
+
+    process {
+        if (($Variant -eq 'WOW6432') -or (Test-TeamViewer32on64)) {
+            'HKLM:\SOFTWARE\Wow6432Node\TeamViewer'
+        }
+
+        else {
+            'HKLM:\SOFTWARE\TeamViewer'
+        }
     }
 }
