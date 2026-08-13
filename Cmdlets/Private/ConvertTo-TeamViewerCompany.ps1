@@ -22,6 +22,6 @@ function ConvertTo-TeamViewerCompany {
             "$($this.CompanyName)"
         }
 
-        $result
+        Write-Output $result
     }
 }

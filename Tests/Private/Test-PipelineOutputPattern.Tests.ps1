@@ -2,12 +2,12 @@ BeforeAll {
     $Script:Module_RootPath = (Resolve-Path -Path (Join-Path -Path $PSScriptRoot -ChildPath '..\..'))
 }
 
-Describe 'Option A Compliance - Pipeline Output Pattern' {
+Describe 'Explicit Emission Compliance - Pipeline Output Pattern' {
     <#
     .SYNOPSIS
-    Verify that all PowerShell files follow Option A: Process blocks use implicit
-    pipeline emission (no return or Write-Output); non-pipeline functions use
-    explicit return statements.
+    Verify that PowerShell files use explicit output emission. Process blocks
+    emit through Write-Output. Return is reserved for control flow in
+    non-pipeline functions.
 
     This ensures consistent pipeline semantics across the codebase.
     #>
@@ -21,32 +21,41 @@ Describe 'Option A Compliance - Pipeline Output Pattern' {
 
         $violations = @()
         foreach ($file in $files) {
-            $content = Get-Content $file.FullName -Raw
-            # Detect process blocks containing return statements
-            if ($content -match 'process\s*\{[^}]*\breturn\s') {
-                $violations += $file.FullName
+            $tokens = $null
+            $parseErrors = $null
+            $ast = [System.Management.Automation.Language.Parser]::ParseFile($file.FullName, [ref]$tokens, [ref]$parseErrors)
+            $processBlocks = $ast.FindAll({ param($node) $node -is [System.Management.Automation.Language.NamedBlockAst] -and $node.BlockKind -eq 'Process' }, $true)
+
+            foreach ($processBlock in $processBlocks) {
+                $returns = $processBlock.FindAll({ param($node) $node -is [System.Management.Automation.Language.ReturnStatementAst] }, $true)
+                if ($returns.Count -gt 0) {
+                    $violations += $file.FullName
+                }
             }
         }
 
-        $violations | Should -BeNullOrEmpty -Because 'Process blocks must use implicit pipeline'
+        $violations | Should -BeNullOrEmpty -Because 'Process blocks must emit output with Write-Output'
     }
 
-    It 'Should have no Write-Output in Process blocks for pipeline functions' {
-        $files = @(
-            Get-ChildItem -Path (Join-Path $Module_RootPath 'Cmdlets') -Recurse -Filter '*.ps1'
-        )
-
-        $violations = @()
+    It 'Should permit Write-Output in Process blocks' {
+        $files = Get-ChildItem -Path (Join-Path $Module_RootPath 'Cmdlets') -Recurse -Filter '*.ps1'
+        $writeOutputProcessBlocks = @()
 
         foreach ($file in $files) {
-            $content = Get-Content $file.FullName -Raw
-            # Detect explicit Write-Output in process blocks (pipeline should be implicit)
-            # Only flag if Write-Output is used without piping (direct emission)
-            if ($content -match 'process\s*\{[^}]*Write-Output\s+\$[a-zA-Z_]') {
-                $violations += $file.FullName
+            $tokens = $null
+            $parseErrors = $null
+            $ast = [System.Management.Automation.Language.Parser]::ParseFile($file.FullName, [ref]$tokens, [ref]$parseErrors)
+            $processBlocks = $ast.FindAll({ param($node) $node -is [System.Management.Automation.Language.NamedBlockAst] -and $node.BlockKind -eq 'Process' }, $true)
+
+            foreach ($processBlock in $processBlocks) {
+                $writeOutputs = $processBlock.FindAll({ param($node) $node -is [System.Management.Automation.Language.CommandAst] -and $node.GetCommandName() -eq 'Write-Output' }, $true)
+                if ($writeOutputs.Count -gt 0) {
+                    $writeOutputProcessBlocks += $file.FullName
+                }
             }
         }
 
-        $violations | Should -BeNullOrEmpty -Because 'Process blocks should use implicit pipeline, not Write-Output'
+        $writeOutputProcessBlocks | Should -Not -BeNullOrEmpty -Because 'Write-Output is an approved explicit emission mechanism'
     }
+
 }

@@ -42,6 +42,6 @@ function ConvertTo-TeamViewerManager {
         $result = New-Object -TypeName PSObject -Property $properties
         $result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.Manager')
 
-        $result
+        Write-Output $result
     }
 }

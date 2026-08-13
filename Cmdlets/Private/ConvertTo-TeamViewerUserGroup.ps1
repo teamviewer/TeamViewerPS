@@ -14,6 +14,6 @@ function ConvertTo-TeamViewerUserGroup {
         $result = New-Object -TypeName PSObject -Property $properties
         $result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.UserGroup')
 
-        $result
+        Write-Output $result
     }
 }

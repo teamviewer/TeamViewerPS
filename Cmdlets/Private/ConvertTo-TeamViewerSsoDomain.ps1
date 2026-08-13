@@ -17,6 +17,6 @@ function ConvertTo-TeamViewerSsoDomain {
             "$($this.Name)"
         }
 
-        $result
+        Write-Output $result
     }
 }

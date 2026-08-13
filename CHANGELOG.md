@@ -1,5 +1,11 @@
 # Change Log
 
+## x.x.x (YYYY-xx-xx)
+
+### Changed
+
+- Standardizes pipeline emission on Write-Output.
+
 ## 3.0.2 (2026-08-13)
 
 ### Added

@@ -18,6 +18,6 @@ function ConvertTo-TeamViewerManagedGroup {
         $result = New-Object -TypeName PSObject -Property $properties
         $result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.ManagedGroup')
 
-        $result
+        Write-Output $result
     }
 }
