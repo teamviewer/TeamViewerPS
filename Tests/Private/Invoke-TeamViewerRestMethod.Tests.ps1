@@ -80,7 +80,7 @@ Describe 'Invoke-TeamViewerRestMethod' {
         }
 
         {
-            Invoke-TestInvokeTeamViewerRestMethod 2>$null
+            Invoke-TestInvokeTeamViewerRestMethod -ErrorAction SilentlyContinue
         } | Should -Not -Throw
     }
 }
