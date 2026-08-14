@@ -1,4 +1,6 @@
 function Get-TeamViewerLogFilePath {
+    [CmdletBinding()]
+
     param()
 
     begin {

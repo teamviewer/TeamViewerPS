@@ -1,4 +1,6 @@
 function Get-TeamViewerAccount {
+    [CmdletBinding()]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
@@ -13,5 +15,6 @@ function Get-TeamViewerAccount {
         -Method Get `
         -WriteErrorTo $PSCmdlet `
         -ErrorAction Stop
+
     Write-Output ($response | ConvertTo-TeamViewerAccount)
 }

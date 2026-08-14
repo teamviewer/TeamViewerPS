@@ -1,4 +1,6 @@
 function Get-TeamViewerSsoExclusion {
+    [CmdletBinding()]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
@@ -6,14 +8,15 @@ function Get-TeamViewerSsoExclusion {
 
         [Parameter(Mandatory = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerSsoDomainId } )]
-        [Alias("Domain")]
+        [Alias('Domain')]
         [object]
         $DomainId
     )
 
     $id = $DomainId | Resolve-TeamViewerSsoDomainId
-    $resourceUri = "$(Get-TeamViewerApiUri)/ssoDomain/$id/exclusion";
+    $resourceUri = "$(Get-TeamViewerApiUri)/ssoDomain/$id/exclusion"
     $parameters = @{ }
+
     do {
         $response = Invoke-TeamViewerRestMethod `
             -ApiToken $ApiToken `
@@ -24,6 +27,7 @@ function Get-TeamViewerSsoExclusion {
             -ErrorAction Stop
 
         Write-Output $response.emails
+
         $parameters.ct = $response.continuation_token
     } while ($parameters.ct)
 }
