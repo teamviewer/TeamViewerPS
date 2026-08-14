@@ -38,6 +38,7 @@ Invoke-Build -Task Test
 - Preserve public function names and parameter contracts unless explicitly asked to change them.
 - Prefer existing helpers in `Cmdlets/Private` over new abstractions.
 - Follow naming conventions: `ConvertTo-*` for mapping, `Resolve-*` for lookups
+- **Parameter Validation**: Use validation attributes when a parameter has a stable finite set, numeric range, required format, or existing resolver. Prefer `ValidateSet`, `ValidateRange`, and `ValidateScript` at the parameter boundary; do not add constraints that reject otherwise valid API values.
 - **Pipeline Output Pattern**: Process blocks must use implicit pipeline emission (no `return` or `Write-Output`); non-pipeline functions use explicit `return` statements. This standardizes when values enter the pipeline vs. are explicitly returned.
 - Add or update Pester tests for every behavior change; include a regression test for bug fixes.
 - Run lint and tests before finishing; both must pass.

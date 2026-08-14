@@ -9,6 +9,7 @@ function Add-TeamViewerAssignment {
         [string]
         $DeviceAlias,
 
+        [ValidateRange(1, [int]::MaxValue)]
         [int]
         $Retries
     )

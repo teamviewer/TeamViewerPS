@@ -1,5 +1,6 @@
 function Get-TeamViewerConnectionReport {
     [CmdletBinding()]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
@@ -11,13 +12,13 @@ function Get-TeamViewerConnectionReport {
 
         [Parameter(Mandatory = $false)]
         [ValidateScript( { $_ | Resolve-TeamViewerUserId } )]
-        [Alias("User")]
+        [Alias('User')]
         [object]
         $UserId,
 
         [Parameter(Mandatory = $false)]
         [ValidateScript( { $_ | Resolve-TeamViewerGroupId } )]
-        [Alias("Group")]
+        [Alias('Group')]
         [object]
         $GroupId,
 
@@ -26,6 +27,7 @@ function Get-TeamViewerConnectionReport {
         $DeviceName,
 
         [Parameter(Mandatory = $false)]
+        [ValidateRange(1, [int]::MaxValue)]
         [int]
         $DeviceId,
 
@@ -45,31 +47,31 @@ function Get-TeamViewerConnectionReport {
         [TeamViewerConnectionReportSessionType]
         $SupportSessionType,
 
-        [Parameter(Mandatory = $true, ParameterSetName = "AbsoluteDates")]
+        [Parameter(Mandatory = $true, ParameterSetName = 'AbsoluteDates')]
         [DateTime]
         $StartDate,
 
-        [Parameter(Mandatory = $false, ParameterSetName = "AbsoluteDates")]
-        [Parameter(Mandatory = $false, ParameterSetName = "RelativeDates")]
+        [Parameter(Mandatory = $false, ParameterSetName = 'AbsoluteDates')]
+        [Parameter(Mandatory = $false, ParameterSetName = 'RelativeDates')]
         [DateTime]
         $EndDate = (Get-Date),
 
-        [Parameter(Mandatory = $false, ParameterSetName = "RelativeDates")]
+        [Parameter(Mandatory = $false, ParameterSetName = 'RelativeDates')]
         [ValidateRange(0, 12)]
         [int]
         $Months,
 
-        [Parameter(Mandatory = $false, ParameterSetName = "RelativeDates")]
+        [Parameter(Mandatory = $false, ParameterSetName = 'RelativeDates')]
         [ValidateRange(0, 31)]
         [int]
         $Days,
 
-        [Parameter(Mandatory = $false, ParameterSetName = "RelativeDates")]
+        [Parameter(Mandatory = $false, ParameterSetName = 'RelativeDates')]
         [ValidateRange(0, 24)]
         [int]
         $Hours,
 
-        [Parameter(Mandatory = $false, ParameterSetName = "RelativeDates")]
+        [Parameter(Mandatory = $false, ParameterSetName = 'RelativeDates')]
         [ValidateRange(0, 60)]
         [int]
         $Minutes,
@@ -80,16 +82,16 @@ function Get-TeamViewerConnectionReport {
         $Limit
     )
 
-    $resourceUri = "$(Get-TeamViewerApiUri)/reports/connections";
+    $resourceUri = "$(Get-TeamViewerApiUri)/reports/connections"
 
     $parameters = @{}
 
-    if ($PSCmdlet.ParameterSetName -Eq 'RelativeDates') {
+    if ($PSCmdlet.ParameterSetName -eq 'RelativeDates') {
         $StartDate = $EndDate.AddMonths(-1 * $Months).AddDays(-1 * $Days).AddHours(-1 * $Hours).AddMinutes(-1 * $Minutes)
     }
-    if ($StartDate -And $EndDate -And $StartDate -lt $EndDate) {
-        $parameters.from_date = $StartDate.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ")
-        $parameters.to_date = $EndDate.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ")
+    if ($StartDate -and $EndDate -and $StartDate -lt $EndDate) {
+        $parameters.from_date = $StartDate.ToUniversalTime().ToString('yyyy-MM-ddTHH:mm:ssZ')
+        $parameters.to_date = $EndDate.ToUniversalTime().ToString('yyyy-MM-ddTHH:mm:ssZ')
     }
 
     if ($UserName) {
@@ -112,10 +114,10 @@ function Get-TeamViewerConnectionReport {
         $parameters.groupid = $GroupId | Resolve-TeamViewerGroupId
     }
 
-    if ($WithSessionCode -And !$WithoutSessionCode) {
+    if ($WithSessionCode -and !$WithoutSessionCode) {
         $parameters.has_code = $true
     }
-    elseif ($WithoutSessionCode -And !$WithSessionCode) {
+    elseif ($WithoutSessionCode -and !$WithSessionCode) {
         $parameters.has_code = $false
     }
 
@@ -145,5 +147,5 @@ function Get-TeamViewerConnectionReport {
             Write-Output $results
         }
         $parameters.offset_id = $response.next_offset
-    } while ($parameters.offset_id -And (!$Limit -Or $remaining -gt 0))
+    } while ($parameters.offset_id -and (!$Limit -or $remaining -gt 0))
 }
