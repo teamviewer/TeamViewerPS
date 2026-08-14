@@ -43,7 +43,7 @@ function New-TeamViewerRole {
 
             $result = ($response.Role | ConvertTo-TeamViewerRole)
 
-            $result
+            Write-Output $result
         }
     }
 

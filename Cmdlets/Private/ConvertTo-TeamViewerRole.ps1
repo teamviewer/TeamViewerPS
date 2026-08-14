@@ -23,7 +23,7 @@ function ConvertTo-TeamViewerRole {
             "[$($this.RoleName)] [$($this.RoleID)] $($this.Permissions))"
         }
 
-        $result
+        Write-Output $result
     }
 }
 

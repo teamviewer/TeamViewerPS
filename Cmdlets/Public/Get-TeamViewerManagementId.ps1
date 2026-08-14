@@ -1,4 +1,8 @@
 function Get-TeamViewerManagementId {
+    [CmdletBinding()]
+
+    param()
+
     if (Test-TeamViewerInstallation) {
         try {
             $RegKey_Path = Join-Path -Path (Get-TeamViewerRegKeyPath) -ChildPath 'DeviceManagementV2'

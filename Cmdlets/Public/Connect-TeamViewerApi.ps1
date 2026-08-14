@@ -1,4 +1,6 @@
 function Connect-TeamViewerApi {
+    [CmdletBinding()]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]

@@ -7,13 +7,13 @@ function Resolve-TeamViewerSsoDomainId {
 
     process {
         if ($Domain.PSObject.TypeNames -contains 'TeamViewerPS.SsoDomain') {
-            [guid]$Domain.Id
+            Write-Output ([guid]$Domain.Id)
         }
         elseif ($Domain -is [string]) {
-            [guid]$Domain
+            Write-Output ([guid]$Domain)
         }
         elseif ($Domain -is [guid]) {
-            $Domain
+            Write-Output $Domain
         }
         else {
             throw "Invalid SSO domain identifier '$Domain'. Must be either a [TeamViewerPS.SsoDomain], [guid] or [string]."

@@ -1,4 +1,6 @@
 function Invoke-TeamViewerPackageDownload {
+    [CmdletBinding()]
+
     param(
         [Parameter(Mandatory = $true)]
         [ValidateSet('Full', 'Host', 'MSI32', 'MSI64', 'Portable', 'QuickJoin', 'QuickSupport', 'Full64Bit')]
@@ -7,14 +9,15 @@ function Invoke-TeamViewerPackageDownload {
 
         [Parameter()]
         [ValidateScript( {
-                if ($PackageType -eq 'MSI32' -or $PackageType -eq 'MSI64' ) {
+                if ($PackageType -eq 'MSI32' -or $PackageType -eq 'MSI64') {
                     $PSCmdlet.ThrowTerminatingError(
-                        ('MajorVersion parameter is not supported for MSI packages' | ConvertTo-ErrorRecord -ErrorCategory InvalidArgument))
+                        ('MajorVersion parameter is not supported for MSI packages' | `
+                            ConvertTo-ErrorRecord -ErrorCategory InvalidArgument))
                 }
-
-                if ($_ -lt 14) {
+                if ($_ -ne 0 -and $_ -lt 14) {
                     $PSCmdlet.ThrowTerminatingError(
-                        ("Unsupported TeamViewer version $_" | ConvertTo-ErrorRecord -ErrorCategory InvalidArgument))
+                        ("Unsupported TeamViewer version $_" | `
+                            ConvertTo-ErrorRecord -ErrorCategory InvalidArgument))
                 }
 
                 return $true
@@ -23,6 +26,7 @@ function Invoke-TeamViewerPackageDownload {
         $MajorVersion,
 
         [Parameter()]
+        [ValidateScript({ Test-Path -LiteralPath $_ -PathType Container })]
         [string]
         $TargetDirectory = (Get-Location).Path,
 
@@ -77,20 +81,21 @@ function Invoke-TeamViewerPackageDownload {
         if ((Test-Path -Path $Target_FilePath -PathType Leaf) -and (-not $Force)) {
             Write-Verbose "File '$Target_FilePath' already exists. Use -Force parameter to overwrite."
 
-            return $null
-        }
-
-        Write-Verbose "Downloading $Download_Url to $Target_FilePath..."
-
-        try {
-            Invoke-WebRequest -Uri $Download_Url -OutFile $Target_FilePath -UseBasicParsing -ErrorAction Stop
-
-            Write-Output $Target_FilePath
-        }
-        catch {
-            Write-Verbose "Failed to download TeamViewer package to '$Target_FilePath': $($_.Exception.Message)"
-
             Write-Output $null
+        }
+        else {
+            Write-Verbose "Downloading $Download_Url to $Target_FilePath..."
+
+            try {
+                Invoke-WebRequest -Uri $Download_Url -OutFile $Target_FilePath -UseBasicParsing -ErrorAction Stop
+
+                Write-Output $Target_FilePath
+            }
+            catch {
+                Write-Verbose "Failed to download TeamViewer package to '$Target_FilePath': $($_.Exception.Message)"
+
+                Write-Output $null
+            }
         }
     }
 }

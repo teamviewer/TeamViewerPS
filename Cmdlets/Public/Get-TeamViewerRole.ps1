@@ -1,5 +1,6 @@
 function Get-TeamViewerRole {
     [CmdletBinding(DefaultParameterSetName = '')]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
@@ -26,11 +27,12 @@ function Get-TeamViewerRole {
             -Body $parameters `
             -WriteErrorTo $PSCmdlet `
             -ErrorAction Stop
+
         if ($Permissions) {
-            [PSCustomObject] $response
+            Write-Output [PSCustomObject] $response
         }
         else {
-            $response.Roles | ConvertTo-TeamViewerRole
+            Write-Output ($response.Roles | ConvertTo-TeamViewerRole)
         }
     }
 }

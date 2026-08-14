@@ -15,21 +15,21 @@ function Resolve-TeamViewerPolicyId {
 
     process {
         if ($Policy.PSObject.TypeNames -contains 'TeamViewerPS.Policy') {
-            [guid]$Policy.Id
+            Write-Output ([guid]($Policy.Id))
         }
         elseif ($Policy -is [string]) {
             if ($Policy -eq 'none' -and $AllowNone) {
-                'none'
+                Write-Output 'none'
             }
             elseif ($Policy -eq 'inherit' -and $AllowInherit) {
-                'inherit'
+                Write-Output 'inherit'
             }
             else {
-                [guid]$Policy
+                Write-Output ([guid]$Policy)
             }
         }
         elseif ($Policy -is [guid]) {
-            $Policy
+            Write-Output $Policy
         }
         else {
             throw "Invalid policy identifier '$Policy'. Must be either a [TeamViewerPS.Policy], [guid] or [string]."

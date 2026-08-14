@@ -23,6 +23,6 @@ function ConvertTo-TeamViewerContact {
             "$($this.Name)"
         }
 
-        $result
+        Write-Output $result
     }
 }

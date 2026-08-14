@@ -1,5 +1,6 @@
 function Add-TeamViewerManager {
     [CmdletBinding(SupportsShouldProcess = $true, DefaultParameterSetName = 'Device_ByAccountId')]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
@@ -13,7 +14,7 @@ function Add-TeamViewerManager {
         [Parameter(Mandatory = $true, ParameterSetName = 'Device_ByManagerId')]
         [Parameter(Mandatory = $true, ParameterSetName = 'Group_ByManagerId')]
         [ValidateScript( { $_ | Resolve-TeamViewerManagerId } )]
-        [Alias("ManagerId")]
+        [Alias('ManagerId')]
         [object]
         $Manager,
 
@@ -35,7 +36,7 @@ function Add-TeamViewerManager {
         [Parameter(Mandatory = $true, ParameterSetName = 'Group_ByUserObject')]
         [Parameter(Mandatory = $true, ParameterSetName = 'Group_ByUserGroupId')]
         [ValidateScript( { $_ | Resolve-TeamViewerManagedGroupId } )]
-        [Alias("GroupId")]
+        [Alias('GroupId')]
         [object]
         $Group,
 
@@ -44,7 +45,7 @@ function Add-TeamViewerManager {
         [Parameter(Mandatory = $true, ParameterSetName = 'Device_ByUserObject')]
         [Parameter(Mandatory = $true, ParameterSetName = 'Device_ByUserGroupId')]
         [ValidateScript( { $_ | Resolve-TeamViewerManagedDeviceId } )]
-        [Alias("DeviceId")]
+        [Alias('DeviceId')]
         [object]
         $Device,
 
@@ -55,40 +56,42 @@ function Add-TeamViewerManager {
     )
 
     $resourceUri = $null
+
     switch -Wildcard ($PSCmdlet.ParameterSetName) {
         'Device*' {
             $deviceId = $Device | Resolve-TeamViewerManagedDeviceId
             $resourceUri = "$(Get-TeamViewerApiUri)/managed/devices/$deviceId/managers"
-            $processMessage = "Add manager to managed device"
+            $processMessage = 'Add manager to managed device'
         }
         'Group*' {
             $groupId = $Group | Resolve-TeamViewerManagedGroupId
             $resourceUri = "$(Get-TeamViewerApiUri)/managed/groups/$groupId/managers"
-            $processMessage = "Add manager to managed group"
+            $processMessage = 'Add manager to managed group'
         }
     }
 
     $body = @{}
+
     switch -Wildcard ($PSCmdlet.ParameterSetName) {
         '*ByAccountId' {
-            $body["accountId"] = $AccountId.TrimStart('u')
+            $body['accountId'] = $AccountId.TrimStart('u')
         }
         '*ByManagerId' {
-            $body["id"] = $Manager | Resolve-TeamViewerManagerId
+            $body['id'] = ($Manager | Resolve-TeamViewerManagerId).ToString()
         }
         '*ByUserObject' {
-            $body["accountId"] = ( $User | Resolve-TeamViewerUserId ).TrimStart('u')
+            $body['accountId'] = ( $User | Resolve-TeamViewerUserId ).TrimStart('u')
         }
         '*ByUserGroupId' {
-            $body["usergroupId"] = $UserGroup | Resolve-TeamViewerUserGroupId
+            $body['usergroupId'] = $UserGroup | Resolve-TeamViewerUserGroupId
         }
     }
 
     if ($Permissions) {
-        $body["permissions"] = @($Permissions)
+        $body['permissions'] = @($Permissions)
     }
     else {
-        $body["permissions"] = @()
+        $body['permissions'] = @()
     }
 
     if ($PSCmdlet.ShouldProcess($managerId, $processMessage)) {
@@ -96,9 +99,8 @@ function Add-TeamViewerManager {
             -ApiToken $ApiToken `
             -Uri $resourceUri `
             -Method Post `
-            -ContentType "application/json; charset=utf-8" `
+            -ContentType 'application/json; charset=utf-8' `
             -Body ([System.Text.Encoding]::UTF8.GetBytes((ConvertTo-Json -InputObject @($body)))) `
-            -WriteErrorTo $PSCmdlet | `
-            Out-Null
+            -WriteErrorTo $PSCmdlet | Out-Null
     }
 }

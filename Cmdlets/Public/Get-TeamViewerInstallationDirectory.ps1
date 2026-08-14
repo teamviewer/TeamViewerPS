@@ -1,4 +1,6 @@
 function Get-TeamViewerInstallationDirectory {
+    [CmdletBinding()]
+
     $TV_RegKey = Get-TeamViewerRegKeyPath
 
     if (Test-Path -Path $TV_RegKey -PathType Container) {

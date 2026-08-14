@@ -1,4 +1,6 @@
 function Get-TeamViewerUserGroup {
+    [CmdletBinding()]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
@@ -6,13 +8,13 @@ function Get-TeamViewerUserGroup {
 
         [Parameter()]
         [ValidateScript( { $_ | Resolve-TeamViewerUserGroupId } )]
-        [Alias("UserGroupId")]
-        [Alias("Id")]
+        [Alias('UserGroupId')]
+        [Alias('Id')]
         [object]
         $UserGroup
     )
 
-    Begin {
+    begin {
         $resourceUri = "$(Get-TeamViewerApiUri)/usergroups"
         $parameters = @{ }
         $isListOperation = $true
@@ -25,7 +27,7 @@ function Get-TeamViewerUserGroup {
         }
     }
 
-    Process {
+    process {
         do {
             $response = Invoke-TeamViewerRestMethod `
                 -ApiToken $ApiToken `
@@ -34,6 +36,7 @@ function Get-TeamViewerUserGroup {
                 -Body $parameters `
                 -WriteErrorTo $PSCmdlet `
                 -ErrorAction Stop
+
             if ($UserGroup) {
                 Write-Output ($response | ConvertTo-TeamViewerUserGroup)
             }
@@ -41,6 +44,6 @@ function Get-TeamViewerUserGroup {
                 $parameters.paginationToken = $response.nextPaginationToken
                 Write-Output ($response.resources | ConvertTo-TeamViewerUserGroup)
             }
-        } while ($isListOperation -And $parameters.paginationToken)
+        } while ($isListOperation -and $parameters.paginationToken)
     }
 }

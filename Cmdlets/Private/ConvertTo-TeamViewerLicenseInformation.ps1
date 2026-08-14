@@ -28,6 +28,6 @@ function ConvertTo-TeamViewerLicenseInformation {
             "$($this.LicenseName)"
         }
 
-        $result
+        Write-Output $result
     }
 }

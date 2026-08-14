@@ -21,6 +21,6 @@ function ConvertTo-TeamViewerAuditEvent {
             "[$($this.Timestamp)] $($this.Name) ($($this.Type))"
         }
 
-        $result
+        Write-Output $result
     }
 }

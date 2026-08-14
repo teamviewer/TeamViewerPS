@@ -20,7 +20,7 @@ function ConvertTo-TeamViewerRestError {
 
             $result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.RestError')
 
-            $result
+        Write-Output $result
         }
         catch {
             $InputError
