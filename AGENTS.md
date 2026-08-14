@@ -37,6 +37,7 @@ Invoke-Build -Task Test
 - Preserve public function names and parameter contracts unless explicitly asked to change them.
 - Prefer existing helpers in `Cmdlets/Private` over new abstractions.
 - Follow naming conventions: `ConvertTo-*` for mapping, `Resolve-*` for lookups
+- **Pipeline Lifecycle Blocks**: Use `begin`, `process`, and `end` blocks only when their pipeline lifecycle semantics are needed. Handle pipeline parameters in `process`, initialize shared state in `begin`, and flush accumulated or final work in `end`. Do not add empty or ceremonial blocks to scalar-only commands.
 - **CmdletBinding**: All public cmdlets must declare `[CmdletBinding()]`; add `SupportsShouldProcess = $true` only when the cmdlet uses `ShouldProcess` for a mutation. Private helpers should declare `CmdletBinding` only when they need common parameters or other advanced-function features. Parameterless functions using `CmdletBinding` must include an empty `param()` block.
 - **Pipeline Output Pattern**: Process blocks must use implicit pipeline emission (no `return` or `Write-Output`); non-pipeline functions use explicit `return` statements. This standardizes when values enter the pipeline vs. are explicitly returned.
 - Focus on production-grade code quality: security, testability, and maintainability.
