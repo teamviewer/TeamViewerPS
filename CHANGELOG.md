@@ -5,6 +5,8 @@
 ### Changed
 
 - Standardizes pipeline emission on Write-Output.
+- Creates, expands, and hardens all private functions tests.
+- Automate release module versioning.
 
 ## 3.0.2 (2026-08-13)
 
