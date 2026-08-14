@@ -6,7 +6,14 @@ function Get-TeamViewerInstallationPackage {
     if (Test-TeamViewerInstallation) {
         $TV_InstallationDirectory = Get-TeamViewerInstallationDirectory
 
-        $Package = (Get-Item -Path (Join-Path -Path $TV_InstallationDirectory -ChildPath 'TeamViewer.exe')).VersionInfo.ProductName
+        try {
+            $Package = (Get-Item -Path (Join-Path -Path $TV_InstallationDirectory -ChildPath 'TeamViewer.exe')).VersionInfo.ProductName
+        }
+        catch {
+            Write-Verbose "Failed to read the TeamViewer file attribute information: $($_.Exception.Message)"
+
+            return $null
+        }
 
         switch -Wildcard ($Package) {
             '*Full*' {
@@ -21,6 +28,8 @@ function Get-TeamViewerInstallationPackage {
         }
     }
     else {
+        Write-Verbose 'TeamViewer is not installed!'
+
         return $null
     }
 }
