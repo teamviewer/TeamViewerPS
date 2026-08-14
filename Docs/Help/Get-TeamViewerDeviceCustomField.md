@@ -34,6 +34,10 @@ Required: True
 
 ## EXAMPLES
 
+### Example 1
+
 ```powershell
 Get-TeamViewerDeviceCustomField -ApiToken $apiToken
 ```
+
+Lists all device custom fields in the company.

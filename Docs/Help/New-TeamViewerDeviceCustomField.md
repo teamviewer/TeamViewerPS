@@ -37,6 +37,10 @@ An optional description of the custom field.
 
 ## EXAMPLES
 
+### Example 1
+
 ```powershell
 New-TeamViewerDeviceCustomField -ApiToken $apiToken -FieldKey 'AssetTag' -Description 'Device asset tag'
 ```
+
+Creates an `AssetTag` device custom field with a description.

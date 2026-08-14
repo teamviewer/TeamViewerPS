@@ -33,6 +33,10 @@ The unique identifier of the custom field definition. Alias: FieldKeyId.
 
 ## EXAMPLES
 
+### Example 1
+
 ```powershell
 Remove-TeamViewerDeviceCustomField -ApiToken $apiToken -Id $fieldId
 ```
+
+Deletes the device custom field identified by `$fieldId` and its stored device values.

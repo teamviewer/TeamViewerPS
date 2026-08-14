@@ -41,6 +41,10 @@ An optional description of the custom field.
 
 ## EXAMPLES
 
+### Example 1
+
 ```powershell
 Set-TeamViewerDeviceCustomField -ApiToken $apiToken -Id $fieldId -FieldKey 'AssetTag'
 ```
+
+Updates the custom field identified by `$fieldId` and sets its key to `AssetTag`.
