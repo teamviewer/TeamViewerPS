@@ -21,18 +21,18 @@ function Remove-TeamViewerManagedDevice {
 
     begin {
         $groupId = $Group | Resolve-TeamViewerManagedGroupId
+        $deviceId = $Device | Resolve-TeamViewerManagedDeviceId
+        $resourceUri = "$(Get-TeamViewerApiUri)/managed/groups/$groupId/devices/$deviceId"
     }
 
     process {
-        $deviceId = $Device | Resolve-TeamViewerManagedDeviceId
-        $resourceUri = "$(Get-TeamViewerApiUri)/managed/groups/$groupId/devices/$deviceId"
-
         if ($PSCmdlet.ShouldProcess($deviceId, 'Remove device from managed group')) {
             Invoke-TeamViewerRestMethod `
                 -ApiToken $ApiToken `
                 -Uri $resourceUri `
                 -Method Delete `
-                -WriteErrorTo $PSCmdlet | Out-Null
+                -WriteErrorTo $PSCmdlet | `
+                Out-Null
         }
     }
 }
