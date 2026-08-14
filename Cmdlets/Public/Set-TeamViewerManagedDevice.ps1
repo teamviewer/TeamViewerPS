@@ -1,5 +1,6 @@
 function Set-TeamViewerManagedDevice {
     [CmdletBinding(SupportsShouldProcess = $true)]
+
     param(
         [Parameter(Mandatory = $true, ParameterSetName = 'Default')]
         [Parameter(Mandatory = $true, ParameterSetName = 'ByPolicyId')]
@@ -42,7 +43,8 @@ function Set-TeamViewerManagedDevice {
         [string]
         $Description
     )
-    Begin {
+
+    begin {
         $body = @{}
 
         if ($Name) {
@@ -51,10 +53,10 @@ function Set-TeamViewerManagedDevice {
 
         switch ($PsCmdlet.ParameterSetName) {
             'ByPolicyId' {
-                $body['teamviewerPolicyId'] = $Policy | Resolve-TeamViewerPolicyId
+                $body['teamviewerPolicyId'] = ($Policy | Resolve-TeamViewerPolicyId).ToString()
             }
             'ByManagedGroupId' {
-                $body['managedGroupId'] = $ManagedGroup | Resolve-TeamViewerManagedGroupId
+                $body['managedGroupId'] = ($ManagedGroup | Resolve-TeamViewerManagedGroupId).ToString()
             }
             'UpdateDescription' {
                 $body['deviceDescription'] = $Description
@@ -67,7 +69,8 @@ function Set-TeamViewerManagedDevice {
                     ConvertTo-ErrorRecord -ErrorCategory InvalidArgument))
         }
     }
-    Process {
+
+    process {
         $deviceId = $Device | Resolve-TeamViewerManagedDeviceId
         $resourceUri = "$(Get-TeamViewerApiUri)/managed/devices/$deviceId"
 
@@ -85,8 +88,7 @@ function Set-TeamViewerManagedDevice {
                 -ContentType 'application/json; charset=utf-8' `
                 -Body ([System.Text.Encoding]::UTF8.GetBytes(($body | ConvertTo-Json))) `
                 -WriteErrorTo $PSCmdlet `
-                -ErrorAction Stop | `
-                Out-Null
+                -ErrorAction Stop | Out-Null
         }
     }
 }

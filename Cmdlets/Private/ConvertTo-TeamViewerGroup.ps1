@@ -24,6 +24,6 @@ function ConvertTo-TeamViewerGroup {
         $result = New-Object -TypeName PSObject -Property $properties
         $result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.Group')
 
-        $result
+        Write-Output $result
     }
 }

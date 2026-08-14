@@ -25,6 +25,6 @@ function ConvertTo-TeamViewerAccount {
             "$($this.Name) <$($this.Email)>"
         }
 
-        $result
+        Write-Output $result
     }
 }

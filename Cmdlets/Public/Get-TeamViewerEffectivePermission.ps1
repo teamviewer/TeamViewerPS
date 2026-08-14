@@ -1,5 +1,6 @@
 function Get-TeamViewerEffectivePermission {
     [CmdletBinding(DefaultParameterSetName = '')]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
@@ -20,7 +21,8 @@ function Get-TeamViewerEffectivePermission {
         if ($null -eq $response -or $response.Count -eq 0) {
             $response = @{}
         }
-        return [PSCustomObject] $response
+
+        Write-Output ([PSCustomObject] $response)
     }
 }
 

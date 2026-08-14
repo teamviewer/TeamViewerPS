@@ -18,6 +18,6 @@ function ConvertTo-TeamViewerGroupShare {
             "$($this.UserId)"
         }
 
-        $result
+        Write-Output $result
     }
 }
