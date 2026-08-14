@@ -46,11 +46,15 @@ Manage the devices & contacts via the TeamViewer web API.
 
 [`Get-TeamViewerDevice`](Help/Get-TeamViewerDevice.md)
 
+[`Get-TeamViewerDeviceCustomField`](Help/Get-TeamViewerDeviceCustomField.md)
+
 [`Get-TeamViewerGroup`](Help/Get-TeamViewerGroup.md)
 
 [`New-TeamViewerContact`](Help/New-TeamViewerContact.md)
 
 [`New-TeamViewerDevice`](Help/New-TeamViewerDevice.md)
+
+[`New-TeamViewerDeviceCustomField`](Help/New-TeamViewerDeviceCustomField.md)
 
 [`New-TeamViewerGroup`](Help/New-TeamViewerGroup.md)
 
@@ -60,9 +64,13 @@ Manage the devices & contacts via the TeamViewer web API.
 
 [`Remove-TeamViewerDevice`](Help/Remove-TeamViewerDevice.md)
 
+[`Remove-TeamViewerDeviceCustomField`](Help/Remove-TeamViewerDeviceCustomField.md)
+
 [`Remove-TeamViewerGroup`](Help/Remove-TeamViewerGroup.md)
 
 [`Set-TeamViewerDevice`](Help/Set-TeamViewerDevice.md)
+
+[`Set-TeamViewerDeviceCustomField`](Help/Set-TeamViewerDeviceCustomField.md)
 
 [`Set-TeamViewerGroup`](Help/Set-TeamViewerGroup.md)
 
