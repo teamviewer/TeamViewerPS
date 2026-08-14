@@ -1,5 +1,12 @@
 # Change Log
 
+## x.x.x (YYYY-xx-xx)
+
+### Changed
+
+- Creates, expands, and hardens all private functions tests.
+- Automate release module versioning.
+
 ## 3.0.2 (2026-08-13)
 
 ### Added

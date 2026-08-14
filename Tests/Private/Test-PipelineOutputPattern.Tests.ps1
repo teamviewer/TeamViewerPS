@@ -2,12 +2,11 @@ BeforeAll {
     $Script:Module_RootPath = (Resolve-Path -Path (Join-Path -Path $PSScriptRoot -ChildPath '..\..'))
 }
 
-Describe 'Option A Compliance - Pipeline Output Pattern' {
+Describe 'Test-PipelineOutputPattern' {
     <#
     .SYNOPSIS
-    Verify that all PowerShell files follow Option A: Process blocks use implicit
-    pipeline emission (no return or Write-Output); non-pipeline functions use
-    explicit return statements.
+    Verify that all PowerShell files follow the rule: process blocks use implicit pipeline emission.
+    No return or Write-Output; non-pipeline functions use explicit return statements.
 
     This ensures consistent pipeline semantics across the codebase.
     #>
