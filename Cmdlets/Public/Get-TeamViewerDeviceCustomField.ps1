@@ -1,4 +1,6 @@
 function Get-TeamViewerDeviceCustomField {
+    [CmdletBinding()]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]

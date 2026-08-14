@@ -12,11 +12,9 @@ function Remove-TeamViewerDeviceCustomField {
         $Id
     )
 
-    begin {
-        $resourceUri = "$(Get-TeamViewerApiUri)/device-custom-fields/$Id"
-    }
-
     process {
+        $resourceUri = "$(Get-TeamViewerApiUri)/device-custom-fields/$Id"
+
         if ($PSCmdlet.ShouldProcess($Id, 'Delete device custom field')) {
             Invoke-TeamViewerRestMethod `
                 -ApiToken $ApiToken `

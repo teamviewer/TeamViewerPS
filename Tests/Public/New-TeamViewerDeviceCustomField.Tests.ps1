@@ -25,4 +25,13 @@ Describe 'New-TeamViewerDeviceCustomField' {
             (([System.Text.Encoding]::UTF8.GetString($Body) | ConvertFrom-Json).description -eq 'Device asset tag')
         }
     }
+
+    It 'Should not call the API with WhatIf' {
+        Mock Get-TeamViewerApiUri { '//unit.test' }
+        Mock Invoke-TeamViewerRestMethod { }
+
+        New-TeamViewerDeviceCustomField -ApiToken $testApiToken -FieldKey 'AssetTag' -WhatIf
+
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 0 -Scope It
+    }
 }

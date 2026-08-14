@@ -18,6 +18,10 @@ function ConvertTo-TeamViewerDeviceCustomField {
         $result = New-Object -TypeName PSObject -Property $properties
         $result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.DeviceCustomField')
 
-        $result
+        $result | Add-Member -MemberType ScriptMethod -Name 'ToString' -Force -Value {
+            '{0} ({1})' -f $this.FieldKey, $this.Id
+        }
+
+        Write-Output $result
     }
 }
