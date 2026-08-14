@@ -1,4 +1,6 @@
 function Get-TeamViewerUserByRole {
+    [CmdletBinding()]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
@@ -14,6 +16,7 @@ function Get-TeamViewerUserByRole {
 
     $resourceUri = "$(Get-TeamViewerApiUri)/userroles/assignments/account?userRoleId=$RoleId"
     $parameters = $null
+
     do {
         $response = Invoke-TeamViewerRestMethod `
             -ApiToken $ApiToken `
@@ -22,9 +25,11 @@ function Get-TeamViewerUserByRole {
             -Body $parameters `
             -WriteErrorTo $PSCmdlet `
             -ErrorAction Stop
+
         if ($response.ContinuationToken) {
             $resourceUri += '&continuationToken=' + $response.ContinuationToken
         }
+
         Write-Output ($response.AssignedToUsers | ConvertTo-TeamViewerRoleAssignedUser )
     }while ($response.ContinuationToken)
 }

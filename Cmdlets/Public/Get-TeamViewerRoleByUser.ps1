@@ -1,4 +1,6 @@
 function Get-TeamViewerRoleByUser {
+    [CmdletBinding()]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
@@ -33,6 +35,7 @@ function Get-TeamViewerRoleByUser {
             if ($response.assignedRoleIds -and $response.assignedRoleIds.Count -gt 0) {
                 $list += $response.assignedRoleIds
             }
+
             if ($response.nextPaginationToken) {
                 $resourceUri = $copyUri + '?paginationToken=' + $response.nextPaginationToken
             }
