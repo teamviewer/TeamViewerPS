@@ -2,6 +2,13 @@
 
 ## x.x.x (YYYY-xx-xx)
 
+### Added
+
+- Adds `Get-TeamViewerDeviceCustomField` to retrieve all device custom fields.
+- Adds `New-TeamViewerDeviceCustomField` to create a new device custom field.
+- Adds `Set-TeamViewerDeviceCustomField` to modify one specific device custom field.
+- Adds `Remove-TeamViewerDeviceCustomField` to delete one specific device custom field.
+
 ### Changed
 
 - Adds `CmdletBinding` to public commands.

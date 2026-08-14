@@ -151,6 +151,8 @@ Manage the managed groups and managed devices of an account / company / tenant v
 
 [`Get-TeamViewerCompanyManagedDevice`](Help/Get-TeamViewerCompanyManagedDevice.md)
 
+[`Get-TeamViewerDeviceCustomField`](Help/Get-TeamViewerDeviceCustomField.md)
+
 [`Get-TeamViewerManagedDevice`](Help/Get-TeamViewerManagedDevice.md)
 
 [`Get-TeamViewerManagedGroup`](Help/Get-TeamViewerManagedGroup.md)
@@ -161,7 +163,11 @@ Manage the managed groups and managed devices of an account / company / tenant v
 
 [`Move-TeamViewerManagedDevice`](Help/Move-TeamViewerManagedDevice.md)
 
+[`New-TeamViewerDeviceCustomField`](Help/New-TeamViewerDeviceCustomField.md)
+
 [`New-TeamViewerManagedGroup`](Help/New-TeamViewerManagedGroup.md)
+
+[`Remove-TeamViewerDeviceCustomField`](Help/Remove-TeamViewerDeviceCustomField.md)
 
 [`Remove-TeamViewerManagedDevice`](Help/Remove-TeamViewerManagedDevice.md)
 
@@ -174,6 +180,8 @@ Manage the managed groups and managed devices of an account / company / tenant v
 [`Remove-TeamViewerPolicyFromManagedDevice`](Help/Remove-TeamViewerPolicyFromManagedDevice.md)
 
 [`Remove-TeamViewerPolicyFromManagedGroup`](Help/Remove-TeamViewerPolicyFromManagedGroup.md)
+
+[`Set-TeamViewerDeviceCustomField`](Help/Set-TeamViewerDeviceCustomField.md)
 
 [`Set-TeamViewerManagedDevice`](Help/Set-TeamViewerManagedDevice.md)
 
