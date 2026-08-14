@@ -17,8 +17,10 @@ function Get-TeamViewerRoleByUser {
         $parameters = $null
         $list = @()
     }
+
     process {
         $resourceUri = $copyUri
+
         do {
             $response = Invoke-TeamViewerRestMethod `
                 -ApiToken $ApiToken `
@@ -35,6 +37,7 @@ function Get-TeamViewerRoleByUser {
                 $resourceUri = $copyUri + '?paginationToken=' + $response.nextPaginationToken
             }
         } while ($response.nextPaginationToken)
-        return $list
+
+        Write-Output $list
     }
 }

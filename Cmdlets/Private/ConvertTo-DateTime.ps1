@@ -7,10 +7,10 @@ function ConvertTo-DateTime {
 
     process {
         try {
-            [DateTime]::Parse($InputString)
+            Write-Output ([DateTime]::Parse($InputString))
         }
         catch [System.ArgumentNullException], [System.FormatException] {
-            $null
+            Write-Output $null
         }
     }
 }
