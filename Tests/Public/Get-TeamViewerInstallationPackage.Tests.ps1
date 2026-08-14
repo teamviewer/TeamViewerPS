@@ -9,6 +9,7 @@ Describe 'Get-TeamViewerInstallationPackage' {
     BeforeAll {
         Mock Test-TeamViewerInstallation { $true }
         Mock Get-TeamViewerInstallationDirectory { 'testPath' }
+
         $script:TV_InstallationDirectory = 'testPath'
 
         $script:testVersionInfo = [PSCustomObject]@{
@@ -16,10 +17,7 @@ Describe 'Get-TeamViewerInstallationPackage' {
         }
 
         $script:testItem = [PSCustomObject]@{}
-        $script:testItem | Add-Member `
-            -MemberType NoteProperty `
-            -Name VersionInfo `
-            -Value $script:testVersionInfo
+        $script:testItem | Add-Member -MemberType NoteProperty -Name VersionInfo -Value $script:testVersionInfo
 
         Mock Get-Item -ParameterFilter {
             $Path -eq (Join-Path -Path 'testPath' -ChildPath 'TeamViewer.exe')
@@ -60,5 +58,19 @@ Describe 'Get-TeamViewerInstallationPackage' {
         Get-TeamViewerInstallationPackage | Should -BeNullOrEmpty
 
         Should -Invoke Get-Item -Scope It -Times 0
+    }
+
+    It 'Should write a verbose message when installation metadata cannot be read' {
+        Mock Get-Item -ParameterFilter {
+            $Path -eq (Join-Path -Path 'testPath' -ChildPath 'TeamViewer.exe')
+        } { throw 'file not found' }
+        Mock Write-Verbose { }
+
+        $result = Get-TeamViewerInstallationPackage
+
+        $result | Should -BeNullOrEmpty
+        Should -Invoke Write-Verbose -Scope It -Times 1 -ParameterFilter {
+            $Message -like 'Failed to read the TeamViewer file attribute information:*'
+        }
     }
 }

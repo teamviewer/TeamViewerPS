@@ -2,8 +2,7 @@ BeforeAll {
     . "$PSScriptRoot\..\..\Cmdlets\Public\Get-TeamViewerCustomModuleId.ps1"
     . "$PSScriptRoot\..\..\Cmdlets\Public\Test-TeamViewerInstallation.ps1"
     . "$PSScriptRoot\..\..\Cmdlets\Public\Get-TeamViewerInstallationDirectory.ps1"
-    @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | `
-        ForEach-Object { . $_.FullName }
+    @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
 }
 
 Describe 'Get-TeamViewerCustomModuleId' {
@@ -12,11 +11,13 @@ Describe 'Get-TeamViewerCustomModuleId' {
             Mock Test-TeamViewerInstallation { $true }
             Mock Test-Path { $true }
             Mock Get-Content { '{"id": "customModuleId"}' }
-            Mock Get-TeamViewerInstallationDirectory {return 'C:\'}
+            Mock Get-TeamViewerInstallationDirectory { return 'C:\' }
+
             $installationDirectory = Get-TeamViewerInstallationDirectory
-            $fileName ='TeamViewer.Json'
+            $fileName = 'TeamViewer.Json'
             $filePath = Join-Path -Path $installationDirectory -ChildPath $fileName
-            Mock -CommandName Join-Path -MockWith {$filePath}
+
+            Mock -CommandName Join-Path -MockWith { $filePath }
         }
 
         It 'Should return the custom module ID' {
@@ -30,16 +31,35 @@ Describe 'Get-TeamViewerCustomModuleId' {
     Context 'When TeamViewer is not installed' {
         BeforeAll {
             Mock Test-TeamViewerInstallation { $false }
-            Mock Write-Error {}
+            Mock Write-Verbose { }
         }
 
-        It 'Should write an error message' {
-            Mock Write-Error -ParameterFilter { $_ -eq 'TeamViewer is not installed' }
-            Get-TeamViewerCustomModuleId
-            Should -Invoke Write-Error -Scope It -Times 1
+        It 'Should write a verbose message' {
+            $result = Get-TeamViewerCustomModuleId
+
+            $result | Should -BeNullOrEmpty
+            Should -Invoke Write-Verbose -Scope It -Times 1 -ParameterFilter {
+                $Message -eq 'TeamViewer is not installed!'
+            }
         }
     }
 
+    Context 'When the customization file is invalid' {
+        BeforeAll {
+            Mock Test-TeamViewerInstallation { $true }
+            Mock Test-Path { $true }
+            Mock Get-TeamViewerInstallationDirectory { 'C:\' }
+            Mock Get-Content { throw 'invalid JSON' }
+            Mock Write-Verbose { }
+        }
+
+        It 'Should write a verbose failure message' {
+            $result = Get-TeamViewerCustomModuleId
+
+            $result | Should -BeNullOrEmpty
+            Should -Invoke Write-Verbose -Scope It -Times 1 -ParameterFilter {
+                $Message -like "Failed to read the custom module ID from*invalid JSON"
+            }
+        }
+    }
 }
-
-
