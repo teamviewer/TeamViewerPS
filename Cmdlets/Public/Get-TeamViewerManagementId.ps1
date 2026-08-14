@@ -4,18 +4,31 @@ function Get-TeamViewerManagementId {
     param()
 
     if (Test-TeamViewerInstallation) {
-        $regKeyPath = Join-Path (Get-TeamViewerRegKeyPath) 'DeviceManagementV2'
-        $regKey = if (Test-Path -LiteralPath $regKeyPath) {
-            Get-Item -Path $regKeyPath
-        }
+        try {
+            $RegKey_Path = Join-Path -Path (Get-TeamViewerRegKeyPath) -ChildPath 'DeviceManagementV2'
 
-        if ($regKey) {
-            $unmanaged = [bool]($regKey.GetValue('Unmanaged'))
-            $managementId = $regKey.GetValue('ManagementId')
-        }
+            $RegKey = if (Test-Path -LiteralPath $RegKey_Path) {
+                Get-Item -Path $RegKey_Path
+            }
 
-        if (!$unmanaged -and $managementId) {
-            Write-Output ([guid]$managementId)
+            if ($RegKey) {
+                $IsUnmanaged = [bool]($RegKey.GetValue('Unmanaged'))
+                $ManagementId = $RegKey.GetValue('ManagementId')
+            }
+
+            if (-not $IsUnmanaged -and $ManagementId) {
+                Write-Output ([guid]$ManagementId)
+            }
         }
+        catch {
+            Write-Verbose "Failed to read the TeamViewer management ID: $($_.Exception.Message)"
+
+            return $null
+        }
+    }
+    else {
+        Write-Verbose 'TeamViewer is not installed!'
+
+        return $null
     }
 }

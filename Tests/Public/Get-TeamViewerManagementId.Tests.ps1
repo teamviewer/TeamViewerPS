@@ -2,8 +2,8 @@ BeforeAll {
     . "$PSScriptRoot\..\..\Cmdlets\Public\Get-TeamViewerManagementId.ps1"
 
     . "$PSScriptRoot\..\..\Cmdlets\Public\Test-TeamViewerInstallation.ps1"
-    @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | `
-        ForEach-Object { . $_.FullName }
+    @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
+
     $testManagementId = New-Guid
     $null = $testManagementId
 }
@@ -12,6 +12,7 @@ Describe 'Get-TeamViewerManagementId' {
     BeforeAll {
         function Get-TestItemValue([object]$obj) {
         }
+
         Mock Get-TestItemValue `
             -ParameterFilter { $obj -eq 'Unmanaged' } { }
         Mock Get-TestItemValue `
@@ -29,6 +30,7 @@ Describe 'Get-TeamViewerManagementId' {
 
     It 'Should return the Management ID from the Windows Registry' {
         Get-TeamViewerManagementId | Should -Be $testManagementId
+
         Should -Invoke Test-TeamViewerInstallation -Scope It -Times 1
         Should -Invoke Get-TeamViewerRegKeyPath -Scope It -Times 1
         Should -Invoke Test-Path -Scope It -Times 1 -ParameterFilter {
@@ -47,21 +49,37 @@ Describe 'Get-TeamViewerManagementId' {
 
     It 'Should return nothing when TeamViewer is not installed' {
         Mock Test-TeamViewerInstallation { $false }
+
         Get-TeamViewerManagementId | Should -BeNullOrEmpty
     }
 
     It 'Should return nothing when registry path does not exist' {
         Mock Test-Path { $false }
+
         Get-TeamViewerManagementId | Should -BeNullOrEmpty
     }
 
     It 'Should return nothing when registry item does not exist' {
         Mock Get-Item { }
+
         Get-TeamViewerManagementId | Should -BeNullOrEmpty
     }
 
     It 'Should return nothing when the device is marked as unmanaged' {
         Mock Get-TestItemValue -ParameterFilter { $obj -eq 'Unmanaged' } { 1 }
+
         Get-TeamViewerManagementId | Should -BeNullOrEmpty
+    }
+
+    It 'Should write an error when the registry contains an invalid Management ID' {
+        Mock Get-TestItemValue -ParameterFilter { $obj -eq 'ManagementId' } { 'invalid' }
+        Mock Write-Verbose { }
+
+        $result = Get-TeamViewerManagementId
+
+        $result | Should -BeNullOrEmpty
+        Should -Invoke Write-Verbose -Scope It -Times 1 -ParameterFilter {
+            $Message -like 'Failed to read the TeamViewer management ID:*'
+        }
     }
 }

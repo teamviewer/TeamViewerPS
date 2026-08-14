@@ -1,33 +1,35 @@
 function Get-TeamViewerDevice {
-    [CmdletBinding(DefaultParameterSetName = "FilteredList")]
+    [CmdletBinding(DefaultParameterSetName = 'FilteredList')]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
         $ApiToken,
 
-        [Parameter(ParameterSetName = "ByDeviceId")]
+        [Parameter(ParameterSetName = 'ByDeviceId')]
         [ValidateScript( { $_ | Resolve-TeamViewerDeviceId } )]
-        [Alias("DeviceId")]
+        [Alias('DeviceId')]
         [string]
         $Id,
 
-        [Parameter(ParameterSetName = "FilteredList")]
+        [Parameter(ParameterSetName = 'FilteredList')]
+        [ValidateRange(1, [int]::MaxValue)]
         [int]
         $TeamViewerId,
 
-        [Parameter(ParameterSetName = "FilteredList")]
+        [Parameter(ParameterSetName = 'FilteredList')]
         [ValidateSet('Online', 'Busy', 'Away', 'Offline')]
         [string]
         $FilterOnlineState,
 
-        [Parameter(ParameterSetName = "FilteredList")]
+        [Parameter(ParameterSetName = 'FilteredList')]
         [ValidateScript( { $_ | Resolve-TeamViewerGroupId } )]
-        [Alias("GroupId")]
+        [Alias('GroupId')]
         [object]
         $Group
     )
 
-    $resourceUri = "$(Get-TeamViewerApiUri)/devices";
+    $resourceUri = "$(Get-TeamViewerApiUri)/devices"
     $parameters = @{ }
 
     switch ($PsCmdlet.ParameterSetName) {

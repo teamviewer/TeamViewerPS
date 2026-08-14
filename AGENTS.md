@@ -27,22 +27,24 @@ Invoke-ScriptAnalyzer -Path . -Recurse -Settings .\Linters\PSScriptAnalyzer.psd1
 Invoke-Pester -Path .
 
 # Build (requires Invoke-Build)
-Invoke-Build -Task Clean
 Invoke-Build -Task Build
 Invoke-Build -Task Test
+Invoke-Build -Task Clean
 ```
 
 ## Core Editing Principles
 
 - Preserve public function names and parameter contracts unless explicitly asked to change them.
 - Prefer existing helpers in `Cmdlets/Private` over new abstractions.
-- Follow naming conventions: `ConvertTo-*` for mapping, `Resolve-*` for lookups
-- **CmdletBinding**: All public cmdlets must declare `[CmdletBinding()]`; add `SupportsShouldProcess = $true` only when the cmdlet uses `ShouldProcess` for a mutation. Private helpers should declare `CmdletBinding` only when they need common parameters or other advanced-function features. Parameterless functions using `CmdletBinding` must include an empty `param()` block.
-- **Pipeline Output Pattern**: Process blocks must use implicit pipeline emission (no `return` or `Write-Output`); non-pipeline functions use explicit `return` statements. This standardizes when values enter the pipeline vs. are explicitly returned.
+- Follow naming conventions: `ConvertTo-*` for mapping, `Resolve-*` for lookups.
+- Parameter Validation: Use validation attributes when a parameter has a stable finite set, numeric range, required format, or existing resolver. Prefer `ValidateSet`, `ValidateRange`, and `ValidateScript` at the parameter boundary; do not add constraints that reject otherwise valid API values.
+- Pipeline Lifecycle Blocks: Use `begin`, `process`, and `end` blocks when their pipeline lifecycle semantics are useful.
+- CmdletBinding: All public cmdlets must declare `[CmdletBinding()]`; add `SupportsShouldProcess = $true` only when the cmdlet uses `ShouldProcess` for a mutation. Private helpers should declare `CmdletBinding` when they need common parameters or other advanced-function features. Parameterless functions using `CmdletBinding` must include an empty `param()` block.
+- Pipeline Output Pattern: Functions with `process` blocks must use explicit `Write-Output`; non-pipeline functions should also use explicit `Write-Output`. Use `return` only for control flow, never to emit output from a `process` block.
 - Focus on production-grade code quality: security, testability, and maintainability.
 - No hardcoding of API tokens, credentials, or environment-specific values.
 - Add or update Pester tests for every behavior change; include a regression test for bug fixes.
-- Run lint and tests before finishing; both must pass.
+- Run lint and Pester tests before finishing; both must pass.
 
 ---
 
@@ -52,9 +54,9 @@ Invoke-Build -Task Test
 
 Use standard PowerShell Verb-Noun format:
 
-- **Action verbs**: `Get-`, `Set-`, `New-`, `Remove-`, `Add-`, `Update-`, `Connect-`, `Test-`, `Invoke-`
-- **Noun prefix**: `TeamViewer` for consistency
-- **Examples**: `Get-TeamViewerUser`, `Set-TeamViewerDevice`, `New-TeamViewerRole`, `Remove-TeamViewerContact`
+- Action verbs: approved verbs: <https://learn.microsoft.com/en-us/powershell/scripting/developer/cmdlet/approved-verbs-for-windows-powershell-commands?view=powershell-7.6>
+- Noun prefix: `TeamViewer` for consistency
+- Examples: `Get-TeamViewerUser`, `Set-TeamViewerDevice`, `New-TeamViewerRole`, `Remove-TeamViewerContact`
 
 ### Private Function Naming
 
@@ -180,11 +182,22 @@ All REST errors flow through dedicated converters:
 
 ### Error Delegation Pattern
 
-Pass `$PSCmdlet` to centralized REST handler for proper error propagation:
+Pass `$PSCmdlet` as `-WriteErrorTo` to the centralized REST handler for proper error propagation:
 
 ```powershell
-$response = Invoke-TeamViewerRestMethod -ApiToken $ApiToken -Method Get -Uri $uri -PSCmdlet $PSCmdlet
+$response = Invoke-TeamViewerRestMethod -ApiToken $ApiToken -Method Get -Uri $uri -WriteErrorTo $PSCmdlet
 ```
+
+### Try/Catch Rules
+
+- Use `try`/`catch` only around operations that can reasonably fail and need local recovery or context.
+- Add `-ErrorAction Stop` to commands inside `try` when their failures must be handled by `catch`.
+- Catch specific exception types when the recovery behavior differs; use a general `catch` only for fallback handling.
+- Do not catch validation exceptions from `Resolve-*` helpers; invalid input should retain its descriptive validation error.
+- REST failures must flow through `Invoke-TeamViewerRestMethod` and use `-WriteErrorTo $PSCmdlet`.
+- Use `finally` when temporary process-wide state or disposable resources must be restored or released.
+- Use `Write-Error` for operational failures and `Write-Verbose` only for intentionally non-critical, best-effort degradation.
+- Add regression tests for catch paths and verify both returned values and emitted error or verbose behavior.
 
 ### Error Code Resolution
 
@@ -364,7 +377,7 @@ All HTTP operations use `Invoke-TeamViewerRestMethod` (`Cmdlets/Private/Invoke-T
 
 ```powershell
 Invoke-TeamViewerRestMethod -ApiToken <securestring> -Method <string> -Uri <string>
-    [-Body <byte[]>] [-PSCmdlet <PSCmdlet>] [-ErrorAction <ActionPreference>]
+    [-Body <byte[]>] [-WriteErrorTo <PSCmdlet>] [-ErrorAction <ActionPreference>]
 ```
 
 ### Request Body Construction
@@ -386,11 +399,11 @@ $response = Invoke-TeamViewerRestMethod -ApiToken $ApiToken -Method Post -Uri $u
 
 ### URI Construction
 
-Use `Get-TeamViewerApiUri` to build consistent API endpoints:
+Use `Get-TeamViewerApiUri` to retrieve the configured API base URI:
 
 ```powershell
-$apiUri = Get-TeamViewerApiUri -ApiVersion '1' -Endpoint 'users'  # //api/v1/users
-$userUri = Get-TeamViewerApiUri -ApiVersion '1' -Endpoint "users/$UserId"
+$apiUri = "$(Get-TeamViewerApiUri)/users"
+$userUri = "$(Get-TeamViewerApiUri)/users/$UserId"
 ```
 
 ---
@@ -409,7 +422,7 @@ begin {
     $resolvedUserId = $User | Resolve-TeamViewerUserId
 
     # Build URI template
-    $uri = Get-TeamViewerApiUri -ApiVersion '1' -Endpoint "users/$resolvedUserId"
+    $uri = "$(Get-TeamViewerApiUri)/users/$resolvedUserId"
 
     # Create reusable body template
     $bodyTemplate = @{ }
@@ -420,7 +433,9 @@ begin {
 
 ```powershell
 process {
-    # Main operation on current pipeline item
+    # Resolve and handle the current pipeline item here.
+    $resolvedUserId = $_ | Resolve-TeamViewerUserId
+    $uri = "$(Get-TeamViewerApiUri)/users/$resolvedUserId"
     $_ | ConvertTo-TeamViewerUser
 }
 ```
@@ -450,7 +465,7 @@ Use descriptive names for clarity:
 ```powershell
 # Good
 $resolvedUserId = $User | Resolve-TeamViewerUserId
-$userUri = Get-TeamViewerApiUri -ApiVersion '1' -Endpoint "users/$resolvedUserId"
+$userUri = "$(Get-TeamViewerApiUri)/users/$resolvedUserId"
 
 # Avoid unclear abbreviations
 $uid = ...
@@ -530,7 +545,7 @@ if (-not ($Input | Test-ValidFormat)) {
 $resolvedId = $Input | Resolve-TeamViewerUserId
 
 # Build requests
-$uri = Get-TeamViewerApiUri -Endpoint "users/$resolvedId"
+$uri = "$(Get-TeamViewerApiUri)/users/$resolvedId"
 
 # Execute API call
 $response = Invoke-TeamViewerRestMethod -Uri $uri -ApiToken $ApiToken
@@ -543,10 +558,10 @@ Use switch statements for parameter set routing:
 ```powershell
 switch ($PSCmdlet.ParameterSetName) {
     'ById' {
-        $uri = Get-TeamViewerApiUri -Endpoint "users/$($User | Resolve-TeamViewerUserId)"
+        $uri = "$(Get-TeamViewerApiUri)/users/$($User | Resolve-TeamViewerUserId)"
     }
     'ByFilter' {
-        $uri = Get-TeamViewerApiUri -Endpoint "users?filter=..."
+        $uri = "$(Get-TeamViewerApiUri)/users?filter=..."
     }
 }
 ```
@@ -736,7 +751,7 @@ Use static pattern for managing API URI state:
 
 1. Entry in `Docs/TeamViewerPS.md` (alphabetically within its section)
 2. Dedicated help file in `Docs/Help/FunctionName.md`
-3. PowerShell help comments in the .ps1 file (visible in `Get-Help`)
+3. Comment-based help in the `.ps1` file when inline `Get-Help` documentation is required
 
 ### Help File Structure
 
@@ -818,7 +833,7 @@ Within each section, list functions alphabetically with brief description.
 
 - ✅ All lint checks pass: `Invoke-ScriptAnalyzer -Path . -Recurse -Settings .\Linters\PSScriptAnalyzer.psd1`
 - ✅ All tests pass: `Invoke-Pester -Path .`
-- ✅ New functionality includes tests with >95% code coverage
+- ✅ New functionality includes focused behavior and error-path tests
 - ✅ Bug fixes include regression tests
 - ✅ Documentation updated (help files, CHANGELOG, main docs)
 - ❌ No hardcoded API tokens, credentials, or environment-specific values
@@ -933,8 +948,8 @@ $User
 ### Build & Execute API Request
 
 ```powershell
-$uri = Get-TeamViewerApiUri -Endpoint "users/$UserId"
-$response = Invoke-TeamViewerRestMethod -ApiToken $ApiToken -Method Get -Uri $uri -PSCmdlet $PSCmdlet
+$uri = "$(Get-TeamViewerApiUri)/users/$UserId"
+$response = Invoke-TeamViewerRestMethod -ApiToken $ApiToken -Method Get -Uri $uri -WriteErrorTo $PSCmdlet
 $response | ConvertTo-TeamViewerUser
 ```
 
