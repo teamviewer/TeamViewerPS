@@ -16,6 +16,10 @@ Describe 'Add-TeamViewerAssignment' {
         }
     }
 
+    It 'Should reject a non-positive retry count' {
+        { Add-TeamViewerAssignment -AssignmentId '123' -Retries 0 } | Should -Throw
+    }
+
     It 'Should call TeamViewer.exe assignment with device alias and retries' {
         Mock Start-Process -ParameterFilter {
             $FilePath -eq (Join-Path -Path 'testPath' -ChildPath 'TeamViewer.exe') -and

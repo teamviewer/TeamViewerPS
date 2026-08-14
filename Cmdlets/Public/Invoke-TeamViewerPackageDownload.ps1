@@ -9,12 +9,12 @@ function Invoke-TeamViewerPackageDownload {
 
         [Parameter()]
         [ValidateScript( {
-                if ($PackageType -eq 'MSI32' -or 'MSI64' ) {
+                if ($PackageType -eq 'MSI32' -or $PackageType -eq 'MSI64') {
                     $PSCmdlet.ThrowTerminatingError(
                         ('MajorVersion parameter is not supported for MSI packages' | `
                             ConvertTo-ErrorRecord -ErrorCategory InvalidArgument))
                 }
-                if ($_ -lt 14) {
+                if ($_ -ne 0 -and $_ -lt 14) {
                     $PSCmdlet.ThrowTerminatingError(
                         ("Unsupported TeamViewer version $_" | `
                             ConvertTo-ErrorRecord -ErrorCategory InvalidArgument))
@@ -25,6 +25,7 @@ function Invoke-TeamViewerPackageDownload {
         $MajorVersion,
 
         [Parameter()]
+        [ValidateScript({ Test-Path -LiteralPath $_ -PathType Container })]
         [string]
         $TargetDirectory = (Get-Location).Path,
 

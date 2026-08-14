@@ -1,8 +1,7 @@
 BeforeAll {
     . "$PSScriptRoot\..\..\Cmdlets\Public\Get-TeamViewerDevice.ps1"
 
-    @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | `
-        ForEach-Object { . $_.FullName }
+    @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
 
     $testApiToken = [securestring]@{}
     $null = $testApiToken
@@ -18,19 +17,25 @@ BeforeAll {
 }
 
 Describe 'Get-TeamViewerDevice' {
+    It 'Should reject a non-positive TeamViewer ID' {
+        { Get-TeamViewerDevice -ApiToken $testApiToken -TeamViewerId 0 } | Should -Throw
+    }
+
     It 'Should call the correct API endpoint to list devices' {
         Get-TeamViewerDevice -ApiToken $testApiToken
+
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -And `
-                $Uri -eq '//unit.test/devices' -And `
+            $ApiToken -eq $testApiToken -and `
+                $Uri -eq '//unit.test/devices' -and `
                 $Method -eq 'Get' }
     }
 
     It 'Should call the correct API endpoint for single device' {
         Get-TeamViewerDevice -ApiToken $testApiToken -Id 'd1234'
+
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -And `
-                $Uri -eq '//unit.test/devices/d1234' -And `
+            $ApiToken -eq $testApiToken -and `
+                $Uri -eq '//unit.test/devices/d1234' -and `
                 $Method -eq 'Get' }
     }
 
@@ -42,13 +47,15 @@ Describe 'Get-TeamViewerDevice' {
 
     It 'Should allow to filter by TeamViewer ID' {
         Get-TeamViewerDevice -ApiToken $testApiToken -TeamViewerId 123456789
+
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $Body -And $Body['remotecontrol_id'] -eq 'r123456789' }
+            $Body -and $Body['remotecontrol_id'] -eq 'r123456789' }
     }
 
     It 'Should allow to filter by online state' {
         Get-TeamViewerDevice -ApiToken $testApiToken -FilterOnlineState 'Busy'
+
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $Body -And $Body['online_state'] -eq 'busy' }
+            $Body -and $Body['online_state'] -eq 'busy' }
     }
 }
