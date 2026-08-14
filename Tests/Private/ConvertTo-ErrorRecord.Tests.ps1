@@ -25,4 +25,26 @@ Describe 'ConvertTo-ErrorRecord' {
         $result | Should -BeOfType ([System.Management.Automation.ErrorRecord])
         $result.Exception.Message | Should -Be 'plain error'
     }
+
+    It 'Maps REST error category <Category> to <ExpectedCategory>' -TestCases @(
+        @{ Category = 'invalid_request'; ExpectedCategory = 'InvalidArgument' }
+        @{ Category = 'invalid_token'; ExpectedCategory = 'AuthenticationError' }
+        @{ Category = 'internal_error'; ExpectedCategory = 'NotSpecified' }
+        @{ Category = 'rate_limit_reached'; ExpectedCategory = 'LimitsExceeded' }
+        @{ Category = 'token_expired'; ExpectedCategory = 'AuthenticationError' }
+        @{ Category = 'wrong_credentials'; ExpectedCategory = 'AuthenticationError' }
+        @{ Category = 'invalid_client'; ExpectedCategory = 'InvalidArgument' }
+        @{ Category = 'not_found'; ExpectedCategory = 'ObjectNotFound' }
+        @{ Category = 'too_many_retries'; ExpectedCategory = 'LimitsExceeded' }
+        @{ Category = 'invalid_permission'; ExpectedCategory = 'PermissionDenied' }
+        @{ Category = 'unknown'; ExpectedCategory = 'NotSpecified' }
+    ) {
+        $restError = [pscustomobject]@{ Message = 'Boom'; ErrorCategory = $Category }
+        $restError.PSObject.TypeNames.Insert(0, 'TeamViewerPS.RestError')
+        $restError | Add-Member -MemberType ScriptMethod -Name 'ToString' -Force -Value { $this.Message }
+
+        $result = ConvertTo-ErrorRecord -InputObject $restError
+
+        $result.CategoryInfo.Category | Should -Be $ExpectedCategory
+    }
 }
