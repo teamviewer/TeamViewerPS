@@ -42,3 +42,4 @@ function New-TeamViewerDeviceCustomField {
             Write-Output ($response | ConvertTo-TeamViewerDeviceCustomField)
         }
     }
+}

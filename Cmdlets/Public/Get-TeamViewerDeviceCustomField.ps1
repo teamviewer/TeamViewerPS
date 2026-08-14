@@ -17,6 +17,6 @@ function Get-TeamViewerDeviceCustomField {
             -WriteErrorTo $PSCmdlet `
             -ErrorAction Stop
 
-        Write-Output ($response | ConvertTo-TeamViewerDeviceCustomField)
+        Write-Output ($response.resources | ConvertTo-TeamViewerDeviceCustomField)
     }
 }
