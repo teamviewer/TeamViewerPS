@@ -4,8 +4,8 @@
 
 ### Changed
 
-- Creates, expands, and hardens all private functions tests (#129).
-- Automate release module versioning (#128)
+- Creates, expands, and hardens all private functions tests.
+- Automate release module versioning.
 
 ## 3.0.2 (2026-08-13)
 
