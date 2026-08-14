@@ -51,7 +51,7 @@ function Set-TeamViewerRole {
 
             $result = $response
 
-            $result
+            Write-Output $result
         }
     }
 

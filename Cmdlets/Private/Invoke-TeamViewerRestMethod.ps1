@@ -73,7 +73,7 @@ function Invoke-TeamViewerRestMethod {
                 @{}
             }
 
-            return ((Invoke-WebRequest -UseBasicParsing @PSBoundParameters).Content | ConvertFrom-Json @convertParams)
+            Write-Output ((Invoke-WebRequest -UseBasicParsing @PSBoundParameters).Content | ConvertFrom-Json @convertParams)
         }
         catch {
             $msg = $null

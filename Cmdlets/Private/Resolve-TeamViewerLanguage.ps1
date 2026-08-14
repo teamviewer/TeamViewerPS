@@ -31,6 +31,6 @@ function Resolve-TeamViewerLanguage {
             throw "Invalid culture '$language'. Supported languages are: $supportedLanguages"
         }
 
-        $language
+        Write-Output $language
     }
 }

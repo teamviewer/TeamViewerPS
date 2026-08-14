@@ -1,4 +1,6 @@
 function Invoke-TeamViewerPackageDownload {
+    [CmdletBinding()]
+
     param(
         [Parameter()]
         [ValidateSet('Full', 'Host', 'MSI32', 'MSI64', 'Portable', 'QuickJoin', 'QuickSupport', 'Full64Bit')]
@@ -65,9 +67,11 @@ function Invoke-TeamViewerPackageDownload {
             'TeamViewer_Setup_x64.exe'
         }
     }
+
     if ($MajorVersion) {
         $additionalPath = "/version_$($MajorVersion)x"
     }
+
     if (($PackageType -eq 'MSI32' -or 'MSI64' )) {
         $additionalPath = '/version_15x'
     }
@@ -81,6 +85,7 @@ function Invoke-TeamViewerPackageDownload {
     }
 
     Write-Verbose "Downloading $downloadUrl to $targetFile"
+
     $client = New-Object System.Net.WebClient
     $client.DownloadFile($downloadUrl, $targetFile)
 

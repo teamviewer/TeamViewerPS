@@ -1,4 +1,6 @@
 function Get-TeamViewerCompanyManagedDevice {
+    [CmdletBinding()]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
@@ -18,6 +20,7 @@ function Get-TeamViewerCompanyManagedDevice {
             -ErrorAction Stop
 
         $parameters.paginationToken = $response.nextPaginationToken
+
         Write-Output ($response.resources | ConvertTo-TeamViewerManagedDevice)
     } while ($parameters.paginationToken)
 }

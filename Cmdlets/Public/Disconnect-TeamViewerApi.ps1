@@ -1,3 +1,7 @@
 function Disconnect-TeamViewerApi {
-    $global:PSDefaultParameterValues.Remove("*-Teamviewer*:ApiToken")
+    [CmdletBinding()]
+
+    param()
+
+    $global:PSDefaultParameterValues.Remove('*-Teamviewer*:ApiToken')
 }
