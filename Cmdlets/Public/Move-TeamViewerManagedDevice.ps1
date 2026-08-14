@@ -1,5 +1,6 @@
 function Move-TeamViewerManagedDevice {
     [CmdletBinding(SupportsShouldProcess = $true)]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
@@ -7,19 +8,19 @@ function Move-TeamViewerManagedDevice {
 
         [Parameter(Mandatory = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerManagedDeviceId } )]
-        [Alias("DeviceId")]
+        [Alias('DeviceId')]
         [object]
         $Device,
 
         [Parameter(Mandatory = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerManagedGroupId } )]
-        [Alias("Source GroupId")]
+        [Alias('Source GroupId')]
         [object]
         $SourceGroup,
 
         [Parameter(Mandatory = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerManagedGroupId } )]
-        [Alias("Target GroupId")]
+        [Alias('Target GroupId')]
         [object]
         $TargetGroup
     )
@@ -30,18 +31,17 @@ function Move-TeamViewerManagedDevice {
     $resourceUri = "$(Get-TeamViewerApiUri)/managed/devices/$deviceId/groups"
 
     $body = @{
-        AddedChainIds = @($targetGroupId)
-        RemovedChainIds = @($sourceGroupId)
+        AddedChainIds   = @($targetGroupId.ToString())
+        RemovedChainIds = @($sourceGroupId.ToString())
     }
 
-    if ($PSCmdlet.ShouldProcess($deviceId, "Move a device from one group to another")) {
+    if ($PSCmdlet.ShouldProcess($deviceId, 'Move a device from one group to another')) {
         Invoke-TeamViewerRestMethod `
             -ApiToken $ApiToken `
             -Uri $resourceUri `
             -Method Put `
-            -ContentType "application/json; charset=utf-8" `
+            -ContentType 'application/json; charset=utf-8' `
             -Body ([System.Text.Encoding]::UTF8.GetBytes(($body | ConvertTo-Json))) `
-            -WriteErrorTo $PSCmdlet | `
-            Out-Null
+            -WriteErrorTo $PSCmdlet | Out-Null
     }
 }

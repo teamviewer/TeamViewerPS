@@ -34,6 +34,6 @@ function ConvertTo-TeamViewerDevice {
             "$($this.Name)"
         }
 
-        $result
+        Write-Output $result
     }
 }

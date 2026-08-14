@@ -16,6 +16,6 @@ function ConvertTo-TeamViewerPredefinedRole {
             "[$($this.PredefinedRoleID)]"
         }
 
-        $result
+        Write-Output $result
     }
 }

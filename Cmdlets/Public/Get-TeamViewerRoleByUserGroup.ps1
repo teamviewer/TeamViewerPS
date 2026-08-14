@@ -34,7 +34,7 @@ function Get-TeamViewerRoleByUserGroup {
             }
 
             if ($null -eq $response.assignedRoleId) {
-                return $null
+                break
             }
 
             Write-Output ($response.assignedRoleId | ConvertTo-TeamViewerRoleAssignedUserGroup )

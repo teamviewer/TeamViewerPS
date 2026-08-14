@@ -7,13 +7,13 @@ function Resolve-TeamViewerManagedGroupId {
 
     process {
         if ($ManagedGroup.PSObject.TypeNames -contains 'TeamViewerPS.ManagedGroup') {
-            [guid]$ManagedGroup.Id
+            Write-Output ([guid]($ManagedGroup.Id))
         }
         elseif ($ManagedGroup -is [string]) {
-            [guid]$ManagedGroup
+            Write-Output ([guid]$ManagedGroup)
         }
         elseif ($ManagedGroup -is [guid]) {
-            $ManagedGroup
+            Write-Output $ManagedGroup
         }
         else {
             throw "Invalid managed group identifier '$ManagedGroup'. Must be either a [TeamViewerPS.ManagedGroup], [guid] or [string]."

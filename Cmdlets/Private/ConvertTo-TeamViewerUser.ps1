@@ -69,6 +69,6 @@ function ConvertTo-TeamViewerUser {
             "$($this.Name) <$($this.Email)>"
         }
 
-        $result
+        Write-Output $result
     }
 }

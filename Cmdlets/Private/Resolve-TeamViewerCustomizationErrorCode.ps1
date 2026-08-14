@@ -22,14 +22,14 @@ function  Resolve-TeamViewerCustomizationErrorCode {
     process {
         if ($exitCode) {
             if ($exitCodeMessages.ContainsKey($exitCode)) {
-                $exitCodeMessages[$exitCode]
+                Write-Output $exitCodeMessages[$exitCode]
             }
             else {
-                "Unexpected error code: $exitCode. Check TeamViewer documentation!"
+                Write-Output "Unexpected error code: $exitCode. Check TeamViewer documentation!"
             }
         }
         elseif ($exitCode -eq 0) {
-            $exitCodeMessages[$exitCode]
+            Write-Output $exitCodeMessages[$exitCode]
         }
     }
 }

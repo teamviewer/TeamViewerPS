@@ -41,6 +41,6 @@ function Get-TeamViewerRoleByUser {
             }
         } while ($response.nextPaginationToken)
 
-        return $list
+        Write-Output $list
     }
 }
