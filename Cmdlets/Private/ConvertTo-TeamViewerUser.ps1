@@ -24,7 +24,7 @@ function ConvertTo-TeamViewerUser {
         if ($PropertiesToLoad -eq 'All') {
             $properties += @{
                 Active            = $InputObject.active
-                LastAccessDate    = $InputObject.last_access_date
+                LastAccessDate    = $InputObject.last_access_date | ConvertTo-DateTime
                 TFAEnforcement    = $InputObject.tfa_enforcement
                 TFAEnabled        = $InputObject.tfa_enabled
                 LogSessions       = $InputObject.log_sessions

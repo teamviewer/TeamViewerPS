@@ -1,4 +1,5 @@
 BeforeAll {
+    . "$PSScriptRoot\..\..\Cmdlets\Private\ConvertTo-DateTime.ps1"
     . "$PSScriptRoot\..\..\Cmdlets\Private\ConvertTo-TeamViewerDeviceCustomField.ps1"
 }
 
@@ -19,8 +20,10 @@ Describe 'ConvertTo-TeamViewerDeviceCustomField' {
         $result.FieldKey | Should -Be 'AssetTag'
         $result.FieldType | Should -Be 'string'
         $result.Description | Should -Be 'Device asset tag'
-        $result.CreatedAt | Should -Be '2026-01-01T00:00:00Z'
-        $result.UpdatedAt | Should -Be '2026-01-02T00:00:00Z'
+        $result.CreatedAt | Should -BeOfType ([datetime])
+        $result.CreatedAt | Should -Be ([datetime]'2026-01-01T00:00:00Z')
+        $result.UpdatedAt | Should -BeOfType ([datetime])
+        $result.UpdatedAt | Should -Be ([datetime]'2026-01-02T00:00:00Z')
         $result.PSObject.TypeNames | Should -Contain 'TeamViewerPS.DeviceCustomField'
         $result.ToString() | Should -Be 'AssetTag (00000000-0000-0000-0000-000000000001)'
     }
