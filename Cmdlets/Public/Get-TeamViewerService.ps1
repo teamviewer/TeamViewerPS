@@ -1,6 +1,8 @@
 function Get-TeamViewerService {
     [CmdletBinding()]
 
+    [OutputType([void])]
+
     param()
 
     if (Test-TeamViewerInstallation) {

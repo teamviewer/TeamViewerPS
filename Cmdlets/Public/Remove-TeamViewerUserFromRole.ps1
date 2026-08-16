@@ -1,5 +1,8 @@
 function Remove-TeamViewerUserFromRole {
     [CmdletBinding(SupportsShouldProcess = $true)]
+
+    [OutputType([pscustomobject])]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
@@ -17,7 +20,7 @@ function Remove-TeamViewerUserFromRole {
         $Accounts
     )
 
-    Begin {
+    begin {
         $id = $RoleId | Resolve-TeamViewerRoleId
         $null = $ApiToken
         $resourceUri = "$(Get-TeamViewerApiUri)/userroles/unassign/account"
@@ -26,6 +29,7 @@ function Remove-TeamViewerUserFromRole {
             UserIds    = @()
             UserRoleId = $id
         }
+
         function Invoke-TeamViewerRestMethodInternal {
             $result = Invoke-TeamViewerRestMethod `
                 -ApiToken $ApiToken `
@@ -37,10 +41,9 @@ function Remove-TeamViewerUserFromRole {
                 -ErrorAction Stop
             Write-Output ($result)
         }
-
     }
 
-    Process {
+    process {
         if ($PSCmdlet.ShouldProcess($Accounts, 'Unassign Account from user role')) {
             if (($Accounts -notmatch 'u[0-9]+') -and ($Accounts -match '[0-9]+')) {
                 $Accounts = $Accounts | ForEach-Object { $_.Insert(0, 'u') }
@@ -50,12 +53,13 @@ function Remove-TeamViewerUserFromRole {
                 $body.UserIds = @($AccountsToRemove)
             }
         }
+
         if ($AccountsToRemove.Length -eq 100) {
             Invoke-TeamViewerRestMethodInternal
             $AccountsToRemove = @()
         }
     }
-    End {
+    end {
         if ($AccountsToRemove.Length -gt 0) {
             Invoke-TeamViewerRestMethodInternal
         }

@@ -44,3 +44,9 @@ New-TeamViewerDeviceCustomField -ApiToken $apiToken -FieldKey 'AssetTag' -Descri
 ```
 
 Creates an `AssetTag` device custom field with a description.
+
+## OUTPUTS
+
+### TeamViewerPS.DeviceCustomField
+
+Returns the created device custom field definition.

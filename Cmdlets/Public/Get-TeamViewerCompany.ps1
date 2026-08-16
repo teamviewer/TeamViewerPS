@@ -1,6 +1,8 @@
 function Get-TeamViewerCompany {
     [CmdletBinding()]
 
+    [OutputType('TeamViewerPS.Company')]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]

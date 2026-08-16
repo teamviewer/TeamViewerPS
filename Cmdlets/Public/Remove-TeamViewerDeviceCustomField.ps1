@@ -1,6 +1,8 @@
 function Remove-TeamViewerDeviceCustomField {
     [CmdletBinding(SupportsShouldProcess = $true)]
 
+    [OutputType([void])]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]

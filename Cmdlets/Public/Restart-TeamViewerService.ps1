@@ -1,6 +1,8 @@
 function Restart-TeamViewerService {
     [CmdletBinding(SupportsShouldProcess = $true)]
 
+    [OutputType([void])]
+
     param()
 
     if (Test-TeamViewerInstallation) {

@@ -1,5 +1,8 @@
 function Add-TeamViewerUserGroupMember {
     [CmdletBinding(SupportsShouldProcess = $true)]
+
+    [OutputType('TeamViewerPS.UserGroupMember')]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
@@ -57,12 +60,14 @@ function Add-TeamViewerUserGroupMember {
                     $Member = [int[]]$Member.trim('u')
                 }
             }
+
             if ($Member -isnot [array]) {
                 $membersToAdd = @([UInt32]$Member)
             }
             else {
                 $membersToAdd += [UInt32[]]$Member
             }
+
             $payload = $membersToAdd -join ', '
             $body = "[$payload]"
         }

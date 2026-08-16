@@ -1,5 +1,7 @@
 function Set-TeamViewerManagedGroup {
     [CmdletBinding(SupportsShouldProcess = $true, DefaultParameterSetName = 'ByParameters')]
+
+    [OutputType([void])]
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
@@ -31,12 +33,13 @@ function Set-TeamViewerManagedGroup {
         $Property
     )
 
-    Begin {
+    begin {
         # Warning suppression doesn't seem to work.
         # See https://github.com/PowerShell/PSScriptAnalyzer/issues/1472
         $null = $Property
 
         $body = @{}
+
         switch ($PSCmdlet.ParameterSetName) {
             'ByParameters' {
                 if ($Name) {
@@ -48,12 +51,14 @@ function Set-TeamViewerManagedGroup {
                         $PSCmdlet.ThrowTerminatingError(
                             ('PolicyId and PolicyType must be specified together' | ConvertTo-ErrorRecord -ErrorCategory InvalidArgument))
                     }
+
                     $body['policy'] = @{
-                        'policy_id' = $PolicyId
+                        'policy_id'   = $PolicyId
                         'policy_type' = $PolicyType
                     }
                 }
             }
+
             'ByProperties' {
                 @('name') | Where-Object { $Property[$_] } | ForEach-Object { $body[$_] = $Property[$_] }
 
@@ -62,8 +67,9 @@ function Set-TeamViewerManagedGroup {
                         $PSCmdlet.ThrowTerminatingError(
                             ('PolicyId and PolicyType must be specified together' | ConvertTo-ErrorRecord -ErrorCategory InvalidArgument))
                     }
+
                     $body['policy'] = @{
-                        'policy_id' = $Property['policy_id']
+                        'policy_id'   = $Property['policy_id']
                         'policy_type' = [PolicyType]$Property['policy_type']
                     }
                 }
@@ -76,7 +82,7 @@ function Set-TeamViewerManagedGroup {
         }
     }
 
-    Process {
+    process {
         $groupId = $Group | Resolve-TeamViewerManagedGroupId
         $resourceUri = "$(Get-TeamViewerApiUri)/managed/groups/$groupId"
 

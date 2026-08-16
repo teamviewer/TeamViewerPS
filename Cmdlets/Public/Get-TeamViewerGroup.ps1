@@ -1,27 +1,30 @@
 function Get-TeamViewerGroup {
-    [CmdletBinding(DefaultParameterSetName = "FilteredList")]
+    [CmdletBinding(DefaultParameterSetName = 'FilteredList')]
+
+    [OutputType('TeamViewerPS.Group')]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
         $ApiToken,
 
-        [Parameter(ParameterSetName = "ByGroupId")]
-        [Alias("GroupId")]
+        [Parameter(ParameterSetName = 'ByGroupId')]
+        [Alias('GroupId')]
         [string]
         $Id,
 
-        [Parameter(ParameterSetName = "FilteredList")]
-        [Alias("PartialName")]
+        [Parameter(ParameterSetName = 'FilteredList')]
+        [Alias('PartialName')]
         [string]
         $Name,
 
-        [Parameter(ParameterSetName = "FilteredList")]
+        [Parameter(ParameterSetName = 'FilteredList')]
         [ValidateSet('OnlyShared', 'OnlyNotShared')]
         [string]
         $FilterShared
     )
 
-    $resourceUri = "$(Get-TeamViewerApiUri)/groups";
+    $resourceUri = "$(Get-TeamViewerApiUri)/groups"
     $parameters = @{ }
 
     switch ($PsCmdlet.ParameterSetName) {
@@ -34,8 +37,12 @@ function Get-TeamViewerGroup {
                 $parameters['name'] = $Name
             }
             switch ($FilterShared) {
-                'OnlyShared' { $parameters['shared'] = $true }
-                'OnlyNotShared' { $parameters['shared'] = $false }
+                'OnlyShared' {
+                    $parameters['shared'] = $true
+                }
+                'OnlyNotShared' {
+                    $parameters['shared'] = $false
+                }
             }
         }
     }
@@ -48,7 +55,7 @@ function Get-TeamViewerGroup {
         -WriteErrorTo $PSCmdlet `
         -ErrorAction Stop
 
-    if ($PsCmdlet.ParameterSetName -Eq 'ByGroupId') {
+    if ($PsCmdlet.ParameterSetName -eq 'ByGroupId') {
         Write-Output ($response | ConvertTo-TeamViewerGroup)
     }
     else {

@@ -1,6 +1,8 @@
 function Get-TeamViewerConnectionReport {
     [CmdletBinding()]
 
+    [OutputType('TeamViewerPS.ConnectionReport')]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
@@ -89,6 +91,7 @@ function Get-TeamViewerConnectionReport {
     if ($PSCmdlet.ParameterSetName -eq 'RelativeDates') {
         $StartDate = $EndDate.AddMonths(-1 * $Months).AddDays(-1 * $Days).AddHours(-1 * $Hours).AddMinutes(-1 * $Minutes)
     }
+
     if ($StartDate -and $EndDate -and $StartDate -lt $EndDate) {
         $parameters.from_date = $StartDate.ToUniversalTime().ToString('yyyy-MM-ddTHH:mm:ssZ')
         $parameters.to_date = $EndDate.ToUniversalTime().ToString('yyyy-MM-ddTHH:mm:ssZ')
@@ -130,6 +133,7 @@ function Get-TeamViewerConnectionReport {
     }
 
     $remaining = $Limit
+
     do {
         $response = Invoke-TeamViewerRestMethod `
             -ApiToken $ApiToken `
@@ -139,6 +143,7 @@ function Get-TeamViewerConnectionReport {
             -WriteErrorTo $PSCmdlet `
             -ErrorAction Stop
         $results = ($response.records | ConvertTo-TeamViewerConnectionReport)
+
         if ($Limit) {
             Write-Output ($results | Select-Object -First $remaining)
             $remaining = $remaining - @($results).Count

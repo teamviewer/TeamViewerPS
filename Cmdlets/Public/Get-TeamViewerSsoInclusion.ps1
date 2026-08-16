@@ -1,6 +1,8 @@
 function Get-TeamViewerSsoInclusion {
     [CmdletBinding()]
 
+    [OutputType([string[]])]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]

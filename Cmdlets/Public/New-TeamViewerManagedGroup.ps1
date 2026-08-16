@@ -1,5 +1,8 @@
 function New-TeamViewerManagedGroup {
     [CmdletBinding(SupportsShouldProcess = $true)]
+
+    [OutputType('TeamViewerPS.ManagedGroup')]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
@@ -12,15 +15,17 @@ function New-TeamViewerManagedGroup {
 
     $body = @{ name = $Name }
     $resourceUri = "$(Get-TeamViewerApiUri)/managed/groups"
-    if ($PSCmdlet.ShouldProcess($Name, "Create managed group")) {
+
+    if ($PSCmdlet.ShouldProcess($Name, 'Create managed group')) {
         $response = Invoke-TeamViewerRestMethod `
             -ApiToken $ApiToken `
             -Uri $resourceUri `
             -Method Post `
-            -ContentType "application/json; charset=utf-8" `
+            -ContentType 'application/json; charset=utf-8' `
             -Body ([System.Text.Encoding]::UTF8.GetBytes(($body | ConvertTo-Json))) `
             -WriteErrorTo $PSCmdlet `
             -ErrorAction Stop
+
         Write-Output ($response | ConvertTo-TeamViewerManagedGroup)
     }
 }

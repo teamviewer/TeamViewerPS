@@ -1,5 +1,8 @@
 function Add-TeamViewerUserGroupToRole {
     [CmdletBinding(SupportsShouldProcess = $true)]
+
+    [OutputType([pscustomobject])]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
@@ -19,7 +22,7 @@ function Add-TeamViewerUserGroupToRole {
         $UserGroup
     )
 
-    Begin {
+    begin {
         $RoleId = $Role | Resolve-TeamViewerRoleId
         $null = $ApiToken
         $resourceUri = "$(Get-TeamViewerApiUri)/userroles/assign/usergroup"
@@ -31,7 +34,7 @@ function Add-TeamViewerUserGroupToRole {
     }
 
 
-    Process {
+    process {
         if ($PSCmdlet.ShouldProcess($UserGroup, 'Assign Role to User Group')) {
             $result = Invoke-TeamViewerRestMethod `
                 -ApiToken $ApiToken `
@@ -41,6 +44,7 @@ function Add-TeamViewerUserGroupToRole {
                 -Body ([System.Text.Encoding]::UTF8.GetBytes(($body | ConvertTo-Json))) `
                 -WriteErrorTo $PSCmdlet `
                 -ErrorAction Stop
+
             Write-Output ($result)
         }
     }

@@ -1,5 +1,8 @@
 function Remove-TeamViewerManager {
-    [CmdletBinding(SupportsShouldProcess = $true, DefaultParameterSetName = "ByDeviceId")]
+    [CmdletBinding(SupportsShouldProcess = $true, DefaultParameterSetName = 'ByDeviceId')]
+
+    [OutputType([void])]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
@@ -7,39 +10,42 @@ function Remove-TeamViewerManager {
 
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
         [ValidateScript( {
-                if (($_.PSObject.TypeNames -contains 'TeamViewerPS.Manager') -And -Not $_.GroupId -And -Not $_.DeviceId) {
+                if (($_.PSObject.TypeNames -contains 'TeamViewerPS.Manager') -and -not $_.GroupId -and -not $_.DeviceId) {
                     $PSCmdlet.ThrowTerminatingError(
-                        ("Invalid manager object. Manager must be a group or device manager." | `
-                                ConvertTo-ErrorRecord -ErrorCategory InvalidArgument))
+                        ('Invalid manager object. Manager must be a group or device manager.' | `
+                            ConvertTo-ErrorRecord -ErrorCategory InvalidArgument))
                 }
                 $_ | Resolve-TeamViewerManagerId
             })]
-        [Alias("ManagerId")]
-        [Alias("Id")]
+        [Alias('ManagerId')]
+        [Alias('Id')]
         [object]
         $Manager,
 
         [Parameter(ParameterSetName = 'ByDeviceId')]
         [ValidateScript( { $_ | Resolve-TeamViewerManagedDeviceId } )]
-        [Alias("DeviceId")]
+        [Alias('DeviceId')]
         [object]
         $Device,
 
         [Parameter(ParameterSetName = 'ByGroupId')]
         [ValidateScript( { $_ | Resolve-TeamViewerManagedGroupId })]
-        [Alias("GroupId")]
+        [Alias('GroupId')]
         [object]
         $Group
     )
-    Process {
+
+    process {
         $deviceId = $null
         $groupId = $null
+
         if ($Manager.PSObject.TypeNames -contains 'TeamViewerPS.Manager') {
-            if ($Device -Or $Group) {
+            if ($Device -or $Group) {
                 $PSCmdlet.ThrowTerminatingError(
-                    ("Device or Group parameter must not be specified if a [TeamViewerPS.Manager] object is given." | `
-                            ConvertTo-ErrorRecord -ErrorCategory InvalidArgument))
+                    ('Device or Group parameter must not be specified if a [TeamViewerPS.Manager] object is given.' | `
+                        ConvertTo-ErrorRecord -ErrorCategory InvalidArgument))
             }
+
             if ($Manager.DeviceId) {
                 $deviceId = $Manager.DeviceId
             }
@@ -55,18 +61,19 @@ function Remove-TeamViewerManager {
         }
         else {
             $PSCmdlet.ThrowTerminatingError(
-                ("Device or Group parameter must be specified if no [TeamViewerPS.Manager] object is given." | `
-                        ConvertTo-ErrorRecord -ErrorCategory InvalidArgument))
+                ('Device or Group parameter must be specified if no [TeamViewerPS.Manager] object is given.' | `
+                    ConvertTo-ErrorRecord -ErrorCategory InvalidArgument))
         }
 
         $managerId = $Manager | Resolve-TeamViewerManagerId
+
         if ($deviceId) {
             $resourceUri = "$(Get-TeamViewerApiUri)/managed/devices/$deviceId/managers/$managerId"
-            $processMessage = "Remove manager from managed device"
+            $processMessage = 'Remove manager from managed device'
         }
         elseif ($groupId) {
             $resourceUri = "$(Get-TeamViewerApiUri)/managed/groups/$groupId/managers/$managerId"
-            $processMessage = "Remove manager from managed group"
+            $processMessage = 'Remove manager from managed group'
         }
 
         if ($PSCmdlet.ShouldProcess($managerId, $processMessage)) {

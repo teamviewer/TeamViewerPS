@@ -1,6 +1,8 @@
 function Get-TeamViewerRoleByUser {
     [CmdletBinding()]
 
+    [OutputType([guid[]])]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]

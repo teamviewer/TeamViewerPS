@@ -1,6 +1,8 @@
 function Test-TeamViewerInstallation {
     [CmdletBinding()]
 
+    [OutputType([bool])]
+
     param()
 
     if (Get-TeamViewerInstallationDirectory) {

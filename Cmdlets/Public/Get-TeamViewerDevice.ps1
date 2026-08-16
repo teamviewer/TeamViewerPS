@@ -1,6 +1,8 @@
 function Get-TeamViewerDevice {
     [CmdletBinding(DefaultParameterSetName = 'FilteredList')]
 
+    [OutputType('TeamViewerPS.Device')]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]

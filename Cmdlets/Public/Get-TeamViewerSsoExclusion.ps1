@@ -1,6 +1,8 @@
 function Get-TeamViewerSsoExclusion {
     [CmdletBinding()]
 
+    [OutputType([string[]])]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]

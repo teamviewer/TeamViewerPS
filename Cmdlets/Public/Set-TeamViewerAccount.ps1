@@ -1,5 +1,8 @@
 function Set-TeamViewerAccount {
     [CmdletBinding(SupportsShouldProcess = $true, DefaultParameterSetName = 'ByParameters')]
+
+    [OutputType([void])]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
@@ -38,19 +41,22 @@ function Set-TeamViewerAccount {
     $null = $Property
 
     $body = @{}
+
     switch ($PSCmdlet.ParameterSetName) {
         'ByParameters' {
             if ($Name) {
                 $body['name'] = $Name
             }
+
             if ($Email) {
                 $body['email'] = $Email
             }
+
             if ($Password) {
-                if (-Not $OldPassword) {
+                if (-not $OldPassword) {
                     $PSCmdlet.ThrowTerminatingError(
-                        ("Old password required when attempting to change account password." | `
-                                ConvertTo-ErrorRecord -ErrorCategory InvalidArgument))
+                        ('Old password required when attempting to change account password.' | `
+                            ConvertTo-ErrorRecord -ErrorCategory InvalidArgument))
                 }
 
                 $bstr = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($Password)
@@ -61,6 +67,7 @@ function Set-TeamViewerAccount {
                 $body['oldpassword'] = [System.Runtime.InteropServices.Marshal]::PtrToStringBSTR($bstr)
                 [System.Runtime.InteropServices.Marshal]::ZeroFreeBSTR($bstr) | Out-Null
             }
+
             if ($EmailLanguage) {
                 $body['email_language'] = $EmailLanguage | Resolve-TeamViewerLanguage
             }
@@ -74,18 +81,18 @@ function Set-TeamViewerAccount {
 
     if ($body.Count -eq 0) {
         $PSCmdlet.ThrowTerminatingError(
-            ("The given input does not change the account." | `
-                    ConvertTo-ErrorRecord -ErrorCategory InvalidArgument))
+            ('The given input does not change the account.' | `
+                ConvertTo-ErrorRecord -ErrorCategory InvalidArgument))
     }
 
     $resourceUri = "$(Get-TeamViewerApiUri)/account"
 
-    if ($PSCmdlet.ShouldProcess("TeamViewer account")) {
+    if ($PSCmdlet.ShouldProcess('TeamViewer account')) {
         Invoke-TeamViewerRestMethod `
             -ApiToken $ApiToken `
             -Uri $resourceUri `
             -Method Put `
-            -ContentType "application/json; charset=utf-8" `
+            -ContentType 'application/json; charset=utf-8' `
             -Body ([System.Text.Encoding]::UTF8.GetBytes(($body | ConvertTo-Json))) `
             -WriteErrorTo $PSCmdlet | `
             Out-Null

@@ -1,5 +1,8 @@
 function Remove-TeamViewerDevice {
     [CmdletBinding(SupportsShouldProcess = $true)]
+
+    [OutputType([void])]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
@@ -7,15 +10,16 @@ function Remove-TeamViewerDevice {
 
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerDeviceId } )]
-        [Alias("DeviceId")]
-        [Alias("Id")]
+        [Alias('DeviceId')]
+        [Alias('Id')]
         [object]
         $Device
     )
-    Process {
+
+    process {
         $deviceId = $Device | Resolve-TeamViewerDeviceId
         $resourceUri = "$(Get-TeamViewerApiUri)/devices/$deviceId"
-        if ($PSCmdlet.ShouldProcess($deviceId, "Remove device entry")) {
+        if ($PSCmdlet.ShouldProcess($deviceId, 'Remove device entry')) {
             Invoke-TeamViewerRestMethod `
                 -ApiToken $ApiToken `
                 -Uri $resourceUri `

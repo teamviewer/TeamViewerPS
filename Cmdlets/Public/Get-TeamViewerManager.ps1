@@ -1,19 +1,22 @@
 function Get-TeamViewerManager {
-    [CmdletBinding(DefaultParameterSetName = "ByDeviceId")]
+    [CmdletBinding(DefaultParameterSetName = 'ByDeviceId')]
+
+    [OutputType('TeamViewerPS.Manager')]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
         $ApiToken,
 
-        [Parameter(Mandatory = $true, ParameterSetName = "ByDeviceId")]
+        [Parameter(Mandatory = $true, ParameterSetName = 'ByDeviceId')]
         [ValidateScript( { $_ | Resolve-TeamViewerManagedDeviceId } )]
-        [Alias("DeviceId")]
+        [Alias('DeviceId')]
         [object]
         $Device,
 
-        [Parameter(Mandatory = $true, ParameterSetName = "ByGroupId")]
+        [Parameter(Mandatory = $true, ParameterSetName = 'ByGroupId')]
         [ValidateScript( { $_ | Resolve-TeamViewerManagedGroupId } )]
-        [Alias("GroupId")]
+        [Alias('GroupId')]
         [object]
         $Group
     )

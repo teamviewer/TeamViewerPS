@@ -1,6 +1,8 @@
 function Get-TeamViewerEffectivePermission {
     [CmdletBinding(DefaultParameterSetName = '')]
 
+    [OutputType([pscustomobject])]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]

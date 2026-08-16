@@ -1,6 +1,8 @@
 function Set-TeamViewerManagedDevice {
     [CmdletBinding(SupportsShouldProcess = $true)]
 
+    [OutputType([void])]
+
     param(
         [Parameter(Mandatory = $true, ParameterSetName = 'Default')]
         [Parameter(Mandatory = $true, ParameterSetName = 'ByPolicyId')]

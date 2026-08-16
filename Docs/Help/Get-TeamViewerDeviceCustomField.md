@@ -41,3 +41,9 @@ Get-TeamViewerDeviceCustomField -ApiToken $apiToken
 ```
 
 Lists all device custom fields in the company.
+
+## OUTPUTS
+
+### TeamViewerPS.DeviceCustomField
+
+Returns device custom field definition objects.

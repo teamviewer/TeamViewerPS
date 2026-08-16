@@ -1,6 +1,8 @@
 function Remove-TeamViewerAssignment {
     [CmdletBinding(SupportsShouldProcess = $true)]
 
+    [OutputType([void])]
+
     param()
 
     begin {

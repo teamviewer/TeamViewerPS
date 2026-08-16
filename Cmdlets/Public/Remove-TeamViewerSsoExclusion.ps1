@@ -1,5 +1,8 @@
 function Remove-TeamViewerSsoExclusion {
     [CmdletBinding(SupportsShouldProcess = $true)]
+
+    [OutputType([void])]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
@@ -7,7 +10,7 @@ function Remove-TeamViewerSsoExclusion {
 
         [Parameter(Mandatory = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerSsoDomainId } )]
-        [Alias("Domain")]
+        [Alias('Domain')]
         [object]
         $DomainId,
 
@@ -15,7 +18,8 @@ function Remove-TeamViewerSsoExclusion {
         [string[]]
         $Email
     )
-    Begin {
+
+    begin {
         $id = $DomainId | Resolve-TeamViewerSsoDomainId
         $resourceUri = "$(Get-TeamViewerApiUri)/ssoDomain/$id/exclusion"
         $emailsToRemove = @()
@@ -29,15 +33,16 @@ function Remove-TeamViewerSsoExclusion {
                 -ApiToken $ApiToken `
                 -Uri $resourceUri `
                 -Method Delete `
-                -ContentType "application/json; charset=utf-8" `
+                -ContentType 'application/json; charset=utf-8' `
                 -Body ([System.Text.Encoding]::UTF8.GetBytes(($body | ConvertTo-Json))) `
                 -WriteErrorTo $PSCmdlet `
                 -ErrorAction Stop | `
                 Out-Null
         }
     }
-    Process {
-        if ($PSCmdlet.ShouldProcess($Email, "Remove SSO exclusion")) {
+
+    process {
+        if ($PSCmdlet.ShouldProcess($Email, 'Remove SSO exclusion')) {
             $emailsToRemove += $Email
         }
         if ($emailsToRemove.Length -eq 100) {
@@ -45,7 +50,8 @@ function Remove-TeamViewerSsoExclusion {
             $emailsToRemove = @()
         }
     }
-    End {
+
+    end {
         if ($emailsToRemove.Length -gt 0) {
             Invoke-RequestInternal
         }

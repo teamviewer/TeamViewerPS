@@ -1,6 +1,8 @@
 function New-TeamViewerDevice {
     [CmdletBinding(SupportsShouldProcess = $true)]
 
+    [OutputType('TeamViewerPS.Device')]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]

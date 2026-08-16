@@ -1,8 +1,10 @@
 function Get-TeamViewerCustomModuleId {
     [CmdletBinding()]
 
+    [OutputType([string])]
+
     param()
-    
+
     if (Test-TeamViewerInstallation) {
         $TV_AssignmentFilePath = (Join-Path -Path (Get-TeamViewerInstallationDirectory) -ChildPath 'TeamViewer.json')
 

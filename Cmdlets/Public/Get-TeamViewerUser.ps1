@@ -1,5 +1,8 @@
 function Get-TeamViewerUser {
     [CmdletBinding(DefaultParameterSetName = 'FilteredList')]
+
+    [OutputType('TeamViewerPS.User')]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
@@ -20,7 +23,7 @@ function Get-TeamViewerUser {
         [string[]]
         $Email,
 
-        [Parameter(ParameterSetName = "FilteredList")]
+        [Parameter(ParameterSetName = 'FilteredList')]
         [string[]]
         $Permissions,
 
@@ -62,7 +65,7 @@ function Get-TeamViewerUser {
     $response = Invoke-TeamViewerRestMethod `
         -ApiToken $ApiToken -Uri $resourceUri -Method Get -Body $parameters -WriteErrorTo $PSCmdlet -ErrorAction Stop
 
-    if ($PsCmdlet.ParameterSetName -Eq 'ByUserId') {
+    if ($PsCmdlet.ParameterSetName -eq 'ByUserId') {
         Write-Output ($response | ConvertTo-TeamViewerUser -PropertiesToLoad $PropertiesToLoad)
     }
     else {

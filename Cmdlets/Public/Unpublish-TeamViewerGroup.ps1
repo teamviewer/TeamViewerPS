@@ -1,5 +1,8 @@
 function Unpublish-TeamViewerGroup {
     [CmdletBinding(SupportsShouldProcess = $true)]
+
+    [OutputType([void])]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
@@ -7,12 +10,12 @@ function Unpublish-TeamViewerGroup {
 
         [Parameter(Mandatory = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerGroupId } )]
-        [Alias("GroupId")]
+        [Alias('GroupId')]
         [object]
         $Group,
 
         [Parameter(Mandatory = $true)]
-        [Alias("UserId")]
+        [Alias('UserId')]
         [object[]]
         $User
     )
@@ -22,12 +25,12 @@ function Unpublish-TeamViewerGroup {
     $resourceUri = "$(Get-TeamViewerApiUri)/groups/$groupId/unshare_group"
     $body = @{users = @($userIds) }
 
-    if ($PSCmdlet.ShouldProcess($userids, "Remove group share")) {
+    if ($PSCmdlet.ShouldProcess($userids, 'Remove group share')) {
         Invoke-TeamViewerRestMethod `
             -ApiToken $ApiToken `
             -Uri $resourceUri `
             -Method Post `
-            -ContentType "application/json; charset=utf-8" `
+            -ContentType 'application/json; charset=utf-8' `
             -Body ([System.Text.Encoding]::UTF8.GetBytes(($body | ConvertTo-Json))) `
             -WriteErrorTo $PSCmdlet | `
             Out-Null

@@ -1,5 +1,8 @@
 function Add-TeamViewerSsoInclusion {
     [CmdletBinding(SupportsShouldProcess = $true)]
+
+    [OutputType([void])]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
@@ -7,7 +10,7 @@ function Add-TeamViewerSsoInclusion {
 
         [Parameter(Mandatory = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerSsoDomainId } )]
-        [Alias("Domain")]
+        [Alias('Domain')]
         [object]
         $DomainId,
 
@@ -15,37 +18,41 @@ function Add-TeamViewerSsoInclusion {
         [string[]]
         $Email
     )
-    Begin {
+
+    begin {
         $id = $DomainId | Resolve-TeamViewerSsoDomainId
         $resourceUri = "$(Get-TeamViewerApiUri)/ssoDomain/$id/inclusion"
         $emailsToAdd = @()
-		$null = $ApiToken
+        $null = $ApiToken
 
         function Invoke-RequestInternal {
             $body = @{
                 emails = @($emailsToAdd)
             }
-			Invoke-TeamViewerRestMethod `
-				-ApiToken $ApiToken `
+
+            Invoke-TeamViewerRestMethod `
+                -ApiToken $ApiToken `
                 -Uri $resourceUri `
                 -Method Post `
-                -ContentType "application/json; charset=utf-8" `
+                -ContentType 'application/json; charset=utf-8' `
                 -Body ([System.Text.Encoding]::UTF8.GetBytes(($body | ConvertTo-Json))) `
                 -WriteErrorTo $PSCmdlet `
                 -ErrorAction Stop | `
                 Out-Null
         }
     }
-    Process {
-        if ($PSCmdlet.ShouldProcess($Email, "Add SSO inclusion")) {
+
+    process {
+        if ($PSCmdlet.ShouldProcess($Email, 'Add SSO inclusion')) {
             $emailsToAdd += $Email
         }
+
         if ($emailsToAdd.Length -eq 100) {
             Invoke-RequestInternal
             $emailsToAdd = @()
         }
     }
-    End {
+    end {
         if ($emailsToAdd.Length -gt 0) {
             Invoke-RequestInternal
         }

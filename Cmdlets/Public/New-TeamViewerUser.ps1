@@ -1,5 +1,8 @@
 function New-TeamViewerUser {
     [CmdletBinding(SupportsShouldProcess = $true, DefaultParameterSetName = 'WithPassword')]
+
+    [OutputType('TeamViewerPS.User')]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
@@ -77,7 +80,7 @@ function New-TeamViewerUser {
         $IgnorePredefinedRole
     )
 
-    if (-Not $Culture) {
+    if (-not $Culture) {
         try {
             $Culture = Get-Culture
         }
@@ -92,7 +95,7 @@ function New-TeamViewerUser {
         language = $Culture | Resolve-TeamViewerLanguage
     }
 
-    if ($Password -And -Not $WithoutPassword) {
+    if ($Password -and -not $WithoutPassword) {
         $bstr = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($Password)
         $body['password'] = [System.Runtime.InteropServices.Marshal]::PtrToStringBSTR($bstr)
         [System.Runtime.InteropServices.Marshal]::ZeroFreeBSTR($bstr) | Out-Null
@@ -145,6 +148,7 @@ function New-TeamViewerUser {
     }
 
     $resourceUri = "$(Get-TeamViewerApiUri)/users"
+
     if ($PSCmdlet.ShouldProcess("$Name <$Email>", 'Create user')) {
         $response = Invoke-TeamViewerRestMethod -ApiToken $ApiToken -Uri $resourceUri -Method Post -ContentType 'application/json; charset=utf-8' `
             -Body ([System.Text.Encoding]::UTF8.GetBytes(($body | ConvertTo-Json))) -WriteErrorTo $PSCmdlet -ErrorAction Stop

@@ -1,5 +1,8 @@
 function Remove-TeamViewerSsoInclusion {
     [CmdletBinding(SupportsShouldProcess = $true)]
+
+    [OutputType([void])]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
@@ -15,7 +18,8 @@ function Remove-TeamViewerSsoInclusion {
         [string[]]
         $Email
     )
-    Begin {
+
+    begin {
         $id = $DomainId | Resolve-TeamViewerSsoDomainId
         $resourceUri = "$(Get-TeamViewerApiUri)/ssoDomain/$id/inclusion"
         $emailsToRemove = @()
@@ -36,16 +40,19 @@ function Remove-TeamViewerSsoInclusion {
                 Out-Null
         }
     }
-    Process {
+
+    process {
         if ($PSCmdlet.ShouldProcess($Email, 'Remove SSO inclusion')) {
             $emailsToRemove += $Email
         }
+
         if ($emailsToRemove.Length -eq 100) {
             Invoke-RequestInternal
             $emailsToRemove = @()
         }
     }
-    End {
+
+    end {
         if ($emailsToRemove.Length -gt 0) {
             Invoke-RequestInternal
         }

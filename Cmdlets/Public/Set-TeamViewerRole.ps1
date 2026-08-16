@@ -2,6 +2,8 @@
 function Set-TeamViewerRole {
     [CmdletBinding(SupportsShouldProcess = $true)]
 
+    [OutputType('TeamViewerPS.Role')]
+
     param(
         [Parameter(Mandatory = $true )]
         [securestring]

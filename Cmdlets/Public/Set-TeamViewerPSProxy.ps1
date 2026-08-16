@@ -2,6 +2,9 @@ $global:TeamViewerProxyUriSet = $null
 
 function Set-TeamViewerPSProxy {
     [CmdletBinding(SupportsShouldProcess = $true)]
+
+    [OutputType([string])]
+
     param (
         [Parameter(Mandatory = $true)]
         [Uri]
@@ -18,4 +21,3 @@ function Set-TeamViewerPSProxy {
         Write-Output "Proxy set to $TeamViewerProxyUriSet"
     }
 }
-

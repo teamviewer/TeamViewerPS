@@ -1,5 +1,8 @@
 function Set-TeamViewerPolicy {
     [CmdletBinding(SupportsShouldProcess = $true, DefaultParameterSetName = 'ByParameters')]
+
+    [OutputType([void])]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
@@ -28,6 +31,7 @@ function Set-TeamViewerPolicy {
     $null = $Property
 
     $body = @{}
+
     switch ($PSCmdlet.ParameterSetName) {
         'ByParameters' {
             if ($Name) {
@@ -46,19 +50,19 @@ function Set-TeamViewerPolicy {
 
     if ($body.Count -eq 0) {
         $PSCmdlet.ThrowTerminatingError(
-            ("The given input does not change the policy." | `
-                    ConvertTo-ErrorRecord -ErrorCategory InvalidArgument))
+            ('The given input does not change the policy.' | `
+                ConvertTo-ErrorRecord -ErrorCategory InvalidArgument))
     }
 
     $policyId = $Policy | Resolve-TeamViewerPolicyId
     $resourceUri = "$(Get-TeamViewerApiUri)/teamviewerpolicies/$policyId"
 
-    if ($PSCmdlet.ShouldProcess($policyId, "Update policy")) {
+    if ($PSCmdlet.ShouldProcess($policyId, 'Update policy')) {
         Invoke-TeamViewerRestMethod `
             -ApiToken $ApiToken `
             -Uri $resourceUri `
             -Method Put `
-            -ContentType "application/json; charset=utf-8" `
+            -ContentType 'application/json; charset=utf-8' `
             -Body ([System.Text.Encoding]::UTF8.GetBytes(($body | ConvertTo-Json -Depth 25))) `
             -WriteErrorTo $PSCmdlet | `
             Out-Null
