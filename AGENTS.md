@@ -51,6 +51,10 @@ Invoke-Build -Task Clean
 
 ## Function Naming Conventions
 
+- All function names must use PascalCase for every name segment.
+- All function names must follow the standard PowerShell Verb-Noun format.
+- Only Microsoft approved verbs must be used.
+
 ### Cmdlet Naming (Public Functions)
 
 Use standard PowerShell Verb-Noun format:
@@ -461,16 +465,18 @@ end {
 
 ### Local Variable Scoping
 
-Use descriptive names for clarity:
+- Use descriptive PascalCase names for all variables, including local variables, hashtables, and temporary values. Do not use camelCase, lowercase snake_case, or abbreviations unless they are established PowerShell automatic variables.
+- Underscores are permitted between PascalCase segments, for example `$TV_AssignmentParams` or `$Target_FilePath`.
 
 ```powershell
 # Good
-$resolvedUserId = $User | Resolve-TeamViewerUserId
-$userUri = "$(Get-TeamViewerApiUri)/users/$resolvedUserId"
+$ResolvedUserId = $User | Resolve-TeamViewerUserId
+$UserUri = "$(Get-TeamViewerApiUri)/users/$ResolvedUserId"
+$TV_AssignmentParams = 'assignment --id example'
 
 # Avoid unclear abbreviations
-$uid = ...
-$uri_user = ...
+$Uid = ...
+$user_uri = ...
 ```
 
 ---
