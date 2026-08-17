@@ -11,8 +11,8 @@ function ConvertTo-TeamViewerDeviceCustomField {
             FieldKey    = $InputObject.fieldKey
             FieldType   = $InputObject.fieldType
             Description = $InputObject.description
-            CreatedAt   = $InputObject.createdAt
-            UpdatedAt   = $InputObject.updatedAt
+            CreatedAt   = $InputObject.createdAt | ConvertTo-DateTime
+            UpdatedAt   = $InputObject.updatedAt | ConvertTo-DateTime
         }
 
         $result = New-Object -TypeName PSObject -Property $properties

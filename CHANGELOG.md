@@ -17,6 +17,10 @@
 - Creates, expands, and hardens all private functions tests.
 - Automate release module versioning.
 
+### Fixed
+
+- Converts user last-access and device custom field timestamps to `DateTime` values.
+
 ## 3.0.2 (2026-08-13)
 
 ### Added

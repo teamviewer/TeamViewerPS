@@ -2,6 +2,7 @@ BeforeAll {
     $Script:Module_RootPath = (Resolve-Path -Path (Join-Path -Path $PSScriptRoot -ChildPath '..\..'))
     $Script:Module_PrivCmdletsPath = Join-Path -Path $Module_RootPath -ChildPath 'Cmdlets\Private'
 
+    . (Join-Path -Path $Module_PrivCmdletsPath -ChildPath 'ConvertTo-DateTime.ps1')
     . (Join-Path -Path $Module_PrivCmdletsPath -ChildPath 'ConvertTo-TeamViewerUser.ps1')
 }
 
@@ -13,6 +14,8 @@ Describe 'ConvertTo-TeamViewerUser' {
 
         $result.PSObject.TypeNames[0] | Should -Be 'TeamViewerPS.User'
         $result.PSObject.Properties.Name | Should -Contain 'Active'
+        $result.LastAccessDate | Should -BeOfType ([datetime])
+        $result.LastAccessDate | Should -Be ([datetime]'2026-01-01')
     }
 
     It 'Loads minimal property set when requested' {
