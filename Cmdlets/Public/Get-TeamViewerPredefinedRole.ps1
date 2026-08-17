@@ -1,6 +1,8 @@
 function Get-TeamViewerPredefinedRole {
     [CmdletBinding()]
 
+    [OutputType('TeamViewerPS.PredefinedRole')]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]

@@ -1,5 +1,8 @@
 function Remove-TeamViewerUserGroupFromRole {
     [CmdletBinding(SupportsShouldProcess = $true)]
+
+    [OutputType([pscustomobject])]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
@@ -13,7 +16,7 @@ function Remove-TeamViewerUserGroupFromRole {
         $UserGroup
     )
 
-    Begin {
+    begin {
         $null = $ApiToken
         $resourceUri = "$(Get-TeamViewerApiUri)/userroles/unassign/usergroup"
         $body = @{
@@ -22,7 +25,7 @@ function Remove-TeamViewerUserGroupFromRole {
     }
 
 
-    Process {
+    process {
         if ($PSCmdlet.ShouldProcess($UserGroupId, 'Unassign User Group from user role')) {
             $result = Invoke-TeamViewerRestMethod `
                 -ApiToken $ApiToken `

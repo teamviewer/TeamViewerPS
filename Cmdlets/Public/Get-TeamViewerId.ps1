@@ -1,6 +1,8 @@
 function Get-TeamViewerId {
     [CmdletBinding()]
 
+    [OutputType([string])]
+
     param()
 
     if (Test-TeamViewerInstallation) {

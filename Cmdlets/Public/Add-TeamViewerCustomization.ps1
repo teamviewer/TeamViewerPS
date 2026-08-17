@@ -1,6 +1,8 @@
 function Add-TeamViewerCustomization {
     [CmdletBinding(SupportsShouldProcess = $true)]
 
+    [OutputType([void])]
+
     param (
         [Parameter(Mandatory = $true, ParameterSetName = 'ById')]
         [object]

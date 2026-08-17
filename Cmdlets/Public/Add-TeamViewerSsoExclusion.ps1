@@ -1,5 +1,8 @@
 function Add-TeamViewerSsoExclusion {
     [CmdletBinding(SupportsShouldProcess = $true)]
+
+    [OutputType([void])]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
@@ -7,7 +10,7 @@ function Add-TeamViewerSsoExclusion {
 
         [Parameter(Mandatory = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerSsoDomainId } )]
-        [Alias("Domain")]
+        [Alias('Domain')]
         [object]
         $DomainId,
 
@@ -15,7 +18,8 @@ function Add-TeamViewerSsoExclusion {
         [string[]]
         $Email
     )
-    Begin {
+
+    begin {
         $id = $DomainId | Resolve-TeamViewerSsoDomainId
         $resourceUri = "$(Get-TeamViewerApiUri)/ssoDomain/$id/exclusion"
         $emailsToAdd = @()
@@ -29,15 +33,16 @@ function Add-TeamViewerSsoExclusion {
                 -ApiToken $ApiToken `
                 -Uri $resourceUri `
                 -Method Post `
-                -ContentType "application/json; charset=utf-8" `
+                -ContentType 'application/json; charset=utf-8' `
                 -Body ([System.Text.Encoding]::UTF8.GetBytes(($body | ConvertTo-Json))) `
                 -WriteErrorTo $PSCmdlet `
                 -ErrorAction Stop | `
                 Out-Null
         }
     }
-    Process {
-        if ($PSCmdlet.ShouldProcess($Email, "Add SSO exclusion")) {
+
+    process {
+        if ($PSCmdlet.ShouldProcess($Email, 'Add SSO exclusion')) {
             $emailsToAdd += $Email
         }
         if ($emailsToAdd.Length -eq 100) {
@@ -45,7 +50,8 @@ function Add-TeamViewerSsoExclusion {
             $emailsToAdd = @()
         }
     }
-    End {
+
+    end {
         if ($emailsToAdd.Length -gt 0) {
             Invoke-RequestInternal
         }

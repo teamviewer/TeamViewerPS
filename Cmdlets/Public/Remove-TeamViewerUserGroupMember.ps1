@@ -1,5 +1,8 @@
 function Remove-TeamViewerUserGroupMember {
     [CmdletBinding(SupportsShouldProcess = $true, DefaultParameterSetName = 'ByUserGroupMemberId')]
+
+    [OutputType('TeamViewerPS.UserGroupMember')]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
@@ -29,6 +32,7 @@ function Remove-TeamViewerUserGroupMember {
         $membersToRemove = @()
         $null = $ApiToken # https://github.com/PowerShell/PSScriptAnalyzer/issues/1472
         $null = $UserGroupMember
+
         function Invoke-TeamViewerRestMethodInternal {
             Invoke-TeamViewerRestMethod `
                 -ApiToken $ApiToken `
@@ -74,6 +78,7 @@ function Remove-TeamViewerUserGroupMember {
             else {
                 $membersToRemove += Get-MemberId
             }
+
             $payload = $membersToRemove -join ', '
             $body = "[$payload]"
         }

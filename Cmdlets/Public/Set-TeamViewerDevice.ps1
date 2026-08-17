@@ -1,6 +1,8 @@
 function Set-TeamViewerDevice {
     [CmdletBinding(SupportsShouldProcess = $true, DefaultParameterSetName = 'Default')]
 
+    [OutputType([void])]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]

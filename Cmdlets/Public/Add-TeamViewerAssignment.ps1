@@ -1,6 +1,8 @@
 function Add-TeamViewerAssignment {
     [CmdletBinding(SupportsShouldProcess = $true)]
 
+    [OutputType([void])]
+
     param(
         [Parameter(Mandatory = $true)]
         [object]

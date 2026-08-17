@@ -1,6 +1,8 @@
 function Get-TeamViewerInstallationPackage {
     [CmdletBinding()]
 
+    [OutputType([string])]
+
     param()
 
     if (Test-TeamViewerInstallation) {

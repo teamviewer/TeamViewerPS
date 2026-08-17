@@ -1,6 +1,8 @@
 function Get-TeamViewerRole {
     [CmdletBinding(DefaultParameterSetName = '')]
 
+    [OutputType('System.Management.Automation.PSCustomObject', 'TeamViewerPS.Role')]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
@@ -36,4 +38,3 @@ function Get-TeamViewerRole {
         }
     }
 }
-

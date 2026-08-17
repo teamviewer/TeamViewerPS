@@ -1,5 +1,8 @@
 function Remove-TeamViewerManagedDeviceManagement {
     [CmdletBinding(SupportsShouldProcess = $true)]
+
+    [OutputType([void])]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
@@ -11,7 +14,8 @@ function Remove-TeamViewerManagedDeviceManagement {
         [object]
         $Device
     )
-    Process {
+
+    process {
         $deviceId = $Device | Resolve-TeamViewerManagedDeviceId
 
         $resourceUri = "$(Get-TeamViewerApiUri)/managed/devices/$deviceId"

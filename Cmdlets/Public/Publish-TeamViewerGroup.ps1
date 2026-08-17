@@ -1,5 +1,8 @@
 function Publish-TeamViewerGroup {
     [CmdletBinding(SupportsShouldProcess = $true)]
+
+    [OutputType([void])]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
@@ -7,19 +10,19 @@ function Publish-TeamViewerGroup {
 
         [Parameter(Mandatory = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerGroupId } )]
-        [Alias("GroupId")]
+        [Alias('GroupId')]
         [object]
         $Group,
 
         [Parameter(Mandatory = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerUserId } )]
-        [Alias("UserId")]
+        [Alias('UserId')]
         [object[]]
         $User,
 
         [Parameter()]
-        [ValidateSet("read", "readwrite")]
-        $Permissions = "read"
+        [ValidateSet('read', 'readwrite')]
+        $Permissions = 'read'
     )
 
     # Warning suppresion doesn't seem to work.
@@ -36,12 +39,12 @@ function Publish-TeamViewerGroup {
                 } })
     }
 
-    if ($PSCmdlet.ShouldProcess($userids, "Add group share")) {
+    if ($PSCmdlet.ShouldProcess($userids, 'Add group share')) {
         Invoke-TeamViewerRestMethod `
             -ApiToken $ApiToken `
             -Uri $resourceUri `
             -Method Post `
-            -ContentType "application/json; charset=utf-8" `
+            -ContentType 'application/json; charset=utf-8' `
             -Body ([System.Text.Encoding]::UTF8.GetBytes(($body | ConvertTo-Json))) `
             -WriteErrorTo $PSCmdlet | `
             Out-Null

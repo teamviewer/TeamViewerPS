@@ -1,6 +1,8 @@
 function Get-TeamViewerUserByRole {
     [CmdletBinding()]
 
+    [OutputType('TeamViewerPS.RoleAssignedUser')]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
@@ -31,5 +33,5 @@ function Get-TeamViewerUserByRole {
         }
 
         Write-Output ($response.AssignedToUsers | ConvertTo-TeamViewerRoleAssignedUser )
-    }while ($response.ContinuationToken)
+    } while ($response.ContinuationToken)
 }

@@ -1,6 +1,8 @@
 function Invoke-TeamViewerPackageDownload {
     [CmdletBinding()]
 
+    [OutputType([string])]
+
     param(
         [Parameter(Mandatory = $true)]
         [ValidateSet('Full', 'Host', 'MSI32', 'MSI64', 'Portable', 'QuickJoin', 'QuickSupport', 'Full64Bit')]

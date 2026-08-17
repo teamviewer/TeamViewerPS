@@ -1,5 +1,8 @@
 function New-TeamViewerPolicy {
     [CmdletBinding(SupportsShouldProcess = $true)]
+
+    [OutputType([void])]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
@@ -30,12 +33,12 @@ function New-TeamViewerPolicy {
     }
 
     $resourceUri = "$(Get-TeamViewerApiUri)/teamviewerpolicies"
-    if ($PSCmdlet.ShouldProcess($Name, "Create policy")) {
+    if ($PSCmdlet.ShouldProcess($Name, 'Create policy')) {
         Invoke-TeamViewerRestMethod `
             -ApiToken $ApiToken `
             -Uri $resourceUri `
             -Method Post `
-            -ContentType "application/json; charset=utf-8" `
+            -ContentType 'application/json; charset=utf-8' `
             -Body ([System.Text.Encoding]::UTF8.GetBytes(($body | ConvertTo-Json))) `
             -WriteErrorTo $PSCmdlet | `
             Out-Null

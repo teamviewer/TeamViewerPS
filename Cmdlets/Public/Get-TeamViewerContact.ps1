@@ -1,34 +1,37 @@
 function Get-TeamViewerContact {
-    [CmdletBinding(DefaultParameterSetName = "FilteredList")]
+    [CmdletBinding(DefaultParameterSetName = 'FilteredList')]
+
+    [OutputType('TeamViewerPS.Contact')]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
         $ApiToken,
 
-        [Parameter(ParameterSetName = "ByContactId")]
+        [Parameter(ParameterSetName = 'ByContactId')]
         [ValidateScript( { $_ | Resolve-TeamViewerContactId } )]
-        [Alias("ContactId")]
+        [Alias('ContactId')]
         [string]
         $Id,
 
-        [Parameter(ParameterSetName = "FilteredList")]
-        [Alias("PartialName")]
+        [Parameter(ParameterSetName = 'FilteredList')]
+        [Alias('PartialName')]
         [string]
         $Name,
 
-        [Parameter(ParameterSetName = "FilteredList")]
+        [Parameter(ParameterSetName = 'FilteredList')]
         [ValidateSet('Online', 'Busy', 'Away', 'Offline')]
         [string]
         $FilterOnlineState,
 
-        [Parameter(ParameterSetName = "FilteredList")]
+        [Parameter(ParameterSetName = 'FilteredList')]
         [ValidateScript( { $_ | Resolve-TeamViewerGroupId } )]
-        [Alias("GroupId")]
+        [Alias('GroupId')]
         [object]
         $Group
     )
 
-    $resourceUri = "$(Get-TeamViewerApiUri)/contacts";
+    $resourceUri = "$(Get-TeamViewerApiUri)/contacts"
     $parameters = @{ }
 
     switch ($PsCmdlet.ParameterSetName) {

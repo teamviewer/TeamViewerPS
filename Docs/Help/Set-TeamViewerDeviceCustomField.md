@@ -48,3 +48,9 @@ Set-TeamViewerDeviceCustomField -ApiToken $apiToken -Id $fieldId -FieldKey 'Asse
 ```
 
 Updates the custom field identified by `$fieldId` and sets its key to `AssetTag`.
+
+## OUTPUTS
+
+### TeamViewerPS.DeviceCustomField
+
+Returns the updated device custom field definition.

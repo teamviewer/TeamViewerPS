@@ -1,6 +1,8 @@
 function Invoke-TeamViewerPing {
     [CmdletBinding()]
 
+    [OutputType([bool])]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]

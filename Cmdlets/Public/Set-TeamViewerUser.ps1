@@ -1,5 +1,8 @@
 function Set-TeamViewerUser {
     [CmdletBinding(SupportsShouldProcess = $true, DefaultParameterSetName = 'ByParameters')]
+
+    [OutputType([void])]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
@@ -76,33 +79,41 @@ function Set-TeamViewerUser {
     )
 
     $body = @{}
+
     switch ($PSCmdlet.ParameterSetName) {
         'ByParameters' {
             if ($PSBoundParameters.ContainsKey('Active')) {
                 $body['active'] = $Active
             }
+
             if ($Email) {
                 $body['email'] = $Email
             }
+
             if ($Name) {
                 $body['name'] = $Name
             }
+
             if ($Password) {
                 $bstr = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($Password)
                 $body['password'] = [System.Runtime.InteropServices.Marshal]::PtrToStringBSTR($bstr)
                 [System.Runtime.InteropServices.Marshal]::ZeroFreeBSTR($bstr) | Out-Null
             }
+
             if ($SsoCustomerIdentifier) {
                 $bstr = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($SsoCustomerIdentifier)
                 $body['sso_customer_id'] = [System.Runtime.InteropServices.Marshal]::PtrToStringBSTR($bstr)
                 [System.Runtime.InteropServices.Marshal]::ZeroFreeBSTR($bstr) | Out-Null
             }
+
             if ($AssignRoleId) {
                 $body['assignUserRoleIds'] = @($AssignRoleId)
             }
+
             if ($UnassignRoleId) {
                 $body['unassignUserRoleIds'] = @($UnassignRoleId)
             }
+
             if ($PSBoundParameters.ContainsKey('LogSessions')) {
                 $body['log_sessions'] = $LogSessions
             }

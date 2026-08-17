@@ -1,6 +1,8 @@
 function Get-TeamViewerEventLog {
     [CmdletBinding(DefaultParameterSetName = 'RelativeDates')]
 
+    [OutputType('TeamViewerPS.AuditEvent')]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
@@ -149,18 +151,18 @@ function Get-TeamViewerEventLog {
     $resourceUri = "$(Get-TeamViewerApiUri)/EventLogging"
 
     $Limit = if ($Limit -lt 0) {
-        $null 
+        $null
     }
     else {
-        $Limit 
+        $Limit
     }
 
     if ($PSCmdlet.ParameterSetName -eq 'RelativeDates') {
         $Hours = if (!$Months -and !$Days -and !$Hours -and !$Minutes) {
-            1 
+            1
         }
         else {
-            $Hours 
+            $Hours
         }
         $StartDate = $EndDate.AddMonths(-1 * $Months).AddDays(-1 * $Days).AddHours(-1 * $Hours).AddMinutes(-1 * $Minutes)
     }
@@ -173,20 +175,25 @@ function Get-TeamViewerEventLog {
     if ($EventNames) {
         $parameters.EventNames = $EventNames
     }
+
     if ($EventTypes) {
         $parameters.EventTypes = $EventTypes
     }
+
     if ($AccountEmails) {
         $parameters.AccountEmails = @($AccountEmails | Resolve-TeamViewerUserEmail)
     }
+
     if ($AffectedItem) {
         $parameters.AffectedItem = $AffectedItem
     }
+
     if ($RemoteControlSessionId) {
         $parameters.RCSessionGuid = $RemoteControlSessionId
     }
 
     $remaining = $Limit
+
     do {
         $response = Invoke-TeamViewerRestMethod `
             -ApiToken $ApiToken `
@@ -197,6 +204,7 @@ function Get-TeamViewerEventLog {
             -WriteErrorTo $PSCmdlet `
             -ErrorAction Stop
         $results = ($response.AuditEvents | ConvertTo-TeamViewerAuditEvent)
+
         if ($Limit) {
             Write-Output ($results | Select-Object -First $remaining)
             $remaining = $remaining - @($results).Count

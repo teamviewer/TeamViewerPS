@@ -1,6 +1,8 @@
 function Get-TeamViewerAccount {
     [CmdletBinding()]
 
+    [OutputType('TeamViewerPS.Account')]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]

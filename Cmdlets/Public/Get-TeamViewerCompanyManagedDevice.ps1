@@ -1,6 +1,8 @@
 function Get-TeamViewerCompanyManagedDevice {
     [CmdletBinding()]
 
+    [OutputType('TeamViewerPS.ManagedDevice')]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]

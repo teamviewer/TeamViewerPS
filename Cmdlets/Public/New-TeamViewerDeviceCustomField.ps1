@@ -1,6 +1,8 @@
 function New-TeamViewerDeviceCustomField {
     [CmdletBinding(SupportsShouldProcess = $true)]
 
+    [OutputType('TeamViewerPS.DeviceCustomField')]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]

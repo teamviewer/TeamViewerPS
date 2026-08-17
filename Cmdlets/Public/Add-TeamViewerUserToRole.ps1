@@ -1,5 +1,8 @@
 function Add-TeamViewerUserToRole {
     [CmdletBinding(SupportsShouldProcess = $true)]
+
+    [OutputType([pscustomobject])]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
@@ -17,7 +20,7 @@ function Add-TeamViewerUserToRole {
         $Accounts
     )
 
-    Begin {
+    begin {
         $id = $RoleId | Resolve-TeamViewerRoleId
         $null = $ApiToken
         $resourceUri = "$(Get-TeamViewerApiUri)/userroles/assign/account"
@@ -26,6 +29,7 @@ function Add-TeamViewerUserToRole {
             UserIds    = @()
             UserRoleId = $id
         }
+
         function Invoke-TeamViewerRestMethodInternal {
             $result = Invoke-TeamViewerRestMethod `
                 -ApiToken $ApiToken `
@@ -35,12 +39,13 @@ function Add-TeamViewerUserToRole {
                 -Body ([System.Text.Encoding]::UTF8.GetBytes(($body | ConvertTo-Json))) `
                 -WriteErrorTo $PSCmdlet `
                 -ErrorAction Stop
+
             Write-Output ($result)
         }
     }
 
 
-    Process {
+    process {
         if ($PSCmdlet.ShouldProcess($Accounts, 'Assign Account to Role')) {
             if (($Accounts -notmatch 'u[0-9]+') -and ($Accounts -match '[0-9]+')) {
                 $Accounts = $Accounts | ForEach-Object { $_.Insert(0, 'u') }
@@ -55,7 +60,7 @@ function Add-TeamViewerUserToRole {
             $AccountsToAdd = @()
         }
     }
-    End {
+    end {
         if ($AccountsToAdd.Length -gt 0) {
             Invoke-TeamViewerRestMethodInternal
         }

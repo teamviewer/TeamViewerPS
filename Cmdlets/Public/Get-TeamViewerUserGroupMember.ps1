@@ -1,5 +1,8 @@
 function Get-TeamViewerUserGroupMember {
     [CmdletBinding()]
+
+    [OutputType('TeamViewerPS.UserGroupMember')]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
@@ -7,19 +10,19 @@ function Get-TeamViewerUserGroupMember {
 
         [Parameter(Mandatory = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerUserGroupId } )]
-        [Alias("UserGroupId")]
-        [Alias("Id")]
+        [Alias('UserGroupId')]
+        [Alias('Id')]
         [object]
         $UserGroup
     )
 
-    Begin {
+    begin {
         $id = $UserGroup | Resolve-TeamViewerUserGroupId
         $resourceUri = "$(Get-TeamViewerApiUri)/usergroups/$id/members"
         $parameters = @{ }
     }
 
-    Process {
+    process {
         do {
             $response = Invoke-TeamViewerRestMethod `
                 -ApiToken $ApiToken `

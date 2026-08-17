@@ -1,6 +1,8 @@
 function Get-TeamViewerLicense {
     [CmdletBinding()]
 
+    [OutputType('TeamViewerPS.License')]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]

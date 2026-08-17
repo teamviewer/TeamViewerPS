@@ -1,30 +1,33 @@
 function Get-TeamViewerManagedDevice {
-    [CmdletBinding(DefaultParameterSetName = "List")]
+    [CmdletBinding(DefaultParameterSetName = 'List')]
+
+    [OutputType('TeamViewerPS.ManagedDevice')]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
         $ApiToken,
 
-        [Parameter(ParameterSetName = "ByDeviceId")]
+        [Parameter(ParameterSetName = 'ByDeviceId')]
         [ValidateScript( { $_ | Resolve-TeamViewerManagedDeviceId } )]
-        [Alias("DeviceId")]
-        [Alias("Device")]
+        [Alias('DeviceId')]
+        [Alias('Device')]
         [guid]
         $Id,
 
-        [Parameter(Mandatory = $true, ParameterSetName = "ListGroup")]
+        [Parameter(Mandatory = $true, ParameterSetName = 'ListGroup')]
         [ValidateScript( { $_ | Resolve-TeamViewerManagedGroupId } )]
-        [Alias("GroupId")]
+        [Alias('GroupId')]
         [object]
         $Group,
 
-        [Parameter(ParameterSetName = "ListGroup")]
+        [Parameter(ParameterSetName = 'ListGroup')]
         [switch]
         $Pending
     )
 
     # default is 'List':
-    $resourceUri = "$(Get-TeamViewerApiUri)/managed/devices";
+    $resourceUri = "$(Get-TeamViewerApiUri)/managed/devices"
     $parameters = @{ }
     $isListOperation = $true
 
@@ -36,7 +39,7 @@ function Get-TeamViewerManagedDevice {
         }
         'ListGroup' {
             $groupId = $Group | Resolve-TeamViewerManagedGroupId
-            $resourceUri = "$(Get-TeamViewerApiUri)/managed/groups/$groupId/$(if ($Pending) { "pending-" })devices"
+            $resourceUri = "$(Get-TeamViewerApiUri)/managed/groups/$groupId/$(if ($Pending) { 'pending-' })devices"
         }
     }
 
@@ -49,12 +52,12 @@ function Get-TeamViewerManagedDevice {
             -WriteErrorTo $PSCmdlet `
             -ErrorAction Stop
 
-        if ($PsCmdlet.ParameterSetName -Eq 'ByDeviceId') {
+        if ($PsCmdlet.ParameterSetName -eq 'ByDeviceId') {
             Write-Output ($response | ConvertTo-TeamViewerManagedDevice)
         }
         else {
             $parameters.paginationToken = $response.nextPaginationToken
             Write-Output ($response.resources | ConvertTo-TeamViewerManagedDevice)
         }
-    } while ($isListOperation -And $parameters.paginationToken)
+    } while ($isListOperation -and $parameters.paginationToken)
 }

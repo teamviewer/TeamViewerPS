@@ -1,5 +1,8 @@
 function Remove-TeamViewerUserTFA {
     [CmdletBinding(SupportsShouldProcess = $true)]
+
+    [OutputType([void])]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
@@ -12,7 +15,8 @@ function Remove-TeamViewerUserTFA {
         [object]
         $User
     )
-    Process {
+
+    process {
         $userId = $User | Resolve-TeamViewerUserId
         $resourceUri = "$(Get-TeamViewerApiUri)/users/$userId/tfa"
 

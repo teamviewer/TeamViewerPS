@@ -1,5 +1,8 @@
 function Set-TeamViewerCompany {
     [CmdletBinding(SupportsShouldProcess = $true, DefaultParameterSetName = 'ByParameters')]
+
+    [OutputType([void])]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
@@ -17,6 +20,7 @@ function Set-TeamViewerCompany {
     $null = $Property
 
     $body = @{}
+
     switch ($PSCmdlet.ParameterSetName) {
         'ByParameters' {
             if ($Name) {

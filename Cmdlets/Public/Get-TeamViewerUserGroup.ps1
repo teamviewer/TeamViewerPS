@@ -1,6 +1,8 @@
 function Get-TeamViewerUserGroup {
     [CmdletBinding()]
 
+    [OutputType('TeamViewerPS.UserGroup')]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]

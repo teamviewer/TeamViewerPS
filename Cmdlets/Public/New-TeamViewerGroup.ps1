@@ -1,5 +1,7 @@
 function New-TeamViewerGroup {
     [CmdletBinding(SupportsShouldProcess = $true)]
+
+    [OutputType('TeamViewerPS.Group')]
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
@@ -11,23 +13,25 @@ function New-TeamViewerGroup {
 
         [Parameter()]
         [ValidateScript( { $_ | Resolve-TeamViewerPolicyId } )]
-        [Alias("PolicyId")]
+        [Alias('PolicyId')]
         [object]
         $Policy
     )
 
     $body = @{ name = $Name }
+
     if ($Policy) {
-        $body["policy_id"] = $Policy | Resolve-TeamViewerPolicyId
+        $body['policy_id'] = $Policy | Resolve-TeamViewerPolicyId
     }
 
     $resourceUri = "$(Get-TeamViewerApiUri)/groups"
-    if ($PSCmdlet.ShouldProcess($Name, "Create group")) {
+
+    if ($PSCmdlet.ShouldProcess($Name, 'Create group')) {
         $response = Invoke-TeamViewerRestMethod `
             -ApiToken $ApiToken `
             -Uri $resourceUri `
             -Method Post `
-            -ContentType "application/json; charset=utf-8" `
+            -ContentType 'application/json; charset=utf-8' `
             -Body ([System.Text.Encoding]::UTF8.GetBytes(($body | ConvertTo-Json))) `
             -WriteErrorTo $PSCmdlet `
             -ErrorAction Stop

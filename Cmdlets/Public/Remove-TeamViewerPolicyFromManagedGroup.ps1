@@ -1,5 +1,8 @@
 function Remove-TeamviewerPolicyFromManagedGroup {
     [CmdletBinding(SupportsShouldProcess = $true)]
+
+    [OutputType([void])]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
@@ -15,12 +18,14 @@ function Remove-TeamviewerPolicyFromManagedGroup {
         [PolicyType]
         $PolicyType
     )
-    Begin {
+
+    begin {
         $body = @{
             'policy_type' = [int]$PolicyType
         }
     }
-    Process {
+
+    process {
         $groupId = $Group | Resolve-TeamViewerManagedGroupId
         $resourceUri = "$(Get-TeamViewerApiUri)/managed/groups/$groupId/policy/remove"
 
