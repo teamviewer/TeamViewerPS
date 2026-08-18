@@ -7,22 +7,22 @@ BeforeAll {
 
 Describe 'Resolve-TeamViewerSsoDomainId' {
     It 'Returns guid from TeamViewerPS.SsoDomain object' {
-        $id = [guid]::NewGuid()
-        $domain = [pscustomobject]@{ Id = $id }
+        $Id = [guid]::NewGuid()
+        $domain = [pscustomobject]@{ Id = $Id }
         $domain.PSObject.TypeNames.Insert(0, 'TeamViewerPS.SsoDomain')
 
         Resolve-TeamViewerSsoDomainId -Domain $domain | Should -Be $id
     }
 
     It 'Converts guid string to guid' {
-        $id = [guid]::NewGuid()
+        $Id = [guid]::NewGuid()
 
         Resolve-TeamViewerSsoDomainId -Domain $id.ToString() | Should -Be $id
     }
 
     It 'Returns guid input unchanged' {
-        $id = [guid]::NewGuid()
+        $Id = [guid]::NewGuid()
 
-        Resolve-TeamViewerSsoDomainId -Domain $id | Should -Be $id
+        Resolve-TeamViewerSsoDomainId -Domain $Id | Should -Be $id
     }
 }

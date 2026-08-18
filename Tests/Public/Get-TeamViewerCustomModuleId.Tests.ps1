@@ -22,8 +22,8 @@ Describe 'Get-TeamViewerCustomModuleId' {
 
         It 'Should return the custom module ID' {
             $expectedId = 'customModuleId'
-            $result = Get-TeamViewerCustomModuleId
-            $result | Should -Be $expectedId
+            $Result = Get-TeamViewerCustomModuleId
+            $Result | Should -Be $expectedId
         }
     }
 
@@ -35,9 +35,10 @@ Describe 'Get-TeamViewerCustomModuleId' {
         }
 
         It 'Should write a verbose message' {
-            $result = Get-TeamViewerCustomModuleId
+            $Result = Get-TeamViewerCustomModuleId
 
-            $result | Should -BeNullOrEmpty
+            $Result | Should -BeNullOrEmpty
+
             Should -Invoke Write-Verbose -Scope It -Times 1 -ParameterFilter {
                 $Message -eq 'TeamViewer is not installed!'
             }
@@ -54,11 +55,12 @@ Describe 'Get-TeamViewerCustomModuleId' {
         }
 
         It 'Should write a verbose failure message' {
-            $result = Get-TeamViewerCustomModuleId
+            $Result = Get-TeamViewerCustomModuleId
 
-            $result | Should -BeNullOrEmpty
+            $Result | Should -BeNullOrEmpty
+
             Should -Invoke Write-Verbose -Scope It -Times 1 -ParameterFilter {
-                $Message -like "Failed to read the custom module ID from*invalid JSON"
+                $Message -like 'Failed to read the custom module ID from*invalid JSON'
             }
         }
     }

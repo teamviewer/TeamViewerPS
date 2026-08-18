@@ -6,13 +6,13 @@ function ConvertTo-TeamViewerRoleAssignedUserGroup {
     )
 
     process {
-        $properties = @{
+        $Properties = @{
             AssignedGroups = ($InputObject)
         }
 
-        $result = New-Object -TypeName PSObject -Property $properties
-        $result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.UserGroupAssignedRole')
+        $Result = New-Object -TypeName PSObject -Property $Properties
+        $Result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.UserGroupAssignedRole')
 
-        Write-Output $result
+        Write-Output $Result
     }
 }

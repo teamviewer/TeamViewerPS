@@ -17,58 +17,58 @@ BeforeAll {
 }
 
 Describe 'Get-TeamViewerUser' {
-
     It 'Should call the correct API endpoint to list users' {
         Get-TeamViewerUser -ApiToken $testApiToken
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -And $Uri -eq '//unit.test/users' -And $Method -eq 'Get' }
+            $ApiToken -eq $testApiToken -and $Uri -eq '//unit.test/users' -and $Method -eq 'Get' }
     }
 
     It 'Should call the correct API endpoint for single user' {
         Get-TeamViewerUser -ApiToken $testApiToken -User 'u1234'
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -And $Uri -eq '//unit.test/users/u1234' -And $Method -eq 'Get' }
+            $ApiToken -eq $testApiToken -and $Uri -eq '//unit.test/users/u1234' -and $Method -eq 'Get' }
     }
 
     It 'Should return User objects' {
-        $result = Get-TeamViewerUser -ApiToken $testApiToken
-        $result | Should -HaveCount 3
-        $result[0].PSObject.TypeNames | Should -Contain 'TeamViewerPS.User'
+        $Result = Get-TeamViewerUser -ApiToken $testApiToken
+        $Result | Should -HaveCount 3
+        $Result[0].PSObject.TypeNames | Should -Contain 'TeamViewerPS.User'
     }
 
     It 'Should allow to filter by name' {
         Get-TeamViewerUser -ApiToken $testApiToken -Name 'TestName'
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $Body -And $Body['name'] -eq 'TestName' }
+            $Body -and $Body['name'] -eq 'TestName' }
     }
 
     It 'Should allow to filter by emails' {
         Get-TeamViewerUser -ApiToken $testApiToken -Email 'user1@unit.test', 'user2@unit.test'
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $Body -And $Body['email'] -eq 'user1@unit.test,user2@unit.test' }
+            $Body -and $Body['email'] -eq 'user1@unit.test,user2@unit.test' }
     }
 
     It 'Should allow to filter by permissions' {
         Get-TeamViewerUser -ApiToken $testApiToken -Permissions 'p1', 'p2', 'p3'
+
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $Body -And $Body['permissions'] -eq 'p1,p2,p3' }
+            $Body -and $Body['permissions'] -eq 'p1,p2,p3' }
     }
 
     It 'Should allow to retrieve all properties' {
         Get-TeamViewerUser -ApiToken $testApiToken -PropertiesToLoad 'All'
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $Body -And $Body['full_list'] -eq $true }
+            $Body -and $Body['full_list'] -eq $true }
     }
 
     It 'Should allow to retrieve a minimal set of properties' {
         Get-TeamViewerUser -ApiToken $testApiToken -PropertiesToLoad 'Minimal'
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $Body -And $Body['full_list'] -eq $null }
+            $Body -and $Body['full_list'] -eq $null }
     }
 }

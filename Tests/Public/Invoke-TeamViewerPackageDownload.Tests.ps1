@@ -11,9 +11,9 @@ Describe 'Invoke-TeamViewerPackageDownload' {
     It 'Should download the selected package' {
         Mock Invoke-WebRequest { }
 
-        $result = Invoke-TeamViewerPackageDownload -PackageType Full -TargetDirectory $testTargetDirectory
+        $Result = Invoke-TeamViewerPackageDownload -PackageType Full -TargetDirectory $testTargetDirectory
 
-        $result | Should -Be (Join-Path $testTargetDirectory 'TeamViewer_Setup.exe')
+        $Result | Should -Be (Join-Path $testTargetDirectory 'TeamViewer_Setup.exe')
 
         Should -Invoke Invoke-WebRequest -Times 1 -Scope It -ParameterFilter {
             $Uri -eq 'https://dl.teamviewer.com/download/TeamViewer_Setup.exe' -and
@@ -27,9 +27,9 @@ Describe 'Invoke-TeamViewerPackageDownload' {
         Mock Invoke-WebRequest { throw 'download failed' }
         Mock Write-Verbose { }
 
-        $result = Invoke-TeamViewerPackageDownload -PackageType Full -TargetDirectory $testTargetDirectory
+        $Result = Invoke-TeamViewerPackageDownload -PackageType Full -TargetDirectory $testTargetDirectory
 
-        $result | Should -BeNullOrEmpty
+        $Result | Should -BeNullOrEmpty
 
         Should -Invoke Write-Verbose -Times 1 -Scope It -ParameterFilter {
             $Message -like "Failed to download TeamViewer package to '$testTargetDirectory\TeamViewer_Setup.exe':*"
@@ -41,9 +41,9 @@ Describe 'Invoke-TeamViewerPackageDownload' {
 
         Mock Invoke-WebRequest { }
 
-        $result = Invoke-TeamViewerPackageDownload -PackageType Full -TargetDirectory $testTargetDirectory
+        $Result = Invoke-TeamViewerPackageDownload -PackageType Full -TargetDirectory $testTargetDirectory
 
-        $result | Should -BeNullOrEmpty
+        $Result | Should -BeNullOrEmpty
 
         Should -Invoke Invoke-WebRequest -Times 0 -Scope It
     }

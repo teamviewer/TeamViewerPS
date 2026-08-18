@@ -6,7 +6,7 @@ function ConvertTo-TeamViewerAccount {
     )
 
     process {
-        $properties = @{
+        $Properties = @{
             Name             = $InputObject.name
             Email            = $InputObject.email
             UserId           = $InputObject.userid
@@ -16,15 +16,15 @@ function ConvertTo-TeamViewerAccount {
         }
 
         if ($InputObject.email_language -and $InputObject.email_language -ne 'auto') {
-            $properties['EmailLanguage'] = [System.Globalization.CultureInfo]($InputObject.email_language)
+            $Properties['EmailLanguage'] = [System.Globalization.CultureInfo]($InputObject.email_language)
         }
 
-        $result = New-Object -TypeName PSObject -Property $properties
-        $result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.Account')
-        $result | Add-Member -MemberType ScriptMethod -Name 'ToString' -Force -Value {
+        $Result = New-Object -TypeName PSObject -Property $Properties
+        $Result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.Account')
+        $Result | Add-Member -MemberType ScriptMethod -Name 'ToString' -Force -Value {
             "$($this.Name) <$($this.Email)>"
         }
 
-        Write-Output $result
+        Write-Output $Result
     }
 }

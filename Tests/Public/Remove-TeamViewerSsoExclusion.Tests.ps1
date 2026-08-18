@@ -1,8 +1,7 @@
 BeforeAll {
     . "$PSScriptRoot\..\..\Cmdlets\Public\Remove-TeamViewerSsoExclusion.ps1"
 
-    @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | `
-        ForEach-Object { . $_.FullName }
+    @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
 
     $testApiToken = [securestring]@{}
     $null = $testApiToken
@@ -16,58 +15,46 @@ BeforeAll {
 
 Describe 'Remove-TeamViewerSsoExclusion' {
     It 'Should call the correct API endpoint' {
-        Remove-TeamViewerSsoExclusion `
-            -ApiToken $testApiToken `
-            -DomainId $testDomainId `
-            -Email 'foo@example.test'
+        Remove-TeamViewerSsoExclusion -ApiToken $testApiToken -DomainId $testDomainId -Email 'foo@example.test'
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -And `
-                $Uri -eq "//unit.test/ssoDomain/$testDomainId/exclusion" -And `
-                $Method -eq 'Delete' }
+            $ApiToken -eq $testApiToken -and $Uri -eq "//unit.test/ssoDomain/$testDomainId/exclusion" -and $Method -eq 'Delete' }
     }
 
     It 'Should remove the given emails from the exclusion list' {
-        Remove-TeamViewerSsoExclusion `
-            -ApiToken $testApiToken `
-            -DomainId $testDomainId `
-            -Email 'foo@example.test', 'bar@example.test'
+        Remove-TeamViewerSsoExclusion -ApiToken $testApiToken -DomainId $testDomainId -Email 'foo@example.test', 'bar@example.test'
         $mockArgs.Body | Should -Not -BeNullOrEmpty
-        $body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
-        $body.emails | Should -Contain 'foo@example.test'
-        $body.emails | Should -Contain 'bar@example.test'
+        $Body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
+        $Body.emails | Should -Contain 'foo@example.test'
+        $Body.emails | Should -Contain 'bar@example.test'
     }
 
     It 'Should accept pipeline input' {
-        @('foo@example.test', 'bar@example.test') | Remove-TeamViewerSsoExclusion `
-            -ApiToken $testApiToken `
-            -DomainId $testDomainId
+        @('foo@example.test', 'bar@example.test') | Remove-TeamViewerSsoExclusion -ApiToken $testApiToken -DomainId $testDomainId
         $mockArgs.Body | Should -Not -BeNullOrEmpty
-        $body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
-        $body.emails | Should -Contain 'foo@example.test'
-        $body.emails | Should -Contain 'bar@example.test'
+        $Body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
+        $Body.emails | Should -Contain 'foo@example.test'
+        $Body.emails | Should -Contain 'bar@example.test'
     }
 
     It 'Should handle domain objects as input' {
         $testDomain = @{DomainId = $testDomainId; DomainName = 'test managed group' } | ConvertTo-TeamViewerSsoDomain
-        Remove-TeamViewerSsoExclusion `
-            -ApiToken $testApiToken `
-            -Domain $testDomain `
-            -Email 'foo@example.test'
+
+        Remove-TeamViewerSsoExclusion -ApiToken $testApiToken -Domain $testDomain -Email 'foo@example.test'
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -And `
-                $Uri -eq "//unit.test/ssoDomain/$testDomainId/exclusion" -And `
-                $Method -eq 'Delete' }
+            $ApiToken -eq $testApiToken -and $Uri -eq "//unit.test/ssoDomain/$testDomainId/exclusion" -and $Method -eq 'Delete' }
     }
 
     It 'Should create bulks' {
         $testAddresses = @()
+
         1..250 | ForEach-Object { $testAddresses += "foo$_@example.test" }
         $testAddresses | Remove-TeamViewerSsoExclusion `
-            -ApiToken $testApiToken `
-            -DomainId $testDomainId
+            -ApiToken $testApiToken -DomainId $testDomainId
+
         Should -Invoke Invoke-TeamViewerRestMethod -Times 3 -Scope It
+
         $mockArgs.Body | Should -Not -BeNullOrEmpty
-        $body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
-        $body.emails | Should -HaveCount 50
+        $Body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
+        $Body.emails | Should -HaveCount 50
     }
 }

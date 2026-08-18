@@ -1,8 +1,7 @@
 BeforeAll {
     . "$PSScriptRoot\..\..\Cmdlets\Public\New-TeamViewerUser.ps1"
 
-    @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | `
-        ForEach-Object { . $_.FullName }
+    @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
 
     $testApiToken = [securestring]@{}
     $null = $testApiToken
@@ -15,37 +14,36 @@ BeforeAll {
         # We do this only for testing
         [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingConvertToSecureStringWithPlainText', '')]
         param()
-        Process {
+        process {
             $_ | ConvertTo-SecureString -AsPlainText -Force
         }
     }
 }
 
 Describe 'New-TeamViewerUser' {
-
     It 'Should call the correct API endpoint' {
         New-TeamViewerUser -ApiToken $testApiToken -Name 'Unit Test User' -Email 'user1@unit.test' -WithoutPassword
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -And $Uri -eq '//unit.test/users' -And $Method -eq 'Post' }
+            $ApiToken -eq $testApiToken -and $Uri -eq '//unit.test/users' -and $Method -eq 'Post' }
     }
 
     It 'Should include the given name and email in the request' {
         New-TeamViewerUser -ApiToken $testApiToken -Name 'Unit Test User' -Email 'user1@unit.test' -WithoutPassword
 
         $mockArgs.Body | Should -Not -BeNullOrEmpty
-        $body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
-        $body.name | Should -Be 'Unit Test User'
-        $body.email | Should -Be 'user1@unit.test'
+        $Body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
+        $Body.name | Should -Be 'Unit Test User'
+        $Body.email | Should -Be 'user1@unit.test'
     }
 
     It 'Should return the new user object' {
-        $result = New-TeamViewerUser -ApiToken $testApiToken -Name 'Unit Test User' -Email 'user1@unit.test' -WithoutPassword
+        $Result = New-TeamViewerUser -ApiToken $testApiToken -Name 'Unit Test User' -Email 'user1@unit.test' -WithoutPassword
 
-        $result | Should -Not -BeNullOrEmpty
-        $result.PSObject.TypeNames | Should -Contain 'TeamViewerPS.User'
-        $result.id | Should -Be 'u1234'
-        $result.email | Should -Be 'user1@unit.test'
+        $Result | Should -Not -BeNullOrEmpty
+        $Result.PSObject.TypeNames | Should -Contain 'TeamViewerPS.User'
+        $Result.id | Should -Be 'u1234'
+        $Result.email | Should -Be 'user1@unit.test'
     }
 
     It 'Should use the TeamViewer language name for the given culture-info <inputCulture>' -TestCases @(
@@ -58,8 +56,8 @@ Describe 'New-TeamViewerUser' {
         New-TeamViewerUser -ApiToken $testApiToken -Name 'Unit Test User' -Email 'user1@unit.test' -Culture $inputCulture -WithoutPassword
 
         $mockArgs.Body | Should -Not -BeNullOrEmpty
-        $body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
-        $body.language | Should -Be $expected
+        $Body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
+        $Body.language | Should -Be $expected
     }
 
     It 'Should allow to specify a password for the new user' {
@@ -68,8 +66,8 @@ Describe 'New-TeamViewerUser' {
         New-TeamViewerUser -ApiToken $testApiToken -Name 'Unit Test User' -Email 'user1@unit.test' -Password $testPassword
 
         $mockArgs.Body | Should -Not -BeNullOrEmpty
-        $body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
-        $body.password | Should -Be 'Test1234'
+        $Body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
+        $Body.password | Should -Be 'Test1234'
     }
 
     It 'Should allow to create a SSO-enabled user' {
@@ -78,8 +76,8 @@ Describe 'New-TeamViewerUser' {
         New-TeamViewerUser -ApiToken $testApiToken -Name 'Unit Test User' -Email 'user1@unit.test' -WithoutPassword -SsoCustomerIdentifier $testSsoCustomerId
 
         $mockArgs.Body | Should -Not -BeNullOrEmpty
-        $body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
-        $body.sso_customer_id | Should -Be 'my-sso-customer-id'
+        $Body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
+        $Body.sso_customer_id | Should -Be 'my-sso-customer-id'
     }
 
     It 'Should allow to create a user with all attributes using -WithoutPassword' {
@@ -109,23 +107,21 @@ Describe 'New-TeamViewerUser' {
 
         $mockArgs.Body | Should -Not -BeNullOrEmpty
 
-        $body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
+        $Body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
 
-        $body.email | Should -Be 'user1@unit.test'
-        $body.name | Should -Be 'Unit Test User'
-        $body.sso_customer_id | Should -Be 'my-sso-customer-id'
-        $body.language | Should -Be 'en'
-        $body.userRoleId | Should -Contain '00000000-0000-0000-0000-000000000000'
-        $body.active | Should -Be $true
-        $body.log_sessions | Should -Be $true
-        $body.show_comment_window | Should -Be $true
-        $body.subscribe_newsletter | Should -Be $true
-        $body.custom_quicksupport_id | Should -Be 'quick-support-id'
-        $body.custom_quickjoin_id | Should -Be 'quick-join-id'
-        $body.license_key | Should -Be 'license-key'
-        $body.meeting_license_key | Should -Be 'meeting-license-key'
-        $body.ignorePredefinedRole | Should -Be $true
+        $Body.email | Should -Be 'user1@unit.test'
+        $Body.name | Should -Be 'Unit Test User'
+        $Body.sso_customer_id | Should -Be 'my-sso-customer-id'
+        $Body.language | Should -Be 'en'
+        $Body.userRoleId | Should -Contain '00000000-0000-0000-0000-000000000000'
+        $Body.active | Should -Be $true
+        $Body.log_sessions | Should -Be $true
+        $Body.show_comment_window | Should -Be $true
+        $Body.subscribe_newsletter | Should -Be $true
+        $Body.custom_quicksupport_id | Should -Be 'quick-support-id'
+        $Body.custom_quickjoin_id | Should -Be 'quick-join-id'
+        $Body.license_key | Should -Be 'license-key'
+        $Body.meeting_license_key | Should -Be 'meeting-license-key'
+        $Body.ignorePredefinedRole | Should -Be $true
     }
-
-
 }

@@ -1,8 +1,7 @@
 BeforeAll {
     . "$PSScriptRoot\..\..\Cmdlets\Public\Remove-TeamViewerManagedDeviceManagement.ps1"
 
-    @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | `
-        ForEach-Object { . $_.FullName }
+    @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
 
     $testApiToken = [securestring]@{}
     $null = $testApiToken
@@ -18,19 +17,16 @@ Describe 'Remove-TeamViewerManagedDeviceManagement' {
         Remove-TeamViewerManagedDeviceManagement -ApiToken $testApiToken -DeviceId $testDeviceId
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -And `
-                $Uri -eq "//unit.test/managed/devices/$testDeviceId" -And `
-                $Method -eq 'Delete' }
+            $ApiToken -eq $testApiToken -and $Uri -eq "//unit.test/managed/devices/$testDeviceId" -and $Method -eq 'Delete' }
     }
 
     It 'Should accept ManagedDevice objects' {
         $testDeviceObj = @{ id = $testDeviceId } | ConvertTo-TeamViewerManagedDevice
+
         Remove-TeamViewerManagedDeviceManagement -ApiToken $testApiToken -Device $testDeviceObj
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -And `
-                $Uri -eq "//unit.test/managed/devices/$testDeviceId" -And `
-                $Method -eq 'Delete' }
+            $ApiToken -eq $testApiToken -and $Uri -eq "//unit.test/managed/devices/$testDeviceId" -and $Method -eq 'Delete' }
     }
 
     It 'Should accept pipeline input' {
@@ -38,8 +34,6 @@ Describe 'Remove-TeamViewerManagedDeviceManagement' {
         $testDeviceObj | Remove-TeamViewerManagedDeviceManagement -ApiToken $testApiToken
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -And `
-                $Uri -eq "//unit.test/managed/devices/$testDeviceId" -And `
-                $Method -eq 'Delete' }
+            $ApiToken -eq $testApiToken -and $Uri -eq "//unit.test/managed/devices/$testDeviceId" -and $Method -eq 'Delete' }
     }
 }

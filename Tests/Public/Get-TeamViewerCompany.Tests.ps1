@@ -1,8 +1,7 @@
 BeforeAll {
     . "$PSScriptRoot\..\..\Cmdlets\Public\Get-TeamViewerCompany.ps1"
 
-    @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | `
-        ForEach-Object { . $_.FullName }
+    @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
 
     $testApiToken = [securestring]@{}
     $null = $testApiToken
@@ -21,17 +20,15 @@ Describe 'Get-TeamViewerCompany' {
         Get-TeamViewerCompany -ApiToken $testApiToken
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -and `
-                $Uri -eq '//unit.test/company' -and `
-                $Method -eq 'Get' }
+            $ApiToken -eq $testApiToken -and $Uri -eq '//unit.test/company' -and $Method -eq 'Get' }
     }
 
     It 'Should return Company object' {
-        $result = Get-TeamViewerCompany -ApiToken $testApiToken
-        $result | Should -Not -BeNullOrEmpty
-        $result.PSObject.TypeNames | Should -Contain 'TeamViewerPS.Company'
-        $result.CompanyId | Should -Be 42
-        $result.CompanyName | Should -Be 'TeamViewer Germany GmbH'
-        $result.ToString() | Should -Be 'TeamViewer Germany GmbH'
+        $Result = Get-TeamViewerCompany -ApiToken $testApiToken
+        $Result | Should -Not -BeNullOrEmpty
+        $Result.PSObject.TypeNames | Should -Contain 'TeamViewerPS.Company'
+        $Result.CompanyId | Should -Be 42
+        $Result.CompanyName | Should -Be 'TeamViewer Germany GmbH'
+        $Result.ToString() | Should -Be 'TeamViewer Germany GmbH'
     }
 }

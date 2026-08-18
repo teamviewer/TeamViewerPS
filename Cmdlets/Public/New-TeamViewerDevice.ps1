@@ -33,38 +33,37 @@ function New-TeamViewerDevice {
         $Password
     )
 
-    $body = @{
+    $Body = @{
         remotecontrol_id = "r$TeamViewerId"
         groupid          = $Group | Resolve-TeamViewerGroupId
     }
 
     if ($Name) {
-        $body['alias'] = $Name
+        $Body['alias'] = $Name
     }
 
     if ($Description) {
-        $body['description'] = $Description
+        $Body['description'] = $Description
     }
 
     if ($Password) {
         $bstr = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($Password)
-        $body['password'] = [System.Runtime.InteropServices.Marshal]::PtrToStringBSTR($bstr)
+        $Body['password'] = [System.Runtime.InteropServices.Marshal]::PtrToStringBSTR($bstr)
         [System.Runtime.InteropServices.Marshal]::ZeroFreeBSTR($bstr) | Out-Null
     }
 
-    $resourceUri = "$(Get-TeamViewerApiUri)/devices"
+    $ResourceUri = "$(Get-TeamViewerApiUri)/devices"
+
     if ($PSCmdlet.ShouldProcess($TeamViewerId, 'Create device entry')) {
-        $response = Invoke-TeamViewerRestMethod `
+        $Response = Invoke-TeamViewerRestMethod `
             -ApiToken $ApiToken `
-            -Uri $resourceUri `
+            -Uri $ResourceUri `
             -Method Post `
             -ContentType 'application/json; charset=utf-8' `
-            -Body ([System.Text.Encoding]::UTF8.GetBytes(($body | ConvertTo-Json))) `
+            -Body ([System.Text.Encoding]::UTF8.GetBytes(($Body | ConvertTo-Json))) `
             -WriteErrorTo $PSCmdlet `
             -ErrorAction Stop
 
-        $result = ($response | ConvertTo-TeamViewerDevice)
-
-        Write-Output $result
+        Write-Output ($Response | ConvertTo-TeamViewerDevice)
     }
 }

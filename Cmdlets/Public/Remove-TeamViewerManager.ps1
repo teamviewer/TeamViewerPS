@@ -36,8 +36,8 @@ function Remove-TeamViewerManager {
     )
 
     process {
-        $deviceId = $null
-        $groupId = $null
+        $DeviceId = $null
+        $GroupId = $null
 
         if ($Manager.PSObject.TypeNames -contains 'TeamViewerPS.Manager') {
             if ($Device -or $Group) {
@@ -47,17 +47,17 @@ function Remove-TeamViewerManager {
             }
 
             if ($Manager.DeviceId) {
-                $deviceId = $Manager.DeviceId
+                $DeviceId = $Manager.DeviceId
             }
             elseif ($Manager.GroupId) {
-                $groupId = $Manager.GroupId
+                $GroupId = $Manager.GroupId
             }
         }
         elseif ($Device) {
-            $deviceId = $Device | Resolve-TeamViewerManagedDeviceId
+            $DeviceId = $Device | Resolve-TeamViewerManagedDeviceId
         }
         elseif ($Group) {
-            $groupId = $Group | Resolve-TeamViewerManagedGroupId
+            $GroupId = $Group | Resolve-TeamViewerManagedGroupId
         }
         else {
             $PSCmdlet.ThrowTerminatingError(
@@ -67,19 +67,19 @@ function Remove-TeamViewerManager {
 
         $managerId = $Manager | Resolve-TeamViewerManagerId
 
-        if ($deviceId) {
-            $resourceUri = "$(Get-TeamViewerApiUri)/managed/devices/$deviceId/managers/$managerId"
-            $processMessage = 'Remove manager from managed device'
+        if ($DeviceId) {
+            $ResourceUri = "$(Get-TeamViewerApiUri)/managed/devices/$DeviceId/managers/$managerId"
+            $Process_Message = 'Remove manager from managed device'
         }
-        elseif ($groupId) {
-            $resourceUri = "$(Get-TeamViewerApiUri)/managed/groups/$groupId/managers/$managerId"
-            $processMessage = 'Remove manager from managed group'
+        elseif ($GroupId) {
+            $ResourceUri = "$(Get-TeamViewerApiUri)/managed/groups/$GroupId/managers/$managerId"
+            $Process_Message = 'Remove manager from managed group'
         }
 
-        if ($PSCmdlet.ShouldProcess($managerId, $processMessage)) {
+        if ($PSCmdlet.ShouldProcess($managerId, $Process_Message)) {
             Invoke-TeamViewerRestMethod `
                 -ApiToken $ApiToken `
-                -Uri $resourceUri `
+                -Uri $ResourceUri `
                 -Method Delete `
                 -WriteErrorTo $PSCmdlet | `
                 Out-Null

@@ -7,9 +7,9 @@ BeforeAll {
 
 Describe 'ConvertTo-TeamViewerRoleAssignedUserGroup' {
     It 'Maps assigned group input unchanged' {
-        $result = 'g12345' | ConvertTo-TeamViewerRoleAssignedUserGroup
+        $Result = 'g12345' | ConvertTo-TeamViewerRoleAssignedUserGroup
 
-        $result.PSObject.TypeNames[0] | Should -Be 'TeamViewerPS.RoleAssignedUserGroup'
-        $result.AssignedGroups | Should -Be 'g12345'
+        $Result.PSObject.TypeNames[0] | Should -Be 'TeamViewerPS.RoleAssignedUserGroup'
+        $Result.AssignedGroups | Should -Be 'g12345'
     }
 }

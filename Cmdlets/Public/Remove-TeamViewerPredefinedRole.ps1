@@ -9,19 +9,18 @@ function Remove-TeamViewerPredefinedRole {
         $ApiToken
     )
 
-
     begin {
-        $parameters = @{}
-        $resourceUri = "$(Get-TeamViewerApiUri)/userroles/predefined"
+        $Parameters = @{}
+        $ResourceUri = "$(Get-TeamViewerApiUri)/userroles/predefined"
     }
 
     process {
         if ($PSCmdlet.ShouldProcess('PredefinedRole', 'Remove Predefined role')) {
             Invoke-TeamViewerRestMethod `
                 -ApiToken $ApiToken `
-                -Uri $resourceUri `
+                -Uri $ResourceUri `
                 -Method DELETE `
-                -Body $parameters `
+                -Body $Parameters `
                 -WriteErrorTo $PSCmdlet `
                 -ErrorAction Stop | `
                 Out-Null

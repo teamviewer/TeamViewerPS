@@ -27,23 +27,23 @@ function Move-TeamViewerManagedDevice {
         $TargetGroup
     )
 
-    $deviceId = $Device | Resolve-TeamViewerManagedDeviceId
-    $sourceGroupId = $SourceGroup | Resolve-TeamViewerManagedGroupId
-    $targetGroupId = $TargetGroup | Resolve-TeamViewerManagedGroupId
-    $resourceUri = "$(Get-TeamViewerApiUri)/managed/devices/$deviceId/groups"
+    $DeviceId = $Device | Resolve-TeamViewerManagedDeviceId
+    $SourceGroupId = $SourceGroup | Resolve-TeamViewerManagedGroupId
+    $TargetGroupId = $TargetGroup | Resolve-TeamViewerManagedGroupId
+    $ResourceUri = "$(Get-TeamViewerApiUri)/managed/devices/$DeviceId/groups"
 
-    $body = @{
-        AddedChainIds   = @($targetGroupId.ToString())
-        RemovedChainIds = @($sourceGroupId.ToString())
+    $Body = @{
+        AddedChainIds   = @($TargetGroupId.ToString())
+        RemovedChainIds = @($SourceGroupId.ToString())
     }
 
-    if ($PSCmdlet.ShouldProcess($deviceId, 'Move a device from one group to another')) {
+    if ($PSCmdlet.ShouldProcess($DeviceId, 'Move a device from one group to another')) {
         Invoke-TeamViewerRestMethod `
             -ApiToken $ApiToken `
-            -Uri $resourceUri `
+            -Uri $ResourceUri `
             -Method Put `
             -ContentType 'application/json; charset=utf-8' `
-            -Body ([System.Text.Encoding]::UTF8.GetBytes(($body | ConvertTo-Json))) `
+            -Body ([System.Text.Encoding]::UTF8.GetBytes(($Body | ConvertTo-Json))) `
             -WriteErrorTo $PSCmdlet | Out-Null
     }
 }

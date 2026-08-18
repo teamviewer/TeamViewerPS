@@ -7,9 +7,9 @@ BeforeAll {
 
 Describe 'ConvertTo-TeamViewerRoleAssignedUser' {
     It 'Trims leading u from user id input' {
-        $result = 'u12345' | ConvertTo-TeamViewerRoleAssignedUser
+        $Result = 'u12345' | ConvertTo-TeamViewerRoleAssignedUser
 
-        $result.PSObject.TypeNames[0] | Should -Be 'TeamViewerPS.RoleAssignedUser'
-        $result.AssignedUsers | Should -Be '12345'
+        $Result.PSObject.TypeNames[0] | Should -Be 'TeamViewerPS.RoleAssignedUser'
+        $Result.AssignedUsers | Should -Be '12345'
     }
 }

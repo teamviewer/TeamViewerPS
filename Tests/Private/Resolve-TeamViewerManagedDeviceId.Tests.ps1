@@ -7,22 +7,22 @@ BeforeAll {
 
 Describe 'Resolve-TeamViewerManagedDeviceId' {
     It 'Returns guid from TeamViewerPS.ManagedDevice object' {
-        $id = [guid]::NewGuid()
-        $device = [pscustomobject]@{ Id = $id }
+        $Id = [guid]::NewGuid()
+        $device = [pscustomobject]@{ Id = $Id }
         $device.PSObject.TypeNames.Insert(0, 'TeamViewerPS.ManagedDevice')
 
         Resolve-TeamViewerManagedDeviceId -ManagedDevice $device | Should -Be $id
     }
 
     It 'Converts guid string to guid' {
-        $id = [guid]::NewGuid()
+        $Id = [guid]::NewGuid()
 
         Resolve-TeamViewerManagedDeviceId -ManagedDevice $id.ToString() | Should -Be $id
     }
 
     It 'Returns guid input unchanged' {
-        $id = [guid]::NewGuid()
+        $Id = [guid]::NewGuid()
 
-        Resolve-TeamViewerManagedDeviceId -ManagedDevice $id | Should -Be $id
+        Resolve-TeamViewerManagedDeviceId -ManagedDevice $Id | Should -Be $id
     }
 }

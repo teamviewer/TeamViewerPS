@@ -20,22 +20,22 @@ function Remove-TeamviewerPolicyFromManagedDevice {
     )
 
     begin {
-        $body = @{
+        $Body = @{
             'policy_type' = [int]$PolicyType
         }
     }
 
     process {
-        $deviceId = $Device | Resolve-TeamViewerManagedDeviceId
-        $resourceUri = "$(Get-TeamViewerApiUri)/managed/devices/$deviceId/policy/remove"
+        $DeviceId = $Device | Resolve-TeamViewerManagedDeviceId
+        $ResourceUri = "$(Get-TeamViewerApiUri)/managed/devices/$DeviceId/policy/remove"
 
-        if ($PSCmdlet.ShouldProcess($Device.ToString(), 'Change managed device entry')) {
+        if ($PSCmdlet.ShouldProcess($DeviceId, 'Change managed device entry')) {
             Invoke-TeamViewerRestMethod `
                 -ApiToken $ApiToken `
-                -Uri $resourceUri `
+                -Uri $ResourceUri `
                 -Method Put `
                 -ContentType 'application/json; charset=utf-8' `
-                -Body ([System.Text.Encoding]::UTF8.GetBytes(($body | ConvertTo-Json))) `
+                -Body ([System.Text.Encoding]::UTF8.GetBytes(($Body | ConvertTo-Json))) `
                 -WriteErrorTo $PSCmdlet `
                 -ErrorAction Stop | `
                 Out-Null

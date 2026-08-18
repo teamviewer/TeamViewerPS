@@ -7,22 +7,22 @@ BeforeAll {
 
 Describe 'Resolve-TeamViewerManagedGroupId' {
     It 'Returns guid from TeamViewerPS.ManagedGroup object' {
-        $id = [guid]::NewGuid()
-        $group = [pscustomobject]@{ Id = $id }
+        $Id = [guid]::NewGuid()
+        $group = [pscustomobject]@{ Id = $Id }
         $group.PSObject.TypeNames.Insert(0, 'TeamViewerPS.ManagedGroup')
 
         Resolve-TeamViewerManagedGroupId -ManagedGroup $group | Should -Be $id
     }
 
     It 'Converts guid string to guid' {
-        $id = [guid]::NewGuid()
+        $Id = [guid]::NewGuid()
 
         Resolve-TeamViewerManagedGroupId -ManagedGroup $id.ToString() | Should -Be $id
     }
 
     It 'Returns guid input unchanged' {
-        $id = [guid]::NewGuid()
+        $Id = [guid]::NewGuid()
 
-        Resolve-TeamViewerManagedGroupId -ManagedGroup $id | Should -Be $id
+        Resolve-TeamViewerManagedGroupId -ManagedGroup $Id | Should -Be $id
     }
 }

@@ -21,31 +21,32 @@ function Get-TeamViewerManager {
         $Group
     )
 
-    $resourceUri = $null
+    $ResourceUri = $null
+
     switch ($PsCmdlet.ParameterSetName) {
         'ByDeviceId' {
-            $deviceId = $Device | Resolve-TeamViewerManagedDeviceId
-            $resourceUri = "$(Get-TeamViewerApiUri)/managed/devices/$deviceId/managers"
+            $DeviceId = $Device | Resolve-TeamViewerManagedDeviceId
+            $ResourceUri = "$(Get-TeamViewerApiUri)/managed/devices/$DeviceId/managers"
         }
         'ByGroupId' {
-            $groupId = $Group | Resolve-TeamViewerManagedGroupId
-            $resourceUri = "$(Get-TeamViewerApiUri)/managed/groups/$groupId/managers"
+            $GroupId = $Group | Resolve-TeamViewerManagedGroupId
+            $ResourceUri = "$(Get-TeamViewerApiUri)/managed/groups/$GroupId/managers"
         }
     }
 
-    $response = Invoke-TeamViewerRestMethod `
+    $Response = Invoke-TeamViewerRestMethod `
         -ApiToken $ApiToken `
-        -Uri $resourceUri `
+        -Uri $ResourceUri `
         -Method Get `
         -WriteErrorTo $PSCmdlet `
         -ErrorAction Stop
 
     switch ($PsCmdlet.ParameterSetName) {
         'ByDeviceId' {
-            Write-Output ($response.resources | ConvertTo-TeamViewerManager -DeviceId $deviceId)
+            Write-Output ($Response.resources | ConvertTo-TeamViewerManager -DeviceId $DeviceId )
         }
         'ByGroupId' {
-            Write-Output ($response.resources | ConvertTo-TeamViewerManager -GroupId $groupId)
+            Write-Output ($Response.resources | ConvertTo-TeamViewerManager -GroupId $GroupId)
         }
     }
 }

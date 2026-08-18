@@ -89,7 +89,7 @@ function New-TeamViewerUser {
         }
     }
 
-    $body = @{
+    $Body = @{
         email    = $Email
         name     = $Name
         language = $Culture | Resolve-TeamViewerLanguage
@@ -97,64 +97,64 @@ function New-TeamViewerUser {
 
     if ($Password -and -not $WithoutPassword) {
         $bstr = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($Password)
-        $body['password'] = [System.Runtime.InteropServices.Marshal]::PtrToStringBSTR($bstr)
+        $Body['password'] = [System.Runtime.InteropServices.Marshal]::PtrToStringBSTR($bstr)
         [System.Runtime.InteropServices.Marshal]::ZeroFreeBSTR($bstr) | Out-Null
     }
 
     if ($SsoCustomerIdentifier) {
         $bstr = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($SsoCustomerIdentifier)
-        $body['sso_customer_id'] = [System.Runtime.InteropServices.Marshal]::PtrToStringBSTR($bstr)
+        $Body['sso_customer_id'] = [System.Runtime.InteropServices.Marshal]::PtrToStringBSTR($bstr)
         [System.Runtime.InteropServices.Marshal]::ZeroFreeBSTR($bstr) | Out-Null
     }
 
     if ($RoleId) {
-        $body['userRoleId'] = $RoleId | Resolve-TeamViewerRoleId
+        $Body['userRoleId'] = $RoleId | Resolve-TeamViewerRoleId
     }
 
     if ($IgnorePredefinedRole) {
-        $body['ignorePredefinedRole'] = $true
+        $Body['ignorePredefinedRole'] = $true
     }
 
     if ($PSBoundParameters.ContainsKey('Active')) {
-        $body['active'] = $Active
+        $Body['active'] = $Active
     }
 
     if ($PSBoundParameters.ContainsKey('LogSessions')) {
-        $body['log_sessions'] = $LogSessions
+        $Body['log_sessions'] = $LogSessions
     }
 
     if ($PSBoundParameters.ContainsKey('ShowCommentWindow')) {
-        $body['show_comment_window'] = $ShowCommentWindow
+        $Body['show_comment_window'] = $ShowCommentWindow
     }
 
     if ($PSBoundParameters.ContainsKey('SubscribeNewsletter')) {
-        $body['subscribe_newsletter'] = $SubscribeNewsletter
+        $Body['subscribe_newsletter'] = $SubscribeNewsletter
     }
 
     if ($PSBoundParameters.ContainsKey('CustomQuickSupportId')) {
-        $body['custom_quicksupport_id'] = $CustomQuickSupportId
+        $Body['custom_quicksupport_id'] = $CustomQuickSupportId
     }
 
     if ($PSBoundParameters.ContainsKey('CustomQuickJoinId')) {
-        $body['custom_quickjoin_id'] = $CustomQuickJoinId
+        $Body['custom_quickjoin_id'] = $CustomQuickJoinId
     }
 
     if ($PSBoundParameters.ContainsKey('LicenseKey')) {
-        $body['license_key'] = $LicenseKey
+        $Body['license_key'] = $LicenseKey
     }
 
     if ($PSBoundParameters.ContainsKey('MeetingLicenseKey')) {
-        $body['meeting_license_key'] = $MeetingLicenseKey
+        $Body['meeting_license_key'] = $MeetingLicenseKey
     }
 
-    $resourceUri = "$(Get-TeamViewerApiUri)/users"
+    $ResourceUri = "$(Get-TeamViewerApiUri)/users"
 
     if ($PSCmdlet.ShouldProcess("$Name <$Email>", 'Create user')) {
-        $response = Invoke-TeamViewerRestMethod -ApiToken $ApiToken -Uri $resourceUri -Method Post -ContentType 'application/json; charset=utf-8' `
-            -Body ([System.Text.Encoding]::UTF8.GetBytes(($body | ConvertTo-Json))) -WriteErrorTo $PSCmdlet -ErrorAction Stop
-        $result = ($response | ConvertTo-TeamViewerUser)
-        $result.Email = $Email
+        $Response = Invoke-TeamViewerRestMethod -ApiToken $ApiToken -Uri $ResourceUri -Method Post -ContentType 'application/json; charset=utf-8' `
+            -Body ([System.Text.Encoding]::UTF8.GetBytes(($Body | ConvertTo-Json))) -WriteErrorTo $PSCmdlet -ErrorAction Stop
+        $Result = ($Response | ConvertTo-TeamViewerUser)
+        $Result.Email = $Email
 
-        Write-Output $result
+        Write-Output $Result
     }
 }

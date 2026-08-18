@@ -1,8 +1,7 @@
 BeforeAll {
     . "$PSScriptRoot\..\..\Cmdlets\Public\New-TeamViewerPolicy.ps1"
 
-    @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | `
-        ForEach-Object { . $_.FullName }
+    @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
 
     $testApiToken = [securestring]@{}
     $null = $testApiToken
@@ -17,20 +16,15 @@ Describe 'New-TeamViewerPolicy' {
         New-TeamViewerPolicy -ApiToken $testApiToken -Name 'Unit Test Policy'
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -And `
-                $Uri -eq '//unit.test/teamviewerpolicies' -And `
-                $Method -eq 'Post' }
+            $ApiToken -eq $testApiToken -and $Uri -eq '//unit.test/teamviewerpolicies' -and $Method -eq 'Post' }
     }
 
     It 'Should include the given name in the request' {
-        New-TeamViewerPolicy `
-            -ApiToken $testApiToken `
-            -Name 'Unit Test Policy' `
-            -DefaultPolicy
+        New-TeamViewerPolicy -ApiToken $testApiToken -Name 'Unit Test Policy' -DefaultPolicy
 
         $mockArgs.Body | Should -Not -BeNullOrEmpty
-        $body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
-        $body.name | Should -Be 'Unit Test Policy'
-        $body.default | Should -BeTrue
+        $Body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
+        $Body.name | Should -Be 'Unit Test Policy'
+        $Body.default | Should -BeTrue
     }
 }

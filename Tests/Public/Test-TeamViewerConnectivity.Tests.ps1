@@ -7,16 +7,17 @@ BeforeAll {
 }
 
 Describe 'Test-TeamViewerConnectivity' {
-
     It 'Should check TCP connections to various endpoints' {
         Test-TeamViewerConnectivity
 
         Should -Invoke Test-NetConnection -Times 1 -Scope It -ParameterFilter {
             $ComputerName -eq 'webapi.teamviewer.com' -and $Port -eq 443
         }
+
         Should -Invoke Test-NetConnection -Times 1 -Scope It -ParameterFilter {
             $ComputerName -eq 'sso.teamviewer.com' -and $Port -eq 443
         }
+
         Should -Invoke Test-NetConnection -Times 1 -Scope It -ParameterFilter {
             $ComputerName -eq 'router1.teamviewer.com' -and $Port -eq 5938
         }
@@ -32,17 +33,19 @@ Describe 'Test-TeamViewerConnectivity' {
         Should -Invoke Test-NetConnection -Times 1 -Scope It -ParameterFilter {
             $ComputerName -eq 'router1.teamviewer.com' -and $Port -eq 5938
         }
+
         Should -Invoke Test-NetConnection -Times 1 -Scope It -ParameterFilter {
             $ComputerName -eq 'router1.teamviewer.com' -and $Port -eq 443
         }
+
         Should -Invoke Test-NetConnection -Times 0 -Scope It -ParameterFilter {
             $ComputerName -eq 'router2.teamviewer.com' -and $Port -eq 443
         }
     }
 
     It 'Should return the port on successful check' {
-        $result = Test-TeamViewerConnectivity
-        $routerResult = $result | Where-Object { $_.Hostname -eq 'router1.teamviewer.com' }
+        $Result = Test-TeamViewerConnectivity
+        $routerResult = $Result | Where-Object { $_.Hostname -eq 'router1.teamviewer.com' }
         $routerResult | Should -Not -BeNullOrEmpty
         $routerResult.Succeeded | Should -BeTrue
         $routerResult.TcpPort | Should -Be 5938
@@ -57,8 +60,8 @@ Describe 'Test-TeamViewerConnectivity' {
             $ComputerName -eq 'router1.teamviewer.com' -and $Port -eq 443
         } { $false }
 
-        $result = Test-TeamViewerConnectivity
-        $routerResult = $result | Where-Object { $_.Hostname -eq 'router1.teamviewer.com' }
+        $Result = Test-TeamViewerConnectivity
+        $routerResult = $Result | Where-Object { $_.Hostname -eq 'router1.teamviewer.com' }
 
         Should -Invoke Test-NetConnection -Times 1 -Scope It -ParameterFilter {
             $ComputerName -eq 'router1.teamviewer.com' -and $Port -eq 80
@@ -73,17 +76,17 @@ Describe 'Test-TeamViewerConnectivity' {
             $ComputerName -eq 'router1.teamviewer.com'
         } { $false }
 
-        $result = Test-TeamViewerConnectivity
-        $routerResult = $result | Where-Object { $_.Hostname -eq 'router1.teamviewer.com' }
+        $Result = Test-TeamViewerConnectivity
+        $routerResult = $Result | Where-Object { $_.Hostname -eq 'router1.teamviewer.com' }
         $routerResult | Should -Not -BeNullOrEmpty
         $routerResult.Succeeded | Should -BeFalse
         $routerResult.TcpPort | Should -Be @(5938, 443, 80)
     }
 
     It 'Should return the overall result for the -Quiet parameter' {
-        $result = Test-TeamViewerConnectivity -Quiet
-        $result | Should -BeTrue
-        $result | Should -BeOfType [bool]
+        $Result = Test-TeamViewerConnectivity -Quiet
+        $Result | Should -BeTrue
+        $Result | Should -BeOfType [bool]
     }
 
     It 'Should return false if one of the checks failed' {
@@ -91,23 +94,23 @@ Describe 'Test-TeamViewerConnectivity' {
             $ComputerName -eq 'router1.teamviewer.com'
         } { $false }
 
-        $result = Test-TeamViewerConnectivity -Quiet
-        $result | Should -BeFalse
-        $result | Should -BeOfType [bool]
+        $Result = Test-TeamViewerConnectivity -Quiet
+        $Result | Should -BeFalse
+        $Result | Should -BeOfType [bool]
     }
 
     It 'Should return all expected services and output properties' {
-        $result = Test-TeamViewerConnectivity
+        $Result = Test-TeamViewerConnectivity
 
-        $result.Count | Should -Be 31
-        $result[0].PSObject.Properties.Name | Should -Contain 'Hostname'
-        $result[0].PSObject.Properties.Name | Should -Contain 'TcpPort'
-        $result[0].PSObject.Properties.Name | Should -Contain 'Succeeded'
+        $Result.Count | Should -Be 31
+        $Result[0].PSObject.Properties.Name | Should -Contain 'Hostname'
+        $Result[0].PSObject.Properties.Name | Should -Contain 'TcpPort'
+        $Result[0].PSObject.Properties.Name | Should -Contain 'Succeeded'
     }
 
     It 'Should return hostnames sorted in ascending order' {
-        $result = Test-TeamViewerConnectivity
-        $hostnames = $result.Hostname
+        $Result = Test-TeamViewerConnectivity
+        $hostnames = $Result.Hostname
 
         $hostnames | Should -Be ($hostnames | Sort-Object)
     }

@@ -24,41 +24,41 @@ function Get-TeamViewerGroup {
         $FilterShared
     )
 
-    $resourceUri = "$(Get-TeamViewerApiUri)/groups"
-    $parameters = @{ }
+    $ResourceUri = "$(Get-TeamViewerApiUri)/groups"
+    $Parameters = @{ }
 
     switch ($PsCmdlet.ParameterSetName) {
         'ByGroupId' {
-            $resourceUri += "/$Id"
-            $parameters = $null
+            $ResourceUri += "/$Id"
+            $Parameters = $null
         }
         'FilteredList' {
             if ($Name) {
-                $parameters['name'] = $Name
+                $Parameters['name'] = $Name
             }
             switch ($FilterShared) {
                 'OnlyShared' {
-                    $parameters['shared'] = $true
+                    $Parameters['shared'] = $true
                 }
                 'OnlyNotShared' {
-                    $parameters['shared'] = $false
+                    $Parameters['shared'] = $false
                 }
             }
         }
     }
 
-    $response = Invoke-TeamViewerRestMethod `
+    $Response = Invoke-TeamViewerRestMethod `
         -ApiToken $ApiToken `
-        -Uri $resourceUri `
+        -Uri $ResourceUri `
         -Method Get `
-        -Body $parameters `
+        -Body $Parameters `
         -WriteErrorTo $PSCmdlet `
         -ErrorAction Stop
 
     if ($PsCmdlet.ParameterSetName -eq 'ByGroupId') {
-        Write-Output ($response | ConvertTo-TeamViewerGroup)
+        Write-Output ($Response | ConvertTo-TeamViewerGroup)
     }
     else {
-        Write-Output ($response.groups | ConvertTo-TeamViewerGroup)
+        Write-Output ($Response.groups | ConvertTo-TeamViewerGroup)
     }
 }

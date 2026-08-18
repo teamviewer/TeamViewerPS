@@ -1,8 +1,7 @@
 BeforeAll {
     . "$PSScriptRoot\..\..\Cmdlets\Public\Get-TeamViewerCompanyManagedDevice.ps1"
 
-    @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | `
-        ForEach-Object { . $_.FullName }
+    @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
 
     $testApiToken = [securestring]@{}
     $null = $testApiToken
@@ -30,15 +29,13 @@ Describe 'Get-TeamViewerCompanyManagedDevice' {
             $desired_endpoint = 'managed/devices/company'
 
             Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-                $ApiToken -eq $testApiToken -And `
-                    $Uri -eq "$base_test_path/$desired_endpoint" -And `
-                    $Method -eq 'Get' }
+                $ApiToken -eq $testApiToken -and $Uri -eq "$base_test_path/$desired_endpoint" -and $Method -eq 'Get' }
         }
 
         It 'Should return ManagedDevice objects' {
-            $result = Get-TeamViewerCompanyManagedDevice -ApiToken $testApiToken
-            $result | Should -HaveCount 3
-            $result[0].PSObject.TypeNames | Should -Contain 'TeamViewerPS.ManagedDevice'
+            $Result = Get-TeamViewerCompanyManagedDevice -ApiToken $testApiToken
+            $Result | Should -HaveCount 3
+            $Result[0].PSObject.TypeNames | Should -Contain 'TeamViewerPS.ManagedDevice'
         }
 
         It 'Should fetch consecutive pages' {
@@ -50,15 +47,16 @@ Describe 'Get-TeamViewerCompanyManagedDevice' {
                         @{ id = '99a87bed-3d60-46f2-a869-b7e67a6bf2c8'; name = 'test company-managed device 3' }
                     )
                 } }
+
             Mock Invoke-TeamViewerRestMethod { @{
                     nextPaginationToken = $null
                     resources           = @(
                         @{ id = '76e699b7-2559-4202-bf7b-c6af6929aa15'; name = 'test company-managed device 4' }
                     )
-                } } -ParameterFilter { $Body -And $Body['paginationToken'] -eq 'abc' }
+                } } -ParameterFilter { $Body -and $Body['paginationToken'] -eq 'abc' }
 
-            $result = Get-TeamViewerCompanyManagedDevice -ApiToken $testApiToken
-            $result | Should -HaveCount 4
+            $Result = Get-TeamViewerCompanyManagedDevice -ApiToken $testApiToken
+            $Result | Should -HaveCount 4
 
             Should -Invoke Invoke-TeamViewerRestMethod -Times 2 -Scope It
         }

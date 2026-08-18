@@ -24,29 +24,29 @@ function Set-TeamViewerDeviceCustomField {
     )
 
     begin {
-        $body = @{
+        $Body = @{
             fieldKey = $FieldKey
         }
 
         if ($PSBoundParameters.ContainsKey('Description')) {
-            $body['description'] = $Description
+            $Body['description'] = $Description
         }
 
-        $resourceUri = "$(Get-TeamViewerApiUri)/device-custom-fields/$Id"
+        $ResourceUri = "$(Get-TeamViewerApiUri)/device-custom-fields/$Id"
     }
 
     process {
         if ($PSCmdlet.ShouldProcess($Id, 'Update device custom field')) {
-            $response = Invoke-TeamViewerRestMethod `
+            $Response = Invoke-TeamViewerRestMethod `
                 -ApiToken $ApiToken `
-                -Uri $resourceUri `
+                -Uri $ResourceUri `
                 -Method Put `
                 -ContentType 'application/json; charset=utf-8' `
-                -Body ([System.Text.Encoding]::UTF8.GetBytes(($body | ConvertTo-Json))) `
+                -Body ([System.Text.Encoding]::UTF8.GetBytes(($Body | ConvertTo-Json))) `
                 -WriteErrorTo $PSCmdlet `
                 -ErrorAction Stop
 
-            Write-Output ($response | ConvertTo-TeamViewerDeviceCustomField)
+            Write-Output ($Response | ConvertTo-TeamViewerDeviceCustomField)
         }
     }
 }

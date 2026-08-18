@@ -21,9 +21,9 @@ Describe 'ConvertTo-DateTime' {
         }
 
         It 'Returns DateTime type for valid input' {
-            $result = ConvertTo-DateTime -InputString '2026-08-10'
+            $Result = ConvertTo-DateTime -InputString '2026-08-10'
 
-            $result | Should -BeOfType ([datetime])
+            $Result | Should -BeOfType ([datetime])
         }
 
         It 'Accepts pipeline input from string values' {
@@ -31,10 +31,10 @@ Describe 'ConvertTo-DateTime' {
         }
 
         It 'Uses current culture for ambiguous date formats' {
-            $ambiguousDate = '01/02/2026'
-            $expected = [datetime]::Parse($ambiguousDate)
+            $Date_Ambiguous = '01/02/2026'
+            $expected = [datetime]::Parse($Date_Ambiguous)
 
-            ConvertTo-DateTime -InputString $ambiguousDate | Should -Be $expected
+            ConvertTo-DateTime -InputString $Date_Ambiguous | Should -Be $expected
         }
 
         It 'Parses German date format under de-DE culture' {

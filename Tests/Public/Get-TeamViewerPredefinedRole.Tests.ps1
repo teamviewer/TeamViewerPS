@@ -1,8 +1,7 @@
 BeforeAll {
     . "$PSScriptRoot\..\..\Cmdlets\Public\Get-TeamViewerPredefinedRole.ps1"
 
-    @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | `
-        ForEach-Object { . $_.FullName }
+    @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
 
     $testApiToken = [securestring]@{}
     $null = $testApiToken
@@ -14,31 +13,28 @@ BeforeAll {
 }
 
 Describe 'Get-TeamViewerPredefinedRole' {
-
     It 'Should call the correct API endpoint to list PredefinedRole' {
         Get-TeamViewerPredefinedRole -ApiToken $testApiToken
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -And `
-                $Uri -eq '//unit.test/userroles/predefined' -And `
-                $Method -eq 'Get' }
+            $ApiToken -eq $testApiToken -and $Uri -eq '//unit.test/userroles/predefined' -and $Method -eq 'Get' }
     }
 
     It 'Should convert input object to TeamViewerPS.PrefinedRole' {
-        $inputObject = @{
+        $InputObject = @{
             PredefineduserRoleId = 'a9c9435d-8544-4e6a-9830-9337078c9aab'
         } | ConvertTo-Json
 
-        $result = $inputObject | ConvertFrom-Json | ConvertTo-TeamViewerPredefinedRole
+        $Result = $InputObject | ConvertFrom-Json | ConvertTo-TeamViewerPredefinedRole
 
-        $result | Should -BeOfType [PSCustomObject]
-        $result.PSObject.TypeNames | Should -Contain 'TeamViewerPS.PredefinedRole'
-        $result.PredefinedRoleID | Should -Be 'a9c9435d-8544-4e6a-9830-9337078c9aab'
+        $Result | Should -BeOfType [PSCustomObject]
+        $Result.PSObject.TypeNames | Should -Contain 'TeamViewerPS.PredefinedRole'
+        $Result.PredefinedRoleID | Should -Be 'a9c9435d-8544-4e6a-9830-9337078c9aab'
     }
 
     It 'Should return PredefinedRole objects' {
-        $result = Get-TeamViewerPredefinedRole -ApiToken $testApiToken
-        $result | Should -HaveCount 1
-        $result[0].PSObject.TypeNames | Should -Contain 'TeamViewerPS.PredefinedRole'
+        $Result = Get-TeamViewerPredefinedRole -ApiToken $testApiToken
+        $Result | Should -HaveCount 1
+        $Result[0].PSObject.TypeNames | Should -Contain 'TeamViewerPS.PredefinedRole'
     }
 }

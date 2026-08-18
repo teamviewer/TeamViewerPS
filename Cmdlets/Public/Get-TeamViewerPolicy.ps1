@@ -14,23 +14,23 @@ function Get-TeamViewerPolicy {
         $Id
     )
 
-    $resourceUri = "$(Get-TeamViewerApiUri)/teamviewerpolicies"
-    $parameters = @{ }
+    $ResourceUri = "$(Get-TeamViewerApiUri)/teamviewerpolicies"
+    $Parameters = @{ }
 
     switch ($PsCmdlet.ParameterSetName) {
         'ByPolicyId' {
-            $resourceUri += "/$Id"
-            $parameters = $null
+            $ResourceUri += "/$Id"
+            $Parameters = $null
         }
     }
 
-    $response = Invoke-TeamViewerRestMethod `
+    $Response = Invoke-TeamViewerRestMethod `
         -ApiToken $ApiToken `
-        -Uri $resourceUri `
+        -Uri $ResourceUri `
         -Method Get `
-        -Body $parameters `
+        -Body $Parameters `
         -WriteErrorTo $PSCmdlet `
         -ErrorAction Stop
 
-    Write-Output ($response.policies | ConvertTo-TeamViewerPolicy)
+    Write-Output ($Response.policies | ConvertTo-TeamViewerPolicy)
 }

@@ -10,21 +10,21 @@ function Get-TeamViewerEffectivePermission {
     )
 
     begin {
-        $resourceUri = "$(Get-TeamViewerApiUri)/users/effectivepermissions"
+        $ResourceUri = "$(Get-TeamViewerApiUri)/users/effectivepermissions"
     }
 
     process {
-        $response = Invoke-TeamViewerRestMethod `
+        $Response = Invoke-TeamViewerRestMethod `
             -ApiToken $ApiToken `
-            -Uri $resourceUri `
+            -Uri $ResourceUri `
             -Method Get `
             -WriteErrorTo $PSCmdlet `
             -ErrorAction Stop
-        if ($null -eq $response -or $response.Count -eq 0) {
-            $response = @{}
+        if ($null -eq $Response -or $Response.Count -eq 0) {
+            $Response = @{}
         }
 
-        Write-Output ([PSCustomObject] $response)
+        Write-Output ([PSCustomObject] $Response)
     }
 }
 

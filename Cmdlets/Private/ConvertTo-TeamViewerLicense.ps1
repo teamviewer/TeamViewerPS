@@ -6,18 +6,18 @@ function ConvertTo-TeamViewerLicense {
     )
 
     process {
-        $properties = @{
+        $Properties = @{
             CompanyId         = [int]$InputObject.companyId
             CompanyName       = $InputObject.companyName
             AvailableLicenses = @($InputObject.available_licenses | ConvertTo-TeamViewerLicenseInformation)
         }
 
-        $result = New-Object -TypeName PSObject -Property $properties
-        $result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.License')
-        $result | Add-Member -MemberType ScriptMethod -Name 'ToString' -Force -Value {
+        $Result = New-Object -TypeName PSObject -Property $Properties
+        $Result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.License')
+        $Result | Add-Member -MemberType ScriptMethod -Name 'ToString' -Force -Value {
             "$($this.CompanyName)"
         }
 
-        Write-Output $result
+        Write-Output $Result
     }
 }

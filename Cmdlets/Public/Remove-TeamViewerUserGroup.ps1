@@ -17,15 +17,15 @@ function Remove-TeamViewerUserGroup {
     )
 
     begin {
-        $id = $UserGroup | Resolve-TeamViewerUserGroupId
-        $resourceUri = "$(Get-TeamViewerApiUri)/usergroups/$id"
+        $Id = $UserGroup | Resolve-TeamViewerUserGroupId
+        $ResourceUri = "$(Get-TeamViewerApiUri)/usergroups/$id"
     }
 
     process {
         if ($PSCmdlet.ShouldProcess($UserGroup.ToString(), 'Remove user group')) {
             Invoke-TeamViewerRestMethod `
                 -ApiToken $ApiToken `
-                -Uri $resourceUri `
+                -Uri $ResourceUri `
                 -Method Delete `
                 -WriteErrorTo $PSCmdlet `
                 -ErrorAction Stop | `

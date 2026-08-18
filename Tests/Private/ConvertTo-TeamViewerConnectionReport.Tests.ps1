@@ -9,12 +9,12 @@ BeforeAll {
 
 Describe 'ConvertTo-TeamViewerConnectionReport' {
     It 'Maps report properties and converts start/end dates' {
-        $inputObject = [pscustomobject]@{ id='1'; userid='u1'; username='User'; deviceid='d1'; devicename='Device'; groupid='g1'; groupname='Group'; support_session_type='1'; start_date='2026-01-01'; end_date='2026-01-02'; session_code='s1'; fee='10'; billing_state='b'; currency='EUR'; notes='n' }
+        $InputObject = [pscustomobject]@{ id='1'; userid='u1'; username='User'; deviceid='d1'; devicename='Device'; groupid='g1'; groupname='Group'; support_session_type='1'; start_date='2026-01-01'; end_date='2026-01-02'; session_code='s1'; fee='10'; billing_state='b'; currency='EUR'; notes='n' }
 
-        $result = ConvertTo-TeamViewerConnectionReport -InputObject $inputObject
+        $Result = ConvertTo-TeamViewerConnectionReport -InputObject $InputObject
 
-        $result.PSObject.TypeNames[0] | Should -Be 'TeamViewerPS.ConnectionReport'
-        $result.StartDate | Should -BeOfType ([datetime])
-        $result.EndDate | Should -BeOfType ([datetime])
+        $Result.PSObject.TypeNames[0] | Should -Be 'TeamViewerPS.ConnectionReport'
+        $Result.StartDate | Should -BeOfType ([datetime])
+        $Result.EndDate | Should -BeOfType ([datetime])
     }
 }

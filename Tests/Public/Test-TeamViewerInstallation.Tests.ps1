@@ -1,8 +1,7 @@
 BeforeAll {
     . "$PSScriptRoot\..\..\Cmdlets\Public\Get-TeamViewerInstallationDirectory.ps1"
     . "$PSScriptRoot\..\..\Cmdlets\Public\Test-TeamViewerInstallation.ps1"
-    @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | `
-        ForEach-Object { . $_.FullName }
+    @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
 }
 
 Describe 'Test-TeamViewerInstallation' {
@@ -12,8 +11,8 @@ Describe 'Test-TeamViewerInstallation' {
         }
 
         It 'Should return true if TeamViewer is installed' {
-            $result = Test-TeamViewerInstallation
-            $result | Should -Be $true
+            $Result = Test-TeamViewerInstallation
+            $Result | Should -Be $true
         }
     }
 
@@ -23,9 +22,8 @@ Describe 'Test-TeamViewerInstallation' {
         }
 
         It 'Should return false if TeamViewer is not installed' {
-            $result = Test-TeamViewerInstallation
-            $result | Should -Be $false
+            $Result = Test-TeamViewerInstallation
+            $Result | Should -Be $false
         }
     }
 }
-

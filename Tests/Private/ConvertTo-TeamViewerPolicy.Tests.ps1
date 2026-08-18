@@ -7,16 +7,16 @@ BeforeAll {
 
 Describe 'ConvertTo-TeamViewerPolicy' {
     It 'Maps policy settings into key/value/enforce collection' {
-        $inputObject = [pscustomobject]@{
+        $InputObject = [pscustomobject]@{
             policy_id = 'p1'
             name = 'Policy'
             settings = @([pscustomobject]@{ key='k1'; value='v1'; enforce=$true })
         }
 
-        $result = ConvertTo-TeamViewerPolicy -InputObject $inputObject
+        $Result = ConvertTo-TeamViewerPolicy -InputObject $InputObject
 
-        $result.PSObject.TypeNames[0] | Should -Be 'TeamViewerPS.Policy'
-        $result.Settings.Count | Should -Be 1
-        $result.Settings[0].Key | Should -Be 'k1'
+        $Result.PSObject.TypeNames[0] | Should -Be 'TeamViewerPS.Policy'
+        $Result.Settings.Count | Should -Be 1
+        $Result.Settings[0].Key | Should -Be 'k1'
     }
 }

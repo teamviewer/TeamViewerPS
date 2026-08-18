@@ -8,7 +8,7 @@ BeforeAll {
 
 Describe 'ConvertTo-TeamViewerLicenseInformation' {
     It 'Returns an object for pipeline input' {
-        $inputObject = [pscustomobject]@{
+        $InputObject = [pscustomobject]@{
             licenseName = 'Tensor'
             version = '15'
             type = 'Business'
@@ -24,21 +24,21 @@ Describe 'ConvertTo-TeamViewerLicenseInformation' {
             totalTechnicians = '6'
         }
 
-        $result = $inputObject | & ConvertTo-TeamViewerLicenseInformation
+        $Result = $InputObject | & ConvertTo-TeamViewerLicenseInformation
 
-        $result | Should -Not -BeNullOrEmpty
-        $result.PSObject.TypeNames[0] | Should -Be 'TeamViewerPS.LicenseInformation'
-        $result.LicenseName | Should -Be 'Tensor'
+        $Result | Should -Not -BeNullOrEmpty
+        $Result.PSObject.TypeNames[0] | Should -Be 'TeamViewerPS.LicenseInformation'
+        $Result.LicenseName | Should -Be 'Tensor'
     }
 
     It 'Supports pipeline processing of multiple items' {
-        $inputObjects = @(
+        $InputObjects = @(
             [pscustomobject]@{ licenseName = 'One'; version='1'; type='Business'; licenseId=([guid]::NewGuid().ToString()); isActive=$true; aiCredits='1'; managedDevices='1'; assignedUsers='1'; displayName='One'; details='D'; numberOfChannels='1'; maxAssignments='1'; totalTechnicians='1' },
             [pscustomobject]@{ licenseName = 'Two'; version='2'; type='Business'; licenseId=([guid]::NewGuid().ToString()); isActive=$false; aiCredits='2'; managedDevices='2'; assignedUsers='2'; displayName='Two'; details='D'; numberOfChannels='2'; maxAssignments='2'; totalTechnicians='2' }
         )
 
-        $result = $inputObjects | & ConvertTo-TeamViewerLicenseInformation
+        $Result = $InputObjects | & ConvertTo-TeamViewerLicenseInformation
 
-        @($result).Count | Should -Be 2
+        @($Result).Count | Should -Be 2
     }
 }

@@ -31,35 +31,35 @@ function Get-TeamViewerContact {
         $Group
     )
 
-    $resourceUri = "$(Get-TeamViewerApiUri)/contacts"
-    $parameters = @{ }
+    $ResourceUri = "$(Get-TeamViewerApiUri)/contacts"
+    $Parameters = @{ }
 
     switch ($PsCmdlet.ParameterSetName) {
         'ByContactId' {
-            $resourceUri += "/$Id"
-            $parameters = $null
+            $ResourceUri += "/$Id"
+            $Parameters = $null
         }
         'FilteredList' {
             if ($Name) {
-                $parameters['name'] = $Name
+                $Parameters['name'] = $Name
             }
             if ($FilterOnlineState) {
-                $parameters['online_state'] = $FilterOnlineState.ToLower()
+                $Parameters['online_state'] = $FilterOnlineState.ToLower()
             }
             if ($Group) {
-                $groupId = $Group | Resolve-TeamViewerGroupId
-                $parameters['groupid'] = $groupId
+                $GroupId = $Group | Resolve-TeamViewerGroupId
+                $Parameters['groupid'] = $GroupId
             }
         }
     }
 
-    $response = Invoke-TeamViewerRestMethod `
+    $Response = Invoke-TeamViewerRestMethod `
         -ApiToken $ApiToken `
-        -Uri $resourceUri `
+        -Uri $ResourceUri `
         -Method Get `
-        -Body $parameters `
+        -Body $Parameters `
         -WriteErrorTo $PSCmdlet `
         -ErrorAction Stop
 
-    Write-Output ($response.contacts | ConvertTo-TeamViewerContact)
+    Write-Output ($Response.contacts | ConvertTo-TeamViewerContact)
 }

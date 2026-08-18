@@ -1,8 +1,7 @@
 BeforeAll {
     . "$PSScriptRoot\..\..\Cmdlets\Public\Remove-TeamViewerPolicy.ps1"
 
-    @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | `
-        ForEach-Object { . $_.FullName }
+    @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
 
     $testApiToken = [securestring]@{}
     $null = $testApiToken
@@ -16,32 +15,24 @@ BeforeAll {
 
 Describe 'Remove-TeamViewerPolicy' {
     It 'Should call the correct API endpoint' {
-        Remove-TeamViewerPolicy `
-            -ApiToken $testApiToken `
-            -PolicyId $testPolicyId
+        Remove-TeamViewerPolicy -ApiToken $testApiToken -PolicyId $testPolicyId
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -And `
-                $Uri -eq "//unit.test/teamviewerpolicies/$testPolicyId" -And `
-                $Method -eq 'Delete' }
+            $ApiToken -eq $testApiToken -and $Uri -eq "//unit.test/teamviewerpolicies/$testPolicyId" -and $Method -eq 'Delete' }
     }
 
     It 'Should accept Policy objects' {
         $testPolicyObj = @{ policy_id = $testPolicyId } | ConvertTo-TeamViewerPolicy
-        Remove-TeamViewerPolicy `
-            -ApiToken $testApiToken `
-            -Policy $testPolicyObj
+
+        Remove-TeamViewerPolicy -ApiToken $testApiToken -Policy $testPolicyObj
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -And `
-                $Uri -eq "//unit.test/teamviewerpolicies/$testPolicyId" -And `
-                $Method -eq 'Delete' }
+            $ApiToken -eq $testApiToken -and $Uri -eq "//unit.test/teamviewerpolicies/$testPolicyId" -and $Method -eq 'Delete' }
     }
 
     It 'Should accept pipeline input' {
         $testPolicyObj = @{ policy_id = $testPolicyId } | ConvertTo-TeamViewerPolicy
         $testPolicyObj | Remove-TeamViewerPolicy -ApiToken $testApiToken
+
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -And `
-                $Uri -eq "//unit.test/teamviewerpolicies/$testPolicyId" -And `
-                $Method -eq 'Delete' }
+            $ApiToken -eq $testApiToken -and $Uri -eq "//unit.test/teamviewerpolicies/$testPolicyId" -and $Method -eq 'Delete' }
     }
 }

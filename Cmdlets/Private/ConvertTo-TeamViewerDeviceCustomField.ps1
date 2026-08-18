@@ -6,7 +6,7 @@ function ConvertTo-TeamViewerDeviceCustomField {
     )
 
     process {
-        $properties = @{
+        $Properties = @{
             Id          = $InputObject.fieldKeyId
             FieldKey    = $InputObject.fieldKey
             FieldType   = $InputObject.fieldType
@@ -15,13 +15,13 @@ function ConvertTo-TeamViewerDeviceCustomField {
             UpdatedAt   = $InputObject.updatedAt | ConvertTo-DateTime
         }
 
-        $result = New-Object -TypeName PSObject -Property $properties
-        $result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.DeviceCustomField')
+        $Result = New-Object -TypeName PSObject -Property $Properties
+        $Result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.DeviceCustomField')
 
-        $result | Add-Member -MemberType ScriptMethod -Name 'ToString' -Force -Value {
+        $Result | Add-Member -MemberType ScriptMethod -Name 'ToString' -Force -Value {
             '{0} ({1})' -f $this.FieldKey, $this.Id
         }
 
-        Write-Output $result
+        Write-Output $Result
     }
 }

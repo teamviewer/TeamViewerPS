@@ -17,22 +17,23 @@ function Get-TeamViewerUserGroupMember {
     )
 
     begin {
-        $id = $UserGroup | Resolve-TeamViewerUserGroupId
-        $resourceUri = "$(Get-TeamViewerApiUri)/usergroups/$id/members"
-        $parameters = @{ }
+        $Id = $UserGroup | Resolve-TeamViewerUserGroupId
+        $ResourceUri = "$(Get-TeamViewerApiUri)/usergroups/$Id/members"
+        $Parameters = @{ }
     }
 
     process {
         do {
-            $response = Invoke-TeamViewerRestMethod `
+            $Response = Invoke-TeamViewerRestMethod `
                 -ApiToken $ApiToken `
-                -Uri $resourceUri `
+                -Uri $ResourceUri `
                 -Method Get `
-                -Body $parameters `
+                -Body $Parameters `
                 -WriteErrorTo $PSCmdlet `
                 -ErrorAction Stop
-            $parameters.paginationToken = $response.nextPaginationToken
-            Write-Output ($response.resources | ConvertTo-TeamViewerUserGroupMember)
-        } while ($parameters.paginationToken)
+            $Parameters.paginationToken = $Response.nextPaginationToken
+
+            Write-Output ($Response.resources | ConvertTo-TeamViewerUserGroupMember)
+        } while ($Parameters.paginationToken)
     }
 }

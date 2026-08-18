@@ -8,22 +8,22 @@ BeforeAll {
 
 Describe 'ConvertTo-TeamViewerUser' {
     It 'Loads all properties by default' {
-        $inputObject = [pscustomobject]@{ id='u1'; name='User'; email='u@example.com'; active=$true; last_access_date='2026-01-01'; tfa_enforcement='off'; tfa_enabled=$false; log_sessions=$true; show_comment_window=$false; sso_status='none' }
+        $InputObject = [pscustomobject]@{ id='u1'; name='User'; email='u@example.com'; active=$true; last_access_date='2026-01-01'; tfa_enforcement='off'; tfa_enabled=$false; log_sessions=$true; show_comment_window=$false; sso_status='none' }
 
-        $result = ConvertTo-TeamViewerUser -InputObject $inputObject
+        $Result = ConvertTo-TeamViewerUser -InputObject $InputObject
 
-        $result.PSObject.TypeNames[0] | Should -Be 'TeamViewerPS.User'
-        $result.PSObject.Properties.Name | Should -Contain 'Active'
-        $result.LastAccessDate | Should -BeOfType ([datetime])
-        $result.LastAccessDate | Should -Be ([datetime]'2026-01-01')
+        $Result.PSObject.TypeNames[0] | Should -Be 'TeamViewerPS.User'
+        $Result.PSObject.Properties.Name | Should -Contain 'Active'
+        $Result.LastAccessDate | Should -BeOfType ([datetime])
+        $Result.LastAccessDate | Should -Be ([datetime]'2026-01-01')
     }
 
     It 'Loads minimal property set when requested' {
-        $inputObject = [pscustomobject]@{ id='u1'; name='User'; email='u@example.com'; active=$true }
+        $InputObject = [pscustomobject]@{ id='u1'; name='User'; email='u@example.com'; active=$true }
 
-        $result = ConvertTo-TeamViewerUser -InputObject $inputObject -PropertiesToLoad Minimal
+        $Result = ConvertTo-TeamViewerUser -InputObject $InputObject -PropertiesToLoad Minimal
 
-        $result.PSObject.Properties.Name | Should -Not -Contain 'Active'
-        $result.Email | Should -Be 'u@example.com'
+        $Result.PSObject.Properties.Name | Should -Not -Contain 'Active'
+        $Result.Email | Should -Be 'u@example.com'
     }
 }

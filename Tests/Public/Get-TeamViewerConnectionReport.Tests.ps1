@@ -8,6 +8,7 @@ BeforeAll {
     $null = $testApiToken
 
     Mock Get-TeamViewerApiUri { '//unit.test' }
+
     Mock Invoke-TeamViewerRestMethod { @{
             records = @(
                 @{
@@ -43,15 +44,13 @@ Describe 'Get-TeamViewerConnectionReport' {
         Get-TeamViewerConnectionReport -ApiToken $testApiToken
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -and `
-                $Uri -eq '//unit.test/reports/connections' -and `
-                $Method -eq 'Get' }
+            $ApiToken -eq $testApiToken -and $Uri -eq '//unit.test/reports/connections' -and $Method -eq 'Get' }
     }
 
     It 'Should return ConnectionReport objects' {
-        $result = Get-TeamViewerConnectionReport -ApiToken $testApiToken
-        $result | Should -HaveCount 2
-        $result[0].PSObject.TypeNames | Should -Contain 'TeamViewerPS.ConnectionReport'
+        $Result = Get-TeamViewerConnectionReport -ApiToken $testApiToken
+        $Result | Should -HaveCount 2
+        $Result[0].PSObject.TypeNames | Should -Contain 'TeamViewerPS.ConnectionReport'
     }
 
     It 'Should fetch consecutive pages' {
@@ -103,8 +102,8 @@ Describe 'Get-TeamViewerConnectionReport' {
             } } -ParameterFilter { $Body.offset_id -eq '5ae6d2a9-57e9-4c62-b236-280390954b6f' }
 
 
-        $result = Get-TeamViewerConnectionReport -ApiToken $testApiToken
-        $result | Should -HaveCount 3
+        $Result = Get-TeamViewerConnectionReport -ApiToken $testApiToken
+        $Result | Should -HaveCount 3
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 3 -Scope It
     }
@@ -191,11 +190,11 @@ Describe 'Get-TeamViewerConnectionReport' {
 
             function Get-TestStartEndDate {
                 $mockArgs.Body | Should -Not -BeNullOrEmpty
-                $body = $mockArgs.Body
-                $body.from_date | Should -Not -BeNullOrEmpty
-                $body.to_date | Should -Not -BeNullOrEmpty
-                $startDate = [System.DateTime]::ParseExact($body.from_date, 'yyyy-MM-ddTHH:mm:ssZ', [CultureInfo]::InvariantCulture)
-                $endDate = [System.DateTime]::ParseExact($body.to_date, 'yyyy-MM-ddTHH:mm:ssZ', [CultureInfo]::InvariantCulture)
+                $Body = $mockArgs.Body
+                $Body.from_date | Should -Not -BeNullOrEmpty
+                $Body.to_date | Should -Not -BeNullOrEmpty
+                $startDate = [System.DateTime]::ParseExact($Body.from_date, 'yyyy-MM-ddTHH:mm:ssZ', [CultureInfo]::InvariantCulture)
+                $endDate = [System.DateTime]::ParseExact($Body.to_date, 'yyyy-MM-ddTHH:mm:ssZ', [CultureInfo]::InvariantCulture)
                 return @{
                     StartDate = $startDate
                     EndDate   = $endDate
@@ -244,9 +243,9 @@ Describe 'Get-TeamViewerConnectionReport' {
         It 'Should not restrict timeframe if no start and end date are given' {
             Get-TeamViewerConnectionReport -ApiToken $testApiToken
 
-            $body = $mockArgs.Body
-            $body.from_date | Should -BeNullOrEmpty
-            $body.to_date | Should -BeNullOrEmpty
+            $Body = $mockArgs.Body
+            $Body.from_date | Should -BeNullOrEmpty
+            $Body.to_date | Should -BeNullOrEmpty
         }
     }
 }

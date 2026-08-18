@@ -14,7 +14,7 @@ function ConvertTo-TeamViewerManager {
     )
 
     process {
-        $properties = @{
+        $Properties = @{
             Id          = [guid]$InputObject.id
             ManagerType = $InputObject.type
             Name        = $InputObject.name
@@ -23,25 +23,25 @@ function ConvertTo-TeamViewerManager {
 
         switch ($InputObject.type) {
             'account' {
-                $properties.AccountId = $InputObject.accountId
+                $Properties.AccountId = $InputObject.accountId
             }
             'company' {
-                $properties.CompanyId = $InputObject.companyId
+                $Properties.CompanyId = $InputObject.companyId
             }
         }
 
         switch ($PsCmdlet.ParameterSetName) {
             'GroupManager' {
-                $properties.GroupId = $GroupId
+                $Properties.GroupId = $GroupId
             }
             'DeviceManager' {
-                $properties.DeviceId = $DeviceId
+                $Properties.DeviceId = $DeviceId
             }
         }
 
-        $result = New-Object -TypeName PSObject -Property $properties
-        $result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.Manager')
+        $Result = New-Object -TypeName PSObject -Property $Properties
+        $Result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.Manager')
 
-        Write-Output $result
+        Write-Output $Result
     }
 }

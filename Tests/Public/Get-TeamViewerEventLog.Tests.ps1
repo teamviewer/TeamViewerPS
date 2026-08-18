@@ -22,24 +22,22 @@ BeforeAll {
 }
 
 Describe 'Get-TeamViewerEventLog' {
-
     It 'Should reject a negative limit' {
         { Get-TeamViewerEventLog -ApiToken $testApiToken -Limit -1 } | Should -Throw
     }
 
     It 'Should call the correct API endpoint to get audit-log events' {
         Get-TeamViewerEventLog -ApiToken $testApiToken
+
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -and `
-                $Uri -eq '//unit.test/EventLogging' -and `
-                $Method -eq 'Post' }
+            $ApiToken -eq $testApiToken -and $Uri -eq '//unit.test/EventLogging' -and $Method -eq 'Post' }
     }
 
     It 'Should return AuditEvent objects' {
-        $result = Get-TeamViewerEventLog -ApiToken $testApiToken
-        $result | Should -Not -BeNullOrEmpty
-        $result | Should -HaveCount 5
-        $result[0].PSObject.TypeNames | Should -Contain 'TeamViewerPS.AuditEvent'
+        $Result = Get-TeamViewerEventLog -ApiToken $testApiToken
+        $Result | Should -Not -BeNullOrEmpty
+        $Result | Should -HaveCount 5
+        $Result[0].PSObject.TypeNames | Should -Contain 'TeamViewerPS.AuditEvent'
     }
 
     It 'Should fetch consecutive pages' {
@@ -76,8 +74,8 @@ Describe 'Get-TeamViewerEventLog' {
             ([System.Text.Encoding]::UTF8.GetString($Body) | ConvertFrom-Json).ContinuationToken -eq 'foo'
         }
 
-        $result = Get-TeamViewerEventLog -ApiToken $testApiToken
-        $result | Should -HaveCount 9
+        $Result = Get-TeamViewerEventLog -ApiToken $testApiToken
+        $Result | Should -HaveCount 9
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 2 -Scope It
     }
@@ -86,63 +84,59 @@ Describe 'Get-TeamViewerEventLog' {
         Get-TeamViewerEventLog -ApiToken $testApiToken -EventNames 'UserDeleted', 'UserGroupUpdated'
 
         $mockArgs.Body | Should -Not -BeNullOrEmpty
-        $body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
-        $body.EventNames | Should -HaveCount 2
-        $body.EventNames | Should -Contain 'UserDeleted'
-        $body.EventNames | Should -Contain 'UserGroupUpdated'
+        $Body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
+        $Body.EventNames | Should -HaveCount 2
+        $Body.EventNames | Should -Contain 'UserDeleted'
+        $Body.EventNames | Should -Contain 'UserGroupUpdated'
     }
 
     It 'Should filter by event types' {
         Get-TeamViewerEventLog -ApiToken $testApiToken -EventTypes 'CustomModules', 'Session'
 
         $mockArgs.Body | Should -Not -BeNullOrEmpty
-        $body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
-        $body.EventTypes | Should -HaveCount 2
-        $body.EventTypes | Should -Contain 'CustomModules'
-        $body.EventTypes | Should -Contain 'Session'
+        $Body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
+        $Body.EventTypes | Should -HaveCount 2
+        $Body.EventTypes | Should -Contain 'CustomModules'
+        $Body.EventTypes | Should -Contain 'Session'
     }
 
     It 'Should forward additional filters' {
-        Get-TeamViewerEventLog `
-            -ApiToken $testApiToken `
-            -AccountEmails 'foo@unit.test', 'bar@unit.test' `
-            -AffectedItem 'my item' `
-            -RemoteControlSessionId '6a5e870b-03d2-4e96-ac21-1d45c40c471b'
+        Get-TeamViewerEventLog -ApiToken $testApiToken -AccountEmails 'foo@unit.test', 'bar@unit.test' -AffectedItem 'my item' -RemoteControlSessionId '6a5e870b-03d2-4e96-ac21-1d45c40c471b'
 
         $mockArgs.Body | Should -Not -BeNullOrEmpty
-        $body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
-        $body.AccountEmails | Should -HaveCount 2
-        $body.AccountEmails | Should -Be @('foo@unit.test', 'bar@unit.test')
-        $body.AffectedItem | Should -Be 'my item'
-        $body.RCSessionGuid | Should -Contain '6a5e870b-03d2-4e96-ac21-1d45c40c471b'
+        $Body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
+        $Body.AccountEmails | Should -HaveCount 2
+        $Body.AccountEmails | Should -Be @('foo@unit.test', 'bar@unit.test')
+        $Body.AffectedItem | Should -Be 'my item'
+        $Body.RCSessionGuid | Should -Contain '6a5e870b-03d2-4e96-ac21-1d45c40c471b'
     }
 
     It 'Should optionally limit the number of returned results' {
-        $result = Get-TeamViewerEventLog -ApiToken $testApiToken -Limit 3
-        $result | Should -Not -BeNullOrEmpty
-        $result | Should -HaveCount 3
+        $Result = Get-TeamViewerEventLog -ApiToken $testApiToken -Limit 3
+        $Result | Should -Not -BeNullOrEmpty
+        $Result | Should -HaveCount 3
     }
 
     Context 'Start-End dates' {
         BeforeAll {
             function Get-TestStartEndDate {
                 $mockArgs.Body | Should -Not -BeNullOrEmpty
-                $bodyText = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body)
+                $BodyText = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body)
 
                 if ('System.Text.Json.JsonSerializer' -as [type]) {
                     # ConvertFrom-Json does some automatic datetime conversion.
                     # We don't want that here, so we parse manually.
-                    $body = [System.Text.Json.JsonSerializer]::Deserialize($bodyText, [hashtable])
-                    $body.StartDate | Should -Not -BeNullOrEmpty
-                    $body.EndDate | Should -Not -BeNullOrEmpty
-                    $startDate = [System.DateTime]::ParseExact($body.StartDate, 'yyyy-MM-ddTHH:mm:ssZ', [CultureInfo]::InvariantCulture)
-                    $endDate = [System.DateTime]::ParseExact($body.EndDate, 'yyyy-MM-ddTHH:mm:ssZ', [CultureInfo]::InvariantCulture)
+                    $Body = [System.Text.Json.JsonSerializer]::Deserialize($BodyText, [hashtable])
+                    $Body.StartDate | Should -Not -BeNullOrEmpty
+                    $Body.EndDate | Should -Not -BeNullOrEmpty
+                    $startDate = [System.DateTime]::ParseExact($Body.StartDate, 'yyyy-MM-ddTHH:mm:ssZ', [CultureInfo]::InvariantCulture)
+                    $endDate = [System.DateTime]::ParseExact($Body.EndDate, 'yyyy-MM-ddTHH:mm:ssZ', [CultureInfo]::InvariantCulture)
                 }
                 else {
                     # we can only do the above check in .NET core and above
-                    $body = $bodyText | ConvertFrom-Json
-                    $startDate = $body.StartDate
-                    $endDate = $body.EndDate
+                    $Body = $BodyText | ConvertFrom-Json
+                    $startDate = $Body.StartDate
+                    $endDate = $Body.EndDate
                 }
 
                 $startDate | Should -BeLessThan $endDate

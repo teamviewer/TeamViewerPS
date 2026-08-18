@@ -14,23 +14,23 @@ function Get-TeamViewerSsoDomain {
         $Id
     )
 
-    $resourceUri = "$(Get-TeamViewerApiUri)/ssoDomain"
-    $parameters = @{ }
+    $ResourceUri = "$(Get-TeamViewerApiUri)/ssoDomain"
+    $Parameters = @{ }
 
     switch ($PsCmdlet.ParameterSetName) {
         'ByDomainId' {
-            $resourceUri += "/$Id"
-            $parameters = $null
+            $ResourceUri += "/$Id"
+            $Parameters = $null
         }
     }
 
-    $response = Invoke-TeamViewerRestMethod `
+    $Response = Invoke-TeamViewerRestMethod `
         -ApiToken $ApiToken `
-        -Uri $resourceUri `
+        -Uri $ResourceUri `
         -Method Get `
-        -Body $parameters `
+        -Body $Parameters `
         -WriteErrorTo $PSCmdlet `
         -ErrorAction Stop
 
-    Write-Output ($response.domains | ConvertTo-TeamViewerSsoDomain)
+    Write-Output ($Response.domains | ConvertTo-TeamViewerSsoDomain)
 }

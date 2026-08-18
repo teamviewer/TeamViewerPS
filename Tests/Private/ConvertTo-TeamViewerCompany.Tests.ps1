@@ -15,11 +15,11 @@ Describe 'ConvertTo-TeamViewerCompany' {
                 createdAt   = '2026-08-10T12:34:56Z'
             }
 
-            $result = $companyInput | ConvertTo-TeamViewerCompany
+            $Result = $companyInput | ConvertTo-TeamViewerCompany
 
-            $result.CompanyId | Should -Be 42
-            $result.CompanyName | Should -Be 'Acme Corp'
-            $result.CreatedAt | Should -Be ([datetime]'2026-08-10T12:34:56Z')
+            $Result.CompanyId | Should -Be 42
+            $Result.CompanyName | Should -Be 'Acme Corp'
+            $Result.CreatedAt | Should -Be ([datetime]'2026-08-10T12:34:56Z')
         }
 
         It 'Should keep CreatedAt null when not present in input' {
@@ -28,9 +28,9 @@ Describe 'ConvertTo-TeamViewerCompany' {
                 companyName = 'No Date Ltd'
             }
 
-            $result = $companyInput | ConvertTo-TeamViewerCompany
+            $Result = $companyInput | ConvertTo-TeamViewerCompany
 
-            $result.CreatedAt | Should -BeNull
+            $Result.CreatedAt | Should -BeNull
         }
 
         It 'Should return null CreatedAt when createdAt is invalid: <CreatedAt>' -TestCases @(
@@ -50,9 +50,9 @@ Describe 'ConvertTo-TeamViewerCompany' {
                 createdAt   = $CreatedAt
             }
 
-            $result = $companyInput | ConvertTo-TeamViewerCompany
+            $Result = $companyInput | ConvertTo-TeamViewerCompany
 
-            $result.CreatedAt | Should -BeNull
+            $Result.CreatedAt | Should -BeNull
         }
 
         It 'Should cast companyId to integer' {
@@ -61,10 +61,10 @@ Describe 'ConvertTo-TeamViewerCompany' {
                 companyName = 'Numeric Cast'
             }
 
-            $result = $companyInput | ConvertTo-TeamViewerCompany
+            $Result = $companyInput | ConvertTo-TeamViewerCompany
 
-            $result.CompanyId | Should -Be 7
-            $result.CompanyId.GetType().Name | Should -Be 'Int32'
+            $Result.CompanyId | Should -Be 7
+            $Result.CompanyId.GetType().Name | Should -Be 'Int32'
         }
     }
 
@@ -75,11 +75,11 @@ Describe 'ConvertTo-TeamViewerCompany' {
                 companyName = 'Contoso'
             }
 
-            $result = $companyInput | ConvertTo-TeamViewerCompany
+            $Result = $companyInput | ConvertTo-TeamViewerCompany
 
-            $result.PSObject.Properties.Name | Should -Contain 'CompanyId'
-            $result.PSObject.Properties.Name | Should -Contain 'CompanyName'
-            $result.PSObject.Properties.Name | Should -Contain 'CreatedAt'
+            $Result.PSObject.Properties.Name | Should -Contain 'CompanyId'
+            $Result.PSObject.Properties.Name | Should -Contain 'CompanyName'
+            $Result.PSObject.Properties.Name | Should -Contain 'CreatedAt'
         }
 
         It 'Should expose TeamViewerPS.Company type name and custom ToString output' {
@@ -88,26 +88,26 @@ Describe 'ConvertTo-TeamViewerCompany' {
                 companyName = 'Contoso'
             }
 
-            $result = $companyInput | ConvertTo-TeamViewerCompany
+            $Result = $companyInput | ConvertTo-TeamViewerCompany
 
-            $result.PSObject.TypeNames[0] | Should -Be 'TeamViewerPS.Company'
-            $result.ToString() | Should -Be 'Contoso'
+            $Result.PSObject.TypeNames[0] | Should -Be 'TeamViewerPS.Company'
+            $Result.ToString() | Should -Be 'Contoso'
         }
     }
 
     Context 'Pipeline behavior' {
         It 'Should process multiple pipeline inputs independently' {
-            $inputObjects = @(
+            $InputObjects = @(
                 [pscustomobject]@{ companyId = 1; companyName = 'Alpha'; createdAt = '2026-08-10T00:00:00Z' }
                 [pscustomobject]@{ companyId = 2; companyName = 'Beta' }
             )
 
-            $results = $inputObjects | ConvertTo-TeamViewerCompany
+            $Results = $InputObjects | ConvertTo-TeamViewerCompany
 
-            @($results).Count | Should -Be 2
-            $results[0].CompanyName | Should -Be 'Alpha'
-            $results[1].CompanyName | Should -Be 'Beta'
-            $results[1].CreatedAt | Should -BeNull
+            @($Results).Count | Should -Be 2
+            $Results[0].CompanyName | Should -Be 'Alpha'
+            $Results[1].CompanyName | Should -Be 'Beta'
+            $Results[1].CreatedAt | Should -BeNull
         }
     }
 }
