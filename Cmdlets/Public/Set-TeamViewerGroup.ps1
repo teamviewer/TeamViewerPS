@@ -35,23 +35,23 @@ function Set-TeamViewerGroup {
         # See https://github.com/PowerShell/PSScriptAnalyzer/issues/1472
         $null = $Property
 
-        $body = @{}
+        $Body = @{}
 
         switch ($PSCmdlet.ParameterSetName) {
             'ByParameters' {
-                $body['name'] = $Name
+                $Body['name'] = $Name
                 if ($Policy) {
-                    $body['policy_id'] = ($Policy | Resolve-TeamViewerPolicyId).ToString()
+                    $Body['policy_id'] = ($Policy | Resolve-TeamViewerPolicyId).ToString()
                 }
             }
             'ByProperties' {
                 @('name', 'policy_id') | `
                     Where-Object { $Property[$_] } | `
-                    ForEach-Object { $body[$_] = $Property[$_] }
+                    ForEach-Object { $Body[$_] = $Property[$_] }
             }
         }
 
-        if ($body.Count -eq 0) {
+        if ($Body.Count -eq 0) {
             $PSCmdlet.ThrowTerminatingError(
                 ('The given input does not change the group.' | `
                     ConvertTo-ErrorRecord -ErrorCategory InvalidArgument))
@@ -59,16 +59,16 @@ function Set-TeamViewerGroup {
     }
 
     process {
-        $groupId = $Group | Resolve-TeamViewerGroupId
-        $resourceUri = "$(Get-TeamViewerApiUri)/groups/$groupId"
+        $GroupId = $Group | Resolve-TeamViewerGroupId
+        $ResourceUri = "$(Get-TeamViewerApiUri)/groups/$GroupId"
 
-        if ($PSCmdlet.ShouldProcess($groupId, 'Update group')) {
+        if ($PSCmdlet.ShouldProcess($GroupId, 'Update group')) {
             Invoke-TeamViewerRestMethod `
                 -ApiToken $ApiToken `
-                -Uri $resourceUri `
+                -Uri $ResourceUri `
                 -Method Put `
                 -ContentType 'application/json; charset=utf-8' `
-                -Body ([System.Text.Encoding]::UTF8.GetBytes(($body | ConvertTo-Json))) `
+                -Body ([System.Text.Encoding]::UTF8.GetBytes(($Body | ConvertTo-Json))) `
                 -WriteErrorTo $PSCmdlet | Out-Null
         }
     }

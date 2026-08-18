@@ -21,31 +21,31 @@ function New-TeamViewerRole {
     )
 
     begin {
-        $resourceUri = "$(Get-TeamViewerApiUri)/userroles"
-        $body = @{
+        $ResourceUri = "$(Get-TeamViewerApiUri)/userroles"
+        $Body = @{
             Name        = $Name
             Permissions = @()
         }
 
         if ($Permissions) {
-            $body.Permissions = @($Permissions)
+            $Body.Permissions = @($Permissions)
         }
     }
 
     process {
         if ($PSCmdlet.ShouldProcess($Name, 'Create Role')) {
-            $response = Invoke-TeamViewerRestMethod `
+            $Response = Invoke-TeamViewerRestMethod `
                 -ApiToken $ApiToken `
-                -Uri $resourceUri `
+                -Uri $ResourceUri `
                 -Method Post `
                 -ContentType 'application/json; charset=utf-8' `
-                -Body ([System.Text.Encoding]::UTF8.GetBytes(($body | ConvertTo-Json))) `
+                -Body ([System.Text.Encoding]::UTF8.GetBytes(($Body | ConvertTo-Json))) `
                 -WriteErrorTo $PSCmdlet `
                 -ErrorAction Stop
 
-            $result = ($response.Role | ConvertTo-TeamViewerRole)
+            $Result = ($Response.Role | ConvertTo-TeamViewerRole)
 
-            Write-Output $result
+            Write-Output $Result
         }
     }
 }

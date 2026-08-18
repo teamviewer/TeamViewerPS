@@ -10,19 +10,20 @@ function ConvertTo-TeamViewerUser {
     )
 
     process {
-        $properties = @{
+        $Properties = @{
             Id    = $InputObject.id
             Name  = $InputObject.name
             Email = $InputObject.email
         }
+
         if ($InputObject.userRoleId) {
-            $properties += @{
+            $Properties += @{
                 RoleId = $InputObject.userRoleId
             }
         }
 
         if ($PropertiesToLoad -eq 'All') {
-            $properties += @{
+            $Properties += @{
                 Active            = $InputObject.active
                 LastAccessDate    = $InputObject.last_access_date | ConvertTo-DateTime
                 TFAEnforcement    = $InputObject.tfa_enforcement
@@ -34,7 +35,7 @@ function ConvertTo-TeamViewerUser {
             }
 
             if ($InputObject.activated_license_id) {
-                $properties += @{
+                $Properties += @{
                     ActivatedLicenseId      = [guid]$InputObject.activated_license_id
                     ActivatedLicenseName    = $InputObject.activated_license_name
                     ActivatedSubLicenseName = $InputObject.activated_subLicense_name
@@ -42,33 +43,36 @@ function ConvertTo-TeamViewerUser {
             }
 
             if ($InputObject.activated_meeting_license_key) {
-                $properties += @{
+                $Properties += @{
                     ActivatedMeetingLicenseId = [guid]$InputObject.activated_meeting_license_key
                 }
             }
+
             if ($InputObject.online_state) {
-                $properties += @{
+                $Properties += @{
                     OnlineState = $InputObject.online_state
                 }
             }
+
             if ($InputObject.custom_quicksupport_id) {
-                $properties += @{
+                $Properties += @{
                     CustomQuickSupportId = $InputObject.custom_quicksupport_id
                 }
             }
+
             if ($InputObject.custom_quickjoin_id) {
-                $properties += @{
+                $Properties += @{
                     CustomQuickJoinId = $InputObject.custom_quickjoin_id
                 }
             }
         }
 
-        $result = New-Object -TypeName PSObject -Property $properties
-        $result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.User')
-        $result | Add-Member -MemberType ScriptMethod -Name 'ToString' -Force -Value {
+        $Result = New-Object -TypeName PSObject -Property $Properties
+        $Result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.User')
+        $Result | Add-Member -MemberType ScriptMethod -Name 'ToString' -Force -Value {
             "$($this.Name) <$($this.Email)>"
         }
 
-        Write-Output $result
+        Write-Output $Result
     }
 }

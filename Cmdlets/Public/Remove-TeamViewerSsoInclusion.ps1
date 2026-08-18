@@ -20,21 +20,21 @@ function Remove-TeamViewerSsoInclusion {
     )
 
     begin {
-        $id = $DomainId | Resolve-TeamViewerSsoDomainId
-        $resourceUri = "$(Get-TeamViewerApiUri)/ssoDomain/$id/inclusion"
-        $emailsToRemove = @()
+        $Id = $DomainId | Resolve-TeamViewerSsoDomainId
+        $ResourceUri = "$(Get-TeamViewerApiUri)/ssoDomain/$Id/inclusion"
+        $EmailsToRemove = @()
         $null = $ApiToken   # https://github.com/PowerShell/PSScriptAnalyzer/issues/1472
 
         function Invoke-RequestInternal {
-            $body = @{
-                emails = @($emailsToRemove)
+            $Body = @{
+                emails = @($EmailsToRemove)
             }
             Invoke-TeamViewerRestMethod `
                 -ApiToken $ApiToken `
-                -Uri $resourceUri `
+                -Uri $ResourceUri `
                 -Method Delete `
                 -ContentType 'application/json; charset=utf-8' `
-                -Body ([System.Text.Encoding]::UTF8.GetBytes(($body | ConvertTo-Json))) `
+                -Body ([System.Text.Encoding]::UTF8.GetBytes(($Body | ConvertTo-Json))) `
                 -WriteErrorTo $PSCmdlet `
                 -ErrorAction Stop | `
                 Out-Null
@@ -43,17 +43,17 @@ function Remove-TeamViewerSsoInclusion {
 
     process {
         if ($PSCmdlet.ShouldProcess($Email, 'Remove SSO inclusion')) {
-            $emailsToRemove += $Email
+            $EmailsToRemove += $Email
         }
 
-        if ($emailsToRemove.Length -eq 100) {
+        if ($EmailsToRemove.Length -eq 100) {
             Invoke-RequestInternal
-            $emailsToRemove = @()
+            $EmailsToRemove = @()
         }
     }
 
     end {
-        if ($emailsToRemove.Length -gt 0) {
+        if ($EmailsToRemove.Length -gt 0) {
             Invoke-RequestInternal
         }
     }

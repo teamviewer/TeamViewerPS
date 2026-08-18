@@ -10,7 +10,7 @@ function Test-TeamViewerConnectivity {
     )
 
     begin {
-        $tvServices = @(
+        $TV_Services = @(
             [pscustomobject]@{ Hostname = 'account.teamviewer.com'; TcpPort = @(443) }
             [pscustomobject]@{ Hostname = 'chatlivestorage.blob.core.windows.net'; TcpPort = @(443) }
             [pscustomobject]@{ Hostname = 'client.teamviewer.com'; TcpPort = @(443) }
@@ -29,30 +29,30 @@ function Test-TeamViewerConnectivity {
         )
 
         foreach ($routerIndex in 1..16) {
-            $tvServices += [pscustomobject]@{ Hostname = "router$routerIndex.teamviewer.com"; TcpPort = @(5938, 443, 80) }
+            $TV_Services += [pscustomobject]@{ Hostname = "router$routerIndex.teamviewer.com"; TcpPort = @(5938, 443, 80) }
         }
     }
 
     process {
-        $results = foreach ($tvService in $tvServices) {
+        $Results = foreach ($TV_Service in $TV_Services) {
             $successfulPort = $null
 
-            foreach ($port in $tvService.TcpPort) {
-                Write-Verbose "Checking service $($tvService.Hostname) on port $port..."
+            foreach ($port in $TV_Service.TcpPort) {
+                Write-Verbose "Checking service $($TV_Service.Hostname) on port $port..."
 
-                if (Test-NetConnection -ComputerName $tvService.Hostname -Port $port -InformationLevel Quiet -WarningAction SilentlyContinue) {
+                if (Test-NetConnection -ComputerName $TV_Service.Hostname -Port $port -InformationLevel Quiet -WarningAction SilentlyContinue) {
                     $successfulPort = $port
                     break
                 }
             }
 
             [pscustomobject]@{
-                Hostname  = $tvService.Hostname
+                Hostname  = $TV_Service.Hostname
                 TcpPort   = if ($null -ne $successfulPort) {
                     $successfulPort
                 }
                 else {
-                    $tvService.TcpPort
+                    $TV_Service.TcpPort
                 }
 
                 Succeeded = $null -ne $successfulPort
@@ -60,10 +60,10 @@ function Test-TeamViewerConnectivity {
         }
 
         if ($Quiet) {
-            -not ($results.Succeeded -contains $false)
+            -not ($Results.Succeeded -contains $false)
         }
         else {
-            $results | Sort-Object -Property Hostname
+            $Results | Sort-Object -Property Hostname
         }
     }
 }

@@ -30,18 +30,21 @@ Describe 'Set-TeamViewerPSProxy' {
     Context 'When setting the proxy URI' {
         It 'Should set the global variable TeamViewerProxyUriSet' {
             $expectedProxyUri = 'http://example.com/proxy'
+
             Set-TeamViewerPSProxy -ProxyUri $expectedProxyUri
             $global:TeamViewerProxyUriSet | Should -Be $expectedProxyUri
         }
 
         It 'Should set the environment variable TeamViewerProxyUri' {
             $expectedProxyUri = 'http://example.com/proxy'
+
             Set-TeamViewerPSProxy -ProxyUri $expectedProxyUri
             [Environment]::GetEnvironmentVariable('TVProxyUri', 'User') | Should -Be $expectedProxyUri
         }
 
         It 'Should set the global variable TeamViewerProxyUriRemoved to false' {
             $expectedProxyUri = 'http://example.com/proxy'
+
             Set-TeamViewerPSProxy -ProxyUri $expectedProxyUri
             $global:TeamViewerProxyUriRemoved | Should -Be $false
             Remove-TeamViewerPSProxy

@@ -24,29 +24,29 @@ function New-TeamViewerContact {
         $Invite
     )
 
-    $body = @{
+    $Body = @{
         email   = $Email
         groupid = $Group | Resolve-TeamViewerGroupId
     }
 
     if ($Invite) {
-        $body['invite'] = $true
+        $Body['invite'] = $true
     }
 
-    $resourceUri = "$(Get-TeamViewerApiUri)/contacts"
+    $ResourceUri = "$(Get-TeamViewerApiUri)/contacts"
 
     if ($PSCmdlet.ShouldProcess($Email, 'Create contact')) {
-        $response = Invoke-TeamViewerRestMethod `
+        $Response = Invoke-TeamViewerRestMethod `
             -ApiToken $ApiToken `
-            -Uri $resourceUri `
+            -Uri $ResourceUri `
             -Method Post `
             -ContentType 'application/json; charset=utf-8' `
-            -Body ([System.Text.Encoding]::UTF8.GetBytes(($body | ConvertTo-Json))) `
+            -Body ([System.Text.Encoding]::UTF8.GetBytes(($Body | ConvertTo-Json))) `
             -WriteErrorTo $PSCmdlet `
             -ErrorAction Stop
 
-        $result = ($response | ConvertTo-TeamViewerContact)
+        $Result = ($Response | ConvertTo-TeamViewerContact)
 
-        Write-Output $result
+        Write-Output $Result
     }
 }

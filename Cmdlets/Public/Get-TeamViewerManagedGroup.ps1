@@ -21,36 +21,36 @@ function Get-TeamViewerManagedGroup {
         $Device
     )
 
-    $resourceUri = "$(Get-TeamViewerApiUri)/managed/groups"
-    $parameters = @{ }
+    $ResourceUri = "$(Get-TeamViewerApiUri)/managed/groups"
+    $Parameters = @{ }
 
     switch ($PsCmdlet.ParameterSetName) {
         'ByGroupId' {
-            $resourceUri += "/$Id"
-            $parameters = $null
+            $ResourceUri += "/$Id"
+            $Parameters = $null
         }
         'ByDeviceId' {
-            $deviceId = $Device | Resolve-TeamViewerManagedDeviceId
-            $resourceUri = "$(Get-TeamViewerApiUri)/managed/devices/$deviceId/groups"
+            $DeviceId = $Device | Resolve-TeamViewerManagedDeviceId
+            $ResourceUri = "$(Get-TeamViewerApiUri)/managed/devices/$DeviceId/groups"
         }
     }
 
     do {
-        $response = Invoke-TeamViewerRestMethod `
+        $Response = Invoke-TeamViewerRestMethod `
             -ApiToken $ApiToken `
-            -Uri $resourceUri `
+            -Uri $ResourceUri `
             -Method Get `
-            -Body $parameters `
+            -Body $Parameters `
             -WriteErrorTo $PSCmdlet `
             -ErrorAction Stop
 
         if ($PsCmdlet.ParameterSetName -eq 'ByGroupId') {
-            Write-Output ($response | ConvertTo-TeamViewerManagedGroup)
+            Write-Output ($Response | ConvertTo-TeamViewerManagedGroup)
         }
         else {
-            $parameters.paginationToken = $response.nextPaginationToken
-            Write-Output ($response.resources | ConvertTo-TeamViewerManagedGroup)
+            $Parameters.paginationToken = $Response.nextPaginationToken
+            Write-Output ($Response.resources | ConvertTo-TeamViewerManagedGroup)
         }
     } while ($PsCmdlet.ParameterSetName -in @('List', 'ByDeviceId') `
-            -and $parameters.paginationToken)
+            -and $Parameters.paginationToken)
 }

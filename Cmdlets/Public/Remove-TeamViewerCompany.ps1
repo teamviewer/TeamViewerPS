@@ -9,12 +9,12 @@ function Remove-TeamViewerCompany {
         $ApiToken
     )
 
-    $resourceUri = "$(Get-TeamViewerApiUri)/company"
+    $ResourceUri = "$(Get-TeamViewerApiUri)/company"
 
     if ($PSCmdlet.ShouldProcess('TeamViewer company', 'Delete company')) {
         Invoke-TeamViewerRestMethod `
             -ApiToken $ApiToken `
-            -Uri $resourceUri `
+            -Uri $ResourceUri `
             -Method Delete `
             -WriteErrorTo $PSCmdlet | `
             Out-Null

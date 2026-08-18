@@ -20,22 +20,22 @@ function Remove-TeamviewerPolicyFromManagedGroup {
     )
 
     begin {
-        $body = @{
+        $Body = @{
             'policy_type' = [int]$PolicyType
         }
     }
 
     process {
-        $groupId = $Group | Resolve-TeamViewerManagedGroupId
-        $resourceUri = "$(Get-TeamViewerApiUri)/managed/groups/$groupId/policy/remove"
+        $GroupId = $Group | Resolve-TeamViewerManagedGroupId
+        $ResourceUri = "$(Get-TeamViewerApiUri)/managed/groups/$GroupId/policy/remove"
 
         if ($PSCmdlet.ShouldProcess($Group.ToString(), 'Change managed group entry')) {
             Invoke-TeamViewerRestMethod `
                 -ApiToken $ApiToken `
-                -Uri $resourceUri `
+                -Uri $ResourceUri `
                 -Method Put `
                 -ContentType 'application/json; charset=utf-8' `
-                -Body ([System.Text.Encoding]::UTF8.GetBytes(($body | ConvertTo-Json))) `
+                -Body ([System.Text.Encoding]::UTF8.GetBytes(($Body | ConvertTo-Json))) `
                 -WriteErrorTo $PSCmdlet `
                 -ErrorAction Stop | `
                 Out-Null

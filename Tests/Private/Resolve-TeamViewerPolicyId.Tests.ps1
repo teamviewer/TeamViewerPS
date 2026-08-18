@@ -7,8 +7,8 @@ BeforeAll {
 
 Describe 'Resolve-TeamViewerPolicyId' {
     It 'Returns guid from TeamViewerPS.Policy object' {
-        $id = [guid]::NewGuid()
-        $policy = [pscustomobject]@{ Id = $id }
+        $Id = [guid]::NewGuid()
+        $policy = [pscustomobject]@{ Id = $Id }
         $policy.PSObject.TypeNames.Insert(0, 'TeamViewerPS.Policy')
 
         Resolve-TeamViewerPolicyId -Policy $policy | Should -Be $id
@@ -23,7 +23,7 @@ Describe 'Resolve-TeamViewerPolicyId' {
     }
 
     It 'Converts guid string when no special switch applies' {
-        $id = [guid]::NewGuid()
+        $Id = [guid]::NewGuid()
 
         Resolve-TeamViewerPolicyId -Policy $id.ToString() | Should -Be $id
     }

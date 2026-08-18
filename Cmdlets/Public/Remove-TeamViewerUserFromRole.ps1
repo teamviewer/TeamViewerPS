@@ -21,25 +21,25 @@ function Remove-TeamViewerUserFromRole {
     )
 
     begin {
-        $id = $RoleId | Resolve-TeamViewerRoleId
+        $Id = $RoleId | Resolve-TeamViewerRoleId
         $null = $ApiToken
-        $resourceUri = "$(Get-TeamViewerApiUri)/userroles/unassign/account"
+        $ResourceUri = "$(Get-TeamViewerApiUri)/userroles/unassign/account"
         $AccountsToRemove = @()
-        $body = @{
+        $Body = @{
             UserIds    = @()
             UserRoleId = $id
         }
 
         function Invoke-TeamViewerRestMethodInternal {
-            $result = Invoke-TeamViewerRestMethod `
+            $Result = Invoke-TeamViewerRestMethod `
                 -ApiToken $ApiToken `
-                -Uri $resourceUri `
+                -Uri $ResourceUri `
                 -Method Post `
                 -ContentType 'application/json; charset=utf-8' `
-                -Body ([System.Text.Encoding]::UTF8.GetBytes(($body | ConvertTo-Json))) `
+                -Body ([System.Text.Encoding]::UTF8.GetBytes(($Body | ConvertTo-Json))) `
                 -WriteErrorTo $PSCmdlet `
                 -ErrorAction Stop
-            Write-Output ($result)
+            Write-Output ($Result)
         }
     }
 
@@ -50,7 +50,7 @@ function Remove-TeamViewerUserFromRole {
             }
             foreach ($Account in $Accounts) {
                 $AccountsToRemove += $Account
-                $body.UserIds = @($AccountsToRemove)
+                $Body.UserIds = @($AccountsToRemove)
             }
         }
 

@@ -8,22 +8,22 @@ BeforeAll {
 
 Describe 'ConvertTo-TeamViewerManagedDevice' {
     It 'Returns an object for pipeline input' {
-        $inputObject = [pscustomobject]@{ id = ([guid]::NewGuid().ToString()); name = 'Sample'; TeamViewerId = '123'; isOnline = $true; teamviewerPolicyId = ([guid]::NewGuid().ToString()) }
+        $InputObject = [pscustomobject]@{ id = ([guid]::NewGuid().ToString()); name = 'Sample'; TeamViewerId = '123'; isOnline = $true; teamviewerPolicyId = ([guid]::NewGuid().ToString()) }
 
-        $result = $inputObject | & ConvertTo-TeamViewerManagedDevice
+        $Result = $InputObject | & ConvertTo-TeamViewerManagedDevice
 
-        $result | Should -Not -BeNullOrEmpty
-        $result.PSObject.TypeNames[0] | Should -Be 'TeamViewerPS.ManagedDevice'
+        $Result | Should -Not -BeNullOrEmpty
+        $Result.PSObject.TypeNames[0] | Should -Be 'TeamViewerPS.ManagedDevice'
     }
 
     It 'Supports pipeline processing of multiple items' {
-        $inputObjects = @(
+        $InputObjects = @(
             [pscustomobject]@{ id = ([guid]::NewGuid().ToString()); name = 'One'; TeamViewerId = '100'; isOnline = $true },
             [pscustomobject]@{ id = ([guid]::NewGuid().ToString()); name = 'Two'; TeamViewerId = '200'; isOnline = $false }
         )
 
-        $result = $inputObjects | & ConvertTo-TeamViewerManagedDevice
+        $Result = $InputObjects | & ConvertTo-TeamViewerManagedDevice
 
-        @($result).Count | Should -Be 2
+        @($Result).Count | Should -Be 2
     }
 }

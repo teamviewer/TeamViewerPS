@@ -1,8 +1,7 @@
 BeforeAll {
     . "$PSScriptRoot\..\..\Cmdlets\Public\Get-TeamViewerManagedGroup.ps1"
 
-    @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | `
-        ForEach-Object { . $_.FullName }
+    @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
 
     $testApiToken = [securestring]@{}
     $null = $testApiToken
@@ -11,7 +10,6 @@ BeforeAll {
 }
 
 Describe 'Get-TeamViewerManagedGroup' {
-
     Context 'List' {
         BeforeAll {
             Mock Invoke-TeamViewerRestMethod { @{
@@ -28,15 +26,13 @@ Describe 'Get-TeamViewerManagedGroup' {
             Get-TeamViewerManagedGroup -ApiToken $testApiToken
 
             Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-                $ApiToken -eq $testApiToken -And `
-                    $Uri -eq '//unit.test/managed/groups' -And `
-                    $Method -eq 'Get' }
+                $ApiToken -eq $testApiToken -and $Uri -eq '//unit.test/managed/groups' -and $Method -eq 'Get' }
         }
 
         It 'Should return ManagedGroup objects' {
-            $result = Get-TeamViewerManagedGroup -ApiToken $testApiToken
-            $result | Should -HaveCount 3
-            $result[0].PSObject.TypeNames | Should -Contain 'TeamViewerPS.ManagedGroup'
+            $Result = Get-TeamViewerManagedGroup -ApiToken $testApiToken
+            $Result | Should -HaveCount 3
+            $Result[0].PSObject.TypeNames | Should -Contain 'TeamViewerPS.ManagedGroup'
         }
 
         It 'Should fetch consecutive pages' {
@@ -48,15 +44,16 @@ Describe 'Get-TeamViewerManagedGroup' {
                         @{ id = '99a87bed-3d60-46f2-a869-b7e67a6bf2c8'; name = 'test managed group 3' }
                     )
                 } }
+
             Mock Invoke-TeamViewerRestMethod { @{
                     nextPaginationToken = $null
                     resources           = @(
                         @{ id = '76e699b7-2559-4202-bf7b-c6af6929aa15'; name = 'test managed group 4' }
                     )
-                } } -ParameterFilter { $Body -And $Body['paginationToken'] -eq 'abc' }
+                } } -ParameterFilter { $Body -and $Body['paginationToken'] -eq 'abc' }
 
-            $result = Get-TeamViewerManagedGroup -ApiToken $testApiToken
-            $result | Should -HaveCount 4
+            $Result = Get-TeamViewerManagedGroup -ApiToken $testApiToken
+            $Result | Should -HaveCount 4
 
             Should -Invoke Invoke-TeamViewerRestMethod -Times 2 -Scope It
         }
@@ -74,15 +71,13 @@ Describe 'Get-TeamViewerManagedGroup' {
             Get-TeamViewerManagedGroup -ApiToken $testApiToken -Group 'ae222e9d-a665-4cea-85b7-d4a3a08a5e35'
 
             Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-                $ApiToken -eq $testApiToken -And `
-                    $Uri -eq '//unit.test/managed/groups/ae222e9d-a665-4cea-85b7-d4a3a08a5e35' -And `
-                    $Method -eq 'Get' }
+                $ApiToken -eq $testApiToken -and $Uri -eq '//unit.test/managed/groups/ae222e9d-a665-4cea-85b7-d4a3a08a5e35' -and $Method -eq 'Get' }
         }
 
         It 'Should return a ManagedGroup object' {
-            $result = Get-TeamViewerManagedGroup -ApiToken $testApiToken -Group 'ae222e9d-a665-4cea-85b7-d4a3a08a5e35'
-            $result | Should -BeOfType PSObject
-            $result.PSObject.TypeNames | Should -Contain 'TeamViewerPS.ManagedGroup'
+            $Result = Get-TeamViewerManagedGroup -ApiToken $testApiToken -Group 'ae222e9d-a665-4cea-85b7-d4a3a08a5e35'
+            $Result | Should -BeOfType PSObject
+            $Result.PSObject.TypeNames | Should -Contain 'TeamViewerPS.ManagedGroup'
         }
     }
 
@@ -102,27 +97,26 @@ Describe 'Get-TeamViewerManagedGroup' {
 
         It 'Should call the correct API endpoint to fetch the list of groups that the device is part of' {
             Get-TeamViewerManagedGroup -ApiToken $testApiToken -Device $testDeviceId
+
             Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-                $ApiToken -eq $testApiToken -And `
-                    $Uri -eq "//unit.test/managed/devices/$testDeviceId/groups" -And `
-                    $Method -eq 'Get' }
+                $ApiToken -eq $testApiToken -and $Uri -eq "//unit.test/managed/devices/$testDeviceId/groups" -and $Method -eq 'Get' }
         }
 
         It 'Should return managed groups objects' {
-            $result = Get-TeamViewerManagedGroup -ApiToken $testApiToken -Device $testDeviceId
-            $result | Should -HaveCount 3
-            $firstResult = $result[0]
+            $Result = Get-TeamViewerManagedGroup -ApiToken $testApiToken -Device $testDeviceId
+            $Result | Should -HaveCount 3
+            $firstResult = $Result[0]
             $firstResult | Should -BeOfType PSObject
             $firstResult.PSObject.TypeNames | Should -Contain 'TeamViewerPS.ManagedGroup'
         }
 
         It 'Should accept a ManagedDevice object as input' {
             $testDevice = @{ id = $testDeviceId; name = 'test device' } | ConvertTo-TeamViewerManagedDevice
+
             Get-TeamViewerManagedGroup -ApiToken $testApiToken -Device $testDevice
+
             Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-                $ApiToken -eq $testApiToken -And `
-                    $Uri -eq "//unit.test/managed/devices/$testDeviceId/groups" -And `
-                    $Method -eq 'Get' }
+                $ApiToken -eq $testApiToken -and $Uri -eq "//unit.test/managed/devices/$testDeviceId/groups" -and $Method -eq 'Get' }
         }
     }
 }

@@ -17,29 +17,29 @@ function Get-TeamViewerRoleByUserGroup {
     )
 
     begin {
-        $resourceUri = "$(Get-TeamViewerApiUri)/usergroups/$GroupId/userroles"
-        $parameters = $null
+        $ResourceUri = "$(Get-TeamViewerApiUri)/usergroups/$GroupId/userroles"
+        $Parameters = $null
     }
 
     process {
         do {
-            $response = Invoke-TeamViewerRestMethod `
+            $Response = Invoke-TeamViewerRestMethod `
                 -ApiToken $ApiToken `
-                -Uri $resourceUri `
+                -Uri $ResourceUri `
                 -Method Get `
-                -Body $parameters `
+                -Body $Parameters `
                 -WriteErrorTo $PSCmdlet `
                 -ErrorAction Stop
 
-            if ($response.ContinuationToken) {
-                $resourceUri += '&continuationToken=' + $response.ContinuationToken
+            if ($Response.ContinuationToken) {
+                $ResourceUri += '&continuationToken=' + $Response.ContinuationToken
             }
 
-            if ($null -eq $response.assignedRoleId) {
+            if ($null -eq $Response.assignedRoleId) {
                 break
             }
 
-            Write-Output ($response.assignedRoleId | ConvertTo-TeamViewerRoleAssignedUserGroup )
-        }while ($response.ContinuationToken)
+            Write-Output ($Response.assignedRoleId | ConvertTo-TeamViewerRoleAssignedUserGroup )
+        }while ($Response.ContinuationToken)
     }
 }

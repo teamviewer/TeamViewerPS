@@ -1,8 +1,7 @@
 BeforeAll {
     . "$PSScriptRoot\..\..\Cmdlets\Public\Remove-TeamViewerManager.ps1"
 
-    @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | `
-        ForEach-Object { . $_.FullName }
+    @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
 
     $testApiToken = [securestring]@{}
     $null = $testApiToken
@@ -20,92 +19,67 @@ BeforeAll {
 Describe 'Remove-TeamViewerManager' {
     Context 'Group' {
         It 'Should call the correct API endpoint to remove managed group managers' {
-            Remove-TeamViewerManager `
-                -ApiToken $testApiToken `
-                -GroupId $testGroupId `
-                -ManagerId $testManagerId
+            Remove-TeamViewerManager -ApiToken $testApiToken -GroupId $testGroupId -ManagerId $testManagerId
+
             Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-                $ApiToken -eq $testApiToken -And `
-                    $Uri -eq "//unit.test/managed/groups/$testGroupId/managers/$testManagerId" -And `
-                    $Method -eq 'Delete' }
+                $ApiToken -eq $testApiToken -and $Uri -eq "//unit.test/managed/groups/$testGroupId/managers/$testManagerId" -and $Method -eq 'Delete' }
         }
 
         It 'Should accept group Manager objects' {
             $testManager = @{id = $testManagerId } | ConvertTo-TeamViewerManager -GroupId $testGroupId
-            Remove-TeamViewerManager `
-                -ApiToken $testApiToken `
-                -Manager $testManager
+
+            Remove-TeamViewerManager -ApiToken $testApiToken -Manager $testManager
             Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-                $ApiToken -eq $testApiToken -And `
-                    $Uri -eq "//unit.test/managed/groups/$testGroupId/managers/$testManagerId" -And `
-                    $Method -eq 'Delete' }
+                $ApiToken -eq $testApiToken -and $Uri -eq "//unit.test/managed/groups/$testGroupId/managers/$testManagerId" -and $Method -eq 'Delete' }
         }
 
         It 'Should accept pipeline objects' {
             $testManager = @{id = $testManagerId } | ConvertTo-TeamViewerManager -GroupId $testGroupId
             $testManager | Remove-TeamViewerManager -ApiToken $testApiToken
+
             Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-                $ApiToken -eq $testApiToken -And `
-                    $Uri -eq "//unit.test/managed/groups/$testGroupId/managers/$testManagerId" -And `
-                    $Method -eq 'Delete' }
+                $ApiToken -eq $testApiToken -and $Uri -eq "//unit.test/managed/groups/$testGroupId/managers/$testManagerId" -and $Method -eq 'Delete' }
         }
 
         It 'Should throw if Manager object and group are specified' {
             $testManager = @{id = $testManagerId } | ConvertTo-TeamViewerManager -GroupId $testGroupId
-            { Remove-TeamViewerManager `
-                    -ApiToken $testApiToken `
-                    -Manager $testManager `
-                    -GroupId $testGroupId
+            { Remove-TeamViewerManager -ApiToken $testApiToken -Manager $testManager -GroupId $testGroupId
             } | Should -Throw
         }
     }
 
     Context 'Device' {
         It 'Should call the correct API endpoint to remove managed device managers' {
-            Remove-TeamViewerManager `
-                -ApiToken $testApiToken `
-                -DeviceId $testDeviceId `
-                -ManagerId $testManagerId
+            Remove-TeamViewerManager -ApiToken $testApiToken -DeviceId $testDeviceId -ManagerId $testManagerId
             Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-                $ApiToken -eq $testApiToken -And `
-                    $Uri -eq "//unit.test/managed/devices/$testDeviceId/managers/$testManagerId" -And `
-                    $Method -eq 'Delete' }
+                $ApiToken -eq $testApiToken -and $Uri -eq "//unit.test/managed/devices/$testDeviceId/managers/$testManagerId" -and $Method -eq 'Delete' }
         }
 
         It 'Should accept device Manager objects' {
             $testManager = @{id = $testManagerId } | ConvertTo-TeamViewerManager -DeviceId $testDeviceId
-            Remove-TeamViewerManager `
-                -ApiToken $testApiToken `
-                -Manager $testManager
+            Remove-TeamViewerManager -ApiToken $testApiToken -Manager $testManager
+
             Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-                $ApiToken -eq $testApiToken -And `
-                    $Uri -eq "//unit.test/managed/devices/$testDeviceId/managers/$testManagerId" -And `
-                    $Method -eq 'Delete' }
+                $ApiToken -eq $testApiToken -and $Uri -eq "//unit.test/managed/devices/$testDeviceId/managers/$testManagerId" -and $Method -eq 'Delete' }
         }
 
         It 'Should accept pipeline objects' {
             $testManager = @{id = $testManagerId } | ConvertTo-TeamViewerManager -DeviceId $testDeviceId
             $testManager | Remove-TeamViewerManager -ApiToken $testApiToken
+
             Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-                $ApiToken -eq $testApiToken -And `
-                    $Uri -eq "//unit.test/managed/devices/$testDeviceId/managers/$testManagerId" -And `
-                    $Method -eq 'Delete' }
+                $ApiToken -eq $testApiToken -and $Uri -eq "//unit.test/managed/devices/$testDeviceId/managers/$testManagerId" -and $Method -eq 'Delete' }
         }
 
         It 'Should throw if Manager object and device are specified' {
             $testManager = @{id = $testManagerId } | ConvertTo-TeamViewerManager -DeviceId $testDeviceId
-            { Remove-TeamViewerManager `
-                    -ApiToken $testApiToken `
-                    -Manager $testManager `
-                    -DeviceId $testDeviceId
+
+            { Remove-TeamViewerManager -ApiToken $testApiToken -Manager $testManager -DeviceId $testDeviceId
             } | Should -Throw
         }
     }
 
     It 'Should throw if no Manager object and no device or group are specified' {
-        { Set-TeamViewerManagedGroupManager `
-                -ApiToken $testApiToken `
-                -ManagerId $testManagerId
-        } | Should -Throw
+        { Remove-TeamViewerManager -ApiToken $testApiToken -ManagerId $testManagerId } | Should -Throw
     }
 }

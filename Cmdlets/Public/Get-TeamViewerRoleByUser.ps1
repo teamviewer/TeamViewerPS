@@ -18,30 +18,30 @@ function Get-TeamViewerRoleByUser {
 
     begin {
         $copyUri = "$(Get-TeamViewerApiUri)/users/$userId/userroles"
-        $parameters = $null
+        $Parameters = $null
         $list = @()
     }
 
     process {
-        $resourceUri = $copyUri
+        $ResourceUri = $copyUri
 
         do {
-            $response = Invoke-TeamViewerRestMethod `
+            $Response = Invoke-TeamViewerRestMethod `
                 -ApiToken $ApiToken `
-                -Uri $resourceUri `
+                -Uri $ResourceUri `
                 -Method Get `
-                -Body $parameters `
+                -Body $Parameters `
                 -WriteErrorTo $PSCmdlet `
                 -ErrorAction Stop
 
-            if ($response.assignedRoleIds -and $response.assignedRoleIds.Count -gt 0) {
-                $list += $response.assignedRoleIds
+            if ($Response.assignedRoleIds -and $Response.assignedRoleIds.Count -gt 0) {
+                $list += $Response.assignedRoleIds
             }
 
-            if ($response.nextPaginationToken) {
-                $resourceUri = $copyUri + '?paginationToken=' + $response.nextPaginationToken
+            if ($Response.nextPaginationToken) {
+                $ResourceUri = $copyUri + '?paginationToken=' + $Response.nextPaginationToken
             }
-        } while ($response.nextPaginationToken)
+        } while ($Response.nextPaginationToken)
 
         Write-Output $list
     }

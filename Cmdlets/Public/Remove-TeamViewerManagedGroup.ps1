@@ -17,13 +17,13 @@ function Remove-TeamViewerManagedGroup {
     )
 
     process {
-        $groupId = $Group | Resolve-TeamViewerManagedGroupId
-        $resourceUri = "$(Get-TeamViewerApiUri)/managed/groups/$groupId"
+        $GroupId = $Group | Resolve-TeamViewerManagedGroupId
+        $ResourceUri = "$(Get-TeamViewerApiUri)/managed/groups/$GroupId"
 
-        if ($PSCmdlet.ShouldProcess($groupId, 'Remove managed group')) {
+        if ($PSCmdlet.ShouldProcess($GroupId, 'Remove managed group')) {
             Invoke-TeamViewerRestMethod `
                 -ApiToken $ApiToken `
-                -Uri $resourceUri `
+                -Uri $ResourceUri `
                 -Method Delete `
                 -WriteErrorTo $PSCmdlet | `
                 Out-Null

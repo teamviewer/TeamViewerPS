@@ -18,13 +18,13 @@ function Remove-TeamViewerUserTFA {
 
     process {
         $userId = $User | Resolve-TeamViewerUserId
-        $resourceUri = "$(Get-TeamViewerApiUri)/users/$userId/tfa"
+        $ResourceUri = "$(Get-TeamViewerApiUri)/users/$userId/tfa"
 
 
         if ($PSCmdlet.ShouldProcess($userId, 'Disable TFA')) {
             Invoke-TeamViewerRestMethod `
                 -ApiToken $ApiToken `
-                -Uri $resourceUri `
+                -Uri $ResourceUri `
                 -Method Delete `
                 -WriteErrorTo $PSCmdlet | `
                 Out-Null

@@ -6,7 +6,7 @@ function ConvertTo-TeamViewerGroup {
     )
 
     process {
-        $properties = @{
+        $Properties = @{
             Id          = $InputObject.id
             Name        = $InputObject.name
             Permissions = $InputObject.permissions
@@ -15,15 +15,15 @@ function ConvertTo-TeamViewerGroup {
         }
 
         if ($InputObject.owner) {
-            $properties.Owner = [pscustomobject]@{
+            $Properties.Owner = [pscustomobject]@{
                 UserId = $InputObject.owner.userid
                 Name   = $InputObject.owner.name
             }
         }
 
-        $result = New-Object -TypeName PSObject -Property $properties
-        $result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.Group')
+        $Result = New-Object -TypeName PSObject -Property $Properties
+        $Result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.Group')
 
-        Write-Output $result
+        Write-Output $Result
     }
 }

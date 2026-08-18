@@ -7,20 +7,21 @@ function ConvertTo-TeamViewerRestError {
     process {
         try {
             $errorObject = ($InputError | Out-String | ConvertFrom-Json)
-            $result = [PSCustomObject]@{
+
+            $Result = [PSCustomObject]@{
                 Message        = $errorObject.error_description
                 ErrorCategory  = $errorObject.error
                 ErrorCode      = $errorObject.error_code
                 ErrorSignature = $errorObject.error_signature
             }
 
-            $result | Add-Member -MemberType ScriptMethod -Name 'ToString' -Force -Value {
+            $Result | Add-Member -MemberType ScriptMethod -Name 'ToString' -Force -Value {
                 Write-Output "$($this.Message) ($($this.ErrorCategory))"
             }
 
-            $result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.RestError')
+            $Result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.RestError')
 
-        Write-Output $result
+            Write-Output $Result
         }
         catch {
             $InputError

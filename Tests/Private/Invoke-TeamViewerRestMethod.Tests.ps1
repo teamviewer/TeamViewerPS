@@ -36,11 +36,11 @@ Describe 'Invoke-TeamViewerRestMethod' {
         }
 
         $token = Get-TestSecureString -Value 'abc-token'
-        $result = Invoke-TeamViewerRestMethod -ApiToken $token -Uri 'https://example.local/api/v1/test' -Method Get
+        $Result = Invoke-TeamViewerRestMethod -ApiToken $token -Uri 'https://example.local/api/v1/test' -Method Get
 
         Should -Invoke Invoke-WebRequest -Times 1 -Exactly -ParameterFilter { $Headers.Authorization -eq 'Bearer abc-token' }
-        $result.ok | Should -Be $true
-        $result.value | Should -Be 1
+        $Result.ok | Should -Be $true
+        $Result.value | Should -Be 1
     }
 
     It 'Uses explicit global proxy when configured' {

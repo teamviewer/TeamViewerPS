@@ -21,21 +21,21 @@ function Add-TeamViewerManagedDevice {
         $Group
     )
 
-    $deviceId = $Device | Resolve-TeamViewerManagedDeviceId
-    $groupId = $Group | Resolve-TeamViewerManagedGroupId
-    $resourceUri = "$(Get-TeamViewerApiUri)/managed/groups/$groupId/devices"
+    $DeviceId = $Device | Resolve-TeamViewerManagedDeviceId
+    $GroupId = $Group | Resolve-TeamViewerManagedGroupId
+    $ResourceUri = "$(Get-TeamViewerApiUri)/managed/groups/$GroupId/devices"
 
-    $body = @{
-        id = $deviceId.ToString()
+    $Body = @{
+        Id = $DeviceId.ToString()
     }
 
-    if ($PSCmdlet.ShouldProcess($deviceId, 'Add device to managed group')) {
+    if ($PSCmdlet.ShouldProcess($DeviceId, 'Add device to managed group')) {
         Invoke-TeamViewerRestMethod `
             -ApiToken $ApiToken `
-            -Uri $resourceUri `
+            -Uri $ResourceUri `
             -Method Post `
             -ContentType 'application/json; charset=utf-8' `
-            -Body ([System.Text.Encoding]::UTF8.GetBytes(($body | ConvertTo-Json))) `
+            -Body ([System.Text.Encoding]::UTF8.GetBytes(($Body | ConvertTo-Json))) `
             -WriteErrorTo $PSCmdlet | Out-Null
     }
 }

@@ -9,11 +9,11 @@ Describe 'ConvertTo-TeamViewerRestError' {
     It 'Parses JSON error payload into TeamViewerPS.RestError object' {
         $json = '{"error_description":"Bad Request","error":"invalid_request","error_code":400,"error_signature":"sig"}'
 
-        $result = ConvertTo-TeamViewerRestError -InputError $json
+        $Result = ConvertTo-TeamViewerRestError -InputError $json
 
-        $result.PSObject.TypeNames[0] | Should -Be 'TeamViewerPS.RestError'
-        $result.Message | Should -Be 'Bad Request'
-        $result.ErrorCode | Should -Be 400
+        $Result.PSObject.TypeNames[0] | Should -Be 'TeamViewerPS.RestError'
+        $Result.Message | Should -Be 'Bad Request'
+        $Result.ErrorCode | Should -Be 400
     }
 
     It 'Returns input unchanged when payload is not JSON' {

@@ -27,37 +27,37 @@ function Get-TeamViewerManagedDevice {
     )
 
     # default is 'List':
-    $resourceUri = "$(Get-TeamViewerApiUri)/managed/devices"
-    $parameters = @{ }
-    $isListOperation = $true
+    $ResourceUri = "$(Get-TeamViewerApiUri)/managed/devices"
+    $Parameters = @{ }
+    $IsListOperation = $true
 
     switch ($PsCmdlet.ParameterSetName) {
         'ByDeviceId' {
-            $resourceUri += "/$Id"
-            $parameters = $null
-            $isListOperation = $false
+            $ResourceUri += "/$Id"
+            $Parameters = $null
+            $IsListOperation = $false
         }
         'ListGroup' {
-            $groupId = $Group | Resolve-TeamViewerManagedGroupId
-            $resourceUri = "$(Get-TeamViewerApiUri)/managed/groups/$groupId/$(if ($Pending) { 'pending-' })devices"
+            $GroupId = $Group | Resolve-TeamViewerManagedGroupId
+            $ResourceUri = "$(Get-TeamViewerApiUri)/managed/groups/$GroupId/$(if ($Pending) { 'pending-' })devices"
         }
     }
 
     do {
-        $response = Invoke-TeamViewerRestMethod `
+        $Response = Invoke-TeamViewerRestMethod `
             -ApiToken $ApiToken `
-            -Uri $resourceUri `
+            -Uri $ResourceUri `
             -Method Get `
-            -Body $parameters `
+            -Body $Parameters `
             -WriteErrorTo $PSCmdlet `
             -ErrorAction Stop
 
         if ($PsCmdlet.ParameterSetName -eq 'ByDeviceId') {
-            Write-Output ($response | ConvertTo-TeamViewerManagedDevice)
+            Write-Output ($Response | ConvertTo-TeamViewerManagedDevice)
         }
         else {
-            $parameters.paginationToken = $response.nextPaginationToken
-            Write-Output ($response.resources | ConvertTo-TeamViewerManagedDevice)
+            $Parameters.paginationToken = $Response.nextPaginationToken
+            Write-Output ($Response.resources | ConvertTo-TeamViewerManagedDevice)
         }
-    } while ($isListOperation -and $parameters.paginationToken)
+    } while ($IsListOperation -and $Parameters.paginationToken)
 }

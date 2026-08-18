@@ -9,14 +9,14 @@ function Get-TeamViewerCompany {
         $ApiToken
     )
 
-    $resourceUri = "$(Get-TeamViewerApiUri)/company"
+    $ResourceUri = "$(Get-TeamViewerApiUri)/company"
 
-    $response = Invoke-TeamViewerRestMethod `
+    $Response = Invoke-TeamViewerRestMethod `
         -ApiToken $ApiToken `
-        -Uri $resourceUri `
+        -Uri $ResourceUri `
         -Method Get `
         -WriteErrorTo $PSCmdlet `
         -ErrorAction Stop
 
-    Write-Output ($response | ConvertTo-TeamViewerCompany)
+    Write-Output ($Response | ConvertTo-TeamViewerCompany)
 }

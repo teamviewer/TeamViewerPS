@@ -148,7 +148,7 @@ function Get-TeamViewerEventLog {
         $RemoteControlSessionId
     )
 
-    $resourceUri = "$(Get-TeamViewerApiUri)/EventLogging"
+    $ResourceUri = "$(Get-TeamViewerApiUri)/EventLogging"
 
     $Limit = if ($Limit -lt 0) {
         $null
@@ -167,51 +167,51 @@ function Get-TeamViewerEventLog {
         $StartDate = $EndDate.AddMonths(-1 * $Months).AddDays(-1 * $Days).AddHours(-1 * $Hours).AddMinutes(-1 * $Minutes)
     }
 
-    $parameters = @{
+    $Parameters = @{
         StartDate = $StartDate.ToUniversalTime().ToString('yyyy-MM-ddTHH:mm:ssZ')
         EndDate   = $EndDate.ToUniversalTime().ToString('yyyy-MM-ddTHH:mm:ssZ')
     }
 
     if ($EventNames) {
-        $parameters.EventNames = $EventNames
+        $Parameters.EventNames = $EventNames
     }
 
     if ($EventTypes) {
-        $parameters.EventTypes = $EventTypes
+        $Parameters.EventTypes = $EventTypes
     }
 
     if ($AccountEmails) {
-        $parameters.AccountEmails = @($AccountEmails | Resolve-TeamViewerUserEmail)
+        $Parameters.AccountEmails = @($AccountEmails | Resolve-TeamViewerUserEmail)
     }
 
     if ($AffectedItem) {
-        $parameters.AffectedItem = $AffectedItem
+        $Parameters.AffectedItem = $AffectedItem
     }
 
     if ($RemoteControlSessionId) {
-        $parameters.RCSessionGuid = $RemoteControlSessionId
+        $Parameters.RCSessionGuid = $RemoteControlSessionId
     }
 
-    $remaining = $Limit
+    $Remaining = $Limit
 
     do {
-        $response = Invoke-TeamViewerRestMethod `
+        $Response = Invoke-TeamViewerRestMethod `
             -ApiToken $ApiToken `
-            -Uri $resourceUri `
+            -Uri $ResourceUri `
             -Method Post `
             -ContentType 'application/json; charset=utf-8' `
-            -Body ([System.Text.Encoding]::UTF8.GetBytes(($parameters | ConvertTo-Json))) `
+            -Body ([System.Text.Encoding]::UTF8.GetBytes(($Parameters | ConvertTo-Json))) `
             -WriteErrorTo $PSCmdlet `
             -ErrorAction Stop
-        $results = ($response.AuditEvents | ConvertTo-TeamViewerAuditEvent)
+        $Results = ($Response.AuditEvents | ConvertTo-TeamViewerAuditEvent)
 
         if ($Limit) {
-            Write-Output ($results | Select-Object -First $remaining)
-            $remaining = $remaining - @($results).Count
+            Write-Output ($Results | Select-Object -First $Remaining)
+            $Remaining = $Remaining - @($Results).Count
         }
         else {
-            Write-Output $results
+            Write-Output $Results
         }
-        $parameters.ContinuationToken = $response.ContinuationToken
-    } while ($parameters.ContinuationToken -and (!$Limit -or $remaining -gt 0))
+        $Parameters.ContinuationToken = $Response.ContinuationToken
+    } while ($Parameters.ContinuationToken -and (!$Limit -or $Remaining -gt 0))
 }

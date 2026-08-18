@@ -6,7 +6,7 @@ function ConvertTo-TeamViewerContact {
     )
 
     process {
-        $properties = @{
+        $Properties = @{
             Id                = $InputObject.contact_id
             UserId            = $InputObject.user_id
             GroupId           = $InputObject.groupid
@@ -17,12 +17,12 @@ function ConvertTo-TeamViewerContact {
             SupportedFeatures = $InputObject.supported_features
         }
 
-        $result = New-Object -TypeName PSObject -Property $properties
-        $result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.Contact')
-        $result | Add-Member -MemberType ScriptMethod -Name 'ToString' -Force -Value {
+        $Result = New-Object -TypeName PSObject -Property $Properties
+        $Result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.Contact')
+        $Result | Add-Member -MemberType ScriptMethod -Name 'ToString' -Force -Value {
             "$($this.Name)"
         }
 
-        Write-Output $result
+        Write-Output $Result
     }
 }

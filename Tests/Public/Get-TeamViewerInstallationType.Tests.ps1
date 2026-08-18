@@ -1,7 +1,6 @@
 BeforeAll {
     . "$PSScriptRoot\..\..\Cmdlets\Public\Get-TeamViewerInstallationType.ps1"
-    @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | `
-        ForEach-Object { . $_.FullName }
+    @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
 }
 
 Describe 'Get-TeamViewerInstallationType' {
@@ -16,8 +15,8 @@ Describe 'Get-TeamViewerInstallationType' {
         }
 
         It 'Should return MSI when MSI database and MsiInstallation registry value are both present' {
-            $result = Get-TeamViewerInstallationType
-            $result | Should -Be 'MSI'
+            $Result = Get-TeamViewerInstallationType
+            $Result | Should -Be 'MSI'
             Should -Invoke Get-CimInstance -Times 1
         }
     }
@@ -33,8 +32,8 @@ Describe 'Get-TeamViewerInstallationType' {
         }
 
         It 'Should not return MSI if only database entry exists' {
-            $result = Get-TeamViewerInstallationType
-            $result | Should -Not -Be 'MSI'
+            $Result = Get-TeamViewerInstallationType
+            $Result | Should -Not -Be 'MSI'
         }
     }
 
@@ -49,8 +48,8 @@ Describe 'Get-TeamViewerInstallationType' {
         }
 
         It 'Should not return MSI if only registry value exists' {
-            $result = Get-TeamViewerInstallationType
-            $result | Should -Not -Be 'MSI'
+            $Result = Get-TeamViewerInstallationType
+            $Result | Should -Not -Be 'MSI'
         }
     }
 
@@ -59,9 +58,11 @@ Describe 'Get-TeamViewerInstallationType' {
             Mock Get-CimInstance {
                 throw [System.Management.Automation.ItemNotFoundException]::new()
             }
+
             Mock Get-ItemProperty {
                 throw [System.Management.Automation.ItemNotFoundException]::new()
             } -ParameterFilter { $Name -eq 'MsiInstallation' }
+
             Mock Test-Path { $true }
             Mock Get-ChildItem {
                 $registryKey = New-Object PSObject
@@ -70,6 +71,7 @@ Describe 'Get-TeamViewerInstallationType' {
                 $registryKey | Add-Member -MemberType ScriptMethod -Name 'GetValue' -Value { return 'TeamViewer' }
                 $registryKey
             }
+
             Mock Get-ItemProperty {
                 [PSCustomObject]@{
                     UninstallString = '"C:\Program Files\TeamViewer\uninstall.exe" /S'
@@ -78,8 +80,8 @@ Describe 'Get-TeamViewerInstallationType' {
         }
 
         It 'Should return exe when UninstallString file exists' {
-            $result = Get-TeamViewerInstallationType
-            $result | Should -Be 'exe'
+            $Result = Get-TeamViewerInstallationType
+            $Result | Should -Be 'exe'
         }
     }
 
@@ -88,9 +90,11 @@ Describe 'Get-TeamViewerInstallationType' {
             Mock Get-CimInstance {
                 throw [System.Management.Automation.ItemNotFoundException]::new()
             }
+
             Mock Get-ItemProperty {
                 throw [System.Management.Automation.ItemNotFoundException]::new()
             } -ParameterFilter { $Name -eq 'MsiInstallation' }
+
             Mock Get-ChildItem {
                 $registryKey = New-Object PSObject
                 $registryKey | Add-Member -MemberType NoteProperty -Name 'Name' -Value 'TeamViewer'
@@ -98,6 +102,7 @@ Describe 'Get-TeamViewerInstallationType' {
                 $registryKey | Add-Member -MemberType ScriptMethod -Name 'GetValue' -Value { return 'TeamViewer' }
                 $registryKey
             }
+
             Mock Get-ItemProperty {
                 [PSCustomObject]@{
                     UninstallString = '"C:\Program Files\TeamViewer\uninstall.exe" /S'
@@ -115,8 +120,8 @@ Describe 'Get-TeamViewerInstallationType' {
         }
 
         It 'Should return Unknown when UninstallString file does not exist' {
-            $result = Get-TeamViewerInstallationType
-            $result | Should -Be 'Unknown'
+            $Result = Get-TeamViewerInstallationType
+            $Result | Should -Be 'Unknown'
         }
     }
 
@@ -125,16 +130,18 @@ Describe 'Get-TeamViewerInstallationType' {
             Mock Get-CimInstance {
                 throw [System.Management.Automation.ItemNotFoundException]::new()
             }
+
             Mock Get-ItemProperty {
                 throw [System.Management.Automation.ItemNotFoundException]::new()
             }
+
             Mock Get-ChildItem { }
             Mock Test-Path { $false }
         }
 
         It 'Should return Unknown when TeamViewer is not installed' {
-            $result = Get-TeamViewerInstallationType
-            $result | Should -Be 'Unknown'
+            $Result = Get-TeamViewerInstallationType
+            $Result | Should -Be 'Unknown'
         }
     }
 
@@ -143,6 +150,7 @@ Describe 'Get-TeamViewerInstallationType' {
             Mock Get-CimInstance {
                 [PSCustomObject]@{ Name = 'TeamViewer' }
             }
+
             Mock Get-ItemProperty {
                 param($Path)
                 if ($Path -like '*WOW6432Node*') {
@@ -155,8 +163,8 @@ Describe 'Get-TeamViewerInstallationType' {
         }
 
         It 'Should check both registry paths and return MSI if found in WOW6432Node' {
-            $result = Get-TeamViewerInstallationType
-            $result | Should -Be 'MSI'
+            $Result = Get-TeamViewerInstallationType
+            $Result | Should -Be 'MSI'
         }
     }
 
@@ -165,14 +173,17 @@ Describe 'Get-TeamViewerInstallationType' {
             Mock Get-CimInstance {
                 throw [System.Management.Automation.ItemNotFoundException]::new()
             }
+
             Mock Get-ItemProperty {
                 throw [System.Management.Automation.ItemNotFoundException]::new()
             } -ParameterFilter { $Name -eq 'MsiInstallation' }
+
             Mock Get-ItemProperty {
                 [PSCustomObject]@{
                     UninstallString = 'C:\Program Files (x86)\TeamViewer\uninstall.exe /quiet'
                 }
             } -ParameterFilter { $Name -eq 'UninstallString' }
+
             Mock Get-ChildItem {
                 $registryKey = New-Object PSObject
                 $registryKey | Add-Member -MemberType NoteProperty -Name 'Name' -Value 'TeamViewer'
@@ -180,12 +191,13 @@ Describe 'Get-TeamViewerInstallationType' {
                 $registryKey | Add-Member -MemberType ScriptMethod -Name 'GetValue' -Value { return 'TeamViewer' }
                 $registryKey
             }
+
             Mock Test-Path { $true }
         }
 
         It 'Should check both 64-bit and 32-bit uninstall paths and return exe' {
-            $result = Get-TeamViewerInstallationType
-            $result | Should -Be 'exe'
+            $Result = Get-TeamViewerInstallationType
+            $Result | Should -Be 'exe'
         }
     }
 
@@ -194,9 +206,11 @@ Describe 'Get-TeamViewerInstallationType' {
             Mock Get-CimInstance {
                 throw [System.Management.Automation.ItemNotFoundException]::new()
             }
+
             Mock Get-ItemProperty {
                 [PSCustomObject]@{ MsiInstallation = 0 }
             } -ParameterFilter { $Name -eq 'MsiInstallation' }
+
             Mock Get-ChildItem {
                 $registryKey = New-Object PSObject
                 $registryKey | Add-Member -MemberType NoteProperty -Name 'Name' -Value 'TeamViewer'
@@ -204,17 +218,19 @@ Describe 'Get-TeamViewerInstallationType' {
                 $registryKey | Add-Member -MemberType ScriptMethod -Name 'GetValue' -Value { return 'TeamViewer' }
                 $registryKey
             }
+
             Mock Get-ItemProperty {
                 [PSCustomObject]@{
                     UninstallString = 'C:\Program Files\TeamViewer\uninstall.exe'
                 }
             } -ParameterFilter { $Name -eq 'UninstallString' }
+
             Mock Test-Path { $true }
         }
 
         It 'Should return exe when MsiInstallation is 0 (exeInstallation)' {
-            $result = Get-TeamViewerInstallationType
-            $result | Should -Be 'exe'
+            $Result = Get-TeamViewerInstallationType
+            $Result | Should -Be 'exe'
         }
     }
 }

@@ -22,23 +22,23 @@ function Set-TeamViewerUserGroup {
     )
 
     begin {
-        $id = $UserGroup | Resolve-TeamViewerUserGroupId
-        $resourceUri = "$(Get-TeamViewerApiUri)/usergroups/$id"
-        $body = @{ name = $Name }
+        $Id = $UserGroup | Resolve-TeamViewerUserGroupId
+        $ResourceUri = "$(Get-TeamViewerApiUri)/usergroups/$id"
+        $Body = @{ name = $Name }
     }
 
     process {
         if ($PSCmdlet.ShouldProcess($UserGroup.ToString(), 'Change user group')) {
-            $response = Invoke-TeamViewerRestMethod `
+            $Response = Invoke-TeamViewerRestMethod `
                 -ApiToken $ApiToken `
-                -Uri $resourceUri `
+                -Uri $ResourceUri `
                 -Method Put `
                 -ContentType 'application/json; charset=utf-8' `
-                -Body ([System.Text.Encoding]::UTF8.GetBytes(($body | ConvertTo-Json))) `
+                -Body ([System.Text.Encoding]::UTF8.GetBytes(($Body | ConvertTo-Json))) `
                 -WriteErrorTo $PSCmdlet `
                 -ErrorAction Stop
 
-            Write-Output ($response | ConvertTo-TeamViewerUserGroup)
+            Write-Output ($Response | ConvertTo-TeamViewerUserGroup)
         }
     }
 }

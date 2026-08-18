@@ -21,26 +21,26 @@ function Add-TeamViewerUserToRole {
     )
 
     begin {
-        $id = $RoleId | Resolve-TeamViewerRoleId
+        $Id = $RoleId | Resolve-TeamViewerRoleId
         $null = $ApiToken
-        $resourceUri = "$(Get-TeamViewerApiUri)/userroles/assign/account"
+        $ResourceUri = "$(Get-TeamViewerApiUri)/userroles/assign/account"
         $AccountsToAdd = @()
-        $body = @{
+        $Body = @{
             UserIds    = @()
             UserRoleId = $id
         }
 
         function Invoke-TeamViewerRestMethodInternal {
-            $result = Invoke-TeamViewerRestMethod `
+            $Result = Invoke-TeamViewerRestMethod `
                 -ApiToken $ApiToken `
-                -Uri $resourceUri `
+                -Uri $ResourceUri `
                 -Method Post `
                 -ContentType 'application/json; charset=utf-8' `
-                -Body ([System.Text.Encoding]::UTF8.GetBytes(($body | ConvertTo-Json))) `
+                -Body ([System.Text.Encoding]::UTF8.GetBytes(($Body | ConvertTo-Json))) `
                 -WriteErrorTo $PSCmdlet `
                 -ErrorAction Stop
 
-            Write-Output ($result)
+            Write-Output ($Result)
         }
     }
 
@@ -52,7 +52,7 @@ function Add-TeamViewerUserToRole {
             }
             foreach ($Account in $Accounts) {
                 $AccountsToAdd += $Account
-                $body.UserIds = @($AccountsToAdd)
+                $Body.UserIds = @($AccountsToAdd)
             }
         }
         if ($AccountsToAdd.Length -eq 100) {

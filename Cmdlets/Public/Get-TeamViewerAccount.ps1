@@ -9,14 +9,14 @@ function Get-TeamViewerAccount {
         $ApiToken
     )
 
-    $resourceUri = "$(Get-TeamViewerApiUri)/account"
+    $ResourceUri = "$(Get-TeamViewerApiUri)/account"
 
-    $response = Invoke-TeamViewerRestMethod `
+    $Response = Invoke-TeamViewerRestMethod `
         -ApiToken $ApiToken `
-        -Uri $resourceUri `
+        -Uri $ResourceUri `
         -Method Get `
         -WriteErrorTo $PSCmdlet `
         -ErrorAction Stop
 
-    Write-Output ($response | ConvertTo-TeamViewerAccount)
+    Write-Output ($Response | ConvertTo-TeamViewerAccount)
 }

@@ -40,9 +40,9 @@ Describe 'Get-TeamViewerDevice' {
     }
 
     It 'Should return Device objects' {
-        $result = Get-TeamViewerDevice -ApiToken $testApiToken
-        $result | Should -HaveCount 3
-        $result[0].PSObject.TypeNames | Should -Contain 'TeamViewerPS.Device'
+        $Result = Get-TeamViewerDevice -ApiToken $testApiToken
+        $Result | Should -HaveCount 3
+        $Result[0].PSObject.TypeNames | Should -Contain 'TeamViewerPS.Device'
     }
 
     It 'Should allow to filter by TeamViewer ID' {

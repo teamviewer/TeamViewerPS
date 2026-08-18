@@ -20,22 +20,22 @@ function Add-TeamViewerSsoInclusion {
     )
 
     begin {
-        $id = $DomainId | Resolve-TeamViewerSsoDomainId
-        $resourceUri = "$(Get-TeamViewerApiUri)/ssoDomain/$id/inclusion"
-        $emailsToAdd = @()
+        $Id = $DomainId | Resolve-TeamViewerSsoDomainId
+        $ResourceUri = "$(Get-TeamViewerApiUri)/ssoDomain/$Id/inclusion"
+        $EmailsToAdd = @()
         $null = $ApiToken
 
         function Invoke-RequestInternal {
-            $body = @{
-                emails = @($emailsToAdd)
+            $Body = @{
+                emails = @($EmailsToAdd)
             }
 
             Invoke-TeamViewerRestMethod `
                 -ApiToken $ApiToken `
-                -Uri $resourceUri `
+                -Uri $ResourceUri `
                 -Method Post `
                 -ContentType 'application/json; charset=utf-8' `
-                -Body ([System.Text.Encoding]::UTF8.GetBytes(($body | ConvertTo-Json))) `
+                -Body ([System.Text.Encoding]::UTF8.GetBytes(($Body | ConvertTo-Json))) `
                 -WriteErrorTo $PSCmdlet `
                 -ErrorAction Stop | `
                 Out-Null
@@ -44,16 +44,16 @@ function Add-TeamViewerSsoInclusion {
 
     process {
         if ($PSCmdlet.ShouldProcess($Email, 'Add SSO inclusion')) {
-            $emailsToAdd += $Email
+            $EmailsToAdd += $Email
         }
 
-        if ($emailsToAdd.Length -eq 100) {
+        if ($EmailsToAdd.Length -eq 100) {
             Invoke-RequestInternal
-            $emailsToAdd = @()
+            $EmailsToAdd = @()
         }
     }
     end {
-        if ($emailsToAdd.Length -gt 0) {
+        if ($EmailsToAdd.Length -gt 0) {
             Invoke-RequestInternal
         }
     }

@@ -13,19 +13,19 @@ function New-TeamViewerManagedGroup {
         $Name
     )
 
-    $body = @{ name = $Name }
-    $resourceUri = "$(Get-TeamViewerApiUri)/managed/groups"
+    $Body = @{ name = $Name }
+    $ResourceUri = "$(Get-TeamViewerApiUri)/managed/groups"
 
     if ($PSCmdlet.ShouldProcess($Name, 'Create managed group')) {
-        $response = Invoke-TeamViewerRestMethod `
+        $Response = Invoke-TeamViewerRestMethod `
             -ApiToken $ApiToken `
-            -Uri $resourceUri `
+            -Uri $ResourceUri `
             -Method Post `
             -ContentType 'application/json; charset=utf-8' `
-            -Body ([System.Text.Encoding]::UTF8.GetBytes(($body | ConvertTo-Json))) `
+            -Body ([System.Text.Encoding]::UTF8.GetBytes(($Body | ConvertTo-Json))) `
             -WriteErrorTo $PSCmdlet `
             -ErrorAction Stop
 
-        Write-Output ($response | ConvertTo-TeamViewerManagedGroup)
+        Write-Output ($Response | ConvertTo-TeamViewerManagedGroup)
     }
 }

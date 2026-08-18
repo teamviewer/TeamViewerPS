@@ -1,8 +1,7 @@
 BeforeAll {
     . "$PSScriptRoot\..\..\Cmdlets\Public\Move-TeamViewerManagedDevice.ps1"
 
-    @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | `
-        ForEach-Object { . $_.FullName }
+    @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
 
     $testApiToken = [securestring]@{}
     $null = $testApiToken
@@ -20,26 +19,18 @@ BeforeAll {
 
 Describe 'Move-TeamViewerManagedDevice' {
     It 'Should call the correct API endpoint to move a managed device from one group to another' {
-        Move-TeamViewerManagedDevice `
-            -ApiToken $testApiToken `
-            -Device $testDeviceId `
-            -SourceGroup $testSourceGroupId `
-            -TargetGroup $testTargetGroupId
+        Move-TeamViewerManagedDevice -ApiToken $testApiToken -Device $testDeviceId -SourceGroup $testSourceGroupId -TargetGroup $testTargetGroupId
+
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -And `
-                $Uri -eq "//unit.test/managed/devices/$testDeviceId/groups" -And `
-                $Method -eq 'Put' }
+            $ApiToken -eq $testApiToken -and $Uri -eq "//unit.test/managed/devices/$testDeviceId/groups" -and $Method -eq 'Put' }
     }
 
     It 'Should move the device from one group to another' {
-        Move-TeamViewerManagedDevice `
-            -ApiToken $testApiToken `
-            -Device $testDeviceId `
-            -SourceGroup $testSourceGroupId `
-            -TargetGroup $testTargetGroupId
+        Move-TeamViewerManagedDevice -ApiToken $testApiToken -Device $testDeviceId -SourceGroup $testSourceGroupId -TargetGroup $testTargetGroupId
+
         $mockArgs.Body | Should -Not -BeNullOrEmpty
-        $body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
-        $body.AddedChainIds | Should -Be $testTargetGroupId
-        $body.RemovedChainIds | Should -Be $testSourceGroupId
+        $Body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
+        $Body.AddedChainIds | Should -Be $testTargetGroupId
+        $Body.RemovedChainIds | Should -Be $testSourceGroupId
     }
 }

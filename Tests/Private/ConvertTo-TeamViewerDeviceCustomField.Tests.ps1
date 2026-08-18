@@ -5,7 +5,7 @@ BeforeAll {
 
 Describe 'ConvertTo-TeamViewerDeviceCustomField' {
     It 'Should map the API properties and type the result' {
-        $inputObject = [PSCustomObject]@{
+        $InputObject = [PSCustomObject]@{
             fieldKeyId  = '00000000-0000-0000-0000-000000000001'
             fieldKey    = 'AssetTag'
             fieldType   = 'string'
@@ -14,27 +14,27 @@ Describe 'ConvertTo-TeamViewerDeviceCustomField' {
             updatedAt   = '2026-01-02T00:00:00Z'
         }
 
-        $result = $inputObject | ConvertTo-TeamViewerDeviceCustomField
+        $Result = $InputObject | ConvertTo-TeamViewerDeviceCustomField
 
-        $result.Id | Should -Be $inputObject.fieldKeyId
-        $result.FieldKey | Should -Be 'AssetTag'
-        $result.FieldType | Should -Be 'string'
-        $result.Description | Should -Be 'Device asset tag'
-        $result.CreatedAt | Should -BeOfType ([datetime])
-        $result.CreatedAt | Should -Be ([datetime]'2026-01-01T00:00:00Z')
-        $result.UpdatedAt | Should -BeOfType ([datetime])
-        $result.UpdatedAt | Should -Be ([datetime]'2026-01-02T00:00:00Z')
-        $result.PSObject.TypeNames | Should -Contain 'TeamViewerPS.DeviceCustomField'
-        $result.ToString() | Should -Be 'AssetTag (00000000-0000-0000-0000-000000000001)'
+        $Result.Id | Should -Be $InputObject.fieldKeyId
+        $Result.FieldKey | Should -Be 'AssetTag'
+        $Result.FieldType | Should -Be 'string'
+        $Result.Description | Should -Be 'Device asset tag'
+        $Result.CreatedAt | Should -BeOfType ([datetime])
+        $Result.CreatedAt | Should -Be ([datetime]'2026-01-01T00:00:00Z')
+        $Result.UpdatedAt | Should -BeOfType ([datetime])
+        $Result.UpdatedAt | Should -Be ([datetime]'2026-01-02T00:00:00Z')
+        $Result.PSObject.TypeNames | Should -Contain 'TeamViewerPS.DeviceCustomField'
+        $Result.ToString() | Should -Be 'AssetTag (00000000-0000-0000-0000-000000000001)'
     }
 
     It 'Should convert multiple pipeline inputs' {
-        $results = @(
+        $Results = @(
             [PSCustomObject]@{ fieldKeyId = 'id1'; fieldKey = 'One' }
             [PSCustomObject]@{ fieldKeyId = 'id2'; fieldKey = 'Two' }
         ) | ConvertTo-TeamViewerDeviceCustomField
 
-        $results.Count | Should -Be 2
-        $results.FieldKey | Should -Be @('One', 'Two')
+        $Results.Count | Should -Be 2
+        $Results.FieldKey | Should -Be @('One', 'Two')
     }
 }

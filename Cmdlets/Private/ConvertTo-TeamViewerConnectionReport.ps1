@@ -6,7 +6,7 @@ function ConvertTo-TeamViewerConnectionReport {
     )
 
     process {
-        $properties = @{
+        $Properties = @{
             Id                 = $InputObject.id
             UserId             = $InputObject.userid
             UserName           = $InputObject.username
@@ -24,9 +24,9 @@ function ConvertTo-TeamViewerConnectionReport {
             Notes              = $InputObject.notes
         }
 
-        $result = New-Object -TypeName PSObject -Property $properties
-        $result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.ConnectionReport')
+        $Result = New-Object -TypeName PSObject -Property $Properties
+        $Result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.ConnectionReport')
 
-        Write-Output $result
+        Write-Output $Result
     }
 }

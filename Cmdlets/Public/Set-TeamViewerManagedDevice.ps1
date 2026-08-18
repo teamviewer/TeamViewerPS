@@ -47,25 +47,25 @@ function Set-TeamViewerManagedDevice {
     )
 
     begin {
-        $body = @{}
+        $Body = @{}
 
         if ($Name) {
-            $body['name'] = $Name
+            $Body['name'] = $Name
         }
 
         switch ($PsCmdlet.ParameterSetName) {
             'ByPolicyId' {
-                $body['teamviewerPolicyId'] = ($Policy | Resolve-TeamViewerPolicyId).ToString()
+                $Body['teamviewerPolicyId'] = ($Policy | Resolve-TeamViewerPolicyId).ToString()
             }
             'ByManagedGroupId' {
-                $body['managedGroupId'] = ($ManagedGroup | Resolve-TeamViewerManagedGroupId).ToString()
+                $Body['managedGroupId'] = ($ManagedGroup | Resolve-TeamViewerManagedGroupId).ToString()
             }
             'UpdateDescription' {
-                $body['deviceDescription'] = $Description
+                $Body['deviceDescription'] = $Description
             }
         }
 
-        if ($body.Count -eq 0) {
+        if ($Body.Count -eq 0) {
             $PSCmdlet.ThrowTerminatingError(
                 ('The given input does not change the managed device.' | `
                     ConvertTo-ErrorRecord -ErrorCategory InvalidArgument))
@@ -73,24 +73,25 @@ function Set-TeamViewerManagedDevice {
     }
 
     process {
-        $deviceId = $Device | Resolve-TeamViewerManagedDeviceId
-        $resourceUri = "$(Get-TeamViewerApiUri)/managed/devices/$deviceId"
+        $DeviceId = $Device | Resolve-TeamViewerManagedDeviceId
+        $ResourceUri = "$(Get-TeamViewerApiUri)/managed/devices/$DeviceId"
 
         switch ($PsCmdlet.ParameterSetName) {
             'UpdateDescription' {
-                $resourceUri += '/description'
+                $ResourceUri += '/description'
             }
         }
 
         if ($PSCmdlet.ShouldProcess($Device.ToString(), 'Change managed device entry')) {
             Invoke-TeamViewerRestMethod `
                 -ApiToken $ApiToken `
-                -Uri $resourceUri `
+                -Uri $ResourceUri `
                 -Method Put `
                 -ContentType 'application/json; charset=utf-8' `
-                -Body ([System.Text.Encoding]::UTF8.GetBytes(($body | ConvertTo-Json))) `
+                -Body ([System.Text.Encoding]::UTF8.GetBytes(($Body | ConvertTo-Json))) `
                 -WriteErrorTo $PSCmdlet `
-                -ErrorAction Stop | Out-Null
+                -ErrorAction Stop | `
+                Out-Null
         }
     }
 }

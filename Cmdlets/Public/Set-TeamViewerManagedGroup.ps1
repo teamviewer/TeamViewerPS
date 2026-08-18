@@ -2,6 +2,7 @@ function Set-TeamViewerManagedGroup {
     [CmdletBinding(SupportsShouldProcess = $true, DefaultParameterSetName = 'ByParameters')]
 
     [OutputType([void])]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
@@ -38,12 +39,12 @@ function Set-TeamViewerManagedGroup {
         # See https://github.com/PowerShell/PSScriptAnalyzer/issues/1472
         $null = $Property
 
-        $body = @{}
+        $Body = @{}
 
         switch ($PSCmdlet.ParameterSetName) {
             'ByParameters' {
                 if ($Name) {
-                    $body['name'] = $Name
+                    $Body['name'] = $Name
                 }
 
                 if ($PolicyId -or $PolicyType) {
@@ -52,7 +53,7 @@ function Set-TeamViewerManagedGroup {
                             ('PolicyId and PolicyType must be specified together' | ConvertTo-ErrorRecord -ErrorCategory InvalidArgument))
                     }
 
-                    $body['policy'] = @{
+                    $Body['policy'] = @{
                         'policy_id'   = $PolicyId
                         'policy_type' = $PolicyType
                     }
@@ -60,7 +61,7 @@ function Set-TeamViewerManagedGroup {
             }
 
             'ByProperties' {
-                @('name') | Where-Object { $Property[$_] } | ForEach-Object { $body[$_] = $Property[$_] }
+                @('name') | Where-Object { $Property[$_] } | ForEach-Object { $Body[$_] = $Property[$_] }
 
                 if ($Property.ContainsKey('policy_id') -or $Property.ContainsKey('policy_type')) {
                     if (-not ($Property.ContainsKey('policy_id') -and $Property.ContainsKey('policy_type'))) {
@@ -68,7 +69,7 @@ function Set-TeamViewerManagedGroup {
                             ('PolicyId and PolicyType must be specified together' | ConvertTo-ErrorRecord -ErrorCategory InvalidArgument))
                     }
 
-                    $body['policy'] = @{
+                    $Body['policy'] = @{
                         'policy_id'   = $Property['policy_id']
                         'policy_type' = [PolicyType]$Property['policy_type']
                     }
@@ -76,23 +77,23 @@ function Set-TeamViewerManagedGroup {
             }
         }
 
-        if ($body.Count -eq 0) {
+        if ($Body.Count -eq 0) {
             $PSCmdlet.ThrowTerminatingError(
                 ('The given input does not change the managed group.' | ConvertTo-ErrorRecord -ErrorCategory InvalidArgument))
         }
     }
 
     process {
-        $groupId = $Group | Resolve-TeamViewerManagedGroupId
-        $resourceUri = "$(Get-TeamViewerApiUri)/managed/groups/$groupId"
+        $GroupId = $Group | Resolve-TeamViewerManagedGroupId
+        $ResourceUri = "$(Get-TeamViewerApiUri)/managed/groups/$GroupId"
 
-        if ($PSCmdlet.ShouldProcess($groupId, 'Update managed group')) {
+        if ($PSCmdlet.ShouldProcess($GroupId, 'Update managed group')) {
             Invoke-TeamViewerRestMethod `
                 -ApiToken $ApiToken `
-                -Uri $resourceUri `
+                -Uri $ResourceUri `
                 -Method Put `
                 -ContentType 'application/json; charset=utf-8' `
-                -Body ([System.Text.Encoding]::UTF8.GetBytes(($body | ConvertTo-Json))) `
+                -Body ([System.Text.Encoding]::UTF8.GetBytes(($Body | ConvertTo-Json))) `
                 -WriteErrorTo $PSCmdlet | Out-Null
         }
     }

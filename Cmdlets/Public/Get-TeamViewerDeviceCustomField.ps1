@@ -10,17 +10,17 @@ function Get-TeamViewerDeviceCustomField {
     )
 
     begin {
-        $resourceUri = "$(Get-TeamViewerApiUri)/device-custom-fields"
+        $ResourceUri = "$(Get-TeamViewerApiUri)/device-custom-fields"
     }
 
     process {
-        $response = Invoke-TeamViewerRestMethod `
+        $Response = Invoke-TeamViewerRestMethod `
             -ApiToken $ApiToken `
-            -Uri $resourceUri `
+            -Uri $ResourceUri `
             -Method Get `
             -WriteErrorTo $PSCmdlet `
             -ErrorAction Stop
 
-        Write-Output ($response.resources | ConvertTo-TeamViewerDeviceCustomField)
+        Write-Output ($Response.resources | ConvertTo-TeamViewerDeviceCustomField)
     }
 }

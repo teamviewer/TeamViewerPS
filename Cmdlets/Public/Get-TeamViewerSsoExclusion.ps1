@@ -15,21 +15,21 @@ function Get-TeamViewerSsoExclusion {
         $DomainId
     )
 
-    $id = $DomainId | Resolve-TeamViewerSsoDomainId
-    $resourceUri = "$(Get-TeamViewerApiUri)/ssoDomain/$id/exclusion"
-    $parameters = @{ }
+    $Id = $DomainId | Resolve-TeamViewerSsoDomainId
+    $ResourceUri = "$(Get-TeamViewerApiUri)/ssoDomain/$Id/exclusion"
+    $Parameters = @{ }
 
     do {
-        $response = Invoke-TeamViewerRestMethod `
+        $Response = Invoke-TeamViewerRestMethod `
             -ApiToken $ApiToken `
-            -Uri $resourceUri `
+            -Uri $ResourceUri `
             -Method Get `
-            -Body $parameters `
+            -Body $Parameters `
             -WriteErrorTo $PSCmdlet `
             -ErrorAction Stop
 
-        Write-Output $response.emails
+        Write-Output $Response.emails
 
-        $parameters.ct = $response.continuation_token
-    } while ($parameters.ct)
+        $Parameters.ct = $Response.continuation_token
+    } while ($Parameters.ct)
 }

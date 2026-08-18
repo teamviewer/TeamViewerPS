@@ -22,24 +22,24 @@ function New-TeamViewerPolicy {
         $DefaultPolicy = $False
     )
 
-    $body = @{
+    $Body = @{
         name     = $Name
         default  = [boolean]$DefaultPolicy
         settings = @()
     }
 
     if ($Settings) {
-        $body.settings = @($Settings)
+        $Body.settings = @($Settings)
     }
 
-    $resourceUri = "$(Get-TeamViewerApiUri)/teamviewerpolicies"
+    $ResourceUri = "$(Get-TeamViewerApiUri)/teamviewerpolicies"
     if ($PSCmdlet.ShouldProcess($Name, 'Create policy')) {
         Invoke-TeamViewerRestMethod `
             -ApiToken $ApiToken `
-            -Uri $resourceUri `
+            -Uri $ResourceUri `
             -Method Post `
             -ContentType 'application/json; charset=utf-8' `
-            -Body ([System.Text.Encoding]::UTF8.GetBytes(($body | ConvertTo-Json))) `
+            -Body ([System.Text.Encoding]::UTF8.GetBytes(($Body | ConvertTo-Json))) `
             -WriteErrorTo $PSCmdlet | `
             Out-Null
     }

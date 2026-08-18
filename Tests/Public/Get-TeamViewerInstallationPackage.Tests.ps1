@@ -37,13 +37,13 @@ Describe 'Get-TeamViewerInstallationPackage' {
 
         $script:testVersionInfo.ProductName = $ProductName
 
-        $result = Get-TeamViewerInstallationPackage
+        $Result = Get-TeamViewerInstallationPackage
 
         if ($null -eq $Expected) {
-            $result | Should -BeNullOrEmpty
+            $Result | Should -BeNullOrEmpty
         }
         else {
-            $result | Should -Be $Expected
+            $Result | Should -Be $Expected
         }
 
         Should -Invoke Test-TeamViewerInstallation -Scope It -Times 1
@@ -66,9 +66,10 @@ Describe 'Get-TeamViewerInstallationPackage' {
         } { throw 'file not found' }
         Mock Write-Verbose { }
 
-        $result = Get-TeamViewerInstallationPackage
+        $Result = Get-TeamViewerInstallationPackage
 
-        $result | Should -BeNullOrEmpty
+        $Result | Should -BeNullOrEmpty
+
         Should -Invoke Write-Verbose -Scope It -Times 1 -ParameterFilter {
             $Message -like 'Failed to read the TeamViewer file attribute information:*'
         }

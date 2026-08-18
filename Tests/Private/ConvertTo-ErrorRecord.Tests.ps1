@@ -13,17 +13,17 @@ Describe 'ConvertTo-ErrorRecord' {
             $this.Message
         }
 
-        $result = ConvertTo-ErrorRecord -InputObject $restError
+        $Result = ConvertTo-ErrorRecord -InputObject $restError
 
-        $result | Should -BeOfType ([System.Management.Automation.ErrorRecord])
-        $result.ErrorDetails.Message | Should -Be 'Boom'
+        $Result | Should -BeOfType ([System.Management.Automation.ErrorRecord])
+        $Result.ErrorDetails.Message | Should -Be 'Boom'
     }
 
     It 'Returns generic error record for plain string input' {
-        $result = ConvertTo-ErrorRecord -InputObject 'plain error'
+        $Result = ConvertTo-ErrorRecord -InputObject 'plain error'
 
-        $result | Should -BeOfType ([System.Management.Automation.ErrorRecord])
-        $result.Exception.Message | Should -Be 'plain error'
+        $Result | Should -BeOfType ([System.Management.Automation.ErrorRecord])
+        $Result.Exception.Message | Should -Be 'plain error'
     }
 
     It 'Maps REST error category <Category> to <ExpectedCategory>' -TestCases @(
@@ -43,8 +43,8 @@ Describe 'ConvertTo-ErrorRecord' {
         $restError.PSObject.TypeNames.Insert(0, 'TeamViewerPS.RestError')
         $restError | Add-Member -MemberType ScriptMethod -Name 'ToString' -Force -Value { $this.Message }
 
-        $result = ConvertTo-ErrorRecord -InputObject $restError
+        $Result = ConvertTo-ErrorRecord -InputObject $restError
 
-        $result.CategoryInfo.Category | Should -Be $ExpectedCategory
+        $Result.CategoryInfo.Category | Should -Be $ExpectedCategory
     }
 }

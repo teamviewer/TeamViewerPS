@@ -17,35 +17,35 @@ function Get-TeamViewerUserGroup {
     )
 
     begin {
-        $resourceUri = "$(Get-TeamViewerApiUri)/usergroups"
-        $parameters = @{ }
-        $isListOperation = $true
+        $ResourceUri = "$(Get-TeamViewerApiUri)/usergroups"
+        $Parameters = @{ }
+        $IsListOperation = $true
 
         if ($UserGroup) {
             $GroupId = $UserGroup | Resolve-TeamViewerUserGroupId
-            $resourceUri += "/$GroupId"
-            $parameters = $null
-            $isListOperation = $false
+            $ResourceUri += "/$GroupId"
+            $Parameters = $null
+            $IsListOperation = $false
         }
     }
 
     process {
         do {
-            $response = Invoke-TeamViewerRestMethod `
+            $Response = Invoke-TeamViewerRestMethod `
                 -ApiToken $ApiToken `
-                -Uri $resourceUri `
+                -Uri $ResourceUri `
                 -Method Get `
-                -Body $parameters `
+                -Body $Parameters `
                 -WriteErrorTo $PSCmdlet `
                 -ErrorAction Stop
 
             if ($UserGroup) {
-                Write-Output ($response | ConvertTo-TeamViewerUserGroup)
+                Write-Output ($Response | ConvertTo-TeamViewerUserGroup)
             }
             else {
-                $parameters.paginationToken = $response.nextPaginationToken
-                Write-Output ($response.resources | ConvertTo-TeamViewerUserGroup)
+                $Parameters.paginationToken = $Response.nextPaginationToken
+                Write-Output ($Response.resources | ConvertTo-TeamViewerUserGroup)
             }
-        } while ($isListOperation -and $parameters.paginationToken)
+        } while ($IsListOperation -and $Parameters.paginationToken)
     }
 }

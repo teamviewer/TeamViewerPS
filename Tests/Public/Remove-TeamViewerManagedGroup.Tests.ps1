@@ -1,8 +1,7 @@
 BeforeAll {
     . "$PSScriptRoot\..\..\Cmdlets\Public\Remove-TeamViewerManagedGroup.ps1"
 
-    @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | `
-        ForEach-Object { . $_.FullName }
+    @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
 
     $testApiToken = [securestring]@{}
     $null = $testApiToken
@@ -18,19 +17,16 @@ Describe 'Remove-TeamViewerGroup' {
         Remove-TeamViewerManagedGroup -ApiToken $testApiToken -Id $testGroupId
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -And `
-                $Uri -eq "//unit.test/managed/groups/$testGroupId" -And `
-                $Method -eq 'Delete' }
+            $ApiToken -eq $testApiToken -and $Uri -eq "//unit.test/managed/groups/$testGroupId" -and $Method -eq 'Delete' }
     }
 
     It 'Should accept ManagedGroup objects' {
         $testGroup = @{ id = $testGroupId } | ConvertTo-TeamViewerManagedGroup
+
         Remove-TeamViewerManagedGroup -ApiToken $testApiToken -Group $testGroup
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -And `
-                $Uri -eq "//unit.test/managed/groups/$testGroupId" -And `
-                $Method -eq 'Delete' }
+            $ApiToken -eq $testApiToken -and $Uri -eq "//unit.test/managed/groups/$testGroupId" -and $Method -eq 'Delete' }
     }
 
     It 'Should fail for invalid group identifiers' {
@@ -42,8 +38,6 @@ Describe 'Remove-TeamViewerGroup' {
         $testGroup | Remove-TeamViewerManagedGroup -ApiToken $testApiToken
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -And `
-                $Uri -eq "//unit.test/managed/groups/$testGroupId" -And `
-                $Method -eq 'Delete' }
+            $ApiToken -eq $testApiToken -and $Uri -eq "//unit.test/managed/groups/$testGroupId" -and $Method -eq 'Delete' }
     }
 }

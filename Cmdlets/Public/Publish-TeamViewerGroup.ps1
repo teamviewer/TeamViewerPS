@@ -29,23 +29,23 @@ function Publish-TeamViewerGroup {
     # See https://github.com/PowerShell/PSScriptAnalyzer/issues/1472
     $null = $Permissions
 
-    $groupId = $Group | Resolve-TeamViewerGroupId
-    $userIds = $User | Resolve-TeamViewerUserId
-    $resourceUri = "$(Get-TeamViewerApiUri)/groups/$groupId/share_group"
-    $body = @{
-        users = @($userIds | ForEach-Object { @{
+    $GroupId = $Group | Resolve-TeamViewerGroupId
+    $UserIds = $User | Resolve-TeamViewerUserId
+    $ResourceUri = "$(Get-TeamViewerApiUri)/groups/$GroupId/share_group"
+    $Body = @{
+        users = @($UserIds | ForEach-Object { @{
                     userid      = $_
                     permissions = $Permissions
                 } })
     }
 
-    if ($PSCmdlet.ShouldProcess($userids, 'Add group share')) {
+    if ($PSCmdlet.ShouldProcess($UserIds, 'Add group share')) {
         Invoke-TeamViewerRestMethod `
             -ApiToken $ApiToken `
-            -Uri $resourceUri `
+            -Uri $ResourceUri `
             -Method Post `
             -ContentType 'application/json; charset=utf-8' `
-            -Body ([System.Text.Encoding]::UTF8.GetBytes(($body | ConvertTo-Json))) `
+            -Body ([System.Text.Encoding]::UTF8.GetBytes(($Body | ConvertTo-Json))) `
             -WriteErrorTo $PSCmdlet | `
             Out-Null
     }

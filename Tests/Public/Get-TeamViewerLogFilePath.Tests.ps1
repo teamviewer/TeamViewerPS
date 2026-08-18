@@ -32,12 +32,14 @@ Describe 'Get-TeamViewerLogFilePath function' {
                     [PSCustomObject]@{ Name = 'TVNetwork.log'; FullName = 'C:\TV\TVNetwork.log' }
                 )
             }
+
             Mock Get-ChildItem -ParameterFilter { $Path -eq 'C:\Users\Test\AppData\Local\TeamViewer\Logs' } {
                 @(
                     [PSCustomObject]@{ Name = 'file2.log'; FullName = 'C:\Users\Test\AppData\Local\TeamViewer\Logs\file2.log' }
                     [PSCustomObject]@{ Name = 'TVNetwork_Old.log'; FullName = 'C:\Users\Test\AppData\Local\TeamViewer\Logs\TVNetwork_Old.log' }
                 )
             }
+
             Mock Get-ChildItem -ParameterFilter { $Path -eq 'C:\Users\Test\AppData\Roaming\TeamViewer' } {
                 @(
                     [PSCustomObject]@{ Name = 'file3.log'; FullName = 'C:\Users\Test\AppData\Roaming\TeamViewer\file3.log' }
@@ -47,21 +49,21 @@ Describe 'Get-TeamViewerLogFilePath function' {
         }
 
         It 'Should return log file paths from all search directories' {
-            $result = Get-TeamViewerLogFilePath
+            $Result = Get-TeamViewerLogFilePath
 
-            $result | Should -Contain 'C:\TV\file1.log'
-            $result | Should -Contain 'C:\Users\Test\AppData\Local\TeamViewer\Logs\file2.log'
-            $result | Should -Contain 'C:\Users\Test\AppData\Roaming\TeamViewer\file3.log'
-            $result | Should -HaveCount 3
+            $Result | Should -Contain 'C:\TV\file1.log'
+            $Result | Should -Contain 'C:\Users\Test\AppData\Local\TeamViewer\Logs\file2.log'
+            $Result | Should -Contain 'C:\Users\Test\AppData\Roaming\TeamViewer\file3.log'
+            $Result | Should -HaveCount 3
         }
 
         It 'Should exclude files by name' {
-            $result = Get-TeamViewerLogFilePath
+            $Result = Get-TeamViewerLogFilePath
 
-            $result | Should -Not -Contain 'C:\TV\TV15Install.log'
-            $result | Should -Not -Contain 'C:\TV\TVNetwork.log'
-            $result | Should -Not -Contain 'C:\Users\Test\AppData\Local\TeamViewer\Logs\TVNetwork_Old.log'
-            $result | Should -Not -Contain 'C:\Users\Test\AppData\Roaming\TeamViewer\1EClient-install.log'
+            $Result | Should -Not -Contain 'C:\TV\TV15Install.log'
+            $Result | Should -Not -Contain 'C:\TV\TVNetwork.log'
+            $Result | Should -Not -Contain 'C:\Users\Test\AppData\Local\TeamViewer\Logs\TVNetwork_Old.log'
+            $Result | Should -Not -Contain 'C:\Users\Test\AppData\Roaming\TeamViewer\1EClient-install.log'
         }
 
         It 'Should only query directories that exist' {
@@ -100,17 +102,18 @@ Describe 'Get-TeamViewerLogFilePath function' {
             Mock Get-ChildItem -ParameterFilter { $Path -eq 'C:\TV' } {
                 [PSCustomObject]@{ Name = 'file1.log'; FullName = 'C:\TV\file1.log' }
             }
+
             Mock Get-ChildItem -ParameterFilter { $Path -eq 'C:\Users\Test\AppData\Roaming\TeamViewer' } {
                 [PSCustomObject]@{ Name = 'file2.log'; FullName = 'C:\Users\Test\AppData\Roaming\TeamViewer\file2.log' }
             }
         }
 
         It 'Should return log file paths from the existing directories only' {
-            $result = Get-TeamViewerLogFilePath
+            $Result = Get-TeamViewerLogFilePath
 
-            $result | Should -Contain 'C:\TV\file1.log'
-            $result | Should -Contain 'C:\Users\Test\AppData\Roaming\TeamViewer\file2.log'
-            $result | Should -HaveCount 2
+            $Result | Should -Contain 'C:\TV\file1.log'
+            $Result | Should -Contain 'C:\Users\Test\AppData\Roaming\TeamViewer\file2.log'
+            $Result | Should -HaveCount 2
         }
 
         AfterAll {

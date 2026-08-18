@@ -1,8 +1,7 @@
 BeforeAll {
     . "$PSScriptRoot\..\..\Cmdlets\Public\New-TeamViewerManagedGroup.ps1"
 
-    @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | `
-        ForEach-Object { . $_.FullName }
+    @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
 
     $testApiToken = [securestring]@{}
     $null = $testApiToken
@@ -24,23 +23,21 @@ Describe 'New-TeamViewerManagedGroup' {
         New-TeamViewerManagedGroup -ApiToken $testApiToken -Name 'Unit Test ManagedGroup'
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -And `
-                $Uri -eq '//unit.test/managed/groups' -And `
-                $Method -eq 'Post' }
+            $ApiToken -eq $testApiToken -and $Uri -eq '//unit.test/managed/groups' -and $Method -eq 'Post' }
     }
 
     It 'Should include the given name in the request' {
         New-TeamViewerManagedGroup -ApiToken $testApiToken -Name 'Unit Test ManagedGroup'
 
         $mockArgs.Body | Should -Not -BeNullOrEmpty
-        $body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
-        $body.name | Should -Be 'Unit Test ManagedGroup'
+        $Body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
+        $Body.name | Should -Be 'Unit Test ManagedGroup'
     }
 
     It 'Should return a ManagedGroup object' {
-        $result = New-TeamViewerManagedGroup -ApiToken $testApiToken -Name 'Unit Test ManagedGroup'
-        $result | Should -Not -BeNullOrEmpty
-        $result | Should -BeOfType [PSObject]
-        $result.PSObject.TypeNames | Should -Contain 'TeamViewerPS.ManagedGroup'
+        $Result = New-TeamViewerManagedGroup -ApiToken $testApiToken -Name 'Unit Test ManagedGroup'
+        $Result | Should -Not -BeNullOrEmpty
+        $Result | Should -BeOfType [PSObject]
+        $Result.PSObject.TypeNames | Should -Contain 'TeamViewerPS.ManagedGroup'
     }
 }

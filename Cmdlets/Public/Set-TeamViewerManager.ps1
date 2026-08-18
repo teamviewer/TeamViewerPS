@@ -53,28 +53,28 @@ function Set-TeamViewerManager {
         # See https://github.com/PowerShell/PSScriptAnalyzer/issues/1472
         $null = $Property
 
-        $body = @{}
+        $Body = @{}
 
         switch -Wildcard ($PSCmdlet.ParameterSetName) {
             '*ByParameters' {
-                $body['permissions'] = @($Permissions)
+                $Body['permissions'] = @($Permissions)
             }
             '*ByProperties' {
                 @('permissions') | `
                     Where-Object { $Property[$_] } | `
-                    ForEach-Object { $body[$_] = $Property[$_] }
+                    ForEach-Object { $Body[$_] = $Property[$_] }
             }
         }
 
-        if ($body.Count -eq 0) {
+        if ($Body.Count -eq 0) {
             $PSCmdlet.ThrowTerminatingError(
                 ('The given input does not change the manager.' | `
                     ConvertTo-ErrorRecord -ErrorCategory InvalidArgument))
         }
     }
     process {
-        $deviceId = $null
-        $groupId = $null
+        $DeviceId = $null
+        $GroupId = $null
 
         if ($Manager.PSObject.TypeNames -contains 'TeamViewerPS.Manager') {
             if ($Device -or $Group) {
@@ -84,17 +84,17 @@ function Set-TeamViewerManager {
             }
 
             if ($Manager.DeviceId) {
-                $deviceId = $Manager.DeviceId
+                $DeviceId = $Manager.DeviceId
             }
             elseif ($Manager.GroupId) {
-                $groupId = $Manager.GroupId
+                $GroupId = $Manager.GroupId
             }
         }
         elseif ($Device) {
-            $deviceId = $Device | Resolve-TeamViewerManagedDeviceId
+            $DeviceId = $Device | Resolve-TeamViewerManagedDeviceId
         }
         elseif ($Group) {
-            $groupId = $Group | Resolve-TeamViewerManagedGroupId
+            $GroupId = $Group | Resolve-TeamViewerManagedGroupId
         }
         else {
             $PSCmdlet.ThrowTerminatingError(
@@ -104,22 +104,22 @@ function Set-TeamViewerManager {
 
         $managerId = $Manager | Resolve-TeamViewerManagerId
 
-        if ($deviceId) {
-            $resourceUri = "$(Get-TeamViewerApiUri)/managed/devices/$deviceId/managers/$managerId"
-            $processMessage = 'Update managed device manager'
+        if ($DeviceId) {
+            $ResourceUri = "$(Get-TeamViewerApiUri)/managed/devices/$DeviceId/managers/$managerId"
+            $Process_Message = 'Update managed device manager'
         }
-        elseif ($groupId) {
-            $resourceUri = "$(Get-TeamViewerApiUri)/managed/groups/$groupId/managers/$managerId"
-            $processMessage = 'Update managed group manager'
+        elseif ($GroupId) {
+            $ResourceUri = "$(Get-TeamViewerApiUri)/managed/groups/$GroupId/managers/$managerId"
+            $Process_Message = 'Update managed group manager'
         }
 
-        if ($PSCmdlet.ShouldProcess($managerId, $processMessage)) {
+        if ($PSCmdlet.ShouldProcess($managerId, $Process_Message)) {
             Invoke-TeamViewerRestMethod `
                 -ApiToken $ApiToken `
-                -Uri $resourceUri `
+                -Uri $ResourceUri `
                 -Method Put `
                 -ContentType 'application/json; charset=utf-8' `
-                -Body ([System.Text.Encoding]::UTF8.GetBytes(($body | ConvertTo-Json))) `
+                -Body ([System.Text.Encoding]::UTF8.GetBytes(($Body | ConvertTo-Json))) `
                 -WriteErrorTo $PSCmdlet | `
                 Out-Null
         }

@@ -13,10 +13,10 @@ Describe 'Get-TeamViewerDeviceCustomField' {
             @{ resources = @(@{ fieldKeyId = 'id1'; fieldKey = 'AssetTag'; fieldType = 'string' }) }
         }
 
-        $result = Get-TeamViewerDeviceCustomField -ApiToken $testApiToken
+        $Result = Get-TeamViewerDeviceCustomField -ApiToken $testApiToken
 
-        $result.FieldKey | Should -Be 'AssetTag'
-        $result.PSObject.TypeNames | Should -Contain 'TeamViewerPS.DeviceCustomField'
+        $Result.FieldKey | Should -Be 'AssetTag'
+        $Result.PSObject.TypeNames | Should -Contain 'TeamViewerPS.DeviceCustomField'
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -and

@@ -31,35 +31,35 @@ function Get-TeamViewerDevice {
         $Group
     )
 
-    $resourceUri = "$(Get-TeamViewerApiUri)/devices"
-    $parameters = @{ }
+    $ResourceUri = "$(Get-TeamViewerApiUri)/devices"
+    $Parameters = @{ }
 
     switch ($PsCmdlet.ParameterSetName) {
         'ByDeviceId' {
-            $resourceUri += "/$Id"
-            $parameters = $null
+            $ResourceUri += "/$Id"
+            $Parameters = $null
         }
         'FilteredList' {
             if ($TeamViewerId) {
-                $parameters['remotecontrol_id'] = "r$TeamViewerId"
+                $Parameters['remotecontrol_id'] = "r$TeamViewerId"
             }
             if ($FilterOnlineState) {
-                $parameters['online_state'] = $FilterOnlineState.ToLower()
+                $Parameters['online_state'] = $FilterOnlineState.ToLower()
             }
             if ($Group) {
-                $groupId = $Group | Resolve-TeamViewerGroupId
-                $parameters['groupid'] = $groupId
+                $GroupId = $Group | Resolve-TeamViewerGroupId
+                $Parameters['groupid'] = $GroupId
             }
         }
     }
 
-    $response = Invoke-TeamViewerRestMethod `
+    $Response = Invoke-TeamViewerRestMethod `
         -ApiToken $ApiToken `
-        -Uri $resourceUri `
+        -Uri $ResourceUri `
         -Method Get `
-        -Body $parameters `
+        -Body $Parameters `
         -WriteErrorTo $PSCmdlet `
         -ErrorAction Stop
 
-    Write-Output ($response.devices | ConvertTo-TeamViewerDevice)
+    Write-Output ($Response.devices | ConvertTo-TeamViewerDevice)
 }

@@ -8,22 +8,22 @@ BeforeAll {
 
 Describe 'ConvertTo-TeamViewerManagedGroup' {
     It 'Returns an object for pipeline input' {
-        $inputObject = [pscustomobject]@{ id = ([guid]::NewGuid().ToString()); name = 'Sample'; policy_id = 'none' }
+        $InputObject = [pscustomobject]@{ id = ([guid]::NewGuid().ToString()); name = 'Sample'; policy_id = 'none' }
 
-        $result = $inputObject | & ConvertTo-TeamViewerManagedGroup
+        $Result = $InputObject | & ConvertTo-TeamViewerManagedGroup
 
-        $result | Should -Not -BeNullOrEmpty
-        $result.PSObject.TypeNames[0] | Should -Be 'TeamViewerPS.ManagedGroup'
+        $Result | Should -Not -BeNullOrEmpty
+        $Result.PSObject.TypeNames[0] | Should -Be 'TeamViewerPS.ManagedGroup'
     }
 
     It 'Supports pipeline processing of multiple items' {
-        $inputObjects = @(
+        $InputObjects = @(
             [pscustomobject]@{ id = ([guid]::NewGuid().ToString()); name = 'One' },
             [pscustomobject]@{ id = ([guid]::NewGuid().ToString()); name = 'Two' }
         )
 
-        $result = $inputObjects | & ConvertTo-TeamViewerManagedGroup
+        $Result = $InputObjects | & ConvertTo-TeamViewerManagedGroup
 
-        @($result).Count | Should -Be 2
+        @($Result).Count | Should -Be 2
     }
 }

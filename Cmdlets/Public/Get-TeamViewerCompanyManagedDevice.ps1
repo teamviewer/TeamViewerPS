@@ -9,20 +9,20 @@ function Get-TeamViewerCompanyManagedDevice {
         $ApiToken
     )
 
-    $resourceUri = "$(Get-TeamViewerApiUri)/managed/devices/company"
-    $parameters = @{}
+    $ResourceUri = "$(Get-TeamViewerApiUri)/managed/devices/company"
+    $Parameters = @{}
 
     do {
-        $response = Invoke-TeamViewerRestMethod `
+        $Response = Invoke-TeamViewerRestMethod `
             -ApiToken $ApiToken `
-            -Uri $resourceUri `
+            -Uri $ResourceUri `
             -Method Get `
-            -Body $parameters `
+            -Body $Parameters `
             -WriteErrorTo $PSCmdlet `
             -ErrorAction Stop
 
-        $parameters.paginationToken = $response.nextPaginationToken
+        $Parameters.paginationToken = $Response.nextPaginationToken
 
-        Write-Output ($response.resources | ConvertTo-TeamViewerManagedDevice)
-    } while ($parameters.paginationToken)
+        Write-Output ($Response.resources | ConvertTo-TeamViewerManagedDevice)
+    } while ($Parameters.paginationToken)
 }

@@ -18,8 +18,8 @@ function Remove-TeamViewerUserGroupFromRole {
 
     begin {
         $null = $ApiToken
-        $resourceUri = "$(Get-TeamViewerApiUri)/userroles/unassign/usergroup"
-        $body = @{
+        $ResourceUri = "$(Get-TeamViewerApiUri)/userroles/unassign/usergroup"
+        $Body = @{
             UserGroupId = $UserGroup
         }
     }
@@ -27,15 +27,15 @@ function Remove-TeamViewerUserGroupFromRole {
 
     process {
         if ($PSCmdlet.ShouldProcess($UserGroupId, 'Unassign User Group from user role')) {
-            $result = Invoke-TeamViewerRestMethod `
+            $Result = Invoke-TeamViewerRestMethod `
                 -ApiToken $ApiToken `
-                -Uri $resourceUri `
+                -Uri $ResourceUri `
                 -Method Post `
                 -ContentType 'application/json; charset=utf-8' `
-                -Body ([System.Text.Encoding]::UTF8.GetBytes(($body | ConvertTo-Json))) `
+                -Body ([System.Text.Encoding]::UTF8.GetBytes(($Body | ConvertTo-Json))) `
                 -WriteErrorTo $PSCmdlet `
                 -ErrorAction Stop
-            Write-Output ($result)
+            Write-Output ($Result)
         }
     }
 }

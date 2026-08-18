@@ -18,23 +18,23 @@ function New-TeamViewerGroup {
         $Policy
     )
 
-    $body = @{ name = $Name }
+    $Body = @{ name = $Name }
 
     if ($Policy) {
-        $body['policy_id'] = $Policy | Resolve-TeamViewerPolicyId
+        $Body['policy_id'] = ($Policy | Resolve-TeamViewerPolicyId).ToString()
     }
 
-    $resourceUri = "$(Get-TeamViewerApiUri)/groups"
+    $ResourceUri = "$(Get-TeamViewerApiUri)/groups"
 
     if ($PSCmdlet.ShouldProcess($Name, 'Create group')) {
-        $response = Invoke-TeamViewerRestMethod `
+        $Response = Invoke-TeamViewerRestMethod `
             -ApiToken $ApiToken `
-            -Uri $resourceUri `
+            -Uri $ResourceUri `
             -Method Post `
             -ContentType 'application/json; charset=utf-8' `
-            -Body ([System.Text.Encoding]::UTF8.GetBytes(($body | ConvertTo-Json))) `
+            -Body ([System.Text.Encoding]::UTF8.GetBytes(($Body | ConvertTo-Json))) `
             -WriteErrorTo $PSCmdlet `
             -ErrorAction Stop
-        Write-Output ($response | ConvertTo-TeamViewerGroup)
+        Write-Output ($Response | ConvertTo-TeamViewerGroup)
     }
 }

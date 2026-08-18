@@ -22,6 +22,7 @@ Describe 'Get-TeamViewerManagementId' {
             -MemberType ScriptMethod `
             -Name GetValue `
             -Value { param($obj) Get-TestItemValue @PSBoundParameters }
+
         Mock Get-TeamViewerRegKeyPath { 'testRegistry' }
         Mock Get-Item { $testItem }
         Mock Test-Path { $true }
@@ -36,12 +37,15 @@ Describe 'Get-TeamViewerManagementId' {
         Should -Invoke Test-Path -Scope It -Times 1 -ParameterFilter {
             $LiteralPath -eq (Join-Path 'testRegistry' 'DeviceManagementV2')
         }
+
         Should -Invoke Get-Item -Scope It -Times 1 -ParameterFilter {
             $Path -eq (Join-Path 'testRegistry' 'DeviceManagementV2')
         }
+
         Should -Invoke Get-TestItemValue -Scope It -Times 1 -ParameterFilter {
             $obj -eq 'Unmanaged'
         }
+
         Should -Invoke Get-TestItemValue -Scope It -Times 1 -ParameterFilter {
             $obj -eq 'ManagementId'
         }
@@ -75,9 +79,10 @@ Describe 'Get-TeamViewerManagementId' {
         Mock Get-TestItemValue -ParameterFilter { $obj -eq 'ManagementId' } { 'invalid' }
         Mock Write-Verbose { }
 
-        $result = Get-TeamViewerManagementId
+        $Result = Get-TeamViewerManagementId
 
-        $result | Should -BeNullOrEmpty
+        $Result | Should -BeNullOrEmpty
+
         Should -Invoke Write-Verbose -Scope It -Times 1 -ParameterFilter {
             $Message -like 'Failed to read the TeamViewer management ID:*'
         }

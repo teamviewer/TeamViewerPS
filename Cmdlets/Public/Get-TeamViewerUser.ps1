@@ -32,43 +32,43 @@ function Get-TeamViewerUser {
         $PropertiesToLoad = 'All'
     )
 
-    $parameters = @{ }
+    $Parameters = @{ }
     switch ($PropertiesToLoad) {
         'All' {
-            $parameters.full_list = $true
+            $Parameters.full_list = $true
         }
         'Minimal' {
         }
     }
 
-    $resourceUri = "$(Get-TeamViewerApiUri)/users"
+    $ResourceUri = "$(Get-TeamViewerApiUri)/users"
 
     switch ($PsCmdlet.ParameterSetName) {
         'ByUserId' {
-            $resourceUri += "/$Id"
-            $parameters = $null
+            $ResourceUri += "/$Id"
+            $Parameters = $null
         }
         'FilteredList' {
             if ($Name) {
-                $parameters['name'] = $Name
+                $Parameters['name'] = $Name
             }
 
             if ($Email) {
-                $parameters['email'] = ($Email -join ',')
+                $Parameters['email'] = ($Email -join ',')
             }
             if ($Permissions) {
-                $parameters['permissions'] = ($Permissions -join ',')
+                $Parameters['permissions'] = ($Permissions -join ',')
             }
         }
     }
 
-    $response = Invoke-TeamViewerRestMethod `
-        -ApiToken $ApiToken -Uri $resourceUri -Method Get -Body $parameters -WriteErrorTo $PSCmdlet -ErrorAction Stop
+    $Response = Invoke-TeamViewerRestMethod `
+        -ApiToken $ApiToken -Uri $ResourceUri -Method Get -Body $Parameters -WriteErrorTo $PSCmdlet -ErrorAction Stop
 
     if ($PsCmdlet.ParameterSetName -eq 'ByUserId') {
-        Write-Output ($response | ConvertTo-TeamViewerUser -PropertiesToLoad $PropertiesToLoad)
+        Write-Output ($Response | ConvertTo-TeamViewerUser -PropertiesToLoad $PropertiesToLoad)
     }
     else {
-        Write-Output ($response.users | ConvertTo-TeamViewerUser -PropertiesToLoad $PropertiesToLoad)
+        Write-Output ($Response.users | ConvertTo-TeamViewerUser -PropertiesToLoad $PropertiesToLoad)
     }
 }

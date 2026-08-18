@@ -1,8 +1,7 @@
 BeforeAll {
     . "$PSScriptRoot\..\..\Cmdlets\Public\Remove-TeamViewerManagedDevice.ps1"
 
-    @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | `
-        ForEach-Object { . $_.FullName }
+    @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
 
     $testApiToken = [securestring]@{}
     $null = $testApiToken
@@ -20,29 +19,25 @@ Describe 'Remove-TeamViewerManagedDevice' {
         Remove-TeamViewerManagedDevice -ApiToken $testApiToken -DeviceId $testDeviceId -GroupId $testGroupId
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -And `
-                $Uri -eq "//unit.test/managed/groups/$testGroupId/devices/$testDeviceId" -And `
-                $Method -eq 'Delete' }
+            $ApiToken -eq $testApiToken -and $Uri -eq "//unit.test/managed/groups/$testGroupId/devices/$testDeviceId" -and $Method -eq 'Delete' }
     }
 
     It 'Should accept ManagedGroup objects' {
         $testGroup = @{ id = $testGroupId } | ConvertTo-TeamViewerManagedGroup
+
         Remove-TeamViewerManagedDevice -ApiToken $testApiToken -DeviceId $testDeviceId -Group $testGroup
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -And `
-                $Uri -eq "//unit.test/managed/groups/$testGroupId/devices/$testDeviceId" -And `
-                $Method -eq 'Delete' }
+            $ApiToken -eq $testApiToken -and $Uri -eq "//unit.test/managed/groups/$testGroupId/devices/$testDeviceId" -and $Method -eq 'Delete' }
     }
 
     It 'Should accept ManagedDevice objects' {
         $testDeviceObj = @{ id = $testDeviceId } | ConvertTo-TeamViewerManagedDevice
+
         Remove-TeamViewerManagedDevice -ApiToken $testApiToken -Device $testDeviceObj -GroupId $testGroupId
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -And `
-                $Uri -eq "//unit.test/managed/groups/$testGroupId/devices/$testDeviceId" -And `
-                $Method -eq 'Delete' }
+            $ApiToken -eq $testApiToken -and $Uri -eq "//unit.test/managed/groups/$testGroupId/devices/$testDeviceId" -and $Method -eq 'Delete' }
     }
 
     It 'Should accept pipeline input' {
@@ -50,8 +45,6 @@ Describe 'Remove-TeamViewerManagedDevice' {
         $testDeviceObj | Remove-TeamViewerManagedDevice -ApiToken $testApiToken -GroupId $testGroupId
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -And `
-                $Uri -eq "//unit.test/managed/groups/$testGroupId/devices/$testDeviceId" -And `
-                $Method -eq 'Delete' }
+            $ApiToken -eq $testApiToken -and $Uri -eq "//unit.test/managed/groups/$testGroupId/devices/$testDeviceId" -and $Method -eq 'Delete' }
     }
 }

@@ -6,17 +6,17 @@ function ConvertTo-TeamViewerSsoDomain {
     )
 
     process {
-        $properties = @{
+        $Properties = @{
             Id   = $InputObject.DomainId
             Name = $InputObject.DomainName
         }
 
-        $result = New-Object -TypeName PSObject -Property $properties
-        $result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.SsoDomain')
-        $result | Add-Member -MemberType ScriptMethod -Name 'ToString' -Force -Value {
+        $Result = New-Object -TypeName PSObject -Property $Properties
+        $Result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.SsoDomain')
+        $Result | Add-Member -MemberType ScriptMethod -Name 'ToString' -Force -Value {
             "$($this.Name)"
         }
 
-        Write-Output $result
+        Write-Output $Result
     }
 }

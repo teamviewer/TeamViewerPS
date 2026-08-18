@@ -6,12 +6,10 @@ function ConvertTo-TeamViewerDevice {
     )
 
     process {
-        $remoteControlId = $InputObject.remotecontrol_id | `
-            Select-String -Pattern 'r(\d+)' | `
-            ForEach-Object { $_.Matches.Groups[1].Value }
-        $properties = @{
+        $RemoteControlId = $InputObject.remotecontrol_id | Select-String -Pattern 'r(\d+)' | ForEach-Object { $_.Matches.Groups[1].Value }
+        $Properties = @{
             Id                         = $InputObject.device_id
-            TeamViewerId               = $remoteControlId
+            TeamViewerId               = $RemoteControlId
             GroupId                    = $InputObject.groupid
             Name                       = $InputObject.alias
             Description                = $InputObject.description
@@ -21,19 +19,19 @@ function ConvertTo-TeamViewerDevice {
         }
 
         if ($InputObject.policy_id) {
-            $properties['PolicyId'] = $InputObject.policy_id
+            $Properties['PolicyId'] = $InputObject.policy_id
         }
 
         if ($InputObject.last_seen) {
-            $properties['LastSeenAt'] = [datetime]($InputObject.last_seen)
+            $Properties['LastSeenAt'] = [datetime]($InputObject.last_seen)
         }
 
-        $result = New-Object -TypeName PSObject -Property $properties
-        $result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.Device')
-        $result | Add-Member -MemberType ScriptMethod -Name 'ToString' -Force -Value {
+        $Result = New-Object -TypeName PSObject -Property $Properties
+        $Result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.Device')
+        $Result | Add-Member -MemberType ScriptMethod -Name 'ToString' -Force -Value {
             "$($this.Name)"
         }
 
-        Write-Output $result
+        Write-Output $Result
     }
 }

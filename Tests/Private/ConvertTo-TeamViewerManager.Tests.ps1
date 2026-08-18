@@ -7,22 +7,22 @@ BeforeAll {
 
 Describe 'ConvertTo-TeamViewerManager' {
     It 'Sets GroupId when using GroupManager parameter set' {
-        $groupId = [guid]::NewGuid()
-        $inputObject = [pscustomobject]@{ id = [guid]::NewGuid().ToString(); type='account'; name='mgr'; permissions='all'; accountId='u123' }
+        $GroupId = [guid]::NewGuid()
+        $InputObject = [pscustomobject]@{ id = [guid]::NewGuid().ToString(); type = 'account'; name = 'mgr'; permissions = 'all'; accountId = 'u123' }
 
-        $result = ConvertTo-TeamViewerManager -InputObject $inputObject -GroupId $groupId
+        $Result = ConvertTo-TeamViewerManager -InputObject $InputObject -GroupId $GroupId
 
-        $result.PSObject.TypeNames[0] | Should -Be 'TeamViewerPS.Manager'
-        $result.GroupId | Should -Be $groupId
+        $Result.PSObject.TypeNames[0] | Should -Be 'TeamViewerPS.Manager'
+        $Result.GroupId | Should -Be $GroupId
     }
 
     It 'Sets DeviceId when using DeviceManager parameter set' {
-        $deviceId = [guid]::NewGuid()
-        $inputObject = [pscustomobject]@{ id = [guid]::NewGuid().ToString(); type='company'; name='mgr'; permissions='all'; companyId='c123' }
+        $DeviceId = [guid]::NewGuid()
+        $InputObject = [pscustomobject]@{ id = [guid]::NewGuid().ToString(); type = 'company'; name = 'mgr'; permissions = 'all'; companyId = 'c123' }
 
-        $result = ConvertTo-TeamViewerManager -InputObject $inputObject -DeviceId $deviceId
+        $Result = ConvertTo-TeamViewerManager -InputObject $InputObject -DeviceId $DeviceId
 
-        $result.PSObject.TypeNames[0] | Should -Be 'TeamViewerPS.Manager'
-        $result.DeviceId | Should -Be $deviceId
+        $Result.PSObject.TypeNames[0] | Should -Be 'TeamViewerPS.Manager'
+        $Result.DeviceId | Should -Be $DeviceId
     }
 }
