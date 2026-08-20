@@ -1,7 +1,7 @@
 function ConvertTo-TeamViewerManager {
     param(
         [Parameter(ValueFromPipeline)]
-        [PSObject]
+        [object]
         $InputObject,
 
         [Parameter(Mandatory = $true, ParameterSetName = 'GroupManager')]

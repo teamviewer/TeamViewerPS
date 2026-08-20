@@ -1,7 +1,7 @@
 function ConvertTo-TeamViewerUserGroupMember {
     param(
         [Parameter(ValueFromPipeline)]
-        [PSObject]
+        [object]
         $InputObject
     )
 

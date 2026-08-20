@@ -1,7 +1,7 @@
 function ConvertTo-TeamViewerPolicy {
     param(
         [Parameter(ValueFromPipeline)]
-        [PSObject]
+        [object]
         $InputObject
     )
 

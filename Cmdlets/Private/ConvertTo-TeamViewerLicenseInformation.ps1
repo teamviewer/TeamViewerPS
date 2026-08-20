@@ -1,7 +1,7 @@
 function ConvertTo-TeamViewerLicenseInformation {
     param(
         [Parameter(ValueFromPipeline)]
-        [PSObject]
+        [object]
         $InputObject
     )
 

@@ -1,7 +1,7 @@
 function ConvertTo-TeamViewerContact {
     param(
         [Parameter(ValueFromPipeline)]
-        [PSObject]
+        [object]
         $InputObject
     )
 

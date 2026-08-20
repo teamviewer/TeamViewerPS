@@ -1,7 +1,7 @@
 function ConvertTo-TeamViewerConnectionReport {
     param(
         [Parameter(ValueFromPipeline)]
-        [PSObject]
+        [object]
         $InputObject
     )
 

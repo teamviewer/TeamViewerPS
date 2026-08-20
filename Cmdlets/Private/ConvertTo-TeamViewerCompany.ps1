@@ -1,7 +1,7 @@
 function ConvertTo-TeamViewerCompany {
     param(
         [Parameter(ValueFromPipeline)]
-        [PSObject]
+        [object]
         $InputObject
     )
 

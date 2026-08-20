@@ -1,7 +1,7 @@
 function ConvertTo-TeamViewerRoleAssignedUser {
     param(
         [Parameter(ValueFromPipeline)]
-        [PSObject]
+        [object]
         $InputObject
     )
 
