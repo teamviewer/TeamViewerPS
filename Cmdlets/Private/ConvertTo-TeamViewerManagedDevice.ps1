@@ -1,7 +1,7 @@
 function ConvertTo-TeamViewerManagedDevice {
     param(
         [Parameter(ValueFromPipeline)]
-        [PSObject]
+        [object]
         $InputObject
     )
 

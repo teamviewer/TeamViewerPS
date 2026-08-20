@@ -1,7 +1,7 @@
 function ConvertTo-TeamViewerAuditEvent {
     param(
         [Parameter(ValueFromPipeline)]
-        [PSObject]
+        [object]
         $InputObject
     )
 

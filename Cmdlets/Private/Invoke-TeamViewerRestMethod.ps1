@@ -14,7 +14,7 @@ function Invoke-TeamViewerRestMethod {
         [System.Collections.IDictionary]
         $Headers,
 
-        [System.Object]
+        [object]
         $Body,
 
         [string]
