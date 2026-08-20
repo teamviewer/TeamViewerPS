@@ -17,7 +17,7 @@ Describe 'ConvertTo-TeamViewerDeviceCustomFieldConfiguration' {
         $Result = $InputObject | ConvertTo-TeamViewerDeviceCustomFieldConfiguration
 
         $Result.Id | Should -Be $InputObject.fieldKeyId
-        $Result.Key | Should -Be 'AssetTag'
+        $Result.Name | Should -Be 'AssetTag'
         $Result.Type | Should -Be 'string'
         $Result.Description | Should -Be 'Device asset tag'
         $Result.CreatedAt | Should -BeOfType ([datetime])
@@ -34,6 +34,6 @@ Describe 'ConvertTo-TeamViewerDeviceCustomFieldConfiguration' {
         ) | ConvertTo-TeamViewerDeviceCustomFieldConfiguration
 
         $Results.Count | Should -Be 2
-        $Results.Key | Should -Be @('One', 'Two')
+        $Results.Name | Should -Be @('One', 'Two')
     }
 }

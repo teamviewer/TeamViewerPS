@@ -8,7 +8,7 @@ function ConvertTo-TeamViewerDeviceCustomFieldConfiguration {
     process {
         $Properties = @{
             Id          = $InputObject.fieldKeyId
-            Key         = $InputObject.fieldKey
+            Name        = $InputObject.fieldKey
             Type        = $InputObject.fieldType
             Description = $InputObject.description
             CreatedAt   = $InputObject.createdAt | ConvertTo-DateTime

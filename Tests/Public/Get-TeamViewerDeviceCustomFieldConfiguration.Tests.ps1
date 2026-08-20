@@ -15,7 +15,7 @@ Describe 'Get-TeamViewerDeviceCustomFieldConfiguration' {
 
         $Result = Get-TeamViewerDeviceCustomFieldConfiguration -ApiToken $testApiToken
 
-        $Result.Key | Should -Be 'AssetTag'
+        $Result.Name | Should -Be 'AssetTag'
         $Result.PSObject.TypeNames | Should -Contain 'TeamViewerPS.DeviceCustomFieldConfiguration'
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
