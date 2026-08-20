@@ -38,7 +38,7 @@ Describe 'New-TeamViewerUserGroup' {
     It 'Should return a UserGroup object' {
         $Result = New-TeamViewerUserGroup -ApiToken $testApiToken -Name $testUserGroupName
         $Result | Should -Not -BeNullOrEmpty
-        $Result | Should -BeOfType [PSObject]
+        $Result | Should -BeOfType ([pscustomobject])
         $Result.PSObject.TypeNames | Should -Contain 'TeamViewerPS.UserGroup'
         $Result.id | Should -Be $testUserGroupId
         $Result.name | Should -Be $testUserGroupName

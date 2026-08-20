@@ -48,7 +48,7 @@ Describe 'Set-TeamViewerUserGroup' {
         $Result = Set-TeamViewerUserGroup -ApiToken $testApiToken -UserGroup $testUserGroupId -Name $testUserGroupName
 
         $Result | Should -Not -BeNullOrEmpty
-        $Result | Should -BeOfType [PSObject]
+        $Result | Should -BeOfType ([pscustomobject])
         $Result.PSObject.TypeNames | Should -Contain 'TeamViewerPS.UserGroup'
         $Result.id | Should -Be $testUserGroupId
         $Result.name | Should -Be $testUserGroupName

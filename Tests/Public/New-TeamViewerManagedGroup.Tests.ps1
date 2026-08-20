@@ -37,7 +37,7 @@ Describe 'New-TeamViewerManagedGroup' {
     It 'Should return a ManagedGroup object' {
         $Result = New-TeamViewerManagedGroup -ApiToken $testApiToken -Name 'Unit Test ManagedGroup'
         $Result | Should -Not -BeNullOrEmpty
-        $Result | Should -BeOfType [PSObject]
+        $Result | Should -BeOfType ([pscustomobject])
         $Result.PSObject.TypeNames | Should -Contain 'TeamViewerPS.ManagedGroup'
     }
 }

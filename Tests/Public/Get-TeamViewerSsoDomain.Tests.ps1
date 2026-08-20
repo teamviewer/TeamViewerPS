@@ -55,7 +55,7 @@ Describe 'Get-TeamViewerSsoDomain' {
 
         It 'Should return a SsoDomain object' {
             $Result = Get-TeamViewerSsoDomain -ApiToken $testApiToken -Id '45e0d050-15e6-4fcb-91b2-ea4f20fe2085'
-            $Result | Should -BeOfType PSObject
+            $Result | Should -BeOfType ([pscustomobject])
             $Result.PSObject.TypeNames | Should -Contain 'TeamViewerPS.SsoDomain'
         }
 
