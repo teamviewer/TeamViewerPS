@@ -7,14 +7,14 @@ function ConvertTo-TeamViewerManagedDevice {
 
     process {
         $Properties = @{
-            Id           = [guid]$InputObject.id
+            Id           = $InputObject.id
             TeamViewerId = $InputObject.TeamViewerId
             Name         = $InputObject.name
             IsOnline     = $InputObject.isOnline
         }
 
         if ($InputObject.last_seen) {
-            $Properties['LastSeen_At'] = Get-Date -Date $InputObject.last_seen
+            $Properties['LastSeen_At'] = ([datetime]$InputObject.last_seen | ConvertTo-DateTime)
         }
 
         if ($InputObject.teamviewerPolicyId) {

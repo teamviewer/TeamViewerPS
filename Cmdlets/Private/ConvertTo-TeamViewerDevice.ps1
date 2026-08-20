@@ -24,7 +24,7 @@ function ConvertTo-TeamViewerDevice {
         }
 
         if ($InputObject.last_seen) {
-            $Properties['LastSeen_At'] = [datetime]($InputObject.last_seen)
+            $Properties['LastSeen_At'] = [datetime]($InputObject.last_seen | ConvertTo-DateTime)
         }
 
         $Result = New-Object -TypeName PSObject -Property $Properties

@@ -10,6 +10,6 @@ Describe 'ConvertTo-TeamViewerRoleAssignedUserGroup' {
         $Result = 'g12345' | ConvertTo-TeamViewerRoleAssignedUserGroup
 
         $Result.PSObject.TypeNames[0] | Should -Be 'TeamViewerPS.RoleAssignedUserGroup'
-        $Result.Assigned_UserGroups | Should -Be 'g12345'
+        $Result.UserGroup_Id | Should -Be 'g12345'
     }
 }
