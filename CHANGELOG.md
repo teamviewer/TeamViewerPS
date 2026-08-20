@@ -17,6 +17,7 @@
 - Adds `OutputType` to public commands.
 - Adds `CmdletBinding` to public commands.
 - Standardizes pipeline emission on Write-Output.
+- Harmonizes private converter output properties and value types
 - Creates, expands, and hardens all private functions tests.
 - Automate release module versioning.
 

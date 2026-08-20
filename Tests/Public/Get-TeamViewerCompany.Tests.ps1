@@ -27,8 +27,7 @@ Describe 'Get-TeamViewerCompany' {
         $Result = Get-TeamViewerCompany -ApiToken $testApiToken
         $Result | Should -Not -BeNullOrEmpty
         $Result.PSObject.TypeNames | Should -Contain 'TeamViewerPS.Company'
-        $Result.CompanyId | Should -Be 42
-        $Result.CompanyName | Should -Be 'TeamViewer Germany GmbH'
-        $Result.ToString() | Should -Be 'TeamViewer Germany GmbH'
+        $Result.Id | Should -Be 42
+        $Result.Name | Should -Be 'TeamViewer Germany GmbH'
     }
 }

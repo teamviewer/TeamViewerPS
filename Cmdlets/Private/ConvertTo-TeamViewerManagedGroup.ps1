@@ -12,7 +12,7 @@ function ConvertTo-TeamViewerManagedGroup {
         }
 
         if ($InputObject.policy_id) {
-            $Properties['PolicyId'] = $InputObject.policy_id
+            $Properties['Policy_Id'] = $InputObject.policy_id
         }
 
         $Result = New-Object -TypeName PSObject -Property $Properties

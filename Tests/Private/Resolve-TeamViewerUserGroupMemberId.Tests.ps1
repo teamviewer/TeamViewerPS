@@ -6,8 +6,8 @@ BeforeAll {
 }
 
 Describe 'Resolve-TeamViewerUserGroupMemberId' {
-    It 'Returns AccountId from TeamViewerPS.UserGroupMember object' {
-        $member = [pscustomobject]@{ AccountId = 'u123456' }
+    It 'Returns ID from TeamViewerPS.UserGroupMember object' {
+        $member = [pscustomobject]@{ Id = 'u123456' }
         $member.PSObject.TypeNames.Insert(0, 'TeamViewerPS.UserGroupMember')
 
         Resolve-TeamViewerUserGroupMemberMemberId -UserGroupMember $member | Should -Be 'u123456'

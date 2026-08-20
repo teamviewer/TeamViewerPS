@@ -44,11 +44,10 @@ Describe 'Get-TeamViewerLicense' {
         $Result = Get-TeamViewerLicense -ApiToken $testApiToken
         $Result | Should -Not -BeNullOrEmpty
         $Result.PSObject.TypeNames | Should -Contain 'TeamViewerPS.License'
-        $Result.CompanyId | Should -Be 42
-        $Result.CompanyName | Should -Be 'TeamViewer Germany GmbH'
-        $Result.AvailableLicenses | Should -HaveCount 1
-        $Result.AvailableLicenses[0].PSObject.TypeNames | Should -Contain 'TeamViewerPS.LicenseInformation'
-        $Result.AvailableLicenses[0].LicenseName | Should -Be 'Tensor'
-        $Result.ToString() | Should -Be 'TeamViewer Germany GmbH'
+        $Result.Id | Should -Be 42
+        $Result.Name | Should -Be 'TeamViewer Germany GmbH'
+        $Result.Licenses_Available | Should -HaveCount 1
+        $Result.Licenses_Available[0].PSObject.TypeNames | Should -Contain 'TeamViewerPS.LicenseInformation'
+        $Result.Licenses_Available[0].Name | Should -Be 'Tensor'
     }
 }

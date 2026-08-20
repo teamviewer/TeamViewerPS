@@ -13,9 +13,6 @@ function ConvertTo-TeamViewerSsoDomain {
 
         $Result = New-Object -TypeName PSObject -Property $Properties
         $Result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.SsoDomain')
-        $Result | Add-Member -MemberType ScriptMethod -Name 'ToString' -Force -Value {
-            "$($this.Name)"
-        }
 
         Write-Output $Result
     }

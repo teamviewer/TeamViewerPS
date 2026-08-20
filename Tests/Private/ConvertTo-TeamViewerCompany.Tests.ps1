@@ -17,8 +17,8 @@ Describe 'ConvertTo-TeamViewerCompany' {
 
             $Result = $companyInput | ConvertTo-TeamViewerCompany
 
-            $Result.CompanyId | Should -Be 42
-            $Result.CompanyName | Should -Be 'Acme Corp'
+            $Result.Id | Should -Be 42
+            $Result.Name | Should -Be 'Acme Corp'
             $Result.CreatedAt | Should -Be ([datetime]'2026-08-10T12:34:56Z')
         }
 
@@ -63,8 +63,8 @@ Describe 'ConvertTo-TeamViewerCompany' {
 
             $Result = $companyInput | ConvertTo-TeamViewerCompany
 
-            $Result.CompanyId | Should -Be 7
-            $Result.CompanyId.GetType().Name | Should -Be 'Int32'
+            $Result.Id | Should -Be 7
+            $Result.Id.GetType().Name | Should -Be 'Int32'
         }
     }
 
@@ -77,12 +77,12 @@ Describe 'ConvertTo-TeamViewerCompany' {
 
             $Result = $companyInput | ConvertTo-TeamViewerCompany
 
-            $Result.PSObject.Properties.Name | Should -Contain 'CompanyId'
-            $Result.PSObject.Properties.Name | Should -Contain 'CompanyName'
+            $Result.PSObject.Properties.Name | Should -Contain 'Id'
+            $Result.PSObject.Properties.Name | Should -Contain 'Name'
             $Result.PSObject.Properties.Name | Should -Contain 'CreatedAt'
         }
 
-        It 'Should expose TeamViewerPS.Company type name and custom ToString output' {
+        It 'Should expose TeamViewerPS.Company type name' {
             $companyInput = [pscustomobject]@{
                 companyId   = 5
                 companyName = 'Contoso'
@@ -91,7 +91,6 @@ Describe 'ConvertTo-TeamViewerCompany' {
             $Result = $companyInput | ConvertTo-TeamViewerCompany
 
             $Result.PSObject.TypeNames[0] | Should -Be 'TeamViewerPS.Company'
-            $Result.ToString() | Should -Be 'Contoso'
         }
     }
 
@@ -105,8 +104,8 @@ Describe 'ConvertTo-TeamViewerCompany' {
             $Results = $InputObjects | ConvertTo-TeamViewerCompany
 
             @($Results).Count | Should -Be 2
-            $Results[0].CompanyName | Should -Be 'Alpha'
-            $Results[1].CompanyName | Should -Be 'Beta'
+            $Results[0].Name | Should -Be 'Alpha'
+            $Results[1].Name | Should -Be 'Beta'
             $Results[1].CreatedAt | Should -BeNull
         }
     }

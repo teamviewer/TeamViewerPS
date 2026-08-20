@@ -7,7 +7,7 @@ function Resolve-TeamViewerUserGroupMemberMemberId {
 
     process {
         if ($UserGroupMember.PSObject.TypeNames -contains 'TeamViewerPS.UserGroupMember') {
-            Write-Output $UserGroupMember.AccountId
+            Write-Output $UserGroupMember.Id
         }
         elseif ($UserGroupMember -match 'u[0-9]+') {
             Write-Output $UserGroupMember

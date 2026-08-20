@@ -11,10 +11,9 @@ Describe 'ConvertTo-TeamViewerDeviceCustomField' {
 
         $Result = $InputObject | ConvertTo-TeamViewerDeviceCustomField
 
-        $Result.FieldKeyId | Should -Be '00000000-0000-0000-0000-000000000001'
+        $Result.Id | Should -Be '00000000-0000-0000-0000-000000000001'
         $Result.Value | Should -Be 'AssetTag001'
         $Result.PSObject.TypeNames | Should -Contain 'TeamViewerPS.DeviceCustomField'
-        $Result.ToString() | Should -Be 'AssetTag001'
     }
 
     It 'Should convert multiple pipeline inputs' {

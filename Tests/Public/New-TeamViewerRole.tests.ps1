@@ -53,7 +53,7 @@ Describe 'New-TeamViewerRole' {
         $Result | Should -Not -BeNullOrEmpty
         $Result | Should -BeOfType ([pscustomobject])
         $Result.PSObject.TypeNames | Should -Contain 'TeamViewerPS.Role'
-        $Result.RoleName | Should -Be $testRoleName
+        $Result.Name | Should -Be $testRoleName
 
         foreach ($Rule in $Result.Permissions) {
             $Result.Permissions.$Rule | Should -Be $testPermissions

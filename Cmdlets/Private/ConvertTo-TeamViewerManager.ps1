@@ -15,27 +15,27 @@ function ConvertTo-TeamViewerManager {
 
     process {
         $Properties = @{
-            Id          = [guid]$InputObject.id
-            ManagerType = $InputObject.type
-            Name        = $InputObject.name
-            Permissions = $InputObject.permissions
+            Id           = [guid]$InputObject.id
+            Name         = $InputObject.name
+            Manager_Type = $InputObject.type
+            Permissions  = $InputObject.permissions
         }
 
         switch ($InputObject.type) {
             'account' {
-                $Properties.AccountId = $InputObject.accountId
+                $Properties.User_Id = $InputObject.accountId
             }
             'company' {
-                $Properties.CompanyId = $InputObject.companyId
+                $Properties.Company_Id = $InputObject.companyId
             }
         }
 
         switch ($PsCmdlet.ParameterSetName) {
             'GroupManager' {
-                $Properties.GroupId = $GroupId
+                $Properties.Group_Id = $GroupId
             }
             'DeviceManager' {
-                $Properties.DeviceId = $DeviceId
+                $Properties.Device_Id = $DeviceId
             }
         }
 

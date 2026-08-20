@@ -8,7 +8,7 @@ function Resolve-TeamViewerRoleId {
 
     process {
         if ($Role.PSObject.TypeNames -contains 'TeamViewerPS.Role') {
-            Write-Output ([string]$Role.RoleID)
+            Write-Output ([string]$Role.ID)
         }
         elseif ($Role -match '^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$') {
             Write-Output ([string]$Role)

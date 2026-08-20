@@ -7,8 +7,8 @@ function ConvertTo-TeamViewerUserGroupMember {
 
     process {
         $Properties = @{
-            AccountId = [int]$InputObject.accountId
-            Name      = $InputObject.name
+            Id   = [int]$InputObject.accountId
+            Name = $InputObject.name
         }
 
         $Result = New-Object -TypeName PSObject -Property $Properties

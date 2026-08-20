@@ -10,7 +10,7 @@ function Remove-TeamViewerManager {
 
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
         [ValidateScript( {
-                if (($_.PSObject.TypeNames -contains 'TeamViewerPS.Manager') -and -not $_.GroupId -and -not $_.DeviceId) {
+                if (($_.PSObject.TypeNames -contains 'TeamViewerPS.Manager') -and -not $_.Group_Id -and -not $_.Device_Id) {
                     $PSCmdlet.ThrowTerminatingError(
                         ('Invalid manager object. Manager must be a group or device manager.' | `
                             ConvertTo-ErrorRecord -ErrorCategory InvalidArgument))
@@ -46,11 +46,11 @@ function Remove-TeamViewerManager {
                         ConvertTo-ErrorRecord -ErrorCategory InvalidArgument))
             }
 
-            if ($Manager.DeviceId) {
-                $DeviceId = $Manager.DeviceId
+            if ($Manager.Device_Id) {
+                $DeviceId = $Manager.Device_Id
             }
-            elseif ($Manager.GroupId) {
-                $GroupId = $Manager.GroupId
+            elseif ($Manager.Group_Id) {
+                $GroupId = $Manager.Group_Id
             }
         }
         elseif ($Device) {
@@ -77,12 +77,7 @@ function Remove-TeamViewerManager {
         }
 
         if ($PSCmdlet.ShouldProcess($managerId, $Process_Message)) {
-            Invoke-TeamViewerRestMethod `
-                -ApiToken $ApiToken `
-                -Uri $ResourceUri `
-                -Method Delete `
-                -WriteErrorTo $PSCmdlet | `
-                Out-Null
+            Invoke-TeamViewerRestMethod -ApiToken $ApiToken -Uri $ResourceUri -Method Delete -WriteErrorTo $PSCmdlet | Out-Null
         }
     }
 }
