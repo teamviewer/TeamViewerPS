@@ -14,7 +14,8 @@ Describe 'Get-TeamViewerDeviceCustomField' {
             @{ customFieldValues = @(
                     @{ fieldKeyId = '00000000-0000-0000-0000-000000000001'; value = 'AssetTag001' },
                     @{ fieldKeyId = '00000000-0000-0000-0000-000000000002'; value = 'SerialNumber123' }
-                ) }
+                )
+            }
         }
 
         $Result = Get-TeamViewerDeviceCustomField -ApiToken $testApiToken -ManagedDeviceId 'd12345678'

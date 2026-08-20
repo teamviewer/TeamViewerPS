@@ -10,7 +10,7 @@ function Remove-TeamViewerDeviceCustomField {
 
         [Parameter(Mandatory = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerManagedDeviceId } )]
-        [Alias('DeviceId')]
+        [Alias('ManagedDevice', 'Device', 'DeviceId')]
         [object]
         $ManagedDeviceId,
 
@@ -21,8 +21,8 @@ function Remove-TeamViewerDeviceCustomField {
     )
 
     process {
-        $ManagedDeviceIdResolved = $ManagedDeviceId | Resolve-TeamViewerManagedDeviceId
-        $ResourceUri = "$(Get-TeamViewerApiUri)/managed/devices/$ManagedDeviceIdResolved/custom-fields/$FieldConfigurationId"
+        $ManagedDeviceId_Resolved = $ManagedDeviceId | Resolve-TeamViewerManagedDeviceId
+        $ResourceUri = "$(Get-TeamViewerApiUri)/managed/devices/$ManagedDeviceId_Resolved/custom-fields/$FieldConfigurationId"
 
         if ($PSCmdlet.ShouldProcess($FieldConfigurationId, 'Delete device custom field value')) {
             Invoke-TeamViewerRestMethod `

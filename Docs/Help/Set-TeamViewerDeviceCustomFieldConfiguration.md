@@ -51,6 +51,6 @@ Updates the custom field identified by `$fieldId` and sets its key to `AssetTag`
 
 ## OUTPUTS
 
-### TeamViewerPS.DeviceCustomField
+### TeamViewerPS.DeviceCustomFieldConfiguration
 
 Returns the updated device custom field definition.

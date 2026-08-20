@@ -38,7 +38,7 @@ The unique identifier of the managed device. Can be a device ID string or a Team
 
 ```yaml
 Type: Object
-Aliases: DeviceId
+Aliases: ManagedDevice, Device, DeviceId
 Required: True
 ValueFromPipeline: True
 ```
@@ -48,7 +48,7 @@ ValueFromPipeline: True
 ### Example 1
 
 ```powershell
-Get-TeamViewerDeviceCustomFieldValue -ApiToken $apiToken -ManagedDeviceId 'd12345678'
+Get-TeamViewerDeviceCustomField -ApiToken $apiToken -ManagedDeviceId 'd12345678'
 ```
 
 Retrieves all custom field values for the specified managed device.
@@ -56,7 +56,7 @@ Retrieves all custom field values for the specified managed device.
 ### Example 2
 
 ```powershell
-$device | Get-TeamViewerDeviceCustomFieldValue -ApiToken $apiToken
+$device | Get-TeamViewerDeviceCustomField -ApiToken $apiToken
 ```
 
 Retrieves custom field values by piping a managed device object.

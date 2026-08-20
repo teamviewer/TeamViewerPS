@@ -10,14 +10,14 @@ function Get-TeamViewerDeviceCustomField {
 
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerManagedDeviceId } )]
-        [Alias('DeviceId')]
+        [Alias('ManagedDevice', 'Device', 'DeviceId')]
         [object]
         $ManagedDeviceId
     )
 
     process {
-        $ManagedDeviceIdResolved = $ManagedDeviceId | Resolve-TeamViewerManagedDeviceId
-        $ResourceUri = "$(Get-TeamViewerApiUri)/managed/devices/$ManagedDeviceIdResolved/custom-fields"
+        $ManagedDeviceId_Resolved = $ManagedDeviceId | Resolve-TeamViewerManagedDeviceId
+        $ResourceUri = "$(Get-TeamViewerApiUri)/managed/devices/$ManagedDeviceId_Resolved/custom-fields"
 
         $Response = Invoke-TeamViewerRestMethod `
             -ApiToken $ApiToken `
