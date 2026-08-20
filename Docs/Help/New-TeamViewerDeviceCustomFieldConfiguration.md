@@ -1,11 +1,11 @@
 ---
 external help file: TeamViewerPS-help.xml
 Module Name: TeamViewerPS
-online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/New-TeamViewerDeviceCustomField.md
+online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/New-TeamViewerDeviceCustomFieldConfiguration.md
 schema: 2.0.0
 ---
 
-# New-TeamViewerDeviceCustomField
+# New-TeamViewerDeviceCustomFieldConfiguration
 
 ## SYNOPSIS
 
@@ -14,7 +14,7 @@ Creates a device custom field definition for the company.
 ## SYNTAX
 
 ```powershell
-New-TeamViewerDeviceCustomField [-ApiToken] <SecureString> [-FieldKey] <String> [[-Description] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
+New-TeamViewerDeviceCustomFieldConfiguration [-ApiToken] <SecureString> [-FieldKey] <String> [[-Description] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -40,13 +40,13 @@ An optional description of the custom field.
 ### Example 1
 
 ```powershell
-New-TeamViewerDeviceCustomField -ApiToken $apiToken -FieldKey 'AssetTag' -Description 'Device asset tag'
+New-TeamViewerDeviceCustomFieldConfiguration -ApiToken $apiToken -FieldKey 'AssetTag' -Description 'Device asset tag'
 ```
 
 Creates an `AssetTag` device custom field with a description.
 
 ## OUTPUTS
 
-### TeamViewerPS.DeviceCustomField
+### TeamViewerPS.DeviceCustomFieldConfiguration
 
 Returns the created device custom field definition.

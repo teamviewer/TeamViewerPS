@@ -1,7 +1,7 @@
-function Get-TeamViewerDeviceCustomField {
+function Get-TeamViewerDeviceCustomFieldConfiguration {
     [CmdletBinding()]
 
-    [OutputType('TeamViewerPS.DeviceCustomField')]
+    [OutputType('TeamViewerPS.DeviceCustomFieldConfiguration')]
 
     param(
         [Parameter(Mandatory = $true)]
@@ -21,6 +21,6 @@ function Get-TeamViewerDeviceCustomField {
             -WriteErrorTo $PSCmdlet `
             -ErrorAction Stop
 
-        Write-Output ($Response.resources | ConvertTo-TeamViewerDeviceCustomField)
+        Write-Output ($Response.resources | ConvertTo-TeamViewerDeviceCustomFieldConfiguration)
     }
 }

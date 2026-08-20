@@ -1,9 +1,9 @@
 BeforeAll {
     . "$PSScriptRoot\..\..\Cmdlets\Private\ConvertTo-DateTime.ps1"
-    . "$PSScriptRoot\..\..\Cmdlets\Private\ConvertTo-TeamViewerDeviceCustomField.ps1"
+    . "$PSScriptRoot\..\..\Cmdlets\Private\ConvertTo-TeamViewerDeviceCustomFieldConfiguration.ps1"
 }
 
-Describe 'ConvertTo-TeamViewerDeviceCustomField' {
+Describe 'ConvertTo-TeamViewerDeviceCustomFieldConfiguration' {
     It 'Should map the API properties and type the result' {
         $InputObject = [PSCustomObject]@{
             fieldKeyId  = '00000000-0000-0000-0000-000000000001'
@@ -14,7 +14,7 @@ Describe 'ConvertTo-TeamViewerDeviceCustomField' {
             updatedAt   = '2026-01-02T00:00:00Z'
         }
 
-        $Result = $InputObject | ConvertTo-TeamViewerDeviceCustomField
+        $Result = $InputObject | ConvertTo-TeamViewerDeviceCustomFieldConfiguration
 
         $Result.Id | Should -Be $InputObject.fieldKeyId
         $Result.FieldKey | Should -Be 'AssetTag'
@@ -24,7 +24,7 @@ Describe 'ConvertTo-TeamViewerDeviceCustomField' {
         $Result.CreatedAt | Should -Be ([datetime]'2026-01-01T00:00:00Z')
         $Result.UpdatedAt | Should -BeOfType ([datetime])
         $Result.UpdatedAt | Should -Be ([datetime]'2026-01-02T00:00:00Z')
-        $Result.PSObject.TypeNames | Should -Contain 'TeamViewerPS.DeviceCustomField'
+        $Result.PSObject.TypeNames | Should -Contain 'TeamViewerPS.DeviceCustomFieldConfiguration'
         $Result.ToString() | Should -Be 'AssetTag (00000000-0000-0000-0000-000000000001)'
     }
 
@@ -32,7 +32,7 @@ Describe 'ConvertTo-TeamViewerDeviceCustomField' {
         $Results = @(
             [PSCustomObject]@{ fieldKeyId = 'id1'; fieldKey = 'One' }
             [PSCustomObject]@{ fieldKeyId = 'id2'; fieldKey = 'Two' }
-        ) | ConvertTo-TeamViewerDeviceCustomField
+        ) | ConvertTo-TeamViewerDeviceCustomFieldConfiguration
 
         $Results.Count | Should -Be 2
         $Results.FieldKey | Should -Be @('One', 'Two')

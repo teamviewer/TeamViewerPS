@@ -1,11 +1,11 @@
 ---
 external help file: TeamViewerPS-help.xml
 Module Name: TeamViewerPS
-online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/Remove-TeamViewerDeviceCustomField.md
+online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/Remove-TeamViewerDeviceCustomFieldConfiguration.md
 schema: 2.0.0
 ---
 
-# Remove-TeamViewerDeviceCustomField
+# Remove-TeamViewerDeviceCustomFieldConfiguration
 
 ## SYNOPSIS
 
@@ -14,7 +14,7 @@ Deletes a device custom field definition.
 ## SYNTAX
 
 ```powershell
-Remove-TeamViewerDeviceCustomField [-ApiToken] <SecureString> [-Id] <Guid> [-WhatIf] [-Confirm] [<CommonParameters>]
+Remove-TeamViewerDeviceCustomFieldConfiguration [-ApiToken] <SecureString> [-Id] <Guid> [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -36,7 +36,7 @@ The unique identifier of the custom field definition. Alias: FieldKeyId.
 ### Example 1
 
 ```powershell
-Remove-TeamViewerDeviceCustomField -ApiToken $apiToken -Id $fieldId
+Remove-TeamViewerDeviceCustomFieldConfiguration -ApiToken $apiToken -Id $fieldId
 ```
 
 Deletes the device custom field identified by `$fieldId` and its stored device values.
