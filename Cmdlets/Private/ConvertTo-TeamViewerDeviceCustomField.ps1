@@ -1,7 +1,7 @@
 function ConvertTo-TeamViewerDeviceCustomField {
     param(
         [Parameter(ValueFromPipeline)]
-        [PSObject]
+        [object]
         $InputObject
     )
 
