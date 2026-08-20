@@ -9,7 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Returns the TeamViewer ID of the locally installed TeamViewer.
+Returns the TeamViewer Id of the locally installed TeamViewer.
 
 ## SYNTAX
 
@@ -19,8 +19,7 @@ Get-TeamViewerId [<CommonParameters>]
 
 ## DESCRIPTION
 
-Returns the TeamViewer ID of the locally installed TeamViewer. This ID can be
-used to connect to this machine.
+Returns the TeamViewer Id of the locally installed TeamViewer. This Id can be used to connect to this machine.
 Returns nothing if TeamViewer is not installed on this machine.
 
 ## EXAMPLES

@@ -21,8 +21,7 @@ Remove-TeamViewerManagedGroup [-ApiToken] <SecureString> [-Group] <Object> [-Wha
 ## DESCRIPTION
 
 Marks a managed group as deleted. It will immediately disappear from the list of
-managed groups of all associated managers. Devices in the group will see the
-deletion marker and remove themselves from the group as soon as they get online.
+managed groups of all associated managers. Devices in the group will see the deletion marker and remove themselves from the group as soon as they get online.
 
 ## EXAMPLES
 
@@ -69,8 +68,7 @@ Accept wildcard characters: False
 ### -Group
 
 Object that can be used to identify the managed group.
-This can either be the managed group ID (as string or GUID) or a managed group
-object that has been received using other module functions.
+This can either be the managed group Id (as string or GUID) or a managed group object that has been received using other module functions.
 
 ```yaml
 Type: Object

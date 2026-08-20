@@ -45,7 +45,7 @@ List all policies of this account.
 PS /> Get-TeamViewerPolicy -Id '730ee15a-1ea4-4d80-9cfe-5a01709d0a2f'
 ```
 
-Retrieve a single policy entry with the given ID.
+Retrieve a single policy entry with the given Id.
 
 ## PARAMETERS
 
@@ -67,7 +67,7 @@ Accept wildcard characters: False
 
 ### -Id
 
-Optional policy ID to retrieve a single policy entry.
+Optional policy Id to retrieve a single policy entry.
 
 ```yaml
 Type: Guid

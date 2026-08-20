@@ -11,7 +11,7 @@ function Resolve-TeamViewerContactId {
         }
         elseif ($Contact -is [string]) {
             if ($Contact -notmatch 'c[0-9]+') {
-                throw "Invalid contact identifier '$Contact'. String must be a contact ID in the form 'c123456789'."
+                throw "Invalid contact identifier '$Contact'. String must be a contact Id in the form 'c123456789'."
             }
 
             Write-Output $Contact

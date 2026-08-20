@@ -45,9 +45,8 @@ Set-TeamViewerManager -ApiToken <SecureString> -Manager <Object> [-Group <Object
 
 Changes permissions of a managed group manager or managed device manager.
 
-It is not possible to take away the `ManagerAdministration` permissions from
-all managers of a managed group or managed device. At least one manager must
-remain with that permission.
+It is not possible to take away the `ManagerAdministration` permissions from all managers of a managed group or managed device.
+At least one manager must remain with that permission.
 
 ## EXAMPLES
 
@@ -57,8 +56,7 @@ remain with that permission.
 PS /> Set-TeamViewerManager -Device 'c0cb303a-8a85-4e54-b657-a4757c791aef' -Manager '57e8f75e-8e6f-4450-a59d-10e02ccf5986' -Permissions 'EasyAccess', 'ManagerAdministration'
 ```
 
-Change the permissions of the given manager on the managed device with the given
-ID.
+Change the permissions of the given manager on the managed device with the given Id.
 
 ### Example 2
 
@@ -66,8 +64,7 @@ ID.
 PS /> Set-TeamViewerManager -Group '9fd16af0-c224-4242-998e-a7138b038dbb' -Manager '57e8f75e-8e6f-4450-a59d-10e02ccf5986' -Permissions 'EasyAccess', 'ManagerAdministration'
 ```
 
-Change the permissions of the given manager on the managed group with the given
-ID.
+Change the permissions of the given manager on the managed group with the given Id.
 
 ## PARAMETERS
 
@@ -106,8 +103,7 @@ Accept wildcard characters: False
 ### -Device
 
 Object that can be used to identify the managed device.
-This can either be the managed device ID (as string or GUID) or a managed device
-object that has been received using other module functions.
+This can either be the managed device Id (as string or GUID) or a managed device object that has been received using other module functions.
 
 ```yaml
 Type: Object
@@ -124,8 +120,7 @@ Accept wildcard characters: False
 ### -Group
 
 Object that can be used to identify the managed group.
-This can either be the managed group ID (as string or GUID) or a managed group
-object that has been received using other module functions.
+This can either be the managed group Id (as string or GUID) or a managed group object that has been received using other module functions.
 
 ```yaml
 Type: Object
@@ -142,8 +137,7 @@ Accept wildcard characters: False
 ### -Manager
 
 Object that can be used to identify the manager.
-This can either be the manager ID (as string or GUID) or a manager object that
-has been received using other module functions.
+This can either be the manager Id (as string or GUID) or a manager object that has been received using other module functions.
 
 ```yaml
 Type: Object
@@ -160,25 +154,13 @@ Accept wildcard characters: False
 ### -Permissions
 
 Permissions to give to the manager.
-An empty set of permissions still allows read-only access on the device/group
-data. Multiple values can be specified.
+An empty set of permissions still allows read-only access on the device/group data. Multiple values can be specified.
 
-`ManagerAdministration` allows the manager to change other managers on the given
-device or group.
-
-`DeviceAdministration` (only for managed devices) allows the manager to change
-device-specific properties, e.g. the device name. Also reqruied to add devices
-to managed groups.
-
-`GroupAdministration` (only for managed groups) allows the manager to change
-group-specific properties, e.g. the group name. Also required to add managed
-devices to the group.
-
-`PolicyAdministration` (only for managed devices) allows the manager to change
-the policy that has been assigned to the managed device.
-
-`EasyAccess` allows the manager to connect to the device (or the devices of the
-group) via "EasyAccess" (without additional password).
+`ManagerAdministration` allows the manager to change other managers on the given device or group.
+`DeviceAdministration` (only for managed devices) allows the manager to change device-specific properties, e.g. the device name. Also reqruied to add devices to managed groups.
+`GroupAdministration` (only for managed groups) allows the manager to change group-specific properties, e.g. the group name. Also required to add managed devices to the group.
+`PolicyAdministration` (only for managed devices) allows the manager to change the policy that has been assigned to the managed device.
+`EasyAccess` allows the manager to connect to the device (or the devices of the group) via "EasyAccess" (without additional password).
 
 ```yaml
 Type: String[]

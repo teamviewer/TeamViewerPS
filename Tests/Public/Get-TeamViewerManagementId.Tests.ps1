@@ -29,7 +29,7 @@ Describe 'Get-TeamViewerManagementId' {
         Mock Test-TeamViewerInstallation { $true }
     }
 
-    It 'Should return the Management ID from the Windows Registry' {
+    It 'Should return the Management Id from the Windows Registry' {
         Get-TeamViewerManagementId | Should -Be $testManagementId
 
         Should -Invoke Test-TeamViewerInstallation -Scope It -Times 1

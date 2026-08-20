@@ -21,8 +21,7 @@ Remove-TeamViewerSsoInclusion [-ApiToken] <SecureString> [-DomainId] <Object> [-
 ## DESCRIPTION
 
 Remove emails from the inclusion list of a TeamViewer Single Sign-On domain.
-Accounts with these email addresses do need to login via Single
-Sign-On and do not have to use their TeamViewer account password.
+Accounts with these email addresses do need to login via Single Sign-On and do not have to use their TeamViewer account password.
 
 ## EXAMPLES
 
@@ -32,8 +31,7 @@ Sign-On and do not have to use their TeamViewer account password.
 PS /> Remove-TeamViewerSsoInclusion -DomainId '45e0d050-15e6-4fcb-91b2-ea4f20fe2085' -Email 'user@example.test'
 ```
 
-Removes the email address '<user@example.test>' from the Inclusion list of the
-given domain.
+Removes the email address '<user@example.test>' from the Inclusion list of the given domain.
 
 ## PARAMETERS
 
@@ -55,10 +53,8 @@ Accept wildcard characters: False
 
 ### -DomainId
 
-Object that can be used to identify the SSO domain to remove inclusion entries
-from.
-This can either be the SSO domain ID (as string or GUID) or a SsoDomain
-object that has been received using the `Get-TeamViewerSsoDomain` function.
+Object that can be used to identify the SSO domain to remove inclusion entries from.
+This can either be the SSO domain Id (as string or GUID) or a SsoDomain object that has been received using the `Get-TeamViewerSsoDomain` function.
 
 ```yaml
 Type: Object

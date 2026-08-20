@@ -27,8 +27,7 @@ Get-TeamViewerGroup -ApiToken <SecureString> [-Id <String>] [<CommonParameters>]
 
 ## DESCRIPTION
 
-Returns either a list of TeamViewer groups or a single TeamViewer group entry
-that are associated to the current account (API access token).
+Returns either a list of TeamViewer groups or a single TeamViewer group entry that are associated to the current account (API access token).
 
 ## EXAMPLES
 
@@ -46,7 +45,7 @@ List all TeamViewer groups of the current account.
 PS /> Get-TeamViewerGroup -Id 'g1234'
 ```
 
-Get a single TeamViewer group entry with the given ID.
+Get a single TeamViewer group entry with the given Id.
 
 ### Example 3
 
@@ -54,8 +53,7 @@ Get a single TeamViewer group entry with the given ID.
 PS /> Get-TeamViewerGroup -Name 'test'
 ```
 
-List all TeamViewer groups of the current account that have the string `test` in
-their group name.
+List all TeamViewer groups of the current account that have the string `test` in their group name.
 
 ## PARAMETERS
 
@@ -77,8 +75,7 @@ Accept wildcard characters: False
 
 ### -FilterShared
 
-Optional filter parameter to return either only groups that are shared or not
-shared.
+Optional filter parameter to return either only groups that are shared or not shared.
 
 ```yaml
 Type: String
@@ -111,8 +108,7 @@ Accept wildcard characters: False
 
 ### -Name
 
-Optional name filter parameter that can be used to only list groups that have
-the given string in their name.
+Optional name filter parameter that can be used to only list groups that have the given string in their name.
 
 ```yaml
 Type: String

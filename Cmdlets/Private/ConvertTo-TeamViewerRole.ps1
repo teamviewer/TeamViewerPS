@@ -7,7 +7,7 @@ function ConvertTo-TeamViewerRole {
 
     process {
         $Properties = @{
-            ID   = $InputObject.Id
+            Id   = $InputObject.Id
             Name = $InputObject.Name
         }
 

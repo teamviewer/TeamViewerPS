@@ -20,10 +20,8 @@ Remove-TeamViewerManagedDevice [-ApiToken] <SecureString> [-Device] <Object> [[-
 
 ## DESCRIPTION
 
-Removes a managed device from a managed group. The device remains in the
-pending status "leave" until it gets online and actually leaves the managed
-group. The current account needs `DeviceAdministration` manager permissions on
-the device. 
+Removes a managed device from a managed group. The device remains in the pending status "leave" until it gets online and actually leaves the managed group.
+The current account needs `DeviceAdministration` manager permissions on the device. 
 
 ## EXAMPLES
 
@@ -70,8 +68,7 @@ Accept wildcard characters: False
 ### -Device
 
 Object that can be used to identify the managed device.
-This can either be the managed device ID (as string or GUID) or a managed device
-object that has been received using other module functions.
+This can either be the managed device Id (as string or GUID) or a managed device object that has been received using other module functions.
 
 ```yaml
 Type: Object
@@ -88,8 +85,7 @@ Accept wildcard characters: False
 ### -Group
 
 Object that can be used to identify the managed group.
-This can either be the managed group ID (as string or GUID) or a managed group
-object that has been received using other module functions.
+This can either be the managed group Id (as string or GUID) or a managed group object that has been received using other module functions.
 
 ```yaml
 Type: Object

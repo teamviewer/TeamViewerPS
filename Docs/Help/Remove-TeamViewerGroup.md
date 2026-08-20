@@ -19,8 +19,7 @@ Remove-TeamViewerGroup [-ApiToken] <SecureString> [-Group] <Object> [-WhatIf] [-
 
 ## DESCRIPTION
 
-Deletes an existing group from the Computers & Contacts list. If the group is
-not owned, but only shared with the current user's account it will just be
+Deletes an existing group from the Computers & Contacts list. If the group is not owned, but only shared with the current user's account it will just be
 unshared.
 
 ## EXAMPLES
@@ -68,8 +67,7 @@ Accept wildcard characters: False
 ### -Group
 
 Object that can be used to identify the group.
-This can either be the group ID or a group object that has been received using
-other module functions.
+This can either be the group Id or a group object that has been received using other module functions.
 
 ```yaml
 Type: Object

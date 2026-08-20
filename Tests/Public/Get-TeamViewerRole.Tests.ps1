@@ -45,7 +45,7 @@ Describe 'Get-TeamViewerRole' {
         $Result | Should -BeOfType [PSCustomObject]
         $Result.PSObject.TypeNames | Should -Contain 'TeamViewerPS.Role'
         $Result.Name | Should -Be 'Role 1'
-        $Result.ID | Should -Be 'a9c9435d-8544-4e6a-9830-9337078c9aab'
+        $Result.Id | Should -Be 'a9c9435d-8544-4e6a-9830-9337078c9aab'
         $Result.AllowGroupSharing | Should -Be $true
         $Result.ManageAdmins | Should -Be $false
         $Result.ManageUsers | Should -Be $true

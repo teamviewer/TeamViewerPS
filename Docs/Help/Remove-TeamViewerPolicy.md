@@ -26,7 +26,7 @@ Delete the specified TeamViewer policy.
 ### Example 1
 
 ```powershell
-PS /> Remove-TeamViewerPolicy -Policy '730ee15a-1ea4-4d80-9cfe-5a01709d0a2f'
+Remove-TeamViewerPolicy -Policy '730ee15a-1ea4-4d80-9cfe-5a01709d0a2f'
 ```
 
 ## PARAMETERS
@@ -66,8 +66,7 @@ Accept wildcard characters: False
 ### -Policy
 
 Object that can be used to identify the policy.
-This can either be the policy ID (as string or GUID) or a policy object that has
-been received using other module functions.
+This can either be the policy Id (as string or GUID) or a policy object that has been received using other module functions.
 
 ```yaml
 Type: Object

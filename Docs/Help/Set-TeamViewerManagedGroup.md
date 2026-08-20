@@ -29,9 +29,8 @@ Set-TeamViewerManagedGroup -ApiToken <SecureString> -Group <Object> -Property <H
 
 ## DESCRIPTION
 
-Changes properties of a managed group. For example, the name of the group can be
-changed. The current account needs `GroupAdministration` manager permissions on
-the group.
+Changes properties of a managed group. For example, the name of the group can be changed.
+The current account needs `GroupAdministration` manager permissions on the group.
 
 ## EXAMPLES
 
@@ -41,7 +40,7 @@ the group.
 PS /> Set-TeamViewerManagedGroup -Group '9fd16af0-c224-4242-998e-a7138b038dbb' -Name 'My New Group'
 ```
 
-Change the name of the managed group with the given ID.
+Change the name of the managed group with the given Id.
 
 ### Example 2
 
@@ -49,7 +48,7 @@ Change the name of the managed group with the given ID.
 PS /> Set-TeamviewerManagedGroup -GroupId '6808db5b-f3c1-4e42-8168-3ac96f5d456e' -PolicyId '926d7a7e-b640-43a9-bc95-4f71ed7e6878' -PolicyType 4
 ```
 
-Change the policy of the managed group with the given ID.
+Change the policy of the managed group with the given Id.
 
 ### Example 3
 
@@ -57,7 +56,7 @@ Change the policy of the managed group with the given ID.
 PS /> Set-TeamViewerManagedGroup -GroupId '6808db5b-f3c1-4e42-8168-3ac96f5d456e' -Property {'policy_id' = 'e563798b-b988-4917-b1d3-a012ce6ba929' 'policy_type' = 1}
 ```
 
-Change the policy of the managed group with the given ID using property parameters.
+Change the policy of the managed group with the given Id using property parameters.
 
 ## PARAMETERS
 
@@ -96,8 +95,7 @@ Accept wildcard characters: False
 ### -Group
 
 Object that can be used to identify the managed group.
-This can either be the managed group ID (as string or GUID) or a managed group
-object that has been received using other module functions.
+This can either be the managed group Id (as string or GUID) or a managed group object that has been received using other module functions.
 
 ```yaml
 Type: Object

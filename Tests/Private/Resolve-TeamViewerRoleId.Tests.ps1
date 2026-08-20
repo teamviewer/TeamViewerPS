@@ -6,8 +6,8 @@ BeforeAll {
 }
 
 Describe 'Resolve-TeamViewerRoleId' {
-    It 'Returns ID from TeamViewerPS.Role object' {
-        $role = [pscustomobject]@{ ID = 'aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee' }
+    It 'Returns Id from TeamViewerPS.Role object' {
+        $role = [pscustomobject]@{ Id = 'aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee' }
         $role.PSObject.TypeNames.Insert(0, 'TeamViewerPS.Role')
 
         Resolve-TeamViewerRoleId -Role $role | Should -Be 'aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee'

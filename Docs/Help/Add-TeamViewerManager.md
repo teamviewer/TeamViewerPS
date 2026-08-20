@@ -15,66 +15,64 @@ Add a manager to a managed device or managed group.
 
 ### Device_ByAccountId (Default)
 
-```
+```powershell
 Add-TeamViewerManager -ApiToken <SecureString> -AccountId <String> -Device <Object> [-Permissions <String[]>]
  [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### Group_ByAccountId
 
-```
+```powershell
 Add-TeamViewerManager -ApiToken <SecureString> -AccountId <String> -Group <Object> [-Permissions <String[]>]
  [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### Group_ByManagerId
 
-```
+```powershell
 Add-TeamViewerManager -ApiToken <SecureString> -Manager <Object> -Group <Object> [-Permissions <String[]>]
  [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### Device_ByManagerId
 
-```
+```powershell
 Add-TeamViewerManager -ApiToken <SecureString> -Manager <Object> -Device <Object> [-Permissions <String[]>]
  [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### Group_ByUserObject
 
-```
+```powershell
 Add-TeamViewerManager -ApiToken <SecureString> -User <Object> -Group <Object> [-Permissions <String[]>]
  [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### Device_ByUserObject
 
-```
+```powershell
 Add-TeamViewerManager -ApiToken <SecureString> -User <Object> -Device <Object> [-Permissions <String[]>]
  [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### Device_ByUserGroupId
 
-```
+```powershell
 Add-TeamViewerManager -ApiToken <SecureString> -UserGroup <Object> -Device <Object> [-Permissions <String[]>]
  [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### Group_ByUserGroupId
 
-```
+```powershell
 Add-TeamViewerManager -ApiToken <SecureString> -UserGroup <Object> -Group <Object> [-Permissions <String[]>]
  [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 
-Adds a manager to a managed device or a managed group. Managers can either be
-identified by a TeamViewer account ID or their manager ID.
-The current account (identified by the API access token) needs
-`ManagerAdministration` manager permissions on the device/group.
+Adds a manager to a managed device or a managed group. Managers can either be identified by a TeamViewer account Id or their manager Id.
+The current account (identified by the API access token) needs `ManagerAdministration` manager permissions on the device/group.
 
 ## EXAMPLES
 
@@ -84,8 +82,7 @@ The current account (identified by the API access token) needs
 PS /> Add-TeamViewerManager -Device 'c0cb303a-8a85-4e54-b657-a4757c791aef' -Manager '57e8f75e-8e6f-4450-a59d-10e02ccf5986'
 ```
 
-Add the manager with the given Manager ID to the managed device with the given
-device ID.
+Add the manager with the given Manager Id to the managed device with the given device Id.
 
 ### Example 2
 
@@ -93,8 +90,7 @@ device ID.
 PS /> Add-TeamViewerManager -Group '9fd16af0-c224-4242-998e-a7138b038dbb' -Manager '57e8f75e-8e6f-4450-a59d-10e02ccf5986'
 ```
 
-Add the manager with the given Manager ID to the managed group with the given
-group ID.
+Add the manager with the given Manager Id to the managed group with the given group Id.
 
 ### Example 3
 
@@ -102,14 +98,13 @@ group ID.
 PS /> Add-TeamViewerManager -Group '9fd16af0-c224-4242-998e-a7138b038dbb' -AccountId 1234
 ```
 
-Add the manager with the given TeamViewer account ID to the managed group with
-the given group ID.
+Add the manager with the given TeamViewer account Id to the managed group with the given group Id.
 
 ## PARAMETERS
 
 ### -AccountId
 
-TeamViewer account ID used to identify the manager to add.
+TeamViewer account Id used to identify the manager to add.
 
 ```yaml
 Type: String
@@ -158,8 +153,7 @@ Accept wildcard characters: False
 ### -Device
 
 Object that can be used to identify the managed device.
-This can either be the managed device ID (as string or GUID) or a managed device
-object that has been received using other module functions.
+This can either be the managed device Id(as string or GUID) or a managed device object that has been received using other module functions.
 
 ```yaml
 Type: Object
@@ -176,8 +170,7 @@ Accept wildcard characters: False
 ### -Group
 
 Object that can be used to identify the managed group.
-This can either be the managed group ID (as string or GUID) or a managed group
-object that has been received using other module functions.
+This can either be the managed group Id (as string or GUID) or a managed group object that has been received using other module functions.
 
 ```yaml
 Type: Object
@@ -194,8 +187,7 @@ Accept wildcard characters: False
 ### -Manager
 
 Object that can be used to identify the manager to add.
-This can either be the manager ID (as string or GUID) or a manager object that
-has been received using other module function.
+This can either be the manager Id (as string or GUID) or a manager object that has been received using other module function.
 
 ```yaml
 Type: Object
@@ -212,26 +204,18 @@ Accept wildcard characters: False
 ### -Permissions
 
 Optional permissions to give to the manager.
-By default, the manager receives an empty set of permissions, which still allows
-read-only access on the device/group data.
+By default, the manager receives an empty set of permissions, which still allows read-only access on the device/group data.
 Multiple values can be specified.
 
-`ManagerAdministration` allows the manager to change other managers on the given
-device or group.
+`ManagerAdministration` allows the manager to change other managers on the given device or group.
 
-`DeviceAdministration` (only for managed devices) allows the manager to change
-device-specific properties, e.g. the device name. Also required to add devices
-to managed groups.
+`DeviceAdministration` (only for managed devices) allows the manager to change device-specific properties, e.g. the device name. Also required to add devices to managed groups.
 
-`GroupAdministration` (only for managed groups) allows the manager to change
-group-specific properties, e.g. the group name. Also required to add managed
-devices to the group.
+`GroupAdministration` (only for managed groups) allows the manager to change group-specific properties, e.g. the group name. Also required to add managed devices to the group.
 
-`PolicyAdministration` (only for managed devices) allows the manager to change
-the policy that has been assigned to the managed device.
+`PolicyAdministration` (only for managed devices) allows the manager to change the policy that has been assigned to the managed device.
 
-`EasyAccess` allows the manager to connect to the device (or the devices of the
-group) via "EasyAccess" (without additional password).
+`EasyAccess` allows the manager to connect to the device (or the devices of the group) via "EasyAccess" (without additional password).
 
 ```yaml
 Type: String[]
@@ -247,8 +231,7 @@ Accept wildcard characters: False
 
 ### -User
 
-User object received by the `Get-TeamViewerUser` cmdlet. It can be used to
-identify the manager that should be added to the device/group.
+User object received by the `Get-TeamViewerUser` cmdlet. It can be used to identify the manager that should be added to the device/group.
 
 ```yaml
 Type: Object

@@ -9,7 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Retrieves the currently applied TeamViewer custom module's ID.
+Retrieves the currently applied TeamViewer custom module's Id.
 
 ## SYNTAX
 
@@ -19,7 +19,7 @@ Get-TeamViewerCustomModuleId
 
 ## DESCRIPTION
 
-The command checks the TeamViewer Installation and returns the custom module ID.
+The command checks the TeamViewer Installation and returns the custom module Id.
 
 ## EXAMPLES
 

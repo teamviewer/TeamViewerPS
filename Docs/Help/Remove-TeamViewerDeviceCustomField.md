@@ -34,7 +34,7 @@ Required: True
 
 ### -ManagedDeviceId
 
-The unique identifier of the managed device. Can be a device ID string or a TeamViewerPS.ManagedDevice object.
+The unique identifier of the managed device. Can be a device Id string or a TeamViewerPS.ManagedDevice object.
 
 ```yaml
 Type: Object

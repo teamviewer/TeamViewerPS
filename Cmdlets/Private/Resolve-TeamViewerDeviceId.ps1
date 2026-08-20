@@ -11,7 +11,7 @@ function Resolve-TeamViewerDeviceId {
         }
         elseif ($Device -is [string]) {
             if ($Device -notmatch 'd[0-9]+') {
-                throw "Invalid device identifier '$Device'. String must be a device ID in the form 'd123456789'."
+                throw "Invalid device identifier '$Device'. String must be a device Id in the form 'd123456789'."
             }
 
             Write-Output $Device

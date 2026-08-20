@@ -7,7 +7,7 @@ BeforeAll {
 
 Describe 'ConvertTo-TeamViewerUserGroupAssignedRole' {
     It 'Creates TeamViewerPS.UserGroupAssignedRole object' {
-        $Result = 'g12345' | ConvertTo-TeamViewerRoleAssignedUserGroup
+        $Result = 'g12345' | ConvertTo-TeamViewerUserGroupAssignedRole
 
         $Result.PSObject.TypeNames[0] | Should -Be 'TeamViewerPS.UserGroupAssignedRole'
         $Result.Assigned_UserGroups | Should -Be 'g12345'

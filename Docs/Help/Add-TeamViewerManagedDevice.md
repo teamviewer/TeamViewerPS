@@ -31,8 +31,7 @@ Offline devices will apply this change when coming online again.
 PS /> Add-TeamViewerManagedDevice -Device 'c0cb303a-8a85-4e54-b657-a4757c791aef' -Group '9fd16af0-c224-4242-998e-a7138b038dbb'
 ```
 
-Adds the managed device with the given device ID to the managed group with the
-given group ID.
+Adds the managed device with the given device Id to the managed group with the given group Id.
 
 ### Example 2
 
@@ -42,8 +41,7 @@ PS /> $device = Get-TeamViewerManagedDevice -Id 'c0cb303a-8a85-4e54-b657-a4757c7
 PS /> Add-TeamViewerManagedDevice -Device $device -Group $group
 ```
 
-Adds the managed device to the managed group using device/group objects that
-have been received using other module functions.
+Adds the managed device to the managed group using device/group objects that have been received using other module functions.
 
 ## PARAMETERS
 
@@ -82,8 +80,7 @@ Accept wildcard characters: False
 ### -Device
 
 Object that can be used to identify the managed device.
-This can either be the managed device ID (as string or GUID) or a managed device
-object that has been received using other module functions.
+This can either be the managed device Id(as string or GUID) or a managed device object that has been received using other module functions.
 
 ```yaml
 Type: Object
@@ -100,8 +97,7 @@ Accept wildcard characters: False
 ### -Group
 
 Object that can be used to identify the managed group.
-This can either be the managed group ID (as string or GUID) or a managed group
-object that has been received using other module functions.
+This can either be the managed group Id(as string or GUID) or a managed group object that has been received using other module functions.
 
 ```yaml
 Type: Object

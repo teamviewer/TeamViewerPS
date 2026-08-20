@@ -1,4 +1,4 @@
-function ConvertTo-TeamViewerRoleAssignedUserGroup {
+function ConvertTo-TeamViewerUserGroupAssignedRole {
     param(
         [Parameter(ValueFromPipeline)]
         [object]
