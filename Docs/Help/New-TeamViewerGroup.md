@@ -85,8 +85,7 @@ Accept wildcard characters: False
 ### -Policy
 
 Optional object that can be used to identify the policy.
-This can either be the policy ID or a policy object that has been received using
-other module functions.
+This can either be the policy Id or a policy object that has been received using other module functions.
 If given, the policy will be assigned to the group.
 
 ```yaml

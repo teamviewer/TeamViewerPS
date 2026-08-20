@@ -20,15 +20,13 @@ Set-TeamViewerManagedDevice [-ApiToken] <SecureString> [-Device] <Object> [[-Nam
 
 ## DESCRIPTION
 
-Changes properties of a managed device. For example, the name of the managed
-device or the policy or the description can be changed.
+Changes properties of a managed device. For example, the name of the managed device or the policy or the description can be changed.
 You cannot combine any of those  three parameters together.
 
 For changing the device name, the current account needs `DeviceAdministration`
 manager permissions on the device.
 
-For changing the device's policy, the current account needs
-`PolicyAdministration` manager permissions on the device.
+For changing the device's policy, the current account needs `PolicyAdministration` manager permissions on the device.
 
 ## EXAMPLES
 
@@ -101,8 +99,7 @@ Accept wildcard characters: False
 ### -Device
 
 Object that can be used to identify the managed device.
-This can either be the managed device ID (as string or GUID) or a managed device
-object that has been received using other module functions.
+This can either be the managed device Id (as string or GUID) or a managed device object that has been received using other module functions.
 
 ```yaml
 Type: Object
@@ -135,8 +132,7 @@ Accept wildcard characters: False
 ### -Policy
 
 Object that can be used to identify the policy.
-This can either be the policy ID (as string or GUID) or a policy object that has
-been received using other module functions.
+This can either be the policy Id (as string or GUID) or a policy object that has been received using other module functions.
 
 ```yaml
 Type: Object
@@ -153,8 +149,7 @@ Accept wildcard characters: False
 ### -ManagedGroup
 
 Object that can be used to identify the managed group.
-This can either be the managed group ID (as string or GUID) or a managed group
-object that has been received using other module functions.
+This can either be the managed group Id (as string or GUID) or a managed group object that has been received using other module functions.
 
 ```yaml
 Type: Object

@@ -18,7 +18,7 @@ function Get-TeamViewerCustomModuleId {
                 }
             }
             catch {
-                Write-Verbose "Failed to read the custom module ID from '$TV_AssignmentFilePath': $($_.Exception.Message)"
+                Write-Verbose "Failed to read the custom module Id from '$TV_AssignmentFilePath': $($_.Exception.Message)"
 
                 return $null
             }

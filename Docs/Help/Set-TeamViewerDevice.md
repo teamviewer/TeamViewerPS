@@ -117,7 +117,7 @@ Accept wildcard characters: False
 ### -Device
 
 Object that can be used to identify the device entry.
-This can either be the device ID or a device object that has been received
+This can either be the device Id or a device object that has been received
 using other module functions.
 
 ```yaml
@@ -135,7 +135,7 @@ Accept wildcard characters: False
 ### -Group
 
 Object that can be used to identify the group.
-This can either be the group ID or a group object that has been received using
+This can either be the group Id or a group object that has been received using
 other module functions.
 
 Cannot be used in conjunction with the `-Policy` parameter.
@@ -188,7 +188,7 @@ Accept wildcard characters: False
 ### -Policy
 
 Object that can be used to identify the policy.
-This can either be the policy ID (as string or GUID) or a policy object that has
+This can either be the policy Id (as string or GUID) or a policy object that has
 been received using other module functions.
 
 Cannot be used in conjunction with the `-Group` parameter.

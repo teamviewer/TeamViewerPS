@@ -241,7 +241,7 @@ Accept wildcard characters: False
 
 ### -CustomQuickSupportId
 
-Defines the ID of a custom QuickSupport module assigned to the user.
+Defines the Id of a custom QuickSupport module assigned to the user.
 
 ```yaml
 Type: String
@@ -257,7 +257,7 @@ Accept wildcard characters: False
 
 ### -CustomQuickJoinId
 
-Specifies the ID of a custom QuickJoin module assigned to the user.
+Specifies the Id of a custom QuickJoin module assigned to the user.
 
 ```yaml
 Type: String
@@ -302,6 +302,7 @@ Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
+
 ### -SubscribeNewsletter
 
 Enables (`$true`) or disables (`$false`) the newsletter.

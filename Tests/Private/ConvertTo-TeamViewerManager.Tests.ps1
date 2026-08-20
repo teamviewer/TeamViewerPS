@@ -13,7 +13,7 @@ Describe 'ConvertTo-TeamViewerManager' {
         $Result = ConvertTo-TeamViewerManager -InputObject $InputObject -GroupId $GroupId
 
         $Result.PSObject.TypeNames[0] | Should -Be 'TeamViewerPS.Manager'
-        $Result.GroupId | Should -Be $GroupId
+        $Result.Group_Id | Should -Be $GroupId
     }
 
     It 'Sets DeviceId when using DeviceManager parameter set' {
@@ -23,6 +23,6 @@ Describe 'ConvertTo-TeamViewerManager' {
         $Result = ConvertTo-TeamViewerManager -InputObject $InputObject -DeviceId $DeviceId
 
         $Result.PSObject.TypeNames[0] | Should -Be 'TeamViewerPS.Manager'
-        $Result.DeviceId | Should -Be $DeviceId
+        $Result.Device_Id | Should -Be $DeviceId
     }
 }

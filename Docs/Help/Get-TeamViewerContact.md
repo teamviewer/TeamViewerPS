@@ -28,8 +28,7 @@ Get-TeamViewerContact -ApiToken <SecureString> [-Id <String>] [<CommonParameters
 
 ## DESCRIPTION
 
-Returns a list of contacts in the user’s Computers & Contacts list that match
-the criteria given in the parameters.
+Returns a list of contacts in the user’s Computers & Contacts list that match the criteria given in the parameters.
 
 ## EXAMPLES
 
@@ -47,7 +46,7 @@ List all contacts of the account associated to the TeamViewer API access token.
 PS /> Get-TeamViewerContact -Id 'c1234'
 ```
 
-Gets the contact entry with the given ID.
+Gets the contact entry with the given Id.
 
 ### Example 3
 
@@ -55,8 +54,7 @@ Gets the contact entry with the given ID.
 PS /> Get-TeamViewerContact -Name 'test' -FilterOnlineState 'Away'
 ```
 
-List all contacts of the account associated to the TeamViewer API access token
-that contain the string `test` in their name and are in the `Away` online state.
+List all contacts of the account associated to the TeamViewer API access token that contain the string `test` in their name and are in the `Away` online state.
 
 ## PARAMETERS
 
@@ -96,8 +94,7 @@ Accept wildcard characters: False
 ### -Group
 
 Object that can be used to identify the group.
-This can either be the group ID or a group object that has been received using
-other module functions.
+This can either be the group Id or a group object that has been received using other module functions.
 If given, the command only returns contacts that are part of that group.
 
 ```yaml
@@ -130,8 +127,7 @@ Accept wildcard characters: False
 
 ### -Name
 
-Optional filter that can be used to retrieve only those contact list entries
-that have the given string contained in their name.
+Optional filter that can be used to retrieve only those contact list entries that have the given string contained in their name.
 
 ```yaml
 Type: String

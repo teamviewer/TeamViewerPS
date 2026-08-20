@@ -15,7 +15,7 @@ Describe 'Set-TeamViewerDeviceCustomFieldConfiguration' {
 
         $Result = Set-TeamViewerDeviceCustomFieldConfiguration -ApiToken $testApiToken -Id '00000000-0000-0000-0000-000000000001' -FieldKey 'AssetTag' -Description ''
 
-        $Result.FieldKey | Should -Be 'AssetTag'
+        $Result.Name | Should -Be 'AssetTag'
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $Uri -eq '//unit.test/device-custom-fields/00000000-0000-0000-0000-000000000001' -and

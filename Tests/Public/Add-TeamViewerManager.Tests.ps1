@@ -78,7 +78,7 @@ Describe 'Add-TeamViewerManager' {
         }
     }
 
-    It 'Should accept manager ID as input' {
+    It 'Should accept manager Id as input' {
         Add-TeamViewerManager -ApiToken $testApiToken -GroupId $testGroupId -ManagerId $testManagerId
 
         $mockArgs.Body | Should -Not -BeNullOrEmpty
@@ -106,7 +106,7 @@ Describe 'Add-TeamViewerManager' {
         $Body.accountId | Should -Be 123456
     }
 
-    It 'Should accept a user group ID as input' {
+    It 'Should accept a user group Id as input' {
         $TestUserGroupId = [uint64]123456
 
         Add-TeamViewerManager -ApiToken $testApiToken -GroupId $testGroupId -UserGroupId $TestUserGroupId

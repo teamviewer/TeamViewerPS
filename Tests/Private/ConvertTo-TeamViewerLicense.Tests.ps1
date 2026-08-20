@@ -18,8 +18,8 @@ Describe 'ConvertTo-TeamViewerLicense' {
         $Result = ConvertTo-TeamViewerLicense -InputObject $InputObject
 
         $Result.PSObject.TypeNames[0] | Should -Be 'TeamViewerPS.License'
-        $Result.CompanyId | Should -Be 42
-        $Result.AvailableLicenses.Count | Should -Be 1
-        $Result.AvailableLicenses[0].PSObject.TypeNames[0] | Should -Be 'TeamViewerPS.LicenseInformation'
+        $Result.Id | Should -Be 42
+        $Result.Licenses_Available.Count | Should -Be 1
+        $Result.Licenses_Available[0].PSObject.TypeNames[0] | Should -Be 'TeamViewerPS.LicenseInformation'
     }
 }

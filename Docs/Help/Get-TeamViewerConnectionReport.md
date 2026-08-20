@@ -9,8 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Returns the TeamViewer session reports of the company associated with the given
-API token.
+Returns the TeamViewer session reports of the company associated with the given API token.
 
 ## SYNTAX
 
@@ -34,8 +33,7 @@ Get-TeamViewerConnectionReport -ApiToken <SecureString> [-UserName <String>] [-U
 
 ## DESCRIPTION
 
-Returns a list of TeamViewer session reports. The list can optionally be filtered
-using the given parameters.
+Returns a list of TeamViewer session reports. The list can optionally be filtered using the given parameters.
 
 ## EXAMPLES
 
@@ -69,10 +67,8 @@ List connection reports for the given session code.
 PS /> Get-TeamViewerConnectionReport -UserId u1234 -StartDate "2021-05-01 13:00"
 ```
 
-List reports for connections of the TeamViewer account with the given user ID and
-that were initiated on or after May 1st, 2021 1pm.
-If specified like this, dates/times use the timezone currently configured in
-your Powershell. For UTC, just add a `Z` at the end.
+List reports for connections of the TeamViewer account with the given user Id and that were initiated on or after May 1st, 2021 1pm.
+If specified like this, dates/times use the timezone currently configured in your Powershell. For UTC, just add a `Z` at the end.
 
 ### Example 5
 
@@ -82,8 +78,7 @@ PS /> Get-TeamViewerConnectionReport `
   -StartDate "2021-04-01" -EndDate "2021-04-02"
 ```
 
-List connection reports for devices in a group named `My Computers` and that
-have happened between April 1st and April 2nd 2021.
+List connection reports for devices in a group named `My Computers` and that have happened between April 1st and April 2nd 2021.
 This example shows the interaction with the `Get-TeamViewerGroup` cmdlet.
 
 ## PARAMETERS
@@ -123,8 +118,8 @@ Accept wildcard characters: False
 
 ### -DeviceId
 
-Filter the list of connection reports by the given device identifier. This
-needs to be the TeamViewer ID of the device.
+Filter the list of connection reports by the given device identifier.
+This needs to be the TeamViewer Id of the device.
 
 ```yaml
 Type: Int32
@@ -157,8 +152,7 @@ Accept wildcard characters: False
 ### -EndDate
 
 Sets the end for the date range of connection reports to fetch. Defaults to now.
-To be included in the results the connection is required to be ended before this
-date/time.
+To be included in the results the connection is required to be ended before this date/time.
 
 ```yaml
 Type: DateTime
@@ -174,7 +168,7 @@ Accept wildcard characters: False
 
 ### -GroupId
 
-Filter the list of connection reports by the given group ID.
+Filter the list of connection reports by the given group Id.
 
 ```yaml
 Type: Object
@@ -207,8 +201,7 @@ Accept wildcard characters: False
 
 ### -Limit
 
-Optionally limit the results to the given number. If the limit is reached the
-function stops and won't fetch more entries.
+Optionally limit the results to the given number. If the limit is reached the function stops and won't fetch more entries.
 
 ```yaml
 Type: Int32
@@ -275,8 +268,7 @@ Accept wildcard characters: False
 ### -StartDate
 
 Sets the start for the date range of connection reports to get.
-To be included in the results the connection is required to be started on or
-after this date/time.
+To be included in the results the connection is required to be started on or after this date/time.
 
 ```yaml
 Type: DateTime
@@ -309,7 +301,7 @@ Accept wildcard characters: False
 
 ### -UserId
 
-Filter the list of connection reports by the given user ID.
+Filter the list of connection reports by the given user Id.
 
 ```yaml
 Type: Object
@@ -341,8 +333,7 @@ Accept wildcard characters: False
 
 ### -WithSessionCode
 
-Filter the list of connection reports to only contain entries that have a
-session code.
+Filter the list of connection reports to only contain entries that have a session code.
 
 ```yaml
 Type: SwitchParameter
@@ -358,8 +349,7 @@ Accept wildcard characters: False
 
 ### -WithoutSessionCode
 
-Filter the list of connection reports to only contain entries that do not have a
-session code assiciated to.
+Filter the list of connection reports to only contain entries that do not have a session code associated to.
 
 ```yaml
 Type: SwitchParameter

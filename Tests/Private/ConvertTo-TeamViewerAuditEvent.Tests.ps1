@@ -13,6 +13,6 @@ Describe 'ConvertTo-TeamViewerAuditEvent' {
         $Result = ConvertTo-TeamViewerAuditEvent -InputObject $InputObject
 
         $Result.PSObject.TypeNames[0] | Should -Be 'TeamViewerPS.AuditEvent'
-        $Result.Timestamp | Should -BeOfType ([datetime])
+        $Result.CreatedAt | Should -BeOfType ([datetime])
     }
 }

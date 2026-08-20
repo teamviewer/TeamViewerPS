@@ -6,22 +6,22 @@ BeforeAll {
 }
 
 Describe 'Resolve-TeamViewerUserGroupMemberId' {
-    It 'Returns AccountId from TeamViewerPS.UserGroupMember object' {
-        $member = [pscustomobject]@{ AccountId = 'u123456' }
+    It 'Returns Id from TeamViewerPS.UserGroupMember object' {
+        $member = [pscustomobject]@{ Id = 'u123456' }
         $member.PSObject.TypeNames.Insert(0, 'TeamViewerPS.UserGroupMember')
 
-        Resolve-TeamViewerUserGroupMemberMemberId -UserGroupMember $member | Should -Be 'u123456'
+        Resolve-TeamViewerUserGroupMemberId -UserGroupMember $member | Should -Be 'u123456'
     }
 
     It 'Returns user id pattern unchanged' {
-        Resolve-TeamViewerUserGroupMemberMemberId -UserGroupMember 'u123456' | Should -Be 'u123456'
+        Resolve-TeamViewerUserGroupMemberId -UserGroupMember 'u123456' | Should -Be 'u123456'
     }
 
     It 'Converts numeric string to int' {
-        Resolve-TeamViewerUserGroupMemberMemberId -UserGroupMember '42' | Should -Be 42
+        Resolve-TeamViewerUserGroupMemberId -UserGroupMember '42' | Should -Be 42
     }
 
     It 'Returns int unchanged' {
-        Resolve-TeamViewerUserGroupMemberMemberId -UserGroupMember 42 | Should -Be 42
+        Resolve-TeamViewerUserGroupMemberId -UserGroupMember 42 | Should -Be 42
     }
 }

@@ -60,7 +60,7 @@ Describe 'Get-TeamViewerCustomModuleId' {
             $Result | Should -BeNullOrEmpty
 
             Should -Invoke Write-Verbose -Scope It -Times 1 -ParameterFilter {
-                $Message -like 'Failed to read the custom module ID from*invalid JSON'
+                $Message -like 'Failed to read the custom module Id from*invalid JSON'
             }
         }
     }

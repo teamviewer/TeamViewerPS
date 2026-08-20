@@ -1,4 +1,4 @@
-function ConvertTo-TeamViewerRoleAssignedUserGroup {
+function ConvertTo-TeamViewerUserGroupAssignedRole {
     param(
         [Parameter(ValueFromPipeline)]
         [object]
@@ -7,7 +7,7 @@ function ConvertTo-TeamViewerRoleAssignedUserGroup {
 
     process {
         $Properties = @{
-            AssignedGroups = ($InputObject)
+            Assigned_UserGroups = ($InputObject)
         }
 
         $Result = New-Object -TypeName PSObject -Property $Properties

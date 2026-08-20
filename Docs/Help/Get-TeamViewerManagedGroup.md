@@ -33,8 +33,7 @@ Get-TeamViewerManagedGroup -ApiToken <SecureString> [-Device <Object>] [<CommonP
 
 ## DESCRIPTION
 
-Retrieves managed groups of the manager that is associated with the API access
-token.
+Retrieves managed groups of the manager that is associated with the API access token.
 
 ## EXAMPLES
 
@@ -52,7 +51,7 @@ List all managed groups of this manager.
 PS /> Get-TeamViewerManagedGroup -Id '9fd16af0-c224-4242-998e-a7138b038dbb'
 ```
 
-Retrieve a single managed group entry for the group with the given ID.
+Retrieve a single managed group entry for the group with the given Id.
 
 ## PARAMETERS
 
@@ -75,11 +74,8 @@ Accept wildcard characters: False
 ### -Device
 
 Object that can be used to identify a managed device.
-This can either be the managed device ID (as string or GUID) or a managed device
-object that has been received using other module functions.
-
-If given, this command returns the list of managed groups that the device is
-part of.
+This can either be the managed device Id (as string or GUID) or a managed device object that has been received using other module functions.
+If given, this command returns the list of managed groups that the device is part of.
 
 ```yaml
 Type: Object
@@ -95,8 +91,7 @@ Accept wildcard characters: False
 
 ### -Id
 
-Optional managed group ID. If given, the command retrieves a single managed
-group entry with this ID.
+Optional managed group Id. If given, the command retrieves a single managed group entry with this Id.
 
 ```yaml
 Type: Guid

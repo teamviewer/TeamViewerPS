@@ -17,7 +17,7 @@ function Remove-TeamViewerUserGroupMember {
 
 
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
-        [ValidateScript( { $_ | Resolve-TeamViewerUserGroupMemberMemberId } )]
+        [ValidateScript( { $_ | Resolve-TeamViewerUserGroupMemberId } )]
         [Alias('UserGroupMemberId')]
         [Alias('MemberId')]
         [Alias('UserId')]
@@ -48,7 +48,7 @@ function Remove-TeamViewerUserGroupMember {
         function Get-MemberId {
             switch ($UserGroupMember) {
                 { $UserGroupMember[0].PSObject.TypeNames -contains 'TeamViewerPS.UserGroupMember' } {
-                    $UserGroupMember = $UserGroupMember | Resolve-TeamViewerUserGroupMemberMemberId
+                    $UserGroupMember = $UserGroupMember | Resolve-TeamViewerUserGroupMemberId
                     return $UserGroupMember
                 }
                 default {

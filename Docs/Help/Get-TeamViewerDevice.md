@@ -28,8 +28,7 @@ Get-TeamViewerDevice -ApiToken <SecureString> [-Id <String>] [<CommonParameters>
 
 ## DESCRIPTION
 
-Returns a list of contacts in the user's Computers & Contacts list that match
-the criteria given in the parameters.
+Returns a list of contacts in the user's Computers & Contacts list that match the criteria given in the parameters.
 
 ## EXAMPLES
 
@@ -47,7 +46,7 @@ List all devices of the Computers & Contacts list.
 PS /> Get-TeamViewerDevice -Id 'd1234'
 ```
 
-Get the device entry with the given ID.
+Get the device entry with the given Id.
 
 ## PARAMETERS
 
@@ -87,8 +86,7 @@ Accept wildcard characters: False
 ### -Group
 
 Object that can be used to identify the group.
-This can either be the group ID or a group object that has been received using
-other module functions.
+This can either be the group Id or a group object that has been received using other module functions.
 If given, the command only returns device entries that are part of that group.
 
 ```yaml
@@ -121,7 +119,7 @@ Accept wildcard characters: False
 
 ### -TeamViewerId
 
-Optional return only the device that has the given TeamViewer Remote control ID.
+Optional return only the device that has the given TeamViewer Remote control Id.
 
 ```yaml
 Type: Int32

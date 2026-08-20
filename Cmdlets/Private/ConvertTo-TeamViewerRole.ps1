@@ -7,8 +7,8 @@ function ConvertTo-TeamViewerRole {
 
     process {
         $Properties = @{
-            RoleName = $InputObject.Name
-            RoleID   = $InputObject.Id
+            Id   = $InputObject.Id
+            Name = $InputObject.Name
         }
 
         if ($InputObject.Permissions) {
@@ -19,11 +19,7 @@ function ConvertTo-TeamViewerRole {
 
         $Result = New-Object -TypeName PSObject -Property $Properties
         $Result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.Role')
-        $Result | Add-Member -MemberType ScriptMethod -Name 'ToString' -Force -Value {
-            "[$($this.RoleName)] [$($this.RoleID)] $($this.Permissions))"
-        }
 
         Write-Output $Result
     }
 }
-

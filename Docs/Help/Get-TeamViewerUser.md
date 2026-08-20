@@ -47,7 +47,7 @@ List all users.
 PS /> Get-TeamViewerUser -Id 'u1234'
 ```
 
-Retrieve a single user entry with the given ID.
+Retrieve a single user entry with the given Id.
 
 ### Example 3
 
@@ -110,7 +110,7 @@ Accept wildcard characters: False
 
 ### -Id
 
-User ID to return only a single user entry with that ID.
+User Id to return only a single user entry with that Id.
 
 ```yaml
 Type: String

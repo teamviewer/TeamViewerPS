@@ -34,7 +34,7 @@ Required: True
 
 ### -ManagedDeviceId
 
-The unique identifier of the managed device. Can be a device ID string or a TeamViewerPS.ManagedDevice object.
+The unique identifier of the managed device. Can be a device Id string or a TeamViewerPS.ManagedDevice object.
 
 ```yaml
 Type: Object
@@ -64,4 +64,4 @@ Retrieves custom field values by piping a managed device object.
 
 ### TeamViewerPS.DeviceCustomField
 
-Returns device custom field value objects containing the field key ID and value.
+Returns device custom field value objects containing the field key Id and value.

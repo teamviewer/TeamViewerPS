@@ -10,7 +10,7 @@ function Set-TeamViewerManager {
 
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
         [ValidateScript( {
-                if (($_.PSObject.TypeNames -contains 'TeamViewerPS.Manager') -and -not $_.GroupId -and -not $_.DeviceId) {
+                if (($_.PSObject.TypeNames -contains 'TeamViewerPS.Manager') -and -not $_.Group_Id -and -not $_.Device_Id) {
                     $PSCmdlet.ThrowTerminatingError(
                         ('Invalid manager object. Manager must be a group or device manager.' | `
                             ConvertTo-ErrorRecord -ErrorCategory InvalidArgument))
@@ -49,7 +49,7 @@ function Set-TeamViewerManager {
     )
 
     begin {
-        # Warning suppresion doesn't seem to work.
+        # Warning suppression doesn't seem to work.
         # See https://github.com/PowerShell/PSScriptAnalyzer/issues/1472
         $null = $Property
 
@@ -60,16 +60,13 @@ function Set-TeamViewerManager {
                 $Body['permissions'] = @($Permissions)
             }
             '*ByProperties' {
-                @('permissions') | `
-                    Where-Object { $Property[$_] } | `
-                    ForEach-Object { $Body[$_] = $Property[$_] }
+                @('permissions') | Where-Object { $Property[$_] } | ForEach-Object { $Body[$_] = $Property[$_] }
             }
         }
 
         if ($Body.Count -eq 0) {
             $PSCmdlet.ThrowTerminatingError(
-                ('The given input does not change the manager.' | `
-                    ConvertTo-ErrorRecord -ErrorCategory InvalidArgument))
+                ('The given input does not change the manager.' | ConvertTo-ErrorRecord -ErrorCategory InvalidArgument))
         }
     }
     process {
@@ -79,15 +76,14 @@ function Set-TeamViewerManager {
         if ($Manager.PSObject.TypeNames -contains 'TeamViewerPS.Manager') {
             if ($Device -or $Group) {
                 $PSCmdlet.ThrowTerminatingError(
-                    ('Device or Group parameter must not be specified if a [TeamViewerPS.Manager] object is given.' | `
-                        ConvertTo-ErrorRecord -ErrorCategory InvalidArgument))
+                    ('Device or Group parameter must not be specified if a [TeamViewerPS.Manager] object is given.' | ConvertTo-ErrorRecord -ErrorCategory InvalidArgument))
             }
 
-            if ($Manager.DeviceId) {
-                $DeviceId = $Manager.DeviceId
+            if ($Manager.Device_Id) {
+                $DeviceId = $Manager.Device_Id
             }
-            elseif ($Manager.GroupId) {
-                $GroupId = $Manager.GroupId
+            elseif ($Manager.Group_Id) {
+                $GroupId = $Manager.Group_Id
             }
         }
         elseif ($Device) {
@@ -98,8 +94,7 @@ function Set-TeamViewerManager {
         }
         else {
             $PSCmdlet.ThrowTerminatingError(
-                ('Device or Group parameter must be specified if no [TeamViewerPS.Manager] object is given.' | `
-                    ConvertTo-ErrorRecord -ErrorCategory InvalidArgument))
+                ('Device or Group parameter must be specified if no [TeamViewerPS.Manager] object is given.' | ConvertTo-ErrorRecord -ErrorCategory InvalidArgument))
         }
 
         $managerId = $Manager | Resolve-TeamViewerManagerId

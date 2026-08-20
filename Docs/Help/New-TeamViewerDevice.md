@@ -20,8 +20,7 @@ New-TeamViewerDevice [-ApiToken] <SecureString> [-TeamViewerId] <Int32> [-Group]
 
 ## DESCRIPTION
 
-Adds a new device entry to the Computers & Contacts list of the account that is
-associated to the TeamViewer API access token. 
+Adds a new device entry to the Computers & Contacts list of the account that is associated to the TeamViewer API access token. 
 
 ## EXAMPLES
 
@@ -31,8 +30,7 @@ associated to the TeamViewer API access token.
 PS /> New-TeamViewerDevice -TeamViewerId 12345678 -Group 'g1234'
 ```
 
-Adds the device with the given TeamViewer ID to the Computers & Contacts list
-into the group with the given group ID.
+Adds the device with the given TeamViewer Id to the Computers & Contacts list into the group with the given group Id.
 
 ## PARAMETERS
 
@@ -87,8 +85,7 @@ Accept wildcard characters: False
 ### -Group
 
 Object that can be used to identify the group.
-This can either be the group ID or a group object that has been received using
-other module functions.
+This can either be the group Id or a group object that has been received using other module functions.
 
 ```yaml
 Type: Object
@@ -120,8 +117,7 @@ Accept wildcard characters: False
 
 ### -Password
 
-Optional password that will be used when connecting to the device with the
-TeamViewer desktop client.
+Optional password that will be used when connecting to the device with the TeamViewer desktop client.
 
 ```yaml
 Type: SecureString
@@ -137,7 +133,7 @@ Accept wildcard characters: False
 
 ### -TeamViewerId
 
-The TeamViewer remote control ID of the device to be added.
+The TeamViewer remote control Id of the device to be added.
 
 ```yaml
 Type: Int32

@@ -207,7 +207,7 @@ Accept wildcard characters: False
 
 ### -CustomQuickSupportId
 
-Specifies the ID of a custom QuickSupport module assigned to the user.
+Specifies the Id of a custom QuickSupport module assigned to the user.
 
 ```yaml
 Type: String
@@ -223,7 +223,7 @@ Accept wildcard characters: False
 
 ### -CustomQuickJoinId
 
-Specifies the ID of a custom QuickJoin module assigned to the user.
+Specifies the Id of a custom QuickJoin module assigned to the user.
 
 ```yaml
 Type: String
@@ -355,7 +355,7 @@ Accept wildcard characters: False
 ### -User
 
 Object that can be used to identify the user.
-This can either be the user ID or a user object that has been received using other module functions.
+This can either be the user Id or a user object that has been received using other module functions.
 
 ```yaml
 Type: Object

@@ -7,7 +7,7 @@ function ConvertTo-TeamViewerRoleAssignedUser {
 
     process {
         $Properties = @{
-            AssignedUsers = ($InputObject.trim('u'))
+            Assigned_Users = ($InputObject.trim('u'))
         }
 
         $Result = New-Object -TypeName PSObject -Property $Properties

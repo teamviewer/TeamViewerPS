@@ -10,14 +10,14 @@ function ConvertTo-TeamViewerGroup {
             Id          = $InputObject.id
             Name        = $InputObject.name
             Permissions = $InputObject.permissions
-            PolicyId    = $InputObject.policy_id
-            SharedWith  = @($InputObject.shared_with | ConvertTo-TeamViewerGroupShare)
+            Policy_Id   = $InputObject.policy_id
+            Shared_With = @($InputObject.shared_with | ConvertTo-TeamViewerGroupShare)
         }
 
         if ($InputObject.owner) {
             $Properties.Owner = [pscustomobject]@{
-                UserId = $InputObject.owner.userid
-                Name   = $InputObject.owner.name
+                Id   = $InputObject.owner.userid
+                Name = $InputObject.owner.name
             }
         }
 

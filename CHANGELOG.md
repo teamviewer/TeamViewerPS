@@ -17,6 +17,7 @@
 - Adds `OutputType` to public commands.
 - Adds `CmdletBinding` to public commands.
 - Standardizes pipeline emission on Write-Output.
+- Harmonizes private converter output properties and value types
 - Creates, expands, and hardens all private functions tests.
 - Automate release module versioning.
 
@@ -125,7 +126,7 @@
 - Adds `Export-TeamViewerSystemInformation` to create zip file for support.
 - Adds `Set-TeamViewerPSProxy` and `Remove-TeamViewerPSProxy` to set proxy to access web API.
 - Adds `Get-TeamViewerInstallationDirectory` to return installation directory.
-- Adds `Get-TeamViewerCustomModuleId` to return custom module ID.
+- Adds `Get-TeamViewerCustomModuleId` to return custom module Id.
 - Adds `Get-TeamViewerLogFilePath` to return log file paths for different logs present.
 - Adds `Remove-TeamViewerPolicyFromManagedDevice` to remove policies from managed devices.
 

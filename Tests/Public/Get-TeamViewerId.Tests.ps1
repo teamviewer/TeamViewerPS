@@ -12,7 +12,7 @@ Describe 'Get-TeamViewerId' {
         Mock Test-TeamViewerInstallation { $true }
     }
 
-    It 'Should return the TeamViewer ID from the Windows Registry' {
+    It 'Should return the TeamViewer Id from the Windows Registry' {
         Get-TeamViewerId | Should -Be 123456
 
         Should -Invoke Get-ItemPropertyValue -Scope It -Times 1 -ParameterFilter {

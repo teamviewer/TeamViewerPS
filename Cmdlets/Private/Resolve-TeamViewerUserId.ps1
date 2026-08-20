@@ -11,7 +11,7 @@ function Resolve-TeamViewerUserId {
         }
         elseif ($User -is [string]) {
             if ($User -notmatch 'u[0-9]+') {
-                throw "Invalid user identifier '$User'. String must be a user ID in the form 'u123456789'."
+                throw "Invalid user identifier '$User'. String must be a user Id in the form 'u123456789'."
             }
 
             Write-Output $User

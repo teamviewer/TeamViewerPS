@@ -13,7 +13,7 @@ Describe 'ConvertTo-TeamViewerGroup' {
         $Result = ConvertTo-TeamViewerGroup -InputObject $InputObject
 
         $Result.PSObject.TypeNames[0] | Should -Be 'TeamViewerPS.Group'
-        $Result.SharedWith.Count | Should -Be 1
-        $Result.SharedWith[0].PSObject.TypeNames[0] | Should -Be 'TeamViewerPS.GroupShare'
+        $Result.Shared_With.Count | Should -Be 1
+        $Result.Shared_With[0].PSObject.TypeNames[0] | Should -Be 'TeamViewerPS.GroupShare'
     }
 }

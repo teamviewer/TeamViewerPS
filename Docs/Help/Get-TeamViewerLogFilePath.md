@@ -14,7 +14,7 @@ Retrieves TeamViewer log files.
 ## SYNTAX
 
 ```powershell
-Get-TeamViewerLogFilePath -OpenFile <switch>
+Get-TeamViewerLogFilePath
 ```
 
 ## DESCRIPTION
@@ -31,31 +31,7 @@ PS /> Get-TeamViewerLogFilePath
 
 Returns the paths for log files.
 
-### Example 2
-
-```powershell
-PS /> Get-TeamViewerLogFilePath -OpenFile
-```
-
-Provides a prompt with choice to open the located files.
-
 ## PARAMETERS
-
-### -OpenFile
-
-Switch to open a log file.
-
-```yaml
-Type: switch
-Parameter Sets: (All)
-Aliases: None
-
-Required: False
-Position: 0
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
 
 ### CommonParameters
 

@@ -28,7 +28,7 @@ Describe 'ConvertTo-TeamViewerLicenseInformation' {
 
         $Result | Should -Not -BeNullOrEmpty
         $Result.PSObject.TypeNames[0] | Should -Be 'TeamViewerPS.LicenseInformation'
-        $Result.LicenseName | Should -Be 'Tensor'
+        $Result.Name | Should -Be 'Tensor'
     }
 
     It 'Supports pipeline processing of multiple items' {

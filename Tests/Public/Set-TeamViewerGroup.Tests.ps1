@@ -29,7 +29,7 @@ Describe 'Set-TeamViewerGroup' {
         $Body.name | Should -Be 'Unit Test Group'
     }
 
-    It 'Should include the optional policy ID in the request' {
+    It 'Should include the optional policy Id in the request' {
         Set-TeamViewerGroup -ApiToken $testApiToken -GroupId 'g1234' -Policy $testPolicyId
 
         $mockArgs.Body | Should -Not -BeNullOrEmpty

@@ -29,7 +29,7 @@ Lists the assigned role of a user group in the TeamViewer company associated wit
 PS /> Get-TeamViewerRoleByUserGroup -GroupId "12345"
 ```
 
-Lists the assigned role of the user group with the ID 12345.
+Lists the assigned role of the user group with the Id 12345.
 
 ## PARAMETERS
 

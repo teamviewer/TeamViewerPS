@@ -67,11 +67,11 @@ Describe 'Get-TeamViewerGroup' {
 
     It 'Should include PolicyId when getting single group' {
         $Result = Get-TeamViewerGroup -ApiToken $testApiToken -Id 'g1234'
-        $Result.PolicyId | Should -Be 'p1234'
+            $Result.Policy_Id | Should -Be 'p1234'
     }
 
     It 'Should include PolicyId when filtering groups' {
         $Result = Get-TeamViewerGroup -ApiToken $testApiToken
-        $Result[0].PolicyId | Should -Be 'p1234'
+            $Result[0].Policy_Id | Should -Be 'p1234'
     }
 }

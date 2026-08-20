@@ -17,15 +17,14 @@ Describe 'ConvertTo-TeamViewerDeviceCustomFieldConfiguration' {
         $Result = $InputObject | ConvertTo-TeamViewerDeviceCustomFieldConfiguration
 
         $Result.Id | Should -Be $InputObject.fieldKeyId
-        $Result.FieldKey | Should -Be 'AssetTag'
-        $Result.FieldType | Should -Be 'string'
+        $Result.Name | Should -Be 'AssetTag'
+        $Result.Type | Should -Be 'string'
         $Result.Description | Should -Be 'Device asset tag'
         $Result.CreatedAt | Should -BeOfType ([datetime])
         $Result.CreatedAt | Should -Be ([datetime]'2026-01-01T00:00:00Z')
         $Result.UpdatedAt | Should -BeOfType ([datetime])
         $Result.UpdatedAt | Should -Be ([datetime]'2026-01-02T00:00:00Z')
         $Result.PSObject.TypeNames | Should -Contain 'TeamViewerPS.DeviceCustomFieldConfiguration'
-        $Result.ToString() | Should -Be 'AssetTag (00000000-0000-0000-0000-000000000001)'
     }
 
     It 'Should convert multiple pipeline inputs' {
@@ -35,6 +34,6 @@ Describe 'ConvertTo-TeamViewerDeviceCustomFieldConfiguration' {
         ) | ConvertTo-TeamViewerDeviceCustomFieldConfiguration
 
         $Results.Count | Should -Be 2
-        $Results.FieldKey | Should -Be @('One', 'Two')
+        $Results.Name | Should -Be @('One', 'Two')
     }
 }

@@ -9,7 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Returns the TeamViewer Management ID of the locally installed TeamViewer.
+Returns the TeamViewer Management Id of the locally installed TeamViewer.
 
 ## SYNTAX
 
@@ -19,13 +19,9 @@ Get-TeamViewerManagementId
 
 ## DESCRIPTION
 
-Returns the TeamViewer Management ID of the locally installed TeamViewer if the
-device is managed in the Managed Groups system.
-Returns nothing if either TeamViewer is not installed or the device is not a
-managed device in the Managed Groups system.
-For example, the management ID can be used as `DeviceId` for the
-`Get-TeamViewerManagedDevice` command (and all other Managed Device/Group
-related commands). 
+Returns the TeamViewer Management Id of the locally installed TeamViewer if the device is managed in the managed groups system.
+Returns nothing if either TeamViewer is not installed or the device is not a managed device in the managed groups system.
+For example, the management Id can be used as `DeviceId` for the `Get-TeamViewerManagedDevice` command (and all other managed device / group related commands). 
 
 ## EXAMPLES
 

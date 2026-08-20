@@ -9,17 +9,14 @@ function ConvertTo-TeamViewerAuditEvent {
         $Properties = @{
             Name         = $InputObject.EventName
             Type         = $InputObject.EventType
-            Timestamp    = $InputObject.Timestamp | ConvertTo-DateTime
             Author       = $InputObject.Author
             AffectedItem = $InputObject.AffectedItem
-            EventDetails = $InputObject.EventDetails
+            Details      = $InputObject.EventDetails
+            CreatedAt    = $InputObject.Timestamp | ConvertTo-DateTime
         }
 
         $Result = New-Object -TypeName PSObject -Property $Properties
         $Result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.AuditEvent')
-        $Result | Add-Member -MemberType ScriptMethod -Name 'ToString' -Force -Value {
-            "[$($this.Timestamp)] $($this.Name) ($($this.Type))"
-        }
 
         Write-Output $Result
     }

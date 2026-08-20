@@ -37,7 +37,7 @@ Retrieves the list of managers of a managed device or a managed group.
 PS /> Get-TeamViewerManager -Device 'c0cb303a-8a85-4e54-b657-a4757c791aef'
 ```
 
-List the managers of the managed device with the given ID.
+List the managers of the managed device with the given Id.
 
 ## PARAMETERS
 
@@ -60,8 +60,7 @@ Accept wildcard characters: False
 ### -Device
 
 Object that can be used to identify the managed device.
-This can either be the managed device ID (as string or GUID) or a managed device
-object that has been received using other module functions.
+This can either be the managed device Id (as string or GUID) or a managed device object that has been received using other module functions.
 
 ```yaml
 Type: Object
@@ -78,8 +77,7 @@ Accept wildcard characters: False
 ### -Group
 
 Object that can be used to identify the managed group.
-This can either be the managed group ID (as string or GUID) or a managed group
-object that has been received using other module functions.
+This can either be the managed group Id (as string or GUID) or a managed group object that has been received using other module functions.
 
 ```yaml
 Type: Object
