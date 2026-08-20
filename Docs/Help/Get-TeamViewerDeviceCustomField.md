@@ -40,7 +40,6 @@ The unique identifier of the managed device. Can be a device ID string or a Team
 Type: Object
 Aliases: ManagedDevice, Device, DeviceId
 Required: True
-ValueFromPipeline: True
 ```
 
 ## EXAMPLES
