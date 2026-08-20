@@ -1,11 +1,11 @@
 ---
 external help file: TeamViewerPS-help.xml
 Module Name: TeamViewerPS
-online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/Get-TeamViewerDeviceCustomField.md
+online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/Get-TeamViewerDeviceCustomFieldConfiguration.md
 schema: 2.0.0
 ---
 
-# Get-TeamViewerDeviceCustomField
+# Get-TeamViewerDeviceCustomFieldConfiguration
 
 ## SYNOPSIS
 
@@ -14,7 +14,7 @@ Lists device custom field definitions for the company.
 ## SYNTAX
 
 ```powershell
-Get-TeamViewerDeviceCustomField [-ApiToken] <SecureString> [<CommonParameters>]
+Get-TeamViewerDeviceCustomFieldConfiguration [-ApiToken] <SecureString> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -37,13 +37,13 @@ Required: True
 ### Example 1
 
 ```powershell
-Get-TeamViewerDeviceCustomField -ApiToken $apiToken
+Get-TeamViewerDeviceCustomFieldConfiguration -ApiToken $apiToken
 ```
 
 Lists all device custom fields in the company.
 
 ## OUTPUTS
 
-### TeamViewerPS.DeviceCustomField
+### TeamViewerPS.DeviceCustomFieldConfiguration
 
 Returns device custom field definition objects.
