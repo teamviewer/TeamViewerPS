@@ -51,7 +51,7 @@ Describe 'New-TeamViewerRole' {
     It 'Should return a Role object' {
         $Result = New-TeamViewerRole -ApiToken $testApiToken -Name $testRoleName -Permissions $testPermissions
         $Result | Should -Not -BeNullOrEmpty
-        $Result | Should -BeOfType [PSObject]
+        $Result | Should -BeOfType ([pscustomobject])
         $Result.PSObject.TypeNames | Should -Contain 'TeamViewerPS.Role'
         $Result.RoleName | Should -Be $testRoleName
 

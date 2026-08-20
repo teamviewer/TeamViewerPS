@@ -55,7 +55,7 @@ Describe 'Get-TeamViewerPolicy' {
 
         It 'Should return a Policy object' {
             $Result = Get-TeamViewerPolicy -ApiToken $testApiToken -Id 'ae222e9d-a665-4cea-85b7-d4a3a08a5e35'
-            $Result | Should -BeOfType PSObject
+            $Result | Should -BeOfType ([pscustomobject])
             $Result.PSObject.TypeNames | Should -Contain 'TeamViewerPS.Policy'
         }
     }

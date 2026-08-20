@@ -82,7 +82,7 @@ Describe 'Get-TeamViewerUserGroup' {
 
         It 'Should return a UserGroup object' {
             $Result = Get-TeamViewerUserGroup -ApiToken $testApiToken -UserGroup $testUserGroupId
-            $Result | Should -BeOfType PSObject
+            $Result | Should -BeOfType ([pscustomobject])
             $Result.PSObject.TypeNames | Should -Contain 'TeamViewerPS.UserGroup'
             $Result.id | Should -Be $UserGroups_Test[0].id
             $Result.name | Should -Be $UserGroups_Test[0].name

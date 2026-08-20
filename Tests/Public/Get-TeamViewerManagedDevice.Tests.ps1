@@ -76,7 +76,7 @@ Describe 'Get-TeamViewerManagedDevice' {
 
         It 'Should return a ManagedDevice object' {
             $Result = Get-TeamViewerManagedDevice -ApiToken $testApiToken -Id 'ae222e9d-a665-4cea-85b7-d4a3a08a5e35'
-            $Result | Should -BeOfType PSObject
+            $Result | Should -BeOfType ([pscustomobject])
             $Result.PSObject.TypeNames | Should -Contain 'TeamViewerPS.ManagedDevice'
         }
     }
