@@ -4,10 +4,13 @@
 
 ### Added
 
-- Adds `Get-TeamViewerDeviceCustomFieldConfiguration` to retrieve all device custom fields.
-- Adds `New-TeamViewerDeviceCustomFieldConfiguration` to create a new device custom field.
-- Adds `Set-TeamViewerDeviceCustomFieldConfiguration` to modify one specific device custom field.
-- Adds `Remove-TeamViewerDeviceCustomFieldConfiguration` to delete one specific device custom field.
+- Adds `Get-TeamViewerDeviceCustomField` to retrieve custom field values from a managed device.
+- Adds `Set-TeamViewerDeviceCustomField` to set or update a custom field value on a managed device.
+- Adds `Remove-TeamViewerDeviceCustomField` to delete a custom field value from a managed device.
+- Adds `Get-TeamViewerDeviceCustomFieldConfiguration` to retrieve all device custom field definitions.
+- Adds `New-TeamViewerDeviceCustomFieldConfiguration` to create a new device custom field definition.
+- Adds `Set-TeamViewerDeviceCustomFieldConfiguration` to modify one specific device custom field definition.
+- Adds `Remove-TeamViewerDeviceCustomFieldConfiguration` to delete one specific device custom field definition.
 
 ### Changed
 
