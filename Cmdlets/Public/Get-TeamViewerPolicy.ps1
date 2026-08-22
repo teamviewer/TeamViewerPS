@@ -1,4 +1,4 @@
-function Get-TeamViewerPolicy {
+﻿function Get-TeamViewerPolicy {
     [CmdletBinding(DefaultParameterSetName = 'FilteredList')]
 
     [OutputType('TeamViewerPS.Policy')]

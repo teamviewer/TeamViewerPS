@@ -1,4 +1,4 @@
-function New-TeamViewerPolicy {
+﻿function New-TeamViewerPolicy {
     [CmdletBinding(SupportsShouldProcess = $true)]
 
     [OutputType([void])]

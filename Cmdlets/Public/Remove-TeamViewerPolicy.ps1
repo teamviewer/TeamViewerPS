@@ -1,4 +1,4 @@
-function Remove-TeamViewerPolicy {
+﻿function Remove-TeamViewerPolicy {
     [CmdletBinding(SupportsShouldProcess = $true, DefaultParameterSetName = 'ByParameters')]
 
     [OutputType([void])]

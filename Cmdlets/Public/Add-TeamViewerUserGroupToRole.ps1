@@ -1,4 +1,4 @@
-function Add-TeamViewerUserGroupToRole {
+﻿function Add-TeamViewerUserGroupToRole {
     [CmdletBinding(SupportsShouldProcess = $true)]
 
     [OutputType([pscustomobject])]

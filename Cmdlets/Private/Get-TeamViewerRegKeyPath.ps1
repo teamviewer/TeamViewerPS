@@ -1,4 +1,4 @@
-function Get-TeamViewerRegKeyPath {
+﻿function Get-TeamViewerRegKeyPath {
     param (
         [Parameter()]
         [ValidateSet('WOW6432', 'Auto')]

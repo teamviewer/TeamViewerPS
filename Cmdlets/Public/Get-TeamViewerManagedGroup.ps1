@@ -1,4 +1,4 @@
-function Get-TeamViewerManagedGroup {
+﻿function Get-TeamViewerManagedGroup {
     [CmdletBinding(DefaultParameterSetName = 'List')]
 
     [OutputType('TeamViewerPS.ManagedGroup')]

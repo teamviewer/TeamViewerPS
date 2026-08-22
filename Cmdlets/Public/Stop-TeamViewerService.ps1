@@ -1,4 +1,4 @@
-function Stop-TeamViewerService {
+﻿function Stop-TeamViewerService {
     [CmdletBinding(SupportsShouldProcess = $true)]
 
     [OutputType([void])]

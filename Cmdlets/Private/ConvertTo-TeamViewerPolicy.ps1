@@ -1,4 +1,4 @@
-function ConvertTo-TeamViewerPolicy {
+﻿function ConvertTo-TeamViewerPolicy {
     param(
         [Parameter(ValueFromPipeline)]
         [object]

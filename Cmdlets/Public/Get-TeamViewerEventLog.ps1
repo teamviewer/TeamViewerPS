@@ -1,4 +1,4 @@
-function Get-TeamViewerEventLog {
+﻿function Get-TeamViewerEventLog {
     [CmdletBinding(DefaultParameterSetName = 'RelativeDates')]
 
     [OutputType('TeamViewerPS.AuditEvent')]

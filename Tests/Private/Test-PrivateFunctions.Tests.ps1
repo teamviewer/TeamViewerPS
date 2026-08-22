@@ -1,4 +1,4 @@
-BeforeDiscovery {
+﻿BeforeDiscovery {
     $Script:Module_RootPath = (Resolve-Path -Path (Join-Path -Path $PSScriptRoot -ChildPath '..\..'))
     $Script:Module_CmdletsPath = Join-Path -Path $Module_RootPath -ChildPath 'Cmdlets'
     $Script:Module_PrivateTestsPath = Join-Path -Path $Module_RootPath -ChildPath 'Tests\Private'

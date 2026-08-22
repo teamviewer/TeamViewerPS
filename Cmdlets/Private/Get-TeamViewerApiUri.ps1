@@ -1,4 +1,4 @@
-class TeamViewerConfiguration {
+﻿class TeamViewerConfiguration {
     [string]$APIUri = 'https://webapi.teamviewer.com/api/v1'
 
     static [TeamViewerConfiguration] $Instance = $null

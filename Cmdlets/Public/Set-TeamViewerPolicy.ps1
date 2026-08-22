@@ -1,4 +1,4 @@
-function Set-TeamViewerPolicy {
+﻿function Set-TeamViewerPolicy {
     [CmdletBinding(SupportsShouldProcess = $true, DefaultParameterSetName = 'ByParameters')]
 
     [OutputType([void])]

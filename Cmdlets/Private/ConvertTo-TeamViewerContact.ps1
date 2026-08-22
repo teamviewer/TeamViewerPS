@@ -1,4 +1,4 @@
-function ConvertTo-TeamViewerContact {
+﻿function ConvertTo-TeamViewerContact {
     param(
         [Parameter(ValueFromPipeline)]
         [object]

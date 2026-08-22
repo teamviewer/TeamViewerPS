@@ -1,4 +1,4 @@
-
+﻿
 Describe 'Get-TeamViewerUserByRole' {
     Context 'When retrieving role assignments' {
         BeforeEach {

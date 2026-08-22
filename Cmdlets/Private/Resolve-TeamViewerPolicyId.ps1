@@ -1,4 +1,4 @@
-function Resolve-TeamViewerPolicyId {
+﻿function Resolve-TeamViewerPolicyId {
     param(
         [Parameter(ValueFromPipeline = $true, Mandatory = $true)]
         [object]

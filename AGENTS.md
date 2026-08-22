@@ -1,4 +1,4 @@
-# AGENTS.md
+﻿# AGENTS.md
 
 Comprehensive guidance for AI coding agents and developers working in this repository.
 

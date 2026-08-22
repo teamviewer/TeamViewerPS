@@ -1,4 +1,4 @@
-function Resolve-TeamViewerManagedDeviceId {
+﻿function Resolve-TeamViewerManagedDeviceId {
     param(
         [Parameter(ValueFromPipeline = $true, Mandatory = $true)]
         [object]

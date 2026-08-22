@@ -1,4 +1,4 @@
-function Connect-TeamViewerApi {
+﻿function Connect-TeamViewerApi {
     [CmdletBinding()]
 
     [OutputType([void])]

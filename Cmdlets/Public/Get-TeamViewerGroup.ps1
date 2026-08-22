@@ -1,4 +1,4 @@
-function Get-TeamViewerGroup {
+﻿function Get-TeamViewerGroup {
     [CmdletBinding(DefaultParameterSetName = 'FilteredList')]
 
     [OutputType('TeamViewerPS.Group')]

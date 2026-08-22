@@ -1,4 +1,4 @@
-function Get-TeamViewerLogFilePath {
+﻿function Get-TeamViewerLogFilePath {
     [CmdletBinding()]
 
     [OutputType([string[]])]

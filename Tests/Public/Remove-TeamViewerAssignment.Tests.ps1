@@ -1,4 +1,4 @@
-BeforeAll {
+﻿BeforeAll {
     . "$PSScriptRoot\..\..\Cmdlets\Public\Remove-TeamViewerAssignment.ps1"
     . "$PSScriptRoot\..\..\Cmdlets\Public\Get-TeamViewerInstallationDirectory.ps1"
     . "$PSScriptRoot\..\..\Cmdlets\Public\Get-TeamViewerVersion.ps1"

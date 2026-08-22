@@ -1,4 +1,4 @@
-function ConvertTo-TeamViewerDeviceCustomField {
+﻿function ConvertTo-TeamViewerDeviceCustomField {
     param(
         [Parameter(ValueFromPipeline)]
         [object]

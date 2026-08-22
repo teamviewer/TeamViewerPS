@@ -1,4 +1,4 @@
-function Set-TeamViewerPredefinedRole {
+﻿function Set-TeamViewerPredefinedRole {
     [CmdletBinding(SupportsShouldProcess = $true)]
 
     [OutputType([void])]

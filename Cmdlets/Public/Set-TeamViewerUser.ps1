@@ -1,4 +1,4 @@
-function Set-TeamViewerUser {
+﻿function Set-TeamViewerUser {
     [CmdletBinding(SupportsShouldProcess = $true, DefaultParameterSetName = 'ByParameters')]
 
     [OutputType([void])]

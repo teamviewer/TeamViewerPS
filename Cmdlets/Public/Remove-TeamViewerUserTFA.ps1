@@ -1,4 +1,4 @@
-function Remove-TeamViewerUserTFA {
+﻿function Remove-TeamViewerUserTFA {
     [CmdletBinding(SupportsShouldProcess = $true)]
 
     [OutputType([void])]

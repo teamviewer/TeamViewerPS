@@ -1,4 +1,4 @@
-function Get-TeamViewerService {
+﻿function Get-TeamViewerService {
     [CmdletBinding()]
 
     [OutputType([void])]

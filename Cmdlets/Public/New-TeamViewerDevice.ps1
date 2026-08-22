@@ -1,4 +1,4 @@
-function New-TeamViewerDevice {
+﻿function New-TeamViewerDevice {
     [CmdletBinding(SupportsShouldProcess = $true)]
 
     [OutputType('TeamViewerPS.Device')]

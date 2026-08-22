@@ -1,4 +1,4 @@
-function ConvertTo-TeamViewerSsoDomain {
+﻿function ConvertTo-TeamViewerSsoDomain {
     param(
         [Parameter(ValueFromPipeline)]
         [object]

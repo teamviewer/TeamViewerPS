@@ -1,4 +1,4 @@
-function Get-TeamViewerInstallationType {
+﻿function Get-TeamViewerInstallationType {
 
     [CmdletBinding()]
     [OutputType([string])]

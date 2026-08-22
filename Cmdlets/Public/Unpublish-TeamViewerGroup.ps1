@@ -1,4 +1,4 @@
-function Unpublish-TeamViewerGroup {
+﻿function Unpublish-TeamViewerGroup {
     [CmdletBinding(SupportsShouldProcess = $true)]
 
     [OutputType([void])]

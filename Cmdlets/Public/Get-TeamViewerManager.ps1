@@ -1,4 +1,4 @@
-function Get-TeamViewerManager {
+﻿function Get-TeamViewerManager {
     [CmdletBinding(DefaultParameterSetName = 'ByDeviceId')]
 
     [OutputType('TeamViewerPS.Manager')]

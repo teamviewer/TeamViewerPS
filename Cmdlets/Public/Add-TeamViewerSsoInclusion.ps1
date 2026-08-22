@@ -1,4 +1,4 @@
-function Add-TeamViewerSsoInclusion {
+﻿function Add-TeamViewerSsoInclusion {
     [CmdletBinding(SupportsShouldProcess = $true)]
 
     [OutputType([void])]

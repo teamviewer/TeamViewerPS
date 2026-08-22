@@ -1,4 +1,4 @@
-function Invoke-TeamViewerPing {
+﻿function Invoke-TeamViewerPing {
     [CmdletBinding()]
 
     [OutputType([bool])]

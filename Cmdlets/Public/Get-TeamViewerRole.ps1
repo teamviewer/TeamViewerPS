@@ -1,4 +1,4 @@
-function Get-TeamViewerRole {
+﻿function Get-TeamViewerRole {
     [CmdletBinding()]
 
     [OutputType('TeamViewerPS.Role')]

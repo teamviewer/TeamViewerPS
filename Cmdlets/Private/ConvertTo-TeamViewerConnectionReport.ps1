@@ -1,4 +1,4 @@
-function ConvertTo-TeamViewerConnectionReport {
+﻿function ConvertTo-TeamViewerConnectionReport {
     param(
         [Parameter(ValueFromPipeline)]
         [object]

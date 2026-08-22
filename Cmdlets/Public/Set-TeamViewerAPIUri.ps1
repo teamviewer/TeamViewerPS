@@ -1,4 +1,4 @@
-function Set-TeamViewerAPIUri {
+﻿function Set-TeamViewerAPIUri {
     [CmdletBinding(SupportsShouldProcess = $true)]
 
     [OutputType([string])]

@@ -1,4 +1,4 @@
-function Test-TeamViewerInstallation {
+﻿function Test-TeamViewerInstallation {
     [CmdletBinding()]
 
     [OutputType([bool])]

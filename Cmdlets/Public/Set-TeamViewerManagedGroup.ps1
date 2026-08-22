@@ -1,4 +1,4 @@
-function Set-TeamViewerManagedGroup {
+﻿function Set-TeamViewerManagedGroup {
     [CmdletBinding(SupportsShouldProcess = $true, DefaultParameterSetName = 'ByParameters')]
 
     [OutputType([void])]

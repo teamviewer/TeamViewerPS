@@ -1,4 +1,4 @@
-$global:TeamViewerProxyUriSet = $null
+﻿$global:TeamViewerProxyUriSet = $null
 
 function Set-TeamViewerPSProxy {
     [CmdletBinding(SupportsShouldProcess = $true)]

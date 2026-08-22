@@ -1,4 +1,4 @@
-function Resolve-TeamViewerLanguage {
+﻿function Resolve-TeamViewerLanguage {
     param(
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
         [object]

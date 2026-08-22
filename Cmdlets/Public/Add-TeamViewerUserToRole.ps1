@@ -1,4 +1,4 @@
-function Add-TeamViewerUserToRole {
+﻿function Add-TeamViewerUserToRole {
     [CmdletBinding(SupportsShouldProcess = $true)]
 
     [OutputType([pscustomobject])]

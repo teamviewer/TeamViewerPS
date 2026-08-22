@@ -1,4 +1,4 @@
-function ConvertTo-DateTime {
+﻿function ConvertTo-DateTime {
     param(
         [Parameter(ValueFromPipeline)]
         [string]

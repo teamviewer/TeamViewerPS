@@ -1,4 +1,4 @@
-function New-TeamViewerContact {
+﻿function New-TeamViewerContact {
     [CmdletBinding(SupportsShouldProcess = $true)]
 
     [OutputType('TeamViewerPS.Contact')]

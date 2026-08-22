@@ -1,4 +1,4 @@
-function Resolve-TeamViewerUserId {
+﻿function Resolve-TeamViewerUserId {
     param(
         [Parameter(ValueFromPipeline = $true, Mandatory = $true)]
         [object]

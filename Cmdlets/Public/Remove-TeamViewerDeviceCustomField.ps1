@@ -1,4 +1,4 @@
-function Remove-TeamViewerDeviceCustomField {
+﻿function Remove-TeamViewerDeviceCustomField {
     [CmdletBinding(SupportsShouldProcess = $true)]
 
     [OutputType([void])]

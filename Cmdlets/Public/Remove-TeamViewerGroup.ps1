@@ -1,4 +1,4 @@
-function Remove-TeamViewerGroup {
+﻿function Remove-TeamViewerGroup {
     [CmdletBinding(SupportsShouldProcess = $true)]
 
     [OutputType([void])]

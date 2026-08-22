@@ -1,4 +1,4 @@
-function Test-TeamViewerConnectivity {
+﻿function Test-TeamViewerConnectivity {
     [CmdletBinding()]
 
     [OutputType([bool], [pscustomobject])]

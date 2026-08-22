@@ -1,4 +1,4 @@
-function Remove-TeamViewerUserFromRole {
+﻿function Remove-TeamViewerUserFromRole {
     [CmdletBinding(SupportsShouldProcess = $true)]
 
     [OutputType([pscustomobject])]

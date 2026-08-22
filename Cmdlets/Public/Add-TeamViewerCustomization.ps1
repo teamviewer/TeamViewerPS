@@ -1,4 +1,4 @@
-function Add-TeamViewerCustomization {
+﻿function Add-TeamViewerCustomization {
     [CmdletBinding(SupportsShouldProcess = $true)]
 
     [OutputType([void])]

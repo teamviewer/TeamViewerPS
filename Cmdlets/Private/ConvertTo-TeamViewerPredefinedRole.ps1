@@ -1,4 +1,4 @@
-function ConvertTo-TeamViewerPredefinedRole {
+﻿function ConvertTo-TeamViewerPredefinedRole {
     param(
         [Parameter(ValueFromPipeline = $true)]
         [object]

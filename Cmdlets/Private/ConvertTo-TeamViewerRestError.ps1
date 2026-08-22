@@ -1,4 +1,4 @@
-function ConvertTo-TeamViewerRestError {
+﻿function ConvertTo-TeamViewerRestError {
     param(
         [parameter(ValueFromPipeline)]
         $InputError

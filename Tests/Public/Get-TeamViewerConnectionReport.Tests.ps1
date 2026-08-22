@@ -1,4 +1,4 @@
-BeforeAll {
+﻿BeforeAll {
     . "$PSScriptRoot\..\..\Cmdlets\TeamViewerPS.Types.ps1"
     . "$PSScriptRoot\..\..\Cmdlets\Public\Get-TeamViewerConnectionReport.ps1"
 

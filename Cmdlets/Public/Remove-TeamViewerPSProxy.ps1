@@ -1,4 +1,4 @@
-function Remove-TeamViewerPSProxy {
+﻿function Remove-TeamViewerPSProxy {
     [CmdletBinding(SupportsShouldProcess = $true)]
 
     [OutputType([void])]

@@ -1,4 +1,4 @@
-function Remove-TeamViewerDevice {
+﻿function Remove-TeamViewerDevice {
     [CmdletBinding(SupportsShouldProcess = $true)]
 
     [OutputType([void])]

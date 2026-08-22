@@ -1,4 +1,4 @@
-
+﻿
 function Set-TeamViewerRole {
     [CmdletBinding(SupportsShouldProcess = $true)]
 

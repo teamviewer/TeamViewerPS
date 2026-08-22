@@ -1,4 +1,4 @@
-function Remove-TeamViewerCustomization {
+﻿function Remove-TeamViewerCustomization {
     [CmdletBinding(SupportsShouldProcess = $true)]
 
     [OutputType([void])]

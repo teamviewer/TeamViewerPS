@@ -1,4 +1,4 @@
-function Publish-TeamViewerGroup {
+﻿function Publish-TeamViewerGroup {
     [CmdletBinding(SupportsShouldProcess = $true)]
 
     [OutputType([void])]

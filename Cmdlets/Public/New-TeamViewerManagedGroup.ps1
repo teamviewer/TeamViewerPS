@@ -1,4 +1,4 @@
-function New-TeamViewerManagedGroup {
+﻿function New-TeamViewerManagedGroup {
     [CmdletBinding(SupportsShouldProcess = $true)]
 
     [OutputType('TeamViewerPS.ManagedGroup')]

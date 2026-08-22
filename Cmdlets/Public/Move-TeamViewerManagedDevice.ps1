@@ -1,4 +1,4 @@
-function Move-TeamViewerManagedDevice {
+﻿function Move-TeamViewerManagedDevice {
     [CmdletBinding(SupportsShouldProcess = $true)]
 
     [OutputType([void])]

@@ -1,4 +1,4 @@
-function Get-TeamViewerRoleByUser {
+﻿function Get-TeamViewerRoleByUser {
     [CmdletBinding()]
 
     [OutputType([guid[]])]

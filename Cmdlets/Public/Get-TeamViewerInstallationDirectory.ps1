@@ -1,4 +1,4 @@
-function Get-TeamViewerInstallationDirectory {
+﻿function Get-TeamViewerInstallationDirectory {
     [CmdletBinding()]
 
     [OutputType([string])]

@@ -1,4 +1,4 @@
-function Add-TeamViewerAssignment {
+﻿function Add-TeamViewerAssignment {
     [CmdletBinding(SupportsShouldProcess = $true)]
 
     [OutputType([void])]

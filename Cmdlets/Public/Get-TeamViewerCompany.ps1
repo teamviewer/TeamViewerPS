@@ -1,4 +1,4 @@
-function Get-TeamViewerCompany {
+﻿function Get-TeamViewerCompany {
     [CmdletBinding()]
 
     [OutputType('TeamViewerPS.Company')]

@@ -1,4 +1,4 @@
-function Resolve-TeamViewerSsoDomainId {
+﻿function Resolve-TeamViewerSsoDomainId {
     param(
         [Parameter(ValueFromPipeline = $true, Mandatory = $true)]
         [object]

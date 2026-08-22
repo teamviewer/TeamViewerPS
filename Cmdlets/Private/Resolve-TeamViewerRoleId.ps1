@@ -1,4 +1,4 @@
-
+﻿
 function Resolve-TeamViewerRoleId {
     param(
         [Parameter(ValueFromPipeline = $true, Mandatory = $true)]

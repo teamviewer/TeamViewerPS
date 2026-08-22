@@ -1,4 +1,4 @@
-function Get-TeamViewerSsoInclusion {
+﻿function Get-TeamViewerSsoInclusion {
     [CmdletBinding()]
 
     [OutputType([string[]])]

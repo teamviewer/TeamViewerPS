@@ -1,4 +1,4 @@
-function Get-TeamViewerRolePermission {
+﻿function Get-TeamViewerRolePermission {
     [CmdletBinding()]
 
     [OutputType([string[]])]

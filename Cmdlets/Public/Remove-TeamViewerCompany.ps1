@@ -1,4 +1,4 @@
-function Remove-TeamViewerCompany {
+﻿function Remove-TeamViewerCompany {
     [CmdletBinding(SupportsShouldProcess = $true)]
 
     [OutputType([void])]

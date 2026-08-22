@@ -1,4 +1,4 @@
-function Get-TeamViewerSsoDomain {
+﻿function Get-TeamViewerSsoDomain {
     [CmdletBinding(DefaultParameterSetName = 'FilteredList')]
 
     [OutputType('TeamViewerPS.SsoDomain')]

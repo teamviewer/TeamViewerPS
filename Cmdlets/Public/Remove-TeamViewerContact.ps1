@@ -1,4 +1,4 @@
-function Remove-TeamViewerContact {
+﻿function Remove-TeamViewerContact {
     [CmdletBinding(SupportsShouldProcess = $true)]
 
     [OutputType([void])]

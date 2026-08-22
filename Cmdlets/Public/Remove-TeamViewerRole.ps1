@@ -1,4 +1,4 @@
-function Remove-TeamViewerRole {
+﻿function Remove-TeamViewerRole {
     [CmdletBinding(SupportsShouldProcess = $true)]
 
     [OutputType([void])]

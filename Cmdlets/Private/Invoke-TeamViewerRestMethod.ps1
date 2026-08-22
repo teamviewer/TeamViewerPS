@@ -1,4 +1,4 @@
-function Invoke-TeamViewerRestMethod {
+﻿function Invoke-TeamViewerRestMethod {
     param(
         [Parameter(Mandatory = $true)]
         [securestring]

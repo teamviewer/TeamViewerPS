@@ -1,4 +1,4 @@
-function Get-TeamViewerUser {
+﻿function Get-TeamViewerUser {
     [CmdletBinding(DefaultParameterSetName = 'FilteredList')]
 
     [OutputType('TeamViewerPS.User')]

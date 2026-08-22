@@ -1,4 +1,4 @@
-BeforeAll {
+﻿BeforeAll {
     . "$PSScriptRoot\..\..\Cmdlets\Public\Remove-TeamViewerPolicyFromManagedDevice.ps1"
     . "$PSScriptRoot\..\..\Cmdlets\TeamViewerPS.Types.ps1"
 

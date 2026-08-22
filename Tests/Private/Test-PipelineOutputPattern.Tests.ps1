@@ -1,4 +1,4 @@
-BeforeAll {
+﻿BeforeAll {
     $Script:Module_RootPath = (Resolve-Path -Path (Join-Path -Path $PSScriptRoot -ChildPath '..\..'))
 }
 

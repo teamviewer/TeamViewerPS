@@ -1,4 +1,4 @@
-function Disconnect-TeamViewerApi {
+﻿function Disconnect-TeamViewerApi {
     [CmdletBinding()]
 
     [OutputType([void])]

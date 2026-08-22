@@ -1,4 +1,4 @@
-function Get-TeamViewerLicense {
+﻿function Get-TeamViewerLicense {
     [CmdletBinding()]
 
     [OutputType('TeamViewerPS.License')]

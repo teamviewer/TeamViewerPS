@@ -1,4 +1,4 @@
-function Remove-TeamViewerManager {
+﻿function Remove-TeamViewerManager {
     [CmdletBinding(SupportsShouldProcess = $true, DefaultParameterSetName = 'ByDeviceId')]
 
     [OutputType([void])]

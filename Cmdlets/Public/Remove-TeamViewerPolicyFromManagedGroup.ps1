@@ -1,4 +1,4 @@
-function Remove-TeamviewerPolicyFromManagedGroup {
+﻿function Remove-TeamviewerPolicyFromManagedGroup {
     [CmdletBinding(SupportsShouldProcess = $true)]
 
     [OutputType([void])]

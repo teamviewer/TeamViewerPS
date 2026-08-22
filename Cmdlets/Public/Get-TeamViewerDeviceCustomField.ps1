@@ -1,4 +1,4 @@
-function Get-TeamViewerDeviceCustomField {
+﻿function Get-TeamViewerDeviceCustomField {
     [CmdletBinding()]
 
     [OutputType('TeamViewerPS.DeviceCustomField')]

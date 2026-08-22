@@ -1,4 +1,4 @@
-function Get-TeamViewerContact {
+﻿function Get-TeamViewerContact {
     [CmdletBinding(DefaultParameterSetName = 'FilteredList')]
 
     [OutputType('TeamViewerPS.Contact')]

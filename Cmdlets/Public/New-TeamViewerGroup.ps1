@@ -1,4 +1,4 @@
-function New-TeamViewerGroup {
+﻿function New-TeamViewerGroup {
     [CmdletBinding(SupportsShouldProcess = $true)]
 
     [OutputType('TeamViewerPS.Group')]

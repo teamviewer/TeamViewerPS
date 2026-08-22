@@ -1,4 +1,4 @@
-function Remove-TeamViewerSsoExclusion {
+﻿function Remove-TeamViewerSsoExclusion {
     [CmdletBinding(SupportsShouldProcess = $true)]
 
     [OutputType([void])]

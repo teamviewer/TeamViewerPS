@@ -1,4 +1,4 @@
-function New-TeamViewerUser {
+﻿function New-TeamViewerUser {
     [CmdletBinding(SupportsShouldProcess = $true, DefaultParameterSetName = 'WithPassword')]
 
     [OutputType('TeamViewerPS.User')]

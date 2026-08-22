@@ -1,4 +1,4 @@
-function Test-TeamViewer32on64 {
+﻿function Test-TeamViewer32on64 {
     param()
 
     if (-not([Environment]::Is64BitOperatingSystem)) {

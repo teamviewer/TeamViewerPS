@@ -1,4 +1,4 @@
-function Set-TeamViewerManager {
+﻿function Set-TeamViewerManager {
     [CmdletBinding(SupportsShouldProcess = $true, DefaultParameterSetName = 'Device_ByParameters')]
 
     [OutputType([void])]

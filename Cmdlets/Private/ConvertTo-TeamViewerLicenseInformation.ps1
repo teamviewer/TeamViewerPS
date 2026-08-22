@@ -1,4 +1,4 @@
-function ConvertTo-TeamViewerLicenseInformation {
+﻿function ConvertTo-TeamViewerLicenseInformation {
     param(
         [Parameter(ValueFromPipeline)]
         [object]

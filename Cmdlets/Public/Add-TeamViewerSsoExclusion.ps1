@@ -1,4 +1,4 @@
-function Add-TeamViewerSsoExclusion {
+﻿function Add-TeamViewerSsoExclusion {
     [CmdletBinding(SupportsShouldProcess = $true)]
 
     [OutputType([void])]

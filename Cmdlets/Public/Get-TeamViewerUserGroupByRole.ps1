@@ -1,4 +1,4 @@
-function Get-TeamViewerUserGroupByRole {
+﻿function Get-TeamViewerUserGroupByRole {
     [CmdletBinding()]
 
     [OutputType('TeamViewerPS.RoleAssignedUserGroup')]

@@ -1,4 +1,4 @@
-function Restart-TeamViewerService {
+﻿function Restart-TeamViewerService {
     [CmdletBinding(SupportsShouldProcess = $true)]
 
     [OutputType([void])]

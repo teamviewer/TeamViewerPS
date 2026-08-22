@@ -1,4 +1,4 @@
-function ConvertTo-TeamViewerDevice {
+﻿function ConvertTo-TeamViewerDevice {
     param(
         [Parameter(ValueFromPipeline)]
         [object]

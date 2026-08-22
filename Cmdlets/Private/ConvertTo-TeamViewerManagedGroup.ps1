@@ -1,4 +1,4 @@
-function ConvertTo-TeamViewerManagedGroup {
+﻿function ConvertTo-TeamViewerManagedGroup {
     param(
         [Parameter(ValueFromPipeline)]
         [object]

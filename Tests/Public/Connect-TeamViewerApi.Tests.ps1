@@ -1,4 +1,4 @@
-BeforeAll {
+﻿BeforeAll {
     . "$PSScriptRoot\..\..\Cmdlets\Public\Invoke-TeamViewerPing.ps1"
     . "$PSScriptRoot\..\..\Cmdlets\Public\Connect-TeamViewerApi.ps1"
 

@@ -1,4 +1,4 @@
-function Get-TeamViewerUserGroupMember {
+﻿function Get-TeamViewerUserGroupMember {
     [CmdletBinding()]
 
     [OutputType('TeamViewerPS.UserGroupMember')]

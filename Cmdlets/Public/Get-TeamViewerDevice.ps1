@@ -1,4 +1,4 @@
-function Get-TeamViewerDevice {
+﻿function Get-TeamViewerDevice {
     [CmdletBinding(DefaultParameterSetName = 'FilteredList')]
 
     [OutputType('TeamViewerPS.Device')]

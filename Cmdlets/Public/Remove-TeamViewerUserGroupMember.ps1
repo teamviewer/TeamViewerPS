@@ -1,4 +1,4 @@
-function Remove-TeamViewerUserGroupMember {
+﻿function Remove-TeamViewerUserGroupMember {
     [CmdletBinding(SupportsShouldProcess = $true, DefaultParameterSetName = 'ByUserGroupMemberId')]
 
     [OutputType('TeamViewerPS.UserGroupMember')]

@@ -1,4 +1,4 @@
-function Get-TeamViewerAccount {
+﻿function Get-TeamViewerAccount {
     [CmdletBinding()]
 
     [OutputType('TeamViewerPS.Account')]

@@ -1,4 +1,4 @@
-function Add-TeamViewerManagedDevice {
+﻿function Add-TeamViewerManagedDevice {
     [CmdletBinding(SupportsShouldProcess = $true)]
 
     [OutputType([void])]

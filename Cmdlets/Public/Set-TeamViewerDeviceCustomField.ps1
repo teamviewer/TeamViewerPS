@@ -1,4 +1,4 @@
-function Set-TeamViewerDeviceCustomField {
+﻿function Set-TeamViewerDeviceCustomField {
     [CmdletBinding(SupportsShouldProcess = $true)]
 
     [OutputType('TeamViewerPS.DeviceCustomField')]

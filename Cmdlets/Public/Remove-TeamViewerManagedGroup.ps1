@@ -1,4 +1,4 @@
-function Remove-TeamViewerManagedGroup {
+﻿function Remove-TeamViewerManagedGroup {
     [CmdletBinding(SupportsShouldProcess = $true)]
 
     [OutputType([void])]

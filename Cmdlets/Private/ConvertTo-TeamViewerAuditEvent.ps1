@@ -1,4 +1,4 @@
-function ConvertTo-TeamViewerAuditEvent {
+﻿function ConvertTo-TeamViewerAuditEvent {
     param(
         [Parameter(ValueFromPipeline)]
         [object]

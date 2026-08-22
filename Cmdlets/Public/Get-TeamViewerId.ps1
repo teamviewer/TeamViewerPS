@@ -1,4 +1,4 @@
-function Get-TeamViewerId {
+﻿function Get-TeamViewerId {
     [CmdletBinding()]
 
     [OutputType([string])]

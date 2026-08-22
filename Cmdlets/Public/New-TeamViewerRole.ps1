@@ -1,4 +1,4 @@
-
+﻿
 function New-TeamViewerRole {
     [CmdletBinding(SupportsShouldProcess = $true)]
 

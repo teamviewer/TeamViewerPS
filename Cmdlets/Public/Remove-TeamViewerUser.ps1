@@ -1,4 +1,4 @@
-function Remove-TeamViewerUser {
+﻿function Remove-TeamViewerUser {
     [CmdletBinding(SupportsShouldProcess = $true)]
 
     [OutputType([void])]

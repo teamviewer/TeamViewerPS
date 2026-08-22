@@ -1,4 +1,4 @@
-function Get-TeamViewerSsoExclusion {
+﻿function Get-TeamViewerSsoExclusion {
     [CmdletBinding()]
 
     [OutputType([string[]])]

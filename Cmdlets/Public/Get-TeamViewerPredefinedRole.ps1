@@ -1,4 +1,4 @@
-function Get-TeamViewerPredefinedRole {
+﻿function Get-TeamViewerPredefinedRole {
     [CmdletBinding()]
 
     [OutputType('TeamViewerPS.PredefinedRole')]

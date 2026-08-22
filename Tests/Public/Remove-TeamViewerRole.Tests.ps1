@@ -1,4 +1,4 @@
-
+﻿
 BeforeAll {
     . "$PSScriptRoot\..\..\Cmdlets\Public\Remove-TeamViewerRole.ps1"
 

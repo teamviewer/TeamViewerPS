@@ -1,4 +1,4 @@
-function Get-TeamViewerConnectionReport {
+﻿function Get-TeamViewerConnectionReport {
     [CmdletBinding()]
 
     [OutputType('TeamViewerPS.ConnectionReport')]

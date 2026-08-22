@@ -1,4 +1,4 @@
-BeforeDiscovery {
+﻿BeforeDiscovery {
     # Discover all script files in the repository and build parameterized test cases.
     $Script:Module_RootPath = (Resolve-Path -Path (Join-Path -Path $PSScriptRoot -ChildPath '..\..'))
     $Script:Module_PS1Files = @(Get-ChildItem -Path $Module_RootPath -Filter '*.ps1' -File -Recurse -ErrorAction Stop | Sort-Object -Property FullName)

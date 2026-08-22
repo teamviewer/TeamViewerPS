@@ -1,4 +1,4 @@
-function Get-TeamViewerCustomModuleId {
+﻿function Get-TeamViewerCustomModuleId {
     [CmdletBinding()]
 
     [OutputType([string])]

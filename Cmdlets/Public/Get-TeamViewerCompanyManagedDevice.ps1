@@ -1,4 +1,4 @@
-function Get-TeamViewerCompanyManagedDevice {
+﻿function Get-TeamViewerCompanyManagedDevice {
     [CmdletBinding()]
 
     [OutputType('TeamViewerPS.ManagedDevice')]

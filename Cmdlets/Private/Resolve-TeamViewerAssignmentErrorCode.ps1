@@ -1,4 +1,4 @@
-function  Resolve-TeamViewerAssignmentErrorCode {
+﻿function  Resolve-TeamViewerAssignmentErrorCode {
     param(
         [Parameter(ValueFromPipeline = $true, Mandatory = $true)]
         [object]

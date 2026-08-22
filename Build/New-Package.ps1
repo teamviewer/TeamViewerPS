@@ -1,4 +1,4 @@
-#requires -Modules BuildHelpers, platyPS
+﻿#requires -Modules BuildHelpers, platyPS
 
 param(
     [Parameter()]

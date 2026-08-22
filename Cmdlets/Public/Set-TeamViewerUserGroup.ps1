@@ -1,4 +1,4 @@
-function Set-TeamViewerUserGroup {
+﻿function Set-TeamViewerUserGroup {
     [CmdletBinding(SupportsShouldProcess = $true)]
 
     [OutputType('TeamViewerPS.UserGroup')]

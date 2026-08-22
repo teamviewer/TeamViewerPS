@@ -1,4 +1,4 @@
-
+﻿
 BeforeAll {
     . "$PSScriptRoot\..\..\Cmdlets\Public\Get-TeamViewerRole.ps1"
 

@@ -1,4 +1,4 @@
-function Get-TeamViewerManagementId {
+﻿function Get-TeamViewerManagementId {
     [CmdletBinding()]
 
     [OutputType([guid])]

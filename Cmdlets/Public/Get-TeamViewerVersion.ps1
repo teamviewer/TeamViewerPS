@@ -1,4 +1,4 @@
-function Get-TeamViewerVersion {
+﻿function Get-TeamViewerVersion {
     [CmdletBinding()]
 
     [OutputType([string])]

@@ -1,4 +1,4 @@
-function Invoke-TeamViewerPackageDownload {
+﻿function Invoke-TeamViewerPackageDownload {
     [CmdletBinding()]
 
     [OutputType([string])]
