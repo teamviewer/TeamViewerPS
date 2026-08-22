@@ -4,6 +4,7 @@
 
 ### Added
 
+- Adds `Get-TeamViewerRolePermission` to retrieve all supported role permissions.
 - Adds `Get-TeamViewerDeviceCustomField` to retrieve custom field values from a managed device.
 - Adds `Set-TeamViewerDeviceCustomField` to set or update a custom field value on a managed device.
 - Adds `Remove-TeamViewerDeviceCustomField` to delete a custom field value from a managed device.
@@ -20,6 +21,7 @@
 - Harmonizes private converter output properties and value types
 - Creates, expands, and hardens all private functions tests.
 - Automate release module versioning.
+- Separates role retrieval from available role permission retrieval by moving permissions to `Get-TeamViewerRolePermission`.
 
 ### Fixed
 

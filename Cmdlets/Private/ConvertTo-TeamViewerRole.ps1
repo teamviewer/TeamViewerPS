@@ -7,14 +7,9 @@ function ConvertTo-TeamViewerRole {
 
     process {
         $Properties = @{
-            Id   = $InputObject.Id
-            Name = $InputObject.Name
-        }
-
-        if ($InputObject.Permissions) {
-            foreach ($permission in $InputObject.Permissions.PSObject.Properties) {
-                $Properties[$permission.Name] = $permission.Value
-            }
+            Id          = $InputObject.Id
+            Name        = $InputObject.Name
+            Permissions = $InputObject.Permissions
         }
 
         $Result = New-Object -TypeName PSObject -Property $Properties

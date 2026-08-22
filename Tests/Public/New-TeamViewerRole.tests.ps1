@@ -55,9 +55,7 @@ Describe 'New-TeamViewerRole' {
         $Result.PSObject.TypeNames | Should -Contain 'TeamViewerPS.Role'
         $Result.Name | Should -Be $testRoleName
 
-        foreach ($Rule in $Result.Permissions) {
-            $Result.Permissions.$Rule | Should -Be $testPermissions
-        }
+        $Result.Permissions | Should -Be $testPermissions
     }
 
     It 'Should not invoke REST when WhatIf is used' {
