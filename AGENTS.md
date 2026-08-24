@@ -31,7 +31,8 @@ Invoke-Build -Task Build
 
 ## PowerShell Conventions
 
-- Use Microsoft approved PowerShell verbs <https://learn.microsoft.com/en-us/powershell/scripting/developer/cmdlet/approved-verbs-for-windows-powershell-commands?view=powershell-7.6> and PascalCase function and variable names.
+- Use Microsoft approved PowerShell verbs <https://learn.microsoft.com/en-us/powershell/scripting/developer/cmdlet/approved-verbs-for-windows-powershell-commands?view=powershell-7.6> and PascalCase function names.
+- Use PascalCase variable names. The use of Underscore is allowed.
 - Public cmdlets use the `TeamViewer` noun prefix. Private mappers use `ConvertTo-*`; identifier lookups use `Resolve-*`.
 - Use `[CmdletBinding()]` for public cmdlets. Add `SupportsShouldProcess = $true` for mutating commands that call `ShouldProcess`.
 - Add an empty `param()` block to parameterless advanced functions.
