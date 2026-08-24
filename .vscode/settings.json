@@ -1,4 +1,4 @@
-﻿{
+{
     // Place your settings in this file to overwrite default and user settings.
     "editor.formatOnSave": true,
     "files.eol": "\r\n",
@@ -38,7 +38,7 @@
     "cSpell.dictionaryDefinitions": [
         {
             "name": "ProjectDictionary",
-            "path": "${workspaceRoot}/.vscode/spelling"
+            "path": "${workspaceRoot}/.vscode/.spelling"
         }
     ],
     "cSpell.dictionaries": [
@@ -46,4 +46,3 @@
     ],
     "cSpell.language": "en"
 }
-
