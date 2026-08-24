@@ -39,6 +39,7 @@ Invoke-Build -Task Build
 - Use `begin`, `process`, and `end` only when their lifecycle behavior is useful.
 - Use `return` for control flow. Emit pipeline output intentionally; use `Write-Output` where explicit output improves clarity, especially in `process` blocks.
 - Declare `[OutputType()]` when the public output contract is clear. Match it to runtime output and the help file's `OUTPUTS` section. Use CLR types for primitive values, `[void]` for no output, and existing `TeamViewerPS.*` types for converted objects.
+- Use named parameters in all function calls.
 
 ## Parameters And Input
 
