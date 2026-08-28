@@ -11,8 +11,12 @@ param(
 $Repo_RootPath = Resolve-Path -Path "$PSScriptRoot\.."
 $Repo_CmdletPath = Resolve-Path -Path "$PSScriptRoot\..\Cmdlets"
 
+. (Join-Path -Path $PSScriptRoot -ChildPath 'Get-FormatTypeName.ps1')
+. (Join-Path -Path $PSScriptRoot -ChildPath 'New-FormatFile.ps1')
+
 if (Test-Path -Path $Build_OutputPath) {
     Write-Verbose 'Removing existing build output directory...'
+
     Remove-Item -Path $Build_OutputPath -Recurse -ErrorAction SilentlyContinue
 }
 
@@ -33,6 +37,12 @@ Write-Verbose "Found $($PublicFunctions.Count) public function files."
 
 @($ModuleTypes + $PrivateFunctions + $PublicFunctions) | Get-Content -Raw | ForEach-Object { $_; "`r`n" } | Set-Content -Path $Build_ModulePath -Encoding UTF8
 
+# Generate format definitions from public getter output types
+Write-Verbose 'Generating format definitions...'
+New-FormatFile `
+    -Path (Join-Path -Path $Repo_CmdletPath -ChildPath 'TeamViewerPS.format.ps1xml') `
+    -Destination (Join-Path -Path $Build_OutputPath -ChildPath 'TeamViewerPS.format.ps1xml')
+
 # Create help from markdown
 Write-Verbose 'Building help from Markdown...'
 New-ExternalHelp -Path (Join-Path -Path $Repo_RootPath -ChildPath 'Docs') -OutputPath (Join-Path -Path $Build_OutputPath -ChildPath 'en-US') | Out-Null
@@ -41,7 +51,6 @@ New-ExternalHelp -Path (Join-Path -Path $Repo_RootPath -ChildPath 'Docs\Help') -
 # Create module manifest
 Write-Verbose 'Creating module manifest...'
 Copy-Item -Path (Join-Path -Path $Repo_CmdletPath -ChildPath 'TeamViewerPS.psd1') -Destination $Build_OutputPath
-Copy-Item -Path (Join-Path -Path $Repo_CmdletPath -ChildPath '*.format.ps1xml') -Destination $Build_OutputPath
 
 Update-Metadata -Path (Join-Path -Path $Build_OutputPath -ChildPath 'TeamViewerPS.psd1') -PropertyName 'FunctionsToExport' -Value $PublicFunctions.BaseName
 

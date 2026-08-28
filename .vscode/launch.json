@@ -7,14 +7,21 @@
             "type": "PowerShell",
             "request": "launch",
             "script": "Invoke-ScriptAnalyzer -Path '${workspaceFolder}' -Recurse -Settings '${workspaceFolder}/Linters/PSScriptAnalyzer.psd1'",
-            "createTemporaryIntegratedConsole": true
+            "createTemporaryIntegratedConsole": false
         },
         {
             "name": "Test (via Pester)",
             "type": "PowerShell",
             "request": "launch",
             "script": "Invoke-Pester -Path '${workspaceFolder}'",
-            "createTemporaryIntegratedConsole": true
+            "createTemporaryIntegratedConsole": false
+        },
+        {
+            "name": "Build (via PowerShell)",
+            "type": "PowerShell",
+            "request": "launch",
+            "script": "Pwsh -NoProfile -NoLogo -File '${workspaceFolder}/Build/New-Package.ps1'",
+            "createTemporaryIntegratedConsole": false
         }
     ]
 }
