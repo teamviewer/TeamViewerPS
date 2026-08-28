@@ -8,11 +8,11 @@
         [securestring]
         $ApiToken,
 
-        [Parameter(ParameterSetName = 'ByDeviceId')]
+        [Parameter(ParameterSetName = 'ByDevice')]
         [ValidateScript( { $_ | Resolve-TeamViewerDeviceId } )]
-        [Alias('DeviceId')]
+        [Alias('Id', 'DeviceId')]
         [string]
-        $Id,
+        $Device,
 
         [Parameter(ParameterSetName = 'FilteredList')]
         [ValidateRange(1, [int]::MaxValue)]
@@ -22,7 +22,7 @@
         [Parameter(ParameterSetName = 'FilteredList')]
         [ValidateSet('Online', 'Busy', 'Away', 'Offline')]
         [string]
-        $FilterOnlineState,
+        $FilterBy_OnlineState,
 
         [Parameter(ParameterSetName = 'FilteredList')]
         [ValidateScript( { $_ | Resolve-TeamViewerGroupId } )]
@@ -35,16 +35,16 @@
     $Parameters = @{ }
 
     switch ($PsCmdlet.ParameterSetName) {
-        'ByDeviceId' {
-            $ResourceUri += "/$Id"
+        'ByDevice' {
+            $ResourceUri += "/$Device"
             $Parameters = $null
         }
         'FilteredList' {
             if ($TeamViewerId) {
                 $Parameters['remotecontrol_id'] = "r$TeamViewerId"
             }
-            if ($FilterOnlineState) {
-                $Parameters['online_state'] = $FilterOnlineState.ToLower()
+            if ($FilterBy_OnlineState) {
+                $Parameters['online_state'] = $FilterBy_OnlineState.ToLower()
             }
             if ($Group) {
                 $GroupId = $Group | Resolve-TeamViewerGroupId

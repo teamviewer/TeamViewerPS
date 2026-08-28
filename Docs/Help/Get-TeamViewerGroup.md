@@ -16,7 +16,7 @@ Returns TeamViewer groups.
 ### FilteredList (Default)
 
 ```powershell
-Get-TeamViewerGroup -ApiToken <SecureString> [-Name <String>] [-FilterShared <String>] [<CommonParameters>]
+Get-TeamViewerGroup -ApiToken <SecureString> [-Name <String>] [-FilterBy_Shared <String>] [<CommonParameters>]
 ```
 
 ### ByGroupId
@@ -73,7 +73,7 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -FilterShared
+### -FilterBy_Shared
 
 Optional filter parameter to return either only groups that are shared or not shared.
 

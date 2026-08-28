@@ -31,19 +31,24 @@
             $PSBoundParameters.Add('Headers', $Headers) | Out-Null
         }
 
+        if (-not $Headers.ContainsKey('User-Agent')) {
+            $Module_Version = if ($ExecutionContext.SessionState.Module) { $ExecutionContext.SessionState.Module.Version } else { '0.0.0' }
+            $Headers['User-Agent'] = "TeamViewerPS/$Module_Version (PowerShell/$($PSVersionTable.PSVersion))"
+        }
+
         if ($global:TeamViewerProxyUriSet) {
-            $Proxy = $global:TeamViewerProxyUriSet
+            $Proxy_Uri = $global:TeamViewerProxyUriSet
         }
         elseif ([Environment]::GetEnvironmentVariable('TeamViewerProxyUri') ) {
-            $Proxy = [Environment]::GetEnvironmentVariable('TeamViewerProxyUri')
+            $Proxy_Uri = [Environment]::GetEnvironmentVariable('TeamViewerProxyUri')
 
             if ($global:TeamViewerProxyUriRemoved) {
-                $Proxy = $null
+                $Proxy_Uri = $null
             }
         }
 
-        if ($Proxy) {
-            $PSBoundParameters.Add('Proxy', $Proxy) | Out-Null
+        if ($Proxy_Uri) {
+            $PSBoundParameters.Add('Proxy', $Proxy_Uri) | Out-Null
         }
     }
 

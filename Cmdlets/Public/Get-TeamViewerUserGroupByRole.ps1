@@ -10,13 +10,13 @@
 
         [Parameter(Mandatory = $true)]
         [ValidateScript({ $_ | Resolve-TeamViewerRoleId })]
-        [Alias('Role')]
+        [Alias('Id', 'RoleId')]
         [string]
-        $RoleId
+        $Role
     )
 
     begin {
-        $ResourceUri = "$(Get-TeamViewerApiUri)/userroles/assignments/usergroups?userRoleId=$RoleId"
+        $ResourceUri = "$(Get-TeamViewerApiUri)/userroles/assignments/usergroups?userRoleId=$Role"
         $Parameters = $null
     }
 

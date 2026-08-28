@@ -49,14 +49,14 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -GroupId
+### -UserGroup
 
 Group to list its assigned role.
 
 ```yaml
 Type: Object
 Parameter Sets: (All)
-Aliases: GroupId
+Aliases: Id, UserGroupId
 
 Required: True
 Position: 1

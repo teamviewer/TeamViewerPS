@@ -1,5 +1,5 @@
 ﻿function Get-TeamViewerManager {
-    [CmdletBinding(DefaultParameterSetName = 'ByDeviceId')]
+    [CmdletBinding(DefaultParameterSetName = 'ByDevice')]
 
     [OutputType('TeamViewerPS.Manager')]
 
@@ -8,15 +8,15 @@
         [securestring]
         $ApiToken,
 
-        [Parameter(Mandatory = $true, ParameterSetName = 'ByDeviceId')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'ByDevice')]
         [ValidateScript( { $_ | Resolve-TeamViewerManagedDeviceId } )]
-        [Alias('DeviceId')]
+        [Alias('Id', 'DeviceId', 'ManagedDeviceId', 'ManagedDevice')]
         [object]
         $Device,
 
-        [Parameter(Mandatory = $true, ParameterSetName = 'ByGroupId')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'ByGroup')]
         [ValidateScript( { $_ | Resolve-TeamViewerManagedGroupId } )]
-        [Alias('GroupId')]
+        [Alias('GroupId', 'ManagedGroupId', 'ManagedGroup')]
         [object]
         $Group
     )
@@ -24,11 +24,11 @@
     $ResourceUri = $null
 
     switch ($PsCmdlet.ParameterSetName) {
-        'ByDeviceId' {
+        'ByDevice' {
             $DeviceId = $Device | Resolve-TeamViewerManagedDeviceId
             $ResourceUri = "$(Get-TeamViewerApiUri)/managed/devices/$DeviceId/managers"
         }
-        'ByGroupId' {
+        'ByGroup' {
             $GroupId = $Group | Resolve-TeamViewerManagedGroupId
             $ResourceUri = "$(Get-TeamViewerApiUri)/managed/groups/$GroupId/managers"
         }
@@ -42,10 +42,10 @@
         -ErrorAction Stop
 
     switch ($PsCmdlet.ParameterSetName) {
-        'ByDeviceId' {
+        'ByDevice' {
             Write-Output ($Response.resources | ConvertTo-TeamViewerManager -DeviceId $DeviceId )
         }
-        'ByGroupId' {
+        'ByGroup' {
             Write-Output ($Response.resources | ConvertTo-TeamViewerManager -GroupId $GroupId)
         }
     }

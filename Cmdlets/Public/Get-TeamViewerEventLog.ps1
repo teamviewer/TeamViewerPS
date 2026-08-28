@@ -143,9 +143,9 @@
         $AffectedItem,
 
         [Parameter(Mandatory = $false)]
-        [Alias('RemoteControlSession')]
+        [Alias('RemoteControlSessionId')]
         [guid]
-        $RemoteControlSessionId
+        $RemoteControlSession
     )
 
     $ResourceUri = "$(Get-TeamViewerApiUri)/EventLogging"
@@ -188,8 +188,8 @@
         $Parameters.AffectedItem = $AffectedItem
     }
 
-    if ($RemoteControlSessionId) {
-        $Parameters.RCSessionGuid = $RemoteControlSessionId
+    if ($RemoteControlSession) {
+        $Parameters.RCSessionGuid = $RemoteControlSession
     }
 
     $Remaining = $Limit

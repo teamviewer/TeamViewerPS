@@ -45,7 +45,7 @@ Describe 'Get-TeamViewerContact' {
     }
 
     It 'Should allow to filter by online state' {
-        Get-TeamViewerContact -ApiToken $testApiToken -FilterOnlineState 'Busy'
+        Get-TeamViewerContact -ApiToken $testApiToken -FilterBy_OnlineState 'Busy'
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $Body -and $Body['online_state'] -eq 'busy' }

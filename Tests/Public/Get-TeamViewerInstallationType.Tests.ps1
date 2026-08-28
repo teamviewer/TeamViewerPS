@@ -6,29 +6,42 @@
 Describe 'Get-TeamViewerInstallationType' {
     Context 'MsiInstallation - both database and registry present' {
         BeforeAll {
-            Mock Get-CimInstance {
-                [PSCustomObject]@{ Name = 'TeamViewer' }
+            Mock Test-Path { $true }
+            Mock Get-ChildItem {
+                $RegistryKey = New-Object PSObject
+                $RegistryKey | Add-Member -MemberType NoteProperty -Name 'PSPath' -Value 'HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\TeamViewer'
+                $RegistryKey | Add-Member -MemberType ScriptMethod -Name 'GetValue' -Value { return 'TeamViewer' }
+                $RegistryKey
             }
             Mock Get-ItemProperty {
+                [PSCustomObject]@{ WindowsInstaller = 1 }
+            } -ParameterFilter { $Name -eq 'WindowsInstaller' }
+            Mock Get-ItemProperty {
                 [PSCustomObject]@{ MsiInstallation = 1 }
-            }
+            } -ParameterFilter { $Name -eq 'MsiInstallation' }
         }
 
         It 'Should return MSI when MSI database and MsiInstallation registry value are both present' {
             $Result = Get-TeamViewerInstallationType
             $Result | Should -Be 'MSI'
-            Should -Invoke Get-CimInstance -Times 1
         }
     }
 
     Context 'MSI database found but no registry value' {
         BeforeAll {
-            Mock Get-CimInstance {
-                [PSCustomObject]@{ Name = 'TeamViewer' }
+            Mock Test-Path { $true }
+            Mock Get-ChildItem {
+                $RegistryKey = New-Object PSObject
+                $RegistryKey | Add-Member -MemberType NoteProperty -Name 'PSPath' -Value 'HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\TeamViewer'
+                $RegistryKey | Add-Member -MemberType ScriptMethod -Name 'GetValue' -Value { return 'TeamViewer' }
+                $RegistryKey
             }
             Mock Get-ItemProperty {
                 throw [System.Management.Automation.ItemNotFoundException]::new()
-            }
+            } -ParameterFilter { $Name -eq 'MsiInstallation' }
+            Mock Get-ItemProperty {
+                [PSCustomObject]@{ WindowsInstaller = 1 }
+            } -ParameterFilter { $Name -eq 'WindowsInstaller' }
         }
 
         It 'Should not return MSI if only database entry exists' {
@@ -39,12 +52,19 @@ Describe 'Get-TeamViewerInstallationType' {
 
     Context 'Registry value found but no MSI database entry' {
         BeforeAll {
-            Mock Get-CimInstance {
-                throw [System.Management.Automation.ItemNotFoundException]::new()
+            Mock Test-Path { $true }
+            Mock Get-ChildItem {
+                $RegistryKey = New-Object PSObject
+                $RegistryKey | Add-Member -MemberType NoteProperty -Name 'PSPath' -Value 'HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\TeamViewer'
+                $RegistryKey | Add-Member -MemberType ScriptMethod -Name 'GetValue' -Value { return 'TeamViewer' }
+                $RegistryKey
             }
             Mock Get-ItemProperty {
                 [PSCustomObject]@{ MsiInstallation = 1 }
-            }
+            } -ParameterFilter { $Name -eq 'MsiInstallation' }
+            Mock Get-ItemProperty {
+                throw [System.Management.Automation.ItemNotFoundException]::new()
+            } -ParameterFilter { $Name -eq 'WindowsInstaller' }
         }
 
         It 'Should not return MSI if only registry value exists' {
@@ -147,9 +167,17 @@ Describe 'Get-TeamViewerInstallationType' {
 
     Context 'Check both 32-bit and 64-bit registry paths for MSI' {
         BeforeAll {
-            Mock Get-CimInstance {
-                [PSCustomObject]@{ Name = 'TeamViewer' }
+            Mock Test-Path { $true }
+            Mock Get-ChildItem {
+                $RegistryKey = New-Object PSObject
+                $RegistryKey | Add-Member -MemberType NoteProperty -Name 'PSPath' -Value 'HKLM:\Software\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\TeamViewer'
+                $RegistryKey | Add-Member -MemberType ScriptMethod -Name 'GetValue' -Value { return 'TeamViewer' }
+                $RegistryKey
             }
+
+            Mock Get-ItemProperty {
+                [PSCustomObject]@{ WindowsInstaller = 1 }
+            } -ParameterFilter { $Name -eq 'WindowsInstaller' }
 
             Mock Get-ItemProperty {
                 param($Path)
@@ -196,6 +224,52 @@ Describe 'Get-TeamViewerInstallationType' {
         }
 
         It 'Should check both 64-bit and 32-bit uninstall paths and return exe' {
+            $Result = Get-TeamViewerInstallationType
+            $Result | Should -Be 'exe'
+        }
+    }
+
+    Context 'Multiple TeamViewer uninstall entries' {
+        BeforeAll {
+            Mock Get-ItemProperty {
+                throw [System.Management.Automation.ItemNotFoundException]::new()
+            } -ParameterFilter { $Name -eq 'MsiInstallation' }
+
+            Mock Get-ChildItem {
+                $InvalidRegistryKey = New-Object PSObject
+                $InvalidRegistryKey | Add-Member -MemberType NoteProperty -Name 'PSPath' -Value 'HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\TeamViewerOld'
+                $InvalidRegistryKey | Add-Member -MemberType ScriptMethod -Name 'GetValue' -Value { return 'TeamViewer Old' }
+
+                $ValidRegistryKey = New-Object PSObject
+                $ValidRegistryKey | Add-Member -MemberType NoteProperty -Name 'PSPath' -Value 'HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\TeamViewer'
+                $ValidRegistryKey | Add-Member -MemberType ScriptMethod -Name 'GetValue' -Value { return 'TeamViewer' }
+
+                $InvalidRegistryKey
+                $ValidRegistryKey
+            }
+
+            Mock Get-ItemProperty {
+                [PSCustomObject]@{
+                    UninstallString = 'C:\Program Files\TeamViewer\uninstall-old.exe'
+                }
+            } -ParameterFilter { $Name -eq 'UninstallString' -and $Path -like '*TeamViewerOld' }
+
+            Mock Get-ItemProperty {
+                [PSCustomObject]@{
+                    UninstallString = 'C:\Program Files\TeamViewer\uninstall.exe'
+                }
+            } -ParameterFilter { $Name -eq 'UninstallString' -and $Path -like '*TeamViewer' }
+
+            Mock Test-Path {
+                param($Path)
+                if ($Path -like '*uninstall-old.exe') {
+                    return $false
+                }
+                return $true
+            }
+        }
+
+        It 'Should continue until a valid executable is found' {
             $Result = Get-TeamViewerInstallationType
             $Result | Should -Be 'exe'
         }

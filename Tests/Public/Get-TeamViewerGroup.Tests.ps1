@@ -42,12 +42,12 @@ Describe 'Get-TeamViewerGroup' {
     }
 
     It 'Should allow to filter for shared-groups' {
-        Get-TeamViewerGroup -ApiToken $testApiToken -FilterShared OnlyShared
+        Get-TeamViewerGroup -ApiToken $testApiToken -FilterBy_Shared OnlyShared
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $Body -and $Body['shared'] -eq $true }
 
-        Get-TeamViewerGroup -ApiToken $testApiToken -FilterShared OnlyNotShared
+        Get-TeamViewerGroup -ApiToken $testApiToken -FilterBy_Shared OnlyNotShared
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $Body -and $Body['shared'] -eq $false }
@@ -67,11 +67,11 @@ Describe 'Get-TeamViewerGroup' {
 
     It 'Should include PolicyId when getting single group' {
         $Result = Get-TeamViewerGroup -ApiToken $testApiToken -Id 'g1234'
-            $Result.Policy_Id | Should -Be 'p1234'
+        $Result.Policy_Id | Should -Be 'p1234'
     }
 
     It 'Should include PolicyId when filtering groups' {
         $Result = Get-TeamViewerGroup -ApiToken $testApiToken
-            $Result[0].Policy_Id | Should -Be 'p1234'
+        $Result[0].Policy_Id | Should -Be 'p1234'
     }
 }

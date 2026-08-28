@@ -10,20 +10,19 @@
 
         [Parameter(Mandatory = $true)]
         [ValidateScript({ $_ | Resolve-TeamViewerUserId })]
-        [Alias('UsersId')]
-        [Alias('Id')]
+        [Alias('Id', 'UserId')]
         [string]
-        $UserId
+        $User
     )
 
     begin {
-        $copyUri = "$(Get-TeamViewerApiUri)/users/$userId/userroles"
+        $ResourceUri_Copy = "$(Get-TeamViewerApiUri)/users/$User/userroles"
         $Parameters = $null
         $list = @()
     }
 
     process {
-        $ResourceUri = $copyUri
+        $ResourceUri = $ResourceUri_Copy
 
         do {
             $Response = Invoke-TeamViewerRestMethod `
@@ -39,7 +38,7 @@
             }
 
             if ($Response.nextPaginationToken) {
-                $ResourceUri = $copyUri + '?paginationToken=' + $Response.nextPaginationToken
+                $ResourceUri = $ResourceUri_Copy + '?paginationToken=' + $Response.nextPaginationToken
             }
         } while ($Response.nextPaginationToken)
 

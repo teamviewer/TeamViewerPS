@@ -16,7 +16,7 @@ Returns the contacts of the current account's Computers & Contacts list.
 ### FilteredList (Default)
 
 ```powershell
-Get-TeamViewerContact -ApiToken <SecureString> [-Name <String>] [-FilterOnlineState <String>] [-Group <Object>]
+Get-TeamViewerContact -ApiToken <SecureString> [-Name <String>] [-FilterBy_OnlineState <String>] [-Group <Object>]
  [<CommonParameters>]
 ```
 
@@ -51,7 +51,7 @@ Gets the contact entry with the given Id.
 ### Example 3
 
 ```powershell
-PS /> Get-TeamViewerContact -Name 'test' -FilterOnlineState 'Away'
+PS /> Get-TeamViewerContact -Name 'test' -FilterBy_OnlineState 'Away'
 ```
 
 List all contacts of the account associated to the TeamViewer API access token that contain the string `test` in their name and are in the `Away` online state.
@@ -74,7 +74,7 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -FilterOnlineState
+### -FilterBy_OnlineState
 
 Optional filter for contacts in a certain online state.
 

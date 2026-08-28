@@ -16,14 +16,14 @@ Returns the devices of the current account's Computers & Contacts list.
 ### FilteredList (Default)
 
 ```powershell
-Get-TeamViewerDevice -ApiToken <SecureString> [-TeamViewerId <Int32>] [-FilterOnlineState <String>]
+Get-TeamViewerDevice -ApiToken <SecureString> [-TeamViewerId <Int32>] [-FilterBy_OnlineState <String>]
  [-Group <Object>] [<CommonParameters>]
 ```
 
-### ByDeviceId
+### ByDevice
 
 ```powershell
-Get-TeamViewerDevice -ApiToken <SecureString> [-Id <String>] [<CommonParameters>]
+Get-TeamViewerDevice -ApiToken <SecureString> [-Device <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -43,7 +43,7 @@ List all devices of the Computers & Contacts list.
 ### Example 2
 
 ```powershell
-PS /> Get-TeamViewerDevice -Id 'd1234'
+PS /> Get-TeamViewerDevice -Device 'd1234'
 ```
 
 Get the device entry with the given Id.
@@ -66,7 +66,7 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -FilterOnlineState
+### -FilterBy_OnlineState
 
 Optional filter for devices in a certain online state.
 
@@ -101,14 +101,14 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Id
+### -Device
 
 Device identifier used to get only a single specific device list entry.
 
 ```yaml
 Type: String
-Parameter Sets: ByDeviceId
-Aliases: DeviceId
+Parameter Sets: ByDevice
+Aliases: Id, DeviceId
 
 Required: False
 Position: Named

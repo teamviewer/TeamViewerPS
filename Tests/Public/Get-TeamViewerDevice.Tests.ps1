@@ -31,7 +31,7 @@ Describe 'Get-TeamViewerDevice' {
     }
 
     It 'Should call the correct API endpoint for single device' {
-        Get-TeamViewerDevice -ApiToken $testApiToken -Id 'd1234'
+        Get-TeamViewerDevice -ApiToken $testApiToken -Device 'd1234'
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $ApiToken -eq $testApiToken -and `
@@ -53,7 +53,7 @@ Describe 'Get-TeamViewerDevice' {
     }
 
     It 'Should allow to filter by online state' {
-        Get-TeamViewerDevice -ApiToken $testApiToken -FilterOnlineState 'Busy'
+        Get-TeamViewerDevice -ApiToken $testApiToken -FilterBy_OnlineState 'Busy'
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $Body -and $Body['online_state'] -eq 'busy' }

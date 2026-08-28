@@ -19,16 +19,16 @@ Retrieves TeamViewer managed devices.
 Get-TeamViewerManagedDevice -ApiToken <SecureString> [<CommonParameters>]
 ```
 
-### ByDeviceId
+### ByDevice
 
 ```powershell
-Get-TeamViewerManagedDevice -ApiToken <SecureString> [-Id <Guid>] [<CommonParameters>]
+Get-TeamViewerManagedDevice -ApiToken <SecureString> [-Device <Guid>] [<CommonParameters>]
 ```
 
 ### ListGroup
 
 ```powershell
-Get-TeamViewerManagedDevice -ApiToken <SecureString> -Group <Object> [-Pending] [<CommonParameters>]
+Get-TeamViewerManagedDevice -ApiToken <SecureString> -Group <Object> [-FilterBy_Pending] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -60,7 +60,7 @@ List all managed devices of the given group. This manager needs to be part of th
 
 ```powershell
 
-PS /> Get-TeamViewerManagedDevice -Id 'c0cb303a-8a85-4e54-b657-a4757c791aef'
+PS /> Get-TeamViewerManagedDevice -Device 'c0cb303a-8a85-4e54-b657-a4757c791aef'
 ```
 
 Retrieve a single managed device entry for the device with the given Id.
@@ -68,7 +68,7 @@ Retrieve a single managed device entry for the device with the given Id.
 ### Example 4
 
 ```powershell
-PS /> Get-TeamViewerManagedDevice -Id (Get-TeamViewerManagementId)
+PS /> Get-TeamViewerManagedDevice -Device (Get-TeamViewerManagementId)
 ```
 
 Retrieve information about the management state of the current device.
@@ -100,7 +100,7 @@ If given, the command returns managed devices of that group.
 ```yaml
 Type: Object
 Parameter Sets: ListGroup
-Aliases: GroupId
+Aliases: GroupId, ManagedGroupId, ManagedGroup
 
 Required: True
 Position: Named
@@ -109,14 +109,14 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Id
+### -Device
 
 Optional managed device Id. If given, the command retrieves a single managed device entry with this device Id.
 
 ```yaml
 Type: Guid
-Parameter Sets: ByDeviceId
-Aliases: DeviceId
+Parameter Sets: ByDevice
+Aliases: Id, DeviceId
 
 Required: False
 Position: Named
@@ -125,7 +125,7 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Pending
+### -FilterBy_Pending
 
 If given, the command will retrieve the list of pending device entries for a given managed group.
 Such pending devices will either join or leave the group as soon as they apply the outstanding changes (e.g. when the devices come online again).

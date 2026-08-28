@@ -8,15 +8,15 @@
         [securestring]
         $ApiToken,
 
-        [Parameter(ParameterSetName = 'ByGroupId')]
+        [Parameter(ParameterSetName = 'ByGroup')]
         [ValidateScript( { $_ | Resolve-TeamViewerManagedGroupId } ) ]
-        [Alias('GroupId')]
+        [Alias('Id', 'GroupId', 'ManagedGroupId', 'ManagedGroup')]
         [guid]
-        $Id,
+        $Group,
 
-        [Parameter(ParameterSetName = 'ByDeviceId')]
+        [Parameter(ParameterSetName = 'ByDevice')]
         [ValidateScript( { $_ | Resolve-TeamViewerManagedDeviceId } )]
-        [Alias('DeviceId')]
+        [Alias('DeviceId', 'ManagedDeviceId', 'ManagedDevice')]
         [object]
         $Device
     )
@@ -25,11 +25,11 @@
     $Parameters = @{ }
 
     switch ($PsCmdlet.ParameterSetName) {
-        'ByGroupId' {
-            $ResourceUri += "/$Id"
+        'ByGroup' {
+            $ResourceUri += "/$Group"
             $Parameters = $null
         }
-        'ByDeviceId' {
+        'ByDevice' {
             $DeviceId = $Device | Resolve-TeamViewerManagedDeviceId
             $ResourceUri = "$(Get-TeamViewerApiUri)/managed/devices/$DeviceId/groups"
         }
@@ -44,13 +44,13 @@
             -WriteErrorTo $PSCmdlet `
             -ErrorAction Stop
 
-        if ($PsCmdlet.ParameterSetName -eq 'ByGroupId') {
+        if ($PsCmdlet.ParameterSetName -eq 'ByGroup') {
             Write-Output ($Response | ConvertTo-TeamViewerManagedGroup)
         }
         else {
             $Parameters.paginationToken = $Response.nextPaginationToken
             Write-Output ($Response.resources | ConvertTo-TeamViewerManagedGroup)
         }
-    } while ($PsCmdlet.ParameterSetName -in @('List', 'ByDeviceId') `
+    } while ($PsCmdlet.ParameterSetName -in @('List', 'ByDevice') `
             -and $Parameters.paginationToken)
 }

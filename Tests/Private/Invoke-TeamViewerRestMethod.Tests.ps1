@@ -43,6 +43,17 @@ Describe 'Invoke-TeamViewerRestMethod' {
         $Result.value | Should -Be 1
     }
 
+    It 'Adds a distinguishing User-Agent header when none is provided' {
+        Mock -CommandName Invoke-WebRequest -MockWith {
+            [pscustomobject]@{ Content = '{}' }
+        }
+
+        $token = Get-TestSecureString -Value 'abc-token'
+        $null = Invoke-TeamViewerRestMethod -ApiToken $token -Uri 'https://example.local/api/v1/test' -Method Get
+
+        Should -Invoke Invoke-WebRequest -Times 1 -Exactly -ParameterFilter { $Headers.'User-Agent' -like 'TeamViewerPS/*' }
+    }
+
     It 'Uses explicit global proxy when configured' {
         $global:TeamViewerProxyUriSet = 'http://proxy.local:8080'
 

@@ -8,10 +8,10 @@
         [securestring]
         $ApiToken,
 
-        [Parameter(ParameterSetName = 'ByGroupId')]
-        [Alias('GroupId')]
+        [Parameter(ParameterSetName = 'ByGroup')]
+        [Alias('Id', 'GroupId')]
         [string]
-        $Id,
+        $Group,
 
         [Parameter(ParameterSetName = 'FilteredList')]
         [Alias('PartialName')]
@@ -21,22 +21,22 @@
         [Parameter(ParameterSetName = 'FilteredList')]
         [ValidateSet('OnlyShared', 'OnlyNotShared')]
         [string]
-        $FilterShared
+        $FilterBy_Shared
     )
 
     $ResourceUri = "$(Get-TeamViewerApiUri)/groups"
     $Parameters = @{ }
 
     switch ($PsCmdlet.ParameterSetName) {
-        'ByGroupId' {
-            $ResourceUri += "/$Id"
+        'ByGroup' {
+            $ResourceUri += "/$Group"
             $Parameters = $null
         }
         'FilteredList' {
             if ($Name) {
                 $Parameters['name'] = $Name
             }
-            switch ($FilterShared) {
+            switch ($FilterBy_Shared) {
                 'OnlyShared' {
                     $Parameters['shared'] = $true
                 }
@@ -55,7 +55,7 @@
         -WriteErrorTo $PSCmdlet `
         -ErrorAction Stop
 
-    if ($PsCmdlet.ParameterSetName -eq 'ByGroupId') {
+    if ($PsCmdlet.ParameterSetName -eq 'ByGroup') {
         Write-Output ($Response | ConvertTo-TeamViewerGroup)
     }
     else {

@@ -8,11 +8,11 @@
         [securestring]
         $ApiToken,
 
-        [Parameter(ParameterSetName = 'ByUserId')]
+        [Parameter(ParameterSetName = 'ByUser')]
         [ValidateScript( { $_ | Resolve-TeamViewerUserId } )]
-        [Alias('UserId')]
+        [Alias('Id', 'UserId')]
         [string]
-        $Id,
+        $User,
 
         [Parameter(ParameterSetName = 'FilteredList')]
         [Alias('PartialName')]
@@ -29,7 +29,7 @@
 
         [Parameter()]
         [ValidateSet('All', 'Minimal')]
-        $PropertiesToLoad = 'All'
+        $PropertiesToLoad = 'Minimal'
     )
 
     $Parameters = @{ }
@@ -44,8 +44,8 @@
     $ResourceUri = "$(Get-TeamViewerApiUri)/users"
 
     switch ($PsCmdlet.ParameterSetName) {
-        'ByUserId' {
-            $ResourceUri += "/$Id"
+        'ByUser' {
+            $ResourceUri += "/$User"
             $Parameters = $null
         }
         'FilteredList' {
@@ -65,7 +65,7 @@
     $Response = Invoke-TeamViewerRestMethod `
         -ApiToken $ApiToken -Uri $ResourceUri -Method Get -Body $Parameters -WriteErrorTo $PSCmdlet -ErrorAction Stop
 
-    if ($PsCmdlet.ParameterSetName -eq 'ByUserId') {
+    if ($PsCmdlet.ParameterSetName -eq 'ByUser') {
         Write-Output ($Response | ConvertTo-TeamViewerUser -PropertiesToLoad $PropertiesToLoad)
     }
     else {

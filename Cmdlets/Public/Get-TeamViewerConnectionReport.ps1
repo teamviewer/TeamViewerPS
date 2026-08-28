@@ -14,15 +14,15 @@
 
         [Parameter(Mandatory = $false)]
         [ValidateScript( { $_ | Resolve-TeamViewerUserId } )]
-        [Alias('User')]
+        [Alias('UserId')]
         [object]
-        $UserId,
+        $User,
 
         [Parameter(Mandatory = $false)]
         [ValidateScript( { $_ | Resolve-TeamViewerGroupId } )]
-        [Alias('Group')]
+        [Alias('GroupId')]
         [object]
-        $GroupId,
+        $Group,
 
         [Parameter(Mandatory = $false)]
         [string]
@@ -30,8 +30,9 @@
 
         [Parameter(Mandatory = $false)]
         [ValidateRange(1, [int]::MaxValue)]
+        [Alias('DeviceId', 'ManagedDeviceId', 'ManagedDevice')]
         [int]
-        $DeviceId,
+        $Device,
 
         [Parameter(Mandatory = $false)]
         [switch]
@@ -101,20 +102,20 @@
         $Parameters.username = $UserName
     }
 
-    if ($UserId) {
-        $Parameters.userid = $UserId | Resolve-TeamViewerUserId
+    if ($User) {
+        $Parameters.userid = $User | Resolve-TeamViewerUserId
     }
 
     if ($DeviceName) {
         $Parameters.devicename = $DeviceName
     }
 
-    if ($DeviceId) {
-        $Parameters.deviceid = $DeviceId
+    if ($Device) {
+        $Parameters.deviceid = $Device
     }
 
-    if ($GroupId) {
-        $Parameters.groupid = $GroupId | Resolve-TeamViewerGroupId
+    if ($Group) {
+        $Parameters.groupid = $Group | Resolve-TeamViewerGroupId
     }
 
     if ($WithSessionCode -and !$WithoutSessionCode) {

@@ -10,13 +10,13 @@
 
         [Parameter(Mandatory = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerSsoDomainId } )]
-        [Alias('Domain')]
+        [Alias('Id', 'DomainId', 'SsoDomainId', 'SsoDomain')]
         [object]
-        $DomainId
+        $Domain
     )
 
-    $Id = $DomainId | Resolve-TeamViewerSsoDomainId
-    $ResourceUri = "$(Get-TeamViewerApiUri)/ssoDomain/$Id/inclusion"
+    $DomainId = $Domain | Resolve-TeamViewerSsoDomainId
+    $ResourceUri = "$(Get-TeamViewerApiUri)/ssoDomain/$DomainId/inclusion"
     $Parameters = @{ }
 
     do {

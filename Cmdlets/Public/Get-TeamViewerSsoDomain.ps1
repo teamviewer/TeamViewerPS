@@ -8,18 +8,19 @@
         [securestring]
         $ApiToken,
 
-        [Parameter(ParameterSetName = 'ByDomainId')]
-        [Alias('DomainId')]
+        [Parameter(ParameterSetName = 'ByDomain')]
+        [ValidateScript( { $_ | Resolve-TeamViewerSsoDomainId } )]
+        [Alias('Id', 'DomainId', 'SsoDomainId', 'SsoDomain')]
         [guid]
-        $Id
+        $Domain
     )
 
     $ResourceUri = "$(Get-TeamViewerApiUri)/ssoDomain"
     $Parameters = @{ }
 
     switch ($PsCmdlet.ParameterSetName) {
-        'ByDomainId' {
-            $ResourceUri += "/$Id"
+        'ByDomain' {
+            $ResourceUri += "/$Domain"
             $Parameters = $null
         }
     }

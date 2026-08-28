@@ -8,11 +8,11 @@
         [securestring]
         $ApiToken,
 
-        [Parameter(ParameterSetName = 'ByContactId')]
+        [Parameter(ParameterSetName = 'ByContact')]
         [ValidateScript( { $_ | Resolve-TeamViewerContactId } )]
-        [Alias('ContactId')]
+        [Alias('Id', 'ContactId')]
         [string]
-        $Id,
+        $Contact,
 
         [Parameter(ParameterSetName = 'FilteredList')]
         [Alias('PartialName')]
@@ -22,7 +22,7 @@
         [Parameter(ParameterSetName = 'FilteredList')]
         [ValidateSet('Online', 'Busy', 'Away', 'Offline')]
         [string]
-        $FilterOnlineState,
+        $FilterBy_OnlineState,
 
         [Parameter(ParameterSetName = 'FilteredList')]
         [ValidateScript( { $_ | Resolve-TeamViewerGroupId } )]
@@ -35,16 +35,16 @@
     $Parameters = @{ }
 
     switch ($PsCmdlet.ParameterSetName) {
-        'ByContactId' {
-            $ResourceUri += "/$Id"
+        'ByContact' {
+            $ResourceUri += "/$Contact"
             $Parameters = $null
         }
         'FilteredList' {
             if ($Name) {
                 $Parameters['name'] = $Name
             }
-            if ($FilterOnlineState) {
-                $Parameters['online_state'] = $FilterOnlineState.ToLower()
+            if ($FilterBy_OnlineState) {
+                $Parameters['online_state'] = $FilterBy_OnlineState.ToLower()
             }
             if ($Group) {
                 $GroupId = $Group | Resolve-TeamViewerGroupId

@@ -8,18 +8,18 @@
         [securestring]
         $ApiToken,
 
-        [Parameter(ParameterSetName = 'ByPolicyId')]
-        [Alias('PolicyId')]
+        [Parameter(ParameterSetName = 'ByPolicy')]
+        [Alias('Id', 'PolicyId')]
         [guid]
-        $Id
+        $Policy
     )
 
     $ResourceUri = "$(Get-TeamViewerApiUri)/teamviewerpolicies"
     $Parameters = @{ }
 
     switch ($PsCmdlet.ParameterSetName) {
-        'ByPolicyId' {
-            $ResourceUri += "/$Id"
+        'ByPolicy' {
+            $ResourceUri += "/$Policy"
             $Parameters = $null
         }
     }

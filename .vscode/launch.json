@@ -20,7 +20,7 @@
             "name": "Build (via PowerShell)",
             "type": "PowerShell",
             "request": "launch",
-            "script": "Pwsh -NoProfile -NoLogo -File '${workspaceFolder}/Build/New-Package.ps1'",
+            "script": "${workspaceFolder}/Build/New-Package.ps1",
             "createTemporaryIntegratedConsole": false
         }
     ]

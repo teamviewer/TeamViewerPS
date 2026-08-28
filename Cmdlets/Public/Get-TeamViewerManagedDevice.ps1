@@ -8,22 +8,21 @@
         [securestring]
         $ApiToken,
 
-        [Parameter(ParameterSetName = 'ByDeviceId')]
+        [Parameter(ParameterSetName = 'ByDevice')]
         [ValidateScript( { $_ | Resolve-TeamViewerManagedDeviceId } )]
-        [Alias('DeviceId')]
-        [Alias('Device')]
+        [Alias('Id', 'DeviceId')]
         [guid]
-        $Id,
+        $Device,
 
         [Parameter(Mandatory = $true, ParameterSetName = 'ListGroup')]
         [ValidateScript( { $_ | Resolve-TeamViewerManagedGroupId } )]
-        [Alias('GroupId')]
+        [Alias('GroupId', 'ManagedGroupId', 'ManagedGroup')]
         [object]
         $Group,
 
         [Parameter(ParameterSetName = 'ListGroup')]
         [switch]
-        $Pending
+        $FilterBy_Pending
     )
 
     # default is 'List':
@@ -32,14 +31,14 @@
     $IsListOperation = $true
 
     switch ($PsCmdlet.ParameterSetName) {
-        'ByDeviceId' {
-            $ResourceUri += "/$Id"
+        'ByDevice' {
+            $ResourceUri += "/$Device"
             $Parameters = $null
             $IsListOperation = $false
         }
         'ListGroup' {
             $GroupId = $Group | Resolve-TeamViewerManagedGroupId
-            $ResourceUri = "$(Get-TeamViewerApiUri)/managed/groups/$GroupId/$(if ($Pending) { 'pending-' })devices"
+            $ResourceUri = "$(Get-TeamViewerApiUri)/managed/groups/$GroupId/$(if ($FilterBy_Pending) { 'pending-' })devices"
         }
     }
 
@@ -52,7 +51,7 @@
             -WriteErrorTo $PSCmdlet `
             -ErrorAction Stop
 
-        if ($PsCmdlet.ParameterSetName -eq 'ByDeviceId') {
+        if ($PsCmdlet.ParameterSetName -eq 'ByDevice') {
             Write-Output ($Response | ConvertTo-TeamViewerManagedDevice)
         }
         else {
