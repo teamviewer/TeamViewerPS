@@ -27,13 +27,49 @@ Creates a company-level device custom field definition. The API supports up to 5
 
 The TeamViewer API access token.
 
+```yaml
+Type: SecureString
+Parameter Sets: (All)
+Aliases: None
+
+Required: True
+Position: 0
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -FieldKey
 
 The name of the custom field.
 
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases: None
+
+Required: True
+Position: 1
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -Description
 
 An optional description of the custom field.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases: None
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
 ## EXAMPLES
 

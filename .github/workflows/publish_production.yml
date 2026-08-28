@@ -30,7 +30,7 @@ jobs:
           $ErrorActionPreference = 'Stop'
 
           $Modules_Required = @(
-              @{ Name = 'platyPS'; Version = '0.14.2' },
+              @{ Name = 'Microsoft.PowerShell.PlatyPS'; Version = '1.0.3' },
               @{ Name = 'BuildHelpers'; Version = '2.0.16' }
           )
 

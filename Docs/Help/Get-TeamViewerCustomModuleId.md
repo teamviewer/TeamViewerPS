@@ -35,8 +35,6 @@ Returns the custom module id.
 
 ### CommonParameters
 
-### None
-
 ## INPUTS
 
 ### None

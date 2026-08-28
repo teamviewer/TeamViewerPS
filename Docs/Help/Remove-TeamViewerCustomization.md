@@ -36,8 +36,6 @@ Removes the customization.
 
 ### CommonParameters
 
-### None
-
 ## INPUTS
 
 ## OUTPUTS

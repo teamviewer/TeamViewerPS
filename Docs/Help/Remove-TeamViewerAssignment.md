@@ -35,8 +35,6 @@ Unassigns the device from its company.
 
 ### CommonParameters
 
-### None
-
 ## INPUTS
 
 ### None

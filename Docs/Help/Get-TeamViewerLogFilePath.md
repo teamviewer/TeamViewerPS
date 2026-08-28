@@ -35,8 +35,6 @@ Returns the paths for log files.
 
 ### CommonParameters
 
-### None
-
 ## INPUTS
 
 ## OUTPUTS

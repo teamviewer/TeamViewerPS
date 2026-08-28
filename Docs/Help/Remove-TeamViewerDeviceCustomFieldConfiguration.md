@@ -27,9 +27,33 @@ Deletes a company-level device custom field definition. Deleting a definition al
 
 The TeamViewer API access token.
 
+```yaml
+Type: SecureString
+Parameter Sets: (All)
+Aliases: None
+
+Required: True
+Position: 0
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -Id
 
 The unique identifier of the custom field definition. Alias: FieldKeyId.
+
+```yaml
+Type: Guid
+Parameter Sets: (All)
+Aliases: FieldKeyId
+
+Required: True
+Position: 1
+Default value: None
+Accept pipeline input: True (ByValue)
+Accept wildcard characters: False
+```
 
 ## EXAMPLES
 

@@ -35,8 +35,6 @@ Returns the installation directory.
 
 ### CommonParameters
 
-### None
-
 ## INPUTS
 
 ### None

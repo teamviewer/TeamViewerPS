@@ -95,8 +95,6 @@ Accept wildcard characters: False
 
 ### CommonParameters
 
-### None
-
 ## INPUTS
 
 ## OUTPUTS
