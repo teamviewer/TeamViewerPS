@@ -43,7 +43,7 @@ New-FormatFile -Path (Join-Path -Path $Repo_CmdletPath -ChildPath 'TeamViewerPS.
 
 # Create help from markdown
 Write-Verbose 'Building help from Markdown...'
-$Help_Command = @(Measure-PlatyPSMarkdown -Path (Join-Path -Path $Repo_RootPath -ChildPath 'Docs\Help\*.md') | ´
+$Help_Command = @(Measure-PlatyPSMarkdown -Path (Join-Path -Path $Repo_RootPath -ChildPath 'Docs\Help\*.md') |
     Where-Object -Property Filetype -Match 'CommandHelp' | ForEach-Object { Import-MarkdownCommandHelp -Path $_.FilePath })
 
 $Help_OutputPath = Join-Path -Path $Build_OutputPath -ChildPath 'en-US'
