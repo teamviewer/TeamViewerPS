@@ -1,4 +1,4 @@
-function Remove-TeamViewerOrganizationalUnit {
+﻿function Remove-TeamViewerOrganizationalUnit {
     [CmdletBinding(SupportsShouldProcess = $true)]
 
     param(

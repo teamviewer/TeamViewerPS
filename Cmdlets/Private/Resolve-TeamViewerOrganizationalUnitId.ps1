@@ -1,4 +1,4 @@
-function Resolve-TeamViewerOrganizationalUnitId {
+﻿function Resolve-TeamViewerOrganizationalUnitId {
     param(
         [Parameter(ValueFromPipeline = $true, Mandatory = $true)]
         [ValidateNotNullOrEmpty()]

@@ -1,4 +1,4 @@
-function ConvertTo-TeamViewerOrganizationalUnit {
+﻿function ConvertTo-TeamViewerOrganizationalUnit {
     param(
         [Parameter(ValueFromPipeline = $true, Mandatory = $true)]
         [ValidateNotNullOrEmpty()]
