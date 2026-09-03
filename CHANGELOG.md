@@ -1,6 +1,6 @@
 # Change Log
 
-## x.x.x (2026-xx-xx)
+## x.x.x (YYYY-xx-xx)
 
 ### Added
 
@@ -8,15 +8,53 @@
 - Adds `New-TeamViewerOrganizationalUnit` to add a new organizational unit (beta phase, available only for specific tenants).
 - Adds `Remove-TeamViewerOrganizationalUnit` to delete the organizational unit (beta phase, available only for specific tenants).
 - Adds `Set-TeamViewerOrganizationalUnit` to modify the organizational unit (beta phase, available only for specific tenants).
-- Adds `Get-TeamViewerCompany` to retrieve the company / tenant details.
-- Adds `Get-TeamViewerLicense` to retrieve company / tenant licenses.
-- Adds `Remove-TeamViewerCompany` to delete the company / tenant (Cannot be reverted, use with care!).
-- Adds `Set-TeamViewerCompany` to modify the company / tenant details.
+- Adds `Get-TeamViewerRolePermission` to retrieve all supported role permissions.
+- Adds `Get-TeamViewerDeviceCustomField` to retrieve custom field values from a managed device.
+- Adds `Set-TeamViewerDeviceCustomField` to set or update a custom field value on a managed device.
+- Adds `Remove-TeamViewerDeviceCustomField` to delete a custom field value from a managed device.
+- Adds `Get-TeamViewerDeviceCustomFieldConfiguration` to retrieve all device custom field definitions.
+- Adds `New-TeamViewerDeviceCustomFieldConfiguration` to create a new device custom field definition.
+- Adds `Set-TeamViewerDeviceCustomFieldConfiguration` to modify one specific device custom field definition.
+- Adds `Remove-TeamViewerDeviceCustomFieldConfiguration` to delete one specific device custom field definition.
 
 ### Changed
 
 - Fixes, completes, and improves help file `TeamViewerPS.md`.
-- Fixes ([#101](https://github.com/teamviewer/TeamViewerPS/issues/101))date fields (e.g. `Get-TeamViewerConnectionReport`) being lost or having day/month swapped in API responses on PowerShell 6+.
+- Adds `OutputType` to public commands.
+- Adds `CmdletBinding` to public commands.
+- Standardizes pipeline emission on Write-Output.
+- Harmonizes private converter output properties and value types
+- Creates, expands, and hardens all private functions tests.
+- Automate release module versioning.
+- Separates role retrieval from available role permission retrieval by moving permissions to `Get-TeamViewerRolePermission`.
+
+### Fixed
+
+- Converts user last-access and device custom field timestamps to `DateTime` values.
+
+## 3.0.2 (2026-08-13)
+
+### Added
+
+- Adds `Get-TeamViewerInstallationPackage` that returns the installed TV package (Full or Host) from locally installed TV client.
+- Adds `Get-TeamViewerCompany` to retrieve the company / tenant details.
+- Adds `Get-TeamViewerLicense` to retrieve company / tenant licenses.
+- Adds `Remove-TeamViewerCompany` to delete the company / tenant (Cannot be reverted, use with care!).
+- Adds `Set-TeamViewerCompany` to modify the company / tenant details.
+- Adds `AGENTS.md` file for AI coding agents.
+
+### Changed
+
+- Sets PowerShell as default Terminal profile in VSCode.
+- Fixes and completes the help file `TeamViewerPS.md`.
+- Harmonizes TeamViewer Windows service commands.
+- Improves and harmonizes private ConvertTo functions.
+- Improves `*-TeamViewerAssignment` and `*-TeamViewerCustomization` commands.
+- Improves GitHub Actions CI workflow.
+
+### Fixed
+
+- Fixes date fields (e.g. `Get-TeamViewerConnectionReport`) being lost or having day/month swapped in API responses on PowerShell 6+ ([#101](https://github.com/teamviewer/TeamViewerPS/issues/101)).
 
 ### Removed
 
@@ -26,7 +64,7 @@
 
 ### Updated
 
-- Updates `Get-TeamViewerGroup` to list the assigned PolicyID of a defined group
+- Updates `Get-TeamViewerGroup` to list the assigned PolicyID of a defined group.
 - Updates `Get-TeamViewerRole` to list all the possible permissions.
 - Updates `Set-TeamViewerManagedDevice`  with additional description endpoint.
 - Updates all tests to support the changed assertion syntax for Pester 6.0.0 or later.
@@ -40,7 +78,7 @@
 
 ### Removed
 
-- Removes `Export-TeamViewerSystemInformation`.
+- Removes `Export-TeamViewerSystemInformation` command.
 
 ## 2.4.0 (2025-06-19)
 
@@ -93,9 +131,9 @@
 - Adds `Add-TeamViewerAssignment` and `Remove-TeamViewerAssignment` commands to assign and unassign a device from a TeamViewer company.
 - Adds `Add-TeamViewerCustomization` and `Remove-TeamViewerCustomization` commands to apply and remove customization.
 - Adds `Export-TeamViewerSystemInformation` to create zip file for support.
-- Adds `Set-TeamViewerPSProxy` and `Remove-TeamViewerPSProxy` to set proxy to access WebAPI.
+- Adds `Set-TeamViewerPSProxy` and `Remove-TeamViewerPSProxy` to set proxy to access web API.
 - Adds `Get-TeamViewerInstallationDirectory` to return installation directory.
-- Adds `Get-TeamViewerCustomModuleId` to return custom module ID.
+- Adds `Get-TeamViewerCustomModuleId` to return custom module Id.
 - Adds `Get-TeamViewerLogFilePath` to return log file paths for different logs present.
 - Adds `Remove-TeamViewerPolicyFromManagedDevice` to remove policies from managed devices.
 
