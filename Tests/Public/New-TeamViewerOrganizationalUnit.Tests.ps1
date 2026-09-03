@@ -29,7 +29,7 @@ Describe 'New-TeamViewerOrganizationalUnit' {
     }
 
     It 'Should include the given name, description and parent in the request' {
-        New-TeamViewerOrganizationalUnit -ApiToken $testApiToken -Name 'Unit Test' -Description 'Test' -ParentId 'd696ef85-d40a-479e-8331-4813f59e6481'
+        New-TeamViewerOrganizationalUnit -ApiToken $testApiToken -Name 'Unit Test' -Description 'Test' -Parent 'd696ef85-d40a-479e-8331-4813f59e6481'
 
         $mockArgs.Body | Should -Not -BeNullOrEmpty
         $body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
@@ -39,7 +39,7 @@ Describe 'New-TeamViewerOrganizationalUnit' {
     }
 
     It 'Should return the new org unit object' {
-        $result = New-TeamViewerOrganizationalUnit -ApiToken $testApiToken -Name 'Test22' -ParentId 'd696ef85-d40a-479e-8331-4813f59e6481'
+        $result = New-TeamViewerOrganizationalUnit -ApiToken $testApiToken -Name 'Test22' -Parent 'd696ef85-d40a-479e-8331-4813f59e6481'
 
         $result | Should -Not -BeNullOrEmpty
         $result.PSObject.TypeNames | Should -Contain 'TeamViewerPS.OrganizationalUnit'

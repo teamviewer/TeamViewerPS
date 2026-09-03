@@ -47,9 +47,9 @@ Have organizational units to further group / organize / structure users and user
 
 [`New-TeamViewerOrganizationalUnit`](Help/New-TeamViewerOrganizationalUnit.md)
 
-[`Set-TeamViewerOrganizationalUnit`](Help/Set-TeamViewerOrganizationalUnit.md)
-
 [`Remove-TeamViewerOrganizationalUnit`](Help/Remove-TeamViewerOrganizationalUnit.md)
+
+[`Set-TeamViewerOrganizationalUnit`](Help/Set-TeamViewerOrganizationalUnit.md)
 
 ## Computers & Contacts
 

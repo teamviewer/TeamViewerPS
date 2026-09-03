@@ -20,8 +20,9 @@ function New-TeamViewerOrganizationalUnit {
 
                 [Parameter(Mandatory = $false)]
                 [ValidateScript({ $_ -match '(?im)^[{(]?[0-9A-F]{8}[-]?(?:[0-9A-F]{4}[-]?){3}[0-9A-F]{12}[)}]?$' })]
+                [Alias('ParentId')]
                 [string]
-                $ParentId
+                $Parent
         )
 
         begin {
@@ -33,31 +34,23 @@ function New-TeamViewerOrganizationalUnit {
                 if ($Description) {
                         $Body.description = $Description
                 }
-                if ($ParentId) {
-                        $Body.parentId = $ParentId
+                if ($Parent) {
+                        $Body.parentId = $Parent
                 }
         }
 
         process {
                 if ($PSCmdlet.ShouldProcess($Name, 'Create organizational unit')) {
-                        try {
-                                # Execute request
-                                $Response = Invoke-TeamViewerRestMethod `
-                                        -ApiToken $ApiToken `
-                                        -Uri $Uri `
-                                        -Method Post `
-                                        -ContentType 'application/json; charset=utf-8' `
-                                        -Body ([System.Text.Encoding]::UTF8.GetBytes(($Body | ConvertTo-Json))) `
-                                        -WriteErrorTo $PSCmdlet `
-                                        -ErrorAction Stop
+                        $Response = Invoke-TeamViewerRestMethod `
+                                -ApiToken $ApiToken `
+                                -Uri $Uri `
+                                -Method Post `
+                                -ContentType 'application/json; charset=utf-8' `
+                                -Body ([System.Text.Encoding]::UTF8.GetBytes(($Body | ConvertTo-Json))) `
+                                -WriteErrorTo $PSCmdlet `
+                                -ErrorAction Stop
 
-                                # Convert and output the response
-                                ($Response | ConvertTo-TeamViewerOrganizationalUnit)
-                        }
-                        catch {
-                                # Handle any errors that occur
-                                Write-Error "Failed to create organizational unit: $_"
-                        }
+                        $Response | ConvertTo-TeamViewerOrganizationalUnit
                 }
         }
 }

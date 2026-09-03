@@ -4,10 +4,10 @@
 
 ### Added
 
-- Adds `Get-TeamViewerOrganizationalUnit` to retrieve the organizational unit details.
-- Adds `New-TeamViewerOrganizationalUnit` to add a new organizational unit.
-- Adds `Remove-TeamViewerOrganizationalUnit` to delete the organizational unit.
-- Adds `Set-TeamViewerOrganizationalUnit` to modify the organizational unit.
+- Adds `Get-TeamViewerOrganizationalUnit` to retrieve the organizational unit details (beta phase, available only for specific tenants).
+- Adds `New-TeamViewerOrganizationalUnit` to add a new organizational unit (beta phase, available only for specific tenants).
+- Adds `Remove-TeamViewerOrganizationalUnit` to delete the organizational unit (beta phase, available only for specific tenants).
+- Adds `Set-TeamViewerOrganizationalUnit` to modify the organizational unit (beta phase, available only for specific tenants).
 - Adds `Get-TeamViewerCompany` to retrieve the company / tenant details.
 - Adds `Get-TeamViewerLicense` to retrieve company / tenant licenses.
 - Adds `Remove-TeamViewerCompany` to delete the company / tenant (Cannot be reverted, use with care!).

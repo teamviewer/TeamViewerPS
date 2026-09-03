@@ -41,7 +41,7 @@ Describe 'Set-TeamViewerOrganizationalUnit' {
     }
 
     It 'Should include the optional parent ID in the request' {
-        Set-TeamViewerOrganizationalUnit -ApiToken $testApiToken -Id $testOrgId -ParentId $testOrgId
+        Set-TeamViewerOrganizationalUnit -ApiToken $testApiToken -Id $testOrgId -Parent $testOrgId
 
         $mockArgs.Body | Should -Not -BeNullOrEmpty
         $body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json

@@ -11,7 +11,7 @@ function Remove-TeamViewerOrganizationalUnit {
         [Parameter(ValueFromPipeline = $true, Mandatory = $true)]
         [ValidateScript({ $_ | Resolve-TeamViewerOrganizationalUnitId })]
         [Alias('Id', 'OrganizationalUnitId')]
-        [PSObject]
+        [object]
         $OrganizationalUnit
     )
 
@@ -19,20 +19,13 @@ function Remove-TeamViewerOrganizationalUnit {
         $OrganizationalUnitId = $OrganizationalUnit | Resolve-TeamViewerOrganizationalUnitId
         $Uri = "$(Get-TeamViewerApiUri)/organizationalunits/$OrganizationalUnitId"
 
-        if ($PSCmdlet.ShouldProcess($OrganizationalUnit.ToString(), 'Remove organizational unit')) {
-            try {
-                # Execute request
-                Invoke-TeamViewerRestMethod `
-                    -ApiToken $ApiToken `
-                    -Uri $Uri `
-                    -Method Delete `
-                    -WriteErrorTo $PSCmdlet `
-                    -ErrorAction Stop
-            }
-            catch {
-                # Handle any errors that occur
-                Write-Error "Failed to remove organizational unit: $_"
-            }
+        if ($PSCmdlet.ShouldProcess($OrganizationalUnitId, 'Remove organizational unit')) {
+            Invoke-TeamViewerRestMethod `
+                -ApiToken $ApiToken `
+                -Uri $Uri `
+                -Method Delete `
+                -WriteErrorTo $PSCmdlet `
+                -ErrorAction Stop | Out-Null
         }
     }
 }

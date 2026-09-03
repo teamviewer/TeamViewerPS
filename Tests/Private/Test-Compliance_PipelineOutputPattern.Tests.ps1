@@ -1,6 +1,7 @@
 BeforeAll {
     $scriptPath = Split-Path -Parent $PSCommandPath
     $repoRoot = (Split-Path -Parent (Split-Path -Parent (Split-Path -Parent $scriptPath)))
+    $null = $repoRoot
 }
 
 Describe 'Option A Compliance - Pipeline Output Pattern' {

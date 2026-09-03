@@ -21,9 +21,9 @@ function Get-TeamViewerOrganizationalUnit {
 
                 [Parameter( Mandatory = $false, ParameterSetName = 'List')]
                 [ValidateScript({ $_ -match '(?im)^[{(]?[0-9A-F]{8}[-]?(?:[0-9A-F]{4}[-]?){3}[0-9A-F]{12}[)}]?$' })]
-                [Alias('StartOrganizationalUnitId')]
+                [Alias('ParentId')]
                 [string]
-                $ParentId,
+                $Parent,
 
                 [Parameter( Mandatory = $false, ParameterSetName = 'List')]
                 [ValidateLength(1, [int]::MaxValue)]
@@ -32,11 +32,13 @@ function Get-TeamViewerOrganizationalUnit {
 
                 [Parameter( Mandatory = $false, ParameterSetName = 'List')]
                 [ValidateSet('Name', 'CreatedAt', 'UpdatedAt')]
+                [Alias('Sort')]
                 [string]
                 $SortBy = 'Name',
 
                 [Parameter( Mandatory = $false, ParameterSetName = 'List')]
                 [ValidateSet('Asc', 'Desc')]
+                [Alias('Order')]
                 [string]
                 $SortOrder = 'Asc',
 
@@ -46,7 +48,7 @@ function Get-TeamViewerOrganizationalUnit {
                 $PageSize = 100,
 
                 [Parameter( Mandatory = $false, ParameterSetName = 'List')]
-                [ValidateRange(1)]
+                [ValidateRange(1, [int]::MaxValue)]
                 [int]
                 $PageNumber = 1
         )
@@ -65,8 +67,8 @@ function Get-TeamViewerOrganizationalUnit {
                                 if ($Recursive) {
                                         $Body.includeChildren = $true
                                 }
-                                if ($ParentId) {
-                                        $Body.startOrganizationalUnitId = $ParentId
+                                if ($Parent) {
+                                        $Body.startOrganizationalUnitId = $Parent
                                 }
                                 if ($Filter) {
                                         $Body.filter = $Filter
@@ -88,10 +90,10 @@ function Get-TeamViewerOrganizationalUnit {
                         -ErrorAction Stop
 
                 if ($PSCmdlet.ParameterSetName -eq 'ById') {
-                        Write-Output ($Response | ConvertTo-TeamViewerOrganizationalUnit)
+                        $Response | ConvertTo-TeamViewerOrganizationalUnit
                 }
                 else {
-                        Write-Output ($Response.data | ConvertTo-TeamViewerOrganizationalUnit)
+                        $Response.data | ConvertTo-TeamViewerOrganizationalUnit
                 }
         }
 }

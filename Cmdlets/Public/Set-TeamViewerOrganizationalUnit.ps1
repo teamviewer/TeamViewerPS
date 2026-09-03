@@ -10,9 +10,8 @@ function Set-TeamViewerOrganizationalUnit {
 
                 [Parameter(ValueFromPipeline = $true, Mandatory = $true)]
                 [ValidateScript({ $_ | Resolve-TeamViewerOrganizationalUnitId })]
-                [Alias('OrganizationalUnitId')]
-                [Alias('Id')]
-                [PSObject]
+                [Alias('Id', 'OrganizationalUnitId')]
+                [object]
                 $OrganizationalUnit,
 
                 [Parameter(Mandatory = $false)]
@@ -27,8 +26,9 @@ function Set-TeamViewerOrganizationalUnit {
 
                 [Parameter(Mandatory = $false)]
                 [ValidateScript({ $_ -match '(?im)^[{(]?[0-9A-F]{8}[-]?(?:[0-9A-F]{4}[-]?){3}[0-9A-F]{12}[)}]?$' })]
+                [Alias('ParentId')]
                 [string]
-                $ParentId
+                $Parent
         )
 
         begin {
@@ -43,8 +43,8 @@ function Set-TeamViewerOrganizationalUnit {
                         $Body.description = $Description
                 }
 
-                if ($ParentId) {
-                        $Body.parentId = $ParentId
+                if ($Parent) {
+                        $Body.parentId = $Parent
                 }
         }
 
@@ -52,7 +52,7 @@ function Set-TeamViewerOrganizationalUnit {
                 $OrganizationalUnitId = $OrganizationalUnit | Resolve-TeamViewerOrganizationalUnitId
                 $Uri = "$(Get-TeamViewerApiUri)/organizationalunits/$OrganizationalUnitId"
 
-                if ($PSCmdlet.ShouldProcess($OrganizationalUnit.ToString(), 'Change organizational unit')) {
+                if ($PSCmdlet.ShouldProcess($OrganizationalUnitId, 'Change organizational unit')) {
                         $response = Invoke-TeamViewerRestMethod `
                                 -ApiToken $ApiToken `
                                 -Uri $Uri `
@@ -62,7 +62,7 @@ function Set-TeamViewerOrganizationalUnit {
                                 -WriteErrorTo $PSCmdlet `
                                 -ErrorAction Stop
 
-                        ($response | ConvertTo-TeamViewerOrganizationalUnit)
+                        $response | ConvertTo-TeamViewerOrganizationalUnit
                 }
         }
 }

@@ -3,7 +3,8 @@ BeforeAll {
 
     @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
 
-    $testApiToken = ConvertTo-SecureString -String 'test' -AsPlainText -Force
+    $testApiToken = [securestring]@{}
+    $null = $testApiToken
     $null = $example_uuid
     $example_uuid = '7042bac2-7ce0-47c6-8c1a-fb00505bd6ed'
 
@@ -68,7 +69,7 @@ Describe 'Get-TeamViewerOrganizationalUnit' {
     }
 
     It 'Should allow to specification of IncludeChildren, StartOrganizationalUnitId, SortBy and Sort Order, Page Size and Page Number' {
-        Get-TeamViewerOrganizationalUnit -ApiToken $testApiToken -IncludeChildren -StartOrganizationalUnitId $example_uuid -SortBy 'Name' -SortOrder 'Asc' -PageSize 200 -PageNumber 2
+        Get-TeamViewerOrganizationalUnit -ApiToken $testApiToken -IncludeChildren -Parent $example_uuid -SortBy 'Name' -SortOrder 'Asc' -PageSize 200 -PageNumber 2
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $Body -and $Body['includeChildren'] -eq $true -and $Body['startOrganizationalUnitId'] -eq $example_uuid -and $Body['sortBy'] -eq 'Name' -and $Body['pageNumber'] -eq 2 -and $Body['sortOrder'] -eq 'Asc' -and $Body['pageSize'] -eq 200 }

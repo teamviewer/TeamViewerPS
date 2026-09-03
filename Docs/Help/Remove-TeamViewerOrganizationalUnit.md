@@ -11,6 +11,9 @@ schema: 2.0.0
 
 Deletes an organizational unit from the associated TeamViewer company.
 
+> [!NOTE]
+> This command is in beta phase and available only for specific tenants.
+
 ## SYNTAX
 
 ```powershell

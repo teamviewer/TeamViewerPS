@@ -11,12 +11,15 @@ schema: 2.0.0
 
 Returns a single or multiple TeamViewer organizational units of the associated TeamViewer company.
 
+> [!NOTE]
+> This command is in beta phase and available only for specific tenants.
+
 ## SYNTAX
 
 ### List (Default)
 
 ```powershell
-Get-TeamViewerOrganizationalUnit -ApiToken <SecureString> [-Recursive <Switch>] [-ParentId <String>] [-Filter <String>] [-SortBy <String>] [-SortOrder <String>] [-PageSize <int>] [-PageNumber <int>][<CommonParameters>]
+Get-TeamViewerOrganizationalUnit -ApiToken <SecureString> [-Recursive <Switch>] [-Parent <String>] [-Filter <String>] [-SortBy <String>] [-SortOrder <String>] [-PageSize <int>] [-PageNumber <int>][<CommonParameters>]
 ```
 
 ### ById
@@ -103,14 +106,14 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -ParentId
+### -Parent
 
 Define the organizational unit where processing starts. If not set, the root OU will be used as starting point.
 
 ```yaml
 Type: String
 Parameter Sets: List
-Aliases: StartOrganizationalUnitId
+Aliases: ParentId
 
 Required: False
 Position: Named
@@ -142,7 +145,7 @@ Sort organizational units by Name, CreatedAt, or UpdatedAt field.
 ```yaml
 Type: String
 Parameter Sets: List
-Aliases:
+Aliases: Sort
 
 Required: False
 Position: Named
@@ -158,7 +161,7 @@ Sort direction of organizational units.
 ```yaml
 Type: String
 Parameter Sets: List
-Aliases:
+Aliases: Order
 
 Required: False
 Position: Named

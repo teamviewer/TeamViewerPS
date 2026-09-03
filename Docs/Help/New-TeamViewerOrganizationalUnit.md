@@ -11,10 +11,13 @@ schema: 2.0.0
 
 Creates a TeamViewer organizational unit in the associated TeamViewer company.
 
+> [!NOTE]
+> This command is in beta phase and available only for specific tenants.
+
 ## SYNTAX
 
 ```powershell
-New-TeamViewerOrganizationalUnit [-ApiToken] <SecureString> [-Name] <String> [-Description] <String> [-ParentId] <String> [-Confirm] [-WhatIf] [<CommonParameters>]
+New-TeamViewerOrganizationalUnit [-ApiToken] <SecureString> [-Name] <String> [-Description] <String> [-Parent] <String> [-Confirm] [-WhatIf] [<CommonParameters>]
 ```
 
 ## EXAMPLES
@@ -85,14 +88,14 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -ParentId
+### -Parent
 
 Id of the parent organizational unit.
 
 ```yaml
 Type: String
 Parameter Sets: (All)
-Aliases:
+Aliases: ParentId
 
 Required: False
 Position: Named
