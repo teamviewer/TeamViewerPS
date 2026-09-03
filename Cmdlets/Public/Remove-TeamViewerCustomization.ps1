@@ -1,19 +1,25 @@
-function Remove-TeamViewerCustomization {
+﻿function Remove-TeamViewerCustomization {
     [CmdletBinding(SupportsShouldProcess = $true)]
+
+    [OutputType([void])]
+
     param()
 
-    if (Test-TeamViewerInstallation) {
-        $installationDirectory = Get-TeamViewerInstallationDirectory
-        $currentDirectory = Get-Location
-        Set-Location $installationDirectory
-        $cmd = 'customize --remove'
-        if ($PSCmdlet.ShouldProcess($installationDirectory, 'Remove Client Customization')) {
-            $process = Start-Process -FilePath TeamViewer.exe -ArgumentList $cmd -Wait -PassThru
-            $process.ExitCode | Resolve-CustomizationErrorCode
-        }
-        Set-Location $currentDirectory
+    begin {
+        $TV_ApplicationFilePath = (Join-Path -Path (Get-TeamViewerInstallationDirectory) -ChildPath 'TeamViewer.exe')
+        $TV_AssignmentParams = 'customize --remove'
     }
-    else {
-        Write-Error 'TeamViewer is not installed'
+
+    process {
+        if (-not (Test-TeamViewerInstallation)) {
+            Write-Error 'TeamViewer is not installed!'
+
+            continue
+        }
+
+        if ($PSCmdlet.ShouldProcess($TV_ApplicationFilePath, 'Remove device customization')) {
+            $process = Start-Process -FilePath $TV_ApplicationFilePath -ArgumentList $TV_AssignmentParams -Wait -PassThru
+            $process.ExitCode | Resolve-TeamViewerCustomizationErrorCode
+        }
     }
 }

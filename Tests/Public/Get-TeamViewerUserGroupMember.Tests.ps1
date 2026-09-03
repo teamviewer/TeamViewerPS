@@ -1,8 +1,7 @@
-BeforeAll {
+﻿BeforeAll {
     . "$PSScriptRoot\..\..\Cmdlets\Public\Get-TeamViewerUserGroupMember.ps1"
 
-    @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | `
-        ForEach-Object { . $_.FullName }
+    @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
 
     $testApiToken = [securestring]@{}
     $null = $testApiToken
@@ -16,9 +15,9 @@ BeforeAll {
 
     Mock Get-TeamViewerApiUri { '//unit.test' }
     Mock Invoke-TeamViewerRestMethod { @{
-        nextPaginationToken = $null
-        resources           = $testUserGroupMembers
-    } }
+            nextPaginationToken = $null
+            resources           = $testUserGroupMembers
+        } }
 }
 
 Describe 'Get-TeamViewerUserGroupMember' {
@@ -27,27 +26,22 @@ Describe 'Get-TeamViewerUserGroupMember' {
         Get-TeamViewerUserGroupMember -ApiToken $testApiToken -UserGroup $testUserGroupId
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -And `
-            $Uri -eq "//unit.test/usergroups/$testUserGroupId/members" -And `
-            $Method -eq 'Get' }
+            $ApiToken -eq $testApiToken -and $Uri -eq "//unit.test/usergroups/$testUserGroupId/members" -and $Method -eq 'Get' }
     }
 
     It 'Should handle domain object as input' {
         $testUserGroup = @{Id = $testUserGroupId; Name = 'test user group' } | ConvertTo-TeamViewerUserGroup
+
         Get-TeamViewerUserGroupMember -ApiToken $testApiToken -UserGroup $testUserGroup
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -And `
-            $Uri -eq "//unit.test/usergroups/$testUserGroupId/members" -And `
-            $Method -eq 'Get' }
+            $ApiToken -eq $testApiToken -and $Uri -eq "//unit.test/usergroups/$testUserGroupId/members" -and $Method -eq 'Get' }
     }
 
     It 'Should return UserGroupMember objects' {
-        $result = Get-TeamViewerUserGroupMember `
-            -ApiToken $testApiToken `
-            -UserGroup $testUserGroupId
-        $result | Should -HaveCount 3
-        $result[0].PSObject.TypeNames | Should -Contain 'TeamViewerPS.UserGroupMember'
+        $Result = Get-TeamViewerUserGroupMember -ApiToken $testApiToken -UserGroup $testUserGroupId
+        $Result | Should -HaveCount 3
+        $Result[0].PSObject.TypeNames | Should -Contain 'TeamViewerPS.UserGroupMember'
     }
 
     It 'Should fetch consecutive pages' {
@@ -55,17 +49,16 @@ Describe 'Get-TeamViewerUserGroupMember' {
                 nextPaginationToken = 'abc'
                 resources           = $testUserGroupMembers
             } }
+
         Mock Invoke-TeamViewerRestMethod { @{
                 nextPaginationToken = $null
                 resources           = @(
                     @{ accountId = 2004; name = 'test account 4' }
                 )
-            } } -ParameterFilter { $Body -And $Body['paginationToken'] -eq 'abc' }
+            } } -ParameterFilter { $Body -and $Body['paginationToken'] -eq 'abc' }
 
-        $result = Get-TeamViewerUserGroupMember `
-            -ApiToken $testApiToken `
-            -UserGroup $testUserGroupId
-        $result | Should -HaveCount 4
+        $Result = Get-TeamViewerUserGroupMember -ApiToken $testApiToken -UserGroup $testUserGroupId
+        $Result | Should -HaveCount 4
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 2 -Scope It
     }

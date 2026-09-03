@@ -1,4 +1,8 @@
-function Get-TeamViewerRoleByUserGroup {
+﻿function Get-TeamViewerRoleByUserGroup {
+    [CmdletBinding()]
+
+    [OutputType('TeamViewerPS.RoleAssignedUserGroup')]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
@@ -6,32 +10,35 @@ function Get-TeamViewerRoleByUserGroup {
 
         [Parameter(Mandatory = $true)]
         [ValidateScript({ $_ | Resolve-TeamViewerUserGroupId })]
-        [Alias('UserGroupId')]
-        [Alias('Id')]
+        [Alias('Id', 'UserGroupId')]
         [string]
-        $GroupId
+        $UserGroup
     )
 
-    Begin {
-        $resourceUri = "$(Get-TeamViewerApiUri)/usergroups/$GroupId/userroles"
-        $parameters = $null
+    begin {
+        $ResourceUri = "$(Get-TeamViewerApiUri)/usergroups/$UserGroup/userroles"
+        $Parameters = $null
     }
-    Process {
+
+    process {
         do {
-            $response = Invoke-TeamViewerRestMethod `
+            $Response = Invoke-TeamViewerRestMethod `
                 -ApiToken $ApiToken `
-                -Uri $resourceUri `
+                -Uri $ResourceUri `
                 -Method Get `
-                -Body $parameters `
+                -Body $Parameters `
                 -WriteErrorTo $PSCmdlet `
                 -ErrorAction Stop
-            if ($response.ContinuationToken) {
-                $resourceUri += '&continuationToken=' + $response.ContinuationToken
+
+            if ($Response.ContinuationToken) {
+                $ResourceUri += '&continuationToken=' + $Response.ContinuationToken
             }
-            if ($null -eq $response.assignedRoleId) {
-                return $null
+
+            if ($null -eq $Response.assignedRoleId) {
+                break
             }
-            Write-Output ($response.assignedRoleId | ConvertTo-TeamViewerRoleAssignedUserGroup )
-        }while ($response.ContinuationToken)
+
+            Write-Output ($Response.assignedRoleId | ConvertTo-TeamViewerRoleAssignedUserGroup )
+        }while ($Response.ContinuationToken)
     }
 }

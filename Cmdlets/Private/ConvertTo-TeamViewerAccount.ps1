@@ -1,26 +1,27 @@
-function ConvertTo-TeamViewerAccount {
+﻿function ConvertTo-TeamViewerAccount {
     param(
         [Parameter(ValueFromPipeline)]
-        [PSObject]
+        [object]
         $InputObject
     )
+
     process {
-        $properties = @{
-            Name             = $InputObject.name
-            Email            = $InputObject.email
-            UserId           = $InputObject.userid
-            CompanyName      = $InputObject.company_name
-            IsEmailValidated = $InputObject.email_validated
-            EmailLanguage    = $InputObject.email_language
+        $Properties = @{
+            Id                = $InputObject.userid
+            Name              = $InputObject.name
+            Email             = $InputObject.email
+            Email_IsValidated = $InputObject.email_validated
+            Email_Language    = $InputObject.email_language
+            Company_Name      = $InputObject.company_name
         }
-        if ($InputObject.email_language -And $InputObject.email_language -Ne 'auto') {
-            $properties["EmailLanguage"] = [System.Globalization.CultureInfo]($InputObject.email_language)
+
+        if ($InputObject.email_language -and $InputObject.email_language -ne 'auto') {
+            $Properties['Email_Language'] = [System.Globalization.CultureInfo]($InputObject.email_language)
         }
-        $result = New-Object -TypeName PSObject -Property $properties
-        $result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.Account')
-        $result | Add-Member -MemberType ScriptMethod -Name "ToString" -Force -Value {
-            Write-Output "$($this.Name) <$($this.Email)>"
-        }
-        Write-Output $result
+
+        $Result = New-Object -TypeName PSObject -Property $Properties
+        $Result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.Account')
+
+        Write-Output $Result
     }
 }

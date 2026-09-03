@@ -1,51 +1,205 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <Configuration>
     <ViewDefinitions>
+        <View><Name>TeamViewerPS-Account-ListView</Name><ViewSelectedBy><TypeName>TeamViewerPS.Account</TypeName></ViewSelectedBy><ListControl><ListEntries><ListEntry><ListItems><ListItem><PropertyName>Id</PropertyName></ListItem><ListItem><PropertyName>Name</PropertyName></ListItem><ListItem><PropertyName>Email</PropertyName></ListItem></ListItems></ListEntry></ListEntries></ListControl></View>
+        <View><Name>TeamViewerPS-AuditEvent-ListView</Name><ViewSelectedBy><TypeName>TeamViewerPS.AuditEvent</TypeName></ViewSelectedBy><ListControl><ListEntries><ListEntry><ListItems><ListItem><PropertyName>CreatedAt</PropertyName></ListItem><ListItem><PropertyName>Name</PropertyName></ListItem><ListItem><PropertyName>Author</PropertyName></ListItem><ListItem><PropertyName>Type</PropertyName></ListItem></ListItems></ListEntry></ListEntries></ListControl></View>
+        <View><Name>TeamViewerPS-Company-ListView</Name><ViewSelectedBy><TypeName>TeamViewerPS.Company</TypeName></ViewSelectedBy><ListControl><ListEntries><ListEntry><ListItems><ListItem><PropertyName>Id</PropertyName></ListItem><ListItem><PropertyName>Name</PropertyName></ListItem><ListItem><PropertyName>CreatedAt</PropertyName></ListItem></ListItems></ListEntry></ListEntries></ListControl></View>
+        <View><Name>TeamViewerPS-ConnectionReport-ListView</Name><ViewSelectedBy><TypeName>TeamViewerPS.ConnectionReport</TypeName></ViewSelectedBy><ListControl><ListEntries><ListEntry><ListItems><ListItem><PropertyName>Id</PropertyName></ListItem><ListItem><PropertyName>User_Name</PropertyName></ListItem><ListItem><PropertyName>Device_Name</PropertyName></ListItem><ListItem><PropertyName>Datetime_Start</PropertyName></ListItem></ListItems></ListEntry></ListEntries></ListControl></View>
+        <View><Name>TeamViewerPS-Contact-ListView</Name><ViewSelectedBy><TypeName>TeamViewerPS.Contact</TypeName></ViewSelectedBy><ListControl><ListEntries><ListEntry><ListItems><ListItem><PropertyName>Id</PropertyName></ListItem><ListItem><PropertyName>Name</PropertyName></ListItem><ListItem><PropertyName>OnlineState</PropertyName></ListItem></ListItems></ListEntry></ListEntries></ListControl></View>
+        <View><Name>TeamViewerPS-Device-ListView</Name><ViewSelectedBy><TypeName>TeamViewerPS.Device</TypeName></ViewSelectedBy><ListControl><ListEntries><ListEntry><ListItems><ListItem><PropertyName>Id</PropertyName></ListItem><ListItem><PropertyName>TeamViewerId</PropertyName></ListItem><ListItem><PropertyName>Name</PropertyName></ListItem><ListItem><PropertyName>OnlineState</PropertyName></ListItem></ListItems></ListEntry></ListEntries></ListControl></View>
+        <View><Name>TeamViewerPS-DeviceCustomField-ListView</Name><ViewSelectedBy><TypeName>TeamViewerPS.DeviceCustomField</TypeName></ViewSelectedBy><ListControl><ListEntries><ListEntry><ListItems><ListItem><PropertyName>Id</PropertyName></ListItem><ListItem><PropertyName>Field_Id</PropertyName></ListItem><ListItem><PropertyName>Value</PropertyName></ListItem><ListItem><PropertyName>UpdatedAt</PropertyName></ListItem></ListItems></ListEntry></ListEntries></ListControl></View>
+        <View><Name>TeamViewerPS-DeviceCustomFieldConfiguration-ListView</Name><ViewSelectedBy><TypeName>TeamViewerPS.DeviceCustomFieldConfiguration</TypeName></ViewSelectedBy><ListControl><ListEntries><ListEntry><ListItems><ListItem><PropertyName>Id</PropertyName></ListItem><ListItem><PropertyName>Name</PropertyName></ListItem><ListItem><PropertyName>Type</PropertyName></ListItem></ListItems></ListEntry></ListEntries></ListControl></View>
+        <View><Name>TeamViewerPS-Group-ListView</Name><ViewSelectedBy><TypeName>TeamViewerPS.Group</TypeName></ViewSelectedBy><ListControl><ListEntries><ListEntry><ListItems><ListItem><PropertyName>Id</PropertyName></ListItem><ListItem><PropertyName>Name</PropertyName></ListItem><ListItem><PropertyName>Permissions</PropertyName></ListItem></ListItems></ListEntry></ListEntries></ListControl></View>
+        <View><Name>TeamViewerPS-License-ListView</Name><ViewSelectedBy><TypeName>TeamViewerPS.License</TypeName></ViewSelectedBy><ListControl><ListEntries><ListEntry><ListItems><ListItem><PropertyName>Id</PropertyName></ListItem><ListItem><PropertyName>Name</PropertyName></ListItem><ListItem><PropertyName>Licenses_Available</PropertyName></ListItem></ListItems></ListEntry></ListEntries></ListControl></View>
+        <View><Name>TeamViewerPS-ManagedDevice-ListView</Name><ViewSelectedBy><TypeName>TeamViewerPS.ManagedDevice</TypeName></ViewSelectedBy><ListControl><ListEntries><ListEntry><ListItems><ListItem><PropertyName>Id</PropertyName></ListItem><ListItem><PropertyName>TeamViewerId</PropertyName></ListItem><ListItem><PropertyName>Name</PropertyName></ListItem><ListItem><PropertyName>IsOnline</PropertyName></ListItem></ListItems></ListEntry></ListEntries></ListControl></View>
+        <View><Name>TeamViewerPS-ManagedGroup-ListView</Name><ViewSelectedBy><TypeName>TeamViewerPS.ManagedGroup</TypeName></ViewSelectedBy><ListControl><ListEntries><ListEntry><ListItems><ListItem><PropertyName>Id</PropertyName></ListItem><ListItem><PropertyName>Name</PropertyName></ListItem></ListItems></ListEntry></ListEntries></ListControl></View>
+        <View><Name>TeamViewerPS-Manager-ListView</Name><ViewSelectedBy><TypeName>TeamViewerPS.Manager</TypeName></ViewSelectedBy><ListControl><ListEntries><ListEntry><ListItems><ListItem><PropertyName>Id</PropertyName></ListItem><ListItem><PropertyName>Name</PropertyName></ListItem><ListItem><PropertyName>Manager_Type</PropertyName></ListItem><ListItem><PropertyName>Permissions</PropertyName></ListItem></ListItems></ListEntry></ListEntries></ListControl></View>
+        <View><Name>TeamViewerPS-Policy-ListView</Name><ViewSelectedBy><TypeName>TeamViewerPS.Policy</TypeName></ViewSelectedBy><ListControl><ListEntries><ListEntry><ListItems><ListItem><PropertyName>Id</PropertyName></ListItem><ListItem><PropertyName>Name</PropertyName></ListItem><ListItem><PropertyName>Settings</PropertyName></ListItem></ListItems></ListEntry></ListEntries></ListControl></View>
+        <View><Name>TeamViewerPS-PredefinedRole-ListView</Name><ViewSelectedBy><TypeName>TeamViewerPS.PredefinedRole</TypeName></ViewSelectedBy><ListControl><ListEntries><ListEntry><ListItems><ListItem><PropertyName>Role_Id</PropertyName></ListItem></ListItems></ListEntry></ListEntries></ListControl></View>
+        <View><Name>TeamViewerPS-Role-ListView</Name><ViewSelectedBy><TypeName>TeamViewerPS.Role</TypeName></ViewSelectedBy><ListControl><ListEntries><ListEntry><ListItems><ListItem><PropertyName>Id</PropertyName></ListItem><ListItem><PropertyName>Name</PropertyName></ListItem><ListItem><PropertyName>Permissions</PropertyName></ListItem></ListItems></ListEntry></ListEntries></ListControl></View>
+        <View><Name>TeamViewerPS-RoleAssignedUser-ListView</Name><ViewSelectedBy><TypeName>TeamViewerPS.RoleAssignedUser</TypeName></ViewSelectedBy><ListControl><ListEntries><ListEntry><ListItems><ListItem><PropertyName>User_Id</PropertyName></ListItem></ListItems></ListEntry></ListEntries></ListControl></View>
+        <View><Name>TeamViewerPS-RoleAssignedUserGroup-ListView</Name><ViewSelectedBy><TypeName>TeamViewerPS.RoleAssignedUserGroup</TypeName></ViewSelectedBy><ListControl><ListEntries><ListEntry><ListItems><ListItem><PropertyName>UserGroup_Id</PropertyName></ListItem></ListItems></ListEntry></ListEntries></ListControl></View>
+        <View><Name>TeamViewerPS-SsoDomain-ListView</Name><ViewSelectedBy><TypeName>TeamViewerPS.SsoDomain</TypeName></ViewSelectedBy><ListControl><ListEntries><ListEntry><ListItems><ListItem><PropertyName>Id</PropertyName></ListItem><ListItem><PropertyName>Name</PropertyName></ListItem></ListItems></ListEntry></ListEntries></ListControl></View>
+        <View><Name>TeamViewerPS-User-ListView</Name><ViewSelectedBy><TypeName>TeamViewerPS.User</TypeName></ViewSelectedBy><ListControl><ListEntries><ListEntry><ListItems><ListItem><PropertyName>Id</PropertyName></ListItem><ListItem><PropertyName>Name</PropertyName></ListItem><ListItem><PropertyName>Email</PropertyName></ListItem></ListItems></ListEntry></ListEntries></ListControl></View>
+        <View><Name>TeamViewerPS-UserGroup-ListView</Name><ViewSelectedBy><TypeName>TeamViewerPS.UserGroup</TypeName></ViewSelectedBy><ListControl><ListEntries><ListEntry><ListItems><ListItem><PropertyName>Id</PropertyName></ListItem><ListItem><PropertyName>Name</PropertyName></ListItem></ListItems></ListEntry></ListEntries></ListControl></View>
+        <View><Name>TeamViewerPS-UserGroupMember-ListView</Name><ViewSelectedBy><TypeName>TeamViewerPS.UserGroupMember</TypeName></ViewSelectedBy><ListControl><ListEntries><ListEntry><ListItems><ListItem><PropertyName>Id</PropertyName></ListItem><ListItem><PropertyName>Name</PropertyName></ListItem></ListItems></ListEntry></ListEntries></ListControl></View>
+        <View>
+            <Name>TeamViewerPS-Account-TableView</Name>
+            <ViewSelectedBy><TypeName>TeamViewerPS.Account</TypeName></ViewSelectedBy>
+            <TableControl><TableHeaders><TableColumnHeader><Label>Id</Label><Width>20</Width></TableColumnHeader><TableColumnHeader><Label>Name</Label></TableColumnHeader><TableColumnHeader><Label>Email</Label></TableColumnHeader></TableHeaders><TableRowEntries><TableRowEntry><TableColumnItems><TableColumnItem><PropertyName>Id</PropertyName></TableColumnItem><TableColumnItem><PropertyName>Name</PropertyName></TableColumnItem><TableColumnItem><PropertyName>Email</PropertyName></TableColumnItem></TableColumnItems></TableRowEntry></TableRowEntries></TableControl>
+        </View>
         <View>
             <Name>TeamViewerPS-AuditEvent-TableView</Name>
+            <ViewSelectedBy><TypeName>TeamViewerPS.AuditEvent</TypeName></ViewSelectedBy>
+            <TableControl>
+                <TableHeaders><TableColumnHeader><Label>Timestamp</Label><Width>24</Width></TableColumnHeader><TableColumnHeader><Label>Name</Label></TableColumnHeader><TableColumnHeader><Label>Author</Label><Width>24</Width></TableColumnHeader><TableColumnHeader><Label>Type</Label><Width>20</Width></TableColumnHeader></TableHeaders>
+                <TableRowEntries><TableRowEntry><TableColumnItems><TableColumnItem><PropertyName>CreatedAt</PropertyName></TableColumnItem><TableColumnItem><PropertyName>Name</PropertyName></TableColumnItem><TableColumnItem><PropertyName>Author</PropertyName></TableColumnItem><TableColumnItem><PropertyName>Type</PropertyName></TableColumnItem></TableColumnItems></TableRowEntry></TableRowEntries>
+            </TableControl>
+        </View>
+        <View>
+            <Name>TeamViewerPS-Company-TableView</Name>
+            <ViewSelectedBy><TypeName>TeamViewerPS.Company</TypeName></ViewSelectedBy>
+            <TableControl>
+                <TableHeaders><TableColumnHeader><Label>Id</Label><Width>20</Width></TableColumnHeader><TableColumnHeader><Label>Name</Label></TableColumnHeader><TableColumnHeader><Label>CreatedAt</Label></TableColumnHeader></TableHeaders>
+                <TableRowEntries><TableRowEntry><TableColumnItems><TableColumnItem><PropertyName>Id</PropertyName></TableColumnItem><TableColumnItem><PropertyName>Name</PropertyName></TableColumnItem><TableColumnItem><PropertyName>CreatedAt</PropertyName></TableColumnItem></TableColumnItems></TableRowEntry></TableRowEntries>
+            </TableControl>
+        </View>
+        <View>
+            <Name>TeamViewerPS-Contact-TableView</Name>
+            <ViewSelectedBy><TypeName>TeamViewerPS.Contact</TypeName></ViewSelectedBy>
+            <TableControl>
+                <TableHeaders><TableColumnHeader><Label>Id</Label><Width>20</Width></TableColumnHeader><TableColumnHeader><Label>Name</Label></TableColumnHeader><TableColumnHeader><Label>OnlineState</Label></TableColumnHeader></TableHeaders>
+                <TableRowEntries><TableRowEntry><TableColumnItems><TableColumnItem><PropertyName>Id</PropertyName></TableColumnItem><TableColumnItem><PropertyName>Name</PropertyName></TableColumnItem><TableColumnItem><PropertyName>OnlineState</PropertyName></TableColumnItem></TableColumnItems></TableRowEntry></TableRowEntries>
+            </TableControl>
+        </View>
+        <View>
+            <Name>TeamViewerPS-ConnectionReport-TableView</Name>
+            <ViewSelectedBy><TypeName>TeamViewerPS.ConnectionReport</TypeName></ViewSelectedBy>
+            <TableControl><TableHeaders><TableColumnHeader><Label>Id</Label><Width>20</Width></TableColumnHeader><TableColumnHeader><Label>User_Name</Label></TableColumnHeader><TableColumnHeader><Label>Device_Name</Label></TableColumnHeader><TableColumnHeader><Label>Datetime_Start</Label></TableColumnHeader></TableHeaders><TableRowEntries><TableRowEntry><TableColumnItems><TableColumnItem><PropertyName>Id</PropertyName></TableColumnItem><TableColumnItem><PropertyName>User_Name</PropertyName></TableColumnItem><TableColumnItem><PropertyName>Device_Name</PropertyName></TableColumnItem><TableColumnItem><PropertyName>Datetime_Start</PropertyName></TableColumnItem></TableColumnItems></TableRowEntry></TableRowEntries></TableControl>
+        </View>
+        <View>
+            <Name>TeamViewerPS-Device-TableView</Name>
+            <ViewSelectedBy><TypeName>TeamViewerPS.Device</TypeName></ViewSelectedBy>
+            <TableControl>
+                <TableHeaders><TableColumnHeader><Label>Id</Label><Width>20</Width></TableColumnHeader><TableColumnHeader><Label>TeamViewerId</Label></TableColumnHeader><TableColumnHeader><Label>Name</Label></TableColumnHeader><TableColumnHeader><Label>OnlineState</Label></TableColumnHeader></TableHeaders>
+                <TableRowEntries><TableRowEntry><TableColumnItems><TableColumnItem><PropertyName>Id</PropertyName></TableColumnItem><TableColumnItem><PropertyName>TeamViewerId</PropertyName></TableColumnItem><TableColumnItem><PropertyName>Name</PropertyName></TableColumnItem><TableColumnItem><PropertyName>OnlineState</PropertyName></TableColumnItem></TableColumnItems></TableRowEntry></TableRowEntries>
+            </TableControl>
+        </View>
+        <View>
+            <Name>TeamViewerPS-DeviceCustomField-TableView</Name>
+            <ViewSelectedBy><TypeName>TeamViewerPS.DeviceCustomField</TypeName></ViewSelectedBy>
+            <TableControl><TableHeaders><TableColumnHeader><Label>Id</Label><Width>20</Width></TableColumnHeader><TableColumnHeader><Label>Field_Id</Label></TableColumnHeader><TableColumnHeader><Label>Value</Label></TableColumnHeader><TableColumnHeader><Label>UpdatedAt</Label></TableColumnHeader></TableHeaders><TableRowEntries><TableRowEntry><TableColumnItems><TableColumnItem><PropertyName>Id</PropertyName></TableColumnItem><TableColumnItem><PropertyName>Field_Id</PropertyName></TableColumnItem><TableColumnItem><PropertyName>Value</PropertyName></TableColumnItem><TableColumnItem><PropertyName>UpdatedAt</PropertyName></TableColumnItem></TableColumnItems></TableRowEntry></TableRowEntries></TableControl>
+        </View>
+        <View>
+            <Name>TeamViewerPS-DeviceCustomFieldConfiguration-TableView</Name>
+            <ViewSelectedBy><TypeName>TeamViewerPS.DeviceCustomFieldConfiguration</TypeName></ViewSelectedBy>
+            <TableControl><TableHeaders><TableColumnHeader><Label>Id</Label><Width>20</Width></TableColumnHeader><TableColumnHeader><Label>Name</Label></TableColumnHeader><TableColumnHeader><Label>Type</Label></TableColumnHeader></TableHeaders><TableRowEntries><TableRowEntry><TableColumnItems><TableColumnItem><PropertyName>Id</PropertyName></TableColumnItem><TableColumnItem><PropertyName>Name</PropertyName></TableColumnItem><TableColumnItem><PropertyName>Type</PropertyName></TableColumnItem></TableColumnItems></TableRowEntry></TableRowEntries></TableControl>
+        </View>
+        <View>
+            <Name>TeamViewerPS-Group-TableView</Name>
+            <ViewSelectedBy><TypeName>TeamViewerPS.Group</TypeName></ViewSelectedBy>
+            <TableControl>
+                <TableHeaders><TableColumnHeader><Label>Id</Label><Width>20</Width></TableColumnHeader><TableColumnHeader><Label>Name</Label></TableColumnHeader><TableColumnHeader><Label>Permissions</Label></TableColumnHeader></TableHeaders>
+                <TableRowEntries><TableRowEntry><TableColumnItems><TableColumnItem><PropertyName>Id</PropertyName></TableColumnItem><TableColumnItem><PropertyName>Name</PropertyName></TableColumnItem><TableColumnItem><PropertyName>Permissions</PropertyName></TableColumnItem></TableColumnItems></TableRowEntry></TableRowEntries>
+            </TableControl>
+        </View>
+        <View>
+            <Name>TeamViewerPS-License-TableView</Name>
+            <ViewSelectedBy><TypeName>TeamViewerPS.License</TypeName></ViewSelectedBy>
+            <TableControl><TableHeaders><TableColumnHeader><Label>Id</Label><Width>20</Width></TableColumnHeader><TableColumnHeader><Label>Name</Label></TableColumnHeader><TableColumnHeader><Label>Licenses_Available</Label></TableColumnHeader></TableHeaders><TableRowEntries><TableRowEntry><TableColumnItems><TableColumnItem><PropertyName>Id</PropertyName></TableColumnItem><TableColumnItem><PropertyName>Name</PropertyName></TableColumnItem><TableColumnItem><PropertyName>Licenses_Available</PropertyName></TableColumnItem></TableColumnItems></TableRowEntry></TableRowEntries></TableControl>
+        </View>
+        <View>
+            <Name>TeamViewerPS-ManagedDevice-TableView</Name>
+            <ViewSelectedBy><TypeName>TeamViewerPS.ManagedDevice</TypeName></ViewSelectedBy>
+            <TableControl>
+                <TableHeaders><TableColumnHeader><Label>Id</Label><Width>36</Width></TableColumnHeader><TableColumnHeader><Label>TeamViewerId</Label></TableColumnHeader><TableColumnHeader><Label>Name</Label></TableColumnHeader><TableColumnHeader><Label>IsOnline</Label></TableColumnHeader></TableHeaders>
+                <TableRowEntries><TableRowEntry><TableColumnItems><TableColumnItem><PropertyName>Id</PropertyName></TableColumnItem><TableColumnItem><PropertyName>TeamViewerId</PropertyName></TableColumnItem><TableColumnItem><PropertyName>Name</PropertyName></TableColumnItem><TableColumnItem><PropertyName>IsOnline</PropertyName></TableColumnItem></TableColumnItems></TableRowEntry></TableRowEntries>
+            </TableControl>
+        </View>
+        <View>
+            <Name>TeamViewerPS-ManagedGroup-TableView</Name>
+            <ViewSelectedBy><TypeName>TeamViewerPS.ManagedGroup</TypeName></ViewSelectedBy>
+            <TableControl>
+                <TableHeaders><TableColumnHeader><Label>Id</Label><Width>36</Width></TableColumnHeader><TableColumnHeader><Label>Name</Label></TableColumnHeader></TableHeaders>
+                <TableRowEntries><TableRowEntry><TableColumnItems><TableColumnItem><PropertyName>Id</PropertyName></TableColumnItem><TableColumnItem><PropertyName>Name</PropertyName></TableColumnItem></TableColumnItems></TableRowEntry></TableRowEntries>
+            </TableControl>
+        </View>
+        <View>
+            <Name>TeamViewerPS-Manager-TableView</Name>
+            <ViewSelectedBy><TypeName>TeamViewerPS.Manager</TypeName></ViewSelectedBy>
+            <TableControl><TableHeaders><TableColumnHeader><Label>Id</Label><Width>36</Width></TableColumnHeader><TableColumnHeader><Label>Name</Label></TableColumnHeader><TableColumnHeader><Label>Manager_Type</Label></TableColumnHeader><TableColumnHeader><Label>Permissions</Label></TableColumnHeader></TableHeaders><TableRowEntries><TableRowEntry><TableColumnItems><TableColumnItem><PropertyName>Id</PropertyName></TableColumnItem><TableColumnItem><PropertyName>Name</PropertyName></TableColumnItem><TableColumnItem><PropertyName>Manager_Type</PropertyName></TableColumnItem><TableColumnItem><PropertyName>Permissions</PropertyName></TableColumnItem></TableColumnItems></TableRowEntry></TableRowEntries></TableControl>
+        </View>
+        <View>
+            <Name>TeamViewerPS-Policy-TableView</Name>
+            <ViewSelectedBy><TypeName>TeamViewerPS.Policy</TypeName></ViewSelectedBy>
+            <TableControl><TableHeaders><TableColumnHeader><Label>Id</Label><Width>36</Width></TableColumnHeader><TableColumnHeader><Label>Name</Label></TableColumnHeader><TableColumnHeader><Label>Settings</Label></TableColumnHeader></TableHeaders><TableRowEntries><TableRowEntry><TableColumnItems><TableColumnItem><PropertyName>Id</PropertyName></TableColumnItem><TableColumnItem><PropertyName>Name</PropertyName></TableColumnItem><TableColumnItem><PropertyName>Settings</PropertyName></TableColumnItem></TableColumnItems></TableRowEntry></TableRowEntries></TableControl>
+        </View>
+        <View>
+            <Name>TeamViewerPS-PredefinedRole-TableView</Name>
+            <ViewSelectedBy><TypeName>TeamViewerPS.PredefinedRole</TypeName></ViewSelectedBy>
+            <TableControl><TableHeaders><TableColumnHeader><Label>Role_Id</Label></TableColumnHeader></TableHeaders><TableRowEntries><TableRowEntry><TableColumnItems><TableColumnItem><PropertyName>Role_Id</PropertyName></TableColumnItem></TableColumnItems></TableRowEntry></TableRowEntries></TableControl>
+        </View>
+        <View>
+            <Name>TeamViewerPS-Role-TableView</Name>
             <ViewSelectedBy>
-                <TypeName>TeamViewerPS.AuditEvent</TypeName>
+                <TypeName>TeamViewerPS.Role</TypeName>
             </ViewSelectedBy>
             <TableControl>
                 <TableHeaders>
                     <TableColumnHeader>
-                        <Label>Timestamp</Label>
+                        <Label>Id</Label>
                         <Alignment>Left</Alignment>
-                        <Width>24</Width>
+                        <Width>20</Width>
                     </TableColumnHeader>
                     <TableColumnHeader>
                         <Label>Name</Label>
                         <Alignment>Left</Alignment>
                     </TableColumnHeader>
                     <TableColumnHeader>
-                        <Label>Author</Label>
+                        <Label>Permissions</Label>
                         <Alignment>Left</Alignment>
-                        <Width>24</Width>
-                    </TableColumnHeader>
-                    <TableColumnHeader>
-                        <Label>Type</Label>
-                        <Alignment>Left</Alignment>
-                        <Width>20</Width>
                     </TableColumnHeader>
                 </TableHeaders>
                 <TableRowEntries>
                     <TableRowEntry>
                         <TableColumnItems>
                             <TableColumnItem>
-                                <PropertyName>Timestamp</PropertyName>
+                                <PropertyName>Id</PropertyName>
                             </TableColumnItem>
                             <TableColumnItem>
                                 <PropertyName>Name</PropertyName>
                             </TableColumnItem>
                             <TableColumnItem>
-                                <PropertyName>Author</PropertyName>
-                            </TableColumnItem>
-                            <TableColumnItem>
-                                <PropertyName>Type</PropertyName>
+                                <PropertyName>Permissions</PropertyName>
                             </TableColumnItem>
                         </TableColumnItems>
                     </TableRowEntry>
                 </TableRowEntries>
+            </TableControl>
+        </View>
+        <View>
+            <Name>TeamViewerPS-RoleAssignedUser-TableView</Name>
+            <ViewSelectedBy><TypeName>TeamViewerPS.RoleAssignedUser</TypeName></ViewSelectedBy>
+            <TableControl>
+                <TableHeaders><TableColumnHeader><Label>User_Id</Label></TableColumnHeader></TableHeaders>
+                <TableRowEntries><TableRowEntry><TableColumnItems><TableColumnItem><PropertyName>User_Id</PropertyName></TableColumnItem></TableColumnItems></TableRowEntry></TableRowEntries>
+            </TableControl>
+        </View>
+        <View>
+            <Name>TeamViewerPS-RoleAssignedUserGroup-TableView</Name>
+            <ViewSelectedBy><TypeName>TeamViewerPS.RoleAssignedUserGroup</TypeName></ViewSelectedBy>
+            <TableControl>
+                <TableHeaders><TableColumnHeader><Label>UserGroup_Id</Label></TableColumnHeader></TableHeaders>
+                <TableRowEntries><TableRowEntry><TableColumnItems><TableColumnItem><PropertyName>UserGroup_Id</PropertyName></TableColumnItem></TableColumnItems></TableRowEntry></TableRowEntries>
+            </TableControl>
+        </View>
+        <View>
+            <Name>TeamViewerPS-SsoDomain-TableView</Name>
+            <ViewSelectedBy><TypeName>TeamViewerPS.SsoDomain</TypeName></ViewSelectedBy>
+            <TableControl><TableHeaders><TableColumnHeader><Label>Id</Label><Width>36</Width></TableColumnHeader><TableColumnHeader><Label>Name</Label></TableColumnHeader></TableHeaders><TableRowEntries><TableRowEntry><TableColumnItems><TableColumnItem><PropertyName>Id</PropertyName></TableColumnItem><TableColumnItem><PropertyName>Name</PropertyName></TableColumnItem></TableColumnItems></TableRowEntry></TableRowEntries></TableControl>
+        </View>
+        <View>
+            <Name>TeamViewerPS-User-TableView</Name>
+            <ViewSelectedBy><TypeName>TeamViewerPS.User</TypeName></ViewSelectedBy>
+            <TableControl>
+                <TableHeaders><TableColumnHeader><Label>Id</Label><Width>20</Width></TableColumnHeader><TableColumnHeader><Label>Name</Label></TableColumnHeader><TableColumnHeader><Label>Email</Label></TableColumnHeader></TableHeaders>
+                <TableRowEntries><TableRowEntry><TableColumnItems><TableColumnItem><PropertyName>Id</PropertyName></TableColumnItem><TableColumnItem><PropertyName>Name</PropertyName></TableColumnItem><TableColumnItem><PropertyName>Email</PropertyName></TableColumnItem></TableColumnItems></TableRowEntry></TableRowEntries>
+            </TableControl>
+        </View>
+        <View>
+            <Name>TeamViewerPS-UserGroup-TableView</Name>
+            <ViewSelectedBy><TypeName>TeamViewerPS.UserGroup</TypeName></ViewSelectedBy>
+            <TableControl>
+                <TableHeaders><TableColumnHeader><Label>Id</Label><Width>20</Width></TableColumnHeader><TableColumnHeader><Label>Name</Label></TableColumnHeader></TableHeaders>
+                <TableRowEntries><TableRowEntry><TableColumnItems><TableColumnItem><PropertyName>Id</PropertyName></TableColumnItem><TableColumnItem><PropertyName>Name</PropertyName></TableColumnItem></TableColumnItems></TableRowEntry></TableRowEntries>
+            </TableControl>
+        </View>
+        <View>
+            <Name>TeamViewerPS-UserGroupMember-TableView</Name>
+            <ViewSelectedBy><TypeName>TeamViewerPS.UserGroupMember</TypeName></ViewSelectedBy>
+            <TableControl>
+                <TableHeaders><TableColumnHeader><Label>Id</Label><Width>20</Width></TableColumnHeader><TableColumnHeader><Label>Name</Label></TableColumnHeader></TableHeaders>
+                <TableRowEntries><TableRowEntry><TableColumnItems><TableColumnItem><PropertyName>Id</PropertyName></TableColumnItem><TableColumnItem><PropertyName>Name</PropertyName></TableColumnItem></TableColumnItems></TableRowEntry></TableRowEntries>
             </TableControl>
         </View>
     </ViewDefinitions>

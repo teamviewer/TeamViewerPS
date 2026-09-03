@@ -1,5 +1,8 @@
-function Set-TeamViewerManager {
+﻿function Set-TeamViewerManager {
     [CmdletBinding(SupportsShouldProcess = $true, DefaultParameterSetName = 'Device_ByParameters')]
+
+    [OutputType([void])]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
@@ -7,29 +10,29 @@ function Set-TeamViewerManager {
 
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
         [ValidateScript( {
-                if (($_.PSObject.TypeNames -contains 'TeamViewerPS.Manager') -And -Not $_.GroupId -And -Not $_.DeviceId) {
+                if (($_.PSObject.TypeNames -contains 'TeamViewerPS.Manager') -and -not $_.Group_Id -and -not $_.Device_Id) {
                     $PSCmdlet.ThrowTerminatingError(
-                        ("Invalid manager object. Manager must be a group or device manager." | `
-                                ConvertTo-ErrorRecord -ErrorCategory InvalidArgument))
+                        ('Invalid manager object. Manager must be a group or device manager.' | `
+                            ConvertTo-ErrorRecord -ErrorCategory InvalidArgument))
                 }
                 $_ | Resolve-TeamViewerManagerId
             })]
-        [Alias("ManagerId")]
-        [Alias("Id")]
+        [Alias('ManagerId')]
+        [Alias('Id')]
         [object]
         $Manager,
 
         [Parameter(ParameterSetName = 'Device_ByParameters')]
         [Parameter(ParameterSetName = 'Device_ByProperties')]
         [ValidateScript( { $_ | Resolve-TeamViewerManagedDeviceId } )]
-        [Alias("DeviceId")]
+        [Alias('DeviceId')]
         [object]
         $Device,
 
         [Parameter(ParameterSetName = 'Group_ByParameters')]
         [Parameter(ParameterSetName = 'Group_ByProperties')]
         [ValidateScript( { $_ | Resolve-TeamViewerManagedGroupId })]
-        [Alias("GroupId")]
+        [Alias('GroupId')]
         [object]
         $Group,
 
@@ -44,74 +47,74 @@ function Set-TeamViewerManager {
         [hashtable]
         $Property
     )
-    Begin {
-        # Warning suppresion doesn't seem to work.
+
+    begin {
+        # Warning suppression doesn't seem to work.
         # See https://github.com/PowerShell/PSScriptAnalyzer/issues/1472
         $null = $Property
 
-        $body = @{}
+        $Body = @{}
+
         switch -Wildcard ($PSCmdlet.ParameterSetName) {
             '*ByParameters' {
-                $body['permissions'] = @($Permissions)
+                $Body['permissions'] = @($Permissions)
             }
             '*ByProperties' {
-                @('permissions') | `
-                    Where-Object { $Property[$_] } | `
-                    ForEach-Object { $body[$_] = $Property[$_] }
+                @('permissions') | Where-Object { $Property[$_] } | ForEach-Object { $Body[$_] = $Property[$_] }
             }
         }
 
-        if ($body.Count -eq 0) {
+        if ($Body.Count -eq 0) {
             $PSCmdlet.ThrowTerminatingError(
-                ("The given input does not change the manager." | `
-                        ConvertTo-ErrorRecord -ErrorCategory InvalidArgument))
+                ('The given input does not change the manager.' | ConvertTo-ErrorRecord -ErrorCategory InvalidArgument))
         }
     }
-    Process {
-        $deviceId = $null
-        $groupId = $null
+    process {
+        $DeviceId = $null
+        $GroupId = $null
+
         if ($Manager.PSObject.TypeNames -contains 'TeamViewerPS.Manager') {
-            if ($Device -Or $Group) {
+            if ($Device -or $Group) {
                 $PSCmdlet.ThrowTerminatingError(
-                    ("Device or Group parameter must not be specified if a [TeamViewerPS.Manager] object is given." | `
-                            ConvertTo-ErrorRecord -ErrorCategory InvalidArgument))
+                    ('Device or Group parameter must not be specified if a [TeamViewerPS.Manager] object is given.' | ConvertTo-ErrorRecord -ErrorCategory InvalidArgument))
             }
-            if ($Manager.DeviceId) {
-                $deviceId = $Manager.DeviceId
+
+            if ($Manager.Device_Id) {
+                $DeviceId = $Manager.Device_Id
             }
-            elseif ($Manager.GroupId) {
-                $groupId = $Manager.GroupId
+            elseif ($Manager.Group_Id) {
+                $GroupId = $Manager.Group_Id
             }
         }
         elseif ($Device) {
-            $deviceId = $Device | Resolve-TeamViewerManagedDeviceId
+            $DeviceId = $Device | Resolve-TeamViewerManagedDeviceId
         }
         elseif ($Group) {
-            $groupId = $Group | Resolve-TeamViewerManagedGroupId
+            $GroupId = $Group | Resolve-TeamViewerManagedGroupId
         }
         else {
             $PSCmdlet.ThrowTerminatingError(
-                ("Device or Group parameter must be specified if no [TeamViewerPS.Manager] object is given." | `
-                        ConvertTo-ErrorRecord -ErrorCategory InvalidArgument))
+                ('Device or Group parameter must be specified if no [TeamViewerPS.Manager] object is given.' | ConvertTo-ErrorRecord -ErrorCategory InvalidArgument))
         }
 
         $managerId = $Manager | Resolve-TeamViewerManagerId
-        if ($deviceId) {
-            $resourceUri = "$(Get-TeamViewerApiUri)/managed/devices/$deviceId/managers/$managerId"
-            $processMessage = "Update managed device manager"
+
+        if ($DeviceId) {
+            $ResourceUri = "$(Get-TeamViewerApiUri)/managed/devices/$DeviceId/managers/$managerId"
+            $Process_Message = 'Update managed device manager'
         }
-        elseif ($groupId) {
-            $resourceUri = "$(Get-TeamViewerApiUri)/managed/groups/$groupId/managers/$managerId"
-            $processMessage = "Update managed group manager"
+        elseif ($GroupId) {
+            $ResourceUri = "$(Get-TeamViewerApiUri)/managed/groups/$GroupId/managers/$managerId"
+            $Process_Message = 'Update managed group manager'
         }
 
-        if ($PSCmdlet.ShouldProcess($managerId, $processMessage)) {
+        if ($PSCmdlet.ShouldProcess($managerId, $Process_Message)) {
             Invoke-TeamViewerRestMethod `
                 -ApiToken $ApiToken `
-                -Uri $resourceUri `
+                -Uri $ResourceUri `
                 -Method Put `
-                -ContentType "application/json; charset=utf-8" `
-                -Body ([System.Text.Encoding]::UTF8.GetBytes(($body | ConvertTo-Json))) `
+                -ContentType 'application/json; charset=utf-8' `
+                -Body ([System.Text.Encoding]::UTF8.GetBytes(($Body | ConvertTo-Json))) `
                 -WriteErrorTo $PSCmdlet | `
                 Out-Null
         }

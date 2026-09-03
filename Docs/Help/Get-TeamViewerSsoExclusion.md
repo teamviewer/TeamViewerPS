@@ -1,4 +1,4 @@
----
+﻿---
 external help file: TeamViewerPS-help.xml
 Module Name: TeamViewerPS
 online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/Get-TeamViewerSsoExclusion.md
@@ -20,8 +20,7 @@ Get-TeamViewerSsoExclusion [-ApiToken] <SecureString> [-DomainId] <Object> [<Com
 ## DESCRIPTION
 
 Get the list of excluded email addresses for a given TeamViewer SSO domain.
-These email addresses are excluded from logging in via Single Sign-On and
-instead must login using their TeamViewer account password.
+These email addresses are excluded from logging in via Single Sign-On and instead must login using their TeamViewer account password.
 
 ## EXAMPLES
 
@@ -52,8 +51,7 @@ Accept wildcard characters: False
 ### -DomainId
 
 Object that can be used to identify the SSO domain to get exclusion entries for.
-This can either be the SSO domain ID (as string or GUID) or a SsoDomain
-object that has been received using the `Get-TeamViewerSsoDomain` function.
+This can either be the SSO domain Id (as string or GUID) or a SsoDomain object that has been received using the `Get-TeamViewerSsoDomain` function.
 
 ```yaml
 Type: Object

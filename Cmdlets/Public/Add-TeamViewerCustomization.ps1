@@ -1,5 +1,8 @@
-Function Add-TeamViewerCustomization {
-    [CmdletBinding()]
+﻿function Add-TeamViewerCustomization {
+    [CmdletBinding(SupportsShouldProcess = $true)]
+
+    [OutputType([void])]
+
     param (
         [Parameter(Mandatory = $true, ParameterSetName = 'ById')]
         [object]
@@ -16,28 +19,37 @@ Function Add-TeamViewerCustomization {
         $RemoveExisting
     )
 
-    if (Test-TeamViewerInstallation) {
-        $installationDirectory = Get-TeamViewerInstallationDirectory
-        $currentDirectory = Get-Location
-        Set-Location $installationDirectory
-        $cmd = 'customize'
+    begin {
+        $TV_ApplicationFilePath = (Join-Path -Path (Get-TeamViewerInstallationDirectory) -ChildPath 'TeamViewer.exe')
+        $TV_AssignmentParams = 'customize'
+
         if ($Id) {
-            $cmd += " --id $Id"
+            $TV_AssignmentParams += " --id $Id"
         }
-        elseif ($Path) {
-            $cmd += " --path $Path"
+
+        if ($Path) {
+            $TV_AssignmentParams += " --path $Path"
         }
-        if ($RemoveExisting) {
-            $cmd += ' --remove'
-        }
+
         if ($RestartGUI) {
-            $cmd += ' --restart-gui'
+            $TV_AssignmentParams += ' --restart-gui'
         }
-        $process = Start-Process -FilePath TeamViewer.exe -ArgumentList $cmd -Wait -PassThru
-        $process.ExitCode | Resolve-CustomizationErrorCode
-        Set-Location $currentDirectory
+
+        if ($RemoveExisting) {
+            $TV_AssignmentParams += ' --remove'
+        }
     }
-    else {
-        Write-Error 'TeamViewer is not installed'
+
+    process {
+        if (-not (Test-TeamViewerInstallation)) {
+            Write-Error 'TeamViewer is not installed!'
+
+            continue
+        }
+
+        if ($PSCmdlet.ShouldProcess($TV_ApplicationFilePath, 'Add customization')) {
+            $process = Start-Process -FilePath $TV_ApplicationFilePath -ArgumentList $TV_AssignmentParams -Wait -PassThru
+            $process.ExitCode | Resolve-TeamViewerCustomizationErrorCode
+        }
     }
 }

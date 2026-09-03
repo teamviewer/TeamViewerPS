@@ -1,5 +1,8 @@
-function Remove-TeamViewerGroup {
+﻿function Remove-TeamViewerGroup {
     [CmdletBinding(SupportsShouldProcess = $true)]
+
+    [OutputType([void])]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
@@ -7,19 +10,20 @@ function Remove-TeamViewerGroup {
 
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerGroupId } )]
-        [Alias("GroupId")]
-        [Alias("Id")]
+        [Alias('GroupId')]
+        [Alias('Id')]
         [object]
         $Group
     )
-    Process {
-        $groupId = $Group | Resolve-TeamViewerGroupId
-        $resourceUri = "$(Get-TeamViewerApiUri)/groups/$groupId"
 
-        if ($PSCmdlet.ShouldProcess($groupId, "Remove group")) {
+    process {
+        $GroupId = $Group | Resolve-TeamViewerGroupId
+        $ResourceUri = "$(Get-TeamViewerApiUri)/groups/$GroupId"
+
+        if ($PSCmdlet.ShouldProcess($GroupId, 'Remove group')) {
             Invoke-TeamViewerRestMethod `
                 -ApiToken $ApiToken `
-                -Uri $resourceUri `
+                -Uri $ResourceUri `
                 -Method Delete `
                 -WriteErrorTo $PSCmdlet | `
                 Out-Null

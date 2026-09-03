@@ -1,4 +1,4 @@
-BeforeAll {
+﻿BeforeAll {
     . "$PSScriptRoot\..\..\Cmdlets\Public\New-TeamViewerRole.ps1"
 
     @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
@@ -28,9 +28,7 @@ Describe 'New-TeamViewerRole' {
         New-TeamViewerRole -ApiToken $testApiToken -Name $testRoleName
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -And `
-                $Uri -eq '//unit.test/userroles' -And `
-                $Method -eq 'Post'
+            $ApiToken -eq $testApiToken -and $Uri -eq '//unit.test/userroles' -and $Method -eq 'Post'
         }
     }
 
@@ -38,26 +36,31 @@ Describe 'New-TeamViewerRole' {
         New-TeamViewerRole -ApiToken $testApiToken -Name $testRoleName
 
         $mockArgs.Body | Should -Not -BeNullOrEmpty
-        $body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
-        $body.Name | Should -Be $testRoleName
+        $Body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
+        $Body.Name | Should -Be $testRoleName
     }
 
     It 'Should include the given permissions in the request' {
         New-TeamViewerRole -ApiToken $testApiToken -Name $testRoleName -Permissions $testPermissions
 
         $mockArgs.Body | Should -Not -BeNullOrEmpty
-        $body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
-        $body.Permissions | Should -Be $testPermissions
+        $Body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
+        $Body.Permissions | Should -Be $testPermissions
     }
 
     It 'Should return a Role object' {
-        $result = New-TeamViewerRole -ApiToken $testApiToken -Name $testRoleName -Permissions $testPermissions
-        $result | Should -Not -BeNullOrEmpty
-        $result | Should -BeOfType [PSObject]
-        $result.PSObject.TypeNames | Should -Contain 'TeamViewerPS.Role'
-        $result.RoleName | Should -Be $testRoleName
-        foreach ($Rule in $result.Permissions) {
-            $result.Permissions.$Rule | Should -Be $testPermissions
-        }
+        $Result = New-TeamViewerRole -ApiToken $testApiToken -Name $testRoleName -Permissions $testPermissions
+        $Result | Should -Not -BeNullOrEmpty
+        $Result | Should -BeOfType ([pscustomobject])
+        $Result.PSObject.TypeNames | Should -Contain 'TeamViewerPS.Role'
+        $Result.Name | Should -Be $testRoleName
+
+        $Result.Permissions | Should -Be $testPermissions
+    }
+
+    It 'Should not invoke REST when WhatIf is used' {
+        New-TeamViewerRole -ApiToken $testApiToken -Name $testRoleName -WhatIf
+
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 0 -Scope It
     }
 }

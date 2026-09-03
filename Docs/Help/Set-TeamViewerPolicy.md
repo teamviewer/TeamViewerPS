@@ -1,4 +1,4 @@
----
+﻿---
 external help file: TeamViewerPS-help.xml
 Module Name: TeamViewerPS
 online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/Set-TeamViewerPolicy.md
@@ -94,8 +94,7 @@ Accept wildcard characters: False
 ### -Policy
 
 Object that can be used to identify the policy.
-This can either be the policy ID (as string or GUID) or a policy object that has
-been received using other module functions.
+This can either be the policy Id (as string or GUID) or a policy object that has been received using other module functions.
 
 ```yaml
 Type: Object
@@ -132,11 +131,8 @@ Change settings of the TeamViewer policy.
 Must be objects with the following properties:
 
 `key`: The label of a setting
-
 `value`: The value of a setting
-
-`enforce`: `true` or `false`. Enforced settings cannot be changed on the device
-itself.
+`enforce`: `true` or `false`. Enforced settings cannot be changed on the device itself.
 
 ```yaml
 Type: Object[]

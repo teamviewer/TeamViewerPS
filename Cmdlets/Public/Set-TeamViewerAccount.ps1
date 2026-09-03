@@ -1,5 +1,8 @@
-function Set-TeamViewerAccount {
+﻿function Set-TeamViewerAccount {
     [CmdletBinding(SupportsShouldProcess = $true, DefaultParameterSetName = 'ByParameters')]
+
+    [OutputType([void])]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
@@ -37,56 +40,60 @@ function Set-TeamViewerAccount {
     # See https://github.com/PowerShell/PSScriptAnalyzer/issues/1472
     $null = $Property
 
-    $body = @{}
+    $Body = @{}
+
     switch ($PSCmdlet.ParameterSetName) {
         'ByParameters' {
             if ($Name) {
-                $body['name'] = $Name
+                $Body['name'] = $Name
             }
+
             if ($Email) {
-                $body['email'] = $Email
+                $Body['email'] = $Email
             }
+
             if ($Password) {
-                if (-Not $OldPassword) {
+                if (-not $OldPassword) {
                     $PSCmdlet.ThrowTerminatingError(
-                        ("Old password required when attempting to change account password." | `
-                                ConvertTo-ErrorRecord -ErrorCategory InvalidArgument))
+                        ('Old password required when attempting to change account password.' | `
+                            ConvertTo-ErrorRecord -ErrorCategory InvalidArgument))
                 }
 
                 $bstr = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($Password)
-                $body['password'] = [System.Runtime.InteropServices.Marshal]::PtrToStringBSTR($bstr)
+                $Body['password'] = [System.Runtime.InteropServices.Marshal]::PtrToStringBSTR($bstr)
                 [System.Runtime.InteropServices.Marshal]::ZeroFreeBSTR($bstr) | Out-Null
 
                 $bstr = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($OldPassword)
-                $body['oldpassword'] = [System.Runtime.InteropServices.Marshal]::PtrToStringBSTR($bstr)
+                $Body['oldpassword'] = [System.Runtime.InteropServices.Marshal]::PtrToStringBSTR($bstr)
                 [System.Runtime.InteropServices.Marshal]::ZeroFreeBSTR($bstr) | Out-Null
             }
+
             if ($EmailLanguage) {
-                $body['email_language'] = $EmailLanguage | Resolve-TeamViewerLanguage
+                $Body['email_language'] = $EmailLanguage | Resolve-TeamViewerLanguage
             }
         }
         'ByProperties' {
             @('name', 'email', 'password', 'oldpassword', 'email_language') | `
                 Where-Object { $Property[$_] } | `
-                ForEach-Object { $body[$_] = $Property[$_] }
+                ForEach-Object { $Body[$_] = $Property[$_] }
         }
     }
 
-    if ($body.Count -eq 0) {
+    if ($Body.Count -eq 0) {
         $PSCmdlet.ThrowTerminatingError(
-            ("The given input does not change the account." | `
-                    ConvertTo-ErrorRecord -ErrorCategory InvalidArgument))
+            ('The given input does not change the account.' | `
+                ConvertTo-ErrorRecord -ErrorCategory InvalidArgument))
     }
 
-    $resourceUri = "$(Get-TeamViewerApiUri)/account"
+    $ResourceUri = "$(Get-TeamViewerApiUri)/account"
 
-    if ($PSCmdlet.ShouldProcess("TeamViewer account")) {
+    if ($PSCmdlet.ShouldProcess('TeamViewer account')) {
         Invoke-TeamViewerRestMethod `
             -ApiToken $ApiToken `
-            -Uri $resourceUri `
+            -Uri $ResourceUri `
             -Method Put `
-            -ContentType "application/json; charset=utf-8" `
-            -Body ([System.Text.Encoding]::UTF8.GetBytes(($body | ConvertTo-Json))) `
+            -ContentType 'application/json; charset=utf-8' `
+            -Body ([System.Text.Encoding]::UTF8.GetBytes(($Body | ConvertTo-Json))) `
             -WriteErrorTo $PSCmdlet | `
             Out-Null
     }

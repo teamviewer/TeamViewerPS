@@ -1,4 +1,4 @@
----
+﻿---
 external help file: TeamViewerPS-help.xml
 Module Name: TeamViewerPS
 online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/Get-TeamViewerPredefinedRole.md
@@ -29,12 +29,12 @@ Retrieves the Predefined role among the existing roles in the TeamViewer company
 PS /> Get-TeamViewerPredefinedRole
 ```
 
-Retrieves the Predefined Role ID.
+Retrieves the Predefined Role Id.
 
 ### Example 2
 
 ```powershell
-PS /> forEach-Object { Get-TeamViewerRole | Where-Object { $_.RoleID -eq (Get-TeamViewerPredefinedRole).PredefinedRoleID } }
+PS /> forEach-Object { Get-TeamViewerRole | Where-Object { $_.RoleId -eq (Get-TeamViewerPredefinedRole).Role_Id } }
 ```
 
 Retrieves the complete information about the predefined role.

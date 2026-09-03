@@ -1,25 +1,20 @@
-function ConvertTo-TeamViewerRole {
+﻿function ConvertTo-TeamViewerRole {
     param(
         [Parameter(ValueFromPipeline)]
-        [PSObject]
+        [object]
         $InputObject
     )
+
     process {
-        $properties = @{
-            RoleName = $InputObject.Name
-            RoleID   = $InputObject.Id
+        $Properties = @{
+            Id          = $InputObject.Id
+            Name        = $InputObject.Name
+            Permissions = $InputObject.Permissions
         }
-        if ($InputObject.Permissions) {
-            foreach ($permission in $InputObject.Permissions.PSObject.Properties) {
-                $properties[$permission.Name] = $permission.Value
-            }
-        }
-        $result = New-Object -TypeName PSObject -Property $properties
-        $result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.Role')
-        $result | Add-Member -MemberType ScriptMethod -Name 'ToString' -Force -Value {
-            Write-Output "[$($this.RoleName)] [$($this.RoleID)] $($this.Permissions))"
-        }
-        Write-Output $result
+
+        $Result = New-Object -TypeName PSObject -Property $Properties
+        $Result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.Role')
+
+        Write-Output $Result
     }
 }
-

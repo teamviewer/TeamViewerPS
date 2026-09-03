@@ -1,4 +1,4 @@
----
+﻿---
 external help file: TeamViewerPS-help.xml
 Module Name: TeamViewerPS
 online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/Remove-TeamViewerDevice.md
@@ -19,8 +19,7 @@ Remove-TeamViewerDevice [-ApiToken] <SecureString> [-Device] <Object> [-WhatIf] 
 
 ## DESCRIPTION
 
-Deletes a device from the Computers & Contacts list of the account associated to
-the API access token.
+Deletes a device from the Computers & Contacts list of the account associated to the API access token.
 
 ## EXAMPLES
 
@@ -67,8 +66,7 @@ Accept wildcard characters: False
 ### -Device
 
 Object that can be used to identify the device entry.
-This can either be the device ID or a device object that has been received
-using other module functions.
+This can either be the device Id or a device object that has been received using other module functions.
 
 ```yaml
 Type: Object

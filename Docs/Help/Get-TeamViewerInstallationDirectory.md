@@ -1,4 +1,4 @@
----
+﻿---
 external help file: TeamViewerPS-help.xml
 Module Name: TeamViewerPS
 online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/Get-TeamViewerInstallationDirectory.md
@@ -34,8 +34,6 @@ Returns the installation directory.
 ## PARAMETERS
 
 ### CommonParameters
-
-### None
 
 ## INPUTS
 

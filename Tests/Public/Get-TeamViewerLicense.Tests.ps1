@@ -1,8 +1,7 @@
-BeforeAll {
+﻿BeforeAll {
     . "$PSScriptRoot\..\..\Cmdlets\Public\Get-TeamViewerLicense.ps1"
 
-    @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | `
-        ForEach-Object { . $_.FullName }
+    @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
 
     $testApiToken = [securestring]@{}
     $null = $testApiToken
@@ -38,20 +37,17 @@ Describe 'Get-TeamViewerLicense' {
         Get-TeamViewerLicense -ApiToken $testApiToken
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -and `
-                $Uri -eq '//unit.test/company/license' -and `
-                $Method -eq 'Get' }
+            $ApiToken -eq $testApiToken -and $Uri -eq '//unit.test/company/license' -and $Method -eq 'Get' }
     }
 
     It 'Should return License object' {
-        $result = Get-TeamViewerLicense -ApiToken $testApiToken
-        $result | Should -Not -BeNullOrEmpty
-        $result.PSObject.TypeNames | Should -Contain 'TeamViewerPS.License'
-        $result.CompanyId | Should -Be 42
-        $result.CompanyName | Should -Be 'TeamViewer Germany GmbH'
-        $result.AvailableLicenses | Should -HaveCount 1
-        $result.AvailableLicenses[0].PSObject.TypeNames | Should -Contain 'TeamViewerPS.LicenseInformation'
-        $result.AvailableLicenses[0].LicenseName | Should -Be 'Tensor'
-        $result.ToString() | Should -Be 'TeamViewer Germany GmbH'
+        $Result = Get-TeamViewerLicense -ApiToken $testApiToken
+        $Result | Should -Not -BeNullOrEmpty
+        $Result.PSObject.TypeNames | Should -Contain 'TeamViewerPS.License'
+        $Result.Id | Should -Be 42
+        $Result.Name | Should -Be 'TeamViewer Germany GmbH'
+        $Result.Licenses_Available | Should -HaveCount 1
+        $Result.Licenses_Available[0].PSObject.TypeNames | Should -Contain 'TeamViewerPS.LicenseInformation'
+        $Result.Licenses_Available[0].Name | Should -Be 'Tensor'
     }
 }

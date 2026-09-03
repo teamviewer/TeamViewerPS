@@ -1,5 +1,8 @@
-function Add-TeamViewerUserGroupMember {
+﻿function Add-TeamViewerUserGroupMember {
     [CmdletBinding(SupportsShouldProcess = $true)]
+
+    [OutputType('TeamViewerPS.UserGroupMember')]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
@@ -22,28 +25,28 @@ function Add-TeamViewerUserGroupMember {
         $Member
     )
 
-    Begin {
-        $id = $UserGroup | Resolve-TeamViewerUserGroupId
-        $resourceUri = "$(Get-TeamViewerApiUri)/usergroups/$id/members"
-        $membersToAdd = @()
-        $body = @()
+    begin {
+        $Id = $UserGroup | Resolve-TeamViewerUserGroupId
+        $ResourceUri = "$(Get-TeamViewerApiUri)/usergroups/$Id/members"
+        $MembersToAdd = @()
+        $Body = @()
         $null = $ApiToken # https://github.com/PowerShell/PSScriptAnalyzer/issues/1472
 
         function Invoke-TeamViewerRestMethodInternal {
-            $result = Invoke-TeamViewerRestMethod `
+            $Result = Invoke-TeamViewerRestMethod `
                 -ApiToken $ApiToken `
-                -Uri $resourceUri `
+                -Uri $ResourceUri `
                 -Method Post `
                 -ContentType 'application/json; charset=utf-8' `
-                -Body ([System.Text.Encoding]::UTF8.GetBytes(($body))) `
+                -Body ([System.Text.Encoding]::UTF8.GetBytes(($Body))) `
                 -WriteErrorTo $PSCmdlet `
                 -ErrorAction Stop
 
-            Write-Output ($result | ConvertTo-TeamViewerUserGroupMember)
+            Write-Output ($Result | ConvertTo-TeamViewerUserGroupMember)
         }
     }
 
-    Process {
+    process {
         # when members are provided as pipeline input, each member is provided as a separate statement,
         # thus the members should be combined into one array in order to send a single request.
         if ($PSCmdlet.ShouldProcess($Member, 'Add user groups member')) {
@@ -57,27 +60,28 @@ function Add-TeamViewerUserGroupMember {
                     $Member = [int[]]$Member.trim('u')
                 }
             }
+
             if ($Member -isnot [array]) {
-                $membersToAdd = @([UInt32]$Member)
+                $MembersToAdd = @([UInt32]$Member)
             }
             else {
-                $membersToAdd += [UInt32[]]$Member
+                $MembersToAdd += [UInt32[]]$Member
             }
-            $payload = $membersToAdd -join ', '
-            $body = "[$payload]"
+
+            $Payload = $MembersToAdd -join ', '
+            $Body = "[$Payload]"
         }
 
-        # WebAPI accepts a maximum of 100 accounts. Thus we send a request and reset the `membersToAdd`
-        # in order to accept more members
-        if ($membersToAdd.Length -eq 100) {
+        # Web API accepts a maximum of 100 accounts. Thus we send a request and reset the `membersToAdd` in order to accept more members
+        if ($MembersToAdd.Length -eq 100) {
             Invoke-TeamViewerRestMethodInternal
-            $membersToAdd = @()
+            $MembersToAdd = @()
         }
     }
 
-    End {
+    end {
         # A request needs to be sent if there were less than 100 members
-        if ($membersToAdd.Length -gt 0) {
+        if ($MembersToAdd.Length -gt 0) {
             Invoke-TeamViewerRestMethodInternal
         }
     }

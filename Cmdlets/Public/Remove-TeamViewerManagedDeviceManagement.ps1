@@ -1,5 +1,8 @@
-function Remove-TeamViewerManagedDeviceManagement {
+﻿function Remove-TeamViewerManagedDeviceManagement {
     [CmdletBinding(SupportsShouldProcess = $true)]
+
+    [OutputType([void])]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
@@ -11,15 +14,16 @@ function Remove-TeamViewerManagedDeviceManagement {
         [object]
         $Device
     )
-    Process {
-        $deviceId = $Device | Resolve-TeamViewerManagedDeviceId
 
-        $resourceUri = "$(Get-TeamViewerApiUri)/managed/devices/$deviceId"
+    process {
+        $DeviceId = $Device | Resolve-TeamViewerManagedDeviceId
 
-        if ($PSCmdlet.ShouldProcess($deviceId, 'Remove Management from a device (clears all managers and groups)')) {
+        $ResourceUri = "$(Get-TeamViewerApiUri)/managed/devices/$DeviceId"
+
+        if ($PSCmdlet.ShouldProcess($DeviceId, 'Remove Management from a device (clears all managers and groups)')) {
             Invoke-TeamViewerRestMethod `
                 -ApiToken $ApiToken `
-                -Uri $resourceUri `
+                -Uri $ResourceUri `
                 -Method Delete `
                 -WriteErrorTo $PSCmdlet | `
                 Out-Null

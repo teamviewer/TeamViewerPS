@@ -1,8 +1,7 @@
-BeforeAll {
+﻿BeforeAll {
     . "$PSScriptRoot\..\..\Cmdlets\Public\Get-TeamViewerSsoInclusion.ps1"
 
-    @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | `
-        ForEach-Object { . $_.FullName }
+    @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
 
     $testApiToken = [securestring]@{}
     $null = $testApiToken
@@ -24,18 +23,17 @@ BeforeAll {
 Describe 'Get-TeamViewerSsoInclusion' {
     It 'Should call the correct API endpoint' {
         Get-TeamViewerSsoInclusion -ApiToken $testApiToken -DomainId $testDomainId
+
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -And `
-                $Uri -eq "//unit.test/ssoDomain/$testDomainId/inclusion" -And `
-                $Method -eq 'Get' }
+            $ApiToken -eq $testApiToken -and $Uri -eq "//unit.test/ssoDomain/$testDomainId/inclusion" -and $Method -eq 'Get' }
     }
 
     It 'Should return included email addresses' {
-        $result = Get-TeamViewerSsoInclusion -ApiToken $testApiToken -DomainId $testDomainId
-        $result | Should -HaveCount 3
-        $result | Should -Contain 'test1@example.com'
-        $result | Should -Contain 'test2@example.com'
-        $result | Should -Contain 'test3@example.com'
+        $Result = Get-TeamViewerSsoInclusion -ApiToken $testApiToken -DomainId $testDomainId
+        $Result | Should -HaveCount 3
+        $Result | Should -Contain 'test1@example.com'
+        $Result | Should -Contain 'test2@example.com'
+        $Result | Should -Contain 'test3@example.com'
     }
 
     It 'Should fetch consecutive pages' {
@@ -47,40 +45,38 @@ Describe 'Get-TeamViewerSsoInclusion' {
                     'test6@example.com'
                 )
             } }
+
         Mock Invoke-TeamViewerRestMethod { @{
                 emails = @(
                     'test7@example.com'
                 )
-            } } -ParameterFilter { $Body -And $Body['ct'] -eq 'abc' }
+            } } -ParameterFilter { $Body -and $Body['ct'] -eq 'abc' }
 
-        $result = Get-TeamViewerSsoInclusion -ApiToken $testApiToken -DomainId $testDomainId
-        $result | Should -HaveCount 4
-        $result | Should -Contain 'test4@example.com'
-        $result | Should -Contain 'test5@example.com'
-        $result | Should -Contain 'test6@example.com'
-        $result | Should -Contain 'test7@example.com'
+        $Result = Get-TeamViewerSsoInclusion -ApiToken $testApiToken -DomainId $testDomainId
+        $Result | Should -HaveCount 4
+        $Result | Should -Contain 'test4@example.com'
+        $Result | Should -Contain 'test5@example.com'
+        $Result | Should -Contain 'test6@example.com'
+        $Result | Should -Contain 'test7@example.com'
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 2 -Scope It
     }
 
     It 'Should handle domain objects as input' {
         $testDomain = @{DomainId = $testDomainId; DomainName = 'test managed group' } | ConvertTo-TeamViewerSsoDomain
-        $result = Get-TeamViewerSsoInclusion -ApiToken $testApiToken -Domain $testDomain
-        $result | Should -HaveCount 3
-        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -And `
-                $Uri -eq "//unit.test/ssoDomain/$testDomainId/inclusion" -And `
-                $Method -eq 'Get' }
-    }
+        $Result = Get-TeamViewerSsoInclusion -ApiToken $testApiToken -Domain $testDomain
+        $Result | Should -HaveCount 3
 
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+            $ApiToken -eq $testApiToken -and $Uri -eq "//unit.test/ssoDomain/$testDomainId/inclusion" -and $Method -eq 'Get' }
+    }
 
     It 'Should handle domain objects as input' {
         $testDomain = @{DomainId = $testDomainId; DomainName = 'test managed group' } | ConvertTo-TeamViewerSsoDomain
-        $result = Get-TeamViewerSsoInclusion -ApiToken $testApiToken -Domain $testDomain
-        $result | Should -HaveCount 3
+        $Result = Get-TeamViewerSsoInclusion -ApiToken $testApiToken -Domain $testDomain
+        $Result | Should -HaveCount 3
+
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -And `
-                $Uri -eq "//unit.test/ssoDomain/$testDomainId/inclusion" -And `
-                $Method -eq 'Get' }
+            $ApiToken -eq $testApiToken -and $Uri -eq "//unit.test/ssoDomain/$testDomainId/inclusion" -and $Method -eq 'Get' }
     }
 }

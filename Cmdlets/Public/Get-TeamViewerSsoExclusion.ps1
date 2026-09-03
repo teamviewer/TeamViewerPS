@@ -1,4 +1,8 @@
-function Get-TeamViewerSsoExclusion {
+﻿function Get-TeamViewerSsoExclusion {
+    [CmdletBinding()]
+
+    [OutputType([string[]])]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
@@ -6,24 +10,26 @@ function Get-TeamViewerSsoExclusion {
 
         [Parameter(Mandatory = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerSsoDomainId } )]
-        [Alias("Domain")]
+        [Alias('Id', 'DomainId', 'SsoDomainId', 'SsoDomain')]
         [object]
-        $DomainId
+        $Domain
     )
 
-    $id = $DomainId | Resolve-TeamViewerSsoDomainId
-    $resourceUri = "$(Get-TeamViewerApiUri)/ssoDomain/$id/exclusion";
-    $parameters = @{ }
+    $DomainId = $Domain | Resolve-TeamViewerSsoDomainId
+    $ResourceUri = "$(Get-TeamViewerApiUri)/ssoDomain/$DomainId/exclusion"
+    $Parameters = @{ }
+
     do {
-        $response = Invoke-TeamViewerRestMethod `
+        $Response = Invoke-TeamViewerRestMethod `
             -ApiToken $ApiToken `
-            -Uri $resourceUri `
+            -Uri $ResourceUri `
             -Method Get `
-            -Body $parameters `
+            -Body $Parameters `
             -WriteErrorTo $PSCmdlet `
             -ErrorAction Stop
 
-        Write-Output $response.emails
-        $parameters.ct = $response.continuation_token
-    } while ($parameters.ct)
+        Write-Output $Response.emails
+
+        $Parameters.ct = $Response.continuation_token
+    } while ($Parameters.ct)
 }

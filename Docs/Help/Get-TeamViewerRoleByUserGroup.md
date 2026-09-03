@@ -1,4 +1,4 @@
----
+﻿---
 external help file: TeamViewerPS-help.xml
 Module Name: TeamViewerPS
 online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/Get-TeamViewerUserGroupByRole.md
@@ -29,7 +29,7 @@ Lists the assigned role of a user group in the TeamViewer company associated wit
 PS /> Get-TeamViewerRoleByUserGroup -GroupId "12345"
 ```
 
-Lists the assigned role of the user group with the ID 12345.
+Lists the assigned role of the user group with the Id 12345.
 
 ## PARAMETERS
 
@@ -49,14 +49,14 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -GroupId
+### -UserGroup
 
 Group to list its assigned role.
 
 ```yaml
 Type: Object
 Parameter Sets: (All)
-Aliases: GroupId
+Aliases: Id, UserGroupId
 
 Required: True
 Position: 1
@@ -77,7 +77,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ### System.Object
 
-An array of `TeamViewerPS.UserGroupAssignedRole` objects.
+An array of `TeamViewerPS.RoleAssignedUserGroup` objects.
 
 ## NOTES
 

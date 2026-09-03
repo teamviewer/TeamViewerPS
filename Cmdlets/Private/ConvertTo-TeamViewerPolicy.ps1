@@ -1,12 +1,12 @@
-function ConvertTo-TeamViewerPolicy {
+﻿function ConvertTo-TeamViewerPolicy {
     param(
         [Parameter(ValueFromPipeline)]
-        [PSObject]
+        [object]
         $InputObject
     )
 
     process {
-        $properties = @{
+        $Properties = @{
             Id       = $InputObject.policy_id
             Name     = $InputObject.name
             Settings = @(
@@ -20,8 +20,9 @@ function ConvertTo-TeamViewerPolicy {
             )
         }
 
-        $result = New-Object -TypeName PSObject -Property $properties
-        $result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.Policy')
-        Write-Output $result
+        $Result = New-Object -TypeName PSObject -Property $Properties
+        $Result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.Policy')
+
+        Write-Output $Result
     }
 }

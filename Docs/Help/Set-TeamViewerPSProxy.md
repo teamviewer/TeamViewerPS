@@ -1,4 +1,4 @@
----
+﻿---
 external help file: TeamViewerPS-help.xml
 Module Name: TeamViewerPS
 online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/Set-TeamViewerPSProxy.md
@@ -19,7 +19,7 @@ Set-TeamViewerPSProxy [-ProxyUri] <Uri> [<CommonParameters>]
 
 ## DESCRIPTION
 
-Sets a Proxy to access webAPI for TeamViewerPS module functions.
+Sets a Proxy to access web API for TeamViewerPS module functions.
 
 ## EXAMPLES
 

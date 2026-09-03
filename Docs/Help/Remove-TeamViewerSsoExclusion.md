@@ -1,4 +1,4 @@
----
+﻿---
 external help file: TeamViewerPS-help.xml
 Module Name: TeamViewerPS
 online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/Remove-TeamViewerSsoExclusion.md
@@ -21,8 +21,7 @@ Remove-TeamViewerSsoExclusion [-ApiToken] <SecureString> [-DomainId] <Object> [-
 ## DESCRIPTION
 
 Remove emails from the exclusion list of a TeamViewer Single Sign-On domain.
-Accounts with these email addresses do not need to login via Single
-Sign-On but use their TeamViewer account password instead.
+Accounts with these email addresses do not need to login via Single Sign-On but use their TeamViewer account password instead.
 
 ## EXAMPLES
 
@@ -32,8 +31,7 @@ Sign-On but use their TeamViewer account password instead.
 PS /> Remove-TeamViewerSsoExclusion -DomainId '45e0d050-15e6-4fcb-91b2-ea4f20fe2085' -Email 'user@example.test'
 ```
 
-Removes the email address '<user@example.test>' from the exclusion list of the
-given domain.
+Removes the email address '<user@example.test>' from the exclusion list of the given domain.
 
 ## PARAMETERS
 
@@ -55,10 +53,8 @@ Accept wildcard characters: False
 
 ### -DomainId
 
-Object that can be used to identify the SSO domain to remove exclusion entries
-from.
-This can either be the SSO domain ID (as string or GUID) or a SsoDomain
-object that has been received using the `Get-TeamViewerSsoDomain` function.
+Object that can be used to identify the SSO domain to remove exclusion entries from.
+This can either be the SSO domain Id (as string or GUID) or a SsoDomain object that has been received using the `Get-TeamViewerSsoDomain` function.
 
 ```yaml
 Type: Object

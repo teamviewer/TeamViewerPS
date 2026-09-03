@@ -1,8 +1,7 @@
-BeforeAll {
+﻿BeforeAll {
     . "$PSScriptRoot\..\..\Cmdlets\Public\Get-TeamViewerManager.ps1"
 
-    @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | `
-        ForEach-Object { . $_.FullName }
+    @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
 
     $testApiToken = [securestring]@{}
     $null = $testApiToken
@@ -36,50 +35,48 @@ Describe 'Get-TeamViewerManager' {
     Context 'List Group Managers' {
         It 'Should call the correct API endpoint to list managed group managers' {
             Get-TeamViewerManager -ApiToken $testApiToken -GroupId $testGroupId
+
             Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-                $ApiToken -eq $testApiToken -And `
-                    $Uri -eq "//unit.test/managed/groups/$testGroupId/managers" -And `
-                    $Method -eq 'Get' }
+                $ApiToken -eq $testApiToken -and $Uri -eq "//unit.test/managed/groups/$testGroupId/managers" -and $Method -eq 'Get' }
         }
 
         It 'Should return Manager objects' {
-            $result = Get-TeamViewerManager -ApiToken $testApiToken -GroupId $testGroupId
-            $result | Should -HaveCount 2
-            $result[0].PSObject.TypeNames | Should -Contain 'TeamViewerPS.Manager'
-            $result[0].Name | Should -Be 'test manager 1'
-            $result[0].GroupId | Should -Be $testGroupId
+            $Result = Get-TeamViewerManager -ApiToken $testApiToken -GroupId $testGroupId
+            $Result | Should -HaveCount 2
+            $Result[0].PSObject.TypeNames | Should -Contain 'TeamViewerPS.Manager'
+            $Result[0].Name | Should -Be 'test manager 1'
+            $Result[0].Group_Id | Should -Be $testGroupId
         }
 
         It 'Should handle group objects as input' {
             $testGroup = @{id = $testGroupId; name = 'test managed group' } | ConvertTo-TeamViewerManagedGroup
-            $result = Get-TeamViewerManager -ApiToken $testApiToken -Group $testGroup
-            $result | Should -HaveCount 2
-            $result[0].GroupId | Should -Be $testGroupId
+            $Result = Get-TeamViewerManager -ApiToken $testApiToken -Group $testGroup
+            $Result | Should -HaveCount 2
+            $Result[0].Group_Id | Should -Be $testGroupId
         }
     }
 
     Context 'List Device Managers' {
         It 'Should call the correct API endpoint to list managed device managers' {
             Get-TeamViewerManager -ApiToken $testApiToken -DeviceId $testDeviceId
+
             Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-                $ApiToken -eq $testApiToken -And `
-                    $Uri -eq "//unit.test/managed/devices/$testDeviceId/managers" -And `
-                    $Method -eq 'Get' }
+                $ApiToken -eq $testApiToken -and $Uri -eq "//unit.test/managed/devices/$testDeviceId/managers" -and $Method -eq 'Get' }
         }
 
         It 'Should return Manager objects' {
-            $result = Get-TeamViewerManager -ApiToken $testApiToken -DeviceId $testDeviceId
-            $result | Should -HaveCount 2
-            $result[0].PSObject.TypeNames | Should -Contain 'TeamViewerPS.Manager'
-            $result[0].Name | Should -Be 'test manager 1'
-            $result[0].DeviceId | Should -Be $testDeviceId
+            $Result = Get-TeamViewerManager -ApiToken $testApiToken -DeviceId $testDeviceId
+            $Result | Should -HaveCount 2
+            $Result[0].PSObject.TypeNames | Should -Contain 'TeamViewerPS.Manager'
+            $Result[0].Name | Should -Be 'test manager 1'
+            $Result[0].Device_Id | Should -Be $testDeviceId
         }
 
         It 'Should handle device objects as input' {
             $testDevice = @{id = $testDeviceId; name = 'test managed device' } | ConvertTo-TeamViewerManagedDevice
-            $result = Get-TeamViewerManager -ApiToken $testApiToken -Device $testDevice
-            $result | Should -HaveCount 2
-            $result[0].DeviceId | Should -Be $testDeviceId
+            $Result = Get-TeamViewerManager -ApiToken $testApiToken -Device $testDevice
+            $Result | Should -HaveCount 2
+            $Result[0].Device_Id | Should -Be $testDeviceId
         }
     }
 }

@@ -1,4 +1,4 @@
-# TeamViewerPS
+﻿# TeamViewerPS
 
 # SHORT DESCRIPTION
 
@@ -164,6 +164,10 @@ Manage the managed groups and managed devices of an account / company / tenant v
 
 [`Get-TeamViewerCompanyManagedDevice`](Help/Get-TeamViewerCompanyManagedDevice.md)
 
+[`Get-TeamViewerDeviceCustomField`](Help/Get-TeamViewerDeviceCustomField.md)
+
+[`Get-TeamViewerDeviceCustomFieldConfiguration`](Help/Get-TeamViewerDeviceCustomFieldConfiguration.md)
+
 [`Get-TeamViewerManagedDevice`](Help/Get-TeamViewerManagedDevice.md)
 
 [`Get-TeamViewerManagedGroup`](Help/Get-TeamViewerManagedGroup.md)
@@ -174,7 +178,13 @@ Manage the managed groups and managed devices of an account / company / tenant v
 
 [`Move-TeamViewerManagedDevice`](Help/Move-TeamViewerManagedDevice.md)
 
+[`New-TeamViewerDeviceCustomFieldConfiguration`](Help/New-TeamViewerDeviceCustomFieldConfiguration.md)
+
 [`New-TeamViewerManagedGroup`](Help/New-TeamViewerManagedGroup.md)
+
+[`Remove-TeamViewerDeviceCustomField`](Help/Remove-TeamViewerDeviceCustomField.md)
+
+[`Remove-TeamViewerDeviceCustomFieldConfiguration`](Help/Remove-TeamViewerDeviceCustomFieldConfiguration.md)
 
 [`Remove-TeamViewerManagedDevice`](Help/Remove-TeamViewerManagedDevice.md)
 
@@ -187,6 +197,10 @@ Manage the managed groups and managed devices of an account / company / tenant v
 [`Remove-TeamViewerPolicyFromManagedDevice`](Help/Remove-TeamViewerPolicyFromManagedDevice.md)
 
 [`Remove-TeamViewerPolicyFromManagedGroup`](Help/Remove-TeamViewerPolicyFromManagedGroup.md)
+
+[`Set-TeamViewerDeviceCustomField`](Help/Set-TeamViewerDeviceCustomField.md)
+
+[`Set-TeamViewerDeviceCustomFieldConfiguration`](Help/Set-TeamViewerDeviceCustomFieldConfiguration.md)
 
 [`Set-TeamViewerManagedDevice`](Help/Set-TeamViewerManagedDevice.md)
 
@@ -239,6 +253,8 @@ Utilities that help managing the local TeamViewer client.
 [`Get-TeamViewerId`](Help/Get-TeamViewerId.md)
 
 [`Get-TeamViewerInstallationDirectory`](Help/Get-TeamViewerInstallationDirectory.md)
+
+[`Get-TeamViewerInstallationPackage`](Help/Get-TeamViewerInstallationPackage.md)
 
 [`Get-TeamViewerInstallationType`](Help/Get-TeamViewerInstallationType.md)
 

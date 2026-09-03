@@ -1,5 +1,8 @@
-function Set-TeamViewerUserGroup {
+﻿function Set-TeamViewerUserGroup {
     [CmdletBinding(SupportsShouldProcess = $true)]
+
+    [OutputType('TeamViewerPS.UserGroup')]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
@@ -7,32 +10,35 @@ function Set-TeamViewerUserGroup {
 
         [Parameter(Mandatory = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerUserGroupId } )]
-        [Alias("UserGroupId")]
-        [Alias("Id")]
+        [Alias('UserGroupId')]
+        [Alias('Id')]
         [object]
         $UserGroup,
 
         [Parameter(Mandatory = $true)]
-        [Alias("UserGroupName")]
+        [Alias('UserGroupName')]
         [string]
         $Name
     )
-    Begin {
-        $id = $UserGroup | Resolve-TeamViewerUserGroupId
-        $resourceUri = "$(Get-TeamViewerApiUri)/usergroups/$id"
-        $body = @{ name = $Name }
+
+    begin {
+        $Id = $UserGroup | Resolve-TeamViewerUserGroupId
+        $ResourceUri = "$(Get-TeamViewerApiUri)/usergroups/$id"
+        $Body = @{ name = $Name }
     }
-    Process {
-        if ($PSCmdlet.ShouldProcess($UserGroup.ToString(), "Change user group")) {
-            $response = Invoke-TeamViewerRestMethod `
+
+    process {
+        if ($PSCmdlet.ShouldProcess($UserGroup.ToString(), 'Change user group')) {
+            $Response = Invoke-TeamViewerRestMethod `
                 -ApiToken $ApiToken `
-                -Uri $resourceUri `
+                -Uri $ResourceUri `
                 -Method Put `
-                -ContentType "application/json; charset=utf-8" `
-                -Body ([System.Text.Encoding]::UTF8.GetBytes(($body | ConvertTo-Json))) `
+                -ContentType 'application/json; charset=utf-8' `
+                -Body ([System.Text.Encoding]::UTF8.GetBytes(($Body | ConvertTo-Json))) `
                 -WriteErrorTo $PSCmdlet `
                 -ErrorAction Stop
-            Write-Output ($response | ConvertTo-TeamViewerUserGroup)
+
+            Write-Output ($Response | ConvertTo-TeamViewerUserGroup)
         }
     }
 }

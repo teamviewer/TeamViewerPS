@@ -1,5 +1,8 @@
-function Set-TeamViewerGroup {
+﻿function Set-TeamViewerGroup {
     [CmdletBinding(SupportsShouldProcess = $true, DefaultParameterSetName = 'ByParameters')]
+
+    [OutputType([void])]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
@@ -7,8 +10,8 @@ function Set-TeamViewerGroup {
 
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerGroupId } )]
-        [Alias("GroupId")]
-        [Alias("Id")]
+        [Alias('GroupId')]
+        [Alias('Id')]
         [object]
         $Group,
 
@@ -18,7 +21,7 @@ function Set-TeamViewerGroup {
 
         [Parameter(ParameterSetName = 'ByParameters')]
         [ValidateScript( { $_ | Resolve-TeamViewerPolicyId } )]
-        [Alias("PolicyId")]
+        [Alias('PolicyId')]
         [object]
         $Policy,
 
@@ -26,45 +29,47 @@ function Set-TeamViewerGroup {
         [hashtable]
         $Property
     )
-    Begin {
+
+    begin {
         # Warning suppresion doesn't seem to work.
         # See https://github.com/PowerShell/PSScriptAnalyzer/issues/1472
         $null = $Property
 
-        $body = @{}
+        $Body = @{}
+
         switch ($PSCmdlet.ParameterSetName) {
             'ByParameters' {
-                $body['name'] = $Name
+                $Body['name'] = $Name
                 if ($Policy) {
-                    $body['policy_id'] = $Policy | Resolve-TeamViewerPolicyId
+                    $Body['policy_id'] = ($Policy | Resolve-TeamViewerPolicyId).ToString()
                 }
             }
             'ByProperties' {
                 @('name', 'policy_id') | `
                     Where-Object { $Property[$_] } | `
-                    ForEach-Object { $body[$_] = $Property[$_] }
+                    ForEach-Object { $Body[$_] = $Property[$_] }
             }
         }
 
-        if ($body.Count -eq 0) {
+        if ($Body.Count -eq 0) {
             $PSCmdlet.ThrowTerminatingError(
-                ("The given input does not change the group." | `
-                        ConvertTo-ErrorRecord -ErrorCategory InvalidArgument))
+                ('The given input does not change the group.' | `
+                    ConvertTo-ErrorRecord -ErrorCategory InvalidArgument))
         }
     }
-    Process {
-        $groupId = $Group | Resolve-TeamViewerGroupId
-        $resourceUri = "$(Get-TeamViewerApiUri)/groups/$groupId"
 
-        if ($PSCmdlet.ShouldProcess($groupId, "Update group")) {
+    process {
+        $GroupId = $Group | Resolve-TeamViewerGroupId
+        $ResourceUri = "$(Get-TeamViewerApiUri)/groups/$GroupId"
+
+        if ($PSCmdlet.ShouldProcess($GroupId, 'Update group')) {
             Invoke-TeamViewerRestMethod `
                 -ApiToken $ApiToken `
-                -Uri $resourceUri `
+                -Uri $ResourceUri `
                 -Method Put `
-                -ContentType "application/json; charset=utf-8" `
-                -Body ([System.Text.Encoding]::UTF8.GetBytes(($body | ConvertTo-Json))) `
-                -WriteErrorTo $PSCmdlet | `
-                Out-Null
+                -ContentType 'application/json; charset=utf-8' `
+                -Body ([System.Text.Encoding]::UTF8.GetBytes(($Body | ConvertTo-Json))) `
+                -WriteErrorTo $PSCmdlet | Out-Null
         }
     }
 }

@@ -1,4 +1,4 @@
-{
+﻿{
     // See https://go.microsoft.com/fwlink/?LinkId=733558 for the documentation about the tasks.json format
     "version": "2.0.0",
     "tasks": [
@@ -19,32 +19,6 @@
                 "kind": "test",
                 "isDefault": false
             }
-        },
-        {
-            "label": "Clean",
-            "type": "shell",
-            "command": "Invoke-Build -Task Clean",
-            "problemMatcher": []
-        },
-        {
-            "label": "Build",
-            "type": "shell",
-            "command": "Invoke-Build -Task Build",
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
-            "problemMatcher": []
-        },
-        {
-            "label": "Test",
-            "type": "shell",
-            "command": "Invoke-Build -Task Test",
-            "group": {
-                "kind": "test",
-                "isDefault": true
-            },
-            "problemMatcher": []
         }
     ]
 }

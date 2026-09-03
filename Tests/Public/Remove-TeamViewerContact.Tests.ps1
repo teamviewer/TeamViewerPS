@@ -1,8 +1,7 @@
-BeforeAll {
+﻿BeforeAll {
     . "$PSScriptRoot\..\..\Cmdlets\Public\Remove-TeamViewerContact.ps1"
 
-    @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | `
-        ForEach-Object { . $_.FullName }
+    @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
 
     $testApiToken = [securestring]@{}
     $null = $testApiToken
@@ -14,27 +13,25 @@ BeforeAll {
 Describe 'Remove-TeamViewerContact' {
     It 'Should call the correct API endpoint' {
         Remove-TeamViewerContact -ApiToken $testApiToken -Id 'c1234'
+
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -And `
-                $Uri -eq '//unit.test/contacts/c1234' -And `
-                $Method -eq 'Delete' }
+            $ApiToken -eq $testApiToken -and $Uri -eq '//unit.test/contacts/c1234' -and $Method -eq 'Delete' }
     }
 
     It 'Should accept Contact objects' {
         $testContact = @{ contact_id = 'c1234' } | ConvertTo-TeamViewerContact
+
         Remove-TeamViewerContact -ApiToken $testApiToken -Contact $testContact
+
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -And `
-                $Uri -eq '//unit.test/contacts/c1234' -And `
-                $Method -eq 'Delete' }
+            $ApiToken -eq $testApiToken -and $Uri -eq '//unit.test/contacts/c1234' -and $Method -eq 'Delete' }
     }
 
     It 'Should accept pipeline input' {
         $testContact = @{ contact_id = 'c1234' } | ConvertTo-TeamViewerContact
         $testContact | Remove-TeamViewerContact -ApiToken $testApiToken
+
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -And `
-                $Uri -eq '//unit.test/contacts/c1234' -And `
-                $Method -eq 'Delete' }
+            $ApiToken -eq $testApiToken -and $Uri -eq '//unit.test/contacts/c1234' -and $Method -eq 'Delete' }
     }
 }

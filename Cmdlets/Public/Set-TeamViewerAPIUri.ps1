@@ -1,5 +1,8 @@
-function Set-TeamViewerAPIUri {
+﻿function Set-TeamViewerAPIUri {
     [CmdletBinding(SupportsShouldProcess = $true)]
+
+    [OutputType([string])]
+
     param (
         [Parameter(Mandatory = $false)]
         [string]$NewUri,
@@ -8,6 +11,7 @@ function Set-TeamViewerAPIUri {
     )
 
     $config = [TeamViewerConfiguration]::GetInstance()
+
     $PSDefaultParameterValues = @{'CmdletName:Default' = $true }
 
     if ($PSCmdlet.ShouldProcess('TeamViewer account')) {
@@ -20,5 +24,4 @@ function Set-TeamViewerAPIUri {
             Write-Output "TeamViewer API URL set to: $($config.APIUri)"
         }
     }
-
 }

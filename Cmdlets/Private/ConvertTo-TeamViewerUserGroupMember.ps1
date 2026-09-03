@@ -1,16 +1,19 @@
-function ConvertTo-TeamViewerUserGroupMember {
+﻿function ConvertTo-TeamViewerUserGroupMember {
     param(
         [Parameter(ValueFromPipeline)]
-        [PSObject]
+        [object]
         $InputObject
     )
+
     process {
-        $properties = @{
-            AccountId = [int]$InputObject.accountId
-            Name      = $InputObject.name
+        $Properties = @{
+            Id   = [int]$InputObject.accountId
+            Name = $InputObject.name
         }
-        $result = New-Object -TypeName PSObject -Property $properties
-        $result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.UserGroupMember')
-        Write-Output $result
+
+        $Result = New-Object -TypeName PSObject -Property $Properties
+        $Result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.UserGroupMember')
+
+        Write-Output $Result
     }
 }

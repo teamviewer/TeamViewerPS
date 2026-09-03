@@ -1,4 +1,4 @@
----
+﻿---
 external help file: TeamViewerPS-help.xml
 Module Name: TeamViewerPS
 online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/Remove-TeamViewerUser.md
@@ -84,7 +84,7 @@ Accept wildcard characters: False
 ### -User
 
 Object that can be used to identify the user.
-This can either be the user ID or a user object that has been received using other module functions
+This can either be the user Id or a user object that has been received using other module functions.
 
 ```yaml
 Type: Object

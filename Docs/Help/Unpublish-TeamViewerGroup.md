@@ -1,4 +1,4 @@
----
+﻿---
 external help file: TeamViewerPS-help.xml
 Module Name: TeamViewerPS
 online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/Unpublish-TeamViewerGroup.md
@@ -67,8 +67,7 @@ Accept wildcard characters: False
 ### -Group
 
 Object that can be used to identify the group.
-This can either be the group ID or a group object that has been received using
-other module functions.
+This can either be the group Id or a group object that has been received using other module functions.
 
 ```yaml
 Type: Object
@@ -85,8 +84,7 @@ Accept wildcard characters: False
 ### -User
 
 Object that can be used to identify the user.
-This can either be the user ID or a user object that has been received using
-other module functions.
+This can either be the user Id or a user object that has been received using other module functions.
 
 ```yaml
 Type: Object[]

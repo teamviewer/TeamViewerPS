@@ -1,5 +1,8 @@
-function Remove-TeamViewerPolicy {
+﻿function Remove-TeamViewerPolicy {
     [CmdletBinding(SupportsShouldProcess = $true, DefaultParameterSetName = 'ByParameters')]
+
+    [OutputType([void])]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
@@ -11,14 +14,15 @@ function Remove-TeamViewerPolicy {
         [object]
         $Policy
     )
-    Process {
-        $policyId = $Policy | Resolve-TeamViewerPolicyId
-        $resourceUri = "$(Get-TeamViewerApiUri)/teamviewerpolicies/$policyId"
 
-        if ($PSCmdlet.ShouldProcess($policyId, "Delete policy")) {
+    process {
+        $PolicyId = $Policy | Resolve-TeamViewerPolicyId
+        $ResourceUri = "$(Get-TeamViewerApiUri)/teamviewerpolicies/$PolicyId"
+
+        if ($PSCmdlet.ShouldProcess($PolicyId, 'Delete policy')) {
             Invoke-TeamViewerRestMethod `
                 -ApiToken $ApiToken `
-                -Uri $resourceUri `
+                -Uri $ResourceUri `
                 -Method Delete `
                 -WriteErrorTo $PSCmdlet | `
                 Out-Null

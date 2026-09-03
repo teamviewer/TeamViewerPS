@@ -1,4 +1,4 @@
-name: CI
+﻿name: CI
 
 # Controls when the workflow will run
 on:
@@ -33,7 +33,7 @@ jobs:
 
         steps:
             # Checks-out the repository under $GITHUB_WORKSPACE, so the job can access it
-            - uses: actions/checkout@v4
+            - uses: actions/checkout@v7
 
             # Print Powershell version
             - name: Powershell Environment
@@ -49,7 +49,7 @@ jobs:
                   $Modules_Required = @(
                       @{ Name = 'PSScriptAnalyzer'; MinimumVersion = '1.25.0' },
                       @{ Name = 'Pester'; MinimumVersion = '6.0.1' },
-                      @{ Name = 'platyPS'; MinimumVersion = '0.14.2' },
+                      @{ Name = 'Microsoft.PowerShell.PlatyPS'; MinimumVersion = '1.0.3' },
                       @{ Name = 'BuildHelpers'; MinimumVersion = '2.0.16' }
                   )
 

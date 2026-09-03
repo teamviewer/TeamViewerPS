@@ -1,25 +1,28 @@
-function Get-TeamViewerPredefinedRole {
+﻿function Get-TeamViewerPredefinedRole {
+    [CmdletBinding()]
+
+    [OutputType('TeamViewerPS.PredefinedRole')]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
         $ApiToken
     )
 
-
-    Begin {
-        $parameters = @{}
-        $resourceUri = "$(Get-TeamViewerApiUri)/userroles/predefined"
+    begin {
+        $Parameters = @{}
+        $ResourceUri = "$(Get-TeamViewerApiUri)/userroles/predefined"
     }
 
-    Process {
-        $response = Invoke-TeamViewerRestMethod `
+    process {
+        $Response = Invoke-TeamViewerRestMethod `
             -ApiToken $ApiToken `
-            -Uri $resourceUri `
+            -Uri $ResourceUri `
             -Method Get `
-            -Body $parameters `
+            -Body $Parameters `
             -WriteErrorTo $PSCmdlet `
             -ErrorAction Stop
-        Write-Output ($response | ConvertTo-TeamViewerPredefinedRole)
 
+        Write-Output ($Response | ConvertTo-TeamViewerPredefinedRole)
     }
 }

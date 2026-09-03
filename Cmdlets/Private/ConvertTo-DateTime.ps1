@@ -1,4 +1,4 @@
-function ConvertTo-DateTime {
+﻿function ConvertTo-DateTime {
     param(
         [Parameter(ValueFromPipeline)]
         [string]
@@ -9,7 +9,7 @@ function ConvertTo-DateTime {
         try {
             Write-Output ([DateTime]::Parse($InputString))
         }
-        catch {
+        catch [System.ArgumentNullException], [System.FormatException] {
             Write-Output $null
         }
     }

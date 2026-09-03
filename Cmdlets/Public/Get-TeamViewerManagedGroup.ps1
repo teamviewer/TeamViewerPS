@@ -1,53 +1,56 @@
-function Get-TeamViewerManagedGroup {
-    [CmdletBinding(DefaultParameterSetName = "List")]
+﻿function Get-TeamViewerManagedGroup {
+    [CmdletBinding(DefaultParameterSetName = 'List')]
+
+    [OutputType('TeamViewerPS.ManagedGroup')]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
         $ApiToken,
 
-        [Parameter(ParameterSetName = "ByGroupId")]
+        [Parameter(ParameterSetName = 'ByGroup')]
         [ValidateScript( { $_ | Resolve-TeamViewerManagedGroupId } ) ]
-        [Alias("GroupId")]
+        [Alias('Id', 'GroupId', 'ManagedGroupId', 'ManagedGroup')]
         [guid]
-        $Id,
+        $Group,
 
-        [Parameter(ParameterSetName = "ByDeviceId")]
+        [Parameter(ParameterSetName = 'ByDevice')]
         [ValidateScript( { $_ | Resolve-TeamViewerManagedDeviceId } )]
-        [Alias("DeviceId")]
+        [Alias('DeviceId', 'ManagedDeviceId', 'ManagedDevice')]
         [object]
         $Device
     )
 
-    $resourceUri = "$(Get-TeamViewerApiUri)/managed/groups"
-    $parameters = @{ }
+    $ResourceUri = "$(Get-TeamViewerApiUri)/managed/groups"
+    $Parameters = @{ }
 
     switch ($PsCmdlet.ParameterSetName) {
-        'ByGroupId' {
-            $resourceUri += "/$Id"
-            $parameters = $null
+        'ByGroup' {
+            $ResourceUri += "/$Group"
+            $Parameters = $null
         }
-        'ByDeviceId' {
-            $deviceId = $Device | Resolve-TeamViewerManagedDeviceId
-            $resourceUri = "$(Get-TeamViewerApiUri)/managed/devices/$deviceId/groups"
+        'ByDevice' {
+            $DeviceId = $Device | Resolve-TeamViewerManagedDeviceId
+            $ResourceUri = "$(Get-TeamViewerApiUri)/managed/devices/$DeviceId/groups"
         }
     }
 
     do {
-        $response = Invoke-TeamViewerRestMethod `
+        $Response = Invoke-TeamViewerRestMethod `
             -ApiToken $ApiToken `
-            -Uri $resourceUri `
+            -Uri $ResourceUri `
             -Method Get `
-            -Body $parameters `
+            -Body $Parameters `
             -WriteErrorTo $PSCmdlet `
             -ErrorAction Stop
 
-        if ($PsCmdlet.ParameterSetName -Eq 'ByGroupId') {
-            Write-Output ($response | ConvertTo-TeamViewerManagedGroup)
+        if ($PsCmdlet.ParameterSetName -eq 'ByGroup') {
+            Write-Output ($Response | ConvertTo-TeamViewerManagedGroup)
         }
         else {
-            $parameters.paginationToken = $response.nextPaginationToken
-            Write-Output ($response.resources | ConvertTo-TeamViewerManagedGroup)
+            $Parameters.paginationToken = $Response.nextPaginationToken
+            Write-Output ($Response.resources | ConvertTo-TeamViewerManagedGroup)
         }
-    } while ($PsCmdlet.ParameterSetName -In @('List', 'ByDeviceId') `
-            -And $parameters.paginationToken)
+    } while ($PsCmdlet.ParameterSetName -in @('List', 'ByDevice') `
+            -and $Parameters.paginationToken)
 }

@@ -1,37 +1,28 @@
-function Get-TeamViewerRole {
-    [CmdletBinding(DefaultParameterSetName = '')]
+﻿function Get-TeamViewerRole {
+    [CmdletBinding()]
+
+    [OutputType('TeamViewerPS.Role')]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
-        $ApiToken,
-
-        [switch]
-        [Alias('ListPermissions')]
-        $Permissions
+        $ApiToken
     )
 
     begin {
-        $parameters = @{ }
-        $resourceUri = "$(Get-TeamViewerApiUri)/userroles"
-        if ($Permissions) {
-            $resourceUri += '/permissions'
-        }
+        $Parameters = @{ }
+        $ResourceUri = "$(Get-TeamViewerApiUri)/userroles"
     }
 
     process {
-        $response = Invoke-TeamViewerRestMethod `
+        $Response = Invoke-TeamViewerRestMethod `
             -ApiToken $ApiToken `
-            -Uri $resourceUri `
+            -Uri $ResourceUri `
             -Method Get `
-            -Body $parameters `
+            -Body $Parameters `
             -WriteErrorTo $PSCmdlet `
             -ErrorAction Stop
-        if ($Permissions) {
-            [PSCustomObject] $response
-        }
-        else {
-            $response.Roles | ConvertTo-TeamViewerRole
-        }
+
+        Write-Output ($Response.Roles | ConvertTo-TeamViewerRole)
     }
 }
-

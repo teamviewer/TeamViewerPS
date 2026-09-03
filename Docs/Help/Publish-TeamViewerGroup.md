@@ -1,4 +1,4 @@
----
+﻿---
 external help file: TeamViewerPS-help.xml
 Module Name: TeamViewerPS
 online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/Publish-TeamViewerGroup.md
@@ -21,8 +21,7 @@ Publish-TeamViewerGroup [-ApiToken] <SecureString> [-Group] <Object> [-User] <Ob
 ## DESCRIPTION
 
 Shares a Computers & Contacts list group with the given users.
-It will not change the share-state of other users, but it is possible to
-overwrite the permissions of existing shares.
+It will not change the share-state of other users, but it is possible to overwrite the permissions of existing shares.
 
 ## EXAMPLES
 
@@ -71,8 +70,7 @@ Accept wildcard characters: False
 ### -Group
 
 Object that can be used to identify the group.
-This can either be the group ID or a group object that has been received using
-other module functions.
+This can either be the group Id or a group object that has been received using other module functions.
 
 ```yaml
 Type: Object
@@ -106,8 +104,7 @@ Accept wildcard characters: False
 ### -User
 
 Object that can be used to identify the user.
-This can either be the user ID or a user object that has been received using
-other module functions.
+This can either be the user Id or a user object that has been received using other module functions.
 
 ```yaml
 Type: Object[]

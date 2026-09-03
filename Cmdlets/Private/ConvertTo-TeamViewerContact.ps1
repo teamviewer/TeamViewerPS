@@ -1,25 +1,25 @@
-function ConvertTo-TeamViewerContact {
+﻿function ConvertTo-TeamViewerContact {
     param(
         [Parameter(ValueFromPipeline)]
-        [PSObject]
+        [object]
         $InputObject
     )
+
     process {
-        $properties = @{
-            Id                = $InputObject.contact_id
-            UserId            = $InputObject.user_id
-            GroupId           = $InputObject.groupid
-            Name              = $InputObject.name
-            Description       = $InputObject.description
-            OnlineState       = $InputObject.online_state
-            ProfilePictureUrl = $InputObject.profilepicture_url
-            SupportedFeatures = $InputObject.supported_features
+        $Properties = @{
+            Id                 = $InputObject.contact_id
+            Name               = $InputObject.name
+            Description        = $InputObject.description
+            User_Id            = $InputObject.user_id
+            Group_Id           = $InputObject.groupid
+            OnlineState        = $InputObject.online_state
+            ProfilePicture_Url = $InputObject.profilepicture_url
+            Features_Supported = $InputObject.supported_features
         }
-        $result = New-Object -TypeName PSObject -Property $properties
-        $result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.Contact')
-        $result | Add-Member -MemberType ScriptMethod -Name "ToString" -Force -Value {
-            Write-Output "$($this.Name)"
-        }
-        Write-Output $result
+
+        $Result = New-Object -TypeName PSObject -Property $Properties
+        $Result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.Contact')
+
+        Write-Output $Result
     }
 }

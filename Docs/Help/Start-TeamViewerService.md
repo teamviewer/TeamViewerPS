@@ -1,4 +1,4 @@
----
+﻿---
 external help file: TeamViewerPS-help.xml
 Module Name: TeamViewerPS
 online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/Start-TeamViewerService.md
@@ -20,7 +20,6 @@ Start-TeamViewerService [-WhatIf] [-Confirm] [<CommonParameters>]
 ## DESCRIPTION
 
 Start the locally installed TeamViewer service.
-Nothing will happen if TeamViewer is not installed.
 
 ## EXAMPLES
 

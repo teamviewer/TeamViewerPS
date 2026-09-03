@@ -1,5 +1,8 @@
-function New-TeamViewerUserGroup {
+﻿function New-TeamViewerUserGroup {
     [CmdletBinding(SupportsShouldProcess = $true)]
+
+    [OutputType('TeamViewerPS.UserGroup')]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
@@ -10,22 +13,23 @@ function New-TeamViewerUserGroup {
         $Name
     )
 
-    Begin {
-        $resourceUri = "$(Get-TeamViewerApiUri)/usergroups"
-        $body = @{ name = $Name }
+    begin {
+        $ResourceUri = "$(Get-TeamViewerApiUri)/usergroups"
+        $Body = @{ name = $Name }
     }
 
-    Process {
-        if ($PSCmdlet.ShouldProcess($Name, "Create user group")) {
-            $response = Invoke-TeamViewerRestMethod `
+    process {
+        if ($PSCmdlet.ShouldProcess($Name, 'Create user group')) {
+            $Response = Invoke-TeamViewerRestMethod `
                 -ApiToken $ApiToken `
-                -Uri $resourceUri `
+                -Uri $ResourceUri `
                 -Method Post `
-                -ContentType "application/json; charset=utf-8" `
-                -Body ([System.Text.Encoding]::UTF8.GetBytes(($body | ConvertTo-Json))) `
+                -ContentType 'application/json; charset=utf-8' `
+                -Body ([System.Text.Encoding]::UTF8.GetBytes(($Body | ConvertTo-Json))) `
                 -WriteErrorTo $PSCmdlet `
                 -ErrorAction Stop
-            Write-Output ($response | ConvertTo-TeamViewerUserGroup)
+
+            Write-Output ($Response | ConvertTo-TeamViewerUserGroup)
         }
     }
 }

@@ -1,4 +1,4 @@
-function Resolve-TeamViewerManagerId {
+﻿function Resolve-TeamViewerManagerId {
     param(
         [Parameter(ValueFromPipeline = $true, Mandatory = $true)]
         [object]
@@ -7,13 +7,13 @@ function Resolve-TeamViewerManagerId {
 
     process {
         if ($Manager.PSObject.TypeNames -contains 'TeamViewerPS.Manager') {
-            [guid]$Manager.Id
+            Write-Output ([guid]($Manager.Id))
         }
         elseif ($Manager -is [string]) {
-            [guid]$Manager
+            Write-Output ([guid]$Manager)
         }
         elseif ($Manager -is [guid]) {
-            $Manager
+            Write-Output $Manager
         }
         else {
             throw "Invalid manager identifier '$Manager'. Must be either a [TeamViewerPS.Manager], [guid] or [string]."

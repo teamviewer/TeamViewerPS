@@ -1,4 +1,4 @@
----
+﻿---
 external help file: TeamViewerPS-help.xml
 Module Name: TeamViewerPS
 online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/Remove-TeamViewerManager.md
@@ -31,10 +31,7 @@ Remove-TeamViewerManager -ApiToken <SecureString> -Manager <Object> [-Group <Obj
 
 Removes a manager from a managed group or a managed device.
 The current manager requires `ManagerAdministration` manager permissions.
-
-It is not possible to remove the last manager with `ManagerAdministration` from
-a managed group or managed device. At least one manager must remain with that
-permission.
+It is not possible to remove the last manager with `ManagerAdministration` from a managed group or managed device. At least one manager must remain with that permission.
 
 ## EXAMPLES
 
@@ -91,8 +88,7 @@ Accept wildcard characters: False
 ### -Device
 
 Object that can be used to identify the managed device.
-This can either be the managed device ID (as string or GUID) or a managed device
-object that has been received using other module functions.
+This can either be the managed device Id (as string or GUID) or a managed device object that has been received using other module functions.
 
 ```yaml
 Type: Object
@@ -109,8 +105,7 @@ Accept wildcard characters: False
 ### -Group
 
 Object that can be used to identify the managed group.
-This can either be the managed group ID (as string or GUID) or a managed group
-object that has been received using other module functions.
+This can either be the managed group Id (as string or GUID) or a managed group object that has been received using other module functions.
 
 ```yaml
 Type: Object
@@ -127,8 +122,7 @@ Accept wildcard characters: False
 ### -Manager
 
 Object that can be used to identify the manager.
-This can either be the manager ID (as string or GUID) or a manager object that
-has been received using other module functions.
+This can either be the manager Id (as string or GUID) or a manager object that has been received using other module functions.
 
 ```yaml
 Type: Object

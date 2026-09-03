@@ -1,27 +1,29 @@
-function ConvertTo-TeamViewerManagedDevice {
+﻿function ConvertTo-TeamViewerManagedDevice {
     param(
         [Parameter(ValueFromPipeline)]
-        [PSObject]
+        [object]
         $InputObject
     )
+
     process {
-        $properties = @{
-            Id           = [guid]$InputObject.id
-            Name         = $InputObject.name
+        $Properties = @{
+            Id           = $InputObject.id
             TeamViewerId = $InputObject.TeamViewerId
+            Name         = $InputObject.name
             IsOnline     = $InputObject.isOnline
         }
 
         if ($InputObject.last_seen) {
-            $properties['LastSeenAt'] = Get-Date -Date $InputObject.last_seen
+            $Properties['LastSeen_At'] = ([datetime]$InputObject.last_seen | ConvertTo-DateTime)
         }
 
         if ($InputObject.teamviewerPolicyId) {
-            $properties["PolicyId"] = [guid]$InputObject.teamviewerPolicyId
+            $Properties['Policy_Id'] = [guid]$InputObject.teamviewerPolicyId
         }
 
-        $result = New-Object -TypeName PSObject -Property $properties
-        $result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.ManagedDevice')
-        Write-Output $result
+        $Result = New-Object -TypeName PSObject -Property $Properties
+        $Result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.ManagedDevice')
+
+        Write-Output $Result
     }
 }

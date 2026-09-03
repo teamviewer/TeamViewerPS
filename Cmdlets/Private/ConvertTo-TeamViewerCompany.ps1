@@ -1,21 +1,24 @@
-function ConvertTo-TeamViewerCompany {
+﻿function ConvertTo-TeamViewerCompany {
     param(
         [Parameter(ValueFromPipeline)]
-        [PSObject]
+        [object]
         $InputObject
     )
+
     process {
-        $properties = @{
-            CompanyId   = [int]$InputObject.companyId
-            CompanyName = $InputObject.companyName
+        $Properties = @{
+            Id        = [int32]$InputObject.companyId
+            Name      = [string]$InputObject.companyName
+            CreatedAt = $null
         }
 
-        $result = New-Object -TypeName PSObject -Property $properties
-        $result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.Company')
-        $result | Add-Member -MemberType ScriptMethod -Name 'ToString' -Force -Value {
-            Write-Output "$($this.CompanyName)"
+        if ($InputObject.createdAt) {
+            $Properties['CreatedAt'] = ($InputObject.createdAt | ConvertTo-DateTime)
         }
 
-        Write-Output $result
+        $Result = New-Object -TypeName PSObject -Property $Properties
+        $Result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.Company')
+
+        Write-Output $Result
     }
 }

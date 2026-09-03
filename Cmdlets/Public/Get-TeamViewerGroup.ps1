@@ -1,57 +1,64 @@
-function Get-TeamViewerGroup {
-    [CmdletBinding(DefaultParameterSetName = "FilteredList")]
+﻿function Get-TeamViewerGroup {
+    [CmdletBinding(DefaultParameterSetName = 'FilteredList')]
+
+    [OutputType('TeamViewerPS.Group')]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
         $ApiToken,
 
-        [Parameter(ParameterSetName = "ByGroupId")]
-        [Alias("GroupId")]
+        [Parameter(ParameterSetName = 'ByGroup')]
+        [Alias('Id', 'GroupId')]
         [string]
-        $Id,
+        $Group,
 
-        [Parameter(ParameterSetName = "FilteredList")]
-        [Alias("PartialName")]
+        [Parameter(ParameterSetName = 'FilteredList')]
+        [Alias('PartialName')]
         [string]
         $Name,
 
-        [Parameter(ParameterSetName = "FilteredList")]
+        [Parameter(ParameterSetName = 'FilteredList')]
         [ValidateSet('OnlyShared', 'OnlyNotShared')]
         [string]
-        $FilterShared
+        $FilterBy_Shared
     )
 
-    $resourceUri = "$(Get-TeamViewerApiUri)/groups";
-    $parameters = @{ }
+    $ResourceUri = "$(Get-TeamViewerApiUri)/groups"
+    $Parameters = @{ }
 
     switch ($PsCmdlet.ParameterSetName) {
-        'ByGroupId' {
-            $resourceUri += "/$Id"
-            $parameters = $null
+        'ByGroup' {
+            $ResourceUri += "/$Group"
+            $Parameters = $null
         }
         'FilteredList' {
             if ($Name) {
-                $parameters['name'] = $Name
+                $Parameters['name'] = $Name
             }
-            switch ($FilterShared) {
-                'OnlyShared' { $parameters['shared'] = $true }
-                'OnlyNotShared' { $parameters['shared'] = $false }
+            switch ($FilterBy_Shared) {
+                'OnlyShared' {
+                    $Parameters['shared'] = $true
+                }
+                'OnlyNotShared' {
+                    $Parameters['shared'] = $false
+                }
             }
         }
     }
 
-    $response = Invoke-TeamViewerRestMethod `
+    $Response = Invoke-TeamViewerRestMethod `
         -ApiToken $ApiToken `
-        -Uri $resourceUri `
+        -Uri $ResourceUri `
         -Method Get `
-        -Body $parameters `
+        -Body $Parameters `
         -WriteErrorTo $PSCmdlet `
         -ErrorAction Stop
 
-    if ($PsCmdlet.ParameterSetName -Eq 'ByGroupId') {
-        Write-Output ($response | ConvertTo-TeamViewerGroup)
+    if ($PsCmdlet.ParameterSetName -eq 'ByGroup') {
+        Write-Output ($Response | ConvertTo-TeamViewerGroup)
     }
     else {
-        Write-Output ($response.groups | ConvertTo-TeamViewerGroup)
+        Write-Output ($Response.groups | ConvertTo-TeamViewerGroup)
     }
 }

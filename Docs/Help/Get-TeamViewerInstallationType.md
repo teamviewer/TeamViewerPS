@@ -1,4 +1,4 @@
----
+﻿---
 external help file: TeamViewerPS-help.xml
 Module Name: TeamViewerPS
 online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/Get-TeamViewerInstallationType.md
@@ -35,8 +35,6 @@ Returns the installation type of TeamViewer (MSI, exe or Unknown).
 
 ### CommonParameters
 
-### None
-
 ## INPUTS
 
 ### None
@@ -50,4 +48,3 @@ Returns a string indicating the installation type: "MSI", "exe", or "Unknown".
 ## NOTES
 
 ## RELATED LINKS
-

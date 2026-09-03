@@ -1,4 +1,4 @@
----
+﻿---
 external help file: TeamViewerPS-help.xml
 Module Name: TeamViewerPS
 online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/Remove-TeamViewerUser.md
@@ -20,7 +20,7 @@ Remove-TeamViewerUser [-ApiToken] <SecureString> [-User] <Object> [-Permanent] [
 
 ## DESCRIPTION
 
-Removes a users two-factor authentification (TFA) from the TeamViewer account.
+Removes a users two-factor authentication (TFA) from the TeamViewer account.
 
 ## EXAMPLES
 
@@ -51,7 +51,7 @@ Accept wildcard characters: False
 ### -User
 
 Object that can be used to identify the user.
-This can either be the user ID or a user object that has been received using other module functions
+This can either be the user Id or a user object that has been received using other module functions.
 
 ```yaml
 Type: Object
@@ -64,6 +64,7 @@ Default value: None
 Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
+
 ### -Confirm
 
 Prompts you for confirmation before running the cmdlet.

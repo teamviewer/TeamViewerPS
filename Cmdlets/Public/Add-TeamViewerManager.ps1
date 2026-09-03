@@ -1,5 +1,8 @@
-function Add-TeamViewerManager {
+﻿function Add-TeamViewerManager {
     [CmdletBinding(SupportsShouldProcess = $true, DefaultParameterSetName = 'Device_ByAccountId')]
+
+    [OutputType([void])]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
@@ -13,7 +16,7 @@ function Add-TeamViewerManager {
         [Parameter(Mandatory = $true, ParameterSetName = 'Device_ByManagerId')]
         [Parameter(Mandatory = $true, ParameterSetName = 'Group_ByManagerId')]
         [ValidateScript( { $_ | Resolve-TeamViewerManagerId } )]
-        [Alias("ManagerId")]
+        [Alias('ManagerId')]
         [object]
         $Manager,
 
@@ -35,7 +38,7 @@ function Add-TeamViewerManager {
         [Parameter(Mandatory = $true, ParameterSetName = 'Group_ByUserObject')]
         [Parameter(Mandatory = $true, ParameterSetName = 'Group_ByUserGroupId')]
         [ValidateScript( { $_ | Resolve-TeamViewerManagedGroupId } )]
-        [Alias("GroupId")]
+        [Alias('GroupId')]
         [object]
         $Group,
 
@@ -44,7 +47,7 @@ function Add-TeamViewerManager {
         [Parameter(Mandatory = $true, ParameterSetName = 'Device_ByUserObject')]
         [Parameter(Mandatory = $true, ParameterSetName = 'Device_ByUserGroupId')]
         [ValidateScript( { $_ | Resolve-TeamViewerManagedDeviceId } )]
-        [Alias("DeviceId")]
+        [Alias('DeviceId')]
         [object]
         $Device,
 
@@ -54,51 +57,52 @@ function Add-TeamViewerManager {
         $Permissions
     )
 
-    $resourceUri = $null
+    $ResourceUri = $null
+
     switch -Wildcard ($PSCmdlet.ParameterSetName) {
         'Device*' {
-            $deviceId = $Device | Resolve-TeamViewerManagedDeviceId
-            $resourceUri = "$(Get-TeamViewerApiUri)/managed/devices/$deviceId/managers"
-            $processMessage = "Add manager to managed device"
+            $DeviceId = $Device | Resolve-TeamViewerManagedDeviceId
+            $ResourceUri = "$(Get-TeamViewerApiUri)/managed/devices/$DeviceId/managers"
+            $Process_Message = 'Add manager to managed device'
         }
         'Group*' {
-            $groupId = $Group | Resolve-TeamViewerManagedGroupId
-            $resourceUri = "$(Get-TeamViewerApiUri)/managed/groups/$groupId/managers"
-            $processMessage = "Add manager to managed group"
+            $GroupId = $Group | Resolve-TeamViewerManagedGroupId
+            $ResourceUri = "$(Get-TeamViewerApiUri)/managed/groups/$GroupId/managers"
+            $Process_Message = 'Add manager to managed group'
         }
     }
 
-    $body = @{}
+    $Body = @{}
+
     switch -Wildcard ($PSCmdlet.ParameterSetName) {
         '*ByAccountId' {
-            $body["accountId"] = $AccountId.TrimStart('u')
+            $Body['accountId'] = $AccountId.TrimStart('u')
         }
         '*ByManagerId' {
-            $body["id"] = $Manager | Resolve-TeamViewerManagerId
+            $Body['id'] = ($Manager | Resolve-TeamViewerManagerId).ToString()
         }
         '*ByUserObject' {
-            $body["accountId"] = ( $User | Resolve-TeamViewerUserId ).TrimStart('u')
+            $Body['accountId'] = ( $User | Resolve-TeamViewerUserId ).TrimStart('u')
         }
         '*ByUserGroupId' {
-            $body["usergroupId"] = $UserGroup | Resolve-TeamViewerUserGroupId
+            $Body['usergroupId'] = $UserGroup | Resolve-TeamViewerUserGroupId
         }
     }
 
     if ($Permissions) {
-        $body["permissions"] = @($Permissions)
+        $Body['permissions'] = @($Permissions)
     }
     else {
-        $body["permissions"] = @()
+        $Body['permissions'] = @()
     }
 
-    if ($PSCmdlet.ShouldProcess($managerId, $processMessage)) {
+    if ($PSCmdlet.ShouldProcess($managerId, $Process_Message)) {
         Invoke-TeamViewerRestMethod `
             -ApiToken $ApiToken `
-            -Uri $resourceUri `
+            -Uri $ResourceUri `
             -Method Post `
-            -ContentType "application/json; charset=utf-8" `
-            -Body ([System.Text.Encoding]::UTF8.GetBytes((ConvertTo-Json -InputObject @($body)))) `
-            -WriteErrorTo $PSCmdlet | `
-            Out-Null
+            -ContentType 'application/json; charset=utf-8' `
+            -Body ([System.Text.Encoding]::UTF8.GetBytes((ConvertTo-Json -InputObject @($Body)))) `
+            -WriteErrorTo $PSCmdlet | Out-Null
     }
 }

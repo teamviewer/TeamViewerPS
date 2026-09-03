@@ -1,4 +1,4 @@
----
+﻿---
 external help file: TeamViewerPS-help.xml
 Module Name: TeamViewerPS
 online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/Remove-TeamViewerContact.md
@@ -20,8 +20,7 @@ Remove-TeamViewerContact [-ApiToken] <SecureString> [-Contact] <Object> [-WhatIf
 
 ## DESCRIPTION
 
-Deletes a contact from the Computers & Contacts list of the account associated
-to the API access token.
+Deletes a contact from the Computers & Contacts list of the account associated to the API access token.
 
 ## EXAMPLES
 
@@ -68,8 +67,7 @@ Accept wildcard characters: False
 ### -Contact
 
 Object that can be used to identify the contact.
-This can either be the contact ID or a contact object that has been received
-using other module functions.
+This can either be the contact Id or a contact object that has been received using other module functions.
 
 ```yaml
 Type: Object

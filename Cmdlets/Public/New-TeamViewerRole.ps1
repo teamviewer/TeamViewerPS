@@ -1,6 +1,9 @@
-
+﻿
 function New-TeamViewerRole {
     [CmdletBinding(SupportsShouldProcess = $true)]
+
+    [OutputType('TeamViewerPS.Role')]
+
     param(
         [Parameter(Mandatory = $true )]
         [securestring]
@@ -16,32 +19,33 @@ function New-TeamViewerRole {
         [object[]]
         $Permissions
     )
-    Begin {
-        $resourceUri = "$(Get-TeamViewerApiUri)/userroles"
-        $body = @{
+
+    begin {
+        $ResourceUri = "$(Get-TeamViewerApiUri)/userroles"
+        $Body = @{
             Name        = $Name
             Permissions = @()
         }
 
         if ($Permissions) {
-            $body.Permissions = @($Permissions)
+            $Body.Permissions = @($Permissions)
         }
     }
 
-    Process {
+    process {
         if ($PSCmdlet.ShouldProcess($Name, 'Create Role')) {
-            $response = Invoke-TeamViewerRestMethod `
+            $Response = Invoke-TeamViewerRestMethod `
                 -ApiToken $ApiToken `
-                -Uri $resourceUri `
+                -Uri $ResourceUri `
                 -Method Post `
                 -ContentType 'application/json; charset=utf-8' `
-                -Body ([System.Text.Encoding]::UTF8.GetBytes(($body | ConvertTo-Json))) `
+                -Body ([System.Text.Encoding]::UTF8.GetBytes(($Body | ConvertTo-Json))) `
                 -WriteErrorTo $PSCmdlet `
                 -ErrorAction Stop
 
-            $result = ($response.Role | ConvertTo-TeamViewerRole)
-            Write-Output $result
+            $Result = ($Response.Role | ConvertTo-TeamViewerRole)
+
+            Write-Output $Result
         }
     }
-
 }

@@ -1,4 +1,4 @@
----
+﻿---
 name: Bug Report
 about: Create a bug report
 title: "[Bug] "

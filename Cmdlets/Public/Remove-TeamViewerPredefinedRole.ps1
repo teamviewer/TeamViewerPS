@@ -1,24 +1,26 @@
-function Remove-TeamViewerPredefinedRole {
+﻿function Remove-TeamViewerPredefinedRole {
     [CmdletBinding(SupportsShouldProcess = $true)]
+
+    [OutputType([void])]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
         $ApiToken
     )
 
-
-    Begin {
-        $parameters = @{}
-        $resourceUri = "$(Get-TeamViewerApiUri)/userroles/predefined"
+    begin {
+        $Parameters = @{}
+        $ResourceUri = "$(Get-TeamViewerApiUri)/userroles/predefined"
     }
 
-    Process {
+    process {
         if ($PSCmdlet.ShouldProcess('PredefinedRole', 'Remove Predefined role')) {
             Invoke-TeamViewerRestMethod `
                 -ApiToken $ApiToken `
-                -Uri $resourceUri `
+                -Uri $ResourceUri `
                 -Method DELETE `
-                -Body $parameters `
+                -Body $Parameters `
                 -WriteErrorTo $PSCmdlet `
                 -ErrorAction Stop | `
                 Out-Null

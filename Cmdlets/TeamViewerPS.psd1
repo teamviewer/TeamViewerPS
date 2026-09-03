@@ -1,9 +1,9 @@
-@{
+﻿@{
     # Script module or binary module file associated with this manifest.
     RootModule        = 'TeamViewerPS.psm1'
 
     # Version number of this module.
-    ModuleVersion     = '2.6.0'
+    ModuleVersion     = '3.0.2'
 
     # Supported PSEditions.
     # CompatiblePSEditions = @()
@@ -85,24 +85,23 @@
             #Prerelease = '-alpha1'
             # Tags applied to this module. These help with module discovery in online galleries.
             # Tags = @()
-            Tags       = @(
+            Tags         = @(
                 'PowerShell',
-                'scripting',
-                'automation',
-                'teamviewer',
-                'remotecontrol',
-                'webapi',
-                'api'
+                'Scripting',
+                'Automation',
+                'TeamViewer',
+                'RemoteControl',
+                'API'
             )
 
             # A URL to the license for this module.
-            LicenseUri = 'https://github.com/teamviewer/TeamViewerPS/blob/main/LICENSE.md'
+            LicenseUri   = 'https://github.com/teamviewer/TeamViewerPS/blob/main/LICENSE.md'
 
             # A URL to the main website for this project.
-            ProjectUri = 'https://github.com/teamviewer/TeamViewerPS'
+            ProjectUri   = 'https://github.com/teamviewer/TeamViewerPS'
 
             # ReleaseNotes of this module.
-            # ReleaseNotes = 'https://github.com/teamviewer/TeamViewerPS/blob/main/CHANGELOG.md'
+            ReleaseNotes = 'https://github.com/teamviewer/TeamViewerPS/blob/main/CHANGELOG.md'
 
         } # End of PSData hashtable
     } # End of PrivateData hashtable
@@ -112,5 +111,4 @@
 
     # Default prefix for commands exported from this module. Override the default prefix using Import-Module -Prefix.
     # DefaultCommandPrefix = ''
-
 }

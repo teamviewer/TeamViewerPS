@@ -1,4 +1,4 @@
----
+﻿---
 external help file: TeamViewerPS-help.xml
 Module Name: TeamViewerPS
 online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/Add-TeamViewerSsoInclusion.md
@@ -21,8 +21,7 @@ Add-TeamViewerSsoInclusion [-ApiToken] <SecureString> [-DomainId] <Object> [-Ema
 ## DESCRIPTION
 
 Add emails to the inclusion list of a TeamViewer Single Sign-On domain.
-Only accounts with these email addresses will be able to login via Single
-Sign-On.
+Only accounts with these email addresses will be able to login via Single Sign-On.
 
 ## EXAMPLES
 
@@ -32,8 +31,7 @@ Sign-On.
 PS /> Add-TeamViewerSsoInclusion -DomainId '45e0d050-15e6-4fcb-91b2-ea4f20fe2085' -Email 'user@example.test'
 ```
 
-Adds the email address '<user@example.test>' to the inclusion list of the given
-domain.
+Adds the email address '<user@example.test>' to the inclusion list of the given domain.
 
 ## PARAMETERS
 
@@ -72,8 +70,7 @@ Accept wildcard characters: False
 ### -DomainId
 
 Object that can be used to identify the SSO domain to add inclusion entries to.
-This can either be the SSO domain ID (as string or GUID) or a SsoDomain
-object that has been received using the `Get-TeamViewerSsoDomain` function.
+This can either be the SSO domain Id (as string or GUID) or a SsoDomain object that has been received using the `Get-TeamViewerSsoDomain` function.
 
 ```yaml
 Type: Object
@@ -90,8 +87,7 @@ Accept wildcard characters: False
 ### -Email
 
 List of emails addresses to add to the inclusion list.
-The emails must be of the same email domain as the SSO domain, otherwise the
-command will fail.
+The emails must be of the same email domain as the SSO domain, otherwise the command will fail.
 
 ```yaml
 Type: String[]

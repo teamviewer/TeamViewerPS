@@ -1,8 +1,7 @@
-BeforeAll {
+﻿BeforeAll {
     . "$PSScriptRoot\..\..\Cmdlets\Public\Get-TeamViewerSsoDomain.ps1"
 
-    @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | `
-        ForEach-Object { . $_.FullName }
+    @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
 
     $testApiToken = [securestring]@{}
     $null = $testApiToken
@@ -12,36 +11,33 @@ BeforeAll {
 }
 
 Describe 'Get-TeamViewerSsoDomain' {
-
     Context 'List' {
-       BeforeAll {
-        Mock Invoke-TeamViewerRestMethod {
-        @{
-            domains = @(
-                @{ DomainId = '45e0d050-15e6-4fcb-91b2-ea4f20fe2085'; DomainName = 'domain1.test' },
-                @{ DomainId = 'b610124c-14b9-4b37-a2a4-a5ef678e16ed'; DomainName = 'domain2.test' }
-            )
-        } }
-    }
+        BeforeAll {
+            Mock Invoke-TeamViewerRestMethod {
+                @{
+                    domains = @(
+                        @{ DomainId = '45e0d050-15e6-4fcb-91b2-ea4f20fe2085'; DomainName = 'domain1.test' },
+                        @{ DomainId = 'b610124c-14b9-4b37-a2a4-a5ef678e16ed'; DomainName = 'domain2.test' }
+                    )
+                } }
+        }
         It 'Should call the correct API endpoint' {
-        Get-TeamViewerSsoDomain -ApiToken $testApiToken
+            Get-TeamViewerSsoDomain -ApiToken $testApiToken
 
-        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -And `
-                $Uri -eq "//unit.test/ssoDomain" -And `
-                $Method -eq 'Get' }
-    }
+            Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+                $ApiToken -eq $testApiToken -and $Uri -eq '//unit.test/ssoDomain' -and $Method -eq 'Get' }
+        }
 
         It 'Should return SsoDomain objects' {
-            $result = Get-TeamViewerSsoDomain -ApiToken $testApiToken
-            $result | Should -HaveCount 2
-            $result[0].PSObject.TypeNames | Should -Contain 'TeamViewerPS.SsoDomain'
-            $result[0].Name | Should -Be 'domain1.test'
+            $Result = Get-TeamViewerSsoDomain -ApiToken $testApiToken
+            $Result | Should -HaveCount 2
+            $Result[0].PSObject.TypeNames | Should -Contain 'TeamViewerPS.SsoDomain'
+            $Result[0].Name | Should -Be 'domain1.test'
         }
 
     }
 
-   Context 'Single SsoDomain' {
+    Context 'Single SsoDomain' {
         BeforeAll {
             Mock Invoke-TeamViewerRestMethod { @{
                     domains = @(
@@ -54,17 +50,15 @@ Describe 'Get-TeamViewerSsoDomain' {
             Get-TeamViewerSsoDomain -ApiToken $testApiToken -Id '45e0d050-15e6-4fcb-91b2-ea4f20fe2085'
 
             Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-                $ApiToken -eq $testApiToken -And `
-                    $Uri -eq '//unit.test/ssoDomain/45e0d050-15e6-4fcb-91b2-ea4f20fe2085' -And `
-                    $Method -eq 'Get' }
+                $ApiToken -eq $testApiToken -and $Uri -eq '//unit.test/ssoDomain/45e0d050-15e6-4fcb-91b2-ea4f20fe2085' -and $Method -eq 'Get' }
         }
 
         It 'Should return a SsoDomain object' {
-            $result = Get-TeamViewerSsoDomain -ApiToken $testApiToken -Id '45e0d050-15e6-4fcb-91b2-ea4f20fe2085'
-            $result | Should -BeOfType PSObject
-            $result.PSObject.TypeNames | Should -Contain 'TeamViewerPS.SsoDomain'
+            $Result = Get-TeamViewerSsoDomain -ApiToken $testApiToken -Id '45e0d050-15e6-4fcb-91b2-ea4f20fe2085'
+            $Result | Should -BeOfType ([pscustomobject])
+            $Result.PSObject.TypeNames | Should -Contain 'TeamViewerPS.SsoDomain'
         }
 
-   }
+    }
 
 }

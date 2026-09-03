@@ -1,15 +1,22 @@
-#requires -Modules BuildHelpers, platyPS
+﻿#requires -Modules BuildHelpers, Microsoft.PowerShell.PlatyPS
 
 param(
     [Parameter()]
-    [string]$Build_OutputPath = "$(Resolve-Path "$PSScriptRoot\..")\Build\TeamViewerPS"
+    [string]$Build_OutputPath = "$(Resolve-Path "$PSScriptRoot\..")\Build\TeamViewerPS",
+
+    [Parameter()]
+    [version]$Module_Version
 )
 
 $Repo_RootPath = Resolve-Path -Path "$PSScriptRoot\.."
 $Repo_CmdletPath = Resolve-Path -Path "$PSScriptRoot\..\Cmdlets"
 
+. (Join-Path -Path $PSScriptRoot -ChildPath 'Get-FormatTypeName.ps1')
+. (Join-Path -Path $PSScriptRoot -ChildPath 'New-FormatFile.ps1')
+
 if (Test-Path -Path $Build_OutputPath) {
     Write-Verbose 'Removing existing build output directory...'
+
     Remove-Item -Path $Build_OutputPath -Recurse -ErrorAction SilentlyContinue
 }
 
@@ -30,17 +37,30 @@ Write-Verbose "Found $($PublicFunctions.Count) public function files."
 
 @($ModuleTypes + $PrivateFunctions + $PublicFunctions) | Get-Content -Raw | ForEach-Object { $_; "`r`n" } | Set-Content -Path $Build_ModulePath -Encoding UTF8
 
+# Generate format definitions from public getter output types
+Write-Verbose 'Generating format definitions...'
+New-FormatFile -Path (Join-Path -Path $Repo_CmdletPath -ChildPath 'TeamViewerPS.format.ps1xml') -Destination (Join-Path -Path $Build_OutputPath -ChildPath 'TeamViewerPS.format.ps1xml')
+
 # Create help from markdown
 Write-Verbose 'Building help from Markdown...'
-New-ExternalHelp -Path (Join-Path -Path $Repo_RootPath -ChildPath 'Docs') -OutputPath (Join-Path -Path $Build_OutputPath -ChildPath 'en-US') | Out-Null
-New-ExternalHelp -Path (Join-Path -Path $Repo_RootPath -ChildPath 'Docs\Help') -OutputPath (Join-Path -Path $Build_OutputPath -ChildPath 'en-US') | Out-Null
+$Help_Command = @(Measure-PlatyPSMarkdown -Path (Join-Path -Path $Repo_RootPath -ChildPath 'Docs\Help\*.md') |
+    Where-Object -Property Filetype -Match 'CommandHelp' | ForEach-Object { Import-MarkdownCommandHelp -Path $_.FilePath })
+
+$Help_OutputPath = Join-Path -Path $Build_OutputPath -ChildPath 'en-US'
+$Help_Command | Export-MamlCommandHelp -OutputFolder $Help_OutputPath | Out-Null
+
+Move-Item -LiteralPath (Join-Path -Path $Help_OutputPath -ChildPath 'TeamViewerPS\TeamViewerPS-help.xml') -Destination $Help_OutputPath
+Remove-Item -Path (Join-Path -Path $Help_OutputPath -ChildPath 'TeamViewerPS') -Recurse
 
 # Create module manifest
 Write-Verbose 'Creating module manifest...'
 Copy-Item -Path (Join-Path -Path $Repo_CmdletPath -ChildPath 'TeamViewerPS.psd1') -Destination $Build_OutputPath
-Copy-Item -Path (Join-Path -Path $Repo_CmdletPath -ChildPath '*.format.ps1xml') -Destination $Build_OutputPath
 
 Update-Metadata -Path (Join-Path -Path $Build_OutputPath -ChildPath 'TeamViewerPS.psd1') -PropertyName 'FunctionsToExport' -Value $PublicFunctions.BaseName
+
+if ($PSBoundParameters.ContainsKey('Module_Version')) {
+    Update-Metadata -Path (Join-Path -Path $Build_OutputPath -ChildPath 'TeamViewerPS.psd1') -PropertyName 'ModuleVersion' -Value $Module_Version
+}
 
 # Copy additional package files
 Write-Verbose 'Copying additional files into the package...'

@@ -1,61 +1,65 @@
-function Get-TeamViewerDevice {
-    [CmdletBinding(DefaultParameterSetName = "FilteredList")]
+﻿function Get-TeamViewerDevice {
+    [CmdletBinding(DefaultParameterSetName = 'FilteredList')]
+
+    [OutputType('TeamViewerPS.Device')]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
         $ApiToken,
 
-        [Parameter(ParameterSetName = "ByDeviceId")]
+        [Parameter(ParameterSetName = 'ByDevice')]
         [ValidateScript( { $_ | Resolve-TeamViewerDeviceId } )]
-        [Alias("DeviceId")]
+        [Alias('Id', 'DeviceId')]
         [string]
-        $Id,
+        $Device,
 
-        [Parameter(ParameterSetName = "FilteredList")]
+        [Parameter(ParameterSetName = 'FilteredList')]
+        [ValidateRange(1, [int]::MaxValue)]
         [int]
         $TeamViewerId,
 
-        [Parameter(ParameterSetName = "FilteredList")]
+        [Parameter(ParameterSetName = 'FilteredList')]
         [ValidateSet('Online', 'Busy', 'Away', 'Offline')]
         [string]
-        $FilterOnlineState,
+        $FilterBy_OnlineState,
 
-        [Parameter(ParameterSetName = "FilteredList")]
+        [Parameter(ParameterSetName = 'FilteredList')]
         [ValidateScript( { $_ | Resolve-TeamViewerGroupId } )]
-        [Alias("GroupId")]
+        [Alias('GroupId')]
         [object]
         $Group
     )
 
-    $resourceUri = "$(Get-TeamViewerApiUri)/devices";
-    $parameters = @{ }
+    $ResourceUri = "$(Get-TeamViewerApiUri)/devices"
+    $Parameters = @{ }
 
     switch ($PsCmdlet.ParameterSetName) {
-        'ByDeviceId' {
-            $resourceUri += "/$Id"
-            $parameters = $null
+        'ByDevice' {
+            $ResourceUri += "/$Device"
+            $Parameters = $null
         }
         'FilteredList' {
             if ($TeamViewerId) {
-                $parameters['remotecontrol_id'] = "r$TeamViewerId"
+                $Parameters['remotecontrol_id'] = "r$TeamViewerId"
             }
-            if ($FilterOnlineState) {
-                $parameters['online_state'] = $FilterOnlineState.ToLower()
+            if ($FilterBy_OnlineState) {
+                $Parameters['online_state'] = $FilterBy_OnlineState.ToLower()
             }
             if ($Group) {
-                $groupId = $Group | Resolve-TeamViewerGroupId
-                $parameters['groupid'] = $groupId
+                $GroupId = $Group | Resolve-TeamViewerGroupId
+                $Parameters['groupid'] = $GroupId
             }
         }
     }
 
-    $response = Invoke-TeamViewerRestMethod `
+    $Response = Invoke-TeamViewerRestMethod `
         -ApiToken $ApiToken `
-        -Uri $resourceUri `
+        -Uri $ResourceUri `
         -Method Get `
-        -Body $parameters `
+        -Body $Parameters `
         -WriteErrorTo $PSCmdlet `
         -ErrorAction Stop
 
-    Write-Output ($response.devices | ConvertTo-TeamViewerDevice)
+    Write-Output ($Response.devices | ConvertTo-TeamViewerDevice)
 }

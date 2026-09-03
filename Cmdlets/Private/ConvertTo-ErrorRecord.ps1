@@ -1,4 +1,4 @@
-function ConvertTo-ErrorRecord {
+﻿function ConvertTo-ErrorRecord {
     param(
         [Parameter(ValueFromPipeline)]
         [object]

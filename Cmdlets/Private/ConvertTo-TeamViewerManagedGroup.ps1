@@ -1,19 +1,23 @@
-function ConvertTo-TeamViewerManagedGroup {
+﻿function ConvertTo-TeamViewerManagedGroup {
     param(
         [Parameter(ValueFromPipeline)]
-        [PSObject]
+        [object]
         $InputObject
     )
+
     process {
-        $properties = @{
+        $Properties = @{
             Id   = [guid]$InputObject.id
             Name = $InputObject.name
         }
+
         if ($InputObject.policy_id) {
-            $properties["PolicyId"] = $InputObject.policy_id
+            $Properties['Policy_Id'] = $InputObject.policy_id
         }
-        $result = New-Object -TypeName PSObject -Property $properties
-        $result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.ManagedGroup')
-        Write-Output $result
+
+        $Result = New-Object -TypeName PSObject -Property $Properties
+        $Result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.ManagedGroup')
+
+        Write-Output $Result
     }
 }

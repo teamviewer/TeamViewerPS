@@ -1,5 +1,8 @@
-function Set-TeamViewerDevice {
-    [CmdletBinding(SupportsShouldProcess = $true, DefaultParameterSetName = "Default")]
+﻿function Set-TeamViewerDevice {
+    [CmdletBinding(SupportsShouldProcess = $true, DefaultParameterSetName = 'Default')]
+
+    [OutputType([void])]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
@@ -7,25 +10,25 @@ function Set-TeamViewerDevice {
 
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerDeviceId } )]
-        [Alias("DeviceId")]
-        [Alias("Id")]
+        [Alias('DeviceId')]
+        [Alias('Id')]
         [object]
         $Device,
 
-        [Parameter(ParameterSetName = "ChangeGroup")]
+        [Parameter(ParameterSetName = 'ChangeGroup')]
         [ValidateScript( { $_ | Resolve-TeamViewerGroupId } )]
-        [Alias("GroupId")]
+        [Alias('GroupId')]
         [object]
         $Group,
 
-        [Parameter(ParameterSetName = "ChangePolicy")]
+        [Parameter(ParameterSetName = 'ChangePolicy')]
         [ValidateScript( { $_ | Resolve-TeamViewerPolicyId -AllowInherit -AllowNone } )]
-        [Alias("PolicyId")]
+        [Alias('PolicyId')]
         [object]
         $Policy,
 
         [Parameter()]
-        [Alias("Alias")]
+        [Alias('Alias')]
         [string]
         $Name,
 
@@ -37,44 +40,50 @@ function Set-TeamViewerDevice {
         [securestring]
         $Password
     )
-    Begin {
-        $body = @{}
+
+    begin {
+        $Body = @{}
 
         if ($Name) {
-            $body['alias'] = $Name
+            $Body['alias'] = $Name
         }
+
         if ($Description) {
-            $body['description'] = $Description
+            $Body['description'] = $Description
         }
+
         if ($Password) {
             $bstr = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($Password)
-            $body['password'] = [System.Runtime.InteropServices.Marshal]::PtrToStringBSTR($bstr)
+            $Body['password'] = [System.Runtime.InteropServices.Marshal]::PtrToStringBSTR($bstr)
             [System.Runtime.InteropServices.Marshal]::ZeroFreeBSTR($bstr) | Out-Null
         }
+
         if ($Group) {
-            $body['groupid'] = $Group | Resolve-TeamViewerGroupId
-        }
-        if ($Policy) {
-            $body['policy_id'] = $Policy | Resolve-TeamViewerPolicyId -AllowNone -AllowInherit
+            $Body['groupid'] = $Group | Resolve-TeamViewerGroupId
         }
 
-        if ($body.Count -eq 0) {
+        if ($Policy) {
+            $Body['policy_id'] = ($Policy | Resolve-TeamViewerPolicyId -AllowNone -AllowInherit).ToString()
+        }
+
+        if ($Body.Count -eq 0) {
             $PSCmdlet.ThrowTerminatingError(
-                ("The given input does not change the device." | `
-                        ConvertTo-ErrorRecord -ErrorCategory InvalidArgument))
+                ('The given input does not change the device.' | `
+                    ConvertTo-ErrorRecord -ErrorCategory InvalidArgument))
         }
     }
-    Process {
-        $deviceId = $Device | Resolve-TeamViewerDeviceId
-        $resourceUri = "$(Get-TeamViewerApiUri)/devices/$deviceId"
 
-        if ($PSCmdlet.ShouldProcess($Device.ToString(), "Change device entry")) {
+    process {
+        $DeviceId = $Device | Resolve-TeamViewerDeviceId
+        $ResourceUri = "$(Get-TeamViewerApiUri)/devices/$DeviceId"
+
+        if ($PSCmdlet.ShouldProcess($DeviceId, 'Change device entry')) {
             Invoke-TeamViewerRestMethod `
                 -ApiToken $ApiToken `
-                -Uri $resourceUri `
+                -Uri $ResourceUri `
                 -Method Put `
-                -ContentType "application/json; charset=utf-8" `
-                -Body ([System.Text.Encoding]::UTF8.GetBytes(($body | ConvertTo-Json))) `
+                -ContentType 'application/json; charset=utf-8' `
+                -Body ([System.Text.Encoding]::UTF8.GetBytes(($Body | ConvertTo-Json))) `
                 -WriteErrorTo $PSCmdlet `
                 -ErrorAction Stop | `
                 Out-Null

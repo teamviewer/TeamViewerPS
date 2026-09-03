@@ -1,5 +1,8 @@
-function Remove-TeamviewerPolicyFromManagedDevice {
+﻿function Remove-TeamviewerPolicyFromManagedDevice {
     [CmdletBinding(SupportsShouldProcess = $true)]
+
+    [OutputType([void])]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
@@ -7,7 +10,7 @@ function Remove-TeamviewerPolicyFromManagedDevice {
 
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerManagedDeviceId } )]
-        [Alias("DeviceId")]
+        [Alias('DeviceId')]
         [object]
         $Device,
 
@@ -15,22 +18,24 @@ function Remove-TeamviewerPolicyFromManagedDevice {
         [PolicyType]
         $PolicyType
     )
-    Begin {
-        $body = @{
+
+    begin {
+        $Body = @{
             'policy_type' = [int]$PolicyType
         }
     }
-    Process {
-        $deviceId = $Device | Resolve-TeamViewerManagedDeviceId
-        $resourceUri = "$(Get-TeamViewerApiUri)/managed/devices/$deviceId/policy/remove"
 
-        if ($PSCmdlet.ShouldProcess($Device.ToString(), "Change managed device entry")) {
+    process {
+        $DeviceId = $Device | Resolve-TeamViewerManagedDeviceId
+        $ResourceUri = "$(Get-TeamViewerApiUri)/managed/devices/$DeviceId/policy/remove"
+
+        if ($PSCmdlet.ShouldProcess($DeviceId, 'Change managed device entry')) {
             Invoke-TeamViewerRestMethod `
                 -ApiToken $ApiToken `
-                -Uri $resourceUri `
+                -Uri $ResourceUri `
                 -Method Put `
-                -ContentType "application/json; charset=utf-8" `
-                -Body ([System.Text.Encoding]::UTF8.GetBytes(($body | ConvertTo-Json))) `
+                -ContentType 'application/json; charset=utf-8' `
+                -Body ([System.Text.Encoding]::UTF8.GetBytes(($Body | ConvertTo-Json))) `
                 -WriteErrorTo $PSCmdlet `
                 -ErrorAction Stop | `
                 Out-Null

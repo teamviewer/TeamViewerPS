@@ -1,23 +1,23 @@
-function ConvertTo-TeamViewerAuditEvent {
+﻿function ConvertTo-TeamViewerAuditEvent {
     param(
         [Parameter(ValueFromPipeline)]
-        [PSObject]
+        [object]
         $InputObject
     )
+
     process {
-        $properties = @{
+        $Properties = @{
             Name         = $InputObject.EventName
             Type         = $InputObject.EventType
-            Timestamp    = $InputObject.Timestamp | ConvertTo-DateTime
             Author       = $InputObject.Author
             AffectedItem = $InputObject.AffectedItem
-            EventDetails = $InputObject.EventDetails
+            Details      = $InputObject.EventDetails
+            CreatedAt    = $InputObject.Timestamp | ConvertTo-DateTime
         }
-        $result = New-Object -TypeName PSObject -Property $properties
-        $result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.AuditEvent')
-        $result | Add-Member -MemberType ScriptMethod -Name "ToString" -Force -Value {
-            Write-Output "[$($this.Timestamp)] $($this.Name) ($($this.Type))"
-        }
-        Write-Output $result
+
+        $Result = New-Object -TypeName PSObject -Property $Properties
+        $Result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.AuditEvent')
+
+        Write-Output $Result
     }
 }

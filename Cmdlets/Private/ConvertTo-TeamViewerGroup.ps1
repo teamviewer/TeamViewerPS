@@ -1,25 +1,29 @@
-function ConvertTo-TeamViewerGroup {
+﻿function ConvertTo-TeamViewerGroup {
     param(
         [Parameter(ValueFromPipeline)]
-        [PSObject]
+        [object]
         $InputObject
     )
+
     process {
-        $properties = @{
+        $Properties = @{
             Id          = $InputObject.id
             Name        = $InputObject.name
             Permissions = $InputObject.permissions
-            PolicyId    = $InputObject.policy_id
-            SharedWith  = @($InputObject.shared_with | ConvertTo-TeamViewerGroupShare)
+            Policy_Id   = $InputObject.policy_id
+            Shared_With = @($InputObject.shared_with | ConvertTo-TeamViewerGroupShare)
         }
+
         if ($InputObject.owner) {
-            $properties.Owner = [pscustomobject]@{
-                UserId = $InputObject.owner.userid
-                Name   = $InputObject.owner.name
+            $Properties.Owner = [pscustomobject]@{
+                Id   = $InputObject.owner.userid
+                Name = $InputObject.owner.name
             }
         }
-        $result = New-Object -TypeName PSObject -Property $properties
-        $result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.Group')
-        Write-Output $result
+
+        $Result = New-Object -TypeName PSObject -Property $Properties
+        $Result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.Group')
+
+        Write-Output $Result
     }
 }

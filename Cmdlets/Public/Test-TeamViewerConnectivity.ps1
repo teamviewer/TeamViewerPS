@@ -1,46 +1,69 @@
-function Test-TeamViewerConnectivity {
+﻿function Test-TeamViewerConnectivity {
+    [CmdletBinding()]
+
+    [OutputType([bool], [pscustomobject])]
+
     param(
         [Parameter()]
         [switch]
         $Quiet
     )
 
-    $endpoints = @(
-        @{ Hostname = 'webapi.teamviewer.com'; TcpPort = 443; }
-        @{ Hostname = 'login.teamviewer.com'; TcpPort = 443; }
-        @{ Hostname = 'meeting.teamviewer.com'; TcpPort = 443; }
-        @{ Hostname = 'sso.teamviewer.com'; TcpPort = 443; }
-        @{ Hostname = 'download.teamviewer.com'; TcpPort = 443; }
-        @{ Hostname = 'configdl.teamviewer.com'; TcpPort = 443; }
-        @{ Hostname = 'get.teamviewer.com'; TcpPort = 443; }
-        @{ Hostname = 'go.teamviewer.com'; TcpPort = 443; }
-        @{ Hostname = 'client.teamviewer.com'; TcpPort = 443; }
-        @{ Hostname = 'feedbackservice.teamviewer.com'; TcpPort = 443; }
-        @{ Hostname = 'remotescriptingstorage.blob.core.windows.net'; TcpPort = 443; }
-        @{ Hostname = 'chatlivestorage.blob.core.windows.net'; TcpPort = 443; }
-    )
-    1..16 | ForEach-Object {
-        $endpoints += @{ Hostname = "router$_.teamviewer.com"; TcpPort = (5938, 443, 80) }
+    begin {
+        $TV_Services = @(
+            [pscustomobject]@{ Hostname = 'account.teamviewer.com'; TcpPort = @(443) }
+            [pscustomobject]@{ Hostname = 'chatlivestorage.blob.core.windows.net'; TcpPort = @(443) }
+            [pscustomobject]@{ Hostname = 'client.teamviewer.com'; TcpPort = @(443) }
+            [pscustomobject]@{ Hostname = 'configdl.teamviewer.com'; TcpPort = @(443) }
+            [pscustomobject]@{ Hostname = 'download.teamviewer.com'; TcpPort = @(443) }
+            [pscustomobject]@{ Hostname = 'feedbackservice.teamviewer.com'; TcpPort = @(443) }
+            [pscustomobject]@{ Hostname = 'get.teamviewer.com'; TcpPort = @(443) }
+            [pscustomobject]@{ Hostname = 'go.teamviewer.com'; TcpPort = @(443) }
+            [pscustomobject]@{ Hostname = 'hapi.teamviewer.com'; TcpPort = @(443) }
+            [pscustomobject]@{ Hostname = 'login.teamviewer.com'; TcpPort = @(443) }
+            [pscustomobject]@{ Hostname = 'meeting.teamviewer.com'; TcpPort = @(443) }
+            [pscustomobject]@{ Hostname = 'remotescriptingstorage.blob.core.windows.net'; TcpPort = @(443) }
+            [pscustomobject]@{ Hostname = 'sso.teamviewer.com'; TcpPort = @(443) }
+            [pscustomobject]@{ Hostname = 'web.teamviewer.com'; TcpPort = @(443) }
+            [pscustomobject]@{ Hostname = 'webapi.teamviewer.com'; TcpPort = @(443) }
+        )
+
+        foreach ($routerIndex in 1..16) {
+            $TV_Services += [pscustomobject]@{ Hostname = "router$routerIndex.teamviewer.com"; TcpPort = @(5938, 443, 80) }
+        }
     }
 
-    $results = $endpoints | ForEach-Object {
-        $endpoint = $_
-        $portSucceeded = $endpoint.TcpPort | Where-Object {
-            Write-Verbose "Checking endpoint $($endpoint.Hostname) on port $_"
-            Test-TcpConnection -Hostname $endpoint.Hostname -Port $_
-        } | Select-Object -First 1
-        $endpoint.Succeeded = [bool]$portSucceeded
-        $endpoint.TcpPort = if ($endpoint.Succeeded) { $portSucceeded } else { $endpoint.TcpPort }
-        return $endpoint
-    }
+    process {
+        $Results = foreach ($TV_Service in $TV_Services) {
+            $successfulPort = $null
 
-    if ($Quiet) {
-        ![bool]($results | Where-Object { -Not $_.Succeeded })
-    }
-    else {
-        $results | `
-            ForEach-Object { New-Object PSObject -Property $_ } | `
-            Select-Object -Property Hostname, TcpPort, Succeeded | `
-            Sort-Object Hostname
+            foreach ($port in $TV_Service.TcpPort) {
+                Write-Verbose "Checking service $($TV_Service.Hostname) on port $port..."
+
+                if (Test-NetConnection -ComputerName $TV_Service.Hostname -Port $port -InformationLevel Quiet -WarningAction SilentlyContinue) {
+                    $successfulPort = $port
+                    break
+                }
+            }
+
+            [pscustomobject]@{
+                Hostname  = $TV_Service.Hostname
+                TcpPort   = if ($null -ne $successfulPort) {
+                    $successfulPort
+                }
+                else {
+                    $TV_Service.TcpPort
+                }
+
+                Succeeded = $null -ne $successfulPort
+            }
+        }
+
+        if ($Quiet) {
+            -not ($Results.Succeeded -contains $false)
+        }
+        else {
+            $Results | Sort-Object -Property Hostname
+        }
     }
 }

@@ -1,4 +1,4 @@
-BeforeAll {
+﻿BeforeAll {
     . "$PSScriptRoot\..\..\Cmdlets\Public\Set-TeamViewerPredefinedRole.ps1"
 
     @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
@@ -17,11 +17,7 @@ Describe 'Set-TeamViewerPredefinedRole' {
         Set-TeamViewerPredefinedRole -ApiToken $testApiToken -RoleId $testRoleId
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -And `
-                $Uri -eq "//unit.test/userroles/$testRoleId/predefined" -And `
-                $Method -eq 'Put'
+            $ApiToken -eq $testApiToken -and $Uri -eq "//unit.test/userroles/$testRoleId/predefined" -and $Method -eq 'Put'
         }
     }
-
 }
-

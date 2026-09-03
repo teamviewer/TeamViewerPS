@@ -1,33 +1,30 @@
-function ConvertTo-TeamViewerLicenseInformation {
+﻿function ConvertTo-TeamViewerLicenseInformation {
     param(
         [Parameter(ValueFromPipeline)]
-        [PSObject]
+        [object]
         $InputObject
     )
 
     process {
-        $properties = @{
-            LicenseName      = $InputObject.licenseName
-            Version          = [int]$InputObject.version
-            Type             = $InputObject.type
-            LicenseId        = [guid]$InputObject.licenseId
-            IsActive         = [bool]$InputObject.isActive
-            AiCredits        = [int]$InputObject.aiCredits
-            ManagedDevices   = [int]$InputObject.managedDevices
-            AssignedUsers    = [int]$InputObject.assignedUsers
+        $Properties = @{
+            Id               = [guid]$InputObject.licenseId
+            Name             = $InputObject.licenseName
             DisplayName      = $InputObject.displayName
             Details          = $InputObject.details
+            Type             = $InputObject.type
+            Version          = [int]$InputObject.version
+            IsActive         = [bool]$InputObject.isActive
+            AssignedUsers    = [int]$InputObject.assignedUsers
+            ManagedDevices   = [int]$InputObject.managedDevices
+            AiCredits        = [int]$InputObject.aiCredits
             NumberOfChannels = [int]$InputObject.numberOfChannels
             MaxAssignments   = [int]$InputObject.maxAssignments
             TotalTechnicians = [int]$InputObject.totalTechnicians
         }
 
-        $result = New-Object -TypeName PSObject -Property $properties
-        $result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.LicenseInformation')
-        $result | Add-Member -MemberType ScriptMethod -Name 'ToString' -Force -Value {
-            Write-Output "$($this.LicenseName)"
-        }
+        $Result = New-Object -TypeName PSObject -Property $Properties
+        $Result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.LicenseInformation')
 
-        Write-Output $result
+        Write-Output $Result
     }
 }

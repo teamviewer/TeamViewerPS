@@ -1,5 +1,8 @@
-function New-TeamViewerContact {
+﻿function New-TeamViewerContact {
     [CmdletBinding(SupportsShouldProcess = $true)]
+
+    [OutputType('TeamViewerPS.Contact')]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
@@ -12,7 +15,7 @@ function New-TeamViewerContact {
 
         [Parameter(Mandatory = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerGroupId } )]
-        [Alias("GroupId")]
+        [Alias('GroupId')]
         [object]
         $Group,
 
@@ -21,26 +24,29 @@ function New-TeamViewerContact {
         $Invite
     )
 
-    $body = @{
+    $Body = @{
         email   = $Email
         groupid = $Group | Resolve-TeamViewerGroupId
     }
+
     if ($Invite) {
-        $body['invite'] = $true
+        $Body['invite'] = $true
     }
 
-    $resourceUri = "$(Get-TeamViewerApiUri)/contacts"
-    if ($PSCmdlet.ShouldProcess($Email, "Create contact")) {
-        $response = Invoke-TeamViewerRestMethod `
+    $ResourceUri = "$(Get-TeamViewerApiUri)/contacts"
+
+    if ($PSCmdlet.ShouldProcess($Email, 'Create contact')) {
+        $Response = Invoke-TeamViewerRestMethod `
             -ApiToken $ApiToken `
-            -Uri $resourceUri `
+            -Uri $ResourceUri `
             -Method Post `
-            -ContentType "application/json; charset=utf-8" `
-            -Body ([System.Text.Encoding]::UTF8.GetBytes(($body | ConvertTo-Json))) `
+            -ContentType 'application/json; charset=utf-8' `
+            -Body ([System.Text.Encoding]::UTF8.GetBytes(($Body | ConvertTo-Json))) `
             -WriteErrorTo $PSCmdlet `
             -ErrorAction Stop
 
-        $result = ($response | ConvertTo-TeamViewerContact)
-        Write-Output $result
+        $Result = ($Response | ConvertTo-TeamViewerContact)
+
+        Write-Output $Result
     }
 }

@@ -1,4 +1,4 @@
----
+﻿---
 external help file: TeamViewerPS-help.xml
 Module Name: TeamViewerPS
 online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/Get-TeamViewerUserByRole.md
@@ -29,7 +29,7 @@ Lists the assigned roles of a user in the TeamViewer company associated with the
 PS /> Get-TeamViewerRoleByUser -UserId "u123456777"
 ```
 
-Lists the assigned roles of the user with the ID u123456777.
+Lists the assigned roles of the user with the Id u123456777.
 
 ## PARAMETERS
 

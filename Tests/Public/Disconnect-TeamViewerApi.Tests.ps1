@@ -1,4 +1,4 @@
-BeforeAll {
+﻿BeforeAll {
     . "$PSScriptRoot\..\..\Cmdlets\Public\Disconnect-TeamViewerApi.ps1"
 }
 

@@ -1,4 +1,4 @@
----
+﻿---
 external help file: TeamViewerPS-help.xml
 Module Name: TeamViewerPS
 online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/Remove-TeamViewerCustomization.md
@@ -14,7 +14,7 @@ Removes the customization from the TeamViewer Installation.
 ## SYNTAX
 
 ```powershell
-Remove-TeamViewerCustomization
+Remove-TeamViewerCustomization [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -27,7 +27,7 @@ Existing customization should be removed before applying new customization.
 ### Example 1
 
 ```powershell
-PS /> Remove-TeamViewerAssignment
+PS /> Remove-TeamViewerCustomization
 ```
 
 Removes the customization.
@@ -35,8 +35,6 @@ Removes the customization.
 ## PARAMETERS
 
 ### CommonParameters
-
-### None
 
 ## INPUTS
 

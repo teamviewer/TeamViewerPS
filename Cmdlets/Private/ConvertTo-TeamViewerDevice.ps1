@@ -1,34 +1,35 @@
-function ConvertTo-TeamViewerDevice {
+﻿function ConvertTo-TeamViewerDevice {
     param(
         [Parameter(ValueFromPipeline)]
-        [PSObject]
+        [object]
         $InputObject
     )
+
     process {
-        $remoteControlId = $InputObject.remotecontrol_id | `
-            Select-String -Pattern 'r(\d+)' | `
-            ForEach-Object { $_.Matches.Groups[1].Value }
-        $properties = @{
-            Id                         = $InputObject.device_id
-            TeamViewerId               = $remoteControlId
-            GroupId                    = $InputObject.groupid
-            Name                       = $InputObject.alias
-            Description                = $InputObject.description
-            OnlineState                = $InputObject.online_state
-            IsAssignedToCurrentAccount = $InputObject.assigned_to
-            SupportedFeatures          = $InputObject.supported_features
+        $RemoteControlId = $InputObject.remotecontrol_id | Select-String -Pattern 'r(\d+)' | ForEach-Object { $_.Matches.Groups[1].Value }
+
+        $Properties = @{
+            Id                 = $InputObject.device_id
+            TeamViewerId       = $RemoteControlId
+            Name               = $InputObject.alias
+            Description        = $InputObject.description
+            OnlineState        = $InputObject.online_state
+            Group_Id           = $InputObject.groupid
+            Assigned_To        = $InputObject.assigned_to
+            Features_Supported = $InputObject.supported_features
         }
+
         if ($InputObject.policy_id) {
-            $properties['PolicyId'] = $InputObject.policy_id
+            $Properties['Policy_Id'] = $InputObject.policy_id
         }
+
         if ($InputObject.last_seen) {
-            $properties['LastSeenAt'] = [datetime]($InputObject.last_seen)
+            $Properties['LastSeen_At'] = [datetime]($InputObject.last_seen | ConvertTo-DateTime)
         }
-        $result = New-Object -TypeName PSObject -Property $properties
-        $result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.Device')
-        $result | Add-Member -MemberType ScriptMethod -Name "ToString" -Force -Value {
-            Write-Output "$($this.Name)"
-        }
-        Write-Output $result
+
+        $Result = New-Object -TypeName PSObject -Property $Properties
+        $Result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.Device')
+
+        Write-Output $Result
     }
 }

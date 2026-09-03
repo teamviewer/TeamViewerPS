@@ -1,4 +1,8 @@
-function Get-TeamViewerUserGroup {
+﻿function Get-TeamViewerUserGroup {
+    [CmdletBinding()]
+
+    [OutputType('TeamViewerPS.UserGroup')]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
@@ -6,41 +10,41 @@ function Get-TeamViewerUserGroup {
 
         [Parameter()]
         [ValidateScript( { $_ | Resolve-TeamViewerUserGroupId } )]
-        [Alias("UserGroupId")]
-        [Alias("Id")]
+        [Alias('Id', 'UserGroupId')]
         [object]
         $UserGroup
     )
 
-    Begin {
-        $resourceUri = "$(Get-TeamViewerApiUri)/usergroups"
-        $parameters = @{ }
-        $isListOperation = $true
+    begin {
+        $ResourceUri = "$(Get-TeamViewerApiUri)/usergroups"
+        $Parameters = @{ }
+        $IsListOperation = $true
 
         if ($UserGroup) {
             $GroupId = $UserGroup | Resolve-TeamViewerUserGroupId
-            $resourceUri += "/$GroupId"
-            $parameters = $null
-            $isListOperation = $false
+            $ResourceUri += "/$GroupId"
+            $Parameters = $null
+            $IsListOperation = $false
         }
     }
 
-    Process {
+    process {
         do {
-            $response = Invoke-TeamViewerRestMethod `
+            $Response = Invoke-TeamViewerRestMethod `
                 -ApiToken $ApiToken `
-                -Uri $resourceUri `
+                -Uri $ResourceUri `
                 -Method Get `
-                -Body $parameters `
+                -Body $Parameters `
                 -WriteErrorTo $PSCmdlet `
                 -ErrorAction Stop
+
             if ($UserGroup) {
-                Write-Output ($response | ConvertTo-TeamViewerUserGroup)
+                Write-Output ($Response | ConvertTo-TeamViewerUserGroup)
             }
             else {
-                $parameters.paginationToken = $response.nextPaginationToken
-                Write-Output ($response.resources | ConvertTo-TeamViewerUserGroup)
+                $Parameters.paginationToken = $Response.nextPaginationToken
+                Write-Output ($Response.resources | ConvertTo-TeamViewerUserGroup)
             }
-        } while ($isListOperation -And $parameters.paginationToken)
+        } while ($IsListOperation -and $Parameters.paginationToken)
     }
 }

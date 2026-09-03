@@ -1,4 +1,4 @@
-function Resolve-TeamViewerUserEmail {
+﻿function Resolve-TeamViewerUserEmail {
     param(
         [Parameter(ValueFromPipeline = $true, Mandatory = $false)]
         [object]
@@ -7,13 +7,13 @@ function Resolve-TeamViewerUserEmail {
 
     process {
         if (!$User) {
-            $null
+            Write-Output $null
         }
         elseif ($User.PSObject.TypeNames -contains 'TeamViewerPS.User') {
-            $User.Email
+            Write-Output $User.Email
         }
         elseif ($User -is [string]) {
-            $User
+            Write-Output $User
         }
         else {
             throw "Invalid user email '$User'. Must be either a [TeamViewerPS.User] or [string]."

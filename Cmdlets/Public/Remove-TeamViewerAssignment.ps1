@@ -1,23 +1,25 @@
-function Remove-TeamViewerAssignment {
+﻿function Remove-TeamViewerAssignment {
     [CmdletBinding(SupportsShouldProcess = $true)]
+
+    [OutputType([void])]
+
     param()
 
+    begin {
+        $TV_ApplicationFilePath = (Join-Path -Path (Get-TeamViewerInstallationDirectory) -ChildPath 'TeamViewer.exe')
+        $TV_AssignmentParams = 'unassign'
+    }
 
-    if (Test-TeamViewerInstallation) {
-        $CurrentDirectory = Get-Location
-        $installationDirectory = Get-TeamViewerInstallationDirectory
-        Set-Location $installationDirectory
-        $cmd = 'unassign'
-        $FilePath = 'TeamViewer.exe'
-        if ($PSCmdlet.ShouldProcess($installationDirectory, 'Remove device assignment')) {
-            $process = Start-Process -FilePath $FilePath -ArgumentList $cmd -Wait -PassThru
-            $process.ExitCode | Resolve-AssignmentErrorCode
-            Set-Location $CurrentDirectory
+    process {
+        if (-not (Test-TeamViewerInstallation)) {
+            Write-Error 'TeamViewer is not installed!'
+
+            continue
+        }
+
+        if ($PSCmdlet.ShouldProcess($TV_ApplicationFilePath, 'Remove device assignment')) {
+            $process = Start-Process -FilePath $TV_ApplicationFilePath -ArgumentList $TV_AssignmentParams -Wait -PassThru
+            $process.ExitCode | Resolve-TeamViewerAssignmentErrorCode
         }
     }
-    else {
-        Write-Output 'TeamViewer is not installed.'
-    }
 }
-
-

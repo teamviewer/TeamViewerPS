@@ -1,4 +1,4 @@
----
+﻿---
 external help file: TeamViewerPS-help.xml
 Module Name: TeamViewerPS
 online version: [Link to Online Documentation]
@@ -85,8 +85,7 @@ Accept wildcard characters: False
 ### -Group
 
 Object that can be used to identify the managed group.
-This can either be the managed group ID (as string or GUID) or a managed group
-object that has been received using other module functions.
+This can either be the managed group Id (as string or GUID) or a managed group object that has been received using other module functions.
 
 ```yaml
 Type: Object

@@ -1,5 +1,8 @@
-function Get-TeamViewerUserGroupMember {
+﻿function Get-TeamViewerUserGroupMember {
     [CmdletBinding()]
+
+    [OutputType('TeamViewerPS.UserGroupMember')]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
@@ -7,29 +10,29 @@ function Get-TeamViewerUserGroupMember {
 
         [Parameter(Mandatory = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerUserGroupId } )]
-        [Alias("UserGroupId")]
-        [Alias("Id")]
+        [Alias('Id', 'UserGroupId')]
         [object]
         $UserGroup
     )
 
-    Begin {
-        $id = $UserGroup | Resolve-TeamViewerUserGroupId
-        $resourceUri = "$(Get-TeamViewerApiUri)/usergroups/$id/members"
-        $parameters = @{ }
+    begin {
+        $Id = $UserGroup | Resolve-TeamViewerUserGroupId
+        $ResourceUri = "$(Get-TeamViewerApiUri)/usergroups/$Id/members"
+        $Parameters = @{ }
     }
 
-    Process {
+    process {
         do {
-            $response = Invoke-TeamViewerRestMethod `
+            $Response = Invoke-TeamViewerRestMethod `
                 -ApiToken $ApiToken `
-                -Uri $resourceUri `
+                -Uri $ResourceUri `
                 -Method Get `
-                -Body $parameters `
+                -Body $Parameters `
                 -WriteErrorTo $PSCmdlet `
                 -ErrorAction Stop
-            $parameters.paginationToken = $response.nextPaginationToken
-            Write-Output ($response.resources | ConvertTo-TeamViewerUserGroupMember)
-        } while ($parameters.paginationToken)
+            $Parameters.paginationToken = $Response.nextPaginationToken
+
+            Write-Output ($Response.resources | ConvertTo-TeamViewerUserGroupMember)
+        } while ($Parameters.paginationToken)
     }
 }

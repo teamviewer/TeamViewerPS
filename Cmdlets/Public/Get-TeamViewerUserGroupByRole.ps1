@@ -1,4 +1,8 @@
-function Get-TeamViewerUserGroupByRole {
+﻿function Get-TeamViewerUserGroupByRole {
+    [CmdletBinding()]
+
+    [OutputType('TeamViewerPS.RoleAssignedUserGroup')]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
@@ -6,28 +10,31 @@ function Get-TeamViewerUserGroupByRole {
 
         [Parameter(Mandatory = $true)]
         [ValidateScript({ $_ | Resolve-TeamViewerRoleId })]
-        [Alias('Role')]
+        [Alias('Id', 'RoleId')]
         [string]
-        $RoleId
+        $Role
     )
 
-    Begin {
-        $resourceUri = "$(Get-TeamViewerApiUri)/userroles/assignments/usergroups?userRoleId=$RoleId"
-        $parameters = $null
+    begin {
+        $ResourceUri = "$(Get-TeamViewerApiUri)/userroles/assignments/usergroups?userRoleId=$Role"
+        $Parameters = $null
     }
-    Process {
+
+    process {
         do {
-            $response = Invoke-TeamViewerRestMethod `
+            $Response = Invoke-TeamViewerRestMethod `
                 -ApiToken $ApiToken `
-                -Uri $resourceUri `
+                -Uri $ResourceUri `
                 -Method Get `
-                -Body $parameters `
+                -Body $Parameters `
                 -WriteErrorTo $PSCmdlet `
                 -ErrorAction Stop
-            if ($response.ContinuationToken) {
-                $resourceUri += '&continuationToken=' + $response.ContinuationToken
+
+            if ($Response.ContinuationToken) {
+                $ResourceUri += '&continuationToken=' + $Response.ContinuationToken
             }
-            Write-Output ($response.AssignedToGroups | ConvertTo-TeamViewerRoleAssignedUserGroup )
-        }while ($response.ContinuationToken)
+
+            Write-Output ($Response.AssignedToGroups | ConvertTo-TeamViewerRoleAssignedUserGroup )
+        } while ($Response.ContinuationToken)
     }
 }

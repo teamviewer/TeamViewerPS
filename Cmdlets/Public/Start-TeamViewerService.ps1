@@ -1,8 +1,16 @@
-function Start-TeamViewerService {
+﻿function Start-TeamViewerService {
     [CmdletBinding(SupportsShouldProcess = $true)]
+
+    [OutputType([void])]
+
     param()
 
-    if ($PSCmdlet.ShouldProcess("TeamViewer service")) {
-        Start-Service -Name (Get-TeamViewerServiceName)
+    if (Test-TeamViewerInstallation) {
+        if ($PSCmdlet.ShouldProcess('TeamViewer service')) {
+            Start-Service -Name 'TeamViewer'
+        }
+    }
+    else {
+        return $null
     }
 }

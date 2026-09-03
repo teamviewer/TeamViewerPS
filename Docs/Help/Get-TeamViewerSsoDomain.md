@@ -1,4 +1,4 @@
----
+﻿---
 external help file: TeamViewerPS-help.xml
 Module Name: TeamViewerPS
 online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/Get-TeamViewerSsoDomain.md
@@ -14,13 +14,12 @@ Get a list of TeamViewer SSO domains that are owned by the current account.
 ## SYNTAX
 
 ```powershell
-Get-TeamViewerSsoDomain [-ApiToken] <SecureString> [<CommonParameters>]
+Get-TeamViewerSsoDomain [-ApiToken] <SecureString> [-Id <Guid>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 
-Get a list of TeamViewer SSO domain configurations that are owned by the
-account that is associated with the API access token.
+Get a list of TeamViewer SSO domain configurations that are owned by the account that is associated with the API access token.
 
 ## EXAMPLES
 
@@ -43,6 +42,22 @@ Aliases:
 
 Required: True
 Position: 0
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Id
+
+The TeamViewer SSO domain id.
+
+```yaml
+Type: Guid
+Parameter Sets: ByDomainId
+Aliases: DomainId
+
+Required: False
+Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False

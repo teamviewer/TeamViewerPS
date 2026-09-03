@@ -1,4 +1,4 @@
-# Change Log
+﻿# Change Log
 
 ## x.x.x (YYYY-xx-xx)
 

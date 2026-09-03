@@ -1,34 +1,36 @@
-function Get-TeamViewerPolicy {
-    [CmdletBinding(DefaultParameterSetName = "FilteredList")]
+﻿function Get-TeamViewerPolicy {
+    [CmdletBinding(DefaultParameterSetName = 'FilteredList')]
+
+    [OutputType('TeamViewerPS.Policy')]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
         $ApiToken,
 
-        [Parameter(ParameterSetName = "ByPolicyId")]
-        [Alias("PolicyId")]
+        [Parameter(ParameterSetName = 'ByPolicy')]
+        [Alias('Id', 'PolicyId')]
         [guid]
-        $Id
+        $Policy
     )
 
-    $resourceUri = "$(Get-TeamViewerApiUri)/teamviewerpolicies";
-    $parameters = @{ }
+    $ResourceUri = "$(Get-TeamViewerApiUri)/teamviewerpolicies"
+    $Parameters = @{ }
 
     switch ($PsCmdlet.ParameterSetName) {
-        'ByPolicyId' {
-            $resourceUri += "/$Id"
-            $parameters = $null
+        'ByPolicy' {
+            $ResourceUri += "/$Policy"
+            $Parameters = $null
         }
     }
 
-    $response = Invoke-TeamViewerRestMethod `
+    $Response = Invoke-TeamViewerRestMethod `
         -ApiToken $ApiToken `
-        -Uri $resourceUri `
+        -Uri $ResourceUri `
         -Method Get `
-        -Body $parameters `
+        -Body $Parameters `
         -WriteErrorTo $PSCmdlet `
         -ErrorAction Stop
 
-    Write-Output ($response.policies | ConvertTo-TeamViewerPolicy)
+    Write-Output ($Response.policies | ConvertTo-TeamViewerPolicy)
 }
-

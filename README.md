@@ -1,4 +1,4 @@
-# TeamViewerPS
+﻿# TeamViewerPS
 
 ![CI](https://github.com/teamviewer/TeamViewerPS/workflows/CI/badge.svg)
 

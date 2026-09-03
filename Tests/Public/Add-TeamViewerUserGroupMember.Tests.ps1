@@ -1,8 +1,7 @@
-BeforeAll {
+﻿BeforeAll {
     . "$PSScriptRoot\..\..\Cmdlets\Public\Add-TeamViewerUserGroupMember.ps1"
 
-    @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | `
-        ForEach-Object { . $_.FullName }
+    @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
 
     $testApiToken = [securestring]@{}
     $null = $testApiToken
@@ -25,65 +24,48 @@ Describe 'Add-TeamViewerUserGroupMember' {
             -UserGroup $testUserGroupId `
             -Member $testMembers
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -And `
-                $Uri -eq "//unit.test/usergroups/$testUserGroupId/members" -And `
-                $Method -eq 'Post' }
+            $ApiToken -eq $testApiToken -and $Uri -eq "//unit.test/usergroups/$testUserGroupId/members" -and $Method -eq 'Post' }
     }
 
     It 'Should handle domain object as input' {
         $testUserGroup = @{Id = $testUserGroupId; Name = 'test user group' } | ConvertTo-TeamViewerUserGroup
-        Add-TeamViewerUserGroupMember `
-            -ApiToken $testApiToken `
-            -UserGroup $testUserGroup `
-            -Member $testMembers
+        Add-TeamViewerUserGroupMember -ApiToken $testApiToken -UserGroup $testUserGroup -Member $testMembers
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -And `
-                $Uri -eq "//unit.test/usergroups/$testUserGroupId/members" -And `
-                $Method -eq 'Post' }
+            $ApiToken -eq $testApiToken -and $Uri -eq "//unit.test/usergroups/$testUserGroupId/members" -and $Method -eq 'Post' }
     }
 
     It 'Should add a single member to the user group with format u[0-9]+' {
-        Add-TeamViewerUserGroupMember `
-            -ApiToken $testApiToken `
-            -UserGroup $testUserGroupId `
-            -Member $testMemberWithU
+        Add-TeamViewerUserGroupMember -ApiToken $testApiToken -UserGroup $testUserGroupId -Member $testMemberWithU
         $mockArgs.Body | Should -Not -BeNullOrEmpty
-        $body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
-        $body | Should -HaveCount 1
-        $body | Should -Contain $testMemberWithU.trim('u')
+        $Body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
+        $Body | Should -HaveCount 1
+        $Body | Should -Contain $testMemberWithU.trim('u')
     }
 
     It 'Should add the given members to the user group' {
-        Add-TeamViewerUserGroupMember `
-            -ApiToken $testApiToken `
-            -UserGroup $testUserGroupId `
-            -Member $testMembers
+        Add-TeamViewerUserGroupMember -ApiToken $testApiToken -UserGroup $testUserGroupId -Member $testMembers
         $mockArgs.Body | Should -Not -BeNullOrEmpty
-        $body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
-        $body | Should -HaveCount 3
-        $body | Should -Contain $testMembers[0]
-        $body | Should -Contain $testMembers[1]
-        $body | Should -Contain $testMembers[2]
+        $Body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
+        $Body | Should -HaveCount 3
+        $Body | Should -Contain $testMembers[0]
+        $Body | Should -Contain $testMembers[1]
+        $Body | Should -Contain $testMembers[2]
     }
 
     It 'Should accept pipeline input' {
-        $testMembers | Add-TeamViewerUserGroupMember `
-            -ApiToken $testApiToken `
-            -UserGroup $testUserGroupId
+        $testMembers | Add-TeamViewerUserGroupMember -ApiToken $testApiToken -UserGroup $testUserGroupId
         $mockArgs.Body | Should -Not -BeNullOrEmpty
-        $body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
-        $body | Should -HaveCount 3
-        $body | Should -Contain $testMembers[0]
-        $body | Should -Contain $testMembers[1]
-        $body | Should -Contain $testMembers[2]
+        $Body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
+        $Body | Should -HaveCount 3
+        $Body | Should -Contain $testMembers[0]
+        $Body | Should -Contain $testMembers[1]
+        $Body | Should -Contain $testMembers[2]
     }
 
-    It 'Should create chenks' {
-        1..250 | Add-TeamViewerUserGroupMember `
-            -ApiToken $testApiToken `
-            -UserGroup $testUserGroupId
+    It 'Should create chunks' {
+        1..250 | Add-TeamViewerUserGroupMember -ApiToken $testApiToken -UserGroup $testUserGroupId
         $mockArgs.Body | Should -Not -BeNullOrEmpty
-        $body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
-        $body | Should -HaveCount 50
+        $Body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
+        $Body | Should -HaveCount 50
     }
 }

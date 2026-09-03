@@ -1,8 +1,7 @@
-BeforeAll {
+﻿BeforeAll {
     . "$PSScriptRoot\..\..\Cmdlets\Public\Set-TeamViewerGroup.ps1"
 
-    @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | `
-        ForEach-Object { . $_.FullName }
+    @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
 
     $testApiToken = [securestring]@{}
     $null = $testApiToken
@@ -19,35 +18,32 @@ Describe 'Set-TeamViewerGroup' {
         Set-TeamViewerGroup -ApiToken $testApiToken -GroupId 'g1234' -Name 'Unit Test Group'
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -And `
-                $Uri -eq '//unit.test/groups/g1234' -And `
-                $Method -eq 'Put' }
+            $ApiToken -eq $testApiToken -and $Uri -eq '//unit.test/groups/g1234' -and $Method -eq 'Put' }
     }
 
     It 'Should include the given name in the request' {
         Set-TeamViewerGroup -ApiToken $testApiToken -GroupId 'g1234' -Name 'Unit Test Group'
 
         $mockArgs.Body | Should -Not -BeNullOrEmpty
-        $body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
-        $body.name | Should -Be 'Unit Test Group'
+        $Body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
+        $Body.name | Should -Be 'Unit Test Group'
     }
 
-    It 'Should include the optional policy ID in the request' {
+    It 'Should include the optional policy Id in the request' {
         Set-TeamViewerGroup -ApiToken $testApiToken -GroupId 'g1234' -Policy $testPolicyId
 
         $mockArgs.Body | Should -Not -BeNullOrEmpty
-        $body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
-        $body.policy_id | Should -Be $testPolicyId
+        $Body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
+        $Body.policy_id | Should -Be $testPolicyId
     }
 
     It 'Should accept Group objects as input' {
         $testGroupObj = @{ id = 'g1234' } | ConvertTo-TeamViewerGroup
+
         Set-TeamViewerGroup -ApiToken $testApiToken -Group $testGroupObj -Name 'Unit Test Group'
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -And `
-                $Uri -eq '//unit.test/groups/g1234' -And `
-                $Method -eq 'Put' }
+            $ApiToken -eq $testApiToken -and $Uri -eq '//unit.test/groups/g1234' -and $Method -eq 'Put' }
     }
 
     It 'Should accept pipeline objects' {
@@ -55,29 +51,21 @@ Describe 'Set-TeamViewerGroup' {
         $testGroupObj | Set-TeamViewerGroup -ApiToken $testApiToken -Name 'Unit Test Group'
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -And `
-                $Uri -eq '//unit.test/groups/g1234' -And `
-                $Method -eq 'Put' }
+            $ApiToken -eq $testApiToken -and $Uri -eq '//unit.test/groups/g1234' -and $Method -eq 'Put' }
     }
 
     It 'Should accept changes given as hashtable' {
-        Set-TeamViewerGroup `
-            -ApiToken $testApiToken `
-            -GroupId 'g1234' `
-            -Property @{
+        Set-TeamViewerGroup -ApiToken $testApiToken -GroupId 'g1234' -Property @{
             name = 'Unit Test Group'
         }
 
         $mockArgs.Body | Should -Not -BeNullOrEmpty
-        $body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
-        $body.name | Should -Be 'Unit Test Group'
+        $Body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
+        $Body.name | Should -Be 'Unit Test Group'
     }
 
     It 'Should throw if hashtable does not contain any valid change' {
-        { Set-TeamViewerGroup `
-                -ApiToken $testApiToken `
-                -GroupId 'g1234' `
-                -Property @{
+        { Set-TeamViewerGroup -ApiToken $testApiToken -GroupId 'g1234' -Property @{
                 foo = 'bar'
             } } | Should -Throw
     }

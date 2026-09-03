@@ -1,11 +1,17 @@
-BeforeAll {
+﻿BeforeAll {
     $Script:Module_RootPath = (Resolve-Path -Path (Join-Path -Path $PSScriptRoot -ChildPath '..\..'))
     $Script:Module_FilePath = (Get-ChildItem -Path (Join-Path -Path $Module_RootPath -ChildPath 'Cmdlets') -Filter '*.psm1' -File).FullName
-    $Script:Module_Name = (Split-Path -Path $Module_FilePath -Leaf).Replace('.psm1', '')
     $Script:Module_ManifestFilePath = (Get-ChildItem -Path (Join-Path -Path $Module_RootPath -ChildPath 'Cmdlets') -Filter '*.psd1' -File).FullName
+    $Script:Module_ManifestData = Import-PowerShellDataFile -Path $Module_ManifestFilePath
+    $Script:Module_Name = (Split-Path -Path $Module_FilePath -Leaf).Replace('.psm1', '')
 }
 
 Context 'Test-ManifestFile' {
+    It 'Valid module folder artifacts' {
+        @(Get-ChildItem -Path (Join-Path -Path $Module_RootPath -ChildPath 'Cmdlets') -Filter '*.psm1' -File).Count | Should -Be 1
+        @(Get-ChildItem -Path (Join-Path -Path $Module_RootPath -ChildPath 'Cmdlets') -Filter '*.psd1' -File).Count | Should -Be 1
+    }
+
     It 'Valid module manifest file' {
         $Module_ManifestFilePath | Should -Exist
 
@@ -36,6 +42,36 @@ Context 'Test-ManifestFile' {
 
     It 'Valid manifest description' {
         $Module_Manifest.Description | Should -BeLike "$Module_Name*"
+    }
+
+    It 'Valid manifest module file reference' {
+        $modulePath = Join-Path -Path (Join-Path -Path $Module_RootPath -ChildPath 'Cmdlets') -ChildPath $Module_Manifest.RootModule
+        $modulePath | Should -Exist
+    }
+
+    It 'Valid manifest format file references' {
+        $Module_ManifestData.FormatsToProcess | Should -Not -BeNullOrEmpty
+
+        foreach ($formatFile in $Module_ManifestData.FormatsToProcess) {
+            $formatFilePath = Join-Path -Path (Join-Path -Path $Module_RootPath -ChildPath 'Cmdlets') -ChildPath $formatFile
+            $formatFilePath | Should -Exist
+        }
+    }
+
+    It 'Valid manifest minimum PowerShell version' {
+        $Module_Manifest.PowerShellVersion -as [Version] | Should -Not -BeNullOrEmpty
+    }
+
+    It 'Valid manifest PSData tags' {
+        $Module_Manifest.PrivateData.PSData.Tags | Should -Not -BeNullOrEmpty
+    }
+
+    It 'Valid manifest project and license URIs' {
+        $projectUri = [Uri]$Module_Manifest.PrivateData.PSData.ProjectUri
+        $licenseUri = [Uri]$Module_Manifest.PrivateData.PSData.LicenseUri
+
+        $projectUri.IsAbsoluteUri | Should -Be $true
+        $licenseUri.IsAbsoluteUri | Should -Be $true
     }
 }
 

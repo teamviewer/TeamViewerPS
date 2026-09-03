@@ -1,8 +1,7 @@
-BeforeAll {
+﻿BeforeAll {
     . "$PSScriptRoot\..\..\Cmdlets\Public\Get-TeamViewerEffectivePermission.ps1"
 
-    @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | `
-        ForEach-Object { . $_.FullName }
+    @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
 
     $testApiToken = [securestring]@{}
     $null = $testApiToken
@@ -20,7 +19,6 @@ BeforeAll {
 }
 
 Describe 'Get-TeamViewerEffectivePermission' {
-
     It 'Should call the correct API endpoint to list permission' {
         Get-TeamViewerEffectivePermission -ApiToken $testApiToken
 
@@ -31,14 +29,13 @@ Describe 'Get-TeamViewerEffectivePermission' {
     }
 
     It 'Should convert input object to TeamViewerPS.EffectivePermission' {
+        $Result = Get-TeamViewerEffectivePermission -ApiToken $testApiToken
 
-        $result = Get-TeamViewerEffectivePermission -ApiToken $testApiToken
-
-        $result | Should -BeOfType [PSCustomObject]
-        $result.AllowGroupSharing | Should -Be $true
-        $result.ManageAdmins | Should -Be $false
-        $result.ManageUsers | Should -Be $true
-        $result.ModifyConnections | Should -Be $true
+        $Result | Should -BeOfType [PSCustomObject]
+        $Result.AllowGroupSharing | Should -Be $true
+        $Result.ManageAdmins | Should -Be $false
+        $Result.ManageUsers | Should -Be $true
+        $Result.ModifyConnections | Should -Be $true
     }
 
     It 'Should return an empty object if no permissions are assigned' {
@@ -47,13 +44,11 @@ Describe 'Get-TeamViewerEffectivePermission' {
             }
         }
 
-        $result = Get-TeamViewerEffectivePermission -ApiToken $testApiToken
-        $result | Should -BeOfType [PSCustomObject]
-        $result.PSObject.Properties | Should -Be $null
-        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -and `
-                $Uri -eq '//unit.test/users/effectivepermissions' -and `
-                $Method -eq 'Get' }
-    }
+        $Result = Get-TeamViewerEffectivePermission -ApiToken $testApiToken
+        $Result | Should -BeOfType [PSCustomObject]
+        $Result.PSObject.Properties | Should -Be $null
 
+        Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+            $ApiToken -eq $testApiToken -and $Uri -eq '//unit.test/users/effectivepermissions' -and $Method -eq 'Get' }
+    }
 }

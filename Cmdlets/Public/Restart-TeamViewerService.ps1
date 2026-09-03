@@ -1,8 +1,16 @@
-function Restart-TeamViewerService {
+﻿function Restart-TeamViewerService {
     [CmdletBinding(SupportsShouldProcess = $true)]
+
+    [OutputType([void])]
+
     param()
 
-    if ($PSCmdlet.ShouldProcess('TeamViewer service')) {
-        Restart-Service -Name (Get-TeamViewerServiceName)
+    if (Test-TeamViewerInstallation) {
+        if ($PSCmdlet.ShouldProcess('TeamViewer service')) {
+            Restart-Service -Name 'TeamViewer'
+        }
+    }
+    else {
+        return $null
     }
 }

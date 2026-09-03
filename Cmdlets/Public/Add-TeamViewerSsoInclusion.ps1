@@ -1,5 +1,8 @@
-function Add-TeamViewerSsoInclusion {
+﻿function Add-TeamViewerSsoInclusion {
     [CmdletBinding(SupportsShouldProcess = $true)]
+
+    [OutputType([void])]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
@@ -7,7 +10,7 @@ function Add-TeamViewerSsoInclusion {
 
         [Parameter(Mandatory = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerSsoDomainId } )]
-        [Alias("Domain")]
+        [Alias('Domain')]
         [object]
         $DomainId,
 
@@ -15,38 +18,42 @@ function Add-TeamViewerSsoInclusion {
         [string[]]
         $Email
     )
-    Begin {
-        $id = $DomainId | Resolve-TeamViewerSsoDomainId
-        $resourceUri = "$(Get-TeamViewerApiUri)/ssoDomain/$id/inclusion"
-        $emailsToAdd = @()
-		$null = $ApiToken
+
+    begin {
+        $Id = $DomainId | Resolve-TeamViewerSsoDomainId
+        $ResourceUri = "$(Get-TeamViewerApiUri)/ssoDomain/$Id/inclusion"
+        $EmailsToAdd = @()
+        $null = $ApiToken
 
         function Invoke-RequestInternal {
-            $body = @{
-                emails = @($emailsToAdd)
+            $Body = @{
+                emails = @($EmailsToAdd)
             }
-			Invoke-TeamViewerRestMethod `
-				-ApiToken $ApiToken `
-                -Uri $resourceUri `
+
+            Invoke-TeamViewerRestMethod `
+                -ApiToken $ApiToken `
+                -Uri $ResourceUri `
                 -Method Post `
-                -ContentType "application/json; charset=utf-8" `
-                -Body ([System.Text.Encoding]::UTF8.GetBytes(($body | ConvertTo-Json))) `
+                -ContentType 'application/json; charset=utf-8' `
+                -Body ([System.Text.Encoding]::UTF8.GetBytes(($Body | ConvertTo-Json))) `
                 -WriteErrorTo $PSCmdlet `
                 -ErrorAction Stop | `
                 Out-Null
         }
     }
-    Process {
-        if ($PSCmdlet.ShouldProcess($Email, "Add SSO inclusion")) {
-            $emailsToAdd += $Email
+
+    process {
+        if ($PSCmdlet.ShouldProcess($Email, 'Add SSO inclusion')) {
+            $EmailsToAdd += $Email
         }
-        if ($emailsToAdd.Length -eq 100) {
+
+        if ($EmailsToAdd.Length -eq 100) {
             Invoke-RequestInternal
-            $emailsToAdd = @()
+            $EmailsToAdd = @()
         }
     }
-    End {
-        if ($emailsToAdd.Length -gt 0) {
+    end {
+        if ($EmailsToAdd.Length -gt 0) {
             Invoke-RequestInternal
         }
     }

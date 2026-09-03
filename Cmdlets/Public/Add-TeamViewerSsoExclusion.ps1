@@ -1,5 +1,8 @@
-function Add-TeamViewerSsoExclusion {
+﻿function Add-TeamViewerSsoExclusion {
     [CmdletBinding(SupportsShouldProcess = $true)]
+
+    [OutputType([void])]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
@@ -7,7 +10,7 @@ function Add-TeamViewerSsoExclusion {
 
         [Parameter(Mandatory = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerSsoDomainId } )]
-        [Alias("Domain")]
+        [Alias('Domain')]
         [object]
         $DomainId,
 
@@ -15,38 +18,42 @@ function Add-TeamViewerSsoExclusion {
         [string[]]
         $Email
     )
-    Begin {
-        $id = $DomainId | Resolve-TeamViewerSsoDomainId
-        $resourceUri = "$(Get-TeamViewerApiUri)/ssoDomain/$id/exclusion"
-        $emailsToAdd = @()
+
+    begin {
+        $Id = $DomainId | Resolve-TeamViewerSsoDomainId
+        $ResourceUri = "$(Get-TeamViewerApiUri)/ssoDomain/$Id/exclusion"
+        $EmailsToAdd = @()
         $null = $ApiToken   # https://github.com/PowerShell/PSScriptAnalyzer/issues/1472
 
         function Invoke-RequestInternal {
-            $body = @{
-                emails = @($emailsToAdd)
+            $Body = @{
+                emails = @($EmailsToAdd)
             }
+
             Invoke-TeamViewerRestMethod `
                 -ApiToken $ApiToken `
-                -Uri $resourceUri `
+                -Uri $ResourceUri `
                 -Method Post `
-                -ContentType "application/json; charset=utf-8" `
-                -Body ([System.Text.Encoding]::UTF8.GetBytes(($body | ConvertTo-Json))) `
+                -ContentType 'application/json; charset=utf-8' `
+                -Body ([System.Text.Encoding]::UTF8.GetBytes(($Body | ConvertTo-Json))) `
                 -WriteErrorTo $PSCmdlet `
                 -ErrorAction Stop | `
                 Out-Null
         }
     }
-    Process {
-        if ($PSCmdlet.ShouldProcess($Email, "Add SSO exclusion")) {
-            $emailsToAdd += $Email
+
+    process {
+        if ($PSCmdlet.ShouldProcess($Email, 'Add SSO exclusion')) {
+            $EmailsToAdd += $Email
         }
-        if ($emailsToAdd.Length -eq 100) {
+        if ($EmailsToAdd.Length -eq 100) {
             Invoke-RequestInternal
-            $emailsToAdd = @()
+            $EmailsToAdd = @()
         }
     }
-    End {
-        if ($emailsToAdd.Length -gt 0) {
+
+    end {
+        if ($EmailsToAdd.Length -gt 0) {
             Invoke-RequestInternal
         }
     }

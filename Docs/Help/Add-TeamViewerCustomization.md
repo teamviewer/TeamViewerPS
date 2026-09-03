@@ -1,4 +1,4 @@
----
+﻿---
 external help file: TeamViewerPS-help.xml
 Module Name: TeamViewerPS
 online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/Add-TeamViewerCustomization.md
@@ -14,13 +14,13 @@ Adds a customization (custom module) to the local TeamViewer client.
 ## SYNTAX
 
 ```powershell
-Add-TeamViewerCustomization [[-Id] || [-Path]] [-RestartGUI] [-RemoveExisting]
+Add-TeamViewerCustomization [[-Id] || [-Path]] [-RestartGUI] [-RemoveExisting] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 
-Adds a customization (custom module) to the local TeamViewer client..
-Customization can be perfomed in Management console under Design & Deploy.
+Adds a customization (custom module) to the local TeamViewer client.
+Customization can be performed in Management console under Design & Deploy.
 
 ## EXAMPLES
 
@@ -117,8 +117,6 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
-
-### None
 
 ## INPUTS
 

@@ -1,4 +1,4 @@
----
+﻿---
 external help file: TeamViewerPS-help.xml
 Module Name: TeamViewerPS
 online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/Remove-TeamViewerUserGroupMember.md
@@ -16,15 +16,13 @@ Deletes members from a given user group.
 ### ByUserGroupMemberId (All)
 
 ```powershell
-Remove-TeamViewerUserGroupMember [-ApiToken] <SecureString> [-UserGroup] <Object> [-UserGroupMember] <Object[]>
- [-WhatIf] [-Confirm] [<CommonParameters>]
+Remove-TeamViewerUserGroupMember [-ApiToken] <SecureString> [-UserGroup] <Object> [-UserGroupMember] <Object[]> [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### ByUserId
 
 ```powershell
-Remove-TeamViewerUserGroupMember [-ApiToken] <SecureString> [-UserGroup] <Object> [-User] <Object[]>
- [-WhatIf] [-Confirm] [<CommonParameters>]
+Remove-TeamViewerUserGroupMember [-ApiToken] <SecureString> [-UserGroup] <Object> [-UserGroupMember] <Object[]> [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -53,7 +51,7 @@ Ids are passed as pipeline input.
 ### Example 3
 
 ```powershell
-PS /> Remove-TeamViewerUserGroupMember -UserGroup 1001 -User @('u123', 'u456', 'u789')
+PS /> Remove-TeamViewerUserGroupMember -UserGroup 1001 -UserGroupMember @('u123', 'u456', 'u789')
 ```
 
 Removes the users `u123`, `u456`, `u789` from the group with id `1001`.
@@ -101,22 +99,6 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -User
-
-Users to be removed from a user group.
-
-```yaml
-Type: Object[]
-Parameter Sets: ByUserId
-Aliases: UserId
-
-Required: True
-Position: Named
-Default value: None
-Accept pipeline input: True (ByValue)
-Accept wildcard characters: False
-```
-
 ### -UserGroup
 
 The group where members will be removed from.
@@ -140,7 +122,7 @@ User group members to be removed from a user group.
 ```yaml
 Type: Object[]
 Parameter Sets: (ByUserGroupMemberId)
-Aliases: MemberId, UserGroupMemberId
+Aliases: MemberId, UserGroupMemberId, UserId, User
 
 Required: True
 Position: Named

@@ -1,5 +1,8 @@
-function Remove-TeamViewerRole {
+﻿function Remove-TeamViewerRole {
     [CmdletBinding(SupportsShouldProcess = $true)]
+
+    [OutputType([void])]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
@@ -13,15 +16,15 @@ function Remove-TeamViewerRole {
         $RoleId
     )
 
-    Begin {
-        $resourceUri = "$(Get-TeamViewerApiUri)/userroles?userRoleId=$RoleId"
+    begin {
+        $ResourceUri = "$(Get-TeamViewerApiUri)/userroles?userRoleId=$RoleId"
     }
 
-    Process {
+    process {
         if ($PSCmdlet.ShouldProcess($RoleId.ToString(), 'Remove Role')) {
             Invoke-TeamViewerRestMethod `
                 -ApiToken $ApiToken `
-                -Uri $resourceUri `
+                -Uri $ResourceUri `
                 -Method Delete `
                 -WriteErrorTo $PSCmdlet `
                 -ErrorAction Stop | `

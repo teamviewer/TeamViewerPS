@@ -1,4 +1,4 @@
-function Resolve-TeamViewerLanguage {
+﻿function Resolve-TeamViewerLanguage {
     param(
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
         [object]
@@ -31,6 +31,6 @@ function Resolve-TeamViewerLanguage {
             throw "Invalid culture '$language'. Supported languages are: $supportedLanguages"
         }
 
-        $language
+        Write-Output $language
     }
 }

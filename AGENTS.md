@@ -1,63 +1,67 @@
-# AGENTS.md
+﻿# AGENTS.md
 
-Guidance for AI coding agents working in this repository.
+Comprehensive guidance for AI coding agents and developers working in this repository.
 
 ## Project Overview
 
 TeamViewerPS is a PowerShell module for the TeamViewer Web API and local TeamViewer client management.
 Targets Windows PowerShell 5.1 and PowerShell 6+ on Windows.
 
-| Folder | Purpose |
+| Path | Purpose |
 | --- | --- |
-| `Cmdlets/Public` | Exported cmdlets (user-facing) |
-| `Cmdlets/Private` | Converters, resolvers, internal helpers |
-| `Tests/Public` | Tests for public cmdlets |
-| `Tests/Private` | Tests for private helpers |
-| `Docs/` | User and contributor documentation / help |
+| `Cmdlets/Public` | Exported cmdlets |
+| `Cmdlets/Private` | Internal converters, resolvers, and helpers |
+| `Tests/Public` | Public-cmdlet tests |
+| `Tests/Private` | Private-helper tests |
+| `Docs/` | User and contributor documentation |
 
-## Canonical Commands
+## Workflow
 
-Run from the repository root.
+Run commands from the repository root:
 
 ```powershell
-# Lint
 Invoke-ScriptAnalyzer -Path . -Recurse -Settings .\Linters\PSScriptAnalyzer.psd1
-
-# Test
 Invoke-Pester -Path .
-
-# Build (requires Invoke-Build)
-Invoke-Build -Task Clean
 Invoke-Build -Task Build
-Invoke-Build -Task Test
 ```
 
-## Editing Guidance
+- Do not hardcode tokens, credentials, or machine-specific values.
+- Reuse existing private helpers before adding abstractions.
+- Run lint and Pester before finishing.
 
-- Scope changes to the user request; avoid unrelated refactors.
-- Preserve public function names and parameter contracts unless explicitly asked to change them.
-- Prefer existing helpers in `Cmdlets/Private` over new abstractions.
-- Follow naming conventions: `ConvertTo-*` for mapping, `Resolve-*` for lookups
-- **Pipeline Output Pattern**: Process blocks must use implicit pipeline emission (no `return` or `Write-Output`); non-pipeline functions use explicit `return` statements. This standardizes when values enter the pipeline vs. are explicitly returned.
-- Add or update Pester tests for every behavior change; include a regression test for bug fixes.
-- Run lint and tests before finishing; both must pass.
+## PowerShell Conventions
 
-## Documentation
+- Use Microsoft approved PowerShell verbs <https://learn.microsoft.com/en-us/powershell/scripting/developer/cmdlet/approved-verbs-for-windows-powershell-commands?view=powershell-7.6> and PascalCase function names.
+- Use PascalCase variable names. The use of Underscore is allowed.
+- Public cmdlets use the `TeamViewer` noun prefix. Private mappers use `ConvertTo-*`; identifier lookups use `Resolve-*`.
+- Use `[CmdletBinding()]` for public cmdlets. Add `SupportsShouldProcess = $true` for mutating commands that call `ShouldProcess`.
+- Add an empty `param()` block to parameterless advanced functions.
+- Use `begin`, `process`, and `end` only when their lifecycle behavior is useful.
+- Use `return` for control flow. Emit pipeline output intentionally; use `Write-Output` where explicit output improves clarity, especially in `process` blocks.
+- Declare `[OutputType()]` when the public output contract is clear. Match it to runtime output and the help file's `OUTPUTS` section. Use CLR types for primitive values, `[void]` for no output, and existing `TeamViewerPS.*` types for converted objects.
+- Use named parameters in all function calls.
 
-- Every public function must appear in `Docs/TeamViewerPS.md` under the correct section, alphabetically within that section.
-- Adding or removing a public function requires updating `Docs/TeamViewerPS.md` and the corresponding file in `Docs/Help/`.
-- Update `README.md` when user-facing behavior changes.
+## Parameters And Input
 
-## Changelog
+- Validate stable constraints at the boundary with `ValidateSet`, `ValidateRange`, or `ValidateScript`.
+- Prefer existing `Resolve-*` helpers for flexible identifiers. Do not reject valid API values with overly strict validation.
+- Keep parameter-set names descriptive, such as `ByParameters`, `FilteredList`, or `ByUserId`.
+- Use established aliases such as `Id`, `DisplayName`, and `EmailAddress` where they improve a cmdlet's normal use.
 
-- Update `CHANGELOG.md` for every user-visible change as part of the same commit.
-- Add entries under the top unreleased block (`x.x.x (YYYY-xx-xx)`).
-- Use existing headings: `Added`, `Changed`, `Fixed`, `Updated`, `Removed`.
-- Keep entries concise and user-facing; include issue links where available.
-- Do not reorder or rewrite released sections.
+## API, Errors, And Objects
 
-## Pull Request Guidance
+- Build URIs with `Get-TeamViewerApiUri`.
+- Send requests through `Invoke-TeamViewerRestMethod`. Pass `-WriteErrorTo $PSCmdlet` when the caller should receive REST errors.
+- Build request bodies as hashtables and serialize UTF-8 JSON. Add optional fields only when supplied.
+- Catch only failures that need local handling. Use `-ErrorAction Stop` inside a `try` when required. Do not catch resolver validation errors.
+- Use `ConvertTo-ErrorRecord` and `ConvertTo-TeamViewerRestError` for REST error mapping.
+- Converters map API fields to PascalCase properties, assign the existing `TeamViewerPS.*` type name, and emit the typed object. Parse optional dates defensively.
+- Handle `SecureString` values with the established marshal-and-zero-memory pattern. Never log plaintext secrets.
 
-- Never hardcode API tokens, credentials, or environment-specific values.
-- State what was tested (lint/tests) in the PR description.
-- Keep PRs focused; target the `main` branch.
+## Tests And Documentation
+
+- Add or update Pester coverage for every behavior change. Bug fixes need a regression test.
+- Mock external calls and assert request method, URI, token, and JSON body where relevant.
+- Keep test variables PascalCase. Test files match their target function name and live in the matching `Tests/Public` or `Tests/Private` folder.
+- For public behavior changes, update the dedicated help file, `Docs/TeamViewerPS.md`, and `CHANGELOG.md` when user-visible.
+- Keep the module manifest's exported functions alphabetized when adding or removing a public cmdlet.

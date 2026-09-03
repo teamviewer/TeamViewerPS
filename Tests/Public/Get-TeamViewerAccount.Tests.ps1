@@ -1,8 +1,7 @@
-BeforeAll {
+﻿BeforeAll {
     . "$PSScriptRoot\..\..\Cmdlets\Public\Get-TeamViewerAccount.ps1"
 
-    @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | `
-        ForEach-Object { . $_.FullName }
+    @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
 
     $testApiToken = [securestring]@{}
     $null = $testApiToken
@@ -23,16 +22,15 @@ BeforeAll {
 Describe 'Get-TeamViewerAccount' {
     It 'Should call the correct API endpoint' {
         Get-TeamViewerAccount -ApiToken $testApiToken
+
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -And `
-                $Uri -eq "//unit.test/account" -And `
-                $Method -eq 'Get' }
+            $ApiToken -eq $testApiToken -and $Uri -eq '//unit.test/account' -and $Method -eq 'Get' }
     }
 
     It 'Should return Account object' {
-        $result = Get-TeamViewerAccount -ApiToken $testApiToken
-        $result | Should -Not -BeNullOrEmpty
-        $result.PSObject.TypeNames | Should -Contain 'TeamViewerPS.Account'
-        $result.name | Should -Be 'Unit Test'
+        $Result = Get-TeamViewerAccount -ApiToken $testApiToken
+        $Result | Should -Not -BeNullOrEmpty
+        $Result.PSObject.TypeNames | Should -Contain 'TeamViewerPS.Account'
+        $Result.name | Should -Be 'Unit Test'
     }
 }

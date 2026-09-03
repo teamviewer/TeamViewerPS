@@ -1,4 +1,4 @@
----
+﻿---
 external help file: TeamViewerPS-help.xml
 Module Name: TeamViewerPS
 online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/Set-TeamViewerUser.md
@@ -69,8 +69,7 @@ Do the SSO activation step for the given user. This can also be used to repair a
 ### Example 5
 
 ```powershell
-PS /> Set-TeamViewerUser -User 'u1234' -Name 'New user name' -AssignRoleId 'dd1cb784-bd1e-4056-a60b-3764ffe69e35' 
--UnassignRoleId 'a6776890-d687-4c70-b180-9b563f15d1ab' 
+PS /> Set-TeamViewerUser -User 'u1234' -Name 'New user name' -AssignRoleId 'dd1cb784-bd1e-4056-a60b-3764ffe69e35' -UnassignRoleId 'a6776890-d687-4c70-b180-9b563f15d1ab' 
 ```
 
 Assign and unassign Roles of the user `u1234`
@@ -173,6 +172,87 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -SsoCustomerIdentifier
+
+Optional TeamViewer SSO customer identifier. If given, the user will be updated with SSO activation step already done.
+With this option, the user must not enter the TeamViewer password at when doing Single Sign-On.
+
+```yaml
+Type: SecureString
+Parameter Sets: ByParameters
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -TFAEnforcement
+
+Activates (`$true`) or disables (`$false`) the enforcement of the two-factor authentication (TFA) for the user.
+
+```yaml
+Type: Boolean
+Parameter Sets: ByParameters
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -CustomQuickSupportId
+
+Specifies the Id of a custom QuickSupport module assigned to the user.
+
+```yaml
+Type: String
+Parameter Sets: ByParameters
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -CustomQuickJoinId
+
+Specifies the Id of a custom QuickJoin module assigned to the user.
+
+```yaml
+Type: String
+Parameter Sets: ByParameters
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -LicenseKey
+
+Specifies the license key assigned to the user.
+
+```yaml
+Type: String
+Parameter Sets: ByParameters
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -AssignRoleId
 
 Role assigned to the user.
@@ -210,7 +290,6 @@ Accept wildcard characters: False
 Change policy information using a hashtable object.
 Valid hashtable keys are:
 `active`, `email`, `name`, `password`, `sso_customer_id`, `permissions`, `tfa_enforcement` , `license_key`, `custom_quickjoin_id`, `custom_quicksupport_id`, `show_comment_window`,`log_sessions` , `AssignUserRoleIds`, `UnassignUserRoleIds`
-
 
 ```yaml
 Type: Hashtable
@@ -273,73 +352,10 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### TFAEnforcement
-
-Activates (`$true`) or disables (`$false`) the enforcement of the two-factor authentication (TFA) for the user.
-
-```yaml
-Type: Boolean
-Parameter Sets: ByParameters
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### CustomQuickSupportId
-
-Specifies the ID of a custom QuickSupport module assigned to the user.
-
-```yaml
-Type: String
-Parameter Sets: ByParameters
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### CustomQuickJoinId
-
-Specifies the ID of a custom QuickJoin module assigned to the user.
-
-```yaml
-Type: String
-Parameter Sets: ByParameters
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-### LicenseKey
-
-Specifies the license key assigned to the user.
-
-```yaml
-Type: String
-Parameter Sets: ByParameters
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### -User
 
 Object that can be used to identify the user.
-This can either be the user ID or a user object that has been received using other module functions.
+This can either be the user Id or a user object that has been received using other module functions.
 
 ```yaml
 Type: Object

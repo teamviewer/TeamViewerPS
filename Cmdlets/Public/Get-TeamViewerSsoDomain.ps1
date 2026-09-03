@@ -1,31 +1,37 @@
-function Get-TeamViewerSsoDomain {
-    [CmdletBinding(DefaultParameterSetName = "FilteredList")]
+﻿function Get-TeamViewerSsoDomain {
+    [CmdletBinding(DefaultParameterSetName = 'FilteredList')]
+
+    [OutputType('TeamViewerPS.SsoDomain')]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
         $ApiToken,
-        
-        [Parameter(ParameterSetName = "ByDomainId")]
-        [Alias("DomainId")]
+
+        [Parameter(ParameterSetName = 'ByDomain')]
+        [ValidateScript( { $_ | Resolve-TeamViewerSsoDomainId } )]
+        [Alias('Id', 'DomainId', 'SsoDomainId', 'SsoDomain')]
         [guid]
-        $Id
+        $Domain
     )
 
-    $resourceUri = "$(Get-TeamViewerApiUri)/ssoDomain";
-    $parameters = @{ }
+    $ResourceUri = "$(Get-TeamViewerApiUri)/ssoDomain"
+    $Parameters = @{ }
+
     switch ($PsCmdlet.ParameterSetName) {
-        'ByDomainId' {
-            $resourceUri += "/$Id"
-            $parameters = $null
+        'ByDomain' {
+            $ResourceUri += "/$Domain"
+            $Parameters = $null
         }
     }
 
-    $response = Invoke-TeamViewerRestMethod `
+    $Response = Invoke-TeamViewerRestMethod `
         -ApiToken $ApiToken `
-        -Uri $resourceUri `
+        -Uri $ResourceUri `
         -Method Get `
-        -Body $parameters `
+        -Body $Parameters `
         -WriteErrorTo $PSCmdlet `
         -ErrorAction Stop
-    Write-Output ($response.domains | ConvertTo-TeamViewerSsoDomain)
+
+    Write-Output ($Response.domains | ConvertTo-TeamViewerSsoDomain)
 }

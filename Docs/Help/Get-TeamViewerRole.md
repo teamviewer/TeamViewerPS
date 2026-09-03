@@ -1,4 +1,4 @@
----
+﻿---
 external help file: TeamViewerPS-help.xml
 Module Name: TeamViewerPS
 online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/Get-TeamViewerRole.md
@@ -9,12 +9,12 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Lists all roles and their permissions in a TeamViewer company.
+Lists all roles in a TeamViewer company.
 
 ## SYNTAX
 
 ```powershell
-Get-TeamViewerRole [-ApiToken] <SecureString> [-Permissions] [<CommonParameters>] 
+Get-TeamViewerRole [-ApiToken] <SecureString> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -29,16 +29,7 @@ Lists all roles in the TeamViewer company associated with the API access token.
 PS /> Get-TeamViewerRole
 ```
 
-Lists all roles and their permissions.
-
-### Example 2
-
-```powershell
-PS /> Get-TeamViewerRole -ApiToken $token -Permissions
-```
-
-Lists all the possible permissions.
-
+Lists all roles.
 
 ## PARAMETERS
 
@@ -57,21 +48,6 @@ Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
-### -Permissions
-
-Return the list of currently supported permissions.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases: ListPermissions
-
-Required: False
-Position: 1
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
 
 ### CommonParameters
 
@@ -83,11 +59,10 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### System.Object
+### TeamViewerPS.Role
 
 An array of `TeamViewerPS.Role` objects.
 
 ## NOTES
 
 ## RELATED LINKS
-

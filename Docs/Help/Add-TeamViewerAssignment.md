@@ -1,4 +1,4 @@
----
+﻿---
 external help file: TeamViewerPS-help.xml
 Module Name: TeamViewerPS
 online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/Add-TeamViewerAssignment.md
@@ -14,7 +14,7 @@ Assigns the local device to a TeamViewer company.
 ## SYNTAX
 
 ```powershell
-Add-TeamViewerAssignment [-AssignmentId] [-DeviceAlias] [-Retries] 
+Add-TeamViewerAssignment [-AssignmentId] [-DeviceAlias] [-Retries] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -94,8 +94,6 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
-
-### None
 
 ## INPUTS
 

@@ -1,4 +1,4 @@
-function Resolve-TeamViewerUserGroupMemberMemberId {
+﻿function Resolve-TeamViewerUserGroupMemberId {
     param(
         [Parameter(ValueFromPipeline = $true, Mandatory = $true)]
         [object]
@@ -7,16 +7,16 @@ function Resolve-TeamViewerUserGroupMemberMemberId {
 
     process {
         if ($UserGroupMember.PSObject.TypeNames -contains 'TeamViewerPS.UserGroupMember') {
-            $UserGroupMember.AccountId
+            Write-Output $UserGroupMember.Id
         }
         elseif ($UserGroupMember -match 'u[0-9]+') {
-            $UserGroupMember
+            Write-Output $UserGroupMember
         }
         elseif ($UserGroupMember -is [string]) {
-            [int]$UserGroupMember
+            Write-Output ([int]$UserGroupMember)
         }
         elseif ($UserGroupMember -is [int]) {
-            $UserGroupMember
+            Write-Output $UserGroupMember
         }
         else {
             throw "Invalid user group identifier '$UserGroupMember'. Must be either a [TeamViewerPS.UserGroupMember],[TeamViewerPS.User] or [int] ."

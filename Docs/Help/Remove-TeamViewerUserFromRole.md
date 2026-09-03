@@ -1,4 +1,4 @@
----
+﻿---
 external help file: TeamViewerPS-help.xml
 Module Name: TeamViewerPS
 online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/Remove-TeamViewerUserFromRole.md
@@ -16,15 +16,13 @@ Un-assigns one or many users from a role.
 ### ByRoleIdMemberId (All)
 
 ```powershell
-Remove-TeamViewerUserFromRole [-ApiToken] <SecureString>  [-RoleId] <Object[]> [-Account] <Object>
- [-WhatIf] [-Confirm] [<CommonParameters>]
+Remove-TeamViewerUserFromRole [-ApiToken] <SecureString>  [-RoleId] <Object[]> [-Accounts] <Object> [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### ByUserId
 
 ```powershell
-Remove-TeamViewerUserFromRole [-ApiToken] <SecureString> [-RoleId] <Object> [-Account] <Object[]>
- [-WhatIf] [-Confirm] [<CommonParameters>]
+Remove-TeamViewerUserFromRole [-ApiToken] <SecureString> [-RoleId] <Object> [-Accounts] <Object[]> [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -36,7 +34,7 @@ Un-assigns one or many users from a role. A role belongs to the TeamViewer compa
 ### Example 1
 
 ```powershell
-PS /> Remove-TeamViewerUserFromRole -RoleId '9b465ea2-2f75-4101-a057-58a81ed0e57b' -Account @('123', '456', '789')
+PS /> Remove-TeamViewerUserFromRole -RoleId '9b465ea2-2f75-4101-a057-58a81ed0e57b' -Accounts @('123', '456', '789')
 ```
 
 Un-assigns users with id `123`, `456`, `789` from the role with id `9b465ea2-2f75-4101-a057-58a81ed0e57b`.
@@ -100,7 +98,7 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Account
+### -Accounts
 
 Users to be unassigned from a user role.
 

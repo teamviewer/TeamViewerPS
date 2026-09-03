@@ -1,10 +1,11 @@
-function  Resolve-CustomizationErrorCode {
+﻿function  Resolve-TeamViewerCustomizationErrorCode {
     param(
         [Parameter(ValueFromPipeline = $true, Mandatory = $true)]
         [object]
         $exitCode
     )
-    Begin {
+
+    begin {
         $exitCodeMessages = @{
             0   = 'Operation successful'
             1   = 'Invalid command line arguments'
@@ -17,7 +18,8 @@ function  Resolve-CustomizationErrorCode {
             506 = 'Removal of custom configuration failed. See the TeamViewer log files for more details!'
         }
     }
-    Process {
+
+    process {
         if ($exitCode) {
             if ($exitCodeMessages.ContainsKey($exitCode)) {
                 Write-Output $exitCodeMessages[$exitCode]

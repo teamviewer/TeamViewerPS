@@ -1,4 +1,4 @@
-BeforeAll {
+﻿BeforeAll {
     . "$PSScriptRoot\..\..\Cmdlets\Public\Set-TeamViewerUser.ps1"
 
     @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
@@ -14,42 +14,35 @@ BeforeAll {
         # We do this only for testing
         [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingConvertToSecureStringWithPlainText', '')]
         param()
-        Process {
+        process {
             $_ | ConvertTo-SecureString -AsPlainText -Force
         }
     }
 }
 
 Describe 'Set-TeamViewerUser' {
-
     It 'Should call the correct API endpoint' {
         Set-TeamViewerUser -ApiToken $testApiToken -User 'u1234' -Name 'Updated User Name'
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -And $Uri -eq '//unit.test/users/u1234' -And $Method -eq 'Put' }
+            $ApiToken -eq $testApiToken -and $Uri -eq '//unit.test/users/u1234' -and $Method -eq 'Put' }
     }
 
     It 'Should change user properties' {
         $testPassword = 'Test1234' | ConvertTo-TestPassword
         $testSsoCustomerId = 'SsoTest' | ConvertTo-TestPassword
 
-        Set-TeamViewerUser `
-            -ApiToken $testApiToken `
-            -User 'u1234' `
-            -Name 'Updated User Name' `
-            -Email 'foo@bar.com' `
-            -Password $testPassword `
-            -SsoCustomerIdentifier $testSsoCustomerId `
-            -Active $false
+        Set-TeamViewerUser -ApiToken $testApiToken -User 'u1234' -Name 'Updated User Name' -Email 'foo@bar.com' -Password $testPassword -SsoCustomerIdentifier $testSsoCustomerId -Active $false
 
         $mockArgs.Body | Should -Not -BeNullOrEmpty
-        $body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
-        $body.name | Should -Be 'Updated User Name'
-        $body.email | Should -Be 'foo@bar.com'
-        $body.password | Should -Be 'Test1234'
-        $body.sso_customer_id | Should -Be 'SsoTest'
-        $body.active | Should -BeFalse
+        $Body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
+        $Body.name | Should -Be 'Updated User Name'
+        $Body.email | Should -Be 'foo@bar.com'
+        $Body.password | Should -Be 'Test1234'
+        $Body.sso_customer_id | Should -Be 'SsoTest'
+        $Body.active | Should -BeFalse
     }
+
     It 'Should change all user properties via direct parameters' {
         $testPassword = 'Test1234' | ConvertTo-TestPassword
         $testSsoCustomerId = 'SsoTest' | ConvertTo-TestPassword
@@ -74,23 +67,22 @@ Describe 'Set-TeamViewerUser' {
 
         $mockArgs.Body | Should -Not -BeNullOrEmpty
 
-        $body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
+        $Body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
 
-        $body.name | Should -Be 'Updated User Name'
-        $body.email | Should -Be 'foo@bar.com'
-        $body.password | Should -Be 'Test1234'
-        $body.sso_customer_id | Should -Be 'SsoTest'
-        $body.active | Should -BeFalse
-        $body.log_sessions | Should -BeTrue
-        $body.show_comment_window | Should -BeTrue
-        $body.tfa_enforcement | Should -BeTrue
-        $body.custom_quicksupport_id | Should -Be 'quick-id'
-        $body.custom_quickjoin_id | Should -Be 'join-id'
-        $body.license_key | Should -Be 'license-xyz'
-        $body.AssignUserRoleIds | Should -Contain '11111111-1111-1111-1111-111111111111'
-        $body.UnassignUserRoleIds | Should -Contain '22222222-2222-2222-2222-222222222222'
+        $Body.name | Should -Be 'Updated User Name'
+        $Body.email | Should -Be 'foo@bar.com'
+        $Body.password | Should -Be 'Test1234'
+        $Body.sso_customer_id | Should -Be 'SsoTest'
+        $Body.active | Should -BeFalse
+        $Body.log_sessions | Should -BeTrue
+        $Body.show_comment_window | Should -BeTrue
+        $Body.tfa_enforcement | Should -BeTrue
+        $Body.custom_quicksupport_id | Should -Be 'quick-id'
+        $Body.custom_quickjoin_id | Should -Be 'join-id'
+        $Body.license_key | Should -Be 'license-xyz'
+        $Body.AssignUserRoleIds | Should -Contain '11111111-1111-1111-1111-111111111111'
+        $Body.UnassignUserRoleIds | Should -Contain '22222222-2222-2222-2222-222222222222'
     }
-
 
     It 'Should accept all user properties via hashtable' {
         Set-TeamViewerUser `
@@ -115,25 +107,24 @@ Describe 'Set-TeamViewerUser' {
 
         $mockArgs.Body | Should -Not -BeNullOrEmpty
 
-        $body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
+        $Body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
 
-        $body.name | Should -Be 'Updated User Name'
-        $body.email | Should -Be 'foo@bar.com'
-        $body.password | Should -Be 'Test1234'
-        $body.sso_customer_id | Should -Be 'SsoTest'
-        $body.permissions | Should -Be 'ManageAdmins,ManageUsers'
-        $body.active | Should -BeFalse
-        $body.log_sessions | Should -BeTrue
-        $body.show_comment_window | Should -BeTrue
-        $body.tfa_enforcement | Should -BeTrue
-        $body.custom_quicksupport_id | Should -Be 'quick-id'
-        $body.custom_quickjoin_id | Should -Be 'join-id'
-        $body.license_key | Should -Be 'license-xyz'
+        $Body.name | Should -Be 'Updated User Name'
+        $Body.email | Should -Be 'foo@bar.com'
+        $Body.password | Should -Be 'Test1234'
+        $Body.sso_customer_id | Should -Be 'SsoTest'
+        $Body.permissions | Should -Be 'ManageAdmins,ManageUsers'
+        $Body.active | Should -BeFalse
+        $Body.log_sessions | Should -BeTrue
+        $Body.show_comment_window | Should -BeTrue
+        $Body.tfa_enforcement | Should -BeTrue
+        $Body.custom_quicksupport_id | Should -Be 'quick-id'
+        $Body.custom_quickjoin_id | Should -Be 'join-id'
+        $Body.license_key | Should -Be 'license-xyz'
 
-        $body.UnassignUserRoleIds | Should -Contain '11111111-1111-1111-1111-111111111111'
-        $body.AssignUserRoleIds | Should -Contain '22222222-2222-2222-2222-222222222222'
+        $Body.UnassignUserRoleIds | Should -Contain '11111111-1111-1111-1111-111111111111'
+        $Body.AssignUserRoleIds | Should -Contain '22222222-2222-2222-2222-222222222222'
     }
-
 
     It 'Should throw if hashtable does not contain any valid change' {
         { Set-TeamViewerUser -ApiToken $testApiToken -User 'u1234' -Property @{ foo = 'bar' } } | Should -Throw

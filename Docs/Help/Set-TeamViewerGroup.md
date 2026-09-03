@@ -1,4 +1,4 @@
----
+﻿---
 external help file: TeamViewerPS-help.xml
 Module Name: TeamViewerPS
 online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/Set-TeamViewerGroup.md
@@ -39,7 +39,7 @@ Changes a group in the Computers & Contacts list.
 PS /> Set-TeamViewerGroup -Group 'g1234' -Name 'New Group Name'
 ```
 
-Change the name of the group with the given group ID.
+Change the name of the group with the given group Id.
 
 ## PARAMETERS
 
@@ -78,8 +78,7 @@ Accept wildcard characters: False
 ### -Group
 
 Object that can be used to identify the group.
-This can either be the group ID or a group object that has been received using
-other module functions.
+This can either be the group Id or a group object that has been received using other module functions.
 
 ```yaml
 Type: Object

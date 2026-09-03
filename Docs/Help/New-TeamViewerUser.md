@@ -1,4 +1,4 @@
----
+﻿---
 external help file: TeamViewerPS-help.xml
 Module Name: TeamViewerPS
 online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/New-TeamViewerUser.md
@@ -17,7 +17,7 @@ Create a new TeamViewer company user.
 
 ```powershell
 New-TeamViewerUser -ApiToken <SecureString> -Email <String> -Name <String> -Password <SecureString> [-RoleId <String>][-IgnorePredefinedRole <switch>]
- [-SsoCustomerIdentifier <SecureString>][-Culture <CultureInfo>] [-LogSessions <Boolean>] [-ShowCommentWindow <Boolean>] [-SubscribeNewsletter <Boolean>] [-TFAEnforcement <Boolean>] [-CustomQuickSupportId <String>] [-CustomQuickJoinId <String>] [-LicenseKey <String>] [-MeetingLicenseKey <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
+ [-SsoCustomerIdentifier <SecureString>][-Culture <CultureInfo>] [-LogSessions <Boolean>] [-ShowCommentWindow <Boolean>] [-SubscribeNewsletter <Boolean>] [-Active <Boolean>] [-CustomQuickSupportId <String>] [-CustomQuickJoinId <String>] [-LicenseKey <String>] [-MeetingLicenseKey <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### WithoutPassword
@@ -100,6 +100,22 @@ Culture used for the welcome email of the new user.
 ```yaml
 Type: CultureInfo
 Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Active
+
+Activates (`$true`) or deactivates (`$false`) the company user.
+
+```yaml
+Type: Boolean
+Parameter Sets: ByParameters
 Aliases:
 
 Required: False
@@ -222,6 +238,71 @@ Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
+
+### -CustomQuickSupportId
+
+Defines the Id of a custom QuickSupport module assigned to the user.
+
+```yaml
+Type: String
+Parameter Sets: ByParameters
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -CustomQuickJoinId
+
+Specifies the Id of a custom QuickJoin module assigned to the user.
+
+```yaml
+Type: String
+Parameter Sets: ByParameters
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -LicenseKey
+
+Specifies the license key assigned to the user.
+
+```yaml
+Type: String
+Parameter Sets: ByParameters
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -MeetingLicenseKey
+
+Specifies the meeting license key assigned to the user.
+
+```yaml
+Type: String
+Parameter Sets: ByParameters
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -SubscribeNewsletter
 
 Enables (`$true`) or disables (`$false`) the newsletter.
@@ -244,85 +325,6 @@ Displays (`$true`) or hides (`$false`) the comment field.
 
 ```yaml
 Type: Boolean
-Parameter Sets: ByParameters
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### TFAEnforcement
-
-Enables (`$true`) or disables (`$false`) the enforcement of the two-factor authentication (TFA) for the user.
-
-```yaml
-Type: Boolean
-Parameter Sets: ByParameters
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### CustomQuickSupportId
-
-Defines the ID of a custom QuickSupport module assigned to the user.
-
-```yaml
-Type: String
-Parameter Sets: ByParameters
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### CustomQuickJoinId
-
-Specifies the ID of a custom QuickJoin module assigned to the user.
-
-```yaml
-Type: String
-Parameter Sets: ByParameters
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-### LicenseKey
-
-Specifies the license key assigned to the user.
-
-```yaml
-Type: String
-Parameter Sets: ByParameters
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### MeetingLicenseKey
-
-Specifies the meeting license key assigned to the user.
-
-```yaml
-Type: String
 Parameter Sets: ByParameters
 Aliases:
 

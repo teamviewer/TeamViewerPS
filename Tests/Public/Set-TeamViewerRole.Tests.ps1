@@ -1,4 +1,4 @@
-BeforeAll {
+﻿BeforeAll {
     . "$PSScriptRoot\..\..\Cmdlets\Public\Set-TeamViewerRole.ps1"
 
     @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
@@ -30,9 +30,7 @@ Describe 'Set-TeamViewerRole' {
         Set-TeamViewerRole -ApiToken $testApiToken -Name $testRoleName -RoleId $testRoleId
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -And `
-                $Uri -eq '//unit.test/userroles' -And `
-                $Method -eq 'Put'
+            $ApiToken -eq $testApiToken -and $Uri -eq '//unit.test/userroles' -and $Method -eq 'Put'
         }
     }
 
@@ -40,16 +38,16 @@ Describe 'Set-TeamViewerRole' {
         Set-TeamViewerRole -ApiToken $testApiToken -Name $testRoleName -RoleId $testRoleId
 
         $mockArgs.Body | Should -Not -BeNullOrEmpty
-        $body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
-        $body.Name | Should -Be $testRoleName
+        $Body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
+        $Body.Name | Should -Be $testRoleName
     }
 
     It 'Should include the given permissions in the request' {
         Set-TeamViewerRole -ApiToken $testApiToken -Name $testRoleName -Permissions $testPermissions -RoleId $testRoleId
 
         $mockArgs.Body | Should -Not -BeNullOrEmpty
-        $body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
-        $body.Permissions | Should -Be $testPermissions
+        $Body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
+        $Body.Permissions | Should -Be $testPermissions
     }
 
     # It 'Should return a Role object' {
@@ -59,15 +57,12 @@ Describe 'Set-TeamViewerRole' {
     It 'Should change role properties' {
         $TestNameChange = 'Test1234'
         $testPermissionsChange = 'ModifyConnections'
-        Set-TeamViewerRole `
-            -ApiToken $testApiToken `
-            -Name $TestNameChange `
-            -Permissions $testPermissionsChange `
-            -RoleId $testRoleId
-        $mockArgs.Body | Should -Not -BeNullOrEmpty
-        $body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
-        $body.Name | Should -Be 'Test1234'
-        $body.Permissions | Should -Be 'ModifyConnections'
 
+        Set-TeamViewerRole -ApiToken $testApiToken -Name $TestNameChange -Permissions $testPermissionsChange -RoleId $testRoleId
+
+        $mockArgs.Body | Should -Not -BeNullOrEmpty
+        $Body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
+        $Body.Name | Should -Be 'Test1234'
+        $Body.Permissions | Should -Be 'ModifyConnections'
     }
 }

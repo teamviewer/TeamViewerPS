@@ -1,4 +1,4 @@
----
+﻿---
 external help file: TeamViewerPS-help.xml
 Module Name: TeamViewerPS
 online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/Remove-TeamViewerManagedDeviceManagement.md
@@ -69,8 +69,7 @@ Accept wildcard characters: False
 ### -Device
 
 Object that can be used to identify the managed device.
-This can either be the managed device ID (as string or GUID) or a managed device
-object that has been received using other module functions.
+This can either be the managed device Id (as string or GUID) or a managed device object that has been received using other module functions.
 
 ```yaml
 Type: Object

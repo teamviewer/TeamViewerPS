@@ -1,10 +1,11 @@
-function  Resolve-AssignmentErrorCode {
+﻿function  Resolve-TeamViewerAssignmentErrorCode {
     param(
         [Parameter(ValueFromPipeline = $true, Mandatory = $true)]
         [object]
         $exitCode
     )
-    Begin {
+
+    begin {
         $exitCodeMessages = @{
             0   = 'Operation successful'
             1   = 'Misspelled or used a wrong command'
@@ -22,7 +23,8 @@ function  Resolve-AssignmentErrorCode {
             408 = 'Denied by policy'
         }
     }
-    Process {
+
+    process {
         if ($exitCode) {
             if ($exitCodeMessages.ContainsKey($exitCode)) {
                 Write-Output $exitCodeMessages[$exitCode]

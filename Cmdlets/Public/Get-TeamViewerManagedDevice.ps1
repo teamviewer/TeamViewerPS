@@ -1,60 +1,62 @@
-function Get-TeamViewerManagedDevice {
-    [CmdletBinding(DefaultParameterSetName = "List")]
+﻿function Get-TeamViewerManagedDevice {
+    [CmdletBinding(DefaultParameterSetName = 'List')]
+
+    [OutputType('TeamViewerPS.ManagedDevice')]
+
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
         $ApiToken,
 
-        [Parameter(ParameterSetName = "ByDeviceId")]
+        [Parameter(ParameterSetName = 'ByDevice')]
         [ValidateScript( { $_ | Resolve-TeamViewerManagedDeviceId } )]
-        [Alias("DeviceId")]
-        [Alias("Device")]
+        [Alias('Id', 'DeviceId')]
         [guid]
-        $Id,
+        $Device,
 
-        [Parameter(Mandatory = $true, ParameterSetName = "ListGroup")]
+        [Parameter(Mandatory = $true, ParameterSetName = 'ListGroup')]
         [ValidateScript( { $_ | Resolve-TeamViewerManagedGroupId } )]
-        [Alias("GroupId")]
+        [Alias('GroupId', 'ManagedGroupId', 'ManagedGroup')]
         [object]
         $Group,
 
-        [Parameter(ParameterSetName = "ListGroup")]
+        [Parameter(ParameterSetName = 'ListGroup')]
         [switch]
-        $Pending
+        $FilterBy_Pending
     )
 
     # default is 'List':
-    $resourceUri = "$(Get-TeamViewerApiUri)/managed/devices";
-    $parameters = @{ }
-    $isListOperation = $true
+    $ResourceUri = "$(Get-TeamViewerApiUri)/managed/devices"
+    $Parameters = @{ }
+    $IsListOperation = $true
 
     switch ($PsCmdlet.ParameterSetName) {
-        'ByDeviceId' {
-            $resourceUri += "/$Id"
-            $parameters = $null
-            $isListOperation = $false
+        'ByDevice' {
+            $ResourceUri += "/$Device"
+            $Parameters = $null
+            $IsListOperation = $false
         }
         'ListGroup' {
-            $groupId = $Group | Resolve-TeamViewerManagedGroupId
-            $resourceUri = "$(Get-TeamViewerApiUri)/managed/groups/$groupId/$(if ($Pending) { "pending-" })devices"
+            $GroupId = $Group | Resolve-TeamViewerManagedGroupId
+            $ResourceUri = "$(Get-TeamViewerApiUri)/managed/groups/$GroupId/$(if ($FilterBy_Pending) { 'pending-' })devices"
         }
     }
 
     do {
-        $response = Invoke-TeamViewerRestMethod `
+        $Response = Invoke-TeamViewerRestMethod `
             -ApiToken $ApiToken `
-            -Uri $resourceUri `
+            -Uri $ResourceUri `
             -Method Get `
-            -Body $parameters `
+            -Body $Parameters `
             -WriteErrorTo $PSCmdlet `
             -ErrorAction Stop
 
-        if ($PsCmdlet.ParameterSetName -Eq 'ByDeviceId') {
-            Write-Output ($response | ConvertTo-TeamViewerManagedDevice)
+        if ($PsCmdlet.ParameterSetName -eq 'ByDevice') {
+            Write-Output ($Response | ConvertTo-TeamViewerManagedDevice)
         }
         else {
-            $parameters.paginationToken = $response.nextPaginationToken
-            Write-Output ($response.resources | ConvertTo-TeamViewerManagedDevice)
+            $Parameters.paginationToken = $Response.nextPaginationToken
+            Write-Output ($Response.resources | ConvertTo-TeamViewerManagedDevice)
         }
-    } while ($isListOperation -And $parameters.paginationToken)
+    } while ($IsListOperation -and $Parameters.paginationToken)
 }

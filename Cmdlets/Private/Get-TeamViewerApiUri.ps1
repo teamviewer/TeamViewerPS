@@ -1,6 +1,4 @@
-
-
-class TeamViewerConfiguration {
+﻿class TeamViewerConfiguration {
     [string]$APIUri = 'https://webapi.teamviewer.com/api/v1'
 
     static [TeamViewerConfiguration] $Instance = $null
@@ -16,7 +14,6 @@ class TeamViewerConfiguration {
 
 function Get-TeamViewerAPIUri {
     $config = [TeamViewerConfiguration]::GetInstance()
+
     return $config.APIUri
 }
-
-

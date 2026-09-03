@@ -1,45 +1,47 @@
-function ConvertTo-TeamViewerManager {
+﻿function ConvertTo-TeamViewerManager {
     param(
         [Parameter(ValueFromPipeline)]
-        [PSObject]
+        [object]
         $InputObject,
 
-        [Parameter(Mandatory = $true, ParameterSetName = "GroupManager")]
+        [Parameter(Mandatory = $true, ParameterSetName = 'GroupManager')]
         [guid]
         $GroupId,
 
-        [Parameter(Mandatory = $true, ParameterSetName = "DeviceManager")]
+        [Parameter(Mandatory = $true, ParameterSetName = 'DeviceManager')]
         [guid]
         $DeviceId
     )
+
     process {
-        $properties = @{
-            Id          = [guid]$InputObject.id
-            ManagerType = $InputObject.type
-            Name        = $InputObject.name
-            Permissions = $InputObject.permissions
+        $Properties = @{
+            Id           = [guid]$InputObject.id
+            Name         = $InputObject.name
+            Manager_Type = $InputObject.type
+            Permissions  = $InputObject.permissions
         }
 
         switch ($InputObject.type) {
             'account' {
-                $properties.AccountId = $InputObject.accountId
+                $Properties.User_Id = $InputObject.accountId
             }
             'company' {
-                $properties.CompanyId = $InputObject.companyId
+                $Properties.Company_Id = $InputObject.companyId
             }
         }
 
         switch ($PsCmdlet.ParameterSetName) {
             'GroupManager' {
-                $properties.GroupId = $GroupId
+                $Properties.Group_Id = $GroupId
             }
             'DeviceManager' {
-                $properties.DeviceId = $DeviceId
+                $Properties.Device_Id = $DeviceId
             }
         }
 
-        $result = New-Object -TypeName PSObject -Property $properties
-        $result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.Manager')
-        Write-Output $result
+        $Result = New-Object -TypeName PSObject -Property $Properties
+        $Result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.Manager')
+
+        Write-Output $Result
     }
 }

@@ -1,4 +1,4 @@
----
+﻿---
 external help file: TeamViewerPS-help.xml
 Module Name: TeamViewerPS
 online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/Set-TeamViewerAPIUri.md
@@ -37,7 +37,7 @@ Sets the uri of the web API to `www.example.com`.
 PS /> Set-TeamViewerAPIUri -Default $true
 ```
 
-Sets the WebAPI for TeamViewerPS to the default value.
+Sets the web API for TeamViewerPS to the default value.
 
 ## PARAMETERS
 

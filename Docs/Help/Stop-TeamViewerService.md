@@ -1,4 +1,4 @@
----
+﻿---
 external help file: TeamViewerPS-help.xml
 Module Name: TeamViewerPS
 online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/Stop-TeamViewerService.md
@@ -20,7 +20,6 @@ Stop-TeamViewerService [-WhatIf] [-Confirm] [<CommonParameters>]
 ## DESCRIPTION
 
 Stop the locally installed TeamViewer service.
-Nothing will happen if TeamViewer is not installed.
 
 ## EXAMPLES
 

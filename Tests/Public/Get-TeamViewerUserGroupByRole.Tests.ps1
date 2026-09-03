@@ -1,8 +1,7 @@
-BeforeAll {
+﻿BeforeAll {
     . "$PSScriptRoot\..\..\Cmdlets\Public\Get-TeamViewerUserGroupByRole.ps1"
 
-    @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | `
-        ForEach-Object { . $_.FullName }
+    @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
 
     Mock Get-TeamViewerApiUri { '//unit.test' }
     $Assigned = @('1001', '1002')
@@ -23,16 +22,13 @@ Describe 'Get-TeamViewerUserGroupByRole' {
             Get-TeamViewerUserGroupByRole -ApiToken $testApiToken -RoleId $testRoleId
 
             Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-                $ApiToken -eq $testApiToken -And `
-                    $Uri -eq "//unit.test/userroles/assignments/usergroups?userRoleId=$testRoleId" -And `
-                    $Method -eq 'Get'
+                $ApiToken -eq $testApiToken -and $Uri -eq "//unit.test/userroles/assignments/usergroups?userRoleId=$testRoleId" -and $Method -eq 'Get'
             }
         }
 
         It 'Should return assigned groups' {
-            $result = Get-TeamViewerUserGroupByRole -ApiToken $testApiToken -RoleId $testRoleId
-            $result | Should -HaveCount 2
+            $Result = Get-TeamViewerUserGroupByRole -ApiToken $testApiToken -RoleId $testRoleId
+            $Result | Should -HaveCount 2
         }
-
     }
 }

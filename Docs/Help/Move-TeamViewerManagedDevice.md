@@ -1,4 +1,4 @@
----
+﻿---
 external help file: TeamViewerPS-help.xml
 Module Name: TeamViewerPS
 online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/Move-TeamViewerManagedDevice.md
@@ -32,8 +32,7 @@ Offline devices will apply this change when coming online again.
 PS /> Move-TeamViewerManagedDevice -Device 'c0cb303a-8a85-4e54-b657-a4757c791aef' -SourceGroup '9fd16af0-c224-4242-998e-a7138b038dbb' -TargetGroup '6084ffb1-c2d7-45e8-b6ab-5322ff761a30'
 ```
 
-Moves the managed device with the given device ID from the managed group with the
-given group ID to another managed group with the given group ID.
+Moves the managed device with the given device Id from the managed group with the given group Id to another managed group with the given group Id.
 
 ## PARAMETERS
 
@@ -71,7 +70,7 @@ Accept wildcard characters: False
 
 ### -Device
 
-A string representing the management ID of the device.
+A string representing the management Id of the device.
 
 ```yaml
 Type: Object
@@ -87,7 +86,7 @@ Accept wildcard characters: False
 
 ### -SourceGroup
 
-A string representing the group ID of the source group.
+A string representing the group Id of the source group.
 
 ```yaml
 Type: Object
@@ -103,7 +102,7 @@ Accept wildcard characters: False
 
 ### -TargetGroup
 
-A string representing the group ID of the target group.
+A string representing the group Id of the target group.
 
 ```yaml
 Type: Object

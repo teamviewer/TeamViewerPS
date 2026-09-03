@@ -1,4 +1,4 @@
----
+﻿---
 external help file: TeamViewerPS-help.xml
 Module Name: TeamViewerPS
 online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/New-TeamViewerContact.md
@@ -20,8 +20,7 @@ New-TeamViewerContact [-ApiToken] <SecureString> [-Email] <String> [-Group] <Obj
 
 ## DESCRIPTION
 
-Adds a new contact to the Computers & Contacts list of the account that is
-associated to the TeamViewer API access token. 
+Adds a new contact to the Computers & Contacts list of the account that is associated to the TeamViewer API access token. 
 
 ## EXAMPLES
 
@@ -31,8 +30,7 @@ associated to the TeamViewer API access token.
 PS /> New-TeamViewerContact -Email 'test@example.test' -Group 'g1234'
 ```
 
-Add the account with the given email address to the Computers & Contacts list
-into the group with the given group ID.
+Add the account with the given email address to the Computers & Contacts list into the group with the given group Id.
 
 ### Example 2
 
@@ -40,8 +38,7 @@ into the group with the given group ID.
 PS /> New-TeamViewerContact -Email 'another@example.test' -Group 'g1234' -Invite
 ```
 
-Add a new entry to the Computers & Contacts list and send an invitation to the
-given email address if no such user exists yet.
+Add a new entry to the Computers & Contacts list and send an invitation to the given email address if no such user exists yet.
 
 ## PARAMETERS
 
@@ -96,8 +93,7 @@ Accept wildcard characters: False
 ### -Group
 
 Object that can be used to identify the group.
-This can either be the group ID or a group object that has been received using
-other module functions.
+This can either be the group Id or a group object that has been received using other module functions.
 
 ```yaml
 Type: Object

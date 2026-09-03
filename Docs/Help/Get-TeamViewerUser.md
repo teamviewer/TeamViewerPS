@@ -1,4 +1,4 @@
----
+﻿---
 external help file: TeamViewerPS-help.xml
 Module Name: TeamViewerPS
 online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/Get-TeamViewerUser.md
@@ -17,7 +17,7 @@ Retrieve users of a TeamViewer company.
 
 ```powershell
 Get-TeamViewerUser -ApiToken <SecureString> [-Name <String>] [-Email <String[]>]
- [-PropertiesToLoad <Object>] [<CommonParameters>]
+ [-Permissions <String[]>] [-PropertiesToLoad <Object>] [<CommonParameters>]
 ```
 
 ### ByUserId
@@ -47,7 +47,7 @@ List all users.
 PS /> Get-TeamViewerUser -Id 'u1234'
 ```
 
-Retrieve a single user entry with the given ID.
+Retrieve a single user entry with the given Id.
 
 ### Example 3
 
@@ -92,9 +92,25 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -Permissions
+
+Optional list of permissions. Can be used to only return users that exactly match one of the given permissions.
+
+```yaml
+Type: String[]
+Parameter Sets: FilteredList
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### -Id
 
-User ID to return only a single user entry with that ID.
+User Id to return only a single user entry with that Id.
 
 ```yaml
 Type: String
