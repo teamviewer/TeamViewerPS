@@ -29,10 +29,26 @@ The action cannot be reverted, use with care!
 ### Example 1
 
 ```powershell
-PS /> Remove-TeamViewerCompany
+Remove-TeamViewerCompany
 ```
 
 Delete the company associated with the API token.
+
+### Example 2
+
+```powershell
+Remove-TeamViewerCompany -WhatIf
+```
+
+Shows what would happen without actually deleting the company.
+
+### Example 3
+
+```powershell
+Remove-TeamViewerCompany -Confirm:$false
+```
+
+Deletes the company associated with the API token without prompting for confirmation.
 
 ## PARAMETERS
 

@@ -28,15 +28,14 @@ Set-TeamViewerAccount -ApiToken <SecureString> -Property <Hashtable> [-WhatIf] [
 
 ## DESCRIPTION
 
-Changes account information of the TeamViewer account associated with the API
-access token.
+Changes account information of the TeamViewer account associated with the API access token.
 
 ## EXAMPLES
 
 ### Example 1
 
 ```powershell
-PS /> Set-TeamViewerAccount -Name 'Another New Name'
+Set-TeamViewerAccount -Name 'Another New Name'
 ```
 
 Change the account name.
@@ -44,10 +43,18 @@ Change the account name.
 ### Example 2
 
 ```powershell
-PS /> Set-TeamViewerAccount -Email 'test@example.test'
+Set-TeamViewerAccount -Email 'test@example.test'
 ```
 
 Change the account email address.
+
+### Example 3
+
+```powershell
+Set-TeamViewerAccount -Property @{ name = 'Another New Name'; email = 'test@example.test' }
+```
+
+Change multiple account properties at once using a hashtable with the `-Property` parameter.
 
 ## PARAMETERS
 

@@ -33,7 +33,7 @@ For changing the device's policy, the current account needs `PolicyAdministratio
 ### Example 1
 
 ```powershell
-PS /> Set-TeamViewerManagedDevice -Device '33a2e2e1-27ef-43e2-a175-f97ee0344033' -Name 'My Device'
+Set-TeamViewerManagedDevice -Device '33a2e2e1-27ef-43e2-a175-f97ee0344033' -Name 'My Device'
 ```
 
 Changes the device alias.
@@ -41,7 +41,7 @@ Changes the device alias.
 ### Example 2
 
 ```powershell
-PS /> Set-TeamViewerManagedDevice -Device '33a2e2e1-27ef-43e2-a175-f97ee0344033' -Policy '63351a3e-3077-41ae-9f66-b38a61965485'
+Set-TeamViewerManagedDevice -Device '33a2e2e1-27ef-43e2-a175-f97ee0344033' -Policy '63351a3e-3077-41ae-9f66-b38a61965485'
 ```
 
 Sets the policy of the device.
@@ -49,7 +49,7 @@ Sets the policy of the device.
 ### Example 3
 
 ```powershell
-PS /> Set-TeamViewerManagedDevice -Device '33a2e2e1-27ef-43e2-a175-f97ee0344033' -ManagedGroup '730ee15a-1ea4-4d80-9cfe-5a01709d0a2f'
+Set-TeamViewerManagedDevice -Device '33a2e2e1-27ef-43e2-a175-f97ee0344033' -ManagedGroup '730ee15a-1ea4-4d80-9cfe-5a01709d0a2f'
 ```
 
 Inherit the TeamViewer policy from a managed group to the device (the device has to be part of the managed group specified).
@@ -57,7 +57,7 @@ Inherit the TeamViewer policy from a managed group to the device (the device has
 ### Example 4
 
 ```powershell
-PS /> Set-TeamViewerManagedDevice -Device '33a2e2e1-27ef-43e2-a175-f97ee0344033' -Description 'Test description'
+Set-TeamViewerManagedDevice -Device '33a2e2e1-27ef-43e2-a175-f97ee0344033' -Description 'Test description'
 ```
 
 Changes the description of the device.

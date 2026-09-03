@@ -27,10 +27,26 @@ It returns `Full` for full client installations, `Host` for host installations, 
 ### Example 1
 
 ```powershell
-PS /> Get-TeamViewerInstallationPackage
+Get-TeamViewerInstallationPackage
 ```
 
 Returns `Full` or `Host` depending on the installed TeamViewer package.
+
+### Example 2
+
+```powershell
+$package = Get-TeamViewerInstallationPackage
+```
+
+Stores the installed package type in a variable for later use.
+
+### Example 3
+
+```powershell
+if ((Get-TeamViewerInstallationPackage) -eq 'Host') { Write-Output 'Host client installed' }
+```
+
+Checks whether the installed TeamViewer package is the Host client.
 
 ## PARAMETERS
 

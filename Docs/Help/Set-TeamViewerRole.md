@@ -26,10 +26,28 @@ Update properties of a user role. It allows to rename and alter permissions.
 ### Example 1
 
 ```powershell
-PS /> Set-TeamViewerRole -Name 'New name of role' -Permissions 'AllowGroupSharing','ModifyConnections' -RoleId '9b465ea2-2f75-4101-a057-58a81ed0e57b'
+Set-TeamViewerRole -Name 'New name of role' -Permissions 'AllowGroupSharing','ModifyConnections' -RoleId '9b465ea2-2f75-4101-a057-58a81ed0e57b'
 ```
 
 Renames the role with id `9b465ea2-2f75-4101-a057-58a81ed0e57b` to `New name of role` and enables the permissions `AllowGroupSharing` and `ModifyConnections`.
+
+### Example 2
+
+```powershell
+Set-TeamViewerRole -Name 'Read only role' -RoleId '9b465ea2-2f75-4101-a057-58a81ed0e57b' -Permissions @()
+```
+
+Renames the role and clears all of its permissions by passing an empty permissions collection.
+
+### Example 3
+
+```powershell
+$role = Get-TeamViewerRole -Name 'Support role'
+
+Set-TeamViewerRole -Name 'Support role EMEA' -Role $role -Permissions 'ViewOwnConnections'
+```
+
+Renames the role object retrieved via `Get-TeamViewerRole` using the `Role` alias and sets its permissions.
 
 ## PARAMETERS
 

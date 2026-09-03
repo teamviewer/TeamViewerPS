@@ -81,6 +81,22 @@ New-TeamViewerDeviceCustomFieldConfiguration -ApiToken $apiToken -FieldKey 'Asse
 
 Creates an `AssetTag` device custom field with a description.
 
+### Example 2
+
+```powershell
+New-TeamViewerDeviceCustomFieldConfiguration -FieldKey 'Location'
+```
+
+Creates a `Location` device custom field without a description.
+
+### Example 3
+
+```powershell
+'AssetTag', 'Location', 'Owner' | ForEach-Object { New-TeamViewerDeviceCustomFieldConfiguration -FieldKey $_ }
+```
+
+Creates multiple device custom field definitions in a single pipeline.
+
 ## OUTPUTS
 
 ### TeamViewerPS.DeviceCustomFieldConfiguration

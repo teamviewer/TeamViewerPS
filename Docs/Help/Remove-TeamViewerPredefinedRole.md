@@ -28,10 +28,26 @@ The user assignments of this role are unaffected.
 ### Example 1
 
 ```powershell
-PS /> Remove-TeamViewerPredefinedRole 
+Remove-TeamViewerPredefinedRole 
 ```
 
 Removes the predefined role flag from the role.
+
+### Example 2
+
+```powershell
+Remove-TeamViewerPredefinedRole -WhatIf
+```
+
+Shows what would happen without actually removing the predefined role flag.
+
+### Example 3
+
+```powershell
+Remove-TeamViewerPredefinedRole -Confirm:$false
+```
+
+Removes the predefined role flag without prompting for confirmation.
 
 ## PARAMETERS
 

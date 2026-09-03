@@ -26,10 +26,26 @@ Removes the proxy and sets it to default for TeamViewerPS module functions.
 ### Example 1
 
 ```powershell
-PS /> Remove-TeamViewerPSProxy 
+Remove-TeamViewerPSProxy 
 ```
 
 Removes the existing proxy server used and sets it to default.
+
+### Example 2
+
+```powershell
+Remove-TeamViewerPSProxy -WhatIf
+```
+
+Shows what would happen without actually removing the proxy configuration.
+
+### Example 3
+
+```powershell
+Remove-TeamViewerPSProxy -Confirm:$false
+```
+
+Removes the existing proxy server without prompting for confirmation.
 
 ## PARAMETERS
 

@@ -35,7 +35,7 @@ Changes information for a selected user.
 ### Example 1
 
 ```powershell
-PS /> Set-TeamViewerUser -User 'u1234' -Name 'New user name'
+Set-TeamViewerUser -User 'u1234' -Name 'New user name'
 ```
 
 Change the name of a user.
@@ -43,7 +43,7 @@ Change the name of a user.
 ### Example 2
 
 ```powershell
-PS /> Set-TeamViewerUser -User 'u1234' -Password (Read-Host -AsSecureString) -Email 'test@example.test'
+Set-TeamViewerUser -User 'u1234' -Password (Read-Host -AsSecureString) -Email 'test@example.test'
 ```
 
 Change email address and password of a user.
@@ -51,8 +51,8 @@ Change email address and password of a user.
 ### Example 3
 
 ```powershell
-PS /> $props = @{active = $false}
-PS /> Set-TeamViewerUser -User 'u1234' -Property $props 
+$props = @{active = $false}
+Set-TeamViewerUser -User 'u1234' -Property $props 
 ```
 
 Deactivate a user using a properties hashtable.
@@ -60,16 +60,16 @@ Deactivate a user using a properties hashtable.
 ### Example 4
 
 ```powershell
-PS /> $ssoCustomerIdentifier = ("abc" | ConvertTo-SecureString -AsPlainText -Force)
-PS /> Set-TeamViewerUser -UserId 'u1234' -SsoCustomerIdentifier $ssoCustomerIdentifier
+$ssoCustomerIdentifier = ("abc" | ConvertTo-SecureString -AsPlainText -Force)
+Set-TeamViewerUser -UserId 'u1234' -SsoCustomerIdentifier $ssoCustomerIdentifier
 ```
 
-Do the SSO activation step for the given user. This can also be used to repair a possibly broken SSO login token for that user.
+Do the Single Sign-On (SSO) activation step for the given user. This can also be used to repair a possibly broken SSO login token for that user.
 
 ### Example 5
 
 ```powershell
-PS /> Set-TeamViewerUser -User 'u1234' -Name 'New user name' -AssignRoleId 'dd1cb784-bd1e-4056-a60b-3764ffe69e35' -UnassignRoleId 'a6776890-d687-4c70-b180-9b563f15d1ab' 
+Set-TeamViewerUser -User 'u1234' -Name 'New user name' -AssignRoleId 'dd1cb784-bd1e-4056-a60b-3764ffe69e35' -UnassignRoleId 'a6776890-d687-4c70-b180-9b563f15d1ab' 
 ```
 
 Assign and unassign Roles of the user `u1234`

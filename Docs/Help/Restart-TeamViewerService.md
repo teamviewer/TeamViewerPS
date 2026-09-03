@@ -26,8 +26,24 @@ Restarts the locally installed TeamViewer service.
 ### Example 1
 
 ```powershell
-PS /> Restart-TeamViewerService
+Restart-TeamViewerService
 ```
+
+### Example 2
+
+```powershell
+Restart-TeamViewerService -WhatIf
+```
+
+Shows what would happen without actually restarting the TeamViewer service.
+
+### Example 3
+
+```powershell
+Restart-TeamViewerService -Confirm
+```
+
+Prompts for confirmation before restarting the TeamViewer service.
 
 ## PARAMETERS
 

@@ -27,8 +27,26 @@ Deletes a contact from the Computers & Contacts list of the account associated t
 ### Example 1
 
 ```powershell
-PS /> Remove-TeamViewerContact -Contact 'c1234'
+Remove-TeamViewerContact -Contact 'c1234'
 ```
+
+Deletes a specific contact.
+
+### Example 2
+
+```powershell
+Get-TeamViewerContact -Name 'John Doe' | Remove-TeamViewerContact
+```
+
+Deletes the contacts returned by `Get-TeamViewerContact` using pipeline input.
+
+### Example 3
+
+```powershell
+Remove-TeamViewerContact -Id 'c7654321'
+```
+
+Deletes a contact using the `Id` alias.
 
 ## PARAMETERS
 

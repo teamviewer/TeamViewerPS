@@ -26,10 +26,26 @@ The command checks the required directories and returns the paths for log files.
 ### Example 1
 
 ```powershell
-PS /> Get-TeamViewerLogFilePath 
+Get-TeamViewerLogFilePath 
 ```
 
 Returns the paths for log files.
+
+### Example 2
+
+```powershell
+$logFiles = Get-TeamViewerLogFilePath
+```
+
+Stores the collection of TeamViewer log file paths in a variable.
+
+### Example 3
+
+```powershell
+Get-TeamViewerLogFilePath | Where-Object { $_ -like '*Connections*' }
+```
+
+Returns only the log file paths whose name contains 'Connections'.
 
 ## PARAMETERS
 

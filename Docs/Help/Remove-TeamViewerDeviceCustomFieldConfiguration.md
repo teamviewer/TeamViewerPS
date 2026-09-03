@@ -65,6 +65,22 @@ Remove-TeamViewerDeviceCustomFieldConfiguration -ApiToken $apiToken -Id $fieldId
 
 Deletes the device custom field identified by `$fieldId` and its stored device values.
 
+### Example 2
+
+```powershell
+Remove-TeamViewerDeviceCustomFieldConfiguration -Id 'c0cb303a-8a85-4e54-b657-a4757c791aef'
+```
+
+Deletes the device custom field definition identified by the given Id.
+
+### Example 3
+
+```powershell
+'730ee15a-1ea4-4d80-9cfe-5a01709d0a2f' | Remove-TeamViewerDeviceCustomFieldConfiguration
+```
+
+Deletes the device custom field definition using pipeline input.
+
 ## OUTPUTS
 
 ### None

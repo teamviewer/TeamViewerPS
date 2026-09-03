@@ -30,6 +30,22 @@ Removes existing share of a Computers & Contacts list group for given users.
 PS C:\> Unpublish-TeamViewerGroup -Group 'g1234' -User 'u5678'
 ```
 
+### Example 2
+
+```powershell
+Unpublish-TeamViewerGroup -Group 'g1234' -User 'u5678', 'u9012'
+```
+
+Removes the share of the given group for multiple users at once.
+
+### Example 3
+
+```powershell
+Get-TeamViewerGroup -Name 'Servers' | Unpublish-TeamViewerGroup -User (Get-TeamViewerUser -Email 'user@example.test')
+```
+
+Removes the share of the group object retrieved via `Get-TeamViewerGroup` for the resolved user.
+
 ## PARAMETERS
 
 ### -ApiToken

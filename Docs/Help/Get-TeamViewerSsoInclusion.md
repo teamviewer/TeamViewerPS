@@ -9,7 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Get the list of included email addresses for a given TeamViewer SSO domain.
+Get the list of included email addresses for a given TeamViewer Single Sign-On (SSO) domain.
 
 ## SYNTAX
 
@@ -19,7 +19,7 @@ Get-TeamViewerSsoInclusion [-ApiToken] <SecureString> [-DomainId] <Object> [<Com
 
 ## DESCRIPTION
 
-Get the list of included email addresses for a given TeamViewer SSO domain.
+Get the list of included email addresses for a given TeamViewer Single Sign-On (SSO) domain.
 These email addresses are included from logging in via Single Sign-On and do not have to login using their TeamViewer account password.
 
 ## EXAMPLES
@@ -27,8 +27,25 @@ These email addresses are included from logging in via Single Sign-On and do not
 ### Example 1
 
 ```powershell
-PS /> Get-TeamViewerSsoInclusion -DomainId '45e0d050-15e6-4fcb-91b2-ea4f20fe2085'
+Get-TeamViewerSsoInclusion -DomainId '45e0d050-15e6-4fcb-91b2-ea4f20fe2085'
 ```
+
+### Example 2
+
+```powershell
+$domain = Get-TeamViewerSsoDomain -DomainId '45e0d050-15e6-4fcb-91b2-ea4f20fe2085'
+Get-TeamViewerSsoInclusion -Domain $domain
+```
+
+Gets the included email addresses by passing a SsoDomain object retrieved with `Get-TeamViewerSsoDomain`.
+
+### Example 3
+
+```powershell
+Get-TeamViewerSsoInclusion -SsoDomainId 'c0cb303a-8a85-4e54-b657-a4757c791aef'
+```
+
+Gets the included email addresses for the SSO domain using the `SsoDomainId` alias.
 
 ## PARAMETERS
 

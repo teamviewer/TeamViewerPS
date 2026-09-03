@@ -60,6 +60,14 @@ $device | Get-TeamViewerDeviceCustomField -ApiToken $apiToken
 
 Retrieves custom field values by piping a managed device object.
 
+### Example 3
+
+```powershell
+Get-TeamViewerManagedDevice -ApiToken $apiToken | Get-TeamViewerDeviceCustomField -ApiToken $apiToken
+```
+
+Retrieves the custom field values for every managed device by piping the results of `Get-TeamViewerManagedDevice`.
+
 ## OUTPUTS
 
 ### TeamViewerPS.DeviceCustomField

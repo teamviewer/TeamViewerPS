@@ -27,8 +27,26 @@ Returns nothing if TeamViewer is not installed on this machine.
 ### Example 1
 
 ```powershell
-PS /> $tvid = Get-TeamViewerId
+Get-TeamViewerId
 ```
+
+Returns the TeamViewer Id of the locally installed client.
+
+### Example 2
+
+```powershell
+$tvid = Get-TeamViewerId
+```
+
+Stores the TeamViewer installation directory path in the variable `$tvid`.
+
+### Example 3
+
+```powershell
+Get-TeamViewerId | Set-Clipboard
+```
+
+Copies the local TeamViewer Id to the clipboard.
 
 ## PARAMETERS
 

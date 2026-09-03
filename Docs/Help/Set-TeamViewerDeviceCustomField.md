@@ -71,6 +71,22 @@ Set-TeamViewerDeviceCustomField -ApiToken $apiToken -ManagedDeviceId 'd12345678'
 
 Sets the value of a custom field for the specified managed device.
 
+### Example 2
+
+```powershell
+Set-TeamViewerDeviceCustomField -DeviceId 'd12345678' -FieldKeyId 'c0cb303a-8a85-4e54-b657-a4757c791aef' -Value 'Building A'
+```
+
+Uses the `DeviceId` and `FieldKeyId` aliases to set a custom field value on the managed device.
+
+### Example 3
+
+```powershell
+Get-TeamViewerManagedDevice -Name 'Server01' | Set-TeamViewerDeviceCustomField -FieldConfigurationId 'c0cb303a-8a85-4e54-b657-a4757c791aef' -Value 'Rack 12'
+```
+
+Sets a custom field value on the managed device object retrieved via `Get-TeamViewerManagedDevice`.
+
 ## OUTPUTS
 
 ### TeamViewerPS.DeviceCustomField

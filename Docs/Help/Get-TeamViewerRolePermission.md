@@ -26,10 +26,26 @@ Lists all currently supported role permissions for the TeamViewer company associ
 ### Example 1
 
 ```powershell
-PS /> Get-TeamViewerRolePermission -ApiToken $token
+Get-TeamViewerRolePermission -ApiToken $token
 ```
 
 Lists all currently supported role permissions.
+
+### Example 2
+
+```powershell
+$permissions = Get-TeamViewerRolePermission
+```
+
+Stores all supported role permissions in a variable.
+
+### Example 3
+
+```powershell
+Get-TeamViewerRolePermission | Where-Object { $_ -like '*Device*' }
+```
+
+Lists only the supported role permissions related to devices.
 
 ## PARAMETERS
 

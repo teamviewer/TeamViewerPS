@@ -35,7 +35,7 @@ Returns a list of contacts in the user's Computers & Contacts list that match th
 ### Example 1
 
 ```powershell
-PS /> Get-TeamViewerDevice
+Get-TeamViewerDevice
 ```
 
 List all devices of the Computers & Contacts list.
@@ -43,10 +43,18 @@ List all devices of the Computers & Contacts list.
 ### Example 2
 
 ```powershell
-PS /> Get-TeamViewerDevice -Device 'd1234'
+Get-TeamViewerDevice -Device 'd1234'
 ```
 
 Get the device entry with the given Id.
+
+### Example 3
+
+```powershell
+Get-TeamViewerDevice -Group 'g1234' -FilterBy_OnlineState 'Online'
+```
+
+List only the online devices that are part of the group with the given group Id.
 
 ## PARAMETERS
 

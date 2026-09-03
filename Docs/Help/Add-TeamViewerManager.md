@@ -79,7 +79,7 @@ The current account (identified by the API access token) needs `ManagerAdministr
 ### Example 1
 
 ```powershell
-PS /> Add-TeamViewerManager -Device 'c0cb303a-8a85-4e54-b657-a4757c791aef' -Manager '57e8f75e-8e6f-4450-a59d-10e02ccf5986'
+Add-TeamViewerManager -Device 'c0cb303a-8a85-4e54-b657-a4757c791aef' -Manager '57e8f75e-8e6f-4450-a59d-10e02ccf5986'
 ```
 
 Add the manager with the given Manager Id to the managed device with the given device Id.
@@ -87,7 +87,7 @@ Add the manager with the given Manager Id to the managed device with the given d
 ### Example 2
 
 ```powershell
-PS /> Add-TeamViewerManager -Group '9fd16af0-c224-4242-998e-a7138b038dbb' -Manager '57e8f75e-8e6f-4450-a59d-10e02ccf5986'
+Add-TeamViewerManager -Group '9fd16af0-c224-4242-998e-a7138b038dbb' -Manager '57e8f75e-8e6f-4450-a59d-10e02ccf5986'
 ```
 
 Add the manager with the given Manager Id to the managed group with the given group Id.
@@ -95,10 +95,26 @@ Add the manager with the given Manager Id to the managed group with the given gr
 ### Example 3
 
 ```powershell
-PS /> Add-TeamViewerManager -Group '9fd16af0-c224-4242-998e-a7138b038dbb' -AccountId 1234
+Add-TeamViewerManager -Group '9fd16af0-c224-4242-998e-a7138b038dbb' -AccountId 1234
 ```
 
 Add the manager with the given TeamViewer account Id to the managed group with the given group Id.
+
+### Example 4
+
+```powershell
+Add-TeamViewerManager -Device 'c0cb303a-8a85-4e54-b657-a4757c791aef' -User 'u1234567'
+```
+
+Add the given user as a manager to the managed device with the given device Id.
+
+### Example 5
+
+```powershell
+Add-TeamViewerManager -Group '9fd16af0-c224-4242-998e-a7138b038dbb' -UserGroup 1001
+```
+
+Add all members of the given user group as managers to the managed group with the given group Id.
 
 ## PARAMETERS
 

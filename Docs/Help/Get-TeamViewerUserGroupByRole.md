@@ -26,10 +26,26 @@ Lists all user groups of role in the TeamViewer company associated with the API 
 ### Example 1
 
 ```powershell
-PS /> Get-TeamViewerUserGroupByRole -RoleId '72abbedc-9853-4fc8-9d28-fa35e207b048'
+Get-TeamViewerUserGroupByRole -RoleId '72abbedc-9853-4fc8-9d28-fa35e207b048'
 ```
 
 Lists all user groups of the role `72abbedc-9853-4fc8-9d28-fa35e207b048`.
+
+### Example 2
+
+```powershell
+Get-TeamViewerUserGroupByRole -Role 'c0cb303a-8a85-4e54-b657-a4757c791aef'
+```
+
+Lists all user groups of the given role using the `Role` alias.
+
+### Example 3
+
+```powershell
+(Get-TeamViewerUserGroupByRole -RoleId '72abbedc-9853-4fc8-9d28-fa35e207b048').Count
+```
+
+Returns the number of user groups assigned to the given role.
 
 ## PARAMETERS
 

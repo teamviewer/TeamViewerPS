@@ -26,10 +26,26 @@ Lists the assigned role of a user group in the TeamViewer company associated wit
 ### Example 1
 
 ```powershell
-PS /> Get-TeamViewerRoleByUserGroup -GroupId "12345"
+Get-TeamViewerRoleByUserGroup -GroupId "12345"
 ```
 
 Lists the assigned role of the user group with the Id 12345.
+
+### Example 2
+
+```powershell
+Get-TeamViewerRoleByUserGroup -UserGroup 12345
+```
+
+Lists the assigned role of the user group with the Id 12345.
+
+### Example 3
+
+```powershell
+Get-TeamViewerRoleByUserGroup -UserGroupId 67890
+```
+
+Lists the assigned role of the user group with the Id 67890 using the UserGroupId alias.
 
 ## PARAMETERS
 

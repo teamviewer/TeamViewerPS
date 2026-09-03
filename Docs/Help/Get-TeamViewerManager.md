@@ -34,10 +34,26 @@ Retrieves the list of managers of a managed device or a managed group.
 ### Example 1
 
 ```powershell
-PS /> Get-TeamViewerManager -Device 'c0cb303a-8a85-4e54-b657-a4757c791aef'
+Get-TeamViewerManager -Device 'c0cb303a-8a85-4e54-b657-a4757c791aef'
 ```
 
 List the managers of the managed device with the given Id.
+
+### Example 2
+
+```powershell
+Get-TeamViewerManager -Group '9fd16af0-c224-4242-998e-a7138b038dbb'
+```
+
+List the managers of the managed group with the given Id.
+
+### Example 3
+
+```powershell
+Get-TeamViewerManagedGroup | Get-TeamViewerManager
+```
+
+List the managers of all managed groups of the current manager.
 
 ## PARAMETERS
 

@@ -27,7 +27,7 @@ Download the TeamViewer installation package for the current platform.
 ### Example 1
 
 ```powershell
-PS /> Invoke-TeamViewerPackageDownload
+Invoke-TeamViewerPackageDownload
 ```
 
 ### Example 2

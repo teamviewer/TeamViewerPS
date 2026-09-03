@@ -26,10 +26,26 @@ Retrieves the company / tenant details of the TeamViewer company associated with
 ### Example 1
 
 ```powershell
-PS /> $company = Get-TeamViewerCompany
+$company = Get-TeamViewerCompany
 ```
 
 Retrieve the company details and store the result in a variable.
+
+### Example 2
+
+```powershell
+Get-TeamViewerCompany | Select-Object -Property Name, CreatedAt
+```
+
+Retrieves the company details and shows only the `Name` and `CreatedAt` properties.
+
+### Example 3
+
+```powershell
+(Get-TeamViewerCompany).Id
+```
+
+Retrieves the company details and returns only the numeric company Id.
 
 ## PARAMETERS
 

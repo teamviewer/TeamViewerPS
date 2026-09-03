@@ -27,10 +27,28 @@ Create a new group in the account's Computer & Contacts list.
 ### Example 1
 
 ```powershell
-PS /> New-TeamViewerGroup -Name 'Test Group'
+New-TeamViewerGroup -Name 'Test Group'
 ```
 
 Create a new group with the given name.
+
+### Example 2
+
+```powershell
+New-TeamViewerGroup -Name 'Servers' -Policy 'c0cb303a-8a85-4e54-b657-a4757c791aef'
+```
+
+Creates a new group and assigns the policy with the given policy Id to it.
+
+### Example 3
+
+```powershell
+$policy = Get-TeamViewerPolicy -PolicyId 'c0cb303a-8a85-4e54-b657-a4757c791aef'
+
+New-TeamViewerGroup -Name 'Workstations' -Policy $policy
+```
+
+Creates a new group and assigns a policy object retrieved with `Get-TeamViewerPolicy`.
 
 ## PARAMETERS
 

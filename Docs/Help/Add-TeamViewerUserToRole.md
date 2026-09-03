@@ -26,7 +26,7 @@ Assigns one or many users to a role. A role should belong to the TeamViewer comp
 ### Example 1
 
 ```powershell
-PS /> Add-TeamViewerUserToRole -RoleId  '9b465ea2-2f75-4101-a057-58a81ed0e57b' -Accounts @('123', '456', '789')
+Add-TeamViewerUserToRole -RoleId  '9b465ea2-2f75-4101-a057-58a81ed0e57b' -Accounts @('123', '456', '789')
 ```
 
 Assigns role with id `9b465ea2-2f75-4101-a057-58a81ed0e57b` to users with id `123`, `456`, `789`.
@@ -34,11 +34,19 @@ Assigns role with id `9b465ea2-2f75-4101-a057-58a81ed0e57b` to users with id `12
 ### Example 2
 
 ```powershell
-PS /> @('123', '456', '789') | Add-TeamViewerUserToRole -Role '9b465ea2-2f75-4101-a057-58a81ed0e57b'
+@('123', '456', '789') | Add-TeamViewerUserToRole -Role '9b465ea2-2f75-4101-a057-58a81ed0e57b'
 ```
 
 Assigns role with id `9b465ea2-2f75-4101-a057-58a81ed0e57b` to users with id `123`, `456`, `789`.
 Ids are passed as pipeline input.
+
+### Example 3
+
+```powershell
+Add-TeamViewerUserToRole -Role '9b465ea2-2f75-4101-a057-58a81ed0e57b' -Accounts 'u123'
+```
+
+Assigns the role with id `9b465ea2-2f75-4101-a057-58a81ed0e57b` to a single user identified by the `u`-prefixed account Id, using the `Role` alias.
 
 ## PARAMETERS
 

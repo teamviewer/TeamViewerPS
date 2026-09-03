@@ -29,6 +29,22 @@ Delete the specified TeamViewer policy.
 Remove-TeamViewerPolicy -Policy '730ee15a-1ea4-4d80-9cfe-5a01709d0a2f'
 ```
 
+### Example 2
+
+```powershell
+Get-TeamViewerPolicy -Name 'Default Policy' | Remove-TeamViewerPolicy
+```
+
+Deletes the policies returned by `Get-TeamViewerPolicy` using pipeline input.
+
+### Example 3
+
+```powershell
+Remove-TeamViewerPolicy -PolicyId 'c0cb303a-8a85-4e54-b657-a4757c791aef'
+```
+
+Deletes a policy using the `PolicyId` alias.
+
 ## PARAMETERS
 
 ### -ApiToken

@@ -43,7 +43,7 @@ Changes an existing device entry in the Computers & Contacts list.
 ### Example 1
 
 ```powershell
-PS /> Set-TeamViewerDevice -DeviceId 'd1234' -Name 'My Updated Device Alias'
+Set-TeamViewerDevice -DeviceId 'd1234' -Name 'My Updated Device Alias'
 ```
 
 Change the device entry alias in the Computers & Contacts list.
@@ -51,7 +51,7 @@ Change the device entry alias in the Computers & Contacts list.
 ### Example 2
 
 ```powershell
-PS /> Set-TeamViewerDevice -DeviceId 'd1234' -GroupId 'g5678'
+Set-TeamViewerDevice -DeviceId 'd1234' -GroupId 'g5678'
 ```
 
 Move the device entry to a different group in the Computers & Contacts list.
@@ -59,7 +59,7 @@ Move the device entry to a different group in the Computers & Contacts list.
 ### Example 3
 
 ```powershell
-PS /> Set-TeamViewerDevice -DeviceId 'd1234' -Policy 'inherit'
+Set-TeamViewerDevice -DeviceId 'd1234' -Policy 'inherit'
 ```
 
 Set the policy of the device entry to inherit from group.

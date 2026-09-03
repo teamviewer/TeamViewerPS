@@ -28,7 +28,7 @@ Offline devices will apply this change when coming online again.
 ### Example 1
 
 ```powershell
-PS /> Add-TeamViewerManagedDevice -Device 'c0cb303a-8a85-4e54-b657-a4757c791aef' -Group '9fd16af0-c224-4242-998e-a7138b038dbb'
+Add-TeamViewerManagedDevice -Device 'c0cb303a-8a85-4e54-b657-a4757c791aef' -Group '9fd16af0-c224-4242-998e-a7138b038dbb'
 ```
 
 Adds the managed device with the given device Id to the managed group with the given group Id.
@@ -36,9 +36,17 @@ Adds the managed device with the given device Id to the managed group with the g
 ### Example 2
 
 ```powershell
-PS /> $group = Get-TeamViewerManagedGroup -Id '9fd16af0-c224-4242-998e-a7138b038dbb'
-PS /> $device = Get-TeamViewerManagedDevice -Id 'c0cb303a-8a85-4e54-b657-a4757c791aef'
-PS /> Add-TeamViewerManagedDevice -Device $device -Group $group
+Add-TeamViewerManagedDevice -DeviceId 'c0cb303a-8a85-4e54-b657-a4757c791aef' -GroupId '9fd16af0-c224-4242-998e-a7138b038dbb'
+```
+
+Adds the managed device to the managed group using the `DeviceId` and `GroupId` aliases.
+
+### Example 3
+
+```powershell
+$group = Get-TeamViewerManagedGroup -Id '9fd16af0-c224-4242-998e-a7138b038dbb'
+$device = Get-TeamViewerManagedDevice -Id 'c0cb303a-8a85-4e54-b657-a4757c791aef'
+Add-TeamViewerManagedDevice -Device $device -Group $group
 ```
 
 Adds the managed device to the managed group using device/group objects that have been received using other module functions.

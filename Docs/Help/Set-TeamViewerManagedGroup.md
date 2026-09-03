@@ -37,7 +37,7 @@ The current account needs `GroupAdministration` manager permissions on the group
 ### Example 1
 
 ```powershell
-PS /> Set-TeamViewerManagedGroup -Group '9fd16af0-c224-4242-998e-a7138b038dbb' -Name 'My New Group'
+Set-TeamViewerManagedGroup -Group '9fd16af0-c224-4242-998e-a7138b038dbb' -Name 'My New Group'
 ```
 
 Change the name of the managed group with the given Id.
@@ -45,7 +45,7 @@ Change the name of the managed group with the given Id.
 ### Example 2
 
 ```powershell
-PS /> Set-TeamviewerManagedGroup -GroupId '6808db5b-f3c1-4e42-8168-3ac96f5d456e' -PolicyId '926d7a7e-b640-43a9-bc95-4f71ed7e6878' -PolicyType 4
+Set-TeamviewerManagedGroup -GroupId '6808db5b-f3c1-4e42-8168-3ac96f5d456e' -PolicyId '926d7a7e-b640-43a9-bc95-4f71ed7e6878' -PolicyType 4
 ```
 
 Change the policy of the managed group with the given Id.
@@ -53,7 +53,7 @@ Change the policy of the managed group with the given Id.
 ### Example 3
 
 ```powershell
-PS /> Set-TeamViewerManagedGroup -GroupId '6808db5b-f3c1-4e42-8168-3ac96f5d456e' -Property {'policy_id' = 'e563798b-b988-4917-b1d3-a012ce6ba929' 'policy_type' = 1}
+Set-TeamViewerManagedGroup -GroupId '6808db5b-f3c1-4e42-8168-3ac96f5d456e' -Property {'policy_id' = 'e563798b-b988-4917-b1d3-a012ce6ba929' 'policy_type' = 1}
 ```
 
 Change the policy of the managed group with the given Id using property parameters.

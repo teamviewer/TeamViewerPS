@@ -9,7 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Removes the customization from the TeamViewer Installation.
+Removes the customization from the TeamViewer installation.
 
 ## SYNTAX
 
@@ -19,7 +19,7 @@ Remove-TeamViewerCustomization [-WhatIf] [-Confirm] [<CommonParameters>]
 
 ## DESCRIPTION
 
-Removes the existing customization from the TeamViewer Installation.
+Removes the existing customization from the TeamViewer installation.
 Existing customization should be removed before applying new customization.
 
 ## EXAMPLES
@@ -27,10 +27,26 @@ Existing customization should be removed before applying new customization.
 ### Example 1
 
 ```powershell
-PS /> Remove-TeamViewerCustomization
+Remove-TeamViewerCustomization
 ```
 
-Removes the customization.
+Removes the customization from the local client.
+
+### Example 2
+
+```powershell
+Remove-TeamViewerCustomization -WhatIf
+```
+
+Shows what would happen without actually removing the customization.
+
+### Example 3
+
+```powershell
+Remove-TeamViewerCustomization -Confirm:$false
+```
+
+Removes the customization without prompting for confirmation.
 
 ## PARAMETERS
 

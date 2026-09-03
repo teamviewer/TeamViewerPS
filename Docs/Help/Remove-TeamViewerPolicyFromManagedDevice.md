@@ -25,45 +25,45 @@ Remove-TeamViewerPolicyFromManagedDevice -ApiToken <SecureString> -Device <Objec
 
 ## DESCRIPTION
 
-Remove a specified policy from a managed device.
+Removes a specified policy from a managed device.
 
 ## EXAMPLES
 
 ### Example 1
 
-Remove TeamViewer policy from device
-
 ```powershell
-PS /> Remove-TeamViewerPolicyFromManagedDevice -Device 'd8773208-a685-4323-9de5-7f86951f8c30' -PolicyType 1
+Remove-TeamViewerPolicyFromManagedDevice -Device 'd8773208-a685-4323-9de5-7f86951f8c30' -PolicyType 1
 ```
 
 ```powershell
-PS /> Remove-TeamViewerPolicyFromManagedDevice -Device 'd8773208-a685-4323-9de5-7f86951f8c30' -PolicyType TeamViewer
+Remove-TeamViewerPolicyFromManagedDevice -Device 'd8773208-a685-4323-9de5-7f86951f8c30' -PolicyType TeamViewer
 ```
+
+Removes TeamViewer policy from device.
 
 ### Example 2
 
-Remove Monitoring policy from device
-
 ```powershell
-PS /> Remove-TeamViewerPolicyFromManagedDevice -Device '730ee15a-1ea4-4d80-9cfe-5a01709d0a2f' -PolicyType 4
+Remove-TeamViewerPolicyFromManagedDevice -Device '730ee15a-1ea4-4d80-9cfe-5a01709d0a2f' -PolicyType 4
 ```
 
 ```powershell
-PS /> Remove-TeamViewerPolicyFromManagedDevice -Device '730ee15a-1ea4-4d80-9cfe-5a01709d0a2f' -PolicyType Monitoring
+Remove-TeamViewerPolicyFromManagedDevice -Device '730ee15a-1ea4-4d80-9cfe-5a01709d0a2f' -PolicyType Monitoring
 ```
+
+Removes Monitoring policy from device.
 
 ### Example 3
 
-Remove PatchManagement policy from device
-
 ```powershell
-PS /> Remove-TeamViewerPolicyFromManagedDevice -Device '730ee15a-1ea4-4d80-9cfe-5a01709d0a2f' -PolicyType 5
+Remove-TeamViewerPolicyFromManagedDevice -Device '730ee15a-1ea4-4d80-9cfe-5a01709d0a2f' -PolicyType 5
 ```
 
 ```powershell
-PS /> Remove-TeamViewerPolicyFromManagedDevice -Device '730ee15a-1ea4-4d80-9cfe-5a01709d0a2f' -PolicyType PatchManagement
+Remove-TeamViewerPolicyFromManagedDevice -Device '730ee15a-1ea4-4d80-9cfe-5a01709d0a2f' -PolicyType PatchManagement
 ```
+
+Removes PatchManagement policy from device.
 
 ## PARAMETERS
 

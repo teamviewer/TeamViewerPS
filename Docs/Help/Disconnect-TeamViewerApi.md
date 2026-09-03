@@ -19,16 +19,35 @@ Disconnect-TeamViewerApi [<CommonParameters>]
 
 ## DESCRIPTION
 
-Removes a possibly stored TeamViewer API access token from the current
-Powershell global scope.
+Removes a possibly stored TeamViewer API access token from the current Powershell global scope.
 
 ## EXAMPLES
 
 ### Example 1
 
 ```powershell
-PS /> Disconnect-TeamViewerApi
+Disconnect-TeamViewerApi
 ```
+
+Removes a previously stored TeamViewer API access token from the current environment.
+
+### Example 2
+
+```powershell
+Connect-TeamViewerApi
+Get-TeamViewerUser
+Disconnect-TeamViewerApi
+```
+
+Connects to the API, runs a command and then removes the stored API access token again.
+
+### Example 3
+
+```powershell
+Disconnect-TeamViewerApi -Verbose
+```
+
+Removes the stored TeamViewer API access token and shows verbose output about the operation.
 
 ## PARAMETERS
 

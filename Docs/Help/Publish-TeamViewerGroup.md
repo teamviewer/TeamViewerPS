@@ -28,10 +28,28 @@ It will not change the share-state of other users, but it is possible to overwri
 ### Example 1
 
 ```powershell
-PS /> Publish-TeamViewerGroup -Group 'g1234' -User 'u5678' 
+Publish-TeamViewerGroup -Group 'g1234' -User 'u5678' 
 ```
 
 Share the given group with the given user.
+
+### Example 2
+
+```powershell
+Publish-TeamViewerGroup -Group 'g1234' -User @('u1234567', 'u7654321') -Permissions 'readwrite'
+```
+
+Share the given group with multiple users, granting them read/write permissions.
+
+### Example 3
+
+```powershell
+$group = Get-TeamViewerGroup -Name 'Servers'
+
+Publish-TeamViewerGroup -Group $group -User 'u1234567'
+```
+
+Share a group object retrieved with `Get-TeamViewerGroup` with the given user.
 
 ## PARAMETERS
 

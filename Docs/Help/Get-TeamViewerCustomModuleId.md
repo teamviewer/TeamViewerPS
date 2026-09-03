@@ -26,10 +26,26 @@ The command checks the TeamViewer Installation and returns the custom module Id.
 ### Example 1
 
 ```powershell
-PS /> Get-TeamViewerCustomModuleId
+Get-TeamViewerCustomModuleId
 ```
 
 Returns the custom module id.
+
+### Example 2
+
+```powershell
+$moduleId = Get-TeamViewerCustomModuleId
+```
+
+Retrieves the custom module Id and stores the result in a variable.
+
+### Example 3
+
+```powershell
+if (Get-TeamViewerCustomModuleId) { 'Customization applied' }
+```
+
+Uses the returned custom module Id to check whether a customization is applied to the installation.
 
 ## PARAMETERS
 

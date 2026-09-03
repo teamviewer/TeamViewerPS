@@ -34,7 +34,7 @@ Deletes one or many members from a user group. User group should belong to the T
 ### Example 1
 
 ```powershell
-PS /> Remove-TeamViewerUserGroupMember -UserGroup 1001 -UserGroupMember @(123, 456, 789)
+Remove-TeamViewerUserGroupMember -UserGroup 1001 -UserGroupMember @(123, 456, 789)
 ```
 
 Removes the accounts `123`, `456`, `789` from the group with id `1001`.
@@ -42,7 +42,7 @@ Removes the accounts `123`, `456`, `789` from the group with id `1001`.
 ### Example 2
 
 ```powershell
-PS /> @(123, 456, 789) | Remove-TeamViewerUserGroupMember -UserGroup 1001
+@(123, 456, 789) | Remove-TeamViewerUserGroupMember -UserGroup 1001
 ```
 
 Removes the accounts `123`, `456`, `789` from the group with id `1001`.
@@ -51,7 +51,7 @@ Ids are passed as pipeline input.
 ### Example 3
 
 ```powershell
-PS /> Remove-TeamViewerUserGroupMember -UserGroup 1001 -UserGroupMember @('u123', 'u456', 'u789')
+Remove-TeamViewerUserGroupMember -UserGroup 1001 -UserGroupMember @('u123', 'u456', 'u789')
 ```
 
 Removes the users `u123`, `u456`, `u789` from the group with id `1001`.
@@ -59,7 +59,7 @@ Removes the users `u123`, `u456`, `u789` from the group with id `1001`.
 ### Example 4
 
 ```powershell
-PS /> Get-TeamViewerUserGroupMember -UserGroup 1001 | Remove-TeamViewerUserGroupMember -UserGroup 1001
+Get-TeamViewerUserGroupMember -UserGroup 1001 | Remove-TeamViewerUserGroupMember -UserGroup 1001
 ```
 
 Removes all the users from the group with id `1001`.

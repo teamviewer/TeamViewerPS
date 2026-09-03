@@ -36,7 +36,7 @@ The list can optionally be filtered using additional parameters.
 ### Example 1
 
 ```powershell
-PS /> Get-TeamViewerUser
+Get-TeamViewerUser
 ```
 
 List all users.
@@ -44,7 +44,7 @@ List all users.
 ### Example 2
 
 ```powershell
-PS /> Get-TeamViewerUser -Id 'u1234'
+Get-TeamViewerUser -Id 'u1234'
 ```
 
 Retrieve a single user entry with the given Id.
@@ -52,7 +52,7 @@ Retrieve a single user entry with the given Id.
 ### Example 3
 
 ```powershell
-PS /> Get-TeamViewerUser -Name 'Test' -PropertiesToLoad 'All'
+Get-TeamViewerUser -Name 'Test' -PropertiesToLoad 'All'
 ```
 
 List all users of the company that have the string `Test` in their name.

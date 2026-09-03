@@ -36,10 +36,26 @@ Modifies settings of a TeamViewer policy.
 ### Example 1
 
 ```powershell
-PS /> Set-TeamViewerPolicy -Policy '730ee15a-1ea4-4d80-9cfe-5a01709d0a2f' -Name 'New Policy Name'
+Set-TeamViewerPolicy -Policy '730ee15a-1ea4-4d80-9cfe-5a01709d0a2f' -Name 'New Policy Name'
 ```
 
 Change the name of the given TeamViewer policy.
+
+### Example 2
+
+```powershell
+Set-TeamViewerPolicy -Policy '730ee15a-1ea4-4d80-9cfe-5a01709d0a2f' -Settings @(@{ key = 4; value = 1; enforce = $true })
+```
+
+Change the settings of the given TeamViewer policy.
+
+### Example 3
+
+```powershell
+Set-TeamViewerPolicy -Policy '730ee15a-1ea4-4d80-9cfe-5a01709d0a2f' -Property @{ name = 'New Policy Name' }
+```
+
+Change the name of the given TeamViewer policy using property parameters.
 
 ## PARAMETERS
 

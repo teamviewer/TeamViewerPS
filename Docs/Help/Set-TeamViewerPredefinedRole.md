@@ -27,18 +27,26 @@ Every new user will get the predefined role assigned automatically during creati
 ### Example 1
 
 ```powershell
-PS /> Set-TeamViewerPredefinedRole -RoleId '9b465ea2-2f75-4101-a057-58a81ed0e57b'
+Set-TeamViewerPredefinedRole -RoleId '9b465ea2-2f75-4101-a057-58a81ed0e57b'
 ```
 
 Sets the role with the id `9b465ea2-2f75-4101-a057-58a81ed0e57b` as predefined role.
 
-### Example 1
+### Example 2
 
 ```powershell
-PS /> Get-TeamViewerRole | where-Object { ($_.RoleName -eq 'Test Role') } | Set-TeamViewerPredefinedRole
+Get-TeamViewerRole | where-Object { ($_.RoleName -eq 'Test Role') } | Set-TeamViewerPredefinedRole
 ```
 
 Sets the role with name `Test Role` as predefined role.
+
+### Example 3
+
+```powershell
+Set-TeamViewerPredefinedRole -Role 'c0cb303a-8a85-4e54-b657-a4757c791aef' -WhatIf
+```
+
+Uses the `Role` alias and shows what would happen when setting the role with the id `c0cb303a-8a85-4e54-b657-a4757c791aef` as predefined role, without applying the change.
 
 ## PARAMETERS
 

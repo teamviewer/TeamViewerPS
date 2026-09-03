@@ -36,12 +36,20 @@ Assigns the local device with default alias (hostname of device) to the TeamView
 ### Example 2
 
 ```powershell
+Add-TeamViewerAssignment -AssignmentId '0001CoABChD3RCXwL6IR7pS' -DeviceAlias 'My Test Device'
+
+```
+
+Assigns the local device with alias "My Test Device" to the corresponding TeamViewer company using the default number of retries.
+
+### Example 3
+
+```powershell
 Add-TeamViewerAssignment -AssignmentId '0001CoABChD3RCXwL6IR7pS' -DeviceAlias  'My Test Device' -Retries 3
 
 ```
 
-Assigns the local device with alias "My Test Device" to the corresponding TeamViewer company.
-Three assignment retries are done.
+Assigns the local device with alias "My Test Device" to the corresponding TeamViewer company. Three assignment retries are done.
 
 ## PARAMETERS
 

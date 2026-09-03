@@ -28,7 +28,7 @@ All information regarding the user group will be deleted too.
 ### Example 1
 
 ```powershell
-PS /> Remove-TeamViewerUserGroup -Id 1001
+Remove-TeamViewerUserGroup -Id 1001
 ```
 
 Deletes the user group with Id `1001`.
@@ -36,11 +36,19 @@ Deletes the user group with Id `1001`.
 ### Example 2
 
 ```powershell
-PS /> Remove-TeamViewerUserGroup -UserGroup (Get-TeamViewerUserGroup | Where-Object { $_.Name -eq "Test Group" })
+Remove-TeamViewerUserGroup -UserGroup (Get-TeamViewerUserGroup | Where-Object { $_.Name -eq "Test Group" })
 ```
 
 Remove a user group object retrieved using `Get-TeamViewerUserGroup` as input.
 In this example, the user group with the name `Test Group`.
+
+### Example 3
+
+```powershell
+Remove-TeamViewerUserGroup -UserGroupId 1001
+```
+
+Deletes the user group with Id `1001`, using the `UserGroupId` alias.
 
 ## PARAMETERS
 

@@ -26,8 +26,24 @@ Start the locally installed TeamViewer service.
 ### Example 1
 
 ```powershell
-PS /> Start-TeamViewerService
+Start-TeamViewerService
 ```
+
+### Example 2
+
+```powershell
+Start-TeamViewerService -WhatIf
+```
+
+Shows what would happen without actually starting the TeamViewer service.
+
+### Example 3
+
+```powershell
+Start-TeamViewerService -Confirm
+```
+
+Prompts for confirmation before starting the TeamViewer service.
 
 ## PARAMETERS
 

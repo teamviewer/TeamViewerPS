@@ -27,8 +27,24 @@ Nothing is returned if TeamViewer is not installed.
 ### Example 1
 
 ```powershell
-PS /> Get-TeamViewerVersion
+Get-TeamViewerVersion
 ```
+
+### Example 2
+
+```powershell
+$version = Get-TeamViewerVersion
+```
+
+Stores the installed TeamViewer version in a variable for later use.
+
+### Example 3
+
+```powershell
+if (Get-TeamViewerVersion) { 'TeamViewer is installed' }
+```
+
+Checks whether TeamViewer is installed on the local machine.
 
 ## PARAMETERS
 

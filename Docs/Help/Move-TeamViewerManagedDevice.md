@@ -29,10 +29,28 @@ Offline devices will apply this change when coming online again.
 ### Example
 
 ```powershell
-PS /> Move-TeamViewerManagedDevice -Device 'c0cb303a-8a85-4e54-b657-a4757c791aef' -SourceGroup '9fd16af0-c224-4242-998e-a7138b038dbb' -TargetGroup '6084ffb1-c2d7-45e8-b6ab-5322ff761a30'
+Move-TeamViewerManagedDevice -Device 'c0cb303a-8a85-4e54-b657-a4757c791aef' -SourceGroup '9fd16af0-c224-4242-998e-a7138b038dbb' -TargetGroup '6084ffb1-c2d7-45e8-b6ab-5322ff761a30'
 ```
 
 Moves the managed device with the given device Id from the managed group with the given group Id to another managed group with the given group Id.
+
+### Example 2
+
+```powershell
+Move-TeamViewerManagedDevice -DeviceId 'c0cb303a-8a85-4e54-b657-a4757c791aef' -SourceGroup '9fd16af0-c224-4242-998e-a7138b038dbb' -TargetGroup '6084ffb1-c2d7-45e8-b6ab-5322ff761a30' -WhatIf
+```
+
+Shows what would happen when moving the device using the `DeviceId` alias, without performing the change.
+
+### Example 3
+
+```powershell
+$device = Get-TeamViewerManagedDevice -Id 'c0cb303a-8a85-4e54-b657-a4757c791aef'
+
+Move-TeamViewerManagedDevice -Device $device -SourceGroup '9fd16af0-c224-4242-998e-a7138b038dbb' -TargetGroup '6084ffb1-c2d7-45e8-b6ab-5322ff761a30'
+```
+
+Moves a managed device object retrieved with `Get-TeamViewerManagedDevice` from the source group to the target group.
 
 ## PARAMETERS
 

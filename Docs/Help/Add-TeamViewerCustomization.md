@@ -27,9 +27,9 @@ Customization can be performed in Management console under Design & Deploy.
 ### Example 1
 
 ```powershell
-PS /> Add-TeamViewerCustomization -Id '1234567'
-PS /> Add-TeamViewerCustomization -Id '1234567' -RestartGUI
-PS /> Add-TeamViewerCustomization -Id '1234567' -RestartGUI -RemoveExisting
+Add-TeamViewerCustomization -Id '1234567'
+Add-TeamViewerCustomization -Id '1234567' -RestartGUI
+Add-TeamViewerCustomization -Id '1234567' -RestartGUI -RemoveExisting
 
 ```
 
@@ -37,12 +37,58 @@ Customizes the TeamViewer installation with Id.
 The next customization to be applied can already be specified after the existing customization removal is performed.
 The RestartGUI restarts the running TeamViewer client and the visual changes are applied.
 
+### Example 1
+
+```powershell
+Add-TeamViewerCustomization -Id '1234567'
+
+```
+
+Customizes the TeamViewer installation with Id.
+
 ### Example 2
 
 ```powershell
-PS /> Add-TeamViewerCustomization -Path  "X:\67byysp.zip"
-PS /> Add-TeamViewerCustomization -Path  "X:\67byysp.zip" -RestartGUI
-PS /> Add-TeamViewerCustomization -Path  "X:\67byysp.zip" -RestartGUI -RemoveExisting
+Add-TeamViewerCustomization -Id '1234567' -RestartGUI
+
+```
+
+Customizes the TeamViewer installation with Id.
+The next customization to be applied can already be specified after the existing customization removal is performed.
+
+### Example 3
+
+```powershell
+Add-TeamViewerCustomization -Id '1234567' -RestartGUI -RemoveExisting
+
+```
+
+Customizes the TeamViewer installation with Id.
+The next customization to be applied can already be specified after the existing customization removal is performed.
+The RestartGUI restarts the running TeamViewer client and the visual changes are applied.
+
+### Example 4
+
+```powershell
+Add-TeamViewerCustomization -Id '1234567' -RemoveExisting
+
+```
+
+Removes the existing customization before applying the customization with the given Id.
+
+### Example 5
+
+```powershell
+Add-TeamViewerCustomization -Path  "X:\67byysp.zip"
+
+```
+
+Customizes the TeamViewer installation with zip file.
+
+### Example 6
+
+```powershell
+Add-TeamViewerCustomization -Path  "X:\67byysp.zip" -RestartGUI -RemoveExisting
 
 ```
 

@@ -9,7 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Get a list of TeamViewer SSO domains that are owned by the current account.
+Get a list of TeamViewer Single Sign-On (SSO) domains that are owned by the current account.
 
 ## SYNTAX
 
@@ -19,15 +19,31 @@ Get-TeamViewerSsoDomain [-ApiToken] <SecureString> [-Id <Guid>] [<CommonParamete
 
 ## DESCRIPTION
 
-Get a list of TeamViewer SSO domain configurations that are owned by the account that is associated with the API access token.
+Get a list of TeamViewer Single Sign-On (SSO) domain configurations that are owned by the account that is associated with the API access token.
 
 ## EXAMPLES
 
 ### Example 1
 
 ```powershell
-PS /> Get-TeamViewerSsoDomain
+Get-TeamViewerSsoDomain
 ```
+
+### Example 2
+
+```powershell
+Get-TeamViewerSsoDomain -Domain 'c0cb303a-8a85-4e54-b657-a4757c791aef'
+```
+
+Retrieves the SSO domain configuration with the specified domain id.
+
+### Example 3
+
+```powershell
+Get-TeamViewerSsoDomain | Where-Object { $_.Name -eq 'example.com' }
+```
+
+Lists only the SSO domain whose name is 'example.com'.
 
 ## PARAMETERS
 

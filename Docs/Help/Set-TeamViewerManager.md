@@ -53,7 +53,7 @@ At least one manager must remain with that permission.
 ### Example 1
 
 ```powershell
-PS /> Set-TeamViewerManager -Device 'c0cb303a-8a85-4e54-b657-a4757c791aef' -Manager '57e8f75e-8e6f-4450-a59d-10e02ccf5986' -Permissions 'EasyAccess', 'ManagerAdministration'
+Set-TeamViewerManager -Device 'c0cb303a-8a85-4e54-b657-a4757c791aef' -Manager '57e8f75e-8e6f-4450-a59d-10e02ccf5986' -Permissions 'EasyAccess', 'ManagerAdministration'
 ```
 
 Change the permissions of the given manager on the managed device with the given Id.
@@ -61,10 +61,26 @@ Change the permissions of the given manager on the managed device with the given
 ### Example 2
 
 ```powershell
-PS /> Set-TeamViewerManager -Group '9fd16af0-c224-4242-998e-a7138b038dbb' -Manager '57e8f75e-8e6f-4450-a59d-10e02ccf5986' -Permissions 'EasyAccess', 'ManagerAdministration'
+Set-TeamViewerManager -Group '9fd16af0-c224-4242-998e-a7138b038dbb' -Manager '57e8f75e-8e6f-4450-a59d-10e02ccf5986' -Permissions 'EasyAccess', 'ManagerAdministration'
 ```
 
 Change the permissions of the given manager on the managed group with the given Id.
+
+### Example 3
+
+```powershell
+Set-TeamViewerManager -Device 'c0cb303a-8a85-4e54-b657-a4757c791aef' -Manager '57e8f75e-8e6f-4450-a59d-10e02ccf5986' -Property @{ permissions = @('EasyAccess', 'ManagerAdministration') }
+```
+
+Change the permissions of the given manager on the managed device with the given Id using property parameters.
+
+### Example 4
+
+```powershell
+Set-TeamViewerManager -Group '9fd16af0-c224-4242-998e-a7138b038dbb' -Manager '57e8f75e-8e6f-4450-a59d-10e02ccf5986' -Property @{ permissions = @('EasyAccess', 'ManagerAdministration') }
+```
+
+Change the permissions of the given manager on the managed group with the given Id using property parameters.
 
 ## PARAMETERS
 

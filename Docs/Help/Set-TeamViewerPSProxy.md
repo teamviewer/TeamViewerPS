@@ -26,7 +26,7 @@ Sets a Proxy to access web API for TeamViewerPS module functions.
 ### Example 1
 
 ```powershell
-PS /> Set-TeamViewerPSProxy -ProxyUri "http://example.com/port"
+Set-TeamViewerPSProxy -ProxyUri "http://example.com/port"
 ```
 
 Sets the proxy server to "<http://example.com/port>".
@@ -34,10 +34,18 @@ Sets the proxy server to "<http://example.com/port>".
 ### Example 2
 
 ```powershell
-PS /> Set-TeamViewerPSProxy -ProxyUri "http://10.0.0.1:3128"
+Set-TeamViewerPSProxy -ProxyUri "http://10.0.0.1:3128"
 ```
 
 Sets the proxy server to "<http://10.0.0.1:3128>".
+
+### Example 3
+
+```powershell
+Set-TeamViewerPSProxy -ProxyUri "http://10.0.0.1:3128" -WhatIf
+```
+
+Shows what would happen when setting the proxy server to "<http://10.0.0.1:3128>", without applying the change.
 
 ## PARAMETERS
 

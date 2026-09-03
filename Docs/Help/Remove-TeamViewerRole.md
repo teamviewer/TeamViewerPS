@@ -28,7 +28,7 @@ All permissions and user assignments of the role will be deleted too.
 ### Example 1
 
 ```powershell
-PS /> Remove-TeamViewerRole -RoleId '9b465ea2-2f75-4101-a057-58a81ed0e57b'
+Remove-TeamViewerRole -RoleId '9b465ea2-2f75-4101-a057-58a81ed0e57b'
 ```
 
 Deletes the role with Id `9b465ea2-2f75-4101-a057-58a81ed0e57b`.
@@ -36,11 +36,19 @@ Deletes the role with Id `9b465ea2-2f75-4101-a057-58a81ed0e57b`.
 ### Example 2
 
 ```powershell
-PS />  Remove-TeamViewerRole -RoleId (Get-TeamViewerRole | Where-Object { ($_.RoleName -eq 'Test Role') } ).RoleID
+ Remove-TeamViewerRole -RoleId (Get-TeamViewerRole | Where-Object { ($_.RoleName -eq 'Test Role') } ).RoleID
 ```
 
 Deletes a role with the role Id retrieved from `Get-TeamViewerRole` as input.
 In this example, the role with the name `Test Role`.
+
+### Example 3
+
+```powershell
+Remove-TeamViewerRole -Id 'c0cb303a-8a85-4e54-b657-a4757c791aef'
+```
+
+Deletes the role with the given Id, using the `Id` alias.
 
 ## PARAMETERS
 

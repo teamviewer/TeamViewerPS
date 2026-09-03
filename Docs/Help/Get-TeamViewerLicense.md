@@ -19,18 +19,33 @@ Get-TeamViewerLicense [-ApiToken] <SecureString> [<CommonParameters>]
 
 ## DESCRIPTION
 
-Retrieves the company license details of the TeamViewer company associated with the
-TeamViewer API access token.
+Retrieves the company license details of the TeamViewer company associated with the TeamViewer API access token.
 
 ## EXAMPLES
 
 ### Example 1
 
 ```powershell
-PS /> $license = Get-TeamViewerLicense
+Get-TeamViewerLicense
+```
+
+Retrieves and displays the company license details.
+
+### Example 2
+
+```powershell
+$license = Get-TeamViewerLicense
 ```
 
 Retrieve the company license details and store the result in a variable.
+
+### Example 3
+
+```powershell
+Get-TeamViewerLicense | Select-Object -ExpandProperty Licenses_Available
+```
+
+Retrieves only the available license information of the company license.
 
 ## PARAMETERS
 

@@ -26,10 +26,26 @@ The command checks the TeamViewer Installation and returns the installation dire
 ### Example 1
 
 ```powershell
-PS /> Get-TeamViewerInstallationDirectory
+Get-TeamViewerInstallationDirectory
 ```
 
 Returns the installation directory.
+
+### Example 2
+
+```powershell
+$installDir = Get-TeamViewerInstallationDirectory
+```
+
+Stores the TeamViewer installation directory path in the variable `$installDir`.
+
+### Example 3
+
+```powershell
+Join-Path -Path (Get-TeamViewerInstallationDirectory) -ChildPath 'TeamViewer.exe'
+```
+
+Builds the full path to the TeamViewer executable from the installation directory.
 
 ## PARAMETERS
 

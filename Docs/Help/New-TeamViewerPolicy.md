@@ -27,8 +27,26 @@ Create a new TeamViewer policy.
 ### Example 1
 
 ```powershell
-PS /> New-TeamViewerPolicy -Name 'Test Policy'
+New-TeamViewerPolicy -Name 'Test Policy'
 ```
+
+### Example 2
+
+```powershell
+New-TeamViewerPolicy -Name 'Company Default' -DefaultPolicy
+```
+
+Creates a new policy and makes it the default policy for the company.
+
+### Example 3
+
+```powershell
+$settings = @(@{ key = 'InactivityTimeout'; value = 600; enforce = $true })
+
+New-TeamViewerPolicy -Name 'Secure Policy' -Settings $settings
+```
+
+Creates a new policy with the given enforced settings.
 
 ## PARAMETERS
 

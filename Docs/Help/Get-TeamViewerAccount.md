@@ -19,18 +19,33 @@ Get-TeamViewerAccount [-ApiToken] <SecureString> [<CommonParameters>]
 
 ## DESCRIPTION
 
-Retrieves account information of the TeamViewer account associated with the
-TeamViewer API access token.
+Retrieves account information of the TeamViewer account associated with the TeamViewer API access token.
 
 ## EXAMPLES
 
 ### Example 1
 
 ```powershell
-PS /> $account = Get-TeamViewerAccount
+$account = Get-TeamViewerAccount
 ```
 
 Retrieve the account information and store the result in a variable.
+
+### Example 2
+
+```powershell
+Get-TeamViewerAccount | Select-Object -Property Name, Email
+```
+
+Retrieves the account information and shows only the `Name` and `Email` properties.
+
+### Example 3
+
+```powershell
+(Get-TeamViewerAccount).Email
+```
+
+Retrieves the account information and returns only the email address of the account.
 
 ## PARAMETERS
 

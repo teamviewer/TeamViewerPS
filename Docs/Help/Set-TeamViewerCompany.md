@@ -27,18 +27,33 @@ Set-TeamViewerCompany -ApiToken <SecureString> -Property <Hashtable> [-WhatIf] [
 
 ## DESCRIPTION
 
-Changes company details of the TeamViewer company associated with the API
-access token.
+Changes company details of the TeamViewer company associated with the API access token.
 
 ## EXAMPLES
 
 ### Example 1
 
 ```powershell
-PS /> Set-TeamViewerCompany -Name 'TeamViewer Germany GmbH'
+Set-TeamViewerCompany -Name 'TeamViewer Germany GmbH'
 ```
 
 Change the company name.
+
+### Example 2
+
+```powershell
+Set-TeamViewerCompany -Property @{ name = 'TeamViewer Germany GmbH' }
+```
+
+Change the company name using property parameters.
+
+### Example 3
+
+```powershell
+Get-TeamViewerCompany | Set-TeamViewerCompany -Name 'TeamViewer Germany GmbH'
+```
+
+Change the name of the current company retrieved from the pipeline.
 
 ## PARAMETERS
 

@@ -9,7 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Un-assigns a user group from one specific role.
+Removes a user group from one specific role.
 
 ## SYNTAX
 
@@ -20,17 +20,33 @@ Remove-TeamViewerUserGroupFromRole [-ApiToken] <SecureString> [-UserGroup] <Obje
 
 ## DESCRIPTION
 
-Un-assigns a user group from one specific role of the TeamViewer company associated with the API access token.
+Removes a user group from one specific role of the TeamViewer company associated with the API access token.
 
 ## EXAMPLES
 
 ### Example 1
 
 ```powershell
-PS /> Remove-TeamViewerUserGroupFromRole -UserGroup 1001
+Remove-TeamViewerUserGroupFromRole -UserGroup 1001
 ```
 
 The given user group `1001` gets unassigned from the role.
+
+### Example 2
+
+```powershell
+Remove-TeamViewerUserGroupFromRole -Id 1001
+```
+
+Uses the `Id` alias to unassign the user group `1001` from its role.
+
+### Example 3
+
+```powershell
+Get-TeamViewerUserGroup -Name 'Support Team' | Remove-TeamViewerUserGroupFromRole
+```
+
+Removes the user group object retrieved via `Get-TeamViewerUserGroup` from its role.
 
 ## PARAMETERS
 

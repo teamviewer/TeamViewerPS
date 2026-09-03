@@ -36,10 +36,26 @@ Changes a group in the Computers & Contacts list.
 ### Example 1
 
 ```powershell
-PS /> Set-TeamViewerGroup -Group 'g1234' -Name 'New Group Name'
+Set-TeamViewerGroup -Group 'g1234' -Name 'New Group Name'
 ```
 
 Change the name of the group with the given group Id.
+
+### Example 2
+
+```powershell
+Set-TeamViewerGroup -Group 'g1234' -Policy '730ee15a-1ea4-4d80-9cfe-5a01709d0a2f'
+```
+
+Assign the given policy to the group with the given group Id.
+
+### Example 3
+
+```powershell
+Set-TeamViewerGroup -Group 'g1234' -Property @{ name = 'New Group Name'; policy_id = '730ee15a-1ea4-4d80-9cfe-5a01709d0a2f' }
+```
+
+Change the name and policy of the group with the given group Id using property parameters.
 
 ## PARAMETERS
 

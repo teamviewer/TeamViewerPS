@@ -26,10 +26,26 @@ The command checks the TeamViewer installation and returns the installation type
 ### Example 1
 
 ```powershell
-PS /> Get-TeamViewerInstallationType
+Get-TeamViewerInstallationType
 ```
 
 Returns the installation type of TeamViewer (MSI, exe or Unknown).
+
+### Example 2
+
+```powershell
+$type = Get-TeamViewerInstallationType
+```
+
+Stores the installation type (Msi, Exe, or Unknown) in a variable.
+
+### Example 3
+
+```powershell
+if ((Get-TeamViewerInstallationType) -eq 'Msi') { Write-Output 'TeamViewer was installed via MSI' }
+```
+
+Checks whether TeamViewer was installed using an MSI package.
 
 ## PARAMETERS
 

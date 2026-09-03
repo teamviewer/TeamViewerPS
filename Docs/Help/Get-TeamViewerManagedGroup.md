@@ -40,7 +40,7 @@ Retrieves managed groups of the manager that is associated with the API access t
 ### Example 1
 
 ```powershell
-PS /> Get-TeamViewerManagedGroup
+Get-TeamViewerManagedGroup
 ```
 
 List all managed groups of this manager.
@@ -48,10 +48,18 @@ List all managed groups of this manager.
 ### Example 2
 
 ```powershell
-PS /> Get-TeamViewerManagedGroup -Id '9fd16af0-c224-4242-998e-a7138b038dbb'
+Get-TeamViewerManagedGroup -Id '9fd16af0-c224-4242-998e-a7138b038dbb'
 ```
 
 Retrieve a single managed group entry for the group with the given Id.
+
+### Example 3
+
+```powershell
+Get-TeamViewerManagedGroup -Device 'c0cb303a-8a85-4e54-b657-a4757c791aef'
+```
+
+List the managed groups that the managed device with the given Id is part of.
 
 ## PARAMETERS
 

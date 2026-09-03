@@ -26,10 +26,27 @@ Lists all members of a user group of the TeamViewer company associated with the 
 ### Example 1
 
 ```powershell
-PS /> Get-TeamViewerUserGroupMember -Id 1001
+Get-TeamViewerUserGroupMember -Id 1001
 ```
 
 List members all members of the user group with Id 1001.
+
+### Example 2
+
+```powershell
+Get-TeamViewerUserGroupMember -UserGroupId 1001
+```
+
+Lists all members of the user group with Id 1001 using the `UserGroupId` alias.
+
+### Example 3
+
+```powershell
+$userGroup = Get-TeamViewerUserGroup -Id 1001
+Get-TeamViewerUserGroupMember -UserGroup $userGroup
+```
+
+Lists all members by passing a UserGroup object retrieved with `Get-TeamViewerUserGroup`.
 
 ## PARAMETERS
 

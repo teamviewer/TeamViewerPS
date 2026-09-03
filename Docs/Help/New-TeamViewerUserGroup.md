@@ -27,11 +27,27 @@ The name of the new user group should be unique among the groups of the TeamView
 ### Example 1
 
 ```powershell
-PS /> New-TeamViewerUserGroup -Name 'New user group'
+New-TeamViewerUserGroup -Name 'New user group'
 ```
 
 Creates a new user groups with name `New user group`.
 The name should be unique among the groups of the TeamViewer Company.
+
+### Example 2
+
+```powershell
+$userGroup = New-TeamViewerUserGroup -Name 'Support Team'
+```
+
+Creates a new user group and stores the returned user group object in a variable.
+
+### Example 3
+
+```powershell
+'Support Team', 'Sales Team' | ForEach-Object { New-TeamViewerUserGroup -Name $_ }
+```
+
+Creates multiple user groups in a single pipeline.
 
 ## PARAMETERS
 

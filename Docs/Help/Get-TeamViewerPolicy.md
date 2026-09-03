@@ -34,18 +34,26 @@ Retrieve a list of policies or a single policy entry.
 ### Example 1
 
 ```powershell
-PS /> Get-TeamViewerPolicy
+Get-TeamViewerPolicy
 ```
 
-List all policies of this account.
+List all policies of the account.
 
 ### Example 2
 
 ```powershell
-PS /> Get-TeamViewerPolicy -Id '730ee15a-1ea4-4d80-9cfe-5a01709d0a2f'
+Get-TeamViewerPolicy -Id '730ee15a-1ea4-4d80-9cfe-5a01709d0a2f'
 ```
 
 Retrieve a single policy entry with the given Id.
+
+### Example 3
+
+```powershell
+Get-TeamViewerPolicy | Where-Object { $_.Name -eq 'Default Policy' }
+```
+
+Retrieve the policy with the name `Default Policy` by filtering the full list of policies.
 
 ## PARAMETERS
 

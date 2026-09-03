@@ -35,7 +35,7 @@ Returns a list of contacts in the user’s Computers & Contacts list that match 
 ### Example 1
 
 ```powershell
-PS /> Get-TeamViewerContact
+Get-TeamViewerContact
 ```
 
 List all contacts of the account associated to the TeamViewer API access token.
@@ -43,7 +43,7 @@ List all contacts of the account associated to the TeamViewer API access token.
 ### Example 2
 
 ```powershell
-PS /> Get-TeamViewerContact -Id 'c1234'
+Get-TeamViewerContact -Id 'c1234'
 ```
 
 Gets the contact entry with the given Id.
@@ -51,7 +51,7 @@ Gets the contact entry with the given Id.
 ### Example 3
 
 ```powershell
-PS /> Get-TeamViewerContact -Name 'test' -FilterBy_OnlineState 'Away'
+Get-TeamViewerContact -Name 'test' -FilterBy_OnlineState 'Away'
 ```
 
 List all contacts of the account associated to the TeamViewer API access token that contain the string `test` in their name and are in the `Away` online state.

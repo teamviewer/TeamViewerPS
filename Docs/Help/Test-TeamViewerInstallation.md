@@ -27,8 +27,24 @@ The command simply returns `True` if installed, or `False` otherwise.
 ### Example 1
 
 ```powershell
-PS /> Test-TeamViewerInstallation
+Test-TeamViewerInstallation
 ```
+
+### Example 2
+
+```powershell
+$isInstalled = Test-TeamViewerInstallation
+```
+
+Stores the result of the installation check in the `$isInstalled` variable for later use.
+
+### Example 3
+
+```powershell
+if (Test-TeamViewerInstallation) { Restart-TeamViewerService }
+```
+
+Restarts the TeamViewer service only when TeamViewer is installed on the machine.
 
 ## PARAMETERS
 

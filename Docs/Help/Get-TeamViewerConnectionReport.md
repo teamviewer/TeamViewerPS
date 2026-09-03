@@ -40,7 +40,7 @@ Returns a list of TeamViewer session reports. The list can optionally be filtere
 ### Example 1
 
 ```powershell
-PS /> Get-TeamViewerConnectionReport
+Get-TeamViewerConnectionReport
 ```
 
 List all available connection reports
@@ -48,7 +48,7 @@ List all available connection reports
 ### Example 2
 
 ```powershell
-PS /> Get-TeamViewerConnectionReport -Days 14
+Get-TeamViewerConnectionReport -Days 14
 ```
 
 List connection reports of the last 2 weeks
@@ -56,7 +56,7 @@ List connection reports of the last 2 weeks
 ### Example 3
 
 ```powershell
-PS /> Get-TeamViewerConnectionReport -SessionCode s1122344
+Get-TeamViewerConnectionReport -SessionCode s1122344
 ```
 
 List connection reports for the given session code.
@@ -64,7 +64,7 @@ List connection reports for the given session code.
 ### Example 4
 
 ```powershell
-PS /> Get-TeamViewerConnectionReport -UserId u1234 -StartDate "2021-05-01 13:00"
+Get-TeamViewerConnectionReport -UserId u1234 -StartDate "2021-05-01 13:00"
 ```
 
 List reports for connections of the TeamViewer account with the given user Id and that were initiated on or after May 1st, 2021 1pm.
@@ -73,8 +73,7 @@ If specified like this, dates/times use the timezone currently configured in you
 ### Example 5
 
 ```powershell
-PS /> Get-TeamViewerConnectionReport `
-  -Group (Get-TeamViewerGroup -Name "My Computers" | Select-Object -First 1) `
+Get-TeamViewerConnectionReport -Group (Get-TeamViewerGroup -Name "My Computers" | Select-Object -First 1) `
   -StartDate "2021-04-01" -EndDate "2021-04-02"
 ```
 

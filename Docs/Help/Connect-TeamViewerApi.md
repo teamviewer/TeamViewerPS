@@ -19,21 +19,36 @@ Connect-TeamViewerApi [-ApiToken] <SecureString> [<CommonParameters>]
 
 ## DESCRIPTION
 
-Stores the TeamViewer API access token in the current environment such that
-API related function don't need to specify the `ApiToken` parameter anymore.
+Stores the TeamViewer API access token in the current environment such that API related function don't need to specify the `ApiToken` parameter anymore.
 
 ## EXAMPLES
 
 ### Example 1
 
 ```powershell
-PS /> Connect-TeamViewerApi
-*********************
-PS /> Get-TeamViewerUser
+Connect-TeamViewerApi
+Get-TeamViewerUser
 ```
 
-Use `Connect-TeamViewerApi` to store the TeamViewer API access token as secure
-string in the current Powershell global scope.
+Use `Connect-TeamViewerApi` to store the TeamViewer API access token as secure string in the current Powershell global scope.
+
+### Example 2
+
+```powershell
+$ApiToken = 'MyApiToken' | ConvertTo-SecureString -AsPlainText -Force
+
+Connect-TeamViewerApi -ApiToken $ApiToken
+```
+
+Stores an API access token that has already been converted to a secure string in the current environment.
+
+### Example 3
+
+```powershell
+Connect-TeamViewerApi -ApiToken (Get-Secret -Name 'TeamViewerApiToken')
+```
+
+Retrieves the API access token from a secret store and stores it in the current environment.
 
 ## PARAMETERS
 

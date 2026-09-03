@@ -26,8 +26,26 @@ Deletes a device from the Computers & Contacts list of the account associated to
 ### Example 1
 
 ```powershell
-PS /> Remove-TeamViewerDevice -Device 'd1234'
+Remove-TeamViewerDevice -Device 'd1234'
 ```
+
+Deletes a specific device.
+
+### Example 2
+
+```powershell
+Get-TeamViewerDevice -Name 'My PC' | Remove-TeamViewerDevice
+```
+
+Deletes the devices returned by `Get-TeamViewerDevice` using pipeline input.
+
+### Example 3
+
+```powershell
+Remove-TeamViewerDevice -Id 'd7654321'
+```
+
+Deletes a device using the `Id` alias.
 
 ## PARAMETERS
 

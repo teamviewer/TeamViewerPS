@@ -20,16 +20,33 @@ Remove-TeamViewerManagedGroup [-ApiToken] <SecureString> [-Group] <Object> [-Wha
 
 ## DESCRIPTION
 
-Marks a managed group as deleted. It will immediately disappear from the list of
-managed groups of all associated managers. Devices in the group will see the deletion marker and remove themselves from the group as soon as they get online.
+Marks a managed group as deleted. It will immediately disappear from the list of managed groups of all associated managers. Devices in the group will see the deletion marker and remove themselves from the group as soon as they get online.
 
 ## EXAMPLES
 
 ### Example 1
 
 ```powershell
-PS /> Remove-TeamViewerManagedGroup -Group '9fd16af0-c224-4242-998e-a7138b038dbb'
+Remove-TeamViewerManagedGroup -Group '9fd16af0-c224-4242-998e-a7138b038dbb'
 ```
+
+Deletes one specific managed groups.
+
+### Example 2
+
+```powershell
+Get-TeamViewerManagedGroup -Name 'Servers' | Remove-TeamViewerManagedGroup
+```
+
+Deletes the managed groups returned by `Get-TeamViewerManagedGroup` using pipeline input.
+
+### Example 3
+
+```powershell
+Remove-TeamViewerManagedGroup -Id 'c0cb303a-8a85-4e54-b657-a4757c791aef'
+```
+
+Deletes a managed group using the `Id` alias.
 
 ## PARAMETERS
 

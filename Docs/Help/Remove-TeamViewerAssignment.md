@@ -26,10 +26,26 @@ Unassigns the calling device from its company.
 ### Example 1
 
 ```powershell
-PS /> Remove-TeamViewerAssignment 
+Remove-TeamViewerAssignment 
 ```
 
 Unassigns the device from its company.
+
+### Example 2
+
+```powershell
+Remove-TeamViewerAssignment -WhatIf
+```
+
+Shows what would happen without actually unassigning the device.
+
+### Example 3
+
+```powershell
+Remove-TeamViewerAssignment -Confirm:$false
+```
+
+Unassigns the device from its company without prompting for confirmation.
 
 ## PARAMETERS
 

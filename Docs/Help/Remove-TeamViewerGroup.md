@@ -19,16 +19,33 @@ Remove-TeamViewerGroup [-ApiToken] <SecureString> [-Group] <Object> [-WhatIf] [-
 
 ## DESCRIPTION
 
-Deletes an existing group from the Computers & Contacts list. If the group is not owned, but only shared with the current user's account it will just be
-unshared.
+Deletes an existing group from the Computers & Contacts list. If the group is not owned, but only shared with the current user's account it will just be unshared.
 
 ## EXAMPLES
 
 ### Example 1
 
 ```powershell
-PS /> Remove-TeamViewerGroup -Group 'g1234'
+Remove-TeamViewerGroup -Group 'g1234'
 ```
+
+Deletes one specific group with Id `g1234`.
+
+### Example 2
+
+```powershell
+Get-TeamViewerGroup -Name 'Servers' | Remove-TeamViewerGroup
+```
+
+Deletes the groups returned by `Get-TeamViewerGroup` using pipeline input.
+
+### Example 3
+
+```powershell
+Remove-TeamViewerGroup -Id 'g7654321'
+```
+
+Deletes a group using the `Id` alias.
 
 ## PARAMETERS
 

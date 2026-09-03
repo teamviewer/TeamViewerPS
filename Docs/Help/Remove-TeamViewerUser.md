@@ -13,14 +13,13 @@ Removes a user from the TeamViewer tenant
 
 ## SYNTAX
 
-```
-Remove-TeamViewerUser [-ApiToken] <SecureString> [-User] <Object> [-Permanent] [-WhatIf] [-Confirm]
- [<CommonParameters>]
+```powershell
+Remove-TeamViewerUser [-ApiToken] <SecureString> [-User] <Object> [-Permanent] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 
-Removes an existing user from the TeamViewer tenant.
+Removes an existing user from the TeamViewer company / tenant.
 If the switch -Permanent is added the user is delete from TeamViewer completely, otherwise it is only removed from the tenant.
 
 ## EXAMPLES
@@ -30,6 +29,22 @@ If the switch -Permanent is added the user is delete from TeamViewer completely,
 ```powershell
 PS C:\> Remove-TeamViewerUser -User 'u1234'
 ```
+
+### Example 2
+
+```powershell
+Remove-TeamViewerUser -User 'u1234567' -Permanent
+```
+
+Permanently deletes the user account instead of only removing it from the tenant.
+
+### Example 3
+
+```powershell
+Get-TeamViewerUser -Email 'user@example.test' | Remove-TeamViewerUser
+```
+
+Removes the user retrieved via the pipeline from the TeamViewer tenant.
 
 ## PARAMETERS
 

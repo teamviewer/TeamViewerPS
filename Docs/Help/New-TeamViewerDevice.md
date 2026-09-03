@@ -27,10 +27,26 @@ Adds a new device entry to the Computers & Contacts list of the account that is 
 ### Example 1
 
 ```powershell
-PS /> New-TeamViewerDevice -TeamViewerId 12345678 -Group 'g1234'
+New-TeamViewerDevice -TeamViewerId 12345678 -Group 'g1234'
 ```
 
 Adds the device with the given TeamViewer Id to the Computers & Contacts list into the group with the given group Id.
+
+### Example 2
+
+```powershell
+New-TeamViewerDevice -TeamViewerId 12345678 -Group 'g1234' -Name 'Web Server' -Description 'Production web server'
+```
+
+Adds the device with a display alias and a description to the given group.
+
+### Example 3
+
+```powershell
+New-TeamViewerDevice -TeamViewerId 87654321 -Group 'g1234' -Alias 'DB Server' -Password (Read-Host -AsSecureString)
+```
+
+Adds the device using the `Alias` parameter alias and a connection password entered as a secure string.
 
 ## PARAMETERS
 

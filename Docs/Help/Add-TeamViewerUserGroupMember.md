@@ -27,8 +27,8 @@ Adds a list of accountIds to a user groups of the TeamViewer company associated 
 ### Example 1
 
 ```powershell
-PS /> Add-TeamViewerUserGroupMember -Id 1001 -Member @(123, 456, 789)
-PS /> Add-TeamViewerUserGroupMember -Id 1001 -Member 123, 456, 789
+Add-TeamViewerUserGroupMember -Id 1001 -Member @(123, 456, 789)
+Add-TeamViewerUserGroupMember -Id 1001 -Member 123, 456, 789
 ```
 
 Adds the given accountIds (123, 456, 789) to the user group with Id 1001.
@@ -36,11 +36,19 @@ Adds the given accountIds (123, 456, 789) to the user group with Id 1001.
 ### Example 2
 
 ```powershell
-PS /> @(123, 456, 789) | Add-TeamViewerUserGroupMember -Id 1001
+@(123, 456, 789) | Add-TeamViewerUserGroupMember -Id 1001
 ```
 
 Adds the given accountIds (123, 456, 789) to the user group with Id 1001.
 Ids are passed as pipeline input.
+
+### Example 3
+
+```powershell
+Add-TeamViewerUserGroupMember -UserGroup 1001 -Member 'u123', 'u456'
+```
+
+Adds the accounts identified by their `u`-prefixed account Ids to the user group with Id 1001, using the `UserGroup` alias.
 
 ## PARAMETERS
 

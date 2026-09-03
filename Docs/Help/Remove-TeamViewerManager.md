@@ -38,7 +38,7 @@ It is not possible to remove the last manager with `ManagerAdministration` from 
 ### Example 1
 
 ```powershell
-PS /> Remove-TeamViewerManager -Device 'c0cb303a-8a85-4e54-b657-a4757c791aef' -Manager '57e8f75e-8e6f-4450-a59d-10e02ccf5986'
+Remove-TeamViewerManager -Device 'c0cb303a-8a85-4e54-b657-a4757c791aef' -Manager '57e8f75e-8e6f-4450-a59d-10e02ccf5986'
 ```
 
 Remove the given manager from the given managed device.
@@ -46,10 +46,18 @@ Remove the given manager from the given managed device.
 ### Example 2
 
 ```powershell
-PS /> Remove-TeamViewerManager -Group '9fd16af0-c224-4242-998e-a7138b038dbb' -Manager '57e8f75e-8e6f-4450-a59d-10e02ccf5986'
+Remove-TeamViewerManager -Group '9fd16af0-c224-4242-998e-a7138b038dbb' -Manager '57e8f75e-8e6f-4450-a59d-10e02ccf5986'
 ```
 
 Remove the given manager from the given managed group.
+
+### Example 3
+
+```powershell
+Get-TeamViewerManager -Device 'c0cb303a-8a85-4e54-b657-a4757c791aef' | Remove-TeamViewerManager
+```
+
+Remove all managers of the given managed device by piping the manager objects returned by `Get-TeamViewerManager`.
 
 ## PARAMETERS
 

@@ -28,8 +28,25 @@ The current account needs `DeviceAdministration` manager permissions on the devi
 ### Example 1
 
 ```powershell
-PS /> Remove-TeamViewerManagedDevice -Device 'c0cb303a-8a85-4e54-b657-a4757c791aef' -Group '9fd16af0-c224-4242-998e-a7138b038dbb'
+Remove-TeamViewerManagedDevice -Device 'c0cb303a-8a85-4e54-b657-a4757c791aef' -Group '9fd16af0-c224-4242-998e-a7138b038dbb'
 ```
+
+### Example 2
+
+```powershell
+Remove-TeamViewerManagedDevice -DeviceId 'c0cb303a-8a85-4e54-b657-a4757c791aef' -GroupId '9fd16af0-c224-4242-998e-a7138b038dbb'
+```
+
+Removes the device from the managed group using the `DeviceId` and `GroupId` aliases.
+
+### Example 3
+
+```powershell
+$group = Get-TeamViewerManagedGroup -Name 'Servers'
+$group | Get-TeamViewerManagedDevice | Remove-TeamViewerManagedDevice -Group $group
+```
+
+Removes all devices of a managed group by piping them into the cmdlet.
 
 ## PARAMETERS
 

@@ -97,6 +97,22 @@ Set-TeamViewerDeviceCustomFieldConfiguration -ApiToken $apiToken -Id $fieldId -F
 
 Updates the custom field identified by `$fieldId` and sets its key to `AssetTag`.
 
+### Example 2
+
+```powershell
+Set-TeamViewerDeviceCustomFieldConfiguration -Id 'c0cb303a-8a85-4e54-b657-a4757c791aef' -FieldKey 'AssetTag' -Description 'Inventory asset tag number'
+```
+
+Updates the custom field key and sets a description in a single call.
+
+### Example 3
+
+```powershell
+Set-TeamViewerDeviceCustomFieldConfiguration -FieldKeyId 'c0cb303a-8a85-4e54-b657-a4757c791aef' -FieldKey 'Location' -Description ''
+```
+
+Uses the `FieldKeyId` alias to rename the field to `Location` and clears its description.
+
 ## OUTPUTS
 
 ### TeamViewerPS.DeviceCustomFieldConfiguration

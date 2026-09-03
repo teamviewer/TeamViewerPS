@@ -29,10 +29,26 @@ Retrieves company-managed devices of the company that is associated with the API
 
 ```powershell
 
-PS /> Get-TeamViewerCompanyManagedDevice
+Get-TeamViewerCompanyManagedDevice
 ```
 
 List all company-managed devices of this company.
+
+### Example 2
+
+```powershell
+Get-TeamViewerCompanyManagedDevice | Where-Object { $_.IsOnline }
+```
+
+Lists only the company-managed devices that are currently online.
+
+### Example 3
+
+```powershell
+Get-TeamViewerCompanyManagedDevice | Select-Object -Property Name, TeamViewerId
+```
+
+Lists all company-managed devices and shows only their `Name` and `TeamViewerId` properties.
 
 ## PARAMETERS
 

@@ -42,7 +42,7 @@ This can either be devices where this manager was added directly or optionally d
 
 ```powershell
 
-PS /> Get-TeamViewerManagedDevice
+Get-TeamViewerManagedDevice
 ```
 
 List all directly managed devices of this manager.
@@ -51,7 +51,7 @@ List all directly managed devices of this manager.
 
 ```powershell
 
-PS /> Get-TeamViewerManagedDevice -Group '9fd16af0-c224-4242-998e-a7138b038dbb'
+Get-TeamViewerManagedDevice -Group '9fd16af0-c224-4242-998e-a7138b038dbb'
 ```
 
 List all managed devices of the given group. This manager needs to be part of the group.
@@ -59,8 +59,7 @@ List all managed devices of the given group. This manager needs to be part of th
 ### Example 3
 
 ```powershell
-
-PS /> Get-TeamViewerManagedDevice -Device 'c0cb303a-8a85-4e54-b657-a4757c791aef'
+Get-TeamViewerManagedDevice -Device 'c0cb303a-8a85-4e54-b657-a4757c791aef'
 ```
 
 Retrieve a single managed device entry for the device with the given Id.
@@ -68,7 +67,7 @@ Retrieve a single managed device entry for the device with the given Id.
 ### Example 4
 
 ```powershell
-PS /> Get-TeamViewerManagedDevice -Device (Get-TeamViewerManagementId)
+Get-TeamViewerManagedDevice -Device (Get-TeamViewerManagementId)
 ```
 
 Retrieve information about the management state of the current device.

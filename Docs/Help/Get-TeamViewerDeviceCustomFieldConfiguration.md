@@ -42,6 +42,22 @@ Get-TeamViewerDeviceCustomFieldConfiguration -ApiToken $apiToken
 
 Lists all device custom fields in the company.
 
+### Example 2
+
+```powershell
+Get-TeamViewerDeviceCustomFieldConfiguration | Select-Object -Property Name, Type
+```
+
+Lists all device custom field definitions and shows only their `Name` and `Type` properties.
+
+### Example 3
+
+```powershell
+Get-TeamViewerDeviceCustomFieldConfiguration | Where-Object { $_.Type -eq 'text' }
+```
+
+Lists only the device custom field definitions whose type is `text`.
+
 ## OUTPUTS
 
 ### TeamViewerPS.DeviceCustomFieldConfiguration

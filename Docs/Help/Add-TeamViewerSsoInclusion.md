@@ -20,7 +20,7 @@ Add-TeamViewerSsoInclusion [-ApiToken] <SecureString> [-DomainId] <Object> [-Ema
 
 ## DESCRIPTION
 
-Add emails to the inclusion list of a TeamViewer Single Sign-On domain.
+Add emails to the inclusion list of a TeamViewer Single Sign-On (SSO) domain.
 Only accounts with these email addresses will be able to login via Single Sign-On.
 
 ## EXAMPLES
@@ -28,10 +28,26 @@ Only accounts with these email addresses will be able to login via Single Sign-O
 ### Example 1
 
 ```powershell
-PS /> Add-TeamViewerSsoInclusion -DomainId '45e0d050-15e6-4fcb-91b2-ea4f20fe2085' -Email 'user@example.test'
+Add-TeamViewerSsoInclusion -DomainId '45e0d050-15e6-4fcb-91b2-ea4f20fe2085' -Email 'user@example.test'
 ```
 
 Adds the email address '<user@example.test>' to the inclusion list of the given domain.
+
+### Example 2
+
+```powershell
+Add-TeamViewerSsoInclusion -Domain 'c0cb303a-8a85-4e54-b657-a4757c791aef' -Email 'user1@example.test', 'user2@example.test'
+```
+
+Adds multiple email addresses to the inclusion list of the domain, referenced via the `Domain` alias.
+
+### Example 3
+
+```powershell
+'user1@example.test', 'user2@example.test' | Add-TeamViewerSsoInclusion -DomainId 'c0cb303a-8a85-4e54-b657-a4757c791aef'
+```
+
+Adds email addresses received from the pipeline to the inclusion list of the given domain.
 
 ## PARAMETERS
 

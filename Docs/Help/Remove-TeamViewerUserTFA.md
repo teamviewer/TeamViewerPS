@@ -9,11 +9,11 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Removes a users TFA from the TeamViewer account.
+Removes a users two-factor authentication (TFA) from the TeamViewer account.
 
 ## SYNTAX
 
-```
+```powershell
 Remove-TeamViewerUser [-ApiToken] <SecureString> [-User] <Object> [-Permanent] [-WhatIf] [-Confirm]
  [<CommonParameters>]
 ```
@@ -29,6 +29,22 @@ Removes a users two-factor authentication (TFA) from the TeamViewer account.
 ```powershell
 PS C:\> Remove-TeamViewerUserTFA -User 'u1234'
 ```
+
+### Example 2
+
+```powershell
+Get-TeamViewerUser -Email 'user@example.test' | Remove-TeamViewerUserTFA
+```
+
+Disables two-factor authentication for the user retrieved via the pipeline.
+
+### Example 3
+
+```powershell
+Remove-TeamViewerUserTFA -Id 'u1234567'
+```
+
+Uses the `Id` alias to disable two-factor authentication for the given user.
 
 ## PARAMETERS
 

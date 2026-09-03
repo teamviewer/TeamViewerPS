@@ -26,8 +26,24 @@ Stop the locally installed TeamViewer service.
 ### Example 1
 
 ```powershell
-PS /> Stop-TeamViewerService
+Stop-TeamViewerService
 ```
+
+### Example 2
+
+```powershell
+Stop-TeamViewerService -WhatIf
+```
+
+Shows what would happen without actually stopping the TeamViewer service.
+
+### Example 3
+
+```powershell
+Stop-TeamViewerService -Confirm
+```
+
+Prompts for confirmation before stopping the TeamViewer service.
 
 ## PARAMETERS
 

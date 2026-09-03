@@ -34,7 +34,7 @@ Returns either a list of TeamViewer groups or a single TeamViewer group entry th
 ### Example 1
 
 ```powershell
-PS /> Get-TeamViewerGroup
+Get-TeamViewerGroup
 ```
 
 List all TeamViewer groups of the current account.
@@ -42,7 +42,7 @@ List all TeamViewer groups of the current account.
 ### Example 2
 
 ```powershell
-PS /> Get-TeamViewerGroup -Id 'g1234'
+Get-TeamViewerGroup -Id 'g1234'
 ```
 
 Get a single TeamViewer group entry with the given Id.
@@ -50,7 +50,7 @@ Get a single TeamViewer group entry with the given Id.
 ### Example 3
 
 ```powershell
-PS /> Get-TeamViewerGroup -Name 'test'
+Get-TeamViewerGroup -Name 'test'
 ```
 
 List all TeamViewer groups of the current account that have the string `test` in their group name.

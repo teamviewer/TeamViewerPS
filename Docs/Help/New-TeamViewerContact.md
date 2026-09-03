@@ -27,7 +27,7 @@ Adds a new contact to the Computers & Contacts list of the account that is assoc
 ### Example 1
 
 ```powershell
-PS /> New-TeamViewerContact -Email 'test@example.test' -Group 'g1234'
+New-TeamViewerContact -Email 'test@example.test' -Group 'g1234'
 ```
 
 Add the account with the given email address to the Computers & Contacts list into the group with the given group Id.
@@ -35,10 +35,18 @@ Add the account with the given email address to the Computers & Contacts list in
 ### Example 2
 
 ```powershell
-PS /> New-TeamViewerContact -Email 'another@example.test' -Group 'g1234' -Invite
+New-TeamViewerContact -Email 'another@example.test' -Group 'g1234' -Invite
 ```
 
 Add a new entry to the Computers & Contacts list and send an invitation to the given email address if no such user exists yet.
+
+### Example 3
+
+```powershell
+New-TeamViewerContact -EmailAddress 'contact@example.test' -Group (Get-TeamViewerGroup -Name 'My Group')
+```
+
+Add a contact using the `EmailAddress` alias and a group object retrieved with `Get-TeamViewerGroup`.
 
 ## PARAMETERS
 

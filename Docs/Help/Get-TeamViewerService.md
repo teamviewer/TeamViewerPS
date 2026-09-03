@@ -29,6 +29,22 @@ Returns the TeamViewer service object.
 PS C:\> Get-TeamViewerService
 ```
 
+### Example 2
+
+```powershell
+(Get-TeamViewerService).Status
+```
+
+Returns the current status of the TeamViewer service.
+
+### Example 3
+
+```powershell
+if ((Get-TeamViewerService).Status -eq 'Running') { Write-Output 'TeamViewer service is running' }
+```
+
+Checks whether the TeamViewer service is currently running.
+
 ## PARAMETERS
 
 ### CommonParameters

@@ -26,10 +26,26 @@ Lists all roles in the TeamViewer company associated with the API access token.
 ### Example 1
 
 ```powershell
-PS /> Get-TeamViewerRole
+Get-TeamViewerRole
 ```
 
 Lists all roles.
+
+### Example 2
+
+```powershell
+Get-TeamViewerRole | Where-Object { $_.Name -eq 'Administrator' }
+```
+
+Lists only the role named 'Administrator'.
+
+### Example 3
+
+```powershell
+Get-TeamViewerRole | Select-Object -Property Name, Id
+```
+
+Lists all roles showing only their name and Id.
 
 ## PARAMETERS
 

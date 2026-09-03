@@ -19,8 +19,7 @@ Test-TeamViewerConnectivity [-Quiet] [<CommonParameters>]
 
 ## DESCRIPTION
 
-The command attempts to connect to the external TeamViewer endpoints that are
-required to be reachable by the TeamViewer client.
+The command attempts to connect to the external TeamViewer endpoints that are required to be reachable by the TeamViewer client.
 Use this command to troubleshoot possible connection related issues.
 
 ## EXAMPLES
@@ -28,23 +27,30 @@ Use this command to troubleshoot possible connection related issues.
 ### Example 1
 
 ```powershell
-PS /> Test-TeamViewerConnectivity -Quiet
+Test-TeamViewerConnectivity -Quiet
 ```
 
 ### Example 2
 
 ```powershell
-PS /> Test-TeamViewerConnectivity -Verbose
+Test-TeamViewerConnectivity -Verbose
 ```
 
 Shows an overview of the connected endpoints including ports.
+
+### Example 3
+
+```powershell
+if (Test-TeamViewerConnectivity -Quiet) { 'TeamViewer network reachable' }
+```
+
+Uses the boolean result of `-Quiet` in a condition to react to the overall connectivity outcome.
 
 ## PARAMETERS
 
 ### -Quiet
 
-Suppress any output and only return `True` or `False` depending on the overall
-outcome of the connection test.
+Suppress any output and only return `True` or `False` depending on the overall outcome of the connection test.
 
 ```yaml
 Type: SwitchParameter

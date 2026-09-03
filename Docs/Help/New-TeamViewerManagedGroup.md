@@ -20,17 +20,33 @@ New-TeamViewerManagedGroup [-ApiToken] <SecureString> [-Name] <String> [-WhatIf]
 
 ## DESCRIPTION
 
-This will create a new managed group and automatically add the account that is
-associated with the API access token as manager with `ManagerAdministration` and
-`GroupAdministration` permissions to the group.
+This will create a new managed group and automatically add the account that is associated with the API access token as manager with `ManagerAdministration` and `GroupAdministration` permissions to the group.
 
 ## EXAMPLES
 
 ### Example 1
 
 ```powershell
-PS /> New-TeamViewerManagedGroup -Name 'Test Group'
+New-TeamViewerManagedGroup -Name 'Test Group'
 ```
+
+Creates a new managed group with the name `Test Group`.
+
+### Example 2
+
+```powershell
+$group = New-TeamViewerManagedGroup -Name 'Servers'
+```
+
+Creates a new managed group and stores the returned group object in a variable.
+
+### Example 3
+
+```powershell
+'Servers', 'Workstations' | ForEach-Object { New-TeamViewerManagedGroup -Name $_ }
+```
+
+Creates multiple managed groups in a single pipeline.
 
 ## PARAMETERS
 

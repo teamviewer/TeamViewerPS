@@ -28,10 +28,26 @@ New name should be unique among all user groups of the TeamViewer company.
 ### Example 1
 
 ```powershell
-PS /> Set-TeamViewerUserGroup -UserGroup 1001 -Name 'New name of the user group'
+Set-TeamViewerUserGroup -UserGroup 1001 -Name 'New name of the user group'
 ```
 
 Renames a user group with id `1001` to `New name of the user group`.
+
+### Example 2
+
+```powershell
+Set-TeamViewerUserGroup -Id 1001 -Name 'Renamed group'
+```
+
+Uses the `Id` alias to rename the user group `1001`.
+
+### Example 3
+
+```powershell
+Get-TeamViewerUserGroup -Name 'Support Team' | Set-TeamViewerUserGroup -Name 'Support Team EMEA'
+```
+
+Renames the user group object retrieved via `Get-TeamViewerUserGroup`.
 
 ## PARAMETERS
 

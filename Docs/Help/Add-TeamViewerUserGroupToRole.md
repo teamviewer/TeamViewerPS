@@ -27,10 +27,26 @@ Assigns a user group to a role of the TeamViewer company associated with the API
 ### Example 1
 
 ```powershell
-PS /> Add-TeamViewerUserGroupToRole -Role  '9b465ea2-2f75-4101-a057-58a81ed0e57b' -UserGroup 1001
+Add-TeamViewerUserGroupToRole -Role  '9b465ea2-2f75-4101-a057-58a81ed0e57b' -UserGroup 1001
 ```
 
 The given user group `1001` gets assigned to the role with Id `9b465ea2-2f75-4101-a057-58a81ed0e57b`.
+
+### Example 2
+
+```powershell
+Add-TeamViewerUserGroupToRole -RoleId 'c0cb303a-8a85-4e54-b657-a4757c791aef' -UserGroupId 1001
+```
+
+Assigns the user group `1001` to the given role using the `RoleId` and `UserGroupId` aliases.
+
+### Example 3
+
+```powershell
+Add-TeamViewerUserGroupToRole -Role 'c0cb303a-8a85-4e54-b657-a4757c791aef' -UserGroup 1001 -WhatIf
+```
+
+Shows what would happen when assigning the user group `1001` to the given role, without applying the change.
 
 ## PARAMETERS
 

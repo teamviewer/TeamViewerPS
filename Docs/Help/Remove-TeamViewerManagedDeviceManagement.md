@@ -29,8 +29,24 @@ The current account needs `ManagerAdministration` manager permissions on the dev
 ### Example 1
 
 ```powershell
-PS /> Remove-TeamViewerManagedDeviceManagement -Device 'c0cb303a-8a85-4e54-b657-a4757c791aef'
+Remove-TeamViewerManagedDeviceManagement -Device 'c0cb303a-8a85-4e54-b657-a4757c791aef'
 ```
+
+### Example 2
+
+```powershell
+Remove-TeamViewerManagedDeviceManagement -DeviceId 'c0cb303a-8a85-4e54-b657-a4757c791aef'
+```
+
+Removes the management status from a device using the `DeviceId` alias.
+
+### Example 3
+
+```powershell
+Get-TeamViewerManagedDevice -Group $group | Remove-TeamViewerManagedDeviceManagement
+```
+
+Removes the management status from all devices of a managed group using pipeline input.
 
 ## PARAMETERS
 

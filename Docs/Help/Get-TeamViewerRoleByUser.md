@@ -26,10 +26,26 @@ Lists the assigned roles of a user in the TeamViewer company associated with the
 ### Example 1
 
 ```powershell
-PS /> Get-TeamViewerRoleByUser -UserId "u123456777"
+Get-TeamViewerRoleByUser -UserId "u123456777"
 ```
 
 Lists the assigned roles of the user with the Id u123456777.
+
+### Example 2
+
+```powershell
+Get-TeamViewerRoleByUser -User 'u1234567'
+```
+
+Lists the assigned role ids of the user with the Id u1234567.
+
+### Example 3
+
+```powershell
+Get-TeamViewerRoleByUser -Id 'u1234567' | Measure-Object
+```
+
+Counts how many roles are assigned to the user with the Id u1234567 using the Id alias.
 
 ## PARAMETERS
 

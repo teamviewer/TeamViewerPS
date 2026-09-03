@@ -27,7 +27,7 @@ The list can optionally be filtered using additional parameters.
 ### Example 1
 
 ```powershell
-PS /> Get-TeamViewerUserGroup
+Get-TeamViewerUserGroup
 ```
 
 List all user groups.
@@ -35,10 +35,18 @@ List all user groups.
 ### Example 2
 
 ```powershell
-PS /> Get-TeamViewerUserGroup -Id 1001
+Get-TeamViewerUserGroup -Id 1001
 ```
 
 Retrieve a single user group with id 1001.
+
+### Example 3
+
+```powershell
+Get-TeamViewerUserGroup | Where-Object { $_.Name -eq 'Test Group' }
+```
+
+Retrieve the user group with the name `Test Group` by filtering the full list of user groups.
 
 ## PARAMETERS
 

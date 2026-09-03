@@ -26,10 +26,26 @@ Lists all effective permissions in the TeamViewer company associated with the AP
 ### Example 1
  
 ```powershell
-PS /> Get-TeamViewerEffectivePermission
+Get-TeamViewerEffectivePermission
 ```
  
 Lists all effective permissions.
+ 
+### Example 2
+ 
+```powershell
+$permissions = Get-TeamViewerEffectivePermission
+```
+ 
+Retrieves the effective permissions and stores them in a variable for later inspection.
+ 
+### Example 3
+ 
+```powershell
+(Get-TeamViewerEffectivePermission).PSObject.Properties | Where-Object { $_.Value -eq $true }
+```
+ 
+Lists only the effective permissions that are currently enabled.
  
 ## PARAMETERS
  

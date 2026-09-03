@@ -9,7 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Remove emails from the inclusion list of a TeamViewer Single Sign-On domain.
+Remove emails from the inclusion list of a TeamViewer Single Sign-On (SSO) domain.
 
 ## SYNTAX
 
@@ -20,7 +20,7 @@ Remove-TeamViewerSsoInclusion [-ApiToken] <SecureString> [-DomainId] <Object> [-
 
 ## DESCRIPTION
 
-Remove emails from the inclusion list of a TeamViewer Single Sign-On domain.
+Remove emails from the inclusion list of a TeamViewer Single Sign-On (SSO) domain.
 Accounts with these email addresses do need to login via Single Sign-On and do not have to use their TeamViewer account password.
 
 ## EXAMPLES
@@ -28,10 +28,26 @@ Accounts with these email addresses do need to login via Single Sign-On and do n
 ### Example 1
 
 ```powershell
-PS /> Remove-TeamViewerSsoInclusion -DomainId '45e0d050-15e6-4fcb-91b2-ea4f20fe2085' -Email 'user@example.test'
+Remove-TeamViewerSsoInclusion -DomainId '45e0d050-15e6-4fcb-91b2-ea4f20fe2085' -Email 'user@example.test'
 ```
 
-Removes the email address '<user@example.test>' from the Inclusion list of the given domain.
+Removes the email address `user@example.test` from the Inclusion list of the given domain.
+
+### Example 2
+
+```powershell
+Remove-TeamViewerSsoInclusion -DomainId '45e0d050-15e6-4fcb-91b2-ea4f20fe2085' -Email 'user1@example.test', 'user2@example.test'
+```
+
+Removes multiple email addresses from the inclusion list of the given domain in a single request.
+
+### Example 3
+
+```powershell
+@('user1@example.test', 'user2@example.test') | Remove-TeamViewerSsoInclusion -DomainId '45e0d050-15e6-4fcb-91b2-ea4f20fe2085'
+```
+
+Removes the piped email addresses from the inclusion list of the given domain.
 
 ## PARAMETERS
 

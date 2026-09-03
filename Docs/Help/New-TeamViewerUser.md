@@ -36,7 +36,7 @@ Creates a new user for the company that is associated to the API access token.
 ### Example 1
 
 ```powershell
-PS /> New-TeamViewerUser -Email 'test@example.test' -Name 'Test User'
+New-TeamViewerUser -Email 'test@example.test' -Name 'Test User'
 ```
 
 Create a new user with the given email address and name. The password will be prompted.
@@ -44,7 +44,7 @@ Create a new user with the given email address and name. The password will be pr
 ### Example 2
 
 ```powershell
-PS /> New-TeamViewerUser -Email 'test@example.test' -Name 'Test User' -WithoutPassword
+New-TeamViewerUser -Email 'test@example.test' -Name 'Test User' -WithoutPassword
 ```
 
 Create a new user with the given email address and name.
@@ -53,7 +53,7 @@ It will be created without a password. The user must reset the password through 
 ### Example 3
 
 ```powershell
-PS /> New-TeamViewerUser -Email 'test@example.test' -Name 'Test User' -RoleId '9b465ea2-2f75-4101-a057-58a81ed0e57b'
+New-TeamViewerUser -Email 'test@example.test' -Name 'Test User' -RoleId '9b465ea2-2f75-4101-a057-58a81ed0e57b'
 ```
 
 Create a new user with the given email address and name.

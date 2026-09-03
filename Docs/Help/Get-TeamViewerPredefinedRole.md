@@ -26,7 +26,7 @@ Retrieves the Predefined role among the existing roles in the TeamViewer company
 ### Example 1
 
 ```powershell
-PS /> Get-TeamViewerPredefinedRole
+Get-TeamViewerPredefinedRole
 ```
 
 Retrieves the Predefined Role Id.
@@ -34,7 +34,7 @@ Retrieves the Predefined Role Id.
 ### Example 2
 
 ```powershell
-PS /> forEach-Object { Get-TeamViewerRole | Where-Object { $_.RoleId -eq (Get-TeamViewerPredefinedRole).Role_Id } }
+forEach-Object { Get-TeamViewerRole | Where-Object { $_.RoleId -eq (Get-TeamViewerPredefinedRole).Role_Id } }
 ```
 
 Retrieves the complete information about the predefined role.

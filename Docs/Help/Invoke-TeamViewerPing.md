@@ -19,16 +19,31 @@ Invoke-TeamViewerPing [-ApiToken] <SecureString> [<CommonParameters>]
 
 ## DESCRIPTION
 
-This command tests the availability of the TeamViewer Web API and the validity
-of the given API access token.
+This command tests the availability of the TeamViewer Web API and the validity of the given API access token.
 
 ## EXAMPLES
 
 ### Example 1
 
 ```powershell
-PS /> Invoke-TeamViewerPing
+Invoke-TeamViewerPing
 ```
+
+### Example 2
+
+```powershell
+$isValid = Invoke-TeamViewerPing
+```
+
+Stores whether the API access token is valid in a variable.
+
+### Example 3
+
+```powershell
+if (Invoke-TeamViewerPing) { 'Token is valid' }
+```
+
+Runs a follow-up action only when the API access token is valid.
 
 ## PARAMETERS
 

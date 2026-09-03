@@ -26,7 +26,7 @@ Change uri of TeamViewer web API for TeamViewer internal testing purposes.
 ### Example 1
 
 ```powershell
-PS /> Set-TeamViewerAPIUri -NewUri 'www.example.com'
+Set-TeamViewerAPIUri -NewUri 'www.example.com'
 ```
 
 Sets the uri of the web API to `www.example.com`.
@@ -34,10 +34,18 @@ Sets the uri of the web API to `www.example.com`.
 ### Example 2
 
 ```powershell
-PS /> Set-TeamViewerAPIUri -Default $true
+Set-TeamViewerAPIUri -Default $true
 ```
 
 Sets the web API for TeamViewerPS to the default value.
+
+### Example 3
+
+```powershell
+Set-TeamViewerAPIUri -NewUri 'https://webapi.teamviewer.com/api/v1' -WhatIf
+```
+
+Shows what would happen if the web API uri was changed, without applying the change.
 
 ## PARAMETERS
 

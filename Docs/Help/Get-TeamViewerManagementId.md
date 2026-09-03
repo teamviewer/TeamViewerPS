@@ -28,8 +28,24 @@ For example, the management Id can be used as `DeviceId` for the `Get-TeamViewer
 ### Example 1
 
 ```powershell
-PS /> Get-TeamViewerManagementId
+Get-TeamViewerManagementId
 ```
+
+### Example 2
+
+```powershell
+$managementId = Get-TeamViewerManagementId
+```
+
+Stores the management Id of the local device in a variable.
+
+### Example 3
+
+```powershell
+if (Get-TeamViewerManagementId) { Write-Output 'Device is managed' }
+```
+
+Checks whether the local device is managed in the managed groups system.
 
 ## PARAMETERS
 

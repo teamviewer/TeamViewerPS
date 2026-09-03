@@ -34,7 +34,7 @@ Un-assigns one or many users from a role. A role belongs to the TeamViewer compa
 ### Example 1
 
 ```powershell
-PS /> Remove-TeamViewerUserFromRole -RoleId '9b465ea2-2f75-4101-a057-58a81ed0e57b' -Accounts @('123', '456', '789')
+Remove-TeamViewerUserFromRole -RoleId '9b465ea2-2f75-4101-a057-58a81ed0e57b' -Accounts @('123', '456', '789')
 ```
 
 Un-assigns users with id `123`, `456`, `789` from the role with id `9b465ea2-2f75-4101-a057-58a81ed0e57b`.
@@ -42,11 +42,19 @@ Un-assigns users with id `123`, `456`, `789` from the role with id `9b465ea2-2f7
 ### Example 2
 
 ```powershell
-PS /> @('123', '456', '789') | Remove-TeamViewerUserFromRole -RoleId '9b465ea2-2f75-4101-a057-58a81ed0e57b'
+@('123', '456', '789') | Remove-TeamViewerUserFromRole -RoleId '9b465ea2-2f75-4101-a057-58a81ed0e57b'
 ```
 
 Un-assigns users with id `123`, `456`, `789` from role with id `9b465ea2-2f75-4101-a057-58a81ed0e57b`.
 Ids are passed as pipeline input.
+
+### Example 3
+
+```powershell
+Remove-TeamViewerUserFromRole -Role '9b465ea2-2f75-4101-a057-58a81ed0e57b' -Accounts 'u123'
+```
+
+Un-assigns a single user identified by the `u`-prefixed account Id from the role, using the `Role` alias.
 
 ## PARAMETERS
 

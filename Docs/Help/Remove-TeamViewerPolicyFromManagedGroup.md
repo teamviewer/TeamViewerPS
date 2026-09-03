@@ -31,39 +31,39 @@ Remove a specified policy from a managed group.
 
 ### Example 1
 
-Remove TeamViewer policy from group
-
 ```powershell
-PS /> Remove-TeamViewerPolicyFromManagedGroup -Group 'd8773208-a685-4323-9de5-7f86951f8c30' -PolicyType 1
+Remove-TeamViewerPolicyFromManagedGroup -Group 'd8773208-a685-4323-9de5-7f86951f8c30' -PolicyType 1
 ```
 
 ```powershell
-PS /> Remove-TeamViewerPolicyFromManagedGroup -Group 'd8773208-a685-4323-9de5-7f86951f8c30' -PolicyType TeamViewer
+Remove-TeamViewerPolicyFromManagedGroup -Group 'd8773208-a685-4323-9de5-7f86951f8c30' -PolicyType TeamViewer
 ```
+
+Remove TeamViewer policy from group.
 
 ### Example 2
 
-Remove Monitoring policy from group
-
 ```powershell
-PS /> Remove-TeamViewerPolicyFromManagedGroup -Group '730ee15a-1ea4-4d80-9cfe-5a01709d0a2f' -PolicyType 4
+Remove-TeamViewerPolicyFromManagedGroup -Group '730ee15a-1ea4-4d80-9cfe-5a01709d0a2f' -PolicyType 4
 ```
 
 ```powershell
-PS /> Remove-TeamViewerPolicyFromManagedGroup -Group '730ee15a-1ea4-4d80-9cfe-5a01709d0a2f' -PolicyType Monitoring
+Remove-TeamViewerPolicyFromManagedGroup -Group '730ee15a-1ea4-4d80-9cfe-5a01709d0a2f' -PolicyType Monitoring
 ```
+
+Remove Monitoring policy from group-
 
 ### Example 3
 
-Remove PatchManagement policy from group
-
 ```powershell
-PS /> Remove-TeamViewerPolicyFromManagedGroup -Group '730ee15a-1ea4-4d80-9cfe-5a01709d0a2f' -PolicyType 5
+Remove-TeamViewerPolicyFromManagedGroup -Group '730ee15a-1ea4-4d80-9cfe-5a01709d0a2f' -PolicyType 5
 ```
 
 ```powershell
-PS /> Remove-TeamViewerPolicyFromManagedGroup -Group '730ee15a-1ea4-4d80-9cfe-5a01709d0a2f' -PolicyType PatchManagement
+Remove-TeamViewerPolicyFromManagedGroup -Group '730ee15a-1ea4-4d80-9cfe-5a01709d0a2f' -PolicyType PatchManagement
 ```
+
+Remove PatchManagement policy from group.
 
 ## PARAMETERS
 

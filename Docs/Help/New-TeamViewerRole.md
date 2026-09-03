@@ -27,7 +27,7 @@ The name of the new role should be unique among the roles of the TeamViewer Comp
 ### Example 1
 
 ```powershell
-PS /> New-TeamViewerRole -Name 'New role' -Permissions 'AllowGroupharing','ManageConnections'
+New-TeamViewerRole -Name 'New role' -Permissions 'AllowGroupharing','ManageConnections'
 ```
 
 Creates a new role with name `New role` with permissions `AllowGroupSharing` and `ManageConnections` enabled.
@@ -36,11 +36,20 @@ Please see the TeamViewer API documentation for a list of valid values.
 ### Example 2
 
 ```powershell
-PS /> New-TeamViewerRole -Name 'New role' 
+New-TeamViewerRole -Name 'New role' 
 ```
 
 Creates a new role with name `New role` without any permissions.
 The name should be unique among the roles of the TeamViewer Company.
+
+### Example 3
+
+```powershell
+New-TeamViewerRole -RoleName 'Support role' -Permissions 'ViewOwnConnectionReports', 'EditConnections'
+```
+
+Creates a new role named `Support role` with multiple permissions, using the `RoleName` alias.
+Please see the TeamViewer API documentation for a list of valid values.
 
 ## PARAMETERS
 

@@ -62,6 +62,24 @@ Remove-TeamViewerDeviceCustomField -ApiToken $apiToken -ManagedDeviceId 'd123456
 
 Removes the custom field value from the specified managed device.
 
+### Example 2
+
+```powershell
+Remove-TeamViewerDeviceCustomField -Device 'd12345678' -FieldKeyId 'c0cb303a-8a85-4e54-b657-a4757c791aef'
+```
+
+Removes the custom field value using the `Device` and `FieldKeyId` aliases.
+
+### Example 3
+
+```powershell
+$device = Get-TeamViewerManagedDevice -Name 'Server01'
+
+Remove-TeamViewerDeviceCustomField -ManagedDevice $device -FieldConfigurationId '730ee15a-1ea4-4d80-9cfe-5a01709d0a2f'
+```
+
+Removes the custom field value from a managed device object retrieved with `Get-TeamViewerManagedDevice`.
+
 ## OUTPUTS
 
 ### None
