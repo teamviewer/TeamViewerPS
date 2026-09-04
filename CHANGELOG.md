@@ -4,6 +4,10 @@
 
 ### Added
 
+- Adds `Get-TeamViewerOrganizationalUnit` to retrieve the organizational unit details (beta phase, available only for specific tenants).
+- Adds `New-TeamViewerOrganizationalUnit` to add a new organizational unit (beta phase, available only for specific tenants).
+- Adds `Remove-TeamViewerOrganizationalUnit` to delete the organizational unit (beta phase, available only for specific tenants).
+- Adds `Set-TeamViewerOrganizationalUnit` to modify the organizational unit (beta phase, available only for specific tenants).
 - Adds `Get-TeamViewerRolePermission` to retrieve all supported role permissions.
 - Adds `Get-TeamViewerDeviceCustomField` to retrieve custom field values from a managed device.
 - Adds `Set-TeamViewerDeviceCustomField` to set or update a custom field value on a managed device.
@@ -15,6 +19,7 @@
 
 ### Changed
 
+- Fixes, completes, and improves help file `TeamViewerPS.md`.
 - Adds `OutputType` to public commands.
 - Adds `CmdletBinding` to public commands.
 - Standardizes pipeline emission on Write-Output.
