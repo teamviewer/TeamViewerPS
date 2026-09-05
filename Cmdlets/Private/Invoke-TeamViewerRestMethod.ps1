@@ -26,25 +26,28 @@
     )
 
     begin {
+        if ($global:TeamViewerPS_ProxyUri) {
+            $Proxy_Uri = $global:TeamViewerPS_ProxyUri
+        }
+        elseif ([Environment]::GetEnvironmentVariable('TeamViewerPS_ProxyUri') ) {
+            $Proxy_Uri = [Environment]::GetEnvironmentVariable('TeamViewerPS_ProxyUri')
+        }
+
         if (-not $Headers) {
             $Headers = @{ }
+
             $PSBoundParameters.Add('Headers', $Headers) | Out-Null
         }
 
         if (-not $Headers.ContainsKey('User-Agent')) {
-            $Module_Version = if ($ExecutionContext.SessionState.Module) { $ExecutionContext.SessionState.Module.Version } else { '0.0.0' }
-            $Headers['User-Agent'] = "TeamViewerPS/$Module_Version (PowerShell/$($PSVersionTable.PSVersion))"
-        }
-
-        if ($global:TeamViewerProxyUriSet) {
-            $Proxy_Uri = $global:TeamViewerProxyUriSet
-        }
-        elseif ([Environment]::GetEnvironmentVariable('TeamViewerProxyUri') ) {
-            $Proxy_Uri = [Environment]::GetEnvironmentVariable('TeamViewerProxyUri')
-
-            if ($global:TeamViewerProxyUriRemoved) {
-                $Proxy_Uri = $null
+            $Module_Version = if ($ExecutionContext.SessionState.Module) {
+                $ExecutionContext.SessionState.Module.Version
             }
+            else {
+                '0.0.0'
+            }
+
+            $Headers['User-Agent'] = "TeamViewerPS/$Module_Version (PowerShell/$($PSVersionTable.PSVersion))"
         }
 
         if ($Proxy_Uri) {
@@ -53,58 +56,57 @@
     }
 
     process {
-        $bstr = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($ApiToken)
-        $Headers['Authorization'] = "Bearer $([System.Runtime.InteropServices.Marshal]::PtrToStringBSTR($bstr))"
+        $Token_BinaryString = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($ApiToken)
+        $Headers['Authorization'] = "Bearer $([System.Runtime.InteropServices.Marshal]::PtrToStringBSTR($Token_BinaryString))"
 
-        [System.Runtime.InteropServices.Marshal]::ZeroFreeBSTR($bstr) | Out-Null
+        [System.Runtime.InteropServices.Marshal]::ZeroFreeBSTR($Token_BinaryString) | Out-Null
         $PSBoundParameters.Remove('ApiToken') | Out-Null
         $PSBoundParameters.Remove('WriteErrorTo') | Out-Null
 
-        $currentTlsSettings = [Net.ServicePointManager]::SecurityProtocol
+        $TlsSettings_Current = [Net.ServicePointManager]::SecurityProtocol
         [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
-        $currentProgressPreference = $ProgressPreference
+        $ProgressPreference_Current = $ProgressPreference
         $ProgressPreference = 'SilentlyContinue'
 
-        # Using `Invoke-WebRequest` instead of `Invoke-RestMethod`:
-        # There is a known issue for PUT and DELETE operations to hang on Windows Server 2012.
+        # Using `Invoke-WebRequest` instead of `Invoke-RestMethod`: There is a known issue for PUT and DELETE operations to hang on Windows Server 2012.
         try {
-            # -DateKind String (PS 7.5+) prevents auto-deserialization of date strings to DateTime objects,
-            # which avoids locale-dependent day/month swapping and loss of precision.
-            $convertParams = if ($PSVersionTable.PSVersion -ge [version]'7.5') {
+            # -DateKind String (PS 7.5+) prevents auto-deserialization of date strings to DateTime objects which avoids locale-dependent day/month swapping and loss of precision.
+            $Convert_Params = if ($PSVersionTable.PSVersion -ge [version]'7.5') {
                 @{ DateKind = 'String' }
             }
             else {
                 @{}
             }
 
-            Write-Output ((Invoke-WebRequest -UseBasicParsing @PSBoundParameters).Content | ConvertFrom-Json @convertParams)
+            Write-Output ((Invoke-WebRequest -UseBasicParsing @PSBoundParameters).Content | ConvertFrom-Json @Convert_Params)
         }
         catch {
-            $msg = $null
+            $Err_Msg = $null
 
             if ($PSVersionTable.PSVersion.Major -ge 6) {
-                $msg = $_.ErrorDetails.Message
+                $Err_Msg = $_.ErrorDetails.Message
             }
             elseif ($_.Exception.Response) {
-                $stream = $_.Exception.Response.GetResponseStream()
-                $reader = New-Object System.IO.StreamReader($stream)
-                $reader.BaseStream.Position = 0
-                $msg = $reader.ReadToEnd()
+                $Err_Stream = $_.Exception.Response.GetResponseStream()
+                $Err_Reader = New-Object System.IO.StreamReader($Err_Stream)
+                $Err_Reader.BaseStream.Position = 0
+                $Err_Msg = $Err_Reader.ReadToEnd()
             }
 
-            $err = ($msg | ConvertTo-TeamViewerRestError)
+            $Err = ($Err_Msg | ConvertTo-TeamViewerRestError)
 
             if ($WriteErrorTo) {
-                $WriteErrorTo.WriteError(($err | ConvertTo-ErrorRecord))
+                $WriteErrorTo.WriteError(($Err | ConvertTo-ErrorRecord))
             }
             else {
-                throw $err
+                throw $Err
             }
         }
         finally {
-            [Net.ServicePointManager]::SecurityProtocol = $currentTlsSettings
-            $ProgressPreference = $currentProgressPreference
+            [Net.ServicePointManager]::SecurityProtocol = $TlsSettings_Current
+
+            $ProgressPreference = $ProgressPreference_Current
         }
     }
 }

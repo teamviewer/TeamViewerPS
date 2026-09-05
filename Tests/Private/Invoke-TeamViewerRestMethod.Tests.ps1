@@ -25,9 +25,8 @@
 
 Describe 'Invoke-TeamViewerRestMethod' {
     BeforeEach {
-        $global:TeamViewerProxyUriSet = $null
-        $global:TeamViewerProxyUriRemoved = $null
-        [Environment]::SetEnvironmentVariable('TeamViewerProxyUri', $null)
+        $global:TeamViewerPS_ProxyUri = $null
+        [Environment]::SetEnvironmentVariable('TeamViewerPS_ProxyUri', $null)
     }
 
     It 'Adds bearer authorization header and returns parsed JSON content' {
@@ -55,7 +54,7 @@ Describe 'Invoke-TeamViewerRestMethod' {
     }
 
     It 'Uses explicit global proxy when configured' {
-        $global:TeamViewerProxyUriSet = 'http://proxy.local:8080'
+        $global:TeamViewerPS_ProxyUri = 'http://proxy.local:8080'
 
         Mock -CommandName Invoke-WebRequest -MockWith { [pscustomobject]@{ Content = '{}' } } -ParameterFilter { $Proxy -eq 'http://proxy.local:8080' }
 

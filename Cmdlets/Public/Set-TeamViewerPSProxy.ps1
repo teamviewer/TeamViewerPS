@@ -1,4 +1,4 @@
-﻿$global:TeamViewerProxyUriSet = $null
+﻿$global:TeamViewerPS_ProxyUri = $null
 
 function Set-TeamViewerPSProxy {
     [CmdletBinding(SupportsShouldProcess = $true)]
@@ -12,12 +12,9 @@ function Set-TeamViewerPSProxy {
     )
 
     if ($PSCmdlet.ShouldProcess($ProxyUri, 'Sets proxy for web API')) {
-        $global:TeamViewerProxyUriSet = $ProxyUri
-        $global:TeamViewerProxyUriRemoved = $false
-        $global:TeamViewerProxyUriRemoved | Out-Null
+        $global:TeamViewerPS_ProxyUri = $ProxyUri
 
-        [Environment]::SetEnvironmentVariable('TeamViewerProxyUri', $ProxyUri, 'User')
-
-        Write-Output "Proxy set to $TeamViewerProxyUriSet"
+        [Environment]::SetEnvironmentVariable('TeamViewerPS_ProxyUri', $ProxyUri, 'User')
+        [Environment]::SetEnvironmentVariable('TeamViewerPS_ProxyUri', $ProxyUri, 'Process')
     }
 }

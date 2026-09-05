@@ -1,53 +1,61 @@
 ﻿BeforeAll {
+    $script:OriginalProxyUri = $global:TeamViewerPS_ProxyUri
+    $script:OriginalProcessProxyUri = [Environment]::GetEnvironmentVariable('TeamViewerPS_ProxyUri', 'Process')
+    $script:OriginalUserProxyUri = [Environment]::GetEnvironmentVariable('TeamViewerPS_ProxyUri', 'User')
+
     . "$PSScriptRoot\..\..\Cmdlets\Public\Set-TeamViewerPSProxy.ps1"
-    . "$PSScriptRoot\..\..\Cmdlets\Public\Remove-TeamViewerPSProxy.ps1"
     @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
+}
 
-    Mock -CommandName 'Set-TeamViewerPSProxy' -MockWith {
-        param (
-            [Parameter(Mandatory = $true)]
-            [Uri]
-            $ProxyUri
-        )
-
-        $global:TeamViewerProxyUriSet = $ProxyUri
-        $global:TeamViewerProxyUriRemoved = $false
-        $global:TeamViewerProxyUriRemoved | Out-Null
-
-        [Environment]::SetEnvironmentVariable('TVProxyUri', $ProxyUri, 'User')
-    }
-
-    Mock -CommandName 'Remove-TeamViewerPSProxy' -MockWith {
-        $global:TeamViewerProxyUriSet = $null
-        $global:TeamViewerProxyUriSet | Out-Null
-        $global:TeamViewerProxyUriRemoved = $true
-        $global:TeamViewerProxyUriRemoved | Out-Null
-        [Environment]::SetEnvironmentVariable('TVProxyUri', '', 'User')
-    }
+AfterAll {
+    $global:TeamViewerPS_ProxyUri = $script:OriginalProxyUri
+    [Environment]::SetEnvironmentVariable('TeamViewerPS_ProxyUri', $script:OriginalProcessProxyUri, 'Process')
+    [Environment]::SetEnvironmentVariable('TeamViewerPS_ProxyUri', $script:OriginalUserProxyUri, 'User')
 }
 
 Describe 'Set-TeamViewerPSProxy' {
+    BeforeEach {
+        $global:TeamViewerPS_ProxyUri = $null
+        [Environment]::SetEnvironmentVariable('TeamViewerPS_ProxyUri', $null, 'Process')
+        [Environment]::SetEnvironmentVariable('TeamViewerPS_ProxyUri', $null, 'User')
+    }
+
     Context 'When setting the proxy URI' {
-        It 'Should set the global variable TeamViewerProxyUriSet' {
+        It 'Should set the global variable TeamViewerPS_ProxyUri' {
             $expectedProxyUri = 'http://example.com/proxy'
 
             Set-TeamViewerPSProxy -ProxyUri $expectedProxyUri
-            $global:TeamViewerProxyUriSet | Should -Be $expectedProxyUri
+            $global:TeamViewerPS_ProxyUri | Should -Be $expectedProxyUri
         }
 
-        It 'Should set the environment variable TeamViewerProxyUri' {
+        It 'Should set the process environment variable TeamViewerPS_ProxyUri' {
             $expectedProxyUri = 'http://example.com/proxy'
 
             Set-TeamViewerPSProxy -ProxyUri $expectedProxyUri
-            [Environment]::GetEnvironmentVariable('TVProxyUri', 'User') | Should -Be $expectedProxyUri
+            [Environment]::GetEnvironmentVariable('TeamViewerPS_ProxyUri', 'Process') | Should -Be $expectedProxyUri
         }
 
-        It 'Should set the global variable TeamViewerProxyUriRemoved to false' {
+        It 'Should set the persisted environment variable' {
             $expectedProxyUri = 'http://example.com/proxy'
 
             Set-TeamViewerPSProxy -ProxyUri $expectedProxyUri
-            $global:TeamViewerProxyUriRemoved | Should -Be $false
-            Remove-TeamViewerPSProxy
+            [Environment]::GetEnvironmentVariable('TeamViewerPS_ProxyUri', 'User') | Should -Be $expectedProxyUri
+        }
+    }
+
+    Context 'When WhatIf is specified' {
+        It 'Should not change the global or environment proxy URI' {
+            $initialProxyUri = 'http://example.com/initial-proxy'
+            $newProxyUri = 'http://example.com/new-proxy'
+            $global:TeamViewerPS_ProxyUri = $initialProxyUri
+            [Environment]::SetEnvironmentVariable('TeamViewerPS_ProxyUri', $initialProxyUri, 'Process')
+            [Environment]::SetEnvironmentVariable('TeamViewerPS_ProxyUri', $initialProxyUri, 'User')
+
+            Set-TeamViewerPSProxy -ProxyUri $newProxyUri -WhatIf
+
+            $global:TeamViewerPS_ProxyUri | Should -Be $initialProxyUri
+            [Environment]::GetEnvironmentVariable('TeamViewerPS_ProxyUri', 'Process') | Should -Be $initialProxyUri
+            [Environment]::GetEnvironmentVariable('TeamViewerPS_ProxyUri', 'User') | Should -Be $initialProxyUri
         }
     }
 }
