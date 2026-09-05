@@ -31,7 +31,7 @@ Describe 'Invoke-TeamViewerRestMethod' {
 
     It 'Adds bearer authorization header and returns parsed JSON content' {
         Mock -CommandName Invoke-RestMethod -MockWith {
-            [pscustomobject]@{ ok = $true; value = 1 }
+            Set-Content -LiteralPath $OutFile -Value '{"ok":true,"value":1}'
         }
 
         $token = Get-TestSecureString -Value 'abc-token'
@@ -44,7 +44,7 @@ Describe 'Invoke-TeamViewerRestMethod' {
 
     It 'Adds a distinguishing User-Agent header when none is provided' {
         Mock -CommandName Invoke-RestMethod -MockWith {
-            [pscustomobject]@{ }
+            Set-Content -LiteralPath $OutFile -Value '{}'
         }
 
         $token = Get-TestSecureString -Value 'abc-token'
@@ -56,7 +56,7 @@ Describe 'Invoke-TeamViewerRestMethod' {
     It 'Uses explicit global proxy when configured' {
         $global:TeamViewerPS_ProxyUri = 'http://proxy.local:8080'
 
-        Mock -CommandName Invoke-RestMethod -MockWith { [pscustomobject]@{ } } -ParameterFilter { $Proxy -eq 'http://proxy.local:8080' }
+        Mock -CommandName Invoke-RestMethod -MockWith { Set-Content -LiteralPath $OutFile -Value '{}' } -ParameterFilter { $Proxy -eq 'http://proxy.local:8080' }
 
         $token = Get-TestSecureString -Value 'abc-token'
         $null = Invoke-TeamViewerRestMethod -ApiToken $token -Uri 'https://example.local/api/v1/test' -Method Get
