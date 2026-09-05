@@ -30,42 +30,42 @@ Describe 'Invoke-TeamViewerRestMethod' {
     }
 
     It 'Adds bearer authorization header and returns parsed JSON content' {
-        Mock -CommandName Invoke-WebRequest -MockWith {
-            [pscustomobject]@{ Content = '{"ok":true,"value":1}' }
+        Mock -CommandName Invoke-RestMethod -MockWith {
+            [pscustomobject]@{ ok = $true; value = 1 }
         }
 
         $token = Get-TestSecureString -Value 'abc-token'
         $Result = Invoke-TeamViewerRestMethod -ApiToken $token -Uri 'https://example.local/api/v1/test' -Method Get
 
-        Should -Invoke Invoke-WebRequest -Times 1 -Exactly -ParameterFilter { $Headers.Authorization -eq 'Bearer abc-token' }
+        Should -Invoke Invoke-RestMethod -Times 1 -Exactly -ParameterFilter { $Headers.Authorization -eq 'Bearer abc-token' }
         $Result.ok | Should -Be $true
         $Result.value | Should -Be 1
     }
 
     It 'Adds a distinguishing User-Agent header when none is provided' {
-        Mock -CommandName Invoke-WebRequest -MockWith {
-            [pscustomobject]@{ Content = '{}' }
+        Mock -CommandName Invoke-RestMethod -MockWith {
+            [pscustomobject]@{ }
         }
 
         $token = Get-TestSecureString -Value 'abc-token'
         $null = Invoke-TeamViewerRestMethod -ApiToken $token -Uri 'https://example.local/api/v1/test' -Method Get
 
-        Should -Invoke Invoke-WebRequest -Times 1 -Exactly -ParameterFilter { $Headers.'User-Agent' -like 'TeamViewerPS/*' }
+        Should -Invoke Invoke-RestMethod -Times 1 -Exactly -ParameterFilter { $Headers.'User-Agent' -like 'TeamViewerPS/*' }
     }
 
     It 'Uses explicit global proxy when configured' {
         $global:TeamViewerPS_ProxyUri = 'http://proxy.local:8080'
 
-        Mock -CommandName Invoke-WebRequest -MockWith { [pscustomobject]@{ Content = '{}' } } -ParameterFilter { $Proxy -eq 'http://proxy.local:8080' }
+        Mock -CommandName Invoke-RestMethod -MockWith { [pscustomobject]@{ } } -ParameterFilter { $Proxy -eq 'http://proxy.local:8080' }
 
         $token = Get-TestSecureString -Value 'abc-token'
         $null = Invoke-TeamViewerRestMethod -ApiToken $token -Uri 'https://example.local/api/v1/test' -Method Get
 
-        Should -Invoke Invoke-WebRequest -Times 1 -Exactly
+        Should -Invoke Invoke-RestMethod -Times 1 -Exactly
     }
 
     It 'Throws converted TeamViewerPS.RestError when request fails and WriteErrorTo is not provided' {
-        Mock -CommandName Invoke-WebRequest -MockWith {
+        Mock -CommandName Invoke-RestMethod -MockWith {
             throw ([System.Exception]::new('http fail'))
         }
 
@@ -85,7 +85,7 @@ Describe 'Invoke-TeamViewerRestMethod' {
             }
         }
 
-        Mock -CommandName Invoke-WebRequest -MockWith {
+        Mock -CommandName Invoke-RestMethod -MockWith {
             throw ([System.Exception]::new('http fail'))
         }
 

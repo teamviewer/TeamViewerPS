@@ -69,7 +69,6 @@
         $ProgressPreference_Current = $ProgressPreference
         $ProgressPreference = 'SilentlyContinue'
 
-        # Using `Invoke-WebRequest` instead of `Invoke-RestMethod`: There is a known issue for PUT and DELETE operations to hang on Windows Server 2012.
         try {
             # -DateKind String (PS 7.5+) prevents auto-deserialization of date strings to DateTime objects which avoids locale-dependent day/month swapping and loss of precision.
             $Convert_Params = if ($PSVersionTable.PSVersion -ge [version]'7.5') {
@@ -79,7 +78,7 @@
                 @{}
             }
 
-            Write-Output ((Invoke-WebRequest -UseBasicParsing @PSBoundParameters).Content | ConvertFrom-Json @Convert_Params)
+            Write-Output (Invoke-RestMethod @PSBoundParameters)
         }
         catch {
             $Err_Msg = $null
