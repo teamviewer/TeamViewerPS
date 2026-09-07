@@ -27,6 +27,8 @@ Describe 'Get-TeamViewerUserGroupByRole' {
         It 'Should return assigned groups' {
             $Result = Get-TeamViewerRoleByUserGroup -APIToken $testAPIToken -UserGroup $testGroupId
             $Result | Should -HaveCount 1
+            $Result.PSObject.TypeNames[0] | Should -Be 'TeamViewerPS.UserGroupAssignedRole'
+            $Result.Role_Id | Should -Be 15
         }
     }
 }

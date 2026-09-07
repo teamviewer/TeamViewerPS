@@ -19,6 +19,8 @@
         <View><Name>TeamViewerPS-Role-ListView</Name><ViewSelectedBy><TypeName>TeamViewerPS.Role</TypeName></ViewSelectedBy><ListControl><ListEntries><ListEntry><ListItems><ListItem><PropertyName>Id</PropertyName></ListItem><ListItem><PropertyName>Name</PropertyName></ListItem><ListItem><PropertyName>Permissions</PropertyName></ListItem></ListItems></ListEntry></ListEntries></ListControl></View>
         <View><Name>TeamViewerPS-RoleAssignedUser-ListView</Name><ViewSelectedBy><TypeName>TeamViewerPS.RoleAssignedUser</TypeName></ViewSelectedBy><ListControl><ListEntries><ListEntry><ListItems><ListItem><PropertyName>User_Id</PropertyName></ListItem></ListItems></ListEntry></ListEntries></ListControl></View>
         <View><Name>TeamViewerPS-RoleAssignedUserGroup-ListView</Name><ViewSelectedBy><TypeName>TeamViewerPS.RoleAssignedUserGroup</TypeName></ViewSelectedBy><ListControl><ListEntries><ListEntry><ListItems><ListItem><PropertyName>UserGroup_Id</PropertyName></ListItem></ListItems></ListEntry></ListEntries></ListControl></View>
+        <View><Name>TeamViewerPS-UserAssignedRole-ListView</Name><ViewSelectedBy><TypeName>TeamViewerPS.UserAssignedRole</TypeName></ViewSelectedBy><ListControl><ListEntries><ListEntry><ListItems><ListItem><PropertyName>Role_Id</PropertyName></ListItem></ListItems></ListEntry></ListEntries></ListControl></View>
+        <View><Name>TeamViewerPS-UserGroupAssignedRole-ListView</Name><ViewSelectedBy><TypeName>TeamViewerPS.UserGroupAssignedRole</TypeName></ViewSelectedBy><ListControl><ListEntries><ListEntry><ListItems><ListItem><PropertyName>Role_Id</PropertyName></ListItem></ListItems></ListEntry></ListEntries></ListControl></View>
         <View><Name>TeamViewerPS-SSODomain-ListView</Name><ViewSelectedBy><TypeName>TeamViewerPS.SSODomain</TypeName></ViewSelectedBy><ListControl><ListEntries><ListEntry><ListItems><ListItem><PropertyName>Id</PropertyName></ListItem><ListItem><PropertyName>Name</PropertyName></ListItem></ListItems></ListEntry></ListEntries></ListControl></View>
         <View><Name>TeamViewerPS-User-ListView</Name><ViewSelectedBy><TypeName>TeamViewerPS.User</TypeName></ViewSelectedBy><ListControl><ListEntries><ListEntry><ListItems><ListItem><PropertyName>Id</PropertyName></ListItem><ListItem><PropertyName>Name</PropertyName></ListItem><ListItem><PropertyName>Email</PropertyName></ListItem></ListItems></ListEntry></ListEntries></ListControl></View>
         <View><Name>TeamViewerPS-UserGroup-ListView</Name><ViewSelectedBy><TypeName>TeamViewerPS.UserGroup</TypeName></ViewSelectedBy><ListControl><ListEntries><ListEntry><ListItems><ListItem><PropertyName>Id</PropertyName></ListItem><ListItem><PropertyName>Name</PropertyName></ListItem></ListItems></ListEntry></ListEntries></ListControl></View>
@@ -171,6 +173,22 @@
             <TableControl>
                 <TableHeaders><TableColumnHeader><Label>UserGroup_Id</Label></TableColumnHeader></TableHeaders>
                 <TableRowEntries><TableRowEntry><TableColumnItems><TableColumnItem><PropertyName>UserGroup_Id</PropertyName></TableColumnItem></TableColumnItems></TableRowEntry></TableRowEntries>
+            </TableControl>
+        </View>
+        <View>
+            <Name>TeamViewerPS-UserAssignedRole-TableView</Name>
+            <ViewSelectedBy><TypeName>TeamViewerPS.UserAssignedRole</TypeName></ViewSelectedBy>
+            <TableControl>
+                <TableHeaders><TableColumnHeader><Label>Role_Id</Label></TableColumnHeader></TableHeaders>
+                <TableRowEntries><TableRowEntry><TableColumnItems><TableColumnItem><PropertyName>Role_Id</PropertyName></TableColumnItem></TableColumnItems></TableRowEntry></TableRowEntries>
+            </TableControl>
+        </View>
+        <View>
+            <Name>TeamViewerPS-UserGroupAssignedRole-TableView</Name>
+            <ViewSelectedBy><TypeName>TeamViewerPS.UserGroupAssignedRole</TypeName></ViewSelectedBy>
+            <TableControl>
+                <TableHeaders><TableColumnHeader><Label>Role_Id</Label></TableColumnHeader></TableHeaders>
+                <TableRowEntries><TableRowEntry><TableColumnItems><TableColumnItem><PropertyName>Role_Id</PropertyName></TableColumnItem></TableColumnItems></TableRowEntry></TableRowEntries>
             </TableControl>
         </View>
         <View>

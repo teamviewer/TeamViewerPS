@@ -1,7 +1,7 @@
 ﻿function Get-TeamViewerRoleByUserGroup {
     [CmdletBinding()]
 
-    [OutputType('TeamViewerPS.RoleAssignedUserGroup')]
+    [OutputType('TeamViewerPS.UserGroupAssignedRole')]
 
     param(
         [Parameter(Mandatory = $true)]
@@ -38,7 +38,7 @@
                 break
             }
 
-            Write-Output ($Response.assignedRoleId | ConvertTo-TeamViewerRoleAssignedUserGroup )
+            Write-Output ($Response.assignedRoleId | ConvertTo-TeamViewerUserGroupAssignedRole )
         }while ($Response.ContinuationToken)
     }
 }

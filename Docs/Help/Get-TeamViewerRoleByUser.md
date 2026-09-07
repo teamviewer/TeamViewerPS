@@ -91,9 +91,9 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### UUID[]
+### TeamViewerPS.UserAssignedRole
 
-An array of `UUID` objects.
+An array of `TeamViewerPS.UserAssignedRole` objects.
 
 ## NOTES
 
