@@ -12,7 +12,7 @@
     }
 
     try {
-        $TV_InstallationDirectory = (Get-Item -Path $TV_RegKey).GetValue('InstallationDirectory')
+        $TV_InstallationDirectory = (Get-Item -Path $TV_RegKey -ErrorAction Stop).GetValue('InstallationDirectory')
         $TV_AppFilePath = (Join-Path -Path $TV_InstallationDirectory -ChildPath 'TeamViewer.exe')
 
         return Test-Path -Path $TV_AppFilePath
