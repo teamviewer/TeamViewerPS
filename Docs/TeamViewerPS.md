@@ -18,11 +18,11 @@ Assign or unassign a device to a company / tenant.
 
 ## Customize Client
 
-Manage the customization of the locally installed TeamViewer Client.
+Manage the customization (Custom Module) of the locally installed TeamViewer client.
 
 [`Add-TeamViewerCustomization`](Help/Add-TeamViewerCustomization.md)
 
-[`Get-TeamViewerCustomModuleId`](Help/Get-TeamViewerCustomModuleId.md)
+[`Get-TeamViewerCustomizationId`](Help/Get-TeamViewerCustomizationId.md)
 
 [`Remove-TeamViewerCustomization`](Help/Remove-TeamViewerCustomization.md)
 

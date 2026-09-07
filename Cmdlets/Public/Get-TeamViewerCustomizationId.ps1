@@ -1,4 +1,4 @@
-﻿function Get-TeamViewerCustomModuleId {
+﻿function Get-TeamViewerCustomizationId {
     [CmdletBinding()]
 
     [OutputType([string])]
@@ -18,13 +18,13 @@
                 }
             }
             catch {
-                Write-Verbose "Failed to read the custom module Id from '$TV_AssignmentFilePath': $($_.Exception.Message)"
+                Write-Verbose "Failed to read the customization Id from '$TV_AssignmentFilePath': $($_.Exception.Message)"
 
                 return $null
             }
         }
         else {
-            Write-Verbose 'Custom module Id cannot be found. Check if customization is applied.'
+            Write-Verbose 'Customization Id cannot be found!'
 
             return $null
         }

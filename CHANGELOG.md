@@ -19,6 +19,7 @@
 
 ### Changed
 
+- Renames `Get-TeamViewerCustomModuleId` to `Get-TeamViewerCustomizationId`.
 - Fixes, completes, and improves help file `TeamViewerPS.md`.
 - Adds `OutputType` to public commands.
 - Adds `CmdletBinding` to public commands.

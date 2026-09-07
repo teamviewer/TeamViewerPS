@@ -1,11 +1,11 @@
 ﻿BeforeAll {
-    . "$PSScriptRoot\..\..\Cmdlets\Public\Get-TeamViewerCustomModuleId.ps1"
+    . "$PSScriptRoot\..\..\Cmdlets\Public\Get-TeamViewerCustomizationId.ps1"
     . "$PSScriptRoot\..\..\Cmdlets\Public\Test-TeamViewerInstallation.ps1"
     . "$PSScriptRoot\..\..\Cmdlets\Public\Get-TeamViewerInstallationDirectory.ps1"
     @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
 }
 
-Describe 'Get-TeamViewerCustomModuleId' {
+Describe 'Get-TeamViewerCustomizationId' {
     Context 'When TeamViewer is installed and customization is applied' {
         BeforeAll {
             Mock Test-TeamViewerInstallation { $true }
@@ -22,7 +22,7 @@ Describe 'Get-TeamViewerCustomModuleId' {
 
         It 'Should return the custom module ID' {
             $expectedId = 'customModuleId'
-            $Result = Get-TeamViewerCustomModuleId
+            $Result = Get-TeamViewerCustomizationId
             $Result | Should -Be $expectedId
         }
     }
@@ -35,7 +35,7 @@ Describe 'Get-TeamViewerCustomModuleId' {
         }
 
         It 'Should write a verbose message' {
-            $Result = Get-TeamViewerCustomModuleId
+            $Result = Get-TeamViewerCustomizationId
 
             $Result | Should -BeNullOrEmpty
 
@@ -55,12 +55,12 @@ Describe 'Get-TeamViewerCustomModuleId' {
         }
 
         It 'Should write a verbose failure message' {
-            $Result = Get-TeamViewerCustomModuleId
+            $Result = Get-TeamViewerCustomizationId
 
             $Result | Should -BeNullOrEmpty
 
             Should -Invoke Write-Verbose -Scope It -Times 1 -ParameterFilter {
-                $Message -like 'Failed to read the custom module Id from*invalid JSON'
+                $Message -like 'Failed to read the customization Id from*invalid JSON'
             }
         }
     }
