@@ -96,7 +96,8 @@
 
             $null = Invoke-RestMethod @PSBoundParameters
 
-            Write-Output (Get-Content -LiteralPath $Response_FilePath -Raw | ConvertFrom-Json @Convert_Params)
+            # Read as UTF-8 explicitly; Windows PowerShell's Get-Content defaults to the ANSI code page and would corrupt non-ASCII characters.
+            Write-Output (Get-Content -LiteralPath $Response_FilePath -Raw -Encoding UTF8 | ConvertFrom-Json @Convert_Params)
         }
         catch {
             # TeamViewer API errors are surfaced as a structured error object.
