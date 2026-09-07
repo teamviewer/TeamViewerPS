@@ -42,6 +42,19 @@ Describe 'Invoke-TeamViewerRestMethod' {
         $Result.value | Should -Be 1
     }
 
+    It 'Decodes UTF-8 response content without corrupting non-ASCII characters' {
+        Mock -CommandName Invoke-RestMethod -MockWith {
+            # Write raw UTF-8 bytes to mirror how Invoke-RestMethod -OutFile persists the response body.
+            $Json = '{"name":"Christian J' + [char]0x00E4 + 'ckle"}'
+            [System.IO.File]::WriteAllBytes($OutFile, [System.Text.Encoding]::UTF8.GetBytes($Json))
+        }
+
+        $token = Get-TestSecureString -Value 'abc-token'
+        $Result = Invoke-TeamViewerRestMethod -ApiToken $token -Uri 'https://example.local/api/v1/test' -Method Get
+
+        $Result.name | Should -Be ('Christian J' + [char]0x00E4 + 'ckle')
+    }
+
     It 'Adds a distinguishing User-Agent header when none is provided' {
         Mock -CommandName Invoke-RestMethod -MockWith {
             Set-Content -LiteralPath $OutFile -Value '{}'
