@@ -1,43 +1,43 @@
 ﻿---
 external help file: TeamViewerPS-help.xml
 Module Name: TeamViewerPS
-online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/Get-TeamViewerPredefinedRole.md
+online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/Get-TeamViewerDefaultRole.md
 schema: 2.0.0
 ---
 
-# Get-TeamViewerPredefinedRole
+# Get-TeamViewerDefaultRole
 
 ## SYNOPSIS
 
-Retrieve the Predefine Role in a TeamViewer company.
+Retrieve the Default Role in a TeamViewer company.
 
 ## SYNTAX
 
 ```powershell
-Get-TeamViewerPredefinedRole [-APIToken] <SecureString> [<CommonParameters>]
+Get-TeamViewerDefaultRole [-APIToken] <SecureString> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 
-Retrieves the Predefined role among the existing roles in the TeamViewer company associated with the API access token.
+Retrieves the Default role among the existing roles in the TeamViewer company associated with the API access token.
 
 ## EXAMPLES
 
 ### Example 1
 
 ```powershell
-Get-TeamViewerPredefinedRole
+Get-TeamViewerDefaultRole
 ```
 
-Retrieves the Predefined Role Id.
+Retrieves the Default Role Id.
 
 ### Example 2
 
 ```powershell
-forEach-Object { Get-TeamViewerRole | Where-Object { $_.RoleId -eq (Get-TeamViewerPredefinedRole).Role_Id } }
+forEach-Object { Get-TeamViewerRole | Where-Object { $_.RoleId -eq (Get-TeamViewerDefaultRole).Role_Id } }
 ```
 
-Retrieves the complete information about the predefined role.
+Retrieves the complete information about the default role.
 
 ## PARAMETERS
 
@@ -69,7 +69,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ### System.Object
 
-An array of `TeamViewerPS.PredefinedRole` objects.
+An array of `TeamViewerPS.DefaultRole` objects.
 
 ## NOTES
 

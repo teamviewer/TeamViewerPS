@@ -1,5 +1,5 @@
 ﻿BeforeAll {
-    . "$PSScriptRoot\..\..\Cmdlets\Public\Set-TeamViewerPredefinedRole.ps1"
+    . "$PSScriptRoot\..\..\Cmdlets\Public\Set-TeamViewerDefaultRole.ps1"
 
     @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
 
@@ -12,9 +12,9 @@
     Mock Invoke-TeamViewerRestMethod
 }
 
-Describe 'Set-TeamViewerPredefinedRole' {
+Describe 'Set-TeamViewerDefaultRole' {
     It 'Should call the correct API endpoint' {
-        Set-TeamViewerPredefinedRole -APIToken $testAPIToken -RoleId $testRoleId
+        Set-TeamViewerDefaultRole -APIToken $testAPIToken -RoleId $testRoleId
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $APIToken -eq $testAPIToken -and $Uri -eq "//unit.test/userroles/$testRoleId/predefined" -and $Method -eq 'Put'

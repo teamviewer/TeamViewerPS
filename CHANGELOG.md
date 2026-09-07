@@ -1,6 +1,10 @@
 ﻿# Change Log
 
-## x.x.x (YYYY-xx-xx)
+## 4.0.0 (2026-10-xx)
+
+> [!WARNING]
+> This release introduces substantial refactoring aimed at improving usability, and maintainability.
+> As a result, several existing interfaces, parameters, and integration points have changed and are not fully backward compatible.
 
 ### Added
 
@@ -19,6 +23,7 @@
 
 ### Changed
 
+- Renames `Get-TeamViewerPredefinedRole` to `Get-TeamViewerDefaultRole`, `Set-TeamViewerPredefinedRole` to `Set-TeamViewerDefaultRole`, and `Remove-TeamViewerPredefinedRole` to `Remove-TeamViewerDefaultRole`.
 - Renames `Get-TeamViewerCustomModuleId` to `Get-TeamViewerCustomizationId`.
 - Normalizes acronym casing in command, parameter, and type names (`Api` to `API`, `Sso` to `SSO`).
 - Fixes, completes, and improves help file `TeamViewerPS.md`.

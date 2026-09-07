@@ -1,52 +1,52 @@
 ﻿---
 external help file: TeamViewerPS-help.xml
 Module Name: TeamViewerPS
-online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/Set-TeamViewerPredefinedRole.md
+online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/Set-TeamViewerDefaultRole.md
 schema: 2.0.0
 ---
 
-# Set-TeamViewerPredefinedRole
+# Set-TeamViewerDefaultRole
 
 ## SYNOPSIS
 
-Sets an existing role as predefined role.
+Sets an existing role as default role.
 
 ## SYNTAX
 
 ```powershell
-Set-TeamViewerPredefinedRole [-APIToken] <SecureString> [-RoleId] <Object> [<CommonParameters>]
+Set-TeamViewerDefaultRole [-APIToken] <SecureString> [-RoleId] <Object> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 
-Sets an existing role as predefined role.
-Every new user will get the predefined role assigned automatically during creation.
+Sets an existing role as default role.
+Every new user will get the default role assigned automatically during creation.
 
 ## EXAMPLES
 
 ### Example 1
 
 ```powershell
-Set-TeamViewerPredefinedRole -RoleId '9b465ea2-2f75-4101-a057-58a81ed0e57b'
+Set-TeamViewerDefaultRole -RoleId '9b465ea2-2f75-4101-a057-58a81ed0e57b'
 ```
 
-Sets the role with the id `9b465ea2-2f75-4101-a057-58a81ed0e57b` as predefined role.
+Sets the role with the id `9b465ea2-2f75-4101-a057-58a81ed0e57b` as default role.
 
 ### Example 2
 
 ```powershell
-Get-TeamViewerRole | where-Object { ($_.RoleName -eq 'Test Role') } | Set-TeamViewerPredefinedRole
+Get-TeamViewerRole | where-Object { ($_.RoleName -eq 'Test Role') } | Set-TeamViewerDefaultRole
 ```
 
-Sets the role with name `Test Role` as predefined role.
+Sets the role with name `Test Role` as default role.
 
 ### Example 3
 
 ```powershell
-Set-TeamViewerPredefinedRole -Role 'c0cb303a-8a85-4e54-b657-a4757c791aef' -WhatIf
+Set-TeamViewerDefaultRole -Role 'c0cb303a-8a85-4e54-b657-a4757c791aef' -WhatIf
 ```
 
-Uses the `Role` alias and shows what would happen when setting the role with the id `c0cb303a-8a85-4e54-b657-a4757c791aef` as predefined role, without applying the change.
+Uses the `Role` alias and shows what would happen when setting the role with the id `c0cb303a-8a85-4e54-b657-a4757c791aef` as default role, without applying the change.
 
 ## PARAMETERS
 
@@ -68,7 +68,7 @@ Accept wildcard characters: False
 
 ### -RoleId
 
-The role to be set as Predefined Role.
+The role to be set as Default Role.
 
 ```yaml
 Type: Object

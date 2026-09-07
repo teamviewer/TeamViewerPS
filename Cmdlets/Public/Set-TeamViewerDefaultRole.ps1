@@ -1,4 +1,4 @@
-﻿function Set-TeamViewerPredefinedRole {
+﻿function Set-TeamViewerDefaultRole {
     [CmdletBinding(SupportsShouldProcess = $true)]
 
     [OutputType([void])]
@@ -18,7 +18,7 @@
         $Role = $RoleId | Resolve-TeamViewerRoleId
         $ResourceUri = "$(Get-TeamViewerAPIUri)/userroles/$Role/predefined"
 
-        if ($PSCmdlet.ShouldProcess($Role, 'Set Predefined Role')) {
+        if ($PSCmdlet.ShouldProcess($Role, 'Set Default Role')) {
             Invoke-TeamViewerRestMethod `
                 -APIToken $APIToken `
                 -Uri $ResourceUri `

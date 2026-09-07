@@ -1,7 +1,7 @@
-﻿function Get-TeamViewerPredefinedRole {
+﻿function Get-TeamViewerDefaultRole {
     [CmdletBinding()]
 
-    [OutputType('TeamViewerPS.PredefinedRole')]
+    [OutputType('TeamViewerPS.DefaultRole')]
 
     param(
         [Parameter(Mandatory = $true)]
@@ -23,6 +23,6 @@
             -WriteErrorTo $PSCmdlet `
             -ErrorAction Stop
 
-        Write-Output ($Response | ConvertTo-TeamViewerPredefinedRole)
+        Write-Output ($Response | ConvertTo-TeamViewerDefaultRole)
     }
 }

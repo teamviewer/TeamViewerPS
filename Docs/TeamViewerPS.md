@@ -132,7 +132,7 @@ Company / tenant users receive permissions by roles that are assigned to them or
 
 [`Add-TeamViewerUserToRole`](Help/Add-TeamViewerUserToRole.md)
 
-[`Get-TeamViewerPredefinedRole`](Help/Get-TeamViewerPredefinedRole.md)
+[`Get-TeamViewerDefaultRole`](Help/Get-TeamViewerDefaultRole.md)
 
 [`Get-TeamViewerRole`](Help/Get-TeamViewerRole.md)
 
@@ -142,7 +142,7 @@ Company / tenant users receive permissions by roles that are assigned to them or
 
 [`New-TeamViewerRole`](Help/New-TeamViewerRole.md)
 
-[`Remove-TeamViewerPredefinedRole`](Help/Remove-TeamViewerPredefinedRole.md)
+[`Remove-TeamViewerDefaultRole`](Help/Remove-TeamViewerDefaultRole.md)
 
 [`Remove-TeamViewerRole`](Help/Remove-TeamViewerRole.md)
 
@@ -150,7 +150,7 @@ Company / tenant users receive permissions by roles that are assigned to them or
 
 [`Remove-TeamViewerUserGroupFromRole`](Help/Remove-TeamViewerUserGroupFromRole.md)
 
-[`Set-TeamViewerPredefinedRole`](Help/Set-TeamViewerPredefinedRole.md)
+[`Set-TeamViewerDefaultRole`](Help/Set-TeamViewerDefaultRole.md)
 
 [`Set-TeamViewerRole`](Help/Set-TeamViewerRole.md)
 

@@ -1,4 +1,4 @@
-﻿function ConvertTo-TeamViewerPredefinedRole {
+﻿function ConvertTo-TeamViewerDefaultRole {
     param(
         [Parameter(ValueFromPipeline = $true)]
         [object]
@@ -11,7 +11,7 @@
         }
 
         $Result = New-Object -TypeName PSObject -Property $Properties
-        $Result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.PredefinedRole')
+        $Result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.DefaultRole')
 
         Write-Output $Result
     }

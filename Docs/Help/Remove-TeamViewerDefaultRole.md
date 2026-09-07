@@ -1,26 +1,26 @@
 ﻿---
 external help file: TeamViewerPS-help.xml
 Module Name: TeamViewerPS
-online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/Remove-TeamViewerPredefinedRole.md
+online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/Remove-TeamViewerDefaultRole.md
 schema: 2.0.0
 ---
 
-# Remove-TeamViewerPredefinedRole
+# Remove-TeamViewerDefaultRole
 
 ## SYNOPSIS
 
-Sets the existing predefined role to a not predefined one.
+Sets the existing default role to a not default one.
 
 ## SYNTAX
 
 ```powershell
-Remove-TeamViewerPredefinedRole [-APIToken] <SecureString> [-RoleId] <Object> [-WhatIf] [-Confirm]
+Remove-TeamViewerDefaultRole [-APIToken] <SecureString> [-RoleId] <Object> [-WhatIf] [-Confirm]
  [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 
-Sets the existing predefined role to a not predefined one. The role is still available.
+Sets the existing default role to a not default one. The role is still available.
 The user assignments of this role are unaffected.
 
 ## EXAMPLES
@@ -28,26 +28,26 @@ The user assignments of this role are unaffected.
 ### Example 1
 
 ```powershell
-Remove-TeamViewerPredefinedRole 
+Remove-TeamViewerDefaultRole 
 ```
 
-Removes the predefined role flag from the role.
+Removes the default role flag from the role.
 
 ### Example 2
 
 ```powershell
-Remove-TeamViewerPredefinedRole -WhatIf
+Remove-TeamViewerDefaultRole -WhatIf
 ```
 
-Shows what would happen without actually removing the predefined role flag.
+Shows what would happen without actually removing the default role flag.
 
 ### Example 3
 
 ```powershell
-Remove-TeamViewerPredefinedRole -Confirm:$false
+Remove-TeamViewerDefaultRole -Confirm:$false
 ```
 
-Removes the predefined role flag without prompting for confirmation.
+Removes the default role flag without prompting for confirmation.
 
 ## PARAMETERS
 
