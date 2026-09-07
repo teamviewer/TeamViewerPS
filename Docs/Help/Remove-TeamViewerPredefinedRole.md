@@ -14,7 +14,7 @@ Sets the existing predefined role to a not predefined one.
 ## SYNTAX
 
 ```powershell
-Remove-TeamViewerPredefinedRole [-ApiToken] <SecureString> [-RoleId] <Object> [-WhatIf] [-Confirm]
+Remove-TeamViewerPredefinedRole [-APIToken] <SecureString> [-RoleId] <Object> [-WhatIf] [-Confirm]
  [<CommonParameters>]
 ```
 
@@ -51,7 +51,7 @@ Removes the predefined role flag without prompting for confirmation.
 
 ## PARAMETERS
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token.
 

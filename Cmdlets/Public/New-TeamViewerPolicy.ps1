@@ -6,7 +6,7 @@
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
-        $ApiToken,
+        $APIToken,
 
         [Parameter(Mandatory = $true)]
         [string]
@@ -32,10 +32,10 @@
         $Body.settings = @($Settings)
     }
 
-    $ResourceUri = "$(Get-TeamViewerApiUri)/teamviewerpolicies"
+    $ResourceUri = "$(Get-TeamViewerAPIUri)/teamviewerpolicies"
     if ($PSCmdlet.ShouldProcess($Name, 'Create policy')) {
         Invoke-TeamViewerRestMethod `
-            -ApiToken $ApiToken `
+            -APIToken $APIToken `
             -Uri $ResourceUri `
             -Method Post `
             -ContentType 'application/json; charset=utf-8' `

@@ -14,7 +14,7 @@ Removes a users two-factor authentication (TFA) from the TeamViewer account.
 ## SYNTAX
 
 ```powershell
-Remove-TeamViewerUser [-ApiToken] <SecureString> [-User] <Object> [-Permanent] [-WhatIf] [-Confirm]
+Remove-TeamViewerUser [-APIToken] <SecureString> [-User] <Object> [-Permanent] [-WhatIf] [-Confirm]
  [<CommonParameters>]
 ```
 
@@ -48,7 +48,7 @@ Uses the `Id` alias to disable two-factor authentication for the given user.
 
 ## PARAMETERS
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token
 

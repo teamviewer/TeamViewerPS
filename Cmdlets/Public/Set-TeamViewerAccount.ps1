@@ -6,7 +6,7 @@
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
-        $ApiToken,
+        $APIToken,
 
         [Parameter(ParameterSetName = 'ByParameters')]
         [Alias('DisplayName')]
@@ -85,11 +85,11 @@
                 ConvertTo-ErrorRecord -ErrorCategory InvalidArgument))
     }
 
-    $ResourceUri = "$(Get-TeamViewerApiUri)/account"
+    $ResourceUri = "$(Get-TeamViewerAPIUri)/account"
 
     if ($PSCmdlet.ShouldProcess('TeamViewer account')) {
         Invoke-TeamViewerRestMethod `
-            -ApiToken $ApiToken `
+            -APIToken $APIToken `
             -Uri $ResourceUri `
             -Method Put `
             -ContentType 'application/json; charset=utf-8' `

@@ -14,7 +14,7 @@ Updates a device custom field definition.
 ## SYNTAX
 
 ```powershell
-Set-TeamViewerDeviceCustomFieldConfiguration [-ApiToken] <SecureString> [-Id] <Guid> [-FieldKey] <String> [[-Description] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
+Set-TeamViewerDeviceCustomFieldConfiguration [-APIToken] <SecureString> [-Id] <Guid> [-FieldKey] <String> [[-Description] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -23,7 +23,7 @@ Updates an existing company-level device custom field definition.
 
 ## PARAMETERS
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token.
 
@@ -92,7 +92,7 @@ Accept wildcard characters: False
 ### Example 1
 
 ```powershell
-Set-TeamViewerDeviceCustomFieldConfiguration -ApiToken $apiToken -Id $fieldId -FieldKey 'AssetTag'
+Set-TeamViewerDeviceCustomFieldConfiguration -APIToken $apiToken -Id $fieldId -FieldKey 'AssetTag'
 ```
 
 Updates the custom field identified by `$fieldId` and sets its key to `AssetTag`.

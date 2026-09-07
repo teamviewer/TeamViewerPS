@@ -16,14 +16,14 @@ Remove managers from a managed group or a managed device.
 ### ByDeviceId (Default)
 
 ```powershell
-Remove-TeamViewerManager -ApiToken <SecureString> -Manager <Object> [-Device <Object>] [-WhatIf] [-Confirm]
+Remove-TeamViewerManager -APIToken <SecureString> -Manager <Object> [-Device <Object>] [-WhatIf] [-Confirm]
  [<CommonParameters>]
 ```
 
 ### ByGroupId
 
 ```powershell
-Remove-TeamViewerManager -ApiToken <SecureString> -Manager <Object> [-Group <Object>] [-WhatIf] [-Confirm]
+Remove-TeamViewerManager -APIToken <SecureString> -Manager <Object> [-Group <Object>] [-WhatIf] [-Confirm]
  [<CommonParameters>]
 ```
 
@@ -61,7 +61,7 @@ Remove all managers of the given managed device by piping the manager objects re
 
 ## PARAMETERS
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token.
 

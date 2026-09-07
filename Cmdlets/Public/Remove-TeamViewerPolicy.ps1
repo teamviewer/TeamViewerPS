@@ -6,7 +6,7 @@
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
-        $ApiToken,
+        $APIToken,
 
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerPolicyId } )]
@@ -17,11 +17,11 @@
 
     process {
         $PolicyId = $Policy | Resolve-TeamViewerPolicyId
-        $ResourceUri = "$(Get-TeamViewerApiUri)/teamviewerpolicies/$PolicyId"
+        $ResourceUri = "$(Get-TeamViewerAPIUri)/teamviewerpolicies/$PolicyId"
 
         if ($PSCmdlet.ShouldProcess($PolicyId, 'Delete policy')) {
             Invoke-TeamViewerRestMethod `
-                -ApiToken $ApiToken `
+                -APIToken $APIToken `
                 -Uri $ResourceUri `
                 -Method Delete `
                 -WriteErrorTo $PSCmdlet | `

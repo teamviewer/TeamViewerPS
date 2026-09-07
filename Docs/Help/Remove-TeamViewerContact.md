@@ -14,7 +14,7 @@ Delete a contact from the Computers & Contacts list.
 ## SYNTAX
 
 ```powershell
-Remove-TeamViewerContact [-ApiToken] <SecureString> [-Contact] <Object> [-WhatIf] [-Confirm]
+Remove-TeamViewerContact [-APIToken] <SecureString> [-Contact] <Object> [-WhatIf] [-Confirm]
  [<CommonParameters>]
 ```
 
@@ -50,7 +50,7 @@ Deletes a contact using the `Id` alias.
 
 ## PARAMETERS
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token.
 

@@ -3,11 +3,11 @@
 
     @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
 
-    $testApiToken = [securestring]@{}
-    $null = $testApiToken
+    $testAPIToken = [securestring]@{}
+    $null = $testAPIToken
     $mockArgs = @{}
 
-    Mock Get-TeamViewerApiUri { '//unit.test' }
+    Mock Get-TeamViewerAPIUri { '//unit.test' }
     Mock Invoke-TeamViewerRestMethod { $mockArgs.Body = $Body; @{ id = 'u1234' } }
 
     function ConvertTo-TestPassword {
@@ -22,39 +22,39 @@
 
 Describe 'Set-TeamViewerUser' {
     It 'Should call the correct API endpoint' {
-        Set-TeamViewerUser -ApiToken $testApiToken -User 'u1234' -Name 'Updated User Name'
+        Set-TeamViewerUser -APIToken $testAPIToken -User 'u1234' -Name 'Updated User Name'
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -and $Uri -eq '//unit.test/users/u1234' -and $Method -eq 'Put' }
+            $APIToken -eq $testAPIToken -and $Uri -eq '//unit.test/users/u1234' -and $Method -eq 'Put' }
     }
 
     It 'Should change user properties' {
         $testPassword = 'Test1234' | ConvertTo-TestPassword
-        $testSsoCustomerId = 'SsoTest' | ConvertTo-TestPassword
+        $testSSOCustomerId = 'SSOTest' | ConvertTo-TestPassword
 
-        Set-TeamViewerUser -ApiToken $testApiToken -User 'u1234' -Name 'Updated User Name' -Email 'foo@bar.com' -Password $testPassword -SsoCustomerIdentifier $testSsoCustomerId -Active $false
+        Set-TeamViewerUser -APIToken $testAPIToken -User 'u1234' -Name 'Updated User Name' -Email 'foo@bar.com' -Password $testPassword -SSOCustomerIdentifier $testSSOCustomerId -Active $false
 
         $mockArgs.Body | Should -Not -BeNullOrEmpty
         $Body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
         $Body.name | Should -Be 'Updated User Name'
         $Body.email | Should -Be 'foo@bar.com'
         $Body.password | Should -Be 'Test1234'
-        $Body.sso_customer_id | Should -Be 'SsoTest'
+        $Body.sso_customer_id | Should -Be 'SSOTest'
         $Body.active | Should -BeFalse
     }
 
     It 'Should change all user properties via direct parameters' {
         $testPassword = 'Test1234' | ConvertTo-TestPassword
-        $testSsoCustomerId = 'SsoTest' | ConvertTo-TestPassword
-        $testApiToken = 'dummy-token' | ConvertTo-TestPassword
+        $testSSOCustomerId = 'SSOTest' | ConvertTo-TestPassword
+        $testAPIToken = 'dummy-token' | ConvertTo-TestPassword
 
         Set-TeamViewerUser `
-            -ApiToken $testApiToken `
+            -APIToken $testAPIToken `
             -User 'u1234' `
             -Name 'Updated User Name' `
             -Email 'foo@bar.com' `
             -Password $testPassword `
-            -SsoCustomerIdentifier $testSsoCustomerId `
+            -SSOCustomerIdentifier $testSSOCustomerId `
             -Active $false `
             -LogSessions $true `
             -ShowCommentWindow $true `
@@ -72,7 +72,7 @@ Describe 'Set-TeamViewerUser' {
         $Body.name | Should -Be 'Updated User Name'
         $Body.email | Should -Be 'foo@bar.com'
         $Body.password | Should -Be 'Test1234'
-        $Body.sso_customer_id | Should -Be 'SsoTest'
+        $Body.sso_customer_id | Should -Be 'SSOTest'
         $Body.active | Should -BeFalse
         $Body.log_sessions | Should -BeTrue
         $Body.show_comment_window | Should -BeTrue
@@ -86,13 +86,13 @@ Describe 'Set-TeamViewerUser' {
 
     It 'Should accept all user properties via hashtable' {
         Set-TeamViewerUser `
-            -ApiToken $testApiToken `
+            -APIToken $testAPIToken `
             -User 'u1234' `
             -Property @{
             name                   = 'Updated User Name'
             email                  = 'foo@bar.com'
             password               = 'Test1234'
-            sso_customer_id        = 'SsoTest'
+            sso_customer_id        = 'SSOTest'
             permissions            = 'ManageAdmins,ManageUsers'
             active                 = $false
             log_sessions           = $true
@@ -112,7 +112,7 @@ Describe 'Set-TeamViewerUser' {
         $Body.name | Should -Be 'Updated User Name'
         $Body.email | Should -Be 'foo@bar.com'
         $Body.password | Should -Be 'Test1234'
-        $Body.sso_customer_id | Should -Be 'SsoTest'
+        $Body.sso_customer_id | Should -Be 'SSOTest'
         $Body.permissions | Should -Be 'ManageAdmins,ManageUsers'
         $Body.active | Should -BeFalse
         $Body.log_sessions | Should -BeTrue
@@ -127,6 +127,6 @@ Describe 'Set-TeamViewerUser' {
     }
 
     It 'Should throw if hashtable does not contain any valid change' {
-        { Set-TeamViewerUser -ApiToken $testApiToken -User 'u1234' -Property @{ foo = 'bar' } } | Should -Throw
+        { Set-TeamViewerUser -APIToken $testAPIToken -User 'u1234' -Property @{ foo = 'bar' } } | Should -Throw
     }
 }

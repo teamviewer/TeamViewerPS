@@ -3,14 +3,14 @@
 
     @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
 
-    $testApiToken = [securestring]@{}
-    $null = $testApiToken
+    $testAPIToken = [securestring]@{}
+    $null = $testAPIToken
     $testGroupId = '9e5617cb-2b20-4da2-bca4-c1bda85b29ab'
     $null = $testGroupId
     $testDeviceId = 'c37e72b8-b78d-467f-923c-6083c13cf82f'
     $null = $testDeviceId
 
-    Mock Get-TeamViewerApiUri { '//unit.test' }
+    Mock Get-TeamViewerAPIUri { '//unit.test' }
     $mockArgs = @{}
     Mock Invoke-TeamViewerRestMethod { $mockArgs.Body = $Body }
 }
@@ -18,16 +18,16 @@
 Describe 'Add-TeamViewerManagedDevice' {
     It 'Should call the correct API endpoint to add managed group devices' {
         Add-TeamViewerManagedDevice `
-            -ApiToken $testApiToken `
+            -APIToken $testAPIToken `
             -GroupId $testGroupId `
             -DeviceId $testDeviceId
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -and $Uri -eq "//unit.test/managed/groups/$testGroupId/devices" -and $Method -eq 'Post' }
+            $APIToken -eq $testAPIToken -and $Uri -eq "//unit.test/managed/groups/$testGroupId/devices" -and $Method -eq 'Post' }
     }
 
     It 'Should add the device to the group' {
-        Add-TeamViewerManagedDevice -ApiToken $testApiToken -GroupId $testGroupId -DeviceId $testDeviceId
+        Add-TeamViewerManagedDevice -APIToken $testAPIToken -GroupId $testGroupId -DeviceId $testDeviceId
 
         $mockArgs.Body | Should -Not -BeNullOrEmpty
         $Body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
@@ -38,11 +38,11 @@ Describe 'Add-TeamViewerManagedDevice' {
         $groupObj = @{id = $testGroupId } | ConvertTo-TeamViewerManagedGroup
 
         Add-TeamViewerManagedDevice `
-            -ApiToken $testApiToken `
+            -APIToken $testAPIToken `
             -Group $groupObj `
             -DeviceId $testDeviceId
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -and $Uri -eq "//unit.test/managed/groups/$testGroupId/devices" -and $Method -eq 'Post' }
+            $APIToken -eq $testAPIToken -and $Uri -eq "//unit.test/managed/groups/$testGroupId/devices" -and $Method -eq 'Post' }
     }
 }

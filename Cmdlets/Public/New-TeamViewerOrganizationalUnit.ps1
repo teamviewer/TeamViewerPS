@@ -6,7 +6,7 @@
                 [ValidateNotNullOrEmpty()]
                 [Alias('Token')]
                 [securestring]
-                $ApiToken,
+                $APIToken,
 
                 [Parameter( Mandatory = $true)]
                 [ValidateLength(1, 100)]
@@ -26,7 +26,7 @@
         )
 
         begin {
-                $Uri = "$(Get-TeamViewerApiUri)/organizationalunits"
+                $Uri = "$(Get-TeamViewerAPIUri)/organizationalunits"
 
                 # Append parameters to request body
                 $Body = @{ name = $Name }
@@ -42,7 +42,7 @@
         process {
                 if ($PSCmdlet.ShouldProcess($Name, 'Create organizational unit')) {
                         $Response = Invoke-TeamViewerRestMethod `
-                                -ApiToken $ApiToken `
+                                -APIToken $APIToken `
                                 -Uri $Uri `
                                 -Method Post `
                                 -ContentType 'application/json; charset=utf-8' `

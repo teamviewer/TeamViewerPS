@@ -16,14 +16,14 @@ Change properties of a TeamViewer company user.
 ### ByParameters (Default)
 
 ```powershell
-Set-TeamViewerUser -ApiToken <SecureString> -User <Object> [-Active <Boolean>] [-Email <String>] [-AssignRoleId <String[]>][-UnassignRoleId <String[]>]
- [-Name <String>] [-Password <SecureString>] [-SsoCustomerIdentifier <SecureString>] [-LogSessions <Boolean>] [-ShowCommentWindow <Boolean>] [-TFAEnforcement <Boolean>] [-CustomQuickSupportId <String>] [-CustomQuickJoinId <String>] [-LicenseKey <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
+Set-TeamViewerUser -APIToken <SecureString> -User <Object> [-Active <Boolean>] [-Email <String>] [-AssignRoleId <String[]>][-UnassignRoleId <String[]>]
+ [-Name <String>] [-Password <SecureString>] [-SSOCustomerIdentifier <SecureString>] [-LogSessions <Boolean>] [-ShowCommentWindow <Boolean>] [-TFAEnforcement <Boolean>] [-CustomQuickSupportId <String>] [-CustomQuickJoinId <String>] [-LicenseKey <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### ByProperties
 
 ```powershell 
-Set-TeamViewerUser -ApiToken <SecureString> -User <Object> -Property <Hashtable> [-WhatIf] [-Confirm] [<CommonParameters>]
+Set-TeamViewerUser -APIToken <SecureString> -User <Object> -Property <Hashtable> [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -61,7 +61,7 @@ Deactivate a user using a properties hashtable.
 
 ```powershell
 $ssoCustomerIdentifier = ("abc" | ConvertTo-SecureString -AsPlainText -Force)
-Set-TeamViewerUser -UserId 'u1234' -SsoCustomerIdentifier $ssoCustomerIdentifier
+Set-TeamViewerUser -UserId 'u1234' -SSOCustomerIdentifier $ssoCustomerIdentifier
 ```
 
 Do the Single Sign-On (SSO) activation step for the given user. This can also be used to repair a possibly broken SSO login token for that user.
@@ -92,7 +92,7 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token.
 
@@ -172,7 +172,7 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -SsoCustomerIdentifier
+### -SSOCustomerIdentifier
 
 Optional TeamViewer SSO customer identifier. If given, the user will be updated with SSO activation step already done.
 With this option, the user must not enter the TeamViewer password at when doing Single Sign-On.
@@ -303,7 +303,7 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -SsoCustomerIdentifier
+### -SSOCustomerIdentifier
 
 Optional TeamViewer SSO customer identifier. If given, the user will be updated with SSO activation step already done.
 With this option, the user must not enter the TeamViewer password at when doing Single Sign-On.

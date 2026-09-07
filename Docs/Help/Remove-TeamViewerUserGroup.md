@@ -14,7 +14,7 @@ Delete a user group from the TeamViewer company.
 ## SYNTAX
 
 ```powershell
-Remove-TeamViewerUserGroup [-ApiToken] <SecureString> [-UserGroup] <Object> [-WhatIf] [-Confirm]
+Remove-TeamViewerUserGroup [-APIToken] <SecureString> [-UserGroup] <Object> [-WhatIf] [-Confirm]
  [<CommonParameters>]
 ```
 
@@ -52,7 +52,7 @@ Deletes the user group with Id `1001`, using the `UserGroupId` alias.
 
 ## PARAMETERS
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token.
 

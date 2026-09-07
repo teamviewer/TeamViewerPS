@@ -16,15 +16,15 @@ Create a new TeamViewer company user.
 ### WithPassword (Default)
 
 ```powershell
-New-TeamViewerUser -ApiToken <SecureString> -Email <String> -Name <String> -Password <SecureString> [-RoleId <String>][-IgnorePredefinedRole <switch>]
- [-SsoCustomerIdentifier <SecureString>][-Culture <CultureInfo>] [-LogSessions <Boolean>] [-ShowCommentWindow <Boolean>] [-SubscribeNewsletter <Boolean>] [-Active <Boolean>] [-CustomQuickSupportId <String>] [-CustomQuickJoinId <String>] [-LicenseKey <String>] [-MeetingLicenseKey <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
+New-TeamViewerUser -APIToken <SecureString> -Email <String> -Name <String> -Password <SecureString> [-RoleId <String>][-IgnorePredefinedRole <switch>]
+ [-SSOCustomerIdentifier <SecureString>][-Culture <CultureInfo>] [-LogSessions <Boolean>] [-ShowCommentWindow <Boolean>] [-SubscribeNewsletter <Boolean>] [-Active <Boolean>] [-CustomQuickSupportId <String>] [-CustomQuickJoinId <String>] [-LicenseKey <String>] [-MeetingLicenseKey <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### WithoutPassword
 
 ```powershell
-New-TeamViewerUser -ApiToken <SecureString> -Email <String> -Name <String> [-WithoutPassword][-IgnorePredefinedRole <switch>]
- [-SsoCustomerIdentifier <SecureString>][-Culture <CultureInfo>] [-WhatIf] [-Confirm] [<CommonParameters>]
+New-TeamViewerUser -APIToken <SecureString> -Email <String> -Name <String> [-WithoutPassword][-IgnorePredefinedRole <switch>]
+ [-SSOCustomerIdentifier <SecureString>][-Culture <CultureInfo>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -61,7 +61,7 @@ The Role with RoleID `9b465ea2-2f75-4101-a057-58a81ed0e57b` will be assigned.
 
 ## PARAMETERS
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token.
 
@@ -173,7 +173,7 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -SsoCustomerIdentifier
+### -SSOCustomerIdentifier
 
 Optional TeamViewer SSO customer identifier. If given, the user will be created
 with SSO activation step already done. With this option, the new user must not

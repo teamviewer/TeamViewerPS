@@ -3,11 +3,11 @@
 
     @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
 
-    $testApiToken = [securestring]@{}
-    $null = $testApiToken
+    $testAPIToken = [securestring]@{}
+    $null = $testAPIToken
     $mockArgs = @{}
 
-    Mock Get-TeamViewerApiUri { '//unit.test' }
+    Mock Get-TeamViewerAPIUri { '//unit.test' }
     Mock Invoke-TeamViewerRestMethod { $mockArgs.Body = $Body; @{ id = 'u1234' } }
 
     function ConvertTo-TestPassword {
@@ -22,14 +22,14 @@
 
 Describe 'New-TeamViewerUser' {
     It 'Should call the correct API endpoint' {
-        New-TeamViewerUser -ApiToken $testApiToken -Name 'Unit Test User' -Email 'user1@unit.test' -WithoutPassword
+        New-TeamViewerUser -APIToken $testAPIToken -Name 'Unit Test User' -Email 'user1@unit.test' -WithoutPassword
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -and $Uri -eq '//unit.test/users' -and $Method -eq 'Post' }
+            $APIToken -eq $testAPIToken -and $Uri -eq '//unit.test/users' -and $Method -eq 'Post' }
     }
 
     It 'Should include the given name and email in the request' {
-        New-TeamViewerUser -ApiToken $testApiToken -Name 'Unit Test User' -Email 'user1@unit.test' -WithoutPassword
+        New-TeamViewerUser -APIToken $testAPIToken -Name 'Unit Test User' -Email 'user1@unit.test' -WithoutPassword
 
         $mockArgs.Body | Should -Not -BeNullOrEmpty
         $Body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
@@ -38,7 +38,7 @@ Describe 'New-TeamViewerUser' {
     }
 
     It 'Should return the new user object' {
-        $Result = New-TeamViewerUser -ApiToken $testApiToken -Name 'Unit Test User' -Email 'user1@unit.test' -WithoutPassword
+        $Result = New-TeamViewerUser -APIToken $testAPIToken -Name 'Unit Test User' -Email 'user1@unit.test' -WithoutPassword
 
         $Result | Should -Not -BeNullOrEmpty
         $Result.PSObject.TypeNames | Should -Contain 'TeamViewerPS.User'
@@ -53,7 +53,7 @@ Describe 'New-TeamViewerUser' {
         @{ inputCulture = [cultureinfo]'zh-TW'; expected = 'zh_TW' }
     ) {
         param($inputCulture, $expected)
-        New-TeamViewerUser -ApiToken $testApiToken -Name 'Unit Test User' -Email 'user1@unit.test' -Culture $inputCulture -WithoutPassword
+        New-TeamViewerUser -APIToken $testAPIToken -Name 'Unit Test User' -Email 'user1@unit.test' -Culture $inputCulture -WithoutPassword
 
         $mockArgs.Body | Should -Not -BeNullOrEmpty
         $Body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
@@ -63,7 +63,7 @@ Describe 'New-TeamViewerUser' {
     It 'Should allow to specify a password for the new user' {
         $testPassword = 'Test1234' | ConvertTo-TestPassword
 
-        New-TeamViewerUser -ApiToken $testApiToken -Name 'Unit Test User' -Email 'user1@unit.test' -Password $testPassword
+        New-TeamViewerUser -APIToken $testAPIToken -Name 'Unit Test User' -Email 'user1@unit.test' -Password $testPassword
 
         $mockArgs.Body | Should -Not -BeNullOrEmpty
         $Body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
@@ -71,9 +71,9 @@ Describe 'New-TeamViewerUser' {
     }
 
     It 'Should allow to create a SSO-enabled user' {
-        $testSsoCustomerId = 'my-sso-customer-id' | ConvertTo-TestPassword
+        $testSSOCustomerId = 'my-sso-customer-id' | ConvertTo-TestPassword
 
-        New-TeamViewerUser -ApiToken $testApiToken -Name 'Unit Test User' -Email 'user1@unit.test' -WithoutPassword -SsoCustomerIdentifier $testSsoCustomerId
+        New-TeamViewerUser -APIToken $testAPIToken -Name 'Unit Test User' -Email 'user1@unit.test' -WithoutPassword -SSOCustomerIdentifier $testSSOCustomerId
 
         $mockArgs.Body | Should -Not -BeNullOrEmpty
         $Body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
@@ -81,18 +81,18 @@ Describe 'New-TeamViewerUser' {
     }
 
     It 'Should allow to create a user with all attributes using -WithoutPassword' {
-        $testSsoCustomerId = 'my-sso-customer-id' | ConvertTo-TestPassword
+        $testSSOCustomerId = 'my-sso-customer-id' | ConvertTo-TestPassword
         $testCulture = [cultureinfo]'en-US'
         $testRoleId = '00000000-0000-0000-0000-000000000000'
 
 
         # Aufruf der Funktion mit allen Parametern
         New-TeamViewerUser `
-            -ApiToken $testApiToken `
+            -APIToken $testAPIToken `
             -Email 'user1@unit.test' `
             -Name 'Unit Test User' `
             -WithoutPassword `
-            -SsoCustomerIdentifier $testSsoCustomerId `
+            -SSOCustomerIdentifier $testSSOCustomerId `
             -Culture $testCulture `
             -RoleId $testRoleId `
             -Active $true `

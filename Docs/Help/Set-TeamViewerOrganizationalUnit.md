@@ -17,7 +17,7 @@ Changes a TeamViewer organizational unit in the associated TeamViewer company.
 ## SYNTAX
 
 ```powershell
-Set-TeamViewerOrganizationalUnit -ApiToken <SecureString> -OrganizationalUnit <PSObject> [-Name <String>] [-Description <String>] [-Parent <String>] [-Confirm] [-WhatIf] [<CommonParameters>]
+Set-TeamViewerOrganizationalUnit -APIToken <SecureString> -OrganizationalUnit <PSObject> [-Name <String>] [-Description <String>] [-Parent <String>] [-Confirm] [-WhatIf] [<CommonParameters>]
 ```
 
 ## EXAMPLES
@@ -32,7 +32,7 @@ Changes the name of the organizational unit with the given Id `1cbae0b5-8a2f-487
 
 ## PARAMETERS
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token.
 

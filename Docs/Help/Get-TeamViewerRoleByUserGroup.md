@@ -14,7 +14,7 @@ Returns the assigned role id of the user group or null.
 ## SYNTAX
 
 ```powershell
-Get-TeamViewerRoleByUserGroup [-ApiToken] <SecureString> [-GroupId] <Object> [<CommonParameters>]
+Get-TeamViewerRoleByUserGroup [-APIToken] <SecureString> [-GroupId] <Object> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -49,7 +49,7 @@ Lists the assigned role of the user group with the Id 67890 using the UserGroupI
 
 ## PARAMETERS
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token.
 

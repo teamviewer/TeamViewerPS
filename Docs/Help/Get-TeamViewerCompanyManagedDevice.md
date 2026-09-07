@@ -16,7 +16,7 @@ Retrieves TeamViewer company-managed devices. Requires an API Token with 'compan
 ### List (Default)
 
 ```powershell
-Get-TeamViewerCompanyManagedDevice -ApiToken <SecureString> [<CommonParameters>]
+Get-TeamViewerCompanyManagedDevice -APIToken <SecureString> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -52,7 +52,7 @@ Lists all company-managed devices and shows only their `Name` and `TeamViewerId`
 
 ## PARAMETERS
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token. Needs to have 'company admin' and 'Device Groups: read operations' permissions to successfully retrieve the devices.
 

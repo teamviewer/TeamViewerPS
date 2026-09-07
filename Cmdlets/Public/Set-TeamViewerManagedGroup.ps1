@@ -6,7 +6,7 @@
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
-        $ApiToken,
+        $APIToken,
 
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerManagedGroupId })]
@@ -85,11 +85,11 @@
 
     process {
         $GroupId = $Group | Resolve-TeamViewerManagedGroupId
-        $ResourceUri = "$(Get-TeamViewerApiUri)/managed/groups/$GroupId"
+        $ResourceUri = "$(Get-TeamViewerAPIUri)/managed/groups/$GroupId"
 
         if ($PSCmdlet.ShouldProcess($GroupId, 'Update managed group')) {
             Invoke-TeamViewerRestMethod `
-                -ApiToken $ApiToken `
+                -APIToken $APIToken `
                 -Uri $ResourceUri `
                 -Method Put `
                 -ContentType 'application/json; charset=utf-8' `

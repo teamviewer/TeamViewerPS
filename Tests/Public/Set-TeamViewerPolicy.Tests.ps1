@@ -3,26 +3,26 @@
 
     @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
 
-    $testApiToken = [securestring]@{}
-    $null = $testApiToken
+    $testAPIToken = [securestring]@{}
+    $null = $testAPIToken
     $testPolicyId = '5fc4deaf-3789-4a83-a46a-a75864b71804'
     $null = $testPolicyId
     $mockArgs = @{}
 
-    Mock Get-TeamViewerApiUri { '//unit.test' }
+    Mock Get-TeamViewerAPIUri { '//unit.test' }
     Mock Invoke-TeamViewerRestMethod { $mockArgs.Body = $Body; @{ id = 'u1234' } }
 }
 
 Describe 'Set-TeamViewerPolicy' {
     It 'Should call the correct API endpoint' {
-        Set-TeamViewerPolicy -ApiToken $testApiToken -PolicyId $testPolicyId -Name 'Updated Policy Name'
+        Set-TeamViewerPolicy -APIToken $testAPIToken -PolicyId $testPolicyId -Name 'Updated Policy Name'
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -and $Uri -eq "//unit.test/teamviewerpolicies/$testPolicyId" -and $Method -eq 'Put' }
+            $APIToken -eq $testAPIToken -and $Uri -eq "//unit.test/teamviewerpolicies/$testPolicyId" -and $Method -eq 'Put' }
     }
 
     It 'Should change policy properties' {
-        Set-TeamViewerPolicy -ApiToken $testApiToken -PolicyId $testPolicyId -Name 'Updated Policy Name'
+        Set-TeamViewerPolicy -APIToken $testAPIToken -PolicyId $testPolicyId -Name 'Updated Policy Name'
 
         $mockArgs.Body | Should -Not -BeNullOrEmpty
         $Body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
@@ -39,7 +39,7 @@ Describe 'Set-TeamViewerPolicy' {
             Enforce = $true
         }
 
-        Set-TeamViewerPolicy -ApiToken $testApiToken -PolicyId $testPolicyId -Settings $settings
+        Set-TeamViewerPolicy -APIToken $testAPIToken -PolicyId $testPolicyId -Settings $settings
 
         $mockArgs.Body | Should -Not -BeNullOrEmpty
         $Body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
@@ -51,7 +51,7 @@ Describe 'Set-TeamViewerPolicy' {
     }
 
     It 'Should accept policy properties as hashtable' {
-        Set-TeamViewerPolicy -ApiToken $testApiToken -PolicyId $testPolicyId -Property @{
+        Set-TeamViewerPolicy -APIToken $testAPIToken -PolicyId $testPolicyId -Property @{
             name = 'Updated Policy Name'
         }
 
@@ -61,7 +61,7 @@ Describe 'Set-TeamViewerPolicy' {
     }
 
     It 'Should throw if hashtable does not contain any valid change' {
-        { Set-TeamViewerPolicy -ApiToken $testApiToken -PolicyId $testPolicyId -Property @{
+        { Set-TeamViewerPolicy -APIToken $testAPIToken -PolicyId $testPolicyId -Property @{
                 foo = 'bar'
             } } | Should -Throw
     }

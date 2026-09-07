@@ -3,24 +3,24 @@
 
     @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
 
-    $testApiToken = [securestring]@{}
-    $null = $testApiToken
+    $testAPIToken = [securestring]@{}
+    $null = $testAPIToken
     $mockArgs = @{}
 
-    Mock Get-TeamViewerApiUri { '//unit.test' }
+    Mock Get-TeamViewerAPIUri { '//unit.test' }
     Mock Invoke-TeamViewerRestMethod { $mockArgs.Body = $Body }
 }
 
 Describe 'New-TeamViewerPolicy' {
     It 'Should call the correct API endpoint' {
-        New-TeamViewerPolicy -ApiToken $testApiToken -Name 'Unit Test Policy'
+        New-TeamViewerPolicy -APIToken $testAPIToken -Name 'Unit Test Policy'
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -and $Uri -eq '//unit.test/teamviewerpolicies' -and $Method -eq 'Post' }
+            $APIToken -eq $testAPIToken -and $Uri -eq '//unit.test/teamviewerpolicies' -and $Method -eq 'Post' }
     }
 
     It 'Should include the given name in the request' {
-        New-TeamViewerPolicy -ApiToken $testApiToken -Name 'Unit Test Policy' -DefaultPolicy
+        New-TeamViewerPolicy -APIToken $testAPIToken -Name 'Unit Test Policy' -DefaultPolicy
 
         $mockArgs.Body | Should -Not -BeNullOrEmpty
         $Body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json

@@ -3,10 +3,10 @@
 
     @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
 
-    $testApiToken = [securestring]@{}
-    $null = $testApiToken
+    $testAPIToken = [securestring]@{}
+    $null = $testAPIToken
 
-    Mock Get-TeamViewerApiUri { '//unit.test' }
+    Mock Get-TeamViewerAPIUri { '//unit.test' }
 }
 
 Describe 'Get-TeamViewerCompanyManagedDevice' {
@@ -23,17 +23,17 @@ Describe 'Get-TeamViewerCompanyManagedDevice' {
         }
 
         It 'Should call the correct API endpoint to list company-managed devices' {
-            Get-TeamViewerCompanyManagedDevice -ApiToken $testApiToken
+            Get-TeamViewerCompanyManagedDevice -APIToken $testAPIToken
 
             $base_test_path = '//unit.test'
             $desired_endpoint = 'managed/devices/company'
 
             Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-                $ApiToken -eq $testApiToken -and $Uri -eq "$base_test_path/$desired_endpoint" -and $Method -eq 'Get' }
+                $APIToken -eq $testAPIToken -and $Uri -eq "$base_test_path/$desired_endpoint" -and $Method -eq 'Get' }
         }
 
         It 'Should return ManagedDevice objects' {
-            $Result = Get-TeamViewerCompanyManagedDevice -ApiToken $testApiToken
+            $Result = Get-TeamViewerCompanyManagedDevice -APIToken $testAPIToken
             $Result | Should -HaveCount 3
             $Result[0].PSObject.TypeNames | Should -Contain 'TeamViewerPS.ManagedDevice'
         }
@@ -55,7 +55,7 @@ Describe 'Get-TeamViewerCompanyManagedDevice' {
                     )
                 } } -ParameterFilter { $Body -and $Body['paginationToken'] -eq 'abc' }
 
-            $Result = Get-TeamViewerCompanyManagedDevice -ApiToken $testApiToken
+            $Result = Get-TeamViewerCompanyManagedDevice -APIToken $testAPIToken
             $Result | Should -HaveCount 4
 
             Should -Invoke Invoke-TeamViewerRestMethod -Times 2 -Scope It

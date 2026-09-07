@@ -6,7 +6,7 @@
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
-        $ApiToken,
+        $APIToken,
 
         [Parameter(ParameterSetName = 'ByGroup')]
         [Alias('Id', 'GroupId')]
@@ -24,7 +24,7 @@
         $FilterBy_Shared
     )
 
-    $ResourceUri = "$(Get-TeamViewerApiUri)/groups"
+    $ResourceUri = "$(Get-TeamViewerAPIUri)/groups"
     $Parameters = @{ }
 
     switch ($PsCmdlet.ParameterSetName) {
@@ -48,7 +48,7 @@
     }
 
     $Response = Invoke-TeamViewerRestMethod `
-        -ApiToken $ApiToken `
+        -APIToken $APIToken `
         -Uri $ResourceUri `
         -Method Get `
         -Body $Parameters `

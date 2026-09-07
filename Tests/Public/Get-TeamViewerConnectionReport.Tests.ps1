@@ -4,10 +4,10 @@
 
     @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
 
-    $testApiToken = [securestring]@{}
-    $null = $testApiToken
+    $testAPIToken = [securestring]@{}
+    $null = $testAPIToken
 
-    Mock Get-TeamViewerApiUri { '//unit.test' }
+    Mock Get-TeamViewerAPIUri { '//unit.test' }
 
     Mock Invoke-TeamViewerRestMethod { @{
             records = @(
@@ -37,18 +37,18 @@
 
 Describe 'Get-TeamViewerConnectionReport' {
     It 'Should reject a non-positive device ID' {
-        { Get-TeamViewerConnectionReport -ApiToken $testApiToken -DeviceId 0 } | Should -Throw
+        { Get-TeamViewerConnectionReport -APIToken $testAPIToken -DeviceId 0 } | Should -Throw
     }
 
     It 'Should call the correct API endpoint to list connection reports' {
-        Get-TeamViewerConnectionReport -ApiToken $testApiToken
+        Get-TeamViewerConnectionReport -APIToken $testAPIToken
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -and $Uri -eq '//unit.test/reports/connections' -and $Method -eq 'Get' }
+            $APIToken -eq $testAPIToken -and $Uri -eq '//unit.test/reports/connections' -and $Method -eq 'Get' }
     }
 
     It 'Should return ConnectionReport objects' {
-        $Result = Get-TeamViewerConnectionReport -ApiToken $testApiToken
+        $Result = Get-TeamViewerConnectionReport -APIToken $testAPIToken
         $Result | Should -HaveCount 2
         $Result[0].PSObject.TypeNames | Should -Contain 'TeamViewerPS.ConnectionReport'
     }
@@ -102,7 +102,7 @@ Describe 'Get-TeamViewerConnectionReport' {
             } } -ParameterFilter { $Body.offset_id -eq '5ae6d2a9-57e9-4c62-b236-280390954b6f' }
 
 
-        $Result = Get-TeamViewerConnectionReport -ApiToken $testApiToken
+        $Result = Get-TeamViewerConnectionReport -APIToken $testAPIToken
         $Result | Should -HaveCount 3
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 3 -Scope It
@@ -115,63 +115,63 @@ Describe 'Get-TeamViewerConnectionReport' {
         }
 
         It 'Should allow to filter by username' {
-            Get-TeamViewerConnectionReport -ApiToken $testApiToken -UserName 'test-user1'
+            Get-TeamViewerConnectionReport -APIToken $testAPIToken -UserName 'test-user1'
 
             Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It
             $mockArgs.Body.username | Should -Be 'test-user1'
         }
 
         It 'Should allow to filter by userid' {
-            Get-TeamViewerConnectionReport -ApiToken $testApiToken -UserId 'u1234'
+            Get-TeamViewerConnectionReport -APIToken $testAPIToken -UserId 'u1234'
 
             Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It
             $mockArgs.Body.userid | Should -Be 'u1234'
         }
 
         It 'Should allow to filter by groupid' {
-            Get-TeamViewerConnectionReport -ApiToken $testApiToken -GroupId 'g1234'
+            Get-TeamViewerConnectionReport -APIToken $testAPIToken -GroupId 'g1234'
 
             Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It
             $mockArgs.Body.groupid | Should -Be 'g1234'
         }
 
         It 'Should allow to filter by device name' {
-            Get-TeamViewerConnectionReport -ApiToken $testApiToken -DeviceName 'test-device1'
+            Get-TeamViewerConnectionReport -APIToken $testAPIToken -DeviceName 'test-device1'
 
             Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It
             $mockArgs.Body.devicename | Should -Be 'test-device1'
         }
 
         It 'Should allow to filter by deviceid' {
-            Get-TeamViewerConnectionReport -ApiToken $testApiToken -DeviceId 111
+            Get-TeamViewerConnectionReport -APIToken $testAPIToken -DeviceId 111
 
             Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It
             $mockArgs.Body.deviceid | Should -Be '111'
         }
 
         It 'Should allow to filter by session code' {
-            Get-TeamViewerConnectionReport -ApiToken $testApiToken -SessionCode 's112233'
+            Get-TeamViewerConnectionReport -APIToken $testAPIToken -SessionCode 's112233'
 
             Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It
             $mockArgs.Body.session_code | Should -Be 's112233'
         }
 
         It 'Should allow to filter for entries with session code' {
-            Get-TeamViewerConnectionReport -ApiToken $testApiToken -WithSessionCode
+            Get-TeamViewerConnectionReport -APIToken $testAPIToken -WithSessionCode
 
             Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It
             $mockArgs.Body.has_code | Should -Be $true
         }
 
         It 'Should allow to filter for entries without session code' {
-            Get-TeamViewerConnectionReport -ApiToken $testApiToken -WithoutSessionCode
+            Get-TeamViewerConnectionReport -APIToken $testAPIToken -WithoutSessionCode
 
             Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It
             $mockArgs.Body.has_code | Should -Be $false
         }
 
         It 'Should allow to filter by support session type' {
-            Get-TeamViewerConnectionReport -ApiToken $testApiToken -SupportSessionType 'RemoteSupportActiveSdk'
+            Get-TeamViewerConnectionReport -APIToken $testAPIToken -SupportSessionType 'RemoteSupportActiveSdk'
 
             Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It
             $mockArgs.Body.support_session_type | Should -Be 3
@@ -204,7 +204,7 @@ Describe 'Get-TeamViewerConnectionReport' {
         }
 
         It 'Should allow to specify an absolute start and end time' {
-            Get-TeamViewerConnectionReport -ApiToken $testApiToken -StartDate $testStartDate -EndDate $testEndDate
+            Get-TeamViewerConnectionReport -APIToken $testAPIToken -StartDate $testStartDate -EndDate $testEndDate
 
             $dates = Get-TestStartEndDate
             $dates.StartDate | Should -Be $testStartDate.AddTicks(-1 * ($testStartDate.Ticks % [TimeSpan]::TicksPerSecond))
@@ -212,7 +212,7 @@ Describe 'Get-TeamViewerConnectionReport' {
         }
 
         It 'Should allow to set a start date months in the past' {
-            Get-TeamViewerConnectionReport -ApiToken $testApiToken -Months 3
+            Get-TeamViewerConnectionReport -APIToken $testAPIToken -Months 3
 
             $dates = Get-TestStartEndDate
             $dates.Diff.TotalDays | Should -BeLessOrEqual (3 * 31)
@@ -220,28 +220,28 @@ Describe 'Get-TeamViewerConnectionReport' {
         }
 
         It 'Should allow to set a start date days in the past' {
-            Get-TeamViewerConnectionReport -ApiToken $testApiToken -Days 7
+            Get-TeamViewerConnectionReport -APIToken $testAPIToken -Days 7
 
             $dates = Get-TestStartEndDate
             $dates.Diff.TotalDays | Should -Be 7
         }
 
         It 'Should allow to set a start date hours in the past' {
-            Get-TeamViewerConnectionReport -ApiToken $testApiToken -Hours 12
+            Get-TeamViewerConnectionReport -APIToken $testAPIToken -Hours 12
 
             $dates = Get-TestStartEndDate
             $dates.Diff.TotalHours | Should -Be 12
         }
 
         It 'Should allow to set a start date minutes in the past' {
-            Get-TeamViewerConnectionReport -ApiToken $testApiToken -Minutes 45
+            Get-TeamViewerConnectionReport -APIToken $testAPIToken -Minutes 45
 
             $dates = Get-TestStartEndDate
             $dates.Diff.TotalMinutes | Should -Be 45
         }
 
         It 'Should not restrict timeframe if no start and end date are given' {
-            Get-TeamViewerConnectionReport -ApiToken $testApiToken
+            Get-TeamViewerConnectionReport -APIToken $testAPIToken
 
             $Body = $mockArgs.Body
             $Body.from_date | Should -BeNullOrEmpty

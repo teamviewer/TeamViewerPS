@@ -14,7 +14,7 @@ Create a new TeamViewer managed group.
 ## SYNTAX
 
 ```powershell
-New-TeamViewerManagedGroup [-ApiToken] <SecureString> [-Name] <String> [-WhatIf] [-Confirm]
+New-TeamViewerManagedGroup [-APIToken] <SecureString> [-Name] <String> [-WhatIf] [-Confirm]
  [<CommonParameters>]
 ```
 
@@ -50,7 +50,7 @@ Creates multiple managed groups in a single pipeline.
 
 ## PARAMETERS
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token.
 

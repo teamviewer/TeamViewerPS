@@ -6,7 +6,7 @@
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
-        $ApiToken,
+        $APIToken,
 
         [Parameter(Mandatory = $true)]
         [uri]
@@ -65,11 +65,11 @@
 
     process {
         # Convert the secure token to a mutable string only long enough to build the Authorization header, then clear the unmanaged memory.
-        $Token_BinaryString = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($ApiToken)
+        $Token_BinaryString = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($APIToken)
         $Headers['Authorization'] = "Bearer $([System.Runtime.InteropServices.Marshal]::PtrToStringBSTR($Token_BinaryString))"
 
         [System.Runtime.InteropServices.Marshal]::ZeroFreeBSTR($Token_BinaryString) | Out-Null
-        $PSBoundParameters.Remove('ApiToken') | Out-Null
+        $PSBoundParameters.Remove('APIToken') | Out-Null
         $PSBoundParameters.Remove('WriteErrorTo') | Out-Null
 
         # Enforce TLS 1.2 for consistency with the TeamViewer API and restore the original setting in the finally block.

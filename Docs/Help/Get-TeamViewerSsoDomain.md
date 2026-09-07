@@ -1,11 +1,11 @@
 ﻿---
 external help file: TeamViewerPS-help.xml
 Module Name: TeamViewerPS
-online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/Get-TeamViewerSsoDomain.md
+online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/Get-TeamViewerSSODomain.md
 schema: 2.0.0
 ---
 
-# Get-TeamViewerSsoDomain
+# Get-TeamViewerSSODomain
 
 ## SYNOPSIS
 
@@ -14,7 +14,7 @@ Get a list of TeamViewer Single Sign-On (SSO) domains that are owned by the curr
 ## SYNTAX
 
 ```powershell
-Get-TeamViewerSsoDomain [-ApiToken] <SecureString> [-Id <Guid>] [<CommonParameters>]
+Get-TeamViewerSSODomain [-APIToken] <SecureString> [-Id <Guid>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -26,13 +26,13 @@ Get a list of TeamViewer Single Sign-On (SSO) domain configurations that are own
 ### Example 1
 
 ```powershell
-Get-TeamViewerSsoDomain
+Get-TeamViewerSSODomain
 ```
 
 ### Example 2
 
 ```powershell
-Get-TeamViewerSsoDomain -Domain 'c0cb303a-8a85-4e54-b657-a4757c791aef'
+Get-TeamViewerSSODomain -Domain 'c0cb303a-8a85-4e54-b657-a4757c791aef'
 ```
 
 Retrieves the SSO domain configuration with the specified domain id.
@@ -40,14 +40,14 @@ Retrieves the SSO domain configuration with the specified domain id.
 ### Example 3
 
 ```powershell
-Get-TeamViewerSsoDomain | Where-Object { $_.Name -eq 'example.com' }
+Get-TeamViewerSSODomain | Where-Object { $_.Name -eq 'example.com' }
 ```
 
 Lists only the SSO domain whose name is 'example.com'.
 
 ## PARAMETERS
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token.
 
@@ -91,8 +91,8 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## RELATED LINKS
 
-[Get-TeamViewerSsoExclusion](Get-TeamViewerSsoExclusion.md)
+[Get-TeamViewerSSOExclusion](Get-TeamViewerSSOExclusion.md)
 
-[Add-TeamViewerSsoExclusion](Add-TeamViewerSsoExclusion.md)
+[Add-TeamViewerSSOExclusion](Add-TeamViewerSSOExclusion.md)
 
-[Remove-TeamViewerSsoExclusion](Remove-TeamViewerSsoExclusion.md)
+[Remove-TeamViewerSSOExclusion](Remove-TeamViewerSSOExclusion.md)

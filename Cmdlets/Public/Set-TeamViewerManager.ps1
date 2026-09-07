@@ -6,7 +6,7 @@
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
-        $ApiToken,
+        $APIToken,
 
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
         [ValidateScript( {
@@ -100,17 +100,17 @@
         $managerId = $Manager | Resolve-TeamViewerManagerId
 
         if ($DeviceId) {
-            $ResourceUri = "$(Get-TeamViewerApiUri)/managed/devices/$DeviceId/managers/$managerId"
+            $ResourceUri = "$(Get-TeamViewerAPIUri)/managed/devices/$DeviceId/managers/$managerId"
             $Process_Message = 'Update managed device manager'
         }
         elseif ($GroupId) {
-            $ResourceUri = "$(Get-TeamViewerApiUri)/managed/groups/$GroupId/managers/$managerId"
+            $ResourceUri = "$(Get-TeamViewerAPIUri)/managed/groups/$GroupId/managers/$managerId"
             $Process_Message = 'Update managed group manager'
         }
 
         if ($PSCmdlet.ShouldProcess($managerId, $Process_Message)) {
             Invoke-TeamViewerRestMethod `
-                -ApiToken $ApiToken `
+                -APIToken $APIToken `
                 -Uri $ResourceUri `
                 -Method Put `
                 -ContentType 'application/json; charset=utf-8' `

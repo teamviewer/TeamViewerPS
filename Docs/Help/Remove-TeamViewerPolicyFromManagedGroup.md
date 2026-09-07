@@ -20,7 +20,7 @@ Valid Types are:
 ## SYNTAX
 
 ```powershell
-Remove-TeamViewerPolicyFromManagedGroup -ApiToken <SecureString> -Group <Object> -PolicyType <PolicyType> [-WhatIf] [-Confirm] [<CommonParameters>]
+Remove-TeamViewerPolicyFromManagedGroup -APIToken <SecureString> -Group <Object> -PolicyType <PolicyType> [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -67,7 +67,7 @@ Remove PatchManagement policy from group.
 
 ## PARAMETERS
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token.
 

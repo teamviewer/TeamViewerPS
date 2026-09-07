@@ -14,7 +14,7 @@ Remove a managed device from a managed group.
 ## SYNTAX
 
 ```powershell
-Remove-TeamViewerManagedDevice [-ApiToken] <SecureString> [-Device] <Object> [[-Group] <Object>] [-WhatIf]
+Remove-TeamViewerManagedDevice [-APIToken] <SecureString> [-Device] <Object> [[-Group] <Object>] [-WhatIf]
  [-Confirm] [<CommonParameters>]
 ```
 
@@ -50,7 +50,7 @@ Removes all devices of a managed group by piping them into the cmdlet.
 
 ## PARAMETERS
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token.
 

@@ -3,37 +3,37 @@
 
     @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
 
-    $testApiToken = [securestring]@{}
-    $null = $testApiToken
+    $testAPIToken = [securestring]@{}
+    $null = $testAPIToken
     $testDeviceId = 'c37e72b8-b78d-467f-923c-6083c13cf82f'
     $null = $testDeviceId
 
-    Mock Get-TeamViewerApiUri { '//unit.test' }
+    Mock Get-TeamViewerAPIUri { '//unit.test' }
     Mock Invoke-TeamViewerRestMethod { }
 }
 
 Describe 'Remove-TeamViewerManagedDeviceManagement' {
     It 'Should call the correct API endpoint' {
-        Remove-TeamViewerManagedDeviceManagement -ApiToken $testApiToken -DeviceId $testDeviceId
+        Remove-TeamViewerManagedDeviceManagement -APIToken $testAPIToken -DeviceId $testDeviceId
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -and $Uri -eq "//unit.test/managed/devices/$testDeviceId" -and $Method -eq 'Delete' }
+            $APIToken -eq $testAPIToken -and $Uri -eq "//unit.test/managed/devices/$testDeviceId" -and $Method -eq 'Delete' }
     }
 
     It 'Should accept ManagedDevice objects' {
         $testDeviceObj = @{ id = $testDeviceId } | ConvertTo-TeamViewerManagedDevice
 
-        Remove-TeamViewerManagedDeviceManagement -ApiToken $testApiToken -Device $testDeviceObj
+        Remove-TeamViewerManagedDeviceManagement -APIToken $testAPIToken -Device $testDeviceObj
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -and $Uri -eq "//unit.test/managed/devices/$testDeviceId" -and $Method -eq 'Delete' }
+            $APIToken -eq $testAPIToken -and $Uri -eq "//unit.test/managed/devices/$testDeviceId" -and $Method -eq 'Delete' }
     }
 
     It 'Should accept pipeline input' {
         $testDeviceObj = @{ id = $testDeviceId } | ConvertTo-TeamViewerManagedDevice
-        $testDeviceObj | Remove-TeamViewerManagedDeviceManagement -ApiToken $testApiToken
+        $testDeviceObj | Remove-TeamViewerManagedDeviceManagement -APIToken $testAPIToken
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -and $Uri -eq "//unit.test/managed/devices/$testDeviceId" -and $Method -eq 'Delete' }
+            $APIToken -eq $testAPIToken -and $Uri -eq "//unit.test/managed/devices/$testDeviceId" -and $Method -eq 'Delete' }
     }
 }

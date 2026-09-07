@@ -7,7 +7,7 @@ function Set-TeamViewerRole {
     param(
         [Parameter(Mandatory = $true )]
         [securestring]
-        $ApiToken,
+        $APIToken,
 
         [Parameter(Mandatory = $true)]
         [Alias('RoleName')]
@@ -27,7 +27,7 @@ function Set-TeamViewerRole {
     )
 
     begin {
-        $ResourceUri = "$(Get-TeamViewerApiUri)/userroles"
+        $ResourceUri = "$(Get-TeamViewerAPIUri)/userroles"
         $Body = @{
             Name        = $Name
             Permissions = @()
@@ -43,7 +43,7 @@ function Set-TeamViewerRole {
     process {
         if ($PSCmdlet.ShouldProcess($Name, 'Update Role')) {
             $Response = Invoke-TeamViewerRestMethod `
-                -ApiToken $ApiToken `
+                -APIToken $APIToken `
                 -Uri $ResourceUri `
                 -Method Put `
                 -ContentType 'application/json; charset=utf-8' `

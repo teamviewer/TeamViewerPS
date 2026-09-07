@@ -19,13 +19,13 @@ Returns a single or multiple TeamViewer organizational units of the associated T
 ### List (Default)
 
 ```powershell
-Get-TeamViewerOrganizationalUnit -ApiToken <SecureString> [-Recursive <Switch>] [-Parent <String>] [-Filter <String>] [-SortBy <String>] [-SortOrder <String>] [-PageSize <int>] [-PageNumber <int>][<CommonParameters>]
+Get-TeamViewerOrganizationalUnit -APIToken <SecureString> [-Recursive <Switch>] [-Parent <String>] [-Filter <String>] [-SortBy <String>] [-SortOrder <String>] [-PageSize <int>] [-PageNumber <int>][<CommonParameters>]
 ```
 
 ### ById
 
 ```powershell
-Get-TeamViewerOrganizationalUnit -ApiToken <SecureString> [-OrganizationalUnit <PSObject>] [<CommonParameters>]
+Get-TeamViewerOrganizationalUnit -APIToken <SecureString> [-OrganizationalUnit <PSObject>] [<CommonParameters>]
 ```
 
 ## EXAMPLES
@@ -56,7 +56,7 @@ Lists all TeamViewer organizational units of the TV company that have the string
 
 ## PARAMETERS
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token.
 

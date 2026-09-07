@@ -16,19 +16,19 @@ Retrieves TeamViewer managed devices.
 ### List (Default)
 
 ```powershell
-Get-TeamViewerManagedDevice -ApiToken <SecureString> [<CommonParameters>]
+Get-TeamViewerManagedDevice -APIToken <SecureString> [<CommonParameters>]
 ```
 
 ### ByDevice
 
 ```powershell
-Get-TeamViewerManagedDevice -ApiToken <SecureString> [-Device <Guid>] [<CommonParameters>]
+Get-TeamViewerManagedDevice -APIToken <SecureString> [-Device <Guid>] [<CommonParameters>]
 ```
 
 ### ListGroup
 
 ```powershell
-Get-TeamViewerManagedDevice -ApiToken <SecureString> -Group <Object> [-FilterBy_Pending] [<CommonParameters>]
+Get-TeamViewerManagedDevice -APIToken <SecureString> -Group <Object> [-FilterBy_Pending] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -74,7 +74,7 @@ Retrieve information about the management state of the current device.
 
 ## PARAMETERS
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token.
 

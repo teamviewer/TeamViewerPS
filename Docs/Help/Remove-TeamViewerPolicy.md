@@ -14,7 +14,7 @@ Delete a TeamViewer policy.
 ## SYNTAX
 
 ```powershell
-Remove-TeamViewerPolicy [-ApiToken] <SecureString> [-Policy] <Object> [-WhatIf] [-Confirm] [<CommonParameters>]
+Remove-TeamViewerPolicy [-APIToken] <SecureString> [-Policy] <Object> [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -47,7 +47,7 @@ Deletes a policy using the `PolicyId` alias.
 
 ## PARAMETERS
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token.
 

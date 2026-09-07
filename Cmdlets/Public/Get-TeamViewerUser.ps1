@@ -6,7 +6,7 @@
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
-        $ApiToken,
+        $APIToken,
 
         [Parameter(ParameterSetName = 'ByUser')]
         [ValidateScript( { $_ | Resolve-TeamViewerUserId } )]
@@ -41,7 +41,7 @@
         }
     }
 
-    $ResourceUri = "$(Get-TeamViewerApiUri)/users"
+    $ResourceUri = "$(Get-TeamViewerAPIUri)/users"
 
     switch ($PsCmdlet.ParameterSetName) {
         'ByUser' {
@@ -63,7 +63,7 @@
     }
 
     $Response = Invoke-TeamViewerRestMethod `
-        -ApiToken $ApiToken -Uri $ResourceUri -Method Get -Body $Parameters -WriteErrorTo $PSCmdlet -ErrorAction Stop
+        -APIToken $APIToken -Uri $ResourceUri -Method Get -Body $Parameters -WriteErrorTo $PSCmdlet -ErrorAction Stop
 
     if ($PsCmdlet.ParameterSetName -eq 'ByUser') {
         Write-Output ($Response | ConvertTo-TeamViewerUser -PropertiesToLoad $PropertiesToLoad)

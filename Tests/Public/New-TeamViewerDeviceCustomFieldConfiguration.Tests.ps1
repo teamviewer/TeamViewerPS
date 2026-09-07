@@ -2,18 +2,18 @@
     . "$PSScriptRoot\..\..\Cmdlets\Public\New-TeamViewerDeviceCustomFieldConfiguration.ps1"
     @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
 
-    $testApiToken = [securestring]@{}
-    $null = $testApiToken
+    $testAPIToken = [securestring]@{}
+    $null = $testAPIToken
 }
 
 Describe 'New-TeamViewerDeviceCustomFieldConfiguration' {
     It 'Should create a device custom field definition' {
-        Mock Get-TeamViewerApiUri { '//unit.test' }
+        Mock Get-TeamViewerAPIUri { '//unit.test' }
         Mock Invoke-TeamViewerRestMethod {
             @{ fieldKeyId = 'id1'; fieldKey = 'AssetTag'; fieldType = 'string'; description = 'Device asset tag' }
         }
 
-        $Result = New-TeamViewerDeviceCustomFieldConfiguration -ApiToken $testApiToken -FieldKey 'AssetTag' -Description 'Device asset tag'
+        $Result = New-TeamViewerDeviceCustomFieldConfiguration -APIToken $testAPIToken -FieldKey 'AssetTag' -Description 'Device asset tag'
 
         $Result.Name | Should -Be 'AssetTag'
 
@@ -27,10 +27,10 @@ Describe 'New-TeamViewerDeviceCustomFieldConfiguration' {
     }
 
     It 'Should not call the API with WhatIf' {
-        Mock Get-TeamViewerApiUri { '//unit.test' }
+        Mock Get-TeamViewerAPIUri { '//unit.test' }
         Mock Invoke-TeamViewerRestMethod { }
 
-        New-TeamViewerDeviceCustomFieldConfiguration -ApiToken $testApiToken -FieldKey 'AssetTag' -WhatIf
+        New-TeamViewerDeviceCustomFieldConfiguration -APIToken $testAPIToken -FieldKey 'AssetTag' -WhatIf
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 0 -Scope It
     }

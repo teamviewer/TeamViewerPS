@@ -2,13 +2,13 @@
     . "$PSScriptRoot\..\..\Cmdlets\Public\Remove-TeamViewerUserGroupFromRole.ps1"
     @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
 
-    $testApiToken = [securestring]@{}
-    $null = $testApiToken
+    $testAPIToken = [securestring]@{}
+    $null = $testAPIToken
     $testUserGroup = 1234
     $null = $testUserGroup
 
 
-    Mock Get-TeamViewerApiUri { '//unit.test' }
+    Mock Get-TeamViewerAPIUri { '//unit.test' }
     $mockArgs = @{}
 
     Mock Invoke-TeamViewerRestMethod { $mockArgs.Body = $Body
@@ -20,15 +20,15 @@
 
 Describe 'Remove-TeamViewerUserGroupFromRole' {
     It 'Should call the correct API endpoint' {
-        Remove-TeamViewerUserGroupFromRole -ApiToken $testApiToken -UserGroup $testUserGroup
+        Remove-TeamViewerUserGroupFromRole -APIToken $testAPIToken -UserGroup $testUserGroup
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -and $Uri -eq '//unit.test/userroles/unassign/usergroup' -and $Method -eq 'Post'
+            $APIToken -eq $testAPIToken -and $Uri -eq '//unit.test/userroles/unassign/usergroup' -and $Method -eq 'Post'
         }
     }
 
     It 'Should unassign the given user group from the user role' {
-        Remove-TeamViewerUserGroupFromRole -ApiToken $testApiToken -UserGroup $testUserGroup
+        Remove-TeamViewerUserGroupFromRole -APIToken $testAPIToken -UserGroup $testUserGroup
 
         $mockArgs.Body | Should -Not -BeNullOrEmpty
         $Body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json

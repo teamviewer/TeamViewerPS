@@ -3,29 +3,29 @@
 
     @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
 
-    $testApiToken = [securestring]@{}
-    $null = $testApiToken
+    $testAPIToken = [securestring]@{}
+    $null = $testAPIToken
     $testOrgId = 'f6bdc642-374e-4923-aac9-6845c73e322f'
     $null = $testOrgId
     $mockArgs = @{}
 
-    Mock Get-TeamViewerApiUri { '//unit.test' }
+    Mock Get-TeamViewerAPIUri { '//unit.test' }
     Mock Invoke-TeamViewerRestMethod { $mockArgs.Body = $Body }
 }
 
 Describe 'Set-TeamViewerOrganizationalUnit' {
 
     It 'Should call the correct API endpoint' {
-        Set-TeamViewerOrganizationalUnit -ApiToken $testApiToken -Id $testOrgId -Name 'Test Org'
+        Set-TeamViewerOrganizationalUnit -APIToken $testAPIToken -Id $testOrgId -Name 'Test Org'
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -and `
+            $APIToken -eq $testAPIToken -and `
                 $Uri -eq '//unit.test/organizationalunits/' + $testOrgId -and `
                 $Method -eq 'Put' }
     }
 
     It 'Should include the given name in the request' {
-        Set-TeamViewerOrganizationalUnit -ApiToken $testApiToken -Id $testOrgId -Name 'Test Org'
+        Set-TeamViewerOrganizationalUnit -APIToken $testAPIToken -Id $testOrgId -Name 'Test Org'
 
         $mockArgs.Body | Should -Not -BeNullOrEmpty
         $body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
@@ -33,7 +33,7 @@ Describe 'Set-TeamViewerOrganizationalUnit' {
     }
 
     It 'Should include the optional description in the request' {
-        Set-TeamViewerOrganizationalUnit -ApiToken $testApiToken -Id $testOrgId -Description 'test dec'
+        Set-TeamViewerOrganizationalUnit -APIToken $testAPIToken -Id $testOrgId -Description 'test dec'
 
         $mockArgs.Body | Should -Not -BeNullOrEmpty
         $body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
@@ -41,7 +41,7 @@ Describe 'Set-TeamViewerOrganizationalUnit' {
     }
 
     It 'Should include the optional parent ID in the request' {
-        Set-TeamViewerOrganizationalUnit -ApiToken $testApiToken -Id $testOrgId -Parent $testOrgId
+        Set-TeamViewerOrganizationalUnit -APIToken $testAPIToken -Id $testOrgId -Parent $testOrgId
 
         $mockArgs.Body | Should -Not -BeNullOrEmpty
         $body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
@@ -51,27 +51,27 @@ Describe 'Set-TeamViewerOrganizationalUnit' {
     It 'Should accept OrgUnit object as input' {
         $testGroupObj = @{ id = $testOrgId } | ConvertTo-TeamViewerOrganizationalUnit
 
-        Set-TeamViewerOrganizationalUnit -ApiToken $testApiToken -Id $testGroupObj
+        Set-TeamViewerOrganizationalUnit -APIToken $testAPIToken -Id $testGroupObj
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -and `
+            $APIToken -eq $testAPIToken -and `
                 $Uri -eq '//unit.test/organizationalunits/' + $testOrgId -and `
                 $Method -eq 'Put' }
     }
 
     It 'Should accept pipeline objects' {
         $testGroupObj = @{ id = $testOrgId } | ConvertTo-TeamViewerOrganizationalUnit
-        $testGroupObj | Set-TeamViewerOrganizationalUnit -ApiToken $testApiToken -Name 'Unit Test Name'
+        $testGroupObj | Set-TeamViewerOrganizationalUnit -APIToken $testAPIToken -Name 'Unit Test Name'
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -and `
+            $APIToken -eq $testAPIToken -and `
                 $Uri -eq '//unit.test/organizationalunits/' + $testOrgId -and `
                 $Method -eq 'Put' }
     }
 
     It 'Should throw if input is not a UUID' {
         { Set-TeamViewerOrganizationalUnit `
-                -ApiToken $testApiToken `
+                -APIToken $testAPIToken `
                 -Id 'g1234'
         } | Should -Throw
     }

@@ -6,7 +6,7 @@
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
-        $ApiToken,
+        $APIToken,
 
         [Parameter(ParameterSetName = 'ByDevice')]
         [ValidateScript( { $_ | Resolve-TeamViewerManagedDeviceId } )]
@@ -26,7 +26,7 @@
     )
 
     # default is 'List':
-    $ResourceUri = "$(Get-TeamViewerApiUri)/managed/devices"
+    $ResourceUri = "$(Get-TeamViewerAPIUri)/managed/devices"
     $Parameters = @{ }
     $IsListOperation = $true
 
@@ -38,13 +38,13 @@
         }
         'ListGroup' {
             $GroupId = $Group | Resolve-TeamViewerManagedGroupId
-            $ResourceUri = "$(Get-TeamViewerApiUri)/managed/groups/$GroupId/$(if ($FilterBy_Pending) { 'pending-' })devices"
+            $ResourceUri = "$(Get-TeamViewerAPIUri)/managed/groups/$GroupId/$(if ($FilterBy_Pending) { 'pending-' })devices"
         }
     }
 
     do {
         $Response = Invoke-TeamViewerRestMethod `
-            -ApiToken $ApiToken `
+            -APIToken $APIToken `
             -Uri $ResourceUri `
             -Method Get `
             -Body $Parameters `

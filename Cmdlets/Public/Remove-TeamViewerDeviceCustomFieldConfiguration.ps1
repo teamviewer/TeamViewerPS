@@ -6,7 +6,7 @@
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
-        $ApiToken,
+        $APIToken,
 
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
         [Alias('FieldKeyId')]
@@ -15,11 +15,11 @@
     )
 
     process {
-        $ResourceUri = "$(Get-TeamViewerApiUri)/device-custom-fields/$Id"
+        $ResourceUri = "$(Get-TeamViewerAPIUri)/device-custom-fields/$Id"
 
         if ($PSCmdlet.ShouldProcess($Id, 'Delete device custom field')) {
             Invoke-TeamViewerRestMethod `
-                -ApiToken $ApiToken `
+                -APIToken $APIToken `
                 -Uri $ResourceUri `
                 -Method Delete `
                 -WriteErrorTo $PSCmdlet `

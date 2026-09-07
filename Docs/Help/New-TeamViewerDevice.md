@@ -14,7 +14,7 @@ Create a new device entry in the TeamViewer Computers & Contacts list.
 ## SYNTAX
 
 ```powershell
-New-TeamViewerDevice [-ApiToken] <SecureString> [-TeamViewerId] <Int32> [-Group] <Object> [[-Name] <String>]
+New-TeamViewerDevice [-APIToken] <SecureString> [-TeamViewerId] <Int32> [-Group] <Object> [[-Name] <String>]
  [[-Description] <String>] [[-Password] <SecureString>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
@@ -50,7 +50,7 @@ Adds the device using the `Alias` parameter alias and a connection password ente
 
 ## PARAMETERS
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token.
 

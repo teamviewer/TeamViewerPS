@@ -16,14 +16,14 @@ Change properties of a TeamViewer managed group.
 ### ByParameters (Default)
 
 ```powershell
-Set-TeamViewerManagedGroup -ApiToken <SecureString> -Group <Object> -Name <String> [-WhatIf] [-Confirm]
+Set-TeamViewerManagedGroup -APIToken <SecureString> -Group <Object> -Name <String> [-WhatIf] [-Confirm]
  [<CommonParameters>]
 ```
 
 ### ByProperties
 
 ```powershell
-Set-TeamViewerManagedGroup -ApiToken <SecureString> -Group <Object> -Property <Hashtable> [-WhatIf] [-Confirm]
+Set-TeamViewerManagedGroup -APIToken <SecureString> -Group <Object> -Property <Hashtable> [-WhatIf] [-Confirm]
  [<CommonParameters>]
 ```
 
@@ -60,7 +60,7 @@ Change the policy of the managed group with the given Id using property paramete
 
 ## PARAMETERS
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token.
 

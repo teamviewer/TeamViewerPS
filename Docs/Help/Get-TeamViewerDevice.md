@@ -16,14 +16,14 @@ Returns the devices of the current account's Computers & Contacts list.
 ### FilteredList (Default)
 
 ```powershell
-Get-TeamViewerDevice -ApiToken <SecureString> [-TeamViewerId <Int32>] [-FilterBy_OnlineState <String>]
+Get-TeamViewerDevice -APIToken <SecureString> [-TeamViewerId <Int32>] [-FilterBy_OnlineState <String>]
  [-Group <Object>] [<CommonParameters>]
 ```
 
 ### ByDevice
 
 ```powershell
-Get-TeamViewerDevice -ApiToken <SecureString> [-Device <String>] [<CommonParameters>]
+Get-TeamViewerDevice -APIToken <SecureString> [-Device <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -58,7 +58,7 @@ List only the online devices that are part of the group with the given group Id.
 
 ## PARAMETERS
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token.
 

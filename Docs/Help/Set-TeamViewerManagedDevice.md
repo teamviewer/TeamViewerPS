@@ -14,7 +14,7 @@ Change properties of a TeamViewer managed device.
 ## SYNTAX
 
 ```powershell
-Set-TeamViewerManagedDevice [-ApiToken] <SecureString> [-Device] <Object> [[-Name] <String>]
+Set-TeamViewerManagedDevice [-APIToken] <SecureString> [-Device] <Object> [[-Name] <String>]
  [[-Policy] <Object>] [[-ManagedGroup] <Object>] [[-Description] <String>] [-WhatIf] [-Confirm] [<CommonParameters>] 
 ```
 
@@ -64,7 +64,7 @@ Changes the description of the device.
 
 ## PARAMETERS
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token.
 

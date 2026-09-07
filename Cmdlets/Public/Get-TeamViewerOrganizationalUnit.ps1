@@ -6,7 +6,7 @@
                 [ValidateNotNullOrEmpty()]
                 [Alias('Token')]
                 [securestring]
-                $ApiToken,
+                $APIToken,
 
                 [Parameter(ValueFromPipeline = $true, Mandatory = $true, ParameterSetName = 'ById')]
                 [ValidateScript({ $_ | Resolve-TeamViewerOrganizationalUnitId })]
@@ -54,7 +54,7 @@
         )
 
         process {
-                $Uri = "$(Get-TeamViewerApiUri)/organizationalunits"
+                $Uri = "$(Get-TeamViewerAPIUri)/organizationalunits"
                 $Body = @{}
 
                 switch ($PSCmdlet.ParameterSetName) {
@@ -82,7 +82,7 @@
                 }
 
                 $Response = Invoke-TeamViewerRestMethod `
-                        -ApiToken $ApiToken `
+                        -APIToken $APIToken `
                         -Uri $Uri `
                         -Method Get `
                         -Body $Body `

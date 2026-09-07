@@ -14,7 +14,7 @@ Lists device custom field definitions for the company.
 ## SYNTAX
 
 ```powershell
-Get-TeamViewerDeviceCustomFieldConfiguration [-ApiToken] <SecureString> [<CommonParameters>]
+Get-TeamViewerDeviceCustomFieldConfiguration [-APIToken] <SecureString> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -23,7 +23,7 @@ Lists all device custom field definitions associated with the company represente
 
 ## PARAMETERS
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token.
 
@@ -37,7 +37,7 @@ Required: True
 ### Example 1
 
 ```powershell
-Get-TeamViewerDeviceCustomFieldConfiguration -ApiToken $apiToken
+Get-TeamViewerDeviceCustomFieldConfiguration -APIToken $apiToken
 ```
 
 Lists all device custom fields in the company.

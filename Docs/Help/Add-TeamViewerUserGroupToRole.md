@@ -14,7 +14,7 @@ Assign a user group to a role.
 ## SYNTAX
 
 ```powershell
-Add-TeamViewerUserGroupToRole [-ApiToken] <SecureString> [-Role] <Object> [-UserGroup] <Object> [-WhatIf]
+Add-TeamViewerUserGroupToRole [-APIToken] <SecureString> [-Role] <Object> [-UserGroup] <Object> [-WhatIf]
  [-Confirm] [<CommonParameters>]
 ```
 
@@ -50,7 +50,7 @@ Shows what would happen when assigning the user group `1001` to the given role, 
 
 ## PARAMETERS
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token.
 

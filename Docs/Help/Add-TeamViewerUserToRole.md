@@ -14,7 +14,7 @@ Assign a list of accountIds to a role.
 ## SYNTAX
 
 ```powershell
-Add-TeamViewerUserToRole [-ApiToken] <SecureString> [-RoleId] <Object> [-Accounts] <string[]> [-WhatIf] [-Confirm] [<CommonParameters>]
+Add-TeamViewerUserToRole [-APIToken] <SecureString> [-RoleId] <Object> [-Accounts] <string[]> [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -50,7 +50,7 @@ Assigns the role with id `9b465ea2-2f75-4101-a057-58a81ed0e57b` to a single user
 
 ## PARAMETERS
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token.
 

@@ -6,7 +6,7 @@
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
-        $ApiToken,
+        $APIToken,
 
         [Parameter(Mandatory = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerUserGroupId } )]
@@ -27,14 +27,14 @@
 
     begin {
         $Id = $UserGroup | Resolve-TeamViewerUserGroupId
-        $ResourceUri = "$(Get-TeamViewerApiUri)/usergroups/$Id/members"
+        $ResourceUri = "$(Get-TeamViewerAPIUri)/usergroups/$Id/members"
         $MembersToAdd = @()
         $Body = @()
-        $null = $ApiToken # https://github.com/PowerShell/PSScriptAnalyzer/issues/1472
+        $null = $APIToken # https://github.com/PowerShell/PSScriptAnalyzer/issues/1472
 
         function Invoke-TeamViewerRestMethodInternal {
             $Result = Invoke-TeamViewerRestMethod `
-                -ApiToken $ApiToken `
+                -APIToken $APIToken `
                 -Uri $ResourceUri `
                 -Method Post `
                 -ContentType 'application/json; charset=utf-8' `

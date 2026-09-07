@@ -6,16 +6,16 @@
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
-        $ApiToken
+        $APIToken
     )
 
     begin {
-        $ResourceUri = "$(Get-TeamViewerApiUri)/device-custom-fields"
+        $ResourceUri = "$(Get-TeamViewerAPIUri)/device-custom-fields"
     }
 
     process {
         $Response = Invoke-TeamViewerRestMethod `
-            -ApiToken $ApiToken `
+            -APIToken $APIToken `
             -Uri $ResourceUri `
             -Method Get `
             -WriteErrorTo $PSCmdlet `

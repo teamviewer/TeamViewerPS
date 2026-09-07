@@ -6,7 +6,7 @@
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
-        $ApiToken,
+        $APIToken,
 
         [Parameter(Mandatory = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerUserGroupId } )]
@@ -23,14 +23,14 @@
 
     begin {
         $Id = $UserGroup | Resolve-TeamViewerUserGroupId
-        $ResourceUri = "$(Get-TeamViewerApiUri)/usergroups/$id"
+        $ResourceUri = "$(Get-TeamViewerAPIUri)/usergroups/$id"
         $Body = @{ name = $Name }
     }
 
     process {
         if ($PSCmdlet.ShouldProcess($UserGroup.ToString(), 'Change user group')) {
             $Response = Invoke-TeamViewerRestMethod `
-                -ApiToken $ApiToken `
+                -APIToken $APIToken `
                 -Uri $ResourceUri `
                 -Method Put `
                 -ContentType 'application/json; charset=utf-8' `

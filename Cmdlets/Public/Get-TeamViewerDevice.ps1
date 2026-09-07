@@ -6,7 +6,7 @@
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
-        $ApiToken,
+        $APIToken,
 
         [Parameter(ParameterSetName = 'ByDevice')]
         [ValidateScript( { $_ | Resolve-TeamViewerDeviceId } )]
@@ -31,7 +31,7 @@
         $Group
     )
 
-    $ResourceUri = "$(Get-TeamViewerApiUri)/devices"
+    $ResourceUri = "$(Get-TeamViewerAPIUri)/devices"
     $Parameters = @{ }
 
     switch ($PsCmdlet.ParameterSetName) {
@@ -54,7 +54,7 @@
     }
 
     $Response = Invoke-TeamViewerRestMethod `
-        -ApiToken $ApiToken `
+        -APIToken $APIToken `
         -Uri $ResourceUri `
         -Method Get `
         -Body $Parameters `

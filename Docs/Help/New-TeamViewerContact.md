@@ -14,7 +14,7 @@ Create a new contact entry in the TeamViewer Computers & Contacts list.
 ## SYNTAX
 
 ```powershell
-New-TeamViewerContact [-ApiToken] <SecureString> [-Email] <String> [-Group] <Object> [-Invite] [-WhatIf]
+New-TeamViewerContact [-APIToken] <SecureString> [-Email] <String> [-Group] <Object> [-Invite] [-WhatIf]
  [-Confirm] [<CommonParameters>]
 ```
 
@@ -50,7 +50,7 @@ Add a contact using the `EmailAddress` alias and a group object retrieved with `
 
 ## PARAMETERS
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token.
 

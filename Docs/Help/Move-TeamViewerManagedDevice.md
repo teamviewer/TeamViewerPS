@@ -14,7 +14,7 @@ Move a managed device from one managed group to another.
 ## SYNTAX
 
 ```powershell
-Move-TeamViewerManagedDevice [-ApiToken] <SecureString> [-Device] <Guid> [-SourceGroup] <Guid> [-TargetGroup] <Guid> [-WhatIf]
+Move-TeamViewerManagedDevice [-APIToken] <SecureString> [-Device] <Guid> [-SourceGroup] <Guid> [-TargetGroup] <Guid> [-WhatIf]
  [-Confirm] [<CommonParameters>]
 ```
 
@@ -54,7 +54,7 @@ Moves a managed device object retrieved with `Get-TeamViewerManagedDevice` from 
 
 ## PARAMETERS
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token.
 

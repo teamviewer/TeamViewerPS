@@ -6,7 +6,7 @@
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
-        $ApiToken,
+        $APIToken,
 
         [Parameter(Mandatory = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerManagedDeviceId } )]
@@ -30,7 +30,7 @@
     $DeviceId = $Device | Resolve-TeamViewerManagedDeviceId
     $SourceGroupId = $SourceGroup | Resolve-TeamViewerManagedGroupId
     $TargetGroupId = $TargetGroup | Resolve-TeamViewerManagedGroupId
-    $ResourceUri = "$(Get-TeamViewerApiUri)/managed/devices/$DeviceId/groups"
+    $ResourceUri = "$(Get-TeamViewerAPIUri)/managed/devices/$DeviceId/groups"
 
     $Body = @{
         AddedChainIds   = @($TargetGroupId.ToString())
@@ -39,7 +39,7 @@
 
     if ($PSCmdlet.ShouldProcess($DeviceId, 'Move a device from one group to another')) {
         Invoke-TeamViewerRestMethod `
-            -ApiToken $ApiToken `
+            -APIToken $APIToken `
             -Uri $ResourceUri `
             -Method Put `
             -ContentType 'application/json; charset=utf-8' `

@@ -14,7 +14,7 @@ Lists all effective permissions in a TeamViewer company.
 ## SYNTAX
  
 ```powershell
-Get-TeamViewerEffectivePermission [-ApiToken] <SecureString> [<CommonParameters>]
+Get-TeamViewerEffectivePermission [-APIToken] <SecureString> [<CommonParameters>]
 ```
  
 ## DESCRIPTION
@@ -49,7 +49,7 @@ Lists only the effective permissions that are currently enabled.
  
 ## PARAMETERS
  
-### -ApiToken
+### -APIToken
  
 The TeamViewer API access token.
  

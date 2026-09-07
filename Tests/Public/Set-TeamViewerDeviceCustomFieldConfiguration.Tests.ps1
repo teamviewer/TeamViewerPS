@@ -2,18 +2,18 @@
     . "$PSScriptRoot\..\..\Cmdlets\Public\Set-TeamViewerDeviceCustomFieldConfiguration.ps1"
     @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
 
-    $testApiToken = [securestring]@{}
-    $null = $testApiToken
+    $testAPIToken = [securestring]@{}
+    $null = $testAPIToken
 }
 
 Describe 'Set-TeamViewerDeviceCustomFieldConfiguration' {
     It 'Should update a device custom field definition' {
-        Mock Get-TeamViewerApiUri { '//unit.test' }
+        Mock Get-TeamViewerAPIUri { '//unit.test' }
         Mock Invoke-TeamViewerRestMethod {
             @{ fieldKeyId = '00000000-0000-0000-0000-000000000001'; fieldKey = 'AssetTag'; fieldType = 'string' }
         }
 
-        $Result = Set-TeamViewerDeviceCustomFieldConfiguration -ApiToken $testApiToken -Id '00000000-0000-0000-0000-000000000001' -FieldKey 'AssetTag' -Description ''
+        $Result = Set-TeamViewerDeviceCustomFieldConfiguration -APIToken $testAPIToken -Id '00000000-0000-0000-0000-000000000001' -FieldKey 'AssetTag' -Description ''
 
         $Result.Name | Should -Be 'AssetTag'
 
@@ -26,14 +26,14 @@ Describe 'Set-TeamViewerDeviceCustomFieldConfiguration' {
     }
 
     It 'Should reject an invalid field ID' {
-        { Set-TeamViewerDeviceCustomFieldConfiguration -ApiToken $testApiToken -Id 'invalid' -FieldKey 'AssetTag' } | Should -Throw
+        { Set-TeamViewerDeviceCustomFieldConfiguration -APIToken $testAPIToken -Id 'invalid' -FieldKey 'AssetTag' } | Should -Throw
     }
 
     It 'Should not call the API with WhatIf' {
-        Mock Get-TeamViewerApiUri { '//unit.test' }
+        Mock Get-TeamViewerAPIUri { '//unit.test' }
         Mock Invoke-TeamViewerRestMethod { }
 
-        Set-TeamViewerDeviceCustomFieldConfiguration -ApiToken $testApiToken -Id '00000000-0000-0000-0000-000000000001' -FieldKey 'AssetTag' -WhatIf
+        Set-TeamViewerDeviceCustomFieldConfiguration -APIToken $testAPIToken -Id '00000000-0000-0000-0000-000000000001' -FieldKey 'AssetTag' -WhatIf
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 0 -Scope It
     }

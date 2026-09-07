@@ -14,7 +14,7 @@ Remove a managed group.
 ## SYNTAX
 
 ```powershell
-Remove-TeamViewerManagedGroup [-ApiToken] <SecureString> [-Group] <Object> [-WhatIf] [-Confirm]
+Remove-TeamViewerManagedGroup [-APIToken] <SecureString> [-Group] <Object> [-WhatIf] [-Confirm]
  [<CommonParameters>]
 ```
 
@@ -50,7 +50,7 @@ Deletes a managed group using the `Id` alias.
 
 ## PARAMETERS
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token.
 

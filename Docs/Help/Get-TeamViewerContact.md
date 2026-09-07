@@ -16,14 +16,14 @@ Returns the contacts of the current account's Computers & Contacts list.
 ### FilteredList (Default)
 
 ```powershell
-Get-TeamViewerContact -ApiToken <SecureString> [-Name <String>] [-FilterBy_OnlineState <String>] [-Group <Object>]
+Get-TeamViewerContact -APIToken <SecureString> [-Name <String>] [-FilterBy_OnlineState <String>] [-Group <Object>]
  [<CommonParameters>]
 ```
 
 ### ByContactId
 
 ```powershell
-Get-TeamViewerContact -ApiToken <SecureString> [-Id <String>] [<CommonParameters>]
+Get-TeamViewerContact -APIToken <SecureString> [-Id <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -58,7 +58,7 @@ List all contacts of the account associated to the TeamViewer API access token t
 
 ## PARAMETERS
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token.
 

@@ -6,7 +6,7 @@
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
-        $ApiToken,
+        $APIToken,
 
         [Parameter(Mandatory = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerUserGroupId } )]
@@ -28,14 +28,14 @@
 
     begin {
         $Id = $UserGroup | Resolve-TeamViewerUserGroupId
-        $ResourceUri = "$(Get-TeamViewerApiUri)/usergroups/$Id/members"
+        $ResourceUri = "$(Get-TeamViewerAPIUri)/usergroups/$Id/members"
         $MembersToRemove = @()
-        $null = $ApiToken # https://github.com/PowerShell/PSScriptAnalyzer/issues/1472
+        $null = $APIToken # https://github.com/PowerShell/PSScriptAnalyzer/issues/1472
         $null = $UserGroupMember
 
         function Invoke-TeamViewerRestMethodInternal {
             Invoke-TeamViewerRestMethod `
-                -ApiToken $ApiToken `
+                -APIToken $APIToken `
                 -Uri $ResourceUri `
                 -Method Delete `
                 -ContentType 'application/json; charset=utf-8' `

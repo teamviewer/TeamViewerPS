@@ -14,7 +14,7 @@ Retrieves account information of the TeamViewer account.
 ## SYNTAX
 
 ```powershell
-Get-TeamViewerAccount [-ApiToken] <SecureString> [<CommonParameters>]
+Get-TeamViewerAccount [-APIToken] <SecureString> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -49,7 +49,7 @@ Retrieves the account information and returns only the email address of the acco
 
 ## PARAMETERS
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token.
 

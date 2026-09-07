@@ -3,10 +3,10 @@
 
     @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
 
-    $testApiToken = [securestring]@{}
-    $null = $testApiToken
+    $testAPIToken = [securestring]@{}
+    $null = $testAPIToken
 
-    Mock Get-TeamViewerApiUri { '//unit.test' }
+    Mock Get-TeamViewerAPIUri { '//unit.test' }
     Mock Invoke-TeamViewerRestMethod { @{
             groups = @(
                 @{ id = 'g1234'; name = 'test group 1'; policy_id = 'p1234' },
@@ -22,56 +22,56 @@
 Describe 'Get-TeamViewerGroup' {
 
     It 'Should call the correct API endpoint to list groups' {
-        Get-TeamViewerGroup -ApiToken $testApiToken
+        Get-TeamViewerGroup -APIToken $testAPIToken
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -and $Uri -eq '//unit.test/groups' -and $Method -eq 'Get' }
+            $APIToken -eq $testAPIToken -and $Uri -eq '//unit.test/groups' -and $Method -eq 'Get' }
     }
 
     It 'Should call the correct API endpoint for single group' {
-        Get-TeamViewerGroup -ApiToken $testApiToken -Id 'g1234'
+        Get-TeamViewerGroup -APIToken $testAPIToken -Id 'g1234'
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -and $Uri -eq '//unit.test/groups/g1234' -and $Method -eq 'Get' }
+            $APIToken -eq $testAPIToken -and $Uri -eq '//unit.test/groups/g1234' -and $Method -eq 'Get' }
     }
 
     It 'Should return Group objects' {
-        $Result = Get-TeamViewerGroup -ApiToken $testApiToken
+        $Result = Get-TeamViewerGroup -APIToken $testAPIToken
         $Result | Should -HaveCount 3
         $Result[0].PSObject.TypeNames | Should -Contain 'TeamViewerPS.Group'
     }
 
     It 'Should allow to filter for shared-groups' {
-        Get-TeamViewerGroup -ApiToken $testApiToken -FilterBy_Shared OnlyShared
+        Get-TeamViewerGroup -APIToken $testAPIToken -FilterBy_Shared OnlyShared
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $Body -and $Body['shared'] -eq $true }
 
-        Get-TeamViewerGroup -ApiToken $testApiToken -FilterBy_Shared OnlyNotShared
+        Get-TeamViewerGroup -APIToken $testAPIToken -FilterBy_Shared OnlyNotShared
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $Body -and $Body['shared'] -eq $false }
 
-        Get-TeamViewerGroup -ApiToken $testApiToken
+        Get-TeamViewerGroup -APIToken $testAPIToken
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $Body -and $Body['shared'] -eq $null }
     }
 
     It 'Should allow to filter by partial name' {
-        Get-TeamViewerGroup -ApiToken $testApiToken -Name 'TestName'
+        Get-TeamViewerGroup -APIToken $testAPIToken -Name 'TestName'
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $Body -and $Body['name'] -eq 'TestName' }
     }
 
     It 'Should include PolicyId when getting single group' {
-        $Result = Get-TeamViewerGroup -ApiToken $testApiToken -Id 'g1234'
+        $Result = Get-TeamViewerGroup -APIToken $testAPIToken -Id 'g1234'
         $Result.Policy_Id | Should -Be 'p1234'
     }
 
     It 'Should include PolicyId when filtering groups' {
-        $Result = Get-TeamViewerGroup -ApiToken $testApiToken
+        $Result = Get-TeamViewerGroup -APIToken $testAPIToken
         $Result[0].Policy_Id | Should -Be 'p1234'
     }
 }

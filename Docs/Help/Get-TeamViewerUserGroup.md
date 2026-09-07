@@ -14,7 +14,7 @@ Retrieve user groups of a TeamViewer company.
 ## SYNTAX
 
 ```powershell
-Get-TeamViewerUserGroup [-ApiToken] <SecureString> [[-UserGroup] <Object>] [<CommonParameters>]
+Get-TeamViewerUserGroup [-APIToken] <SecureString> [[-UserGroup] <Object>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -50,7 +50,7 @@ Retrieve the user group with the name `Test Group` by filtering the full list of
 
 ## PARAMETERS
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token.
 

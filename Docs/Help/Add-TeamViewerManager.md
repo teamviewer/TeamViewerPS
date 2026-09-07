@@ -16,56 +16,56 @@ Add a manager to a managed device or managed group.
 ### Device_ByAccountId (Default)
 
 ```powershell
-Add-TeamViewerManager -ApiToken <SecureString> -AccountId <String> -Device <Object> [-Permissions <String[]>]
+Add-TeamViewerManager -APIToken <SecureString> -AccountId <String> -Device <Object> [-Permissions <String[]>]
  [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### Group_ByAccountId
 
 ```powershell
-Add-TeamViewerManager -ApiToken <SecureString> -AccountId <String> -Group <Object> [-Permissions <String[]>]
+Add-TeamViewerManager -APIToken <SecureString> -AccountId <String> -Group <Object> [-Permissions <String[]>]
  [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### Group_ByManagerId
 
 ```powershell
-Add-TeamViewerManager -ApiToken <SecureString> -Manager <Object> -Group <Object> [-Permissions <String[]>]
+Add-TeamViewerManager -APIToken <SecureString> -Manager <Object> -Group <Object> [-Permissions <String[]>]
  [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### Device_ByManagerId
 
 ```powershell
-Add-TeamViewerManager -ApiToken <SecureString> -Manager <Object> -Device <Object> [-Permissions <String[]>]
+Add-TeamViewerManager -APIToken <SecureString> -Manager <Object> -Device <Object> [-Permissions <String[]>]
  [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### Group_ByUserObject
 
 ```powershell
-Add-TeamViewerManager -ApiToken <SecureString> -User <Object> -Group <Object> [-Permissions <String[]>]
+Add-TeamViewerManager -APIToken <SecureString> -User <Object> -Group <Object> [-Permissions <String[]>]
  [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### Device_ByUserObject
 
 ```powershell
-Add-TeamViewerManager -ApiToken <SecureString> -User <Object> -Device <Object> [-Permissions <String[]>]
+Add-TeamViewerManager -APIToken <SecureString> -User <Object> -Device <Object> [-Permissions <String[]>]
  [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### Device_ByUserGroupId
 
 ```powershell
-Add-TeamViewerManager -ApiToken <SecureString> -UserGroup <Object> -Device <Object> [-Permissions <String[]>]
+Add-TeamViewerManager -APIToken <SecureString> -UserGroup <Object> -Device <Object> [-Permissions <String[]>]
  [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### Group_ByUserGroupId
 
 ```powershell
-Add-TeamViewerManager -ApiToken <SecureString> -UserGroup <Object> -Group <Object> [-Permissions <String[]>]
+Add-TeamViewerManager -APIToken <SecureString> -UserGroup <Object> -Group <Object> [-Permissions <String[]>]
  [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
@@ -134,7 +134,7 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token.
 

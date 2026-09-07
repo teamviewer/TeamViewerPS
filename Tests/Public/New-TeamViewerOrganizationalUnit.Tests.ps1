@@ -3,11 +3,11 @@
 
     @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
 
-    $testApiToken = [securestring]@{}
-    $null = $testApiToken
+    $testAPIToken = [securestring]@{}
+    $null = $testAPIToken
     $mockArgs = @{}
 
-    Mock Get-TeamViewerApiUri { '//unit.test' }
+    Mock Get-TeamViewerAPIUri { '//unit.test' }
     Mock Invoke-TeamViewerRestMethod { $mockArgs.Body = $Body
         @{
             name        = 'Test22'
@@ -22,14 +22,14 @@
 Describe 'New-TeamViewerOrganizationalUnit' {
 
     It 'Should call the correct API endpoint' {
-        New-TeamViewerOrganizationalUnit -ApiToken $testApiToken -Name 'Test22'
+        New-TeamViewerOrganizationalUnit -APIToken $testAPIToken -Name 'Test22'
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -and $Uri -eq '//unit.test/organizationalunits' -and $Method -eq 'Post' }
+            $APIToken -eq $testAPIToken -and $Uri -eq '//unit.test/organizationalunits' -and $Method -eq 'Post' }
     }
 
     It 'Should include the given name, description and parent in the request' {
-        New-TeamViewerOrganizationalUnit -ApiToken $testApiToken -Name 'Unit Test' -Description 'Test' -Parent 'd696ef85-d40a-479e-8331-4813f59e6481'
+        New-TeamViewerOrganizationalUnit -APIToken $testAPIToken -Name 'Unit Test' -Description 'Test' -Parent 'd696ef85-d40a-479e-8331-4813f59e6481'
 
         $mockArgs.Body | Should -Not -BeNullOrEmpty
         $body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
@@ -39,7 +39,7 @@ Describe 'New-TeamViewerOrganizationalUnit' {
     }
 
     It 'Should return the new org unit object' {
-        $result = New-TeamViewerOrganizationalUnit -ApiToken $testApiToken -Name 'Test22' -Parent 'd696ef85-d40a-479e-8331-4813f59e6481'
+        $result = New-TeamViewerOrganizationalUnit -APIToken $testAPIToken -Name 'Test22' -Parent 'd696ef85-d40a-479e-8331-4813f59e6481'
 
         $result | Should -Not -BeNullOrEmpty
         $result.PSObject.TypeNames | Should -Contain 'TeamViewerPS.OrganizationalUnit'
@@ -50,7 +50,7 @@ Describe 'New-TeamViewerOrganizationalUnit' {
     It 'Should allow to specify a description for the new org unit' {
         $testDescription = 'Test description'
 
-        New-TeamViewerOrganizationalUnit -ApiToken $testApiToken -Name 'Unit Test User' -Description $testDescription
+        New-TeamViewerOrganizationalUnit -APIToken $testAPIToken -Name 'Unit Test User' -Description $testDescription
 
         $mockArgs.Body | Should -Not -BeNullOrEmpty
         $body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json

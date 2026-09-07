@@ -16,13 +16,13 @@ Returns TeamViewer groups.
 ### FilteredList (Default)
 
 ```powershell
-Get-TeamViewerGroup -ApiToken <SecureString> [-Name <String>] [-FilterBy_Shared <String>] [<CommonParameters>]
+Get-TeamViewerGroup -APIToken <SecureString> [-Name <String>] [-FilterBy_Shared <String>] [<CommonParameters>]
 ```
 
 ### ByGroupId
 
 ```powershell
-Get-TeamViewerGroup -ApiToken <SecureString> [-Id <String>] [<CommonParameters>]
+Get-TeamViewerGroup -APIToken <SecureString> [-Id <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -57,7 +57,7 @@ List all TeamViewer groups of the current account that have the string `test` in
 
 ## PARAMETERS
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token.
 

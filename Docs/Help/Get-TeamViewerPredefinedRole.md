@@ -14,7 +14,7 @@ Retrieve the Predefine Role in a TeamViewer company.
 ## SYNTAX
 
 ```powershell
-Get-TeamViewerPredefinedRole [-ApiToken] <SecureString> [<CommonParameters>]
+Get-TeamViewerPredefinedRole [-APIToken] <SecureString> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -41,7 +41,7 @@ Retrieves the complete information about the predefined role.
 
 ## PARAMETERS
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token.
 

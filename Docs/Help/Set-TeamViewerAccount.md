@@ -16,14 +16,14 @@ Change TeamViewer account information.
 ### ByParameters (Default)
 
 ```powershell
-Set-TeamViewerAccount -ApiToken <SecureString> [-Name <String>] [-Email <String>] [-Password <SecureString>]
+Set-TeamViewerAccount -APIToken <SecureString> [-Name <String>] [-Email <String>] [-Password <SecureString>]
  [-OldPassword <SecureString>] [-EmailLanguage <Object>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### ByProperties
 
 ```powershell
-Set-TeamViewerAccount -ApiToken <SecureString> -Property <Hashtable> [-WhatIf] [-Confirm] [<CommonParameters>]
+Set-TeamViewerAccount -APIToken <SecureString> -Property <Hashtable> [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -58,7 +58,7 @@ Change multiple account properties at once using a hashtable with the `-Property
 
 ## PARAMETERS
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token.
 

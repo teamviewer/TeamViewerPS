@@ -14,7 +14,7 @@ Sets or updates a custom field value for a managed device.
 ## SYNTAX
 
 ```powershell
-Set-TeamViewerDeviceCustomField [-ApiToken] <SecureString> [-ManagedDeviceId] <Object> [-FieldConfigurationId] <Guid> [-Value] <String> [-WhatIf] [-Confirm] [<CommonParameters>]
+Set-TeamViewerDeviceCustomField [-APIToken] <SecureString> [-ManagedDeviceId] <Object> [-FieldConfigurationId] <Guid> [-Value] <String> [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -23,7 +23,7 @@ Sets or updates the value of a custom field for a specific managed device. If th
 
 ## PARAMETERS
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token.
 
@@ -66,7 +66,7 @@ Required: True
 ### Example 1
 
 ```powershell
-Set-TeamViewerDeviceCustomField -ApiToken $apiToken -ManagedDeviceId 'd12345678' -FieldConfigurationId '00000000-0000-0000-0000-000000000001' -Value 'AssetTag001'
+Set-TeamViewerDeviceCustomField -APIToken $apiToken -ManagedDeviceId 'd12345678' -FieldConfigurationId '00000000-0000-0000-0000-000000000001' -Value 'AssetTag001'
 ```
 
 Sets the value of a custom field for the specified managed device.

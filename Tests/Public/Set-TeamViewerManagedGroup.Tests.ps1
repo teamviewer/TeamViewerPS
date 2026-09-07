@@ -4,26 +4,26 @@
 
     @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
 
-    $testApiToken = [securestring]@{}
-    $null = $testApiToken
+    $testAPIToken = [securestring]@{}
+    $null = $testAPIToken
     $testGroupId = '9e5617cb-2b20-4da2-bca4-c1bda85b29ab'
     $null = $testGroupId
 
-    Mock Get-TeamViewerApiUri { '//unit.test' }
+    Mock Get-TeamViewerAPIUri { '//unit.test' }
     $mockArgs = @{}
     Mock Invoke-TeamViewerRestMethod { $mockArgs.Body = $Body }
 }
 
 Describe 'Set-TeamViewerManagedGroup' {
     It 'Should call the correct API endpoint to update managed group' {
-        Set-TeamViewerManagedGroup -ApiToken $testApiToken -GroupId $testGroupId -Name 'Foo Bar'
+        Set-TeamViewerManagedGroup -APIToken $testAPIToken -GroupId $testGroupId -Name 'Foo Bar'
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -and $Uri -eq "//unit.test/managed/groups/$testGroupId" -and $Method -eq 'Put' }
+            $APIToken -eq $testAPIToken -and $Uri -eq "//unit.test/managed/groups/$testGroupId" -and $Method -eq 'Put' }
     }
 
     It 'Should update the TeamViewer policy ByParameters' {
-        Set-TeamViewerManagedGroup -ApiToken $testApiToken -GroupId $testGroupId -PolicyId '9ff05c52-432c-4574-93ee-25e303fd7407' -PolicyType 'TeamViewer'
+        Set-TeamViewerManagedGroup -APIToken $testAPIToken -GroupId $testGroupId -PolicyId '9ff05c52-432c-4574-93ee-25e303fd7407' -PolicyType 'TeamViewer'
 
         $mockArgs.Body | Should -Not -BeNullOrEmpty
         $Body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
@@ -32,7 +32,7 @@ Describe 'Set-TeamViewerManagedGroup' {
     }
 
     It 'Should update the Monitoring policy ByParameters' {
-        Set-TeamViewerManagedGroup -ApiToken $testApiToken -GroupId $testGroupId -PolicyId '9ff05c52-432c-4574-93ee-25e303fd7407' -PolicyType 'Monitoring'
+        Set-TeamViewerManagedGroup -APIToken $testAPIToken -GroupId $testGroupId -PolicyId '9ff05c52-432c-4574-93ee-25e303fd7407' -PolicyType 'Monitoring'
 
         $mockArgs.Body | Should -Not -BeNullOrEmpty
         $Body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
@@ -41,7 +41,7 @@ Describe 'Set-TeamViewerManagedGroup' {
     }
 
     It 'Should update the Patch Management policy ByParameters' {
-        Set-TeamViewerManagedGroup -ApiToken $testApiToken -GroupId $testGroupId -PolicyId '9ff05c52-432c-4574-93ee-25e303fd7407' -PolicyType 'PatchManagement'
+        Set-TeamViewerManagedGroup -APIToken $testAPIToken -GroupId $testGroupId -PolicyId '9ff05c52-432c-4574-93ee-25e303fd7407' -PolicyType 'PatchManagement'
 
         $mockArgs.Body | Should -Not -BeNullOrEmpty
         $Body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
@@ -50,7 +50,7 @@ Describe 'Set-TeamViewerManagedGroup' {
     }
 
     It 'Should update the TeamViewer policy ByProperties' {
-        Set-TeamViewerManagedGroup -ApiToken $testApiToken -GroupId $testGroupId -Property @{
+        Set-TeamViewerManagedGroup -APIToken $testAPIToken -GroupId $testGroupId -Property @{
             name        = 'Foo Bar'
             policy_id   = '9ff05c52-432c-4574-93ee-25e303fd7407'
             policy_type = 'TeamViewer'
@@ -63,7 +63,7 @@ Describe 'Set-TeamViewerManagedGroup' {
     }
 
     It 'Should update the Monitoring policy ByProperties' {
-        Set-TeamViewerManagedGroup -ApiToken $testApiToken -GroupId $testGroupId -Property @{
+        Set-TeamViewerManagedGroup -APIToken $testAPIToken -GroupId $testGroupId -Property @{
             policy_id   = '9ff05c52-432c-4574-93ee-25e303fd7407'
             policy_type = 'Monitoring'
         }
@@ -75,7 +75,7 @@ Describe 'Set-TeamViewerManagedGroup' {
     }
 
     It 'Should update the Patch Management policy ByProperties' {
-        Set-TeamViewerManagedGroup -ApiToken $testApiToken -GroupId $testGroupId -Property @{
+        Set-TeamViewerManagedGroup -APIToken $testAPIToken -GroupId $testGroupId -Property @{
             policy_id   = '9ff05c52-432c-4574-93ee-25e303fd7407'
             policy_type = 'PatchManagement'
         }
@@ -87,7 +87,7 @@ Describe 'Set-TeamViewerManagedGroup' {
     }
 
     It 'Should accept a properties hashtable as input' {
-        Set-TeamViewerManagedGroup -ApiToken $testApiToken -GroupId $testGroupId -Property @{
+        Set-TeamViewerManagedGroup -APIToken $testAPIToken -GroupId $testGroupId -Property @{
             policy_id   = '9ff05c52-432c-4574-93ee-25e303fd7407'
             policy_type = 'TeamViewer'
         }
@@ -99,33 +99,33 @@ Describe 'Set-TeamViewerManagedGroup' {
     }
 
     It 'Should not be possible to set only policy_id or policy_type' {
-        { Set-TeamViewerManagedGroup -ApiToken $testApiToken -GroupId $testGroupId -Property @{ policy_type = 'TeamViewer' }
+        { Set-TeamViewerManagedGroup -APIToken $testAPIToken -GroupId $testGroupId -Property @{ policy_type = 'TeamViewer' }
         } | Should -Throw
 
-        { Set-TeamViewerManagedGroup -ApiToken $testApiToken -GroupId $testGroupId -Property @{ policy_id = '9ff05c52-432c-4574-93ee-25e303fd7407' }
+        { Set-TeamViewerManagedGroup -APIToken $testAPIToken -GroupId $testGroupId -Property @{ policy_id = '9ff05c52-432c-4574-93ee-25e303fd7407' }
         } | Should -Throw
 
-        { Set-TeamViewerManagedGroup -ApiToken $testApiToken -GroupId $testGroupId -PolicyType 'PatchManagement'
+        { Set-TeamViewerManagedGroup -APIToken $testAPIToken -GroupId $testGroupId -PolicyType 'PatchManagement'
         } | Should -Throw
 
-        { Set-TeamViewerManagedGroup -ApiToken $testApiToken -GroupId $testGroupId -PolicyId '9ff05c52-432c-4574-93ee-25e303fd7407' `
+        { Set-TeamViewerManagedGroup -APIToken $testAPIToken -GroupId $testGroupId -PolicyId '9ff05c52-432c-4574-93ee-25e303fd7407' `
         } | Should -Throw
     }
 
     It 'Should accept a ManagedGroup object as input' {
         $testGroup = @{id = $testGroupId; name = 'test managed group' } | ConvertTo-TeamViewerManagedGroup
 
-        Set-TeamViewerManagedGroup -ApiToken $testApiToken -Group $testGroup -Name 'Foo Bar'
+        Set-TeamViewerManagedGroup -APIToken $testAPIToken -Group $testGroup -Name 'Foo Bar'
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -and $Uri -eq "//unit.test/managed/groups/$testGroupId" -and $Method -eq 'Put' }
+            $APIToken -eq $testAPIToken -and $Uri -eq "//unit.test/managed/groups/$testGroupId" -and $Method -eq 'Put' }
     }
 
     It 'Should accept pipeline input' {
         $testGroup = @{id = $testGroupId; name = 'test managed group' } | ConvertTo-TeamViewerManagedGroup
-        $testGroup | Set-TeamViewerManagedGroup -ApiToken $testApiToken -Name 'Foo Bar'
+        $testGroup | Set-TeamViewerManagedGroup -APIToken $testAPIToken -Name 'Foo Bar'
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -and $Uri -eq "//unit.test/managed/groups/$testGroupId" -and $Method -eq 'Put' }
+            $APIToken -eq $testAPIToken -and $Uri -eq "//unit.test/managed/groups/$testGroupId" -and $Method -eq 'Put' }
     }
 }

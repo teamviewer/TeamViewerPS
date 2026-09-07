@@ -14,7 +14,7 @@ Retrieves company / tenant license details of the TeamViewer company associated 
 ## SYNTAX
 
 ```powershell
-Get-TeamViewerLicense [-ApiToken] <SecureString> [<CommonParameters>]
+Get-TeamViewerLicense [-APIToken] <SecureString> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -49,7 +49,7 @@ Retrieves only the available license information of the company license.
 
 ## PARAMETERS
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token.
 

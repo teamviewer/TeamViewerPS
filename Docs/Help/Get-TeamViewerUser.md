@@ -16,14 +16,14 @@ Retrieve users of a TeamViewer company.
 ### FilteredList (Default)
 
 ```powershell
-Get-TeamViewerUser -ApiToken <SecureString> [-Name <String>] [-Email <String[]>]
+Get-TeamViewerUser -APIToken <SecureString> [-Name <String>] [-Email <String[]>]
  [-Permissions <String[]>] [-PropertiesToLoad <Object>] [<CommonParameters>]
 ```
 
 ### ByUserId
 
 ```powershell
-Get-TeamViewerUser -ApiToken <SecureString> [-Id <String>] [-PropertiesToLoad <Object>] [<CommonParameters>]
+Get-TeamViewerUser -APIToken <SecureString> [-Id <String>] [-PropertiesToLoad <Object>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -60,7 +60,7 @@ The resulting list entries should contain all available user properties.
 
 ## PARAMETERS
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token.
 

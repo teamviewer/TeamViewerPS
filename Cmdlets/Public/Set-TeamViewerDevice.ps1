@@ -6,7 +6,7 @@
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
-        $ApiToken,
+        $APIToken,
 
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerDeviceId } )]
@@ -75,11 +75,11 @@
 
     process {
         $DeviceId = $Device | Resolve-TeamViewerDeviceId
-        $ResourceUri = "$(Get-TeamViewerApiUri)/devices/$DeviceId"
+        $ResourceUri = "$(Get-TeamViewerAPIUri)/devices/$DeviceId"
 
         if ($PSCmdlet.ShouldProcess($DeviceId, 'Change device entry')) {
             Invoke-TeamViewerRestMethod `
-                -ApiToken $ApiToken `
+                -APIToken $APIToken `
                 -Uri $ResourceUri `
                 -Method Put `
                 -ContentType 'application/json; charset=utf-8' `

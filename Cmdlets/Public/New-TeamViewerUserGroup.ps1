@@ -6,7 +6,7 @@
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
-        $ApiToken,
+        $APIToken,
 
         [Parameter(Mandatory = $true)]
         [string]
@@ -14,14 +14,14 @@
     )
 
     begin {
-        $ResourceUri = "$(Get-TeamViewerApiUri)/usergroups"
+        $ResourceUri = "$(Get-TeamViewerAPIUri)/usergroups"
         $Body = @{ name = $Name }
     }
 
     process {
         if ($PSCmdlet.ShouldProcess($Name, 'Create user group')) {
             $Response = Invoke-TeamViewerRestMethod `
-                -ApiToken $ApiToken `
+                -APIToken $APIToken `
                 -Uri $ResourceUri `
                 -Method Post `
                 -ContentType 'application/json; charset=utf-8' `

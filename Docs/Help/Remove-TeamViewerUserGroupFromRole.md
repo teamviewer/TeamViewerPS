@@ -14,7 +14,7 @@ Removes a user group from one specific role.
 ## SYNTAX
 
 ```powershell
-Remove-TeamViewerUserGroupFromRole [-ApiToken] <SecureString> [-UserGroup] <Object> [-WhatIf]
+Remove-TeamViewerUserGroupFromRole [-APIToken] <SecureString> [-UserGroup] <Object> [-WhatIf]
  [-Confirm] [<CommonParameters>]
 ```
 
@@ -50,7 +50,7 @@ Removes the user group object retrieved via `Get-TeamViewerUserGroup` from its r
 
 ## PARAMETERS
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token.
 

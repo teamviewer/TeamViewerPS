@@ -14,7 +14,7 @@ Share a Computers & Contacts list group with other users.
 ## SYNTAX
 
 ```powershell
-Publish-TeamViewerGroup [-ApiToken] <SecureString> [-Group] <Object> [-User] <Object[]>
+Publish-TeamViewerGroup [-APIToken] <SecureString> [-Group] <Object> [-User] <Object[]>
  [[-Permissions] <Object>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
@@ -53,7 +53,7 @@ Share a group object retrieved with `Get-TeamViewerGroup` with the given user.
 
 ## PARAMETERS
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token.
 

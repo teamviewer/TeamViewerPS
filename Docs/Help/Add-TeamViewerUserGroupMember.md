@@ -14,7 +14,7 @@ Add a list of accountIds to a user group.
 ## SYNTAX
 
 ```powershell
-Add-TeamViewerUserGroupMember [-ApiToken] <SecureString> [-UserGroup] <Object> [-Member] <Int32[]> [-WhatIf]
+Add-TeamViewerUserGroupMember [-APIToken] <SecureString> [-UserGroup] <Object> [-Member] <Int32[]> [-WhatIf]
  [-Confirm] [<CommonParameters>]
 ```
 
@@ -52,7 +52,7 @@ Adds the accounts identified by their `u`-prefixed account Ids to the user group
 
 ## PARAMETERS
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token.
 

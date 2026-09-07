@@ -2,14 +2,14 @@
     . "$PSScriptRoot\..\..\Cmdlets\Public\Add-TeamViewerUserGroupToRole.ps1"
     @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
 
-    $testApiToken = [securestring]@{}
-    $null = $testApiToken
+    $testAPIToken = [securestring]@{}
+    $null = $testAPIToken
     $testUserGroup = 1234
     $null = $testUserGroup
     $testRoleId = '9b465ea2-2f75-4101-a057-58a81ed0e57b'
     $null = $testRoleId
 
-    Mock Get-TeamViewerApiUri { '//unit.test' }
+    Mock Get-TeamViewerAPIUri { '//unit.test' }
     $mockArgs = @{}
 
     Mock Invoke-TeamViewerRestMethod { $mockArgs.Body = $Body
@@ -22,10 +22,10 @@
 
 Describe 'Add-TeamViewerUserGroupToRole' {
     It 'Should call the correct API endpoint' {
-        Add-TeamViewerUserGroupToRole -ApiToken $testApiToken -RoleId $testRoleId -UserGroup $testUserGroup
+        Add-TeamViewerUserGroupToRole -APIToken $testAPIToken -RoleId $testRoleId -UserGroup $testUserGroup
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -and $Uri -eq '//unit.test/userroles/assign/usergroup' -and $Method -eq 'Post'
+            $APIToken -eq $testAPIToken -and $Uri -eq '//unit.test/userroles/assign/usergroup' -and $Method -eq 'Post'
         }
     }
 

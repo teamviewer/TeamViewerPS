@@ -6,13 +6,13 @@
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
-        $ApiToken
+        $APIToken
     )
 
-    $ResourceUri = "$(Get-TeamViewerApiUri)/company"
+    $ResourceUri = "$(Get-TeamViewerAPIUri)/company"
 
     $Response = Invoke-TeamViewerRestMethod `
-        -ApiToken $ApiToken `
+        -APIToken $APIToken `
         -Uri $ResourceUri `
         -Method Get `
         -WriteErrorTo $PSCmdlet `

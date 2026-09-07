@@ -6,7 +6,7 @@
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
-        $ApiToken,
+        $APIToken,
 
         [Parameter(Mandatory = $true, ParameterSetName = 'AbsoluteDates')]
         [DateTime]
@@ -148,7 +148,7 @@
         $RemoteControlSession
     )
 
-    $ResourceUri = "$(Get-TeamViewerApiUri)/EventLogging"
+    $ResourceUri = "$(Get-TeamViewerAPIUri)/EventLogging"
 
     $Limit = if ($Limit -lt 0) {
         $null
@@ -196,7 +196,7 @@
 
     do {
         $Response = Invoke-TeamViewerRestMethod `
-            -ApiToken $ApiToken `
+            -APIToken $APIToken `
             -Uri $ResourceUri `
             -Method Post `
             -ContentType 'application/json; charset=utf-8' `

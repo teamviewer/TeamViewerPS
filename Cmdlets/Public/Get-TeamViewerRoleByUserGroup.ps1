@@ -6,7 +6,7 @@
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
-        $ApiToken,
+        $APIToken,
 
         [Parameter(Mandatory = $true)]
         [ValidateScript({ $_ | Resolve-TeamViewerUserGroupId })]
@@ -16,14 +16,14 @@
     )
 
     begin {
-        $ResourceUri = "$(Get-TeamViewerApiUri)/usergroups/$UserGroup/userroles"
+        $ResourceUri = "$(Get-TeamViewerAPIUri)/usergroups/$UserGroup/userroles"
         $Parameters = $null
     }
 
     process {
         do {
             $Response = Invoke-TeamViewerRestMethod `
-                -ApiToken $ApiToken `
+                -APIToken $APIToken `
                 -Uri $ResourceUri `
                 -Method Get `
                 -Body $Parameters `

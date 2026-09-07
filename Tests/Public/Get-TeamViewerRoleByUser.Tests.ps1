@@ -6,7 +6,7 @@ Describe 'Get-TeamViewerUserByRole' {
 
             @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
 
-            Mock Get-TeamViewerApiUri { '//unit.test' }
+            Mock Get-TeamViewerAPIUri { '//unit.test' }
             $Responses = [System.Collections.Queue]::new()
             $Responses.Enqueue([PSCustomObject]@{
                     currentPaginationToken = $null
@@ -25,22 +25,22 @@ Describe 'Get-TeamViewerUserByRole' {
                 }
             }
 
-            $testApiToken = [securestring]@{}
-            $null = $testApiToken
+            $testAPIToken = [securestring]@{}
+            $null = $testAPIToken
             $testUserId = 'u123456777'
             $null = $testUserId
         }
 
         It 'Should call the correct API endpoint' {
-            Get-TeamViewerRoleByUser -ApiToken $testApiToken -UserId $testUserId
+            Get-TeamViewerRoleByUser -APIToken $testAPIToken -UserId $testUserId
 
             Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-                $ApiToken -eq $testApiToken -and $Uri -eq "//unit.test/users/$testUserId/userroles?paginationToken=Test1" -and $Method -eq 'Get'
+                $APIToken -eq $testAPIToken -and $Uri -eq "//unit.test/users/$testUserId/userroles?paginationToken=Test1" -and $Method -eq 'Get'
             }
         }
 
         It 'Should return assigned users' {
-            $Result = Get-TeamViewerRoleByUser -ApiToken $testApiToken -UserId $testUserId
+            $Result = Get-TeamViewerRoleByUser -APIToken $testAPIToken -UserId $testUserId
             $Result | Should -HaveCount 2
         }
 
@@ -53,7 +53,7 @@ Describe 'Get-TeamViewerUserByRole' {
                 }
             }
 
-            $Result = Get-TeamViewerRoleByUser -ApiToken $testApiToken -UserId $testUserId
+            $Result = Get-TeamViewerRoleByUser -APIToken $testAPIToken -UserId $testUserId
             $Result | Should -HaveCount 0
         }
     }

@@ -16,14 +16,14 @@ Change a TeamViewer policy.
 ### ByParameters (Default)
 
 ```powershell
-Set-TeamViewerPolicy -ApiToken <SecureString> -Policy <Object> [-Name <String>] [-Settings <Object[]>]
+Set-TeamViewerPolicy -APIToken <SecureString> -Policy <Object> [-Name <String>] [-Settings <Object[]>]
  [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### ByProperties
 
 ```powershell
-Set-TeamViewerPolicy -ApiToken <SecureString> -Policy <Object> -Property <Hashtable> [-WhatIf] [-Confirm]
+Set-TeamViewerPolicy -APIToken <SecureString> -Policy <Object> -Property <Hashtable> [-WhatIf] [-Confirm]
  [<CommonParameters>]
 ```
 
@@ -59,7 +59,7 @@ Change the name of the given TeamViewer policy using property parameters.
 
 ## PARAMETERS
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token.
 

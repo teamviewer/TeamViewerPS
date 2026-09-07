@@ -6,7 +6,7 @@
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
-        $ApiToken,
+        $APIToken,
 
         [Parameter(Mandatory = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerUserGroupId } )]
@@ -17,8 +17,8 @@
     )
 
     begin {
-        $null = $ApiToken
-        $ResourceUri = "$(Get-TeamViewerApiUri)/userroles/unassign/usergroup"
+        $null = $APIToken
+        $ResourceUri = "$(Get-TeamViewerAPIUri)/userroles/unassign/usergroup"
         $Body = @{
             UserGroupId = $UserGroup
         }
@@ -28,7 +28,7 @@
     process {
         if ($PSCmdlet.ShouldProcess($UserGroupId, 'Unassign User Group from user role')) {
             $Result = Invoke-TeamViewerRestMethod `
-                -ApiToken $ApiToken `
+                -APIToken $APIToken `
                 -Uri $ResourceUri `
                 -Method Post `
                 -ContentType 'application/json; charset=utf-8' `

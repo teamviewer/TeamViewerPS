@@ -3,10 +3,10 @@
 
     @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
 
-    $testApiToken = [securestring]@{}
-    $null = $testApiToken
+    $testAPIToken = [securestring]@{}
+    $null = $testAPIToken
 
-    Mock Get-TeamViewerApiUri { '//unit.test' }
+    Mock Get-TeamViewerAPIUri { '//unit.test' }
     Mock Invoke-TeamViewerRestMethod {
         @{
             companyId          = 42
@@ -34,14 +34,14 @@
 
 Describe 'Get-TeamViewerLicense' {
     It 'Should call the correct API endpoint' {
-        Get-TeamViewerLicense -ApiToken $testApiToken
+        Get-TeamViewerLicense -APIToken $testAPIToken
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -and $Uri -eq '//unit.test/company/license' -and $Method -eq 'Get' }
+            $APIToken -eq $testAPIToken -and $Uri -eq '//unit.test/company/license' -and $Method -eq 'Get' }
     }
 
     It 'Should return License object' {
-        $Result = Get-TeamViewerLicense -ApiToken $testApiToken
+        $Result = Get-TeamViewerLicense -APIToken $testAPIToken
         $Result | Should -Not -BeNullOrEmpty
         $Result.PSObject.TypeNames | Should -Contain 'TeamViewerPS.License'
         $Result.Id | Should -Be 42

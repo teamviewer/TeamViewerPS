@@ -16,7 +16,7 @@ Returns TeamViewer audit log events for the current account's company.
 ### RelativeDates (Default)
 
 ```powershell
-Get-TeamViewerEventLog -ApiToken <SecureString> [-EndDate <DateTime>] [-Months <Int32>] [-Days <Int32>]
+Get-TeamViewerEventLog -APIToken <SecureString> [-EndDate <DateTime>] [-Months <Int32>] [-Days <Int32>]
  [-Hours <Int32>] [-Minutes <Int32>] [-Limit <Int32>] [-EventNames <String[]>] [-EventTypes <String[]>]
  [-AccountEmails <Object[]>] [-AffectedItem <String>] [-RemoteControlSessionId <Guid>] [<CommonParameters>]
 ```
@@ -24,7 +24,7 @@ Get-TeamViewerEventLog -ApiToken <SecureString> [-EndDate <DateTime>] [-Months <
 ### AbsoluteDates
 
 ```powershell
-Get-TeamViewerEventLog -ApiToken <SecureString> -StartDate <DateTime> [-EndDate <DateTime>] [-Limit <Int32>]
+Get-TeamViewerEventLog -APIToken <SecureString> -StartDate <DateTime> [-EndDate <DateTime>] [-Limit <Int32>]
  [-EventNames <String[]>] [-EventTypes <String[]>] [-AccountEmails <Object[]>] [-AffectedItem <String>]
  [-RemoteControlSessionId <Guid>] [<CommonParameters>]
 ```
@@ -118,7 +118,7 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token.
 

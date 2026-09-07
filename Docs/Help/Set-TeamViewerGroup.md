@@ -16,14 +16,14 @@ Change a group in the Computers & Contacts list.
 ### ByParameters (Default)
 
 ```powershell
-Set-TeamViewerGroup -ApiToken <SecureString> -Group <Object> [-Name <String>] [-Policy <Object>] [-WhatIf]
+Set-TeamViewerGroup -APIToken <SecureString> -Group <Object> [-Name <String>] [-Policy <Object>] [-WhatIf]
  [-Confirm] [<CommonParameters>]
 ```
 
 ### ByProperties
 
 ```powershell
-Set-TeamViewerGroup -ApiToken <SecureString> -Group <Object> -Property <Hashtable> [-WhatIf] [-Confirm]
+Set-TeamViewerGroup -APIToken <SecureString> -Group <Object> -Property <Hashtable> [-WhatIf] [-Confirm]
  [<CommonParameters>]
 ```
 
@@ -59,7 +59,7 @@ Change the name and policy of the group with the given group Id using property p
 
 ## PARAMETERS
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token.
 

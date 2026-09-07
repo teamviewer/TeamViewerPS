@@ -14,7 +14,7 @@ Lists all roles in a TeamViewer company.
 ## SYNTAX
 
 ```powershell
-Get-TeamViewerRole [-ApiToken] <SecureString> [<CommonParameters>]
+Get-TeamViewerRole [-APIToken] <SecureString> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -49,7 +49,7 @@ Lists all roles showing only their name and Id.
 
 ## PARAMETERS
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token.
 

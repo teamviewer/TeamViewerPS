@@ -6,7 +6,7 @@
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
-        $ApiToken,
+        $APIToken,
 
         [Parameter(Mandatory = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerRoleId } )]
@@ -22,8 +22,8 @@
 
     begin {
         $Id = $RoleId | Resolve-TeamViewerRoleId
-        $null = $ApiToken
-        $ResourceUri = "$(Get-TeamViewerApiUri)/userroles/assign/account"
+        $null = $APIToken
+        $ResourceUri = "$(Get-TeamViewerAPIUri)/userroles/assign/account"
         $AccountsToAdd = @()
         $Body = @{
             UserIds    = @()
@@ -32,7 +32,7 @@
 
         function Invoke-TeamViewerRestMethodInternal {
             $Result = Invoke-TeamViewerRestMethod `
-                -ApiToken $ApiToken `
+                -APIToken $APIToken `
                 -Uri $ResourceUri `
                 -Method Post `
                 -ContentType 'application/json; charset=utf-8' `

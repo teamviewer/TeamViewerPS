@@ -3,14 +3,14 @@
     $Script:Module_PrivCmdletsPath = Join-Path -Path $Module_RootPath -ChildPath 'Cmdlets\Private'
 
     . (Join-Path -Path $Module_PrivCmdletsPath -ChildPath 'ConvertTo-DateTime.ps1')
-    . (Join-Path -Path $Module_PrivCmdletsPath -ChildPath 'ConvertTo-TeamViewerSsoDomain.ps1')
+    . (Join-Path -Path $Module_PrivCmdletsPath -ChildPath 'ConvertTo-TeamViewerSSODomain.ps1')
 }
 
-Describe 'ConvertTo-TeamViewerSsoDomain' {
+Describe 'ConvertTo-TeamViewerSSODomain' {
     It 'Returns an object for pipeline input' {
         $InputObject = [pscustomobject]@{ id = 1; name = 'Sample'; accountId = 1; DomainId = [guid]::NewGuid().ToString(); DomainName = 'domain'; licenseId = [guid]::NewGuid().ToString(); PredefinedUserRoleId = 7; userid = 'u123'; roleId = 'r1'; roleName = 'role'; groupid='g1'; remotecontrol_id='r123'; userRoleId=[guid]::NewGuid().ToString(); policy_id=[guid]::NewGuid().ToString() }
 
-        $Result = $InputObject | & ConvertTo-TeamViewerSsoDomain
+        $Result = $InputObject | & ConvertTo-TeamViewerSSODomain
 
         $Result | Should -Not -BeNullOrEmpty
     }
@@ -21,7 +21,7 @@ Describe 'ConvertTo-TeamViewerSsoDomain' {
             [pscustomobject]@{ id = 2; name = 'Two'; accountId = 2; DomainId = [guid]::NewGuid().ToString(); DomainName='d2'; licenseId=[guid]::NewGuid().ToString(); PredefinedUserRoleId = 2; userid='u2'; roleId='r2'; roleName='role2'; groupid='g2'; remotecontrol_id='r200'; userRoleId=[guid]::NewGuid().ToString(); policy_id=[guid]::NewGuid().ToString() }
         )
 
-        $Result = $InputObjects | & ConvertTo-TeamViewerSsoDomain
+        $Result = $InputObjects | & ConvertTo-TeamViewerSSODomain
 
         @($Result).Count | Should -Be 2
     }

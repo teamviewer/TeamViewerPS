@@ -6,7 +6,7 @@
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
-        $ApiToken,
+        $APIToken,
 
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerUserId } )]
@@ -22,7 +22,7 @@
 
     process {
         $userId = $User | Resolve-TeamViewerUserId
-        $ResourceUri = "$(Get-TeamViewerApiUri)/users/$userId"
+        $ResourceUri = "$(Get-TeamViewerAPIUri)/users/$userId"
 
         if ($Permanent) {
             $ResourceUri += '?isPermanentDelete=true'
@@ -30,7 +30,7 @@
 
         if ($PSCmdlet.ShouldProcess($userId, 'Remove user')) {
             Invoke-TeamViewerRestMethod `
-                -ApiToken $ApiToken `
+                -APIToken $APIToken `
                 -Uri $ResourceUri `
                 -Method Delete `
                 -WriteErrorTo $PSCmdlet | `

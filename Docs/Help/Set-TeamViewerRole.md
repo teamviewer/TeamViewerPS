@@ -14,7 +14,7 @@ Update properties of a user role.
 ## SYNTAX
 
 ```powershell
-Set-TeamViewerRole [-ApiToken] <SecureString> [-Name] <String> [-RoleId] <Object> [-Permissions] <Array> [-WhatIf] [-Confirm]  [<CommonParameters>]
+Set-TeamViewerRole [-APIToken] <SecureString> [-Name] <String> [-RoleId] <Object> [-Permissions] <Array> [-WhatIf] [-Confirm]  [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -51,7 +51,7 @@ Renames the role object retrieved via `Get-TeamViewerRole` using the `Role` alia
 
 ## PARAMETERS
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token.
 

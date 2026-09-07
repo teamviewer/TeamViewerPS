@@ -14,7 +14,7 @@ Removes a user from the TeamViewer tenant
 ## SYNTAX
 
 ```powershell
-Remove-TeamViewerUser [-ApiToken] <SecureString> [-User] <Object> [-Permanent] [-WhatIf] [-Confirm] [<CommonParameters>]
+Remove-TeamViewerUser [-APIToken] <SecureString> [-User] <Object> [-Permanent] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -48,7 +48,7 @@ Removes the user retrieved via the pipeline from the TeamViewer tenant.
 
 ## PARAMETERS
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token
 

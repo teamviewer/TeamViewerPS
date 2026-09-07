@@ -6,7 +6,7 @@
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
-        $ApiToken,
+        $APIToken,
 
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerContactId } )]
@@ -18,11 +18,11 @@
 
     process {
         $contactId = $Contact | Resolve-TeamViewerContactId
-        $ResourceUri = "$(Get-TeamViewerApiUri)/contacts/$contactId"
+        $ResourceUri = "$(Get-TeamViewerAPIUri)/contacts/$contactId"
 
         if ($PSCmdlet.ShouldProcess($contactId, 'Remove contact')) {
             Invoke-TeamViewerRestMethod `
-                -ApiToken $ApiToken `
+                -APIToken $APIToken `
                 -Uri $ResourceUri `
                 -Method Delete `
                 -WriteErrorTo $PSCmdlet `

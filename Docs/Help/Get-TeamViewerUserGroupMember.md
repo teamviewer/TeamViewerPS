@@ -14,7 +14,7 @@ List all members of a user group.
 ## SYNTAX
 
 ```powershell
-Get-TeamViewerUserGroupMember [-ApiToken] <SecureString> [-UserGroup] <Object> [<CommonParameters>]
+Get-TeamViewerUserGroupMember [-APIToken] <SecureString> [-UserGroup] <Object> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -50,7 +50,7 @@ Lists all members by passing a UserGroup object retrieved with `Get-TeamViewerUs
 
 ## PARAMETERS
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token.
 

@@ -3,8 +3,8 @@
 
     @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
 
-    $testApiToken = [securestring]@{}
-    $null = $testApiToken
+    $testAPIToken = [securestring]@{}
+    $null = $testAPIToken
     $mockArgs = @{}
     $testRoleName = 'Test Role'
     $null = $testRoleName
@@ -13,7 +13,7 @@
     $testRoleId = '9b465ea2-2f75-4101-a057-58a81ed0e57b'
     $null = $testRoleId
 
-    Mock Get-TeamViewerApiUri { '//unit.test' }
+    Mock Get-TeamViewerAPIUri { '//unit.test' }
     Mock Invoke-TeamViewerRestMethod {
         $mockArgs.Body = $Body
         @{
@@ -27,15 +27,15 @@
 
 Describe 'Set-TeamViewerRole' {
     It 'Should call the correct API endpoint' {
-        Set-TeamViewerRole -ApiToken $testApiToken -Name $testRoleName -RoleId $testRoleId
+        Set-TeamViewerRole -APIToken $testAPIToken -Name $testRoleName -RoleId $testRoleId
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -and $Uri -eq '//unit.test/userroles' -and $Method -eq 'Put'
+            $APIToken -eq $testAPIToken -and $Uri -eq '//unit.test/userroles' -and $Method -eq 'Put'
         }
     }
 
     It 'Should include the given name in the request' {
-        Set-TeamViewerRole -ApiToken $testApiToken -Name $testRoleName -RoleId $testRoleId
+        Set-TeamViewerRole -APIToken $testAPIToken -Name $testRoleName -RoleId $testRoleId
 
         $mockArgs.Body | Should -Not -BeNullOrEmpty
         $Body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
@@ -43,7 +43,7 @@ Describe 'Set-TeamViewerRole' {
     }
 
     It 'Should include the given permissions in the request' {
-        Set-TeamViewerRole -ApiToken $testApiToken -Name $testRoleName -Permissions $testPermissions -RoleId $testRoleId
+        Set-TeamViewerRole -APIToken $testAPIToken -Name $testRoleName -Permissions $testPermissions -RoleId $testRoleId
 
         $mockArgs.Body | Should -Not -BeNullOrEmpty
         $Body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
@@ -58,7 +58,7 @@ Describe 'Set-TeamViewerRole' {
         $TestNameChange = 'Test1234'
         $testPermissionsChange = 'ModifyConnections'
 
-        Set-TeamViewerRole -ApiToken $testApiToken -Name $TestNameChange -Permissions $testPermissionsChange -RoleId $testRoleId
+        Set-TeamViewerRole -APIToken $testAPIToken -Name $TestNameChange -Permissions $testPermissionsChange -RoleId $testRoleId
 
         $mockArgs.Body | Should -Not -BeNullOrEmpty
         $Body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json

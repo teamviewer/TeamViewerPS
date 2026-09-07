@@ -6,7 +6,7 @@
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
-        $ApiToken,
+        $APIToken,
 
         [Parameter(Mandatory = $false)]
         [string]
@@ -85,7 +85,7 @@
         $Limit
     )
 
-    $ResourceUri = "$(Get-TeamViewerApiUri)/reports/connections"
+    $ResourceUri = "$(Get-TeamViewerAPIUri)/reports/connections"
 
     $Parameters = @{}
 
@@ -137,7 +137,7 @@
 
     do {
         $Response = Invoke-TeamViewerRestMethod `
-            -ApiToken $ApiToken `
+            -APIToken $APIToken `
             -Uri $ResourceUri `
             -Method Get `
             -Body $Parameters `

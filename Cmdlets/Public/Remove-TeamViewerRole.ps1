@@ -6,7 +6,7 @@
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
-        $ApiToken,
+        $APIToken,
 
         [Parameter(Mandatory = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerRoleId } )]
@@ -17,13 +17,13 @@
     )
 
     begin {
-        $ResourceUri = "$(Get-TeamViewerApiUri)/userroles?userRoleId=$RoleId"
+        $ResourceUri = "$(Get-TeamViewerAPIUri)/userroles?userRoleId=$RoleId"
     }
 
     process {
         if ($PSCmdlet.ShouldProcess($RoleId.ToString(), 'Remove Role')) {
             Invoke-TeamViewerRestMethod `
-                -ApiToken $ApiToken `
+                -APIToken $APIToken `
                 -Uri $ResourceUri `
                 -Method Delete `
                 -WriteErrorTo $PSCmdlet `

@@ -14,7 +14,7 @@ Deletes a custom field value from a managed device.
 ## SYNTAX
 
 ```powershell
-Remove-TeamViewerDeviceCustomField [-ApiToken] <SecureString> [-ManagedDeviceId] <Object> [-FieldConfigurationId] <Guid> [-WhatIf] [-Confirm] [<CommonParameters>]
+Remove-TeamViewerDeviceCustomField [-APIToken] <SecureString> [-ManagedDeviceId] <Object> [-FieldConfigurationId] <Guid> [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -23,7 +23,7 @@ Removes a custom field value from a specific managed device. The custom field de
 
 ## PARAMETERS
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token.
 
@@ -57,7 +57,7 @@ Required: True
 ### Example 1
 
 ```powershell
-Remove-TeamViewerDeviceCustomField -ApiToken $apiToken -ManagedDeviceId 'd12345678' -FieldConfigurationId '00000000-0000-0000-0000-000000000001'
+Remove-TeamViewerDeviceCustomField -APIToken $apiToken -ManagedDeviceId 'd12345678' -FieldConfigurationId '00000000-0000-0000-0000-000000000001'
 ```
 
 Removes the custom field value from the specified managed device.

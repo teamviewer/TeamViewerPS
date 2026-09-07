@@ -6,7 +6,7 @@
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
-        $ApiToken,
+        $APIToken,
 
         [Parameter(Mandatory = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerUserId } )]
@@ -35,7 +35,7 @@
 
         [Parameter(ParameterSetName = 'ByParameters')]
         [securestring]
-        $SsoCustomerIdentifier,
+        $SSOCustomerIdentifier,
 
         [Parameter(ParameterSetName = 'ByParameters')]
         [bool]
@@ -100,8 +100,8 @@
                 [System.Runtime.InteropServices.Marshal]::ZeroFreeBSTR($bstr) | Out-Null
             }
 
-            if ($SsoCustomerIdentifier) {
-                $bstr = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($SsoCustomerIdentifier)
+            if ($SSOCustomerIdentifier) {
+                $bstr = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($SSOCustomerIdentifier)
                 $Body['sso_customer_id'] = [System.Runtime.InteropServices.Marshal]::PtrToStringBSTR($bstr)
                 [System.Runtime.InteropServices.Marshal]::ZeroFreeBSTR($bstr) | Out-Null
             }
@@ -153,10 +153,10 @@
     }
 
     $userId = Resolve-TeamViewerUserId -User $User
-    $ResourceUri = "$(Get-TeamViewerApiUri)/users/$userId"
+    $ResourceUri = "$(Get-TeamViewerAPIUri)/users/$userId"
 
     if ($PSCmdlet.ShouldProcess($userId, 'Update user')) {
-        Invoke-TeamViewerRestMethod -ApiToken $ApiToken -Uri $ResourceUri -Method Put -ContentType 'application/json; charset=utf-8' `
+        Invoke-TeamViewerRestMethod -APIToken $APIToken -Uri $ResourceUri -Method Put -ContentType 'application/json; charset=utf-8' `
             -Body ([System.Text.Encoding]::UTF8.GetBytes(($Body | ConvertTo-Json))) -WriteErrorTo $PSCmdlet | Out-Null
     }
 }

@@ -14,7 +14,7 @@ Removes the management status from a managed device.
 ## SYNTAX
 
 ```powershell
-Remove-TeamViewerManagedDeviceManagement [-ApiToken] <SecureString> [-Device] <Object> [-WhatIf]
+Remove-TeamViewerManagedDeviceManagement [-APIToken] <SecureString> [-Device] <Object> [-WhatIf]
  [-Confirm] [<CommonParameters>]
 ```
 
@@ -50,7 +50,7 @@ Removes the management status from all devices of a managed group using pipeline
 
 ## PARAMETERS
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token.
 

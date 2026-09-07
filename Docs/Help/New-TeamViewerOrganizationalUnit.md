@@ -17,7 +17,7 @@ Creates a TeamViewer organizational unit in the associated TeamViewer company.
 ## SYNTAX
 
 ```powershell
-New-TeamViewerOrganizationalUnit [-ApiToken] <SecureString> [-Name] <String> [-Description] <String> [-Parent] <String> [-Confirm] [-WhatIf] [<CommonParameters>]
+New-TeamViewerOrganizationalUnit [-APIToken] <SecureString> [-Name] <String> [-Description] <String> [-Parent] <String> [-Confirm] [-WhatIf] [<CommonParameters>]
 ```
 
 ## EXAMPLES
@@ -40,7 +40,7 @@ Creates a new organizational unit with the given name `Test` with description be
 
 ## PARAMETERS
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token.
 

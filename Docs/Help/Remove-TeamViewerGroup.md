@@ -14,7 +14,7 @@ Delete a group from the Computers & Contacts list.
 ## SYNTAX
 
 ```powershell
-Remove-TeamViewerGroup [-ApiToken] <SecureString> [-Group] <Object> [-WhatIf] [-Confirm] [<CommonParameters>]
+Remove-TeamViewerGroup [-APIToken] <SecureString> [-Group] <Object> [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -49,7 +49,7 @@ Deletes a group using the `Id` alias.
 
 ## PARAMETERS
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token.
 

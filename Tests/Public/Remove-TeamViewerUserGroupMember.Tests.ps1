@@ -3,8 +3,8 @@
 
     @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
 
-    $testApiToken = [securestring]@{}
-    $null = $testApiToken
+    $testAPIToken = [securestring]@{}
+    $null = $testAPIToken
     $testMembers = @(123, 456, 789)
     $testMemberId = @('u101')
     $null = $testMemberId
@@ -19,7 +19,7 @@
     $testUserGroupMember = @($testMembers[0], $testMembers[1], $testMembers[2])
     $null = $testUserGroupMember
 
-    Mock Get-TeamViewerApiUri { '//unit.test' }
+    Mock Get-TeamViewerAPIUri { '//unit.test' }
     $mockArgs = @{}
     Mock Invoke-TeamViewerRestMethod { $mockArgs.Body = $Body }
 }
@@ -28,14 +28,14 @@ Describe 'Remove-TeamViewerUserGroupMember' {
     Context 'Should  remove members ByUserGroupMember' {
 
         It 'Should call the correct API endpoint' {
-            Remove-TeamViewerUserGroupMember -ApiToken $testApiToken -UserGroup $testUserGroupId -UserGroupMember $testUserGroupMember
+            Remove-TeamViewerUserGroupMember -APIToken $testAPIToken -UserGroup $testUserGroupId -UserGroupMember $testUserGroupMember
 
             Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-                $ApiToken -eq $testApiToken -and $Uri -eq "//unit.test/usergroups/$testUserGroupId/members" -and $Method -eq 'Delete' }
+                $APIToken -eq $testAPIToken -and $Uri -eq "//unit.test/usergroups/$testUserGroupId/members" -and $Method -eq 'Delete' }
         }
 
         It 'Should remove a single user from the user group' {
-            Remove-TeamViewerUserGroupMember -ApiToken $testApiToken -UserGroup $testUserGroupId -UserGroupMember $testMemberId
+            Remove-TeamViewerUserGroupMember -APIToken $testAPIToken -UserGroup $testUserGroupId -UserGroupMember $testMemberId
 
             $mockArgs.Body | Should -Not -BeNullOrEmpty
             $Body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
@@ -46,14 +46,14 @@ Describe 'Remove-TeamViewerUserGroupMember' {
         It 'Should handle domain object as input' {
             $testUserGroup = @{Id = $testUserGroupId; Name = 'test user group' } | ConvertTo-TeamViewerUserGroup
 
-            Remove-TeamViewerUserGroupMember -ApiToken $testApiToken -UserGroup $testUserGroup -UserGroupMember $testUserGroupMember
+            Remove-TeamViewerUserGroupMember -APIToken $testAPIToken -UserGroup $testUserGroup -UserGroupMember $testUserGroupMember
 
             Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-                $ApiToken -eq $testApiToken -and $Uri -eq "//unit.test/usergroups/$testUserGroupId/members" -and $Method -eq 'Delete' }
+                $APIToken -eq $testAPIToken -and $Uri -eq "//unit.test/usergroups/$testUserGroupId/members" -and $Method -eq 'Delete' }
         }
 
         It 'Should add the given members to the user group' {
-            Remove-TeamViewerUserGroupMember -ApiToken $testApiToken -UserGroup $testUserGroupId -UserGroupMember $testUserGroupMember
+            Remove-TeamViewerUserGroupMember -APIToken $testAPIToken -UserGroup $testUserGroupId -UserGroupMember $testUserGroupMember
 
             $mockArgs.Body | Should -Not -BeNullOrEmpty
             $Body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
@@ -64,7 +64,7 @@ Describe 'Remove-TeamViewerUserGroupMember' {
         }
 
         It 'Should accept pipeline input as int' {
-            $testMembers | Remove-TeamViewerUserGroupMember -ApiToken $testApiToken -UserGroup $testUserGroupId
+            $testMembers | Remove-TeamViewerUserGroupMember -APIToken $testAPIToken -UserGroup $testUserGroupId
 
             $mockArgs.Body | Should -Not -BeNullOrEmpty
             $Body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
@@ -75,7 +75,7 @@ Describe 'Remove-TeamViewerUserGroupMember' {
         }
 
         It 'Should accept pipeline input as obj' {
-            $testUserGroupMember | Remove-TeamViewerUserGroupMember -ApiToken $testApiToken -UserGroup $testUserGroupId
+            $testUserGroupMember | Remove-TeamViewerUserGroupMember -APIToken $testAPIToken -UserGroup $testUserGroupId
 
             $mockArgs.Body | Should -Not -BeNullOrEmpty
             $Body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
@@ -86,7 +86,7 @@ Describe 'Remove-TeamViewerUserGroupMember' {
         }
 
         It 'Should create chunks' {
-            1..2 | Remove-TeamViewerUserGroupMember -ApiToken $testApiToken -UserGroup $testUserGroupId
+            1..2 | Remove-TeamViewerUserGroupMember -APIToken $testAPIToken -UserGroup $testUserGroupId
 
             $mockArgs.Body | Should -Not -BeNullOrEmpty
             $Body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json

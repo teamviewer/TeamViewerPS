@@ -6,7 +6,7 @@
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
-        $ApiToken,
+        $APIToken,
 
         [Parameter(ParameterSetName = 'ByParameters')]
         [string]
@@ -37,11 +37,11 @@
             ('The given input does not change the company.' | ConvertTo-ErrorRecord -ErrorCategory InvalidArgument))
     }
 
-    $ResourceUri = "$(Get-TeamViewerApiUri)/company"
+    $ResourceUri = "$(Get-TeamViewerAPIUri)/company"
 
     if ($PSCmdlet.ShouldProcess('TeamViewer company')) {
         Invoke-TeamViewerRestMethod `
-            -ApiToken $ApiToken `
+            -APIToken $APIToken `
             -Uri $ResourceUri `
             -Method Put `
             -ContentType 'application/json; charset=utf-8' `

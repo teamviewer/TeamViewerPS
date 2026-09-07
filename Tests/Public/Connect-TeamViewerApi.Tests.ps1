@@ -1,35 +1,35 @@
 ﻿BeforeAll {
     . "$PSScriptRoot\..\..\Cmdlets\Public\Invoke-TeamViewerPing.ps1"
-    . "$PSScriptRoot\..\..\Cmdlets\Public\Connect-TeamViewerApi.ps1"
+    . "$PSScriptRoot\..\..\Cmdlets\Public\Connect-TeamViewerAPI.ps1"
 
     @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
 
-    $testApiToken = [securestring]@{}
-    $null = $testApiToken
+    $testAPIToken = [securestring]@{}
+    $null = $testAPIToken
 
     Mock Invoke-TeamViewerPing { $true }
 }
 
-Describe 'Connect-TeamViewerApi' {
+Describe 'Connect-TeamViewerAPI' {
     BeforeEach {
         $global:PSDefaultParameterValues.Clear()
     }
 
     It 'Should set the PSDefaultParameterValues for the TeamViewer cmdlets' {
-        Connect-TeamViewerApi -ApiToken $testApiToken
+        Connect-TeamViewerAPI -APIToken $testAPIToken
 
-        $global:PSDefaultParameterValues['*-Teamviewer*:ApiToken'] | Should -Be $testApiToken
+        $global:PSDefaultParameterValues['*-Teamviewer*:APIToken'] | Should -Be $testAPIToken
 
         Should -Invoke Invoke-TeamViewerPing -Scope It -Times 1 -ParameterFilter {
-            $ApiToken -eq $testApiToken
+            $APIToken -eq $testAPIToken
         }
     }
 
     It 'Should not set PSDefaultParameterValues if ping fails' {
         Mock Invoke-TeamViewerPing { $false }
 
-        Connect-TeamViewerApi -ApiToken $testApiToken
+        Connect-TeamViewerAPI -APIToken $testAPIToken
 
-        $global:PSDefaultParameterValues['*-Teamviewer*:ApiToken'] | Should -BeNullOrEmpty
+        $global:PSDefaultParameterValues['*-Teamviewer*:APIToken'] | Should -BeNullOrEmpty
     }
 }

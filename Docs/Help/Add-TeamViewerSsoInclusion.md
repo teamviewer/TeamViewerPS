@@ -1,11 +1,11 @@
 ﻿---
 external help file: TeamViewerPS-help.xml
 Module Name: TeamViewerPS
-online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/Add-TeamViewerSsoInclusion.md
+online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/Add-TeamViewerSSOInclusion.md
 schema: 2.0.0
 ---
 
-# Add-TeamViewerSsoInclusion
+# Add-TeamViewerSSOInclusion
 
 ## SYNOPSIS
 
@@ -14,7 +14,7 @@ Add emails to the inclusion list of a TeamViewer Single Sign-On domain.
 ## SYNTAX
 
 ```powershell
-Add-TeamViewerSsoInclusion [-ApiToken] <SecureString> [-DomainId] <Object> [-Email] <String[]> [-WhatIf]
+Add-TeamViewerSSOInclusion [-APIToken] <SecureString> [-DomainId] <Object> [-Email] <String[]> [-WhatIf]
  [-Confirm] [<CommonParameters>]
 ```
 
@@ -28,7 +28,7 @@ Only accounts with these email addresses will be able to login via Single Sign-O
 ### Example 1
 
 ```powershell
-Add-TeamViewerSsoInclusion -DomainId '45e0d050-15e6-4fcb-91b2-ea4f20fe2085' -Email 'user@example.test'
+Add-TeamViewerSSOInclusion -DomainId '45e0d050-15e6-4fcb-91b2-ea4f20fe2085' -Email 'user@example.test'
 ```
 
 Adds the email address '<user@example.test>' to the inclusion list of the given domain.
@@ -36,7 +36,7 @@ Adds the email address '<user@example.test>' to the inclusion list of the given 
 ### Example 2
 
 ```powershell
-Add-TeamViewerSsoInclusion -Domain 'c0cb303a-8a85-4e54-b657-a4757c791aef' -Email 'user1@example.test', 'user2@example.test'
+Add-TeamViewerSSOInclusion -Domain 'c0cb303a-8a85-4e54-b657-a4757c791aef' -Email 'user1@example.test', 'user2@example.test'
 ```
 
 Adds multiple email addresses to the inclusion list of the domain, referenced via the `Domain` alias.
@@ -44,14 +44,14 @@ Adds multiple email addresses to the inclusion list of the domain, referenced vi
 ### Example 3
 
 ```powershell
-'user1@example.test', 'user2@example.test' | Add-TeamViewerSsoInclusion -DomainId 'c0cb303a-8a85-4e54-b657-a4757c791aef'
+'user1@example.test', 'user2@example.test' | Add-TeamViewerSSOInclusion -DomainId 'c0cb303a-8a85-4e54-b657-a4757c791aef'
 ```
 
 Adds email addresses received from the pipeline to the inclusion list of the given domain.
 
 ## PARAMETERS
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token.
 
@@ -86,7 +86,7 @@ Accept wildcard characters: False
 ### -DomainId
 
 Object that can be used to identify the SSO domain to add inclusion entries to.
-This can either be the SSO domain Id (as string or GUID) or a SsoDomain object that has been received using the `Get-TeamViewerSsoDomain` function.
+This can either be the SSO domain Id (as string or GUID) or a SSODomain object that has been received using the `Get-TeamViewerSSODomain` function.
 
 ```yaml
 Type: Object
@@ -146,4 +146,4 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## RELATED LINKS
 
-[Get-TeamViewerSsoDomain](Get-TeamViewerSsoDomain.md)
+[Get-TeamViewerSSODomain](Get-TeamViewerSSODomain.md)

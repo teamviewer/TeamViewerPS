@@ -6,7 +6,7 @@
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
-        $ApiToken,
+        $APIToken,
 
         [Parameter(Mandatory = $true)]
         [Alias('EmailAddress')]
@@ -33,11 +33,11 @@
         $Body['invite'] = $true
     }
 
-    $ResourceUri = "$(Get-TeamViewerApiUri)/contacts"
+    $ResourceUri = "$(Get-TeamViewerAPIUri)/contacts"
 
     if ($PSCmdlet.ShouldProcess($Email, 'Create contact')) {
         $Response = Invoke-TeamViewerRestMethod `
-            -ApiToken $ApiToken `
+            -APIToken $APIToken `
             -Uri $ResourceUri `
             -Method Post `
             -ContentType 'application/json; charset=utf-8' `

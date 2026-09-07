@@ -16,13 +16,13 @@ Change TeamViewer company / tenant details.
 ### ByParameters (Default)
 
 ```powershell
-Set-TeamViewerCompany -ApiToken <SecureString> [-Name <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
+Set-TeamViewerCompany -APIToken <SecureString> [-Name <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### ByProperties
 
 ```powershell
-Set-TeamViewerCompany -ApiToken <SecureString> -Property <Hashtable> [-WhatIf] [-Confirm] [<CommonParameters>]
+Set-TeamViewerCompany -APIToken <SecureString> -Property <Hashtable> [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -57,7 +57,7 @@ Change the name of the current company retrieved from the pipeline.
 
 ## PARAMETERS
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token.
 

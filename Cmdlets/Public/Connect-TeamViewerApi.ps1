@@ -1,4 +1,4 @@
-﻿function Connect-TeamViewerApi {
+﻿function Connect-TeamViewerAPI {
     [CmdletBinding()]
 
     [OutputType([void])]
@@ -6,10 +6,10 @@
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
-        $ApiToken
+        $APIToken
     )
 
-    if (Invoke-TeamViewerPing -ApiToken $ApiToken) {
-        $global:PSDefaultParameterValues['*-Teamviewer*:ApiToken'] = $ApiToken
+    if (Invoke-TeamViewerPing -APIToken $APIToken) {
+        $global:PSDefaultParameterValues['*-Teamviewer*:APIToken'] = $APIToken
     }
 }

@@ -16,13 +16,13 @@ Deletes members from a given user group.
 ### ByUserGroupMemberId (All)
 
 ```powershell
-Remove-TeamViewerUserGroupMember [-ApiToken] <SecureString> [-UserGroup] <Object> [-UserGroupMember] <Object[]> [-WhatIf] [-Confirm] [<CommonParameters>]
+Remove-TeamViewerUserGroupMember [-APIToken] <SecureString> [-UserGroup] <Object> [-UserGroupMember] <Object[]> [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### ByUserId
 
 ```powershell
-Remove-TeamViewerUserGroupMember [-ApiToken] <SecureString> [-UserGroup] <Object> [-UserGroupMember] <Object[]> [-WhatIf] [-Confirm] [<CommonParameters>]
+Remove-TeamViewerUserGroupMember [-APIToken] <SecureString> [-UserGroup] <Object> [-UserGroupMember] <Object[]> [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -67,7 +67,7 @@ Ids are passed as pipeline input.
 
 ## PARAMETERS
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token.
 

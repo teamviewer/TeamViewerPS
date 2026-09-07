@@ -6,17 +6,17 @@
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
-        $ApiToken
+        $APIToken
     )
 
     begin {
         $Parameters = @{ }
-        $ResourceUri = "$(Get-TeamViewerApiUri)/userroles"
+        $ResourceUri = "$(Get-TeamViewerAPIUri)/userroles"
     }
 
     process {
         $Response = Invoke-TeamViewerRestMethod `
-            -ApiToken $ApiToken `
+            -APIToken $APIToken `
             -Uri $ResourceUri `
             -Method Get `
             -Body $Parameters `

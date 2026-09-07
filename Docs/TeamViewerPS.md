@@ -224,19 +224,19 @@ Manage the policies of a TeamViewer company / tenant via the TeamViewer web API.
 
 Manage Single Sign-On (SSO) configurations via the TeamViewer web API.
 
-[`Add-TeamViewerSsoExclusion`](Help/Add-TeamViewerSsoExclusion.md)
+[`Add-TeamViewerSSOExclusion`](Help/Add-TeamViewerSSOExclusion.md)
 
-[`Add-TeamViewerSsoInclusion`](Help/Add-TeamViewerSsoInclusion.md)
+[`Add-TeamViewerSSOInclusion`](Help/Add-TeamViewerSSOInclusion.md)
 
-[`Get-TeamViewerSsoDomain`](Help/Get-TeamViewerSsoDomain.md)
+[`Get-TeamViewerSSODomain`](Help/Get-TeamViewerSSODomain.md)
 
-[`Get-TeamViewerSsoExclusion`](Help/Get-TeamViewerSsoExclusion.md)
+[`Get-TeamViewerSSOExclusion`](Help/Get-TeamViewerSSOExclusion.md)
 
-[`Get-TeamViewerSsoInclusion`](Help/Get-TeamViewerSsoInclusion.md)
+[`Get-TeamViewerSSOInclusion`](Help/Get-TeamViewerSSOInclusion.md)
 
-[`Remove-TeamViewerSsoExclusion`](Help/Remove-TeamViewerSsoExclusion.md)
+[`Remove-TeamViewerSSOExclusion`](Help/Remove-TeamViewerSSOExclusion.md)
 
-[`Remove-TeamViewerSsoInclusion`](Help/Remove-TeamViewerSsoInclusion.md)
+[`Remove-TeamViewerSSOInclusion`](Help/Remove-TeamViewerSSOInclusion.md)
 
 ## Event Logs & Reporting
 
@@ -280,9 +280,9 @@ Utilities that help managing the local TeamViewer client.
 
 Utilities that help working with the TeamViewer web API related functions.
 
-[`Connect-TeamViewerApi`](Help/Connect-TeamViewerApi.md)
+[`Connect-TeamViewerAPI`](Help/Connect-TeamViewerAPI.md)
 
-[`Disconnect-TeamViewerApi`](Help/Disconnect-TeamViewerApi.md)
+[`Disconnect-TeamViewerAPI`](Help/Disconnect-TeamViewerAPI.md)
 
 [`Invoke-TeamViewerPing`](Help/Invoke-TeamViewerPing.md)
 

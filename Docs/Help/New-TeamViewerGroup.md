@@ -14,7 +14,7 @@ Create a new group in the TeamViewer Computer & Contacts list.
 ## SYNTAX
 
 ```powershell
-New-TeamViewerGroup [-ApiToken] <SecureString> [-Name] <String> [[-Policy] <Object>] [-WhatIf] [-Confirm]
+New-TeamViewerGroup [-APIToken] <SecureString> [-Name] <String> [[-Policy] <Object>] [-WhatIf] [-Confirm]
  [<CommonParameters>]
 ```
 
@@ -52,7 +52,7 @@ Creates a new group and assigns a policy object retrieved with `Get-TeamViewerPo
 
 ## PARAMETERS
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token.
 

@@ -6,7 +6,7 @@
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
-        $ApiToken,
+        $APIToken,
 
         [Parameter(Mandatory = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerManagedDeviceId } )]
@@ -23,7 +23,7 @@
 
     $DeviceId = $Device | Resolve-TeamViewerManagedDeviceId
     $GroupId = $Group | Resolve-TeamViewerManagedGroupId
-    $ResourceUri = "$(Get-TeamViewerApiUri)/managed/groups/$GroupId/devices"
+    $ResourceUri = "$(Get-TeamViewerAPIUri)/managed/groups/$GroupId/devices"
 
     $Body = @{
         Id = $DeviceId.ToString()
@@ -31,7 +31,7 @@
 
     if ($PSCmdlet.ShouldProcess($DeviceId, 'Add device to managed group')) {
         Invoke-TeamViewerRestMethod `
-            -ApiToken $ApiToken `
+            -APIToken $APIToken `
             -Uri $ResourceUri `
             -Method Post `
             -ContentType 'application/json; charset=utf-8' `

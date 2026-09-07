@@ -6,7 +6,7 @@
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
-        $ApiToken,
+        $APIToken,
 
         [Parameter(Mandatory = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerGroupId } )]
@@ -31,7 +31,7 @@
 
     $GroupId = $Group | Resolve-TeamViewerGroupId
     $UserIds = $User | Resolve-TeamViewerUserId
-    $ResourceUri = "$(Get-TeamViewerApiUri)/groups/$GroupId/share_group"
+    $ResourceUri = "$(Get-TeamViewerAPIUri)/groups/$GroupId/share_group"
     $Body = @{
         users = @($UserIds | ForEach-Object { @{
                     userid      = $_
@@ -41,7 +41,7 @@
 
     if ($PSCmdlet.ShouldProcess($UserIds, 'Add group share')) {
         Invoke-TeamViewerRestMethod `
-            -ApiToken $ApiToken `
+            -APIToken $APIToken `
             -Uri $ResourceUri `
             -Method Post `
             -ContentType 'application/json; charset=utf-8' `

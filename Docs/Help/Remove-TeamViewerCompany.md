@@ -15,7 +15,7 @@ The action cannot be reverted, use with care!
 ## SYNTAX
 
 ```powershell
-Remove-TeamViewerCompany [-ApiToken] <SecureString> [-WhatIf] [-Confirm] [<CommonParameters>]
+Remove-TeamViewerCompany [-APIToken] <SecureString> [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -52,7 +52,7 @@ Deletes the company associated with the API token without prompting for confirma
 
 ## PARAMETERS
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token.
 

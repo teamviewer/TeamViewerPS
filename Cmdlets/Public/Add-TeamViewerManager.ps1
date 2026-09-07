@@ -6,7 +6,7 @@
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
-        $ApiToken,
+        $APIToken,
 
         [Parameter(Mandatory = $true, ParameterSetName = 'Device_ByAccountId')]
         [Parameter(Mandatory = $true, ParameterSetName = 'Group_ByAccountId')]
@@ -62,12 +62,12 @@
     switch -Wildcard ($PSCmdlet.ParameterSetName) {
         'Device*' {
             $DeviceId = $Device | Resolve-TeamViewerManagedDeviceId
-            $ResourceUri = "$(Get-TeamViewerApiUri)/managed/devices/$DeviceId/managers"
+            $ResourceUri = "$(Get-TeamViewerAPIUri)/managed/devices/$DeviceId/managers"
             $Process_Message = 'Add manager to managed device'
         }
         'Group*' {
             $GroupId = $Group | Resolve-TeamViewerManagedGroupId
-            $ResourceUri = "$(Get-TeamViewerApiUri)/managed/groups/$GroupId/managers"
+            $ResourceUri = "$(Get-TeamViewerAPIUri)/managed/groups/$GroupId/managers"
             $Process_Message = 'Add manager to managed group'
         }
     }
@@ -98,7 +98,7 @@
 
     if ($PSCmdlet.ShouldProcess($managerId, $Process_Message)) {
         Invoke-TeamViewerRestMethod `
-            -ApiToken $ApiToken `
+            -APIToken $APIToken `
             -Uri $ResourceUri `
             -Method Post `
             -ContentType 'application/json; charset=utf-8' `

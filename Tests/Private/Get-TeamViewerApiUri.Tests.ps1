@@ -2,7 +2,7 @@
     $Script:Module_RootPath = (Resolve-Path -Path (Join-Path -Path $PSScriptRoot -ChildPath '..\..'))
     $Script:Module_PrivCmdletsPath = Join-Path -Path $Module_RootPath -ChildPath 'Cmdlets\Private'
 
-    . (Join-Path -Path $Module_PrivCmdletsPath -ChildPath 'Get-TeamViewerApiUri.ps1')
+    . (Join-Path -Path $Module_PrivCmdletsPath -ChildPath 'Get-TeamViewerAPIUri.ps1')
 }
 
 Describe 'Get-TeamViewerAPIUri' {

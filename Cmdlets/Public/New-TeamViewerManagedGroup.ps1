@@ -6,7 +6,7 @@
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
-        $ApiToken,
+        $APIToken,
 
         [Parameter(Mandatory = $true)]
         [string]
@@ -14,11 +14,11 @@
     )
 
     $Body = @{ name = $Name }
-    $ResourceUri = "$(Get-TeamViewerApiUri)/managed/groups"
+    $ResourceUri = "$(Get-TeamViewerAPIUri)/managed/groups"
 
     if ($PSCmdlet.ShouldProcess($Name, 'Create managed group')) {
         $Response = Invoke-TeamViewerRestMethod `
-            -ApiToken $ApiToken `
+            -APIToken $APIToken `
             -Uri $ResourceUri `
             -Method Post `
             -ContentType 'application/json; charset=utf-8' `

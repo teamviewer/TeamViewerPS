@@ -50,7 +50,7 @@ Invoke-Build -Task Build
 
 ## API, Errors, And Objects
 
-- Build URIs with `Get-TeamViewerApiUri`.
+- Build URIs with `Get-TeamViewerAPIUri`.
 - Send requests through `Invoke-TeamViewerRestMethod`. Pass `-WriteErrorTo $PSCmdlet` when the caller should receive REST errors.
 - Build request bodies as hashtables and serialize UTF-8 JSON. Add optional fields only when supplied.
 - Catch only failures that need local handling. Use `-ErrorAction Stop` inside a `try` when required. Do not catch resolver validation errors.

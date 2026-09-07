@@ -14,7 +14,7 @@ Unshare a Computers & Contacts list group.
 ## SYNTAX
 
 ```powershell
-Unpublish-TeamViewerGroup [-ApiToken] <SecureString> [-Group] <Object> [-User] <Object[]> [-WhatIf] [-Confirm]
+Unpublish-TeamViewerGroup [-APIToken] <SecureString> [-Group] <Object> [-User] <Object[]> [-WhatIf] [-Confirm]
  [<CommonParameters>]
 ```
 
@@ -48,7 +48,7 @@ Removes the share of the group object retrieved via `Get-TeamViewerGroup` for th
 
 ## PARAMETERS
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token.
 

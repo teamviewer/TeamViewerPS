@@ -14,7 +14,7 @@ Create a new user group.
 ## SYNTAX
 
 ``` powershell
-New-TeamViewerUserGroup [-ApiToken] <SecureString> [-Name] <String> [-WhatIf] [-Confirm] [<CommonParameters>]
+New-TeamViewerUserGroup [-APIToken] <SecureString> [-Name] <String> [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -51,7 +51,7 @@ Creates multiple user groups in a single pipeline.
 
 ## PARAMETERS
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token.
 

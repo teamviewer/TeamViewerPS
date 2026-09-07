@@ -6,7 +6,7 @@
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
-        $ApiToken,
+        $APIToken,
 
         [Parameter(Mandatory = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerPolicyId } )]
@@ -55,11 +55,11 @@
     }
 
     $PolicyId = $Policy | Resolve-TeamViewerPolicyId
-    $ResourceUri = "$(Get-TeamViewerApiUri)/teamviewerpolicies/$PolicyId"
+    $ResourceUri = "$(Get-TeamViewerAPIUri)/teamviewerpolicies/$PolicyId"
 
     if ($PSCmdlet.ShouldProcess($PolicyId, 'Update policy')) {
         Invoke-TeamViewerRestMethod `
-            -ApiToken $ApiToken `
+            -APIToken $APIToken `
             -Uri $ResourceUri `
             -Method Put `
             -ContentType 'application/json; charset=utf-8' `

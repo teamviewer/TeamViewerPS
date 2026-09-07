@@ -14,7 +14,7 @@ Create a new user role.
 ## SYNTAX
 
 ``` powershell
-New-TeamViewerRole [-ApiToken] <SecureString> [-Name] <String> [-Permissions] <String> [-WhatIf] [-Confirm] [<CommonParameters>]
+New-TeamViewerRole [-APIToken] <SecureString> [-Name] <String> [-Permissions] <String> [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -53,7 +53,7 @@ Please see the TeamViewer API documentation for a list of valid values.
 
 ## PARAMETERS
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token.
 

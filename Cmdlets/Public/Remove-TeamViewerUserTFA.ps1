@@ -6,7 +6,7 @@
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
-        $ApiToken,
+        $APIToken,
 
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerUserId } )]
@@ -18,12 +18,12 @@
 
     process {
         $userId = $User | Resolve-TeamViewerUserId
-        $ResourceUri = "$(Get-TeamViewerApiUri)/users/$userId/tfa"
+        $ResourceUri = "$(Get-TeamViewerAPIUri)/users/$userId/tfa"
 
 
         if ($PSCmdlet.ShouldProcess($userId, 'Disable TFA')) {
             Invoke-TeamViewerRestMethod `
-                -ApiToken $ApiToken `
+                -APIToken $APIToken `
                 -Uri $ResourceUri `
                 -Method Delete `
                 -WriteErrorTo $PSCmdlet | `

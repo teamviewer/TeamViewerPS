@@ -16,13 +16,13 @@ Un-assigns one or many users from a role.
 ### ByRoleIdMemberId (All)
 
 ```powershell
-Remove-TeamViewerUserFromRole [-ApiToken] <SecureString>  [-RoleId] <Object[]> [-Accounts] <Object> [-WhatIf] [-Confirm] [<CommonParameters>]
+Remove-TeamViewerUserFromRole [-APIToken] <SecureString>  [-RoleId] <Object[]> [-Accounts] <Object> [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### ByUserId
 
 ```powershell
-Remove-TeamViewerUserFromRole [-ApiToken] <SecureString> [-RoleId] <Object> [-Accounts] <Object[]> [-WhatIf] [-Confirm] [<CommonParameters>]
+Remove-TeamViewerUserFromRole [-APIToken] <SecureString> [-RoleId] <Object> [-Accounts] <Object[]> [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -58,7 +58,7 @@ Un-assigns a single user identified by the `u`-prefixed account Id from the role
 
 ## PARAMETERS
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token.
 

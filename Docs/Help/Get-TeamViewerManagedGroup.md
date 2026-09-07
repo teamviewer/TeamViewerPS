@@ -16,19 +16,19 @@ Retrieves TeamViewer managed groups.
 ### List (Default)
 
 ```powershell
-Get-TeamViewerManagedGroup -ApiToken <SecureString> [<CommonParameters>]
+Get-TeamViewerManagedGroup -APIToken <SecureString> [<CommonParameters>]
 ```
 
 ### ByGroupId
 
 ```powershell
-Get-TeamViewerManagedGroup -ApiToken <SecureString> [-Id <Guid>] [<CommonParameters>]
+Get-TeamViewerManagedGroup -APIToken <SecureString> [-Id <Guid>] [<CommonParameters>]
 ```
 
 ### ByDeviceId
 
 ```powershell
-Get-TeamViewerManagedGroup -ApiToken <SecureString> [-Device <Object>] [<CommonParameters>]
+Get-TeamViewerManagedGroup -APIToken <SecureString> [-Device <Object>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -63,7 +63,7 @@ List the managed groups that the managed device with the given Id is part of.
 
 ## PARAMETERS
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token.
 

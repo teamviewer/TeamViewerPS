@@ -14,7 +14,7 @@ Delete a device from the Computers & Contacts list.
 ## SYNTAX
 
 ```powershell
-Remove-TeamViewerDevice [-ApiToken] <SecureString> [-Device] <Object> [-WhatIf] [-Confirm] [<CommonParameters>]
+Remove-TeamViewerDevice [-APIToken] <SecureString> [-Device] <Object> [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -49,7 +49,7 @@ Deletes a device using the `Id` alias.
 
 ## PARAMETERS
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token.
 

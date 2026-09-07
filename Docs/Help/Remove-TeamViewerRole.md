@@ -14,7 +14,7 @@ Deletes one specific role from the TeamViewer company.
 ## SYNTAX
 
 ```powershell
-Remove-TeamViewerRole [-ApiToken] <SecureString> [-RoleId] <Object> [-WhatIf] [-Confirm]
+Remove-TeamViewerRole [-APIToken] <SecureString> [-RoleId] <Object> [-WhatIf] [-Confirm]
  [<CommonParameters>]
 ```
 
@@ -52,7 +52,7 @@ Deletes the role with the given Id, using the `Id` alias.
 
 ## PARAMETERS
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token.
 

@@ -3,31 +3,31 @@
 
     @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
 
-    $testApiToken = [securestring]@{}
-    $null = $testApiToken
+    $testAPIToken = [securestring]@{}
+    $null = $testAPIToken
 
-    Mock Get-TeamViewerApiUri { '//unit.test' }
+    Mock Get-TeamViewerAPIUri { '//unit.test' }
     Mock Invoke-TeamViewerRestMethod { @{ token_valid = $true } }
 }
 
 Describe 'Invoke-TeamViewerPing' {
 
     It 'Should call the correct API endpoint' {
-        Invoke-TeamViewerPing -ApiToken $testApiToken
+        Invoke-TeamViewerPing -APIToken $testAPIToken
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -and $Uri -eq '//unit.test/ping' -and $Method -eq 'Get' }
+            $APIToken -eq $testAPIToken -and $Uri -eq '//unit.test/ping' -and $Method -eq 'Get' }
     }
 
     It 'Should evaluate the token validity' {
         Mock Invoke-TeamViewerRestMethod { @{ token_valid = $true } }
 
-        $Result = Invoke-TeamViewerPing -ApiToken $testApiToken
+        $Result = Invoke-TeamViewerPing -APIToken $testAPIToken
         $Result | Should -Be $true
 
         Mock Invoke-TeamViewerRestMethod { @{ token_valid = $false } }
 
-        $Result = Invoke-TeamViewerPing -ApiToken $testApiToken
+        $Result = Invoke-TeamViewerPing -APIToken $testAPIToken
         $Result | Should -Be $false
     }
 }

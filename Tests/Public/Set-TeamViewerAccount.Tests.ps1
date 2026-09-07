@@ -3,11 +3,11 @@
 
     @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
 
-    $testApiToken = [securestring]@{}
-    $null = $testApiToken
+    $testAPIToken = [securestring]@{}
+    $null = $testAPIToken
     $mockArgs = @{}
 
-    Mock Get-TeamViewerApiUri { '//unit.test' }
+    Mock Get-TeamViewerAPIUri { '//unit.test' }
     Mock Invoke-TeamViewerRestMethod { $mockArgs.Body = $Body; @{ id = 'u1234' } }
 
     function ConvertTo-TestPassword {
@@ -24,17 +24,17 @@
 
 Describe 'Set-TeamViewerAccount' {
     It 'Should call the correct API endpoint' {
-        Set-TeamViewerAccount -ApiToken $testApiToken -Name 'Updated Account Name' -Email 'unit@example.test'
+        Set-TeamViewerAccount -APIToken $testAPIToken -Name 'Updated Account Name' -Email 'unit@example.test'
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -and $Uri -eq '//unit.test/account' -and $Method -eq 'Put' }
+            $APIToken -eq $testAPIToken -and $Uri -eq '//unit.test/account' -and $Method -eq 'Put' }
     }
 
     It 'Should change account properties' {
         $testPassword = 'Test1234' | ConvertTo-TestPassword
         $testOldPassword = 'Test5678' | ConvertTo-TestPassword
 
-        Set-TeamViewerAccount -ApiToken $testApiToken -Name 'Updated Account Name' -Email 'unit@example.test' -Password $testPassword -OldPassword $testOldPassword -EmailLanguage 'de'
+        Set-TeamViewerAccount -APIToken $testAPIToken -Name 'Updated Account Name' -Email 'unit@example.test' -Password $testPassword -OldPassword $testOldPassword -EmailLanguage 'de'
 
         $mockArgs.Body | Should -Not -BeNullOrEmpty
         $Body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
@@ -46,7 +46,7 @@ Describe 'Set-TeamViewerAccount' {
     }
 
     It 'Should accept changes as hashtable' {
-        Set-TeamViewerAccount -ApiToken $testApiToken -Property @{
+        Set-TeamViewerAccount -APIToken $testAPIToken -Property @{
             name           = 'Updated Account Name'
             email          = 'unit@example.test'
             password       = 'Test1234'
@@ -64,6 +64,6 @@ Describe 'Set-TeamViewerAccount' {
     }
 
     It 'Should throw if input does not contain any valid change' {
-        { Set-TeamViewerAccount -ApiToken $testApiToken } | Should -Throw
+        { Set-TeamViewerAccount -APIToken $testAPIToken } | Should -Throw
     }
 }

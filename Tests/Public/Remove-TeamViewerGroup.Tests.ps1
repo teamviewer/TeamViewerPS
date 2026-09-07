@@ -3,39 +3,39 @@
 
     @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
 
-    $testApiToken = [securestring]@{}
-    $null = $testApiToken
+    $testAPIToken = [securestring]@{}
+    $null = $testAPIToken
 
-    Mock Get-TeamViewerApiUri { '//unit.test' }
+    Mock Get-TeamViewerAPIUri { '//unit.test' }
     Mock Invoke-TeamViewerRestMethod { }
 }
 
 Describe 'Remove-TeamViewerGroup' {
     It 'Should call the correct API endpoint' {
-        Remove-TeamViewerGroup -ApiToken $testApiToken -Group 'g1234'
+        Remove-TeamViewerGroup -APIToken $testAPIToken -Group 'g1234'
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -and $Uri -eq '//unit.test/groups/g1234' -and $Method -eq 'Delete' }
+            $APIToken -eq $testAPIToken -and $Uri -eq '//unit.test/groups/g1234' -and $Method -eq 'Delete' }
     }
 
     It 'Should accept group objects' {
         $testGroup = @{ id = 'g1234' } | ConvertTo-TeamViewerGroup
 
-        Remove-TeamViewerGroup -ApiToken $testApiToken -Group $testGroup
+        Remove-TeamViewerGroup -APIToken $testAPIToken -Group $testGroup
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -and $Uri -eq '//unit.test/groups/g1234' -and $Method -eq 'Delete' }
+            $APIToken -eq $testAPIToken -and $Uri -eq '//unit.test/groups/g1234' -and $Method -eq 'Delete' }
     }
 
     It 'Should fail for invalid group identifiers' {
-        { Remove-TeamViewerGroup -ApiToken $testApiToken -Group 'invalid1234' } | Should -Throw
+        { Remove-TeamViewerGroup -APIToken $testAPIToken -Group 'invalid1234' } | Should -Throw
     }
 
     It 'Should accept pipeline input' {
         $testGroup = @{ id = 'g1234' } | ConvertTo-TeamViewerGroup
-        $testGroup | Remove-TeamViewerGroup -ApiToken $testApiToken
+        $testGroup | Remove-TeamViewerGroup -APIToken $testAPIToken
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -and $Uri -eq '//unit.test/groups/g1234' -and $Method -eq 'Delete' }
+            $APIToken -eq $testAPIToken -and $Uri -eq '//unit.test/groups/g1234' -and $Method -eq 'Delete' }
     }
 }

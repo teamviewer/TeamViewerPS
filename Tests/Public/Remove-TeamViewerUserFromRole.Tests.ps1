@@ -2,14 +2,14 @@
     . "$PSScriptRoot\..\..\Cmdlets\Public\Remove-TeamViewerUserFromRole.ps1"
     @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
 
-    $testApiToken = [securestring]@{}
-    $null = $testApiToken
+    $testAPIToken = [securestring]@{}
+    $null = $testAPIToken
     $testAccount = @('u123', 'u124')
     $null = $testAccount
     $testRoleId = '9b465ea2-2f75-4101-a057-58a81ed0e57b'
     $null = $testRoleId
 
-    Mock Get-TeamViewerApiUri { '//unit.test' }
+    Mock Get-TeamViewerAPIUri { '//unit.test' }
     $mockArgs = @{}
     Mock Invoke-TeamViewerRestMethod { $mockArgs.Body = $Body
         @{
@@ -21,15 +21,15 @@
 
 Describe 'Remove-TeamViewerUserFromRole' {
     It 'Should call the correct API endpoint' {
-        Remove-TeamViewerUserFromRole -ApiToken $testApiToken -RoleId $testRoleId -Accounts $testAccount
+        Remove-TeamViewerUserFromRole -APIToken $testAPIToken -RoleId $testRoleId -Accounts $testAccount
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -and $Uri -eq '//unit.test/userroles/unassign/account' -and $Method -eq 'Post'
+            $APIToken -eq $testAPIToken -and $Uri -eq '//unit.test/userroles/unassign/account' -and $Method -eq 'Post'
         }
     }
 
     It 'Should unassign the given account from the user role' {
-        Remove-TeamViewerUserFromRole -ApiToken $testApiToken -RoleId $testRoleId -Accounts $testAccount
+        Remove-TeamViewerUserFromRole -APIToken $testAPIToken -RoleId $testRoleId -Accounts $testAccount
         $mockArgs.Body | Should -Not -BeNullOrEmpty
         $Body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
         $Body.UserIds | Should -HaveCount 2
@@ -42,7 +42,7 @@ Describe 'Remove-TeamViewerUserFromRole' {
     }
 
     It 'Should accept pipeline input' {
-        $testAccount | Remove-TeamViewerUserFromRole -ApiToken $testApiToken -RoleId $testRoleId
+        $testAccount | Remove-TeamViewerUserFromRole -APIToken $testAPIToken -RoleId $testRoleId
 
         $mockArgs.Body | Should -Not -BeNullOrEmpty
         $Body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json

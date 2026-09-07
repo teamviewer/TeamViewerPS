@@ -14,7 +14,7 @@ Create a new TeamViewer policy.
 ## SYNTAX
 
 ```powershell
-New-TeamViewerPolicy [-ApiToken] <SecureString> [-Name] <String> [[-Settings] <Object[]>] [-DefaultPolicy]
+New-TeamViewerPolicy [-APIToken] <SecureString> [-Name] <String> [[-Settings] <Object[]>] [-DefaultPolicy]
  [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
@@ -50,7 +50,7 @@ Creates a new policy with the given enforced settings.
 
 ## PARAMETERS
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token.
 

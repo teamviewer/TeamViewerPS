@@ -1,15 +1,15 @@
 ﻿BeforeAll {
-    . "$PSScriptRoot\..\..\Cmdlets\Public\Disconnect-TeamViewerApi.ps1"
+    . "$PSScriptRoot\..\..\Cmdlets\Public\Disconnect-TeamViewerAPI.ps1"
 }
 
-Describe 'Disconnect-TeamViewerApi' {
+Describe 'Disconnect-TeamViewerAPI' {
     BeforeEach {
-        $global:PSDefaultParameterValues["*-Teamviewer*:ApiToken"] = 'test123'
+        $global:PSDefaultParameterValues["*-Teamviewer*:APIToken"] = 'test123'
     }
 
     It 'Should remove the PSDefaultParameterValues for the TeamViewer cmdlets' {
-        $global:PSDefaultParameterValues["*-Teamviewer*:ApiToken"] | Should -Be 'test123'
-        Disconnect-TeamViewerApi
-        $global:PSDefaultParameterValues["*-Teamviewer*:ApiToken"] | Should -BeNullOrEmpty
+        $global:PSDefaultParameterValues["*-Teamviewer*:APIToken"] | Should -Be 'test123'
+        Disconnect-TeamViewerAPI
+        $global:PSDefaultParameterValues["*-Teamviewer*:APIToken"] | Should -BeNullOrEmpty
     }
 }

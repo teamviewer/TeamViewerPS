@@ -3,41 +3,41 @@
 
     @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
 
-    $testApiToken = [securestring]@{}
-    $null = $testApiToken
+    $testAPIToken = [securestring]@{}
+    $null = $testAPIToken
     $testGroupId = '6878ab59-5b19-4c7f-9afc-c1c07b0bfb7c'
     $null = $testGroupId
 
-    Mock Get-TeamViewerApiUri { '//unit.test' }
+    Mock Get-TeamViewerAPIUri { '//unit.test' }
     Mock Invoke-TeamViewerRestMethod { }
 }
 
 Describe 'Remove-TeamViewerGroup' {
     It 'Should call the correct API endpoint' {
-        Remove-TeamViewerManagedGroup -ApiToken $testApiToken -Id $testGroupId
+        Remove-TeamViewerManagedGroup -APIToken $testAPIToken -Id $testGroupId
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -and $Uri -eq "//unit.test/managed/groups/$testGroupId" -and $Method -eq 'Delete' }
+            $APIToken -eq $testAPIToken -and $Uri -eq "//unit.test/managed/groups/$testGroupId" -and $Method -eq 'Delete' }
     }
 
     It 'Should accept ManagedGroup objects' {
         $testGroup = @{ id = $testGroupId } | ConvertTo-TeamViewerManagedGroup
 
-        Remove-TeamViewerManagedGroup -ApiToken $testApiToken -Group $testGroup
+        Remove-TeamViewerManagedGroup -APIToken $testAPIToken -Group $testGroup
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -and $Uri -eq "//unit.test/managed/groups/$testGroupId" -and $Method -eq 'Delete' }
+            $APIToken -eq $testAPIToken -and $Uri -eq "//unit.test/managed/groups/$testGroupId" -and $Method -eq 'Delete' }
     }
 
     It 'Should fail for invalid group identifiers' {
-        { Remove-TeamViewerManagedGroup -ApiToken $testApiToken -Group 1234 } | Should -Throw
+        { Remove-TeamViewerManagedGroup -APIToken $testAPIToken -Group 1234 } | Should -Throw
     }
 
     It 'Should accept pipeline input' {
         $testGroup = @{ id = $testGroupId } | ConvertTo-TeamViewerManagedGroup
-        $testGroup | Remove-TeamViewerManagedGroup -ApiToken $testApiToken
+        $testGroup | Remove-TeamViewerManagedGroup -APIToken $testAPIToken
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -and $Uri -eq "//unit.test/managed/groups/$testGroupId" -and $Method -eq 'Delete' }
+            $APIToken -eq $testAPIToken -and $Uri -eq "//unit.test/managed/groups/$testGroupId" -and $Method -eq 'Delete' }
     }
 }

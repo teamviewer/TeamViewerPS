@@ -14,7 +14,7 @@ Sets an existing role as predefined role.
 ## SYNTAX
 
 ```powershell
-Set-TeamViewerPredefinedRole [-ApiToken] <SecureString> [-RoleId] <Object> [<CommonParameters>]
+Set-TeamViewerPredefinedRole [-APIToken] <SecureString> [-RoleId] <Object> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -50,7 +50,7 @@ Uses the `Role` alias and shows what would happen when setting the role with the
 
 ## PARAMETERS
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token.
 

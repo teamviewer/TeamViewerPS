@@ -4,31 +4,31 @@ BeforeAll {
 
     @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
 
-    $testApiToken = [securestring]@{}
-    $null = $testApiToken
+    $testAPIToken = [securestring]@{}
+    $null = $testAPIToken
     $testRoleId = '2bcf19dc-d5a9-4d25-952e-7cbb21762c9a'
     $null = $testRoleId
 
-    Mock Get-TeamViewerApiUri { '//unit.test' }
+    Mock Get-TeamViewerAPIUri { '//unit.test' }
     Mock Invoke-TeamViewerRestMethod {}
 }
 
 Describe 'Remove-TeamViewerRole' {
     It 'Should call the correct API endpoint' {
-        Remove-TeamViewerRole -ApiToken $testApiToken -RoleId $testRoleId
+        Remove-TeamViewerRole -APIToken $testAPIToken -RoleId $testRoleId
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -and $Uri -eq "//unit.test/userroles?userRoleId=$testRoleId" -and $Method -eq 'Delete'
+            $APIToken -eq $testAPIToken -and $Uri -eq "//unit.test/userroles?userRoleId=$testRoleId" -and $Method -eq 'Delete'
         }
     }
 
     It 'Should handle domain object as input' {
         $testRole = @{Id = $testRoleId; Name = 'test user role' } | ConvertTo-TeamViewerRole
 
-        Remove-TeamViewerRole -ApiToken $testApiToken -RoleId $testRole.ID
+        Remove-TeamViewerRole -APIToken $testAPIToken -RoleId $testRole.ID
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -and $Uri -eq "//unit.test/userroles?userRoleId=$testRoleId" -and $Method -eq 'Delete'
+            $APIToken -eq $testAPIToken -and $Uri -eq "//unit.test/userroles?userRoleId=$testRoleId" -and $Method -eq 'Delete'
         }
     }
 }

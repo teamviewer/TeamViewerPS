@@ -3,13 +3,13 @@
 
     @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
 
-    $testApiToken = [securestring]@{}
-    $null = $testApiToken
+    $testAPIToken = [securestring]@{}
+    $null = $testAPIToken
     $mockArgs = @{}
     $testUserGroupId = 1001
     $testUserGroupName = 'This is a test user group'
 
-    Mock Get-TeamViewerApiUri { '//unit.test' }
+    Mock Get-TeamViewerAPIUri { '//unit.test' }
     Mock Invoke-TeamViewerRestMethod {
         $mockArgs.Body = $Body
         @{
@@ -21,14 +21,14 @@
 
 Describe 'New-TeamViewerUserGroup' {
     It 'Should call the correct API endpoint' {
-        New-TeamViewerUserGroup -ApiToken $testApiToken -Name $testUserGroupName
+        New-TeamViewerUserGroup -APIToken $testAPIToken -Name $testUserGroupName
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -and $Uri -eq '//unit.test/usergroups' -and $Method -eq 'Post' }
+            $APIToken -eq $testAPIToken -and $Uri -eq '//unit.test/usergroups' -and $Method -eq 'Post' }
     }
 
     It 'Should include the given name in the request' {
-        New-TeamViewerUserGroup -ApiToken $testApiToken -Name $testUserGroupName
+        New-TeamViewerUserGroup -APIToken $testAPIToken -Name $testUserGroupName
 
         $mockArgs.Body | Should -Not -BeNullOrEmpty
         $Body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
@@ -36,7 +36,7 @@ Describe 'New-TeamViewerUserGroup' {
     }
 
     It 'Should return a UserGroup object' {
-        $Result = New-TeamViewerUserGroup -ApiToken $testApiToken -Name $testUserGroupName
+        $Result = New-TeamViewerUserGroup -APIToken $testAPIToken -Name $testUserGroupName
         $Result | Should -Not -BeNullOrEmpty
         $Result | Should -BeOfType ([pscustomobject])
         $Result.PSObject.TypeNames | Should -Contain 'TeamViewerPS.UserGroup'

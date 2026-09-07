@@ -6,7 +6,7 @@
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
-        $ApiToken,
+        $APIToken,
 
         [Parameter(Mandatory = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerGroupId } )]
@@ -22,12 +22,12 @@
 
     $GroupId = $Group | Resolve-TeamViewerGroupId
     $UserIds = $User | Resolve-TeamViewerUserId
-    $ResourceUri = "$(Get-TeamViewerApiUri)/groups/$GroupId/unshare_group"
+    $ResourceUri = "$(Get-TeamViewerAPIUri)/groups/$GroupId/unshare_group"
     $Body = @{users = @($UserIds) }
 
     if ($PSCmdlet.ShouldProcess($UserIds, 'Remove group share')) {
         Invoke-TeamViewerRestMethod `
-            -ApiToken $ApiToken `
+            -APIToken $APIToken `
             -Uri $ResourceUri `
             -Method Post `
             -ContentType 'application/json; charset=utf-8' `

@@ -6,7 +6,7 @@
                 [ValidateNotNullOrEmpty()]
                 [Alias('Token')]
                 [securestring]
-                $ApiToken,
+                $APIToken,
 
                 [Parameter(ValueFromPipeline = $true, Mandatory = $true)]
                 [ValidateScript({ $_ | Resolve-TeamViewerOrganizationalUnitId })]
@@ -50,11 +50,11 @@
 
         process {
                 $OrganizationalUnitId = $OrganizationalUnit | Resolve-TeamViewerOrganizationalUnitId
-                $Uri = "$(Get-TeamViewerApiUri)/organizationalunits/$OrganizationalUnitId"
+                $Uri = "$(Get-TeamViewerAPIUri)/organizationalunits/$OrganizationalUnitId"
 
                 if ($PSCmdlet.ShouldProcess($OrganizationalUnitId, 'Change organizational unit')) {
                         $response = Invoke-TeamViewerRestMethod `
-                                -ApiToken $ApiToken `
+                                -APIToken $APIToken `
                                 -Uri $Uri `
                                 -Method Put `
                                 -ContentType 'application/json; charset=utf-8' `

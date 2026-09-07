@@ -17,7 +17,7 @@ Deletes an organizational unit from the associated TeamViewer company.
 ## SYNTAX
 
 ```powershell
-Remove-TeamViewerOrganizationalUnit [-ApiToken] <SecureString> [-OrganizationalUnit] <PSObject> [-Confirm] [-WhatIf] [<CommonParameters>]
+Remove-TeamViewerOrganizationalUnit [-APIToken] <SecureString> [-OrganizationalUnit] <PSObject> [-Confirm] [-WhatIf] [<CommonParameters>]
 ```
 
 ## EXAMPLES
@@ -32,7 +32,7 @@ Deletes one specific organizational unit with the given Id `1cbae0b5-8a2f-487a-a
 
 ## PARAMETERS
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token.
 

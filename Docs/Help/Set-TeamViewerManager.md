@@ -16,28 +16,28 @@ Change permissions of a managed group manager or managed device manager.
 ### Device_ByParameters (Default)
 
 ```powershell
-Set-TeamViewerManager -ApiToken <SecureString> -Manager <Object> [-Device <Object>] [-Permissions <String[]>]
+Set-TeamViewerManager -APIToken <SecureString> -Manager <Object> [-Device <Object>] [-Permissions <String[]>]
  [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### Device_ByProperties
 
 ```powershell
-Set-TeamViewerManager -ApiToken <SecureString> -Manager <Object> [-Device <Object>] -Property <Hashtable>
+Set-TeamViewerManager -APIToken <SecureString> -Manager <Object> [-Device <Object>] -Property <Hashtable>
  [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### Group_ByProperties
 
 ```powershell
-Set-TeamViewerManager -ApiToken <SecureString> -Manager <Object> [-Group <Object>] -Property <Hashtable>
+Set-TeamViewerManager -APIToken <SecureString> -Manager <Object> [-Group <Object>] -Property <Hashtable>
  [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### Group_ByParameters
 
 ```powershell
-Set-TeamViewerManager -ApiToken <SecureString> -Manager <Object> [-Group <Object>] [-Permissions <String[]>]
+Set-TeamViewerManager -APIToken <SecureString> -Manager <Object> [-Group <Object>] [-Permissions <String[]>]
  [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
@@ -84,7 +84,7 @@ Change the permissions of the given manager on the managed group with the given 
 
 ## PARAMETERS
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token.
 

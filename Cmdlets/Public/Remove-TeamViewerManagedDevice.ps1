@@ -6,7 +6,7 @@
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
-        $ApiToken,
+        $APIToken,
 
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerManagedDeviceId } )]
@@ -24,11 +24,11 @@
     process {
         $GroupId = $Group | Resolve-TeamViewerManagedGroupId
         $DeviceId = $Device | Resolve-TeamViewerManagedDeviceId
-        $ResourceUri = "$(Get-TeamViewerApiUri)/managed/groups/$GroupId/devices/$DeviceId"
+        $ResourceUri = "$(Get-TeamViewerAPIUri)/managed/groups/$GroupId/devices/$DeviceId"
 
         if ($PSCmdlet.ShouldProcess($DeviceId, 'Remove device from managed group')) {
             Invoke-TeamViewerRestMethod `
-                -ApiToken $ApiToken `
+                -APIToken $APIToken `
                 -Uri $ResourceUri `
                 -Method Delete `
                 -WriteErrorTo $PSCmdlet | `

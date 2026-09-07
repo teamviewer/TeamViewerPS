@@ -14,7 +14,7 @@ Retrieves company / tenant details of the TeamViewer company associated with the
 ## SYNTAX
 
 ```powershell
-Get-TeamViewerCompany [-ApiToken] <SecureString> [<CommonParameters>]
+Get-TeamViewerCompany [-APIToken] <SecureString> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -49,7 +49,7 @@ Retrieves the company details and returns only the numeric company Id.
 
 ## PARAMETERS
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token.
 

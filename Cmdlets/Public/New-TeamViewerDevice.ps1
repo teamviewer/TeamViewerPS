@@ -6,7 +6,7 @@
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
-        $ApiToken,
+        $APIToken,
 
         [Parameter(Mandatory = $true)]
         [ValidateRange(1, [int]::MaxValue)]
@@ -52,11 +52,11 @@
         [System.Runtime.InteropServices.Marshal]::ZeroFreeBSTR($bstr) | Out-Null
     }
 
-    $ResourceUri = "$(Get-TeamViewerApiUri)/devices"
+    $ResourceUri = "$(Get-TeamViewerAPIUri)/devices"
 
     if ($PSCmdlet.ShouldProcess($TeamViewerId, 'Create device entry')) {
         $Response = Invoke-TeamViewerRestMethod `
-            -ApiToken $ApiToken `
+            -APIToken $APIToken `
             -Uri $ResourceUri `
             -Method Post `
             -ContentType 'application/json; charset=utf-8' `

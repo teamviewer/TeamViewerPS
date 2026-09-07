@@ -6,7 +6,7 @@
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
-        $ApiToken,
+        $APIToken,
 
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerManagedGroupId } )]
@@ -18,11 +18,11 @@
 
     process {
         $GroupId = $Group | Resolve-TeamViewerManagedGroupId
-        $ResourceUri = "$(Get-TeamViewerApiUri)/managed/groups/$GroupId"
+        $ResourceUri = "$(Get-TeamViewerAPIUri)/managed/groups/$GroupId"
 
         if ($PSCmdlet.ShouldProcess($GroupId, 'Remove managed group')) {
             Invoke-TeamViewerRestMethod `
-                -ApiToken $ApiToken `
+                -APIToken $APIToken `
                 -Uri $ResourceUri `
                 -Method Delete `
                 -WriteErrorTo $PSCmdlet | `

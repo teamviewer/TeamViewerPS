@@ -14,7 +14,7 @@ Returns the assigned role ids of the user or null.
 ## SYNTAX
 
 ```powershell
-Get-TeamViewerRoleByUser [-ApiToken] <SecureString> [-UserId] <Object> [<CommonParameters>]
+Get-TeamViewerRoleByUser [-APIToken] <SecureString> [-UserId] <Object> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -49,7 +49,7 @@ Counts how many roles are assigned to the user with the Id u1234567 using the Id
 
 ## PARAMETERS
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token.
 

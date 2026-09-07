@@ -16,7 +16,7 @@ Returns the TeamViewer session reports of the company associated with the given 
 ### AbsoluteDates
 
 ```powershell
-Get-TeamViewerConnectionReport -ApiToken <SecureString> [-UserName <String>] [-UserId <Object>]
+Get-TeamViewerConnectionReport -APIToken <SecureString> [-UserName <String>] [-UserId <Object>]
  [-GroupId <Object>] [-DeviceName <String>] [-DeviceId <Int32>] [-WithSessionCode] [-WithoutSessionCode]
  [-SessionCode <String>] [-SupportSessionType <TeamViewerConnectionReportSessionType>] -StartDate <DateTime>
  [-EndDate <DateTime>] [-Limit <Int32>] [<CommonParameters>]
@@ -25,7 +25,7 @@ Get-TeamViewerConnectionReport -ApiToken <SecureString> [-UserName <String>] [-U
 ### RelativeDates
 
 ```powershell
-Get-TeamViewerConnectionReport -ApiToken <SecureString> [-UserName <String>] [-UserId <Object>]
+Get-TeamViewerConnectionReport -APIToken <SecureString> [-UserName <String>] [-UserId <Object>]
  [-GroupId <Object>] [-DeviceName <String>] [-DeviceId <Int32>] [-WithSessionCode] [-WithoutSessionCode]
  [-SessionCode <String>] [-SupportSessionType <TeamViewerConnectionReportSessionType>] [-EndDate <DateTime>]
  [-Months <Int32>] [-Days <Int32>] [-Hours <Int32>] [-Minutes <Int32>] [-Limit <Int32>] [<CommonParameters>]
@@ -82,7 +82,7 @@ This example shows the interaction with the `Get-TeamViewerGroup` cmdlet.
 
 ## PARAMETERS
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token.
 

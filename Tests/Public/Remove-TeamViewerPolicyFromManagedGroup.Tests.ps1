@@ -4,12 +4,12 @@
 
     @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
 
-    $testApiToken = [securestring]@{}
-    $null = $testApiToken
+    $testAPIToken = [securestring]@{}
+    $null = $testAPIToken
     $testGroupId = '9e5617cb-2b20-4da2-bca4-c1bda85b29ab'
     $null = $testGroupId
 
-    Mock Get-TeamViewerApiUri { '//unit.test' }
+    Mock Get-TeamViewerAPIUri { '//unit.test' }
     $mockArgs = @{}
     Mock Invoke-TeamViewerRestMethod { $mockArgs.Body = $Body }
 }
@@ -17,14 +17,14 @@
 Describe 'Remove-TeamViewerPolicyFromManagedGroup' {
 
     It 'Should call the correct API endpoint to remove a policy from the managed group' {
-        Remove-TeamViewerPolicyFromManagedGroup -ApiToken $testApiToken -Group $testGroupId -PolicyType TeamViewer
+        Remove-TeamViewerPolicyFromManagedGroup -APIToken $testAPIToken -Group $testGroupId -PolicyType TeamViewer
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -and $Uri -eq "//unit.test/managed/groups/$testGroupId/policy/remove" -and $Method -eq 'Put' }
+            $APIToken -eq $testAPIToken -and $Uri -eq "//unit.test/managed/groups/$testGroupId/policy/remove" -and $Method -eq 'Put' }
     }
 
     It 'Should remove teamviewer policy from managed group' {
-        Remove-TeamViewerPolicyFromManagedGroup -Apitoken $testApiToken -Group $testGroupId -Policytype Teamviewer
+        Remove-TeamViewerPolicyFromManagedGroup -APItoken $testAPIToken -Group $testGroupId -Policytype Teamviewer
 
         $mockargs.body | Should -Not -BeNullOrEmpty
         $Body = [system.text.encoding]::utf8.getstring($mockargs.body) | ConvertFrom-Json
@@ -32,7 +32,7 @@ Describe 'Remove-TeamViewerPolicyFromManagedGroup' {
     }
 
     It 'Should remove monitoring policy from managed group' {
-        Remove-TeamViewerPolicyFromManagedGroup -Apitoken $testApiToken -Group $testGroupId -PolicyType Monitoring
+        Remove-TeamViewerPolicyFromManagedGroup -APItoken $testAPIToken -Group $testGroupId -PolicyType Monitoring
 
         $mockargs.body | Should -Not -BeNullOrEmpty
         $Body = [system.text.encoding]::utf8.getstring($mockargs.body) | ConvertFrom-Json
@@ -40,7 +40,7 @@ Describe 'Remove-TeamViewerPolicyFromManagedGroup' {
     }
 
     It 'Should remove patch management policy from managed group' {
-        Remove-TeamViewerPolicyFromManagedGroup -Apitoken $testApiToken -Group $testGroupId -PolicyType PatchManagement
+        Remove-TeamViewerPolicyFromManagedGroup -APItoken $testAPIToken -Group $testGroupId -PolicyType PatchManagement
 
         $mockargs.body | Should -Not -BeNullOrEmpty
         $Body = [system.text.encoding]::utf8.getstring($mockargs.body) | ConvertFrom-Json
@@ -48,6 +48,6 @@ Describe 'Remove-TeamViewerPolicyFromManagedGroup' {
     }
 
     It 'Should throw an error when called with invalid policy type' {
-        { Remove-TeamViewerPolicyFromManagedGroup -ApiToken $testApiToken -Group $testGroupId -PolicyType 2 } | Should -Throw
+        { Remove-TeamViewerPolicyFromManagedGroup -APIToken $testAPIToken -Group $testGroupId -PolicyType 2 } | Should -Throw
     }
 }

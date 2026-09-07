@@ -6,7 +6,7 @@
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
-        $ApiToken,
+        $APIToken,
 
         [Parameter(ParameterSetName = 'ByContact')]
         [ValidateScript( { $_ | Resolve-TeamViewerContactId } )]
@@ -31,7 +31,7 @@
         $Group
     )
 
-    $ResourceUri = "$(Get-TeamViewerApiUri)/contacts"
+    $ResourceUri = "$(Get-TeamViewerAPIUri)/contacts"
     $Parameters = @{ }
 
     switch ($PsCmdlet.ParameterSetName) {
@@ -54,7 +54,7 @@
     }
 
     $Response = Invoke-TeamViewerRestMethod `
-        -ApiToken $ApiToken `
+        -APIToken $APIToken `
         -Uri $ResourceUri `
         -Method Get `
         -Body $Parameters `

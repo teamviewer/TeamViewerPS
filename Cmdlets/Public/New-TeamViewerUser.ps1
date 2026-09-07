@@ -6,7 +6,7 @@
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
-        $ApiToken,
+        $APIToken,
 
         [Parameter(Mandatory = $true)]
         [Alias('EmailAddress')]
@@ -29,7 +29,7 @@
 
         [Parameter()]
         [securestring]
-        $SsoCustomerIdentifier,
+        $SSOCustomerIdentifier,
 
 
         [Parameter()]
@@ -101,8 +101,8 @@
         [System.Runtime.InteropServices.Marshal]::ZeroFreeBSTR($bstr) | Out-Null
     }
 
-    if ($SsoCustomerIdentifier) {
-        $bstr = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($SsoCustomerIdentifier)
+    if ($SSOCustomerIdentifier) {
+        $bstr = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($SSOCustomerIdentifier)
         $Body['sso_customer_id'] = [System.Runtime.InteropServices.Marshal]::PtrToStringBSTR($bstr)
         [System.Runtime.InteropServices.Marshal]::ZeroFreeBSTR($bstr) | Out-Null
     }
@@ -147,10 +147,10 @@
         $Body['meeting_license_key'] = $MeetingLicenseKey
     }
 
-    $ResourceUri = "$(Get-TeamViewerApiUri)/users"
+    $ResourceUri = "$(Get-TeamViewerAPIUri)/users"
 
     if ($PSCmdlet.ShouldProcess("$Name <$Email>", 'Create user')) {
-        $Response = Invoke-TeamViewerRestMethod -ApiToken $ApiToken -Uri $ResourceUri -Method Post -ContentType 'application/json; charset=utf-8' `
+        $Response = Invoke-TeamViewerRestMethod -APIToken $APIToken -Uri $ResourceUri -Method Post -ContentType 'application/json; charset=utf-8' `
             -Body ([System.Text.Encoding]::UTF8.GetBytes(($Body | ConvertTo-Json))) -WriteErrorTo $PSCmdlet -ErrorAction Stop
         $Result = ($Response | ConvertTo-TeamViewerUser)
         $Result.Email = $Email

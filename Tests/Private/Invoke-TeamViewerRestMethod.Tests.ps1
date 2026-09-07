@@ -35,7 +35,7 @@ Describe 'Invoke-TeamViewerRestMethod' {
         }
 
         $token = Get-TestSecureString -Value 'abc-token'
-        $Result = Invoke-TeamViewerRestMethod -ApiToken $token -Uri 'https://example.local/api/v1/test' -Method Get
+        $Result = Invoke-TeamViewerRestMethod -APIToken $token -Uri 'https://example.local/api/v1/test' -Method Get
 
         Should -Invoke Invoke-RestMethod -Times 1 -Exactly -ParameterFilter { $Headers.Authorization -eq 'Bearer abc-token' }
         $Result.ok | Should -Be $true
@@ -50,7 +50,7 @@ Describe 'Invoke-TeamViewerRestMethod' {
         }
 
         $token = Get-TestSecureString -Value 'abc-token'
-        $Result = Invoke-TeamViewerRestMethod -ApiToken $token -Uri 'https://example.local/api/v1/test' -Method Get
+        $Result = Invoke-TeamViewerRestMethod -APIToken $token -Uri 'https://example.local/api/v1/test' -Method Get
 
         $Result.name | Should -Be ('Christian J' + [char]0x00E4 + 'ckle')
     }
@@ -61,7 +61,7 @@ Describe 'Invoke-TeamViewerRestMethod' {
         }
 
         $token = Get-TestSecureString -Value 'abc-token'
-        $null = Invoke-TeamViewerRestMethod -ApiToken $token -Uri 'https://example.local/api/v1/test' -Method Get
+        $null = Invoke-TeamViewerRestMethod -APIToken $token -Uri 'https://example.local/api/v1/test' -Method Get
 
         Should -Invoke Invoke-RestMethod -Times 1 -Exactly -ParameterFilter { $Headers.'User-Agent' -like 'TeamViewerPS/*' }
     }
@@ -72,7 +72,7 @@ Describe 'Invoke-TeamViewerRestMethod' {
         Mock -CommandName Invoke-RestMethod -MockWith { Set-Content -LiteralPath $OutFile -Value '{}' } -ParameterFilter { $Proxy -eq 'http://proxy.local:8080' }
 
         $token = Get-TestSecureString -Value 'abc-token'
-        $null = Invoke-TeamViewerRestMethod -ApiToken $token -Uri 'https://example.local/api/v1/test' -Method Get
+        $null = Invoke-TeamViewerRestMethod -APIToken $token -Uri 'https://example.local/api/v1/test' -Method Get
 
         Should -Invoke Invoke-RestMethod -Times 1 -Exactly
     }
@@ -84,7 +84,7 @@ Describe 'Invoke-TeamViewerRestMethod' {
 
         $token = Get-TestSecureString -Value 'abc-token'
 
-        { Invoke-TeamViewerRestMethod -ApiToken $token -Uri 'https://example.local/api/v1/test' -Method Get } | Should -Throw
+        { Invoke-TeamViewerRestMethod -APIToken $token -Uri 'https://example.local/api/v1/test' -Method Get } | Should -Throw
     }
 
     It 'Writes converted error to provided PSCmdlet when request fails and WriteErrorTo is provided' {
@@ -94,7 +94,7 @@ Describe 'Invoke-TeamViewerRestMethod' {
 
             process {
                 $token = Get-TestSecureString -Value 'abc-token'
-                $null = Invoke-TeamViewerRestMethod -ApiToken $token -Uri 'https://example.local/api/v1/test' -Method Get -WriteErrorTo $PSCmdlet
+                $null = Invoke-TeamViewerRestMethod -APIToken $token -Uri 'https://example.local/api/v1/test' -Method Get -WriteErrorTo $PSCmdlet
             }
         }
 

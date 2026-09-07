@@ -3,18 +3,18 @@
 
     @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
 
-    $testApiToken = [securestring]@{}
-    $null = $testApiToken
+    $testAPIToken = [securestring]@{}
+    $null = $testAPIToken
 
-    Mock Get-TeamViewerApiUri { '//unit.test' }
+    Mock Get-TeamViewerAPIUri { '//unit.test' }
     Mock Invoke-TeamViewerRestMethod {}
 }
 
 Describe 'Remove-TeamViewerCompany' {
     It 'Should call the correct API endpoint' {
-        Remove-TeamViewerCompany -ApiToken $testApiToken
+        Remove-TeamViewerCompany -APIToken $testAPIToken
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -and $Uri -eq '//unit.test/company' -and $Method -eq 'Delete' }
+            $APIToken -eq $testAPIToken -and $Uri -eq '//unit.test/company' -and $Method -eq 'Delete' }
     }
 }

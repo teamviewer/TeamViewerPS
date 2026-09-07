@@ -3,10 +3,10 @@
 
     @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
 
-    $testApiToken = [securestring]@{}
-    $null = $testApiToken
+    $testAPIToken = [securestring]@{}
+    $null = $testAPIToken
 
-    Mock Get-TeamViewerApiUri { '//unit.test' }
+    Mock Get-TeamViewerAPIUri { '//unit.test' }
 }
 
 Describe 'Get-TeamViewerPolicy' {
@@ -22,16 +22,16 @@ Describe 'Get-TeamViewerPolicy' {
         }
 
         It 'Should call the correct API endpoint to list policies' {
-            Get-TeamViewerPolicy -ApiToken $testApiToken
+            Get-TeamViewerPolicy -APIToken $testAPIToken
 
             Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-                $ApiToken -eq $testApiToken -and `
+                $APIToken -eq $testAPIToken -and `
                     $Uri -eq '//unit.test/teamviewerpolicies' -and `
                     $Method -eq 'Get' }
         }
 
         It 'Should return policy objects' {
-            $Result = Get-TeamViewerPolicy -ApiToken $testApiToken
+            $Result = Get-TeamViewerPolicy -APIToken $testAPIToken
             $Result | Should -HaveCount 3
             $Result[0].PSObject.TypeNames | Should -Contain 'TeamViewerPS.Policy'
         }
@@ -47,14 +47,14 @@ Describe 'Get-TeamViewerPolicy' {
         }
 
         It 'Should call the correct API endpoint for single policy' {
-            Get-TeamViewerPolicy -ApiToken $testApiToken -Id 'ae222e9d-a665-4cea-85b7-d4a3a08a5e35'
+            Get-TeamViewerPolicy -APIToken $testAPIToken -Id 'ae222e9d-a665-4cea-85b7-d4a3a08a5e35'
 
             Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-                $ApiToken -eq $testApiToken -and $Uri -eq '//unit.test/teamviewerpolicies/ae222e9d-a665-4cea-85b7-d4a3a08a5e35' -and $Method -eq 'Get' }
+                $APIToken -eq $testAPIToken -and $Uri -eq '//unit.test/teamviewerpolicies/ae222e9d-a665-4cea-85b7-d4a3a08a5e35' -and $Method -eq 'Get' }
         }
 
         It 'Should return a Policy object' {
-            $Result = Get-TeamViewerPolicy -ApiToken $testApiToken -Id 'ae222e9d-a665-4cea-85b7-d4a3a08a5e35'
+            $Result = Get-TeamViewerPolicy -APIToken $testAPIToken -Id 'ae222e9d-a665-4cea-85b7-d4a3a08a5e35'
             $Result | Should -BeOfType ([pscustomobject])
             $Result.PSObject.TypeNames | Should -Contain 'TeamViewerPS.Policy'
         }

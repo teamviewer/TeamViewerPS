@@ -6,14 +6,14 @@
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
-        $ApiToken
+        $APIToken
     )
 
-    $ResourceUri = "$(Get-TeamViewerApiUri)/company"
+    $ResourceUri = "$(Get-TeamViewerAPIUri)/company"
 
     if ($PSCmdlet.ShouldProcess('TeamViewer company', 'Delete company')) {
         Invoke-TeamViewerRestMethod `
-            -ApiToken $ApiToken `
+            -APIToken $APIToken `
             -Uri $ResourceUri `
             -Method Delete `
             -WriteErrorTo $PSCmdlet | `

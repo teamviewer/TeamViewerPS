@@ -14,7 +14,7 @@ Test the given TeamViewer API access token to be valid.
 ## SYNTAX
 
 ```powershell
-Invoke-TeamViewerPing [-ApiToken] <SecureString> [<CommonParameters>]
+Invoke-TeamViewerPing [-APIToken] <SecureString> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -47,7 +47,7 @@ Runs a follow-up action only when the API access token is valid.
 
 ## PARAMETERS
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token.
 

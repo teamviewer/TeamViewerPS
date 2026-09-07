@@ -6,7 +6,7 @@
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
-        $ApiToken,
+        $APIToken,
 
         [Parameter(ParameterSetName = 'ByPolicy')]
         [Alias('Id', 'PolicyId')]
@@ -14,7 +14,7 @@
         $Policy
     )
 
-    $ResourceUri = "$(Get-TeamViewerApiUri)/teamviewerpolicies"
+    $ResourceUri = "$(Get-TeamViewerAPIUri)/teamviewerpolicies"
     $Parameters = @{ }
 
     switch ($PsCmdlet.ParameterSetName) {
@@ -25,7 +25,7 @@
     }
 
     $Response = Invoke-TeamViewerRestMethod `
-        -ApiToken $ApiToken `
+        -APIToken $APIToken `
         -Uri $ResourceUri `
         -Method Get `
         -Body $Parameters `

@@ -16,13 +16,13 @@ Retrieves managers of TeamViewer managed devices or managed groups.
 ### ByDeviceId (Default)
 
 ```powershell
-Get-TeamViewerManager -ApiToken <SecureString> -Device <Object> [<CommonParameters>]
+Get-TeamViewerManager -APIToken <SecureString> -Device <Object> [<CommonParameters>]
 ```
 
 ### ByGroupId
 
 ```powershell
-Get-TeamViewerManager -ApiToken <SecureString> -Group <Object> [<CommonParameters>]
+Get-TeamViewerManager -APIToken <SecureString> -Group <Object> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -57,7 +57,7 @@ List the managers of all managed groups of the current manager.
 
 ## PARAMETERS
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token.
 

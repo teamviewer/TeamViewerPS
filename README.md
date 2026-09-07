@@ -40,7 +40,7 @@ Create a TeamViewer API access token in the [TeamViewer user profile](https://we
 
 ```powershell
 $apiToken = Read-Host -Prompt 'TeamViewer API token' -AsSecureString
-Connect-TeamViewerApi -ApiToken $apiToken
+Connect-TeamViewerAPI -APIToken $apiToken
 ```
 
 Once connected, you can call Web API commands without specifying the token again:
@@ -54,7 +54,7 @@ Get-TeamViewerPolicy
 ### Disconnect from the Web API
 
 ```powershell
-Disconnect-TeamViewerApi
+Disconnect-TeamViewerAPI
 ```
 
 ## Usage Examples
@@ -108,7 +108,7 @@ Read module help and specific command help:
 
 ```powershell
 Get-Help TeamViewerPS
-Get-Help -Full Connect-TeamViewerApi
+Get-Help -Full Connect-TeamViewerAPI
 Get-Help -Full Get-TeamViewerUser
 ```
 

@@ -16,13 +16,13 @@ Retrieve policies created by the account.
 ### FilteredList (Default)
 
 ```powershell
-Get-TeamViewerPolicy -ApiToken <SecureString> [<CommonParameters>]
+Get-TeamViewerPolicy -APIToken <SecureString> [<CommonParameters>]
 ```
 
 ### ByPolicyId
 
 ```powershell
-Get-TeamViewerPolicy -ApiToken <SecureString> [-Id <Guid>] [<CommonParameters>]
+Get-TeamViewerPolicy -APIToken <SecureString> [-Id <Guid>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -57,7 +57,7 @@ Retrieve the policy with the name `Default Policy` by filtering the full list of
 
 ## PARAMETERS
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token.
 

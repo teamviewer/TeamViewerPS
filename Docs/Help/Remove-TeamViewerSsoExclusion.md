@@ -1,11 +1,11 @@
 ﻿---
 external help file: TeamViewerPS-help.xml
 Module Name: TeamViewerPS
-online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/Remove-TeamViewerSsoExclusion.md
+online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/Remove-TeamViewerSSOExclusion.md
 schema: 2.0.0
 ---
 
-# Remove-TeamViewerSsoExclusion
+# Remove-TeamViewerSSOExclusion
 
 ## SYNOPSIS
 
@@ -14,7 +14,7 @@ Remove emails from the exclusion list of a TeamViewer Single Sign-On (SSO) domai
 ## SYNTAX
 
 ```powershell
-Remove-TeamViewerSsoExclusion [-ApiToken] <SecureString> [-DomainId] <Object> [-Email] <String[]> [-WhatIf]
+Remove-TeamViewerSSOExclusion [-APIToken] <SecureString> [-DomainId] <Object> [-Email] <String[]> [-WhatIf]
  [-Confirm] [<CommonParameters>]
 ```
 
@@ -28,7 +28,7 @@ Accounts with these email addresses do not need to login via Single Sign-On but 
 ### Example 1
 
 ```powershell
-Remove-TeamViewerSsoExclusion -DomainId '45e0d050-15e6-4fcb-91b2-ea4f20fe2085' -Email 'user@example.test'
+Remove-TeamViewerSSOExclusion -DomainId '45e0d050-15e6-4fcb-91b2-ea4f20fe2085' -Email 'user@example.test'
 ```
 
 Removes the email address `user@example.test` from the exclusion list of the given domain.
@@ -36,7 +36,7 @@ Removes the email address `user@example.test` from the exclusion list of the giv
 ### Example 2
 
 ```powershell
-Remove-TeamViewerSsoExclusion -DomainId '45e0d050-15e6-4fcb-91b2-ea4f20fe2085' -Email 'user1@example.test', 'user2@example.test'
+Remove-TeamViewerSSOExclusion -DomainId '45e0d050-15e6-4fcb-91b2-ea4f20fe2085' -Email 'user1@example.test', 'user2@example.test'
 ```
 
 Removes multiple email addresses from the exclusion list of the given domain in a single request.
@@ -44,14 +44,14 @@ Removes multiple email addresses from the exclusion list of the given domain in 
 ### Example 3
 
 ```powershell
-@('user1@example.test', 'user2@example.test') | Remove-TeamViewerSsoExclusion -DomainId '45e0d050-15e6-4fcb-91b2-ea4f20fe2085'
+@('user1@example.test', 'user2@example.test') | Remove-TeamViewerSSOExclusion -DomainId '45e0d050-15e6-4fcb-91b2-ea4f20fe2085'
 ```
 
 Removes the piped email addresses from the exclusion list of the given domain.
 
 ## PARAMETERS
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token.
 
@@ -70,7 +70,7 @@ Accept wildcard characters: False
 ### -DomainId
 
 Object that can be used to identify the SSO domain to remove exclusion entries from.
-This can either be the SSO domain Id (as string or GUID) or a SsoDomain object that has been received using the `Get-TeamViewerSsoDomain` function.
+This can either be the SSO domain Id (as string or GUID) or a SSODomain object that has been received using the `Get-TeamViewerSSODomain` function.
 
 ```yaml
 Type: Object
@@ -145,8 +145,8 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## RELATED LINKS
 
-[Get-TeamViewerSsoDomain](Get-TeamViewerSsoDomain.md)
+[Get-TeamViewerSSODomain](Get-TeamViewerSSODomain.md)
 
-[Get-TeamViewerSsoExclusion](Get-TeamViewerSsoExclusion.md)
+[Get-TeamViewerSSOExclusion](Get-TeamViewerSSOExclusion.md)
 
-[Add-TeamViewerSsoExclusion](Add-TeamViewerSsoExclusion.md)
+[Add-TeamViewerSSOExclusion](Add-TeamViewerSSOExclusion.md)

@@ -1,4 +1,4 @@
-﻿function Remove-TeamViewerSsoInclusion {
+﻿function Remove-TeamViewerSSOInclusion {
     [CmdletBinding(SupportsShouldProcess = $true)]
 
     [OutputType([void])]
@@ -6,10 +6,10 @@
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
-        $ApiToken,
+        $APIToken,
 
         [Parameter(Mandatory = $true)]
-        [ValidateScript( { $_ | Resolve-TeamViewerSsoDomainId } )]
+        [ValidateScript( { $_ | Resolve-TeamViewerSSODomainId } )]
         [Alias('Domain')]
         [object]
         $DomainId,
@@ -20,17 +20,17 @@
     )
 
     begin {
-        $Id = $DomainId | Resolve-TeamViewerSsoDomainId
-        $ResourceUri = "$(Get-TeamViewerApiUri)/ssoDomain/$Id/inclusion"
+        $Id = $DomainId | Resolve-TeamViewerSSODomainId
+        $ResourceUri = "$(Get-TeamViewerAPIUri)/ssoDomain/$Id/inclusion"
         $EmailsToRemove = @()
-        $null = $ApiToken   # https://github.com/PowerShell/PSScriptAnalyzer/issues/1472
+        $null = $APIToken   # https://github.com/PowerShell/PSScriptAnalyzer/issues/1472
 
         function Invoke-RequestInternal {
             $Body = @{
                 emails = @($EmailsToRemove)
             }
             Invoke-TeamViewerRestMethod `
-                -ApiToken $ApiToken `
+                -APIToken $APIToken `
                 -Uri $ResourceUri `
                 -Method Delete `
                 -ContentType 'application/json; charset=utf-8' `

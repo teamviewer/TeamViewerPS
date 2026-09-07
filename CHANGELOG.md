@@ -20,6 +20,7 @@
 ### Changed
 
 - Renames `Get-TeamViewerCustomModuleId` to `Get-TeamViewerCustomizationId`.
+- Normalizes acronym casing in command, parameter, and type names (`Api` to `API`, `Sso` to `SSO`).
 - Fixes, completes, and improves help file `TeamViewerPS.md`.
 - Adds `OutputType` to public commands.
 - Adds `CmdletBinding` to public commands.
@@ -75,7 +76,7 @@
 - Adds `Get-TeamViewerInstallationType` that returns the TV installation type (MSI, exe or Unknown) from locally installed TV client.
 - Adds `Get-TeamViewerRoleByUser` that returns the assigned role ids of the user.
 - Adds `Get-TeamViewerEffectivePermission` that lists all effective permissions in a TeamViewer company.
-- Adds new endpoint ID for function `Get-TeamViewerSsoDomain`.
+- Adds new endpoint ID for function `Get-TeamViewerSSODomain`.
 
 ### Removed
 
@@ -96,8 +97,8 @@
 ### Added
 
 - Adds `Get-TeamViewerRoleByUserGroup` to retrieve the role associated with a certain user group.
-- Adds `Get-TeamViewerSsoInclusion` to retrieve the sso inclusion list.
-- Adds `Remove-TeamViewerSsoInclusion` to remove an entry from the sso inclusion list.
+- Adds `Get-TeamViewerSSOInclusion` to retrieve the sso inclusion list.
+- Adds `Remove-TeamViewerSSOInclusion` to remove an entry from the sso inclusion list.
 
 ## 2.2.0 (2025-03-11)
 
@@ -109,7 +110,7 @@
 
 ### Fixed
 
-- Fixed documentation for Api parameter of the Get-TeamViewerCompanyManagedDevice Cmdlet. The targeted endpoint requires 'company admin' and 'Device Groups: read operations' permissions
+- Fixed documentation for API parameter of the Get-TeamViewerCompanyManagedDevice Cmdlet. The targeted endpoint requires 'company admin' and 'Device Groups: read operations' permissions
 
 ## 2.1.0 (2024-11-15)
 
@@ -121,14 +122,14 @@
 
 ### Added
 
-- Add-TeamViewerSsoInclusion command to add SSO Inclusion list items.
+- Add-TeamViewerSSOInclusion command to add SSO Inclusion list items.
 
 ## 2.0.0 (2023-11-22)
 
 ### Added
 
 - Adds commands to manage the roles of a TeamViewer company.
-- Adds `Set-TeamViewerApiURi` to use TeamViewer test API.
+- Adds `Set-TeamViewerAPIURi` to use TeamViewer test API.
 - Adds `Add-TeamViewerAssignment` and `Remove-TeamViewerAssignment` commands to assign and unassign a device from a TeamViewer company.
 - Adds `Add-TeamViewerCustomization` and `Remove-TeamViewerCustomization` commands to apply and remove customization.
 - Adds `Export-TeamViewerSystemInformation` to create zip file for support.
@@ -218,7 +219,7 @@
 
 ### Changed
 
-- Improves bulk support for `Add-TeamViewerSsoExclusion` and `Remove-TeamViewerSsoExclusion`.
+- Improves bulk support for `Add-TeamViewerSSOExclusion` and `Remove-TeamViewerSSOExclusion`.
 
 ## 1.0.0 (2021-01-15)
 

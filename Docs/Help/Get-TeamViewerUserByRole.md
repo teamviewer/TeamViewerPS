@@ -14,7 +14,7 @@ Lists users assigned to one specific role.
 ## SYNTAX
 
 ```powershell
-Get-TeamViewerUserByRole [-ApiToken] <SecureString> [-RoleId] <Object> [<CommonParameters>]
+Get-TeamViewerUserByRole [-APIToken] <SecureString> [-RoleId] <Object> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -49,7 +49,7 @@ Returns the number of users assigned to the given role.
 
 ## PARAMETERS
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token.
 

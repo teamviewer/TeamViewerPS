@@ -1,4 +1,4 @@
-﻿function Resolve-TeamViewerSsoDomainId {
+﻿function Resolve-TeamViewerSSODomainId {
     param(
         [Parameter(ValueFromPipeline = $true, Mandatory = $true)]
         [object]
@@ -6,7 +6,7 @@
     )
 
     process {
-        if ($Domain.PSObject.TypeNames -contains 'TeamViewerPS.SsoDomain') {
+        if ($Domain.PSObject.TypeNames -contains 'TeamViewerPS.SSODomain') {
             Write-Output ([guid]$Domain.Id)
         }
         elseif ($Domain -is [string]) {
@@ -16,7 +16,7 @@
             Write-Output $Domain
         }
         else {
-            throw "Invalid SSO domain identifier '$Domain'. Must be either a [TeamViewerPS.SsoDomain], [guid] or [string]."
+            throw "Invalid SSO domain identifier '$Domain'. Must be either a [TeamViewerPS.SSODomain], [guid] or [string]."
         }
     }
 }

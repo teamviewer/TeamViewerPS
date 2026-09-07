@@ -1,11 +1,11 @@
 ﻿---
 external help file: TeamViewerPS-help.xml
 Module Name: TeamViewerPS
-online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/Get-TeamViewerSsoExclusion.md
+online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/Get-TeamViewerSSOExclusion.md
 schema: 2.0.0
 ---
 
-# Get-TeamViewerSsoExclusion
+# Get-TeamViewerSSOExclusion
 
 ## SYNOPSIS
 
@@ -14,7 +14,7 @@ Get the list of excluded email addresses for a given TeamViewer Single Sign-On (
 ## SYNTAX
 
 ```powershell
-Get-TeamViewerSsoExclusion [-ApiToken] <SecureString> [-DomainId] <Object> [<CommonParameters>]
+Get-TeamViewerSSOExclusion [-APIToken] <SecureString> [-DomainId] <Object> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -27,29 +27,29 @@ These email addresses are excluded from logging in via Single Sign-On and instea
 ### Example 1
 
 ```powershell
-Get-TeamViewerSsoExclusion -DomainId '45e0d050-15e6-4fcb-91b2-ea4f20fe2085'
+Get-TeamViewerSSOExclusion -DomainId '45e0d050-15e6-4fcb-91b2-ea4f20fe2085'
 ```
 
 ### Example 2
 
 ```powershell
-$domain = Get-TeamViewerSsoDomain -DomainId '45e0d050-15e6-4fcb-91b2-ea4f20fe2085'
-Get-TeamViewerSsoExclusion -Domain $domain
+$domain = Get-TeamViewerSSODomain -DomainId '45e0d050-15e6-4fcb-91b2-ea4f20fe2085'
+Get-TeamViewerSSOExclusion -Domain $domain
 ```
 
-Gets the excluded email addresses by passing a SsoDomain object retrieved with `Get-TeamViewerSsoDomain`.
+Gets the excluded email addresses by passing a SSODomain object retrieved with `Get-TeamViewerSSODomain`.
 
 ### Example 3
 
 ```powershell
-Get-TeamViewerSsoExclusion -SsoDomainId 'c0cb303a-8a85-4e54-b657-a4757c791aef'
+Get-TeamViewerSSOExclusion -SSODomainId 'c0cb303a-8a85-4e54-b657-a4757c791aef'
 ```
 
-Gets the excluded email addresses for the SSO domain using the `SsoDomainId` alias.
+Gets the excluded email addresses for the SSO domain using the `SSODomainId` alias.
 
 ## PARAMETERS
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token.
 
@@ -68,7 +68,7 @@ Accept wildcard characters: False
 ### -DomainId
 
 Object that can be used to identify the SSO domain to get exclusion entries for.
-This can either be the SSO domain Id (as string or GUID) or a SsoDomain object that has been received using the `Get-TeamViewerSsoDomain` function.
+This can either be the SSO domain Id (as string or GUID) or a SSODomain object that has been received using the `Get-TeamViewerSSODomain` function.
 
 ```yaml
 Type: Object
@@ -94,8 +94,8 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## RELATED LINKS
 
-[Get-TeamViewerSsoDomain](Get-TeamViewerSsoDomain.md)
+[Get-TeamViewerSSODomain](Get-TeamViewerSSODomain.md)
 
-[Add-TeamViewerSsoExclusion](Add-TeamViewerSsoExclusion.md)
+[Add-TeamViewerSSOExclusion](Add-TeamViewerSSOExclusion.md)
 
-[Remove-TeamViewerSsoExclusion](Remove-TeamViewerSsoExclusion.md)
+[Remove-TeamViewerSSOExclusion](Remove-TeamViewerSSOExclusion.md)

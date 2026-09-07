@@ -14,7 +14,7 @@ Lists all currently supported role permissions in a TeamViewer company.
 ## SYNTAX
 
 ```powershell
-Get-TeamViewerRolePermission [-ApiToken] <SecureString> [<CommonParameters>]
+Get-TeamViewerRolePermission [-APIToken] <SecureString> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -26,7 +26,7 @@ Lists all currently supported role permissions for the TeamViewer company associ
 ### Example 1
 
 ```powershell
-Get-TeamViewerRolePermission -ApiToken $token
+Get-TeamViewerRolePermission -APIToken $token
 ```
 
 Lists all currently supported role permissions.
@@ -49,7 +49,7 @@ Lists only the supported role permissions related to devices.
 
 ## PARAMETERS
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token.
 

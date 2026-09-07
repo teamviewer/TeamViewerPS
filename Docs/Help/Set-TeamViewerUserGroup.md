@@ -14,7 +14,7 @@ Update properties of a user group.
 ## SYNTAX
 
 ```powershell
-Set-TeamViewerUserGroup [-ApiToken] <SecureString> [-UserGroup] <Object> [-Name] <String> [-WhatIf] [-Confirm]
+Set-TeamViewerUserGroup [-APIToken] <SecureString> [-UserGroup] <Object> [-Name] <String> [-WhatIf] [-Confirm]
  [<CommonParameters>]
 ```
 
@@ -51,7 +51,7 @@ Renames the user group object retrieved via `Get-TeamViewerUserGroup`.
 
 ## PARAMETERS
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token.
 

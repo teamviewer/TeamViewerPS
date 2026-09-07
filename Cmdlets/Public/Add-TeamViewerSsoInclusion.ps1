@@ -1,4 +1,4 @@
-﻿function Add-TeamViewerSsoInclusion {
+﻿function Add-TeamViewerSSOInclusion {
     [CmdletBinding(SupportsShouldProcess = $true)]
 
     [OutputType([void])]
@@ -6,10 +6,10 @@
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
-        $ApiToken,
+        $APIToken,
 
         [Parameter(Mandatory = $true)]
-        [ValidateScript( { $_ | Resolve-TeamViewerSsoDomainId } )]
+        [ValidateScript( { $_ | Resolve-TeamViewerSSODomainId } )]
         [Alias('Domain')]
         [object]
         $DomainId,
@@ -20,10 +20,10 @@
     )
 
     begin {
-        $Id = $DomainId | Resolve-TeamViewerSsoDomainId
-        $ResourceUri = "$(Get-TeamViewerApiUri)/ssoDomain/$Id/inclusion"
+        $Id = $DomainId | Resolve-TeamViewerSSODomainId
+        $ResourceUri = "$(Get-TeamViewerAPIUri)/ssoDomain/$Id/inclusion"
         $EmailsToAdd = @()
-        $null = $ApiToken
+        $null = $APIToken
 
         function Invoke-RequestInternal {
             $Body = @{
@@ -31,7 +31,7 @@
             }
 
             Invoke-TeamViewerRestMethod `
-                -ApiToken $ApiToken `
+                -APIToken $APIToken `
                 -Uri $ResourceUri `
                 -Method Post `
                 -ContentType 'application/json; charset=utf-8' `

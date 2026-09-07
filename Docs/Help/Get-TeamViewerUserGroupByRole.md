@@ -14,7 +14,7 @@ Lists all user group assignments of a user role.
 ## SYNTAX
 
 ```powershell
-Get-TeamViewerUserGroupByRole [-ApiToken] <SecureString> [-RoleId] <Object> [<CommonParameters>]
+Get-TeamViewerUserGroupByRole [-APIToken] <SecureString> [-RoleId] <Object> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -49,7 +49,7 @@ Returns the number of user groups assigned to the given role.
 
 ## PARAMETERS
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token.
 

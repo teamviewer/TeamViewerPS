@@ -4,10 +4,10 @@ BeforeAll {
 
     @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
 
-    $testApiToken = [securestring]@{}
-    $null = $testApiToken
+    $testAPIToken = [securestring]@{}
+    $null = $testAPIToken
 
-    Mock Get-TeamViewerApiUri { '//unit.test' }
+    Mock Get-TeamViewerAPIUri { '//unit.test' }
     Mock Invoke-TeamViewerRestMethod { @{
             Roles = @(
                 @{ id = 'a9c9435d-8544-4e6a-9830-9337078c9aab'; name = 'Role 1'; },
@@ -20,10 +20,10 @@ BeforeAll {
 Describe 'Get-TeamViewerRole' {
 
     It 'Should call the correct API endpoint to list roles' {
-        Get-TeamViewerRole -ApiToken $testApiToken
+        Get-TeamViewerRole -APIToken $testAPIToken
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -and `
+            $APIToken -eq $testAPIToken -and `
                 $Uri -eq '//unit.test/userroles' -and `
                 $Method -eq 'Get' }
     }
@@ -54,13 +54,13 @@ Describe 'Get-TeamViewerRole' {
     }
 
     It 'Should call the correct API endpoint for assigned users' {
-        Get-TeamViewerRole -ApiToken $testApiToken
+        Get-TeamViewerRole -APIToken $testAPIToken
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -and $Uri -eq '//unit.test/userroles' -and $Method -eq 'Get' }
+            $APIToken -eq $testAPIToken -and $Uri -eq '//unit.test/userroles' -and $Method -eq 'Get' }
     }
     It 'Should return Role objects' {
-        $Result = Get-TeamViewerRole -ApiToken $testApiToken
+        $Result = Get-TeamViewerRole -APIToken $testAPIToken
         $Result | Should -HaveCount 2
         $Result[0].PSObject.TypeNames | Should -Contain 'TeamViewerPS.Role'
     }

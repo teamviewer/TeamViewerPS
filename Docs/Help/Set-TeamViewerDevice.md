@@ -16,21 +16,21 @@ Change a device entry in the Computers & Contacts list.
 ### Default (Default)
 
 ```powershell
-Set-TeamViewerDevice -ApiToken <SecureString> -Device <Object> [-Name <String>] [-Description <String>]
+Set-TeamViewerDevice -APIToken <SecureString> -Device <Object> [-Name <String>] [-Description <String>]
  [-Password <SecureString>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### ChangeGroup
 
 ```powershell
-Set-TeamViewerDevice -ApiToken <SecureString> -Device <Object> [-Group <Object>] [-Name <String>]
+Set-TeamViewerDevice -APIToken <SecureString> -Device <Object> [-Group <Object>] [-Name <String>]
  [-Description <String>] [-Password <SecureString>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### ChangePolicy
 
 ```powershell
-Set-TeamViewerDevice -ApiToken <SecureString> -Device <Object> [-Policy <Object>] [-Name <String>]
+Set-TeamViewerDevice -APIToken <SecureString> -Device <Object> [-Policy <Object>] [-Name <String>]
  [-Description <String>] [-Password <SecureString>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
@@ -66,7 +66,7 @@ Set the policy of the device entry to inherit from group.
 
 ## PARAMETERS
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token.
 

@@ -14,7 +14,7 @@ Add a managed device to a managed group.
 ## SYNTAX
 
 ```powershell
-Add-TeamViewerManagedDevice [-ApiToken] <SecureString> [-Device] <Object> [-Group] <Object> [-WhatIf]
+Add-TeamViewerManagedDevice [-APIToken] <SecureString> [-Device] <Object> [-Group] <Object> [-WhatIf]
  [-Confirm] [<CommonParameters>]
 ```
 
@@ -53,7 +53,7 @@ Adds the managed device to the managed group using device/group objects that hav
 
 ## PARAMETERS
 
-### -ApiToken
+### -APIToken
 
 The TeamViewer API access token.
 

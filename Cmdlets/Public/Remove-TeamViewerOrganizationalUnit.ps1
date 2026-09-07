@@ -6,7 +6,7 @@
         [ValidateNotNullOrEmpty()]
         [Alias('Token')]
         [securestring]
-        $ApiToken,
+        $APIToken,
 
         [Parameter(ValueFromPipeline = $true, Mandatory = $true)]
         [ValidateScript({ $_ | Resolve-TeamViewerOrganizationalUnitId })]
@@ -17,11 +17,11 @@
 
     process {
         $OrganizationalUnitId = $OrganizationalUnit | Resolve-TeamViewerOrganizationalUnitId
-        $Uri = "$(Get-TeamViewerApiUri)/organizationalunits/$OrganizationalUnitId"
+        $Uri = "$(Get-TeamViewerAPIUri)/organizationalunits/$OrganizationalUnitId"
 
         if ($PSCmdlet.ShouldProcess($OrganizationalUnitId, 'Remove organizational unit')) {
             Invoke-TeamViewerRestMethod `
-                -ApiToken $ApiToken `
+                -APIToken $APIToken `
                 -Uri $Uri `
                 -Method Delete `
                 -WriteErrorTo $PSCmdlet `

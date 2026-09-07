@@ -2,14 +2,14 @@
     . "$PSScriptRoot\..\..\Cmdlets\Public\Add-TeamViewerUserToRole.ps1"
     @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
 
-    $testApiToken = [securestring]@{}
-    $null = $testApiToken
+    $testAPIToken = [securestring]@{}
+    $null = $testAPIToken
     $testAccount = @('u123', 'u124')
     $null = $testAccount
     $testRoleId = '9b465ea2-2f75-4101-a057-58a81ed0e57b'
     $null = $testRoleId
 
-    Mock Get-TeamViewerApiUri { '//unit.test' }
+    Mock Get-TeamViewerAPIUri { '//unit.test' }
 
     $mockArgs = @{}
 
@@ -22,15 +22,15 @@
 }
 Describe 'Add-TeamViewerUserToRole' {
     It 'Should call the correct API endpoint' {
-        Add-TeamViewerUserToRole -ApiToken $testApiToken -RoleId $testRoleId -Accounts $testAccount
+        Add-TeamViewerUserToRole -APIToken $testAPIToken -RoleId $testRoleId -Accounts $testAccount
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -and $Uri -eq '//unit.test/userroles/assign/account' -and $Method -eq 'Post'
+            $APIToken -eq $testAPIToken -and $Uri -eq '//unit.test/userroles/assign/account' -and $Method -eq 'Post'
         }
     }
 
     It 'Should assign the given account to the user role' {
-        Add-TeamViewerUserToRole -ApiToken $testApiToken -RoleId $testRoleId -Accounts $testAccount
+        Add-TeamViewerUserToRole -APIToken $testAPIToken -RoleId $testRoleId -Accounts $testAccount
         $mockArgs.Body | Should -Not -BeNullOrEmpty
         $Body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
         $Body.UserIds | Should -HaveCount 2
@@ -43,7 +43,7 @@ Describe 'Add-TeamViewerUserToRole' {
     }
 
     It 'Should accept pipeline input' {
-        $testAccount | Add-TeamViewerUserToRole -ApiToken $testApiToken -RoleId $testRoleId
+        $testAccount | Add-TeamViewerUserToRole -APIToken $testAPIToken -RoleId $testRoleId
         $mockArgs.Body | Should -Not -BeNullOrEmpty
         $Body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
         $Body.UserIds | Should -HaveCount 2
@@ -58,13 +58,13 @@ Describe 'Add-TeamViewerUserToRole' {
     It 'Should batch pipeline input after 100 accounts' {
         $TestAccounts = 1..101 | ForEach-Object { "u$_" }
 
-        $TestAccounts | Add-TeamViewerUserToRole -ApiToken $testApiToken -RoleId $testRoleId
+        $TestAccounts | Add-TeamViewerUserToRole -APIToken $testAPIToken -RoleId $testRoleId
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 2 -Scope It
     }
 
     It 'Should not invoke REST when WhatIf is used' {
-        Add-TeamViewerUserToRole -ApiToken $testApiToken -RoleId $testRoleId -Accounts $testAccount -WhatIf
+        Add-TeamViewerUserToRole -APIToken $testAPIToken -RoleId $testRoleId -Accounts $testAccount -WhatIf
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 0 -Scope It
     }

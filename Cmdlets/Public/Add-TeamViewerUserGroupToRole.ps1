@@ -6,7 +6,7 @@
     param(
         [Parameter(Mandatory = $true)]
         [securestring]
-        $ApiToken,
+        $APIToken,
 
         [Parameter(Mandatory = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerRoleId } )]
@@ -24,8 +24,8 @@
 
     begin {
         $RoleId = $Role | Resolve-TeamViewerRoleId
-        $null = $ApiToken
-        $ResourceUri = "$(Get-TeamViewerApiUri)/userroles/assign/usergroup"
+        $null = $APIToken
+        $ResourceUri = "$(Get-TeamViewerAPIUri)/userroles/assign/usergroup"
         $Body = @{
             UserRoleId  = $RoleId
             UserGroupId = $UserGroup
@@ -37,7 +37,7 @@
     process {
         if ($PSCmdlet.ShouldProcess($UserGroup, 'Assign Role to User Group')) {
             $Result = Invoke-TeamViewerRestMethod `
-                -ApiToken $ApiToken `
+                -APIToken $APIToken `
                 -Uri $ResourceUri `
                 -Method Post `
                 -ContentType 'application/json; charset=utf-8' `

@@ -4,21 +4,21 @@
 
     @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
 
-    $testApiToken = [securestring]@{}
-    $null = $testApiToken
+    $testAPIToken = [securestring]@{}
+    $null = $testAPIToken
     $testDeviceId = '9e5617cb-2b20-4da2-bca4-c1bda85b29ab'
     $null = $testDeviceId
 
-    Mock Get-TeamViewerApiUri { '//unit.test' }
+    Mock Get-TeamViewerAPIUri { '//unit.test' }
     $mockArgs = @{}
     Mock Invoke-TeamViewerRestMethod { $mockArgs.Body = $Body }
 }
 
 Describe 'Remove-TeamViewerPolicyFromManagedDevice' {
     It 'Should call the correct API endpoint to remove a policy from the managed device' {
-        Remove-TeamViewerPolicyFromManagedDevice -ApiToken $testApiToken -Device $testDeviceId -PolicyType TeamViewer
+        Remove-TeamViewerPolicyFromManagedDevice -APIToken $testAPIToken -Device $testDeviceId -PolicyType TeamViewer
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
-            $ApiToken -eq $testApiToken -and $Uri -eq "//unit.test/managed/devices/$testDeviceId/policy/remove" -and $Method -eq 'Put' }
+            $APIToken -eq $testAPIToken -and $Uri -eq "//unit.test/managed/devices/$testDeviceId/policy/remove" -and $Method -eq 'Put' }
     }
 
     It 'should remove teamviewer policy from managed device' {
@@ -46,6 +46,6 @@ Describe 'Remove-TeamViewerPolicyFromManagedDevice' {
     }
 
     It 'Should throw an error when called with invalid policy type' {
-        { Remove-TeamViewerPolicyFromManagedDevice -ApiToken $testApiToken -Device $testDeviceId -PolicyType 2 } | Should -Throw
+        { Remove-TeamViewerPolicyFromManagedDevice -APIToken $testAPIToken -Device $testDeviceId -PolicyType 2 } | Should -Throw
     }
 }
