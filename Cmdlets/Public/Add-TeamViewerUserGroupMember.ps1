@@ -27,19 +27,6 @@
         $Members_ToAdd = @()
         $Body = @()
         $null = $APIToken # https://github.com/PowerShell/PSScriptAnalyzer/issues/1472
-
-        function Invoke-TeamViewerRestMethodInternal {
-            $Result = Invoke-TeamViewerRestMethod `
-                -APIToken $APIToken `
-                -Uri $Resource_Uri `
-                -Method Post `
-                -ContentType 'application/json; charset=utf-8' `
-                -Body ([System.Text.Encoding]::UTF8.GetBytes(($Body))) `
-                -WriteErrorTo $PSCmdlet `
-                -ErrorAction Stop
-
-            Write-Output ($Result | ConvertTo-TeamViewerUserGroupMember)
-        }
     }
 
     process {
@@ -70,7 +57,12 @@
 
         # Web API accepts a maximum of 100 accounts. Thus we send a request and reset the `membersToAdd` in order to accept more members
         if ($Members_ToAdd.Length -eq 100) {
-            Invoke-TeamViewerRestMethodInternal
+            Write-Output (Invoke-TeamViewerJsonRestMethod `
+                    -APIToken $APIToken `
+                    -Uri $Resource_Uri `
+                    -Method Post `
+                    -Body $Body `
+                    -CallerCmdlet $PSCmdlet | ConvertTo-TeamViewerUserGroupMember)
             $Members_ToAdd = @()
         }
     }
@@ -78,7 +70,12 @@
     end {
         # A request needs to be sent if there were less than 100 members
         if ($Members_ToAdd.Length -gt 0) {
-            Invoke-TeamViewerRestMethodInternal
+            Write-Output (Invoke-TeamViewerJsonRestMethod `
+                    -APIToken $APIToken `
+                    -Uri $Resource_Uri `
+                    -Method Post `
+                    -Body $Body `
+                    -CallerCmdlet $PSCmdlet | ConvertTo-TeamViewerUserGroupMember)
         }
     }
 }

@@ -26,22 +26,6 @@
         $Resource_Uri = "$(Get-TeamViewerAPIUri)/ssoDomain/$Domain_Id/exclusion"
         $Emails_ToAdd = @()
         $null = $APIToken # https://github.com/PowerShell/PSScriptAnalyzer/issues/1472
-
-        function Invoke-TeamViewerRestMethodInternal {
-            $Body = @{
-                emails = @($Emails_ToAdd)
-            }
-
-            Invoke-TeamViewerRestMethod `
-                -APIToken $APIToken `
-                -Uri $Resource_Uri `
-                -Method Post `
-                -ContentType 'application/json; charset=utf-8' `
-                -Body ([System.Text.Encoding]::UTF8.GetBytes(($Body | ConvertTo-Json))) `
-                -WriteErrorTo $PSCmdlet `
-                -ErrorAction Stop | `
-                Out-Null
-        }
     }
 
     process {
@@ -49,14 +33,24 @@
             $Emails_ToAdd += $Email
         }
         if ($Emails_ToAdd.Length -eq 100) {
-            Invoke-TeamViewerRestMethodInternal
+            Invoke-TeamViewerJsonRestMethod `
+                -APIToken $APIToken `
+                -Uri $Resource_Uri `
+                -Method Post `
+                -Body (@{ emails = @($Emails_ToAdd) } | ConvertTo-Json) `
+                -CallerCmdlet $PSCmdlet | Out-Null
             $Emails_ToAdd = @()
         }
     }
 
     end {
         if ($Emails_ToAdd.Length -gt 0) {
-            Invoke-TeamViewerRestMethodInternal
+            Invoke-TeamViewerJsonRestMethod `
+                -APIToken $APIToken `
+                -Uri $Resource_Uri `
+                -Method Post `
+                -Body (@{ emails = @($Emails_ToAdd) } | ConvertTo-Json) `
+                -CallerCmdlet $PSCmdlet | Out-Null
         }
     }
 }

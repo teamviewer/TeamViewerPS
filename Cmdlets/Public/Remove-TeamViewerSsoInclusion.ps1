@@ -25,21 +25,6 @@
         $Resource_Uri = "$(Get-TeamViewerAPIUri)/ssoDomain/$Id/inclusion"
         $EmailsToRemove = @()
         $null = $APIToken # https://github.com/PowerShell/PSScriptAnalyzer/issues/1472
-
-        function Invoke-TeamViewerRestMethodInternal {
-            $Body = @{
-                emails = @($EmailsToRemove)
-            }
-            Invoke-TeamViewerRestMethod `
-                -APIToken $APIToken `
-                -Uri $Resource_Uri `
-                -Method Delete `
-                -ContentType 'application/json; charset=utf-8' `
-                -Body ([System.Text.Encoding]::UTF8.GetBytes(($Body | ConvertTo-Json))) `
-                -WriteErrorTo $PSCmdlet `
-                -ErrorAction Stop | `
-                Out-Null
-        }
     }
 
     process {
@@ -48,14 +33,24 @@
         }
 
         if ($EmailsToRemove.Length -eq 100) {
-            Invoke-TeamViewerRestMethodInternal
+            Invoke-TeamViewerJsonRestMethod `
+                -APIToken $APIToken `
+                -Uri $Resource_Uri `
+                -Method Delete `
+                -Body (@{ emails = @($EmailsToRemove) } | ConvertTo-Json) `
+                -CallerCmdlet $PSCmdlet | Out-Null
             $EmailsToRemove = @()
         }
     }
 
     end {
         if ($EmailsToRemove.Length -gt 0) {
-            Invoke-TeamViewerRestMethodInternal
+            Invoke-TeamViewerJsonRestMethod `
+                -APIToken $APIToken `
+                -Uri $Resource_Uri `
+                -Method Delete `
+                -Body (@{ emails = @($EmailsToRemove) } | ConvertTo-Json) `
+                -CallerCmdlet $PSCmdlet | Out-Null
         }
     }
 }

@@ -31,19 +31,6 @@
             UserIds    = @()
             UserRoleId = $Role_Id
         }
-
-        function Invoke-TeamViewerRestMethodInternal {
-            $Result = Invoke-TeamViewerRestMethod `
-                -APIToken $APIToken `
-                -Uri $Resource_Uri `
-                -Method Post `
-                -ContentType 'application/json; charset=utf-8' `
-                -Body ([System.Text.Encoding]::UTF8.GetBytes(($Body | ConvertTo-Json))) `
-                -WriteErrorTo $PSCmdlet `
-                -ErrorAction Stop
-
-            Write-Output ($Result)
-        }
     }
 
     process {
@@ -57,13 +44,23 @@
             }
         }
         if ($Users_ToAdd.Length -eq 100) {
-            Invoke-TeamViewerRestMethodInternal
+            Write-Output (Invoke-TeamViewerJsonRestMethod `
+                    -APIToken $APIToken `
+                    -Uri $Resource_Uri `
+                    -Method Post `
+                    -Body ($Body | ConvertTo-Json) `
+                    -CallerCmdlet $PSCmdlet)
             $Users_ToAdd = @()
         }
     }
     end {
         if ($Users_ToAdd.Length -gt 0) {
-            Invoke-TeamViewerRestMethodInternal
+            Write-Output (Invoke-TeamViewerJsonRestMethod `
+                    -APIToken $APIToken `
+                    -Uri $Resource_Uri `
+                    -Method Post `
+                    -Body ($Body | ConvertTo-Json) `
+                    -CallerCmdlet $PSCmdlet)
         }
     }
 }

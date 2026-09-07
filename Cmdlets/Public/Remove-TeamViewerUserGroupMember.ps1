@@ -34,18 +34,6 @@
         $null = $APIToken # https://github.com/PowerShell/PSScriptAnalyzer/issues/1472
         $null = $UserGroupMember
 
-        function Invoke-TeamViewerRestMethodInternal {
-            Invoke-TeamViewerRestMethod `
-                -APIToken $APIToken `
-                -Uri $Resource_Uri `
-                -Method Delete `
-                -ContentType 'application/json; charset=utf-8' `
-                -Body ([System.Text.Encoding]::UTF8.GetBytes(($Body))) `
-                -WriteErrorTo $PSCmdlet `
-                -ErrorAction Stop | `
-                Out-Null
-        }
-
         function Get-MemberId {
             switch ($UserGroupMember) {
                 { $UserGroupMember[0].PSObject.TypeNames -contains 'TeamViewerPS.UserGroupMember' } {
@@ -86,7 +74,12 @@
 
         # Web API accepts max 100 accounts. Thus we send a request, and reset the `membersToRemove` in order to accept more members
         if ($MembersToRemove.Length -eq 100) {
-            Invoke-TeamViewerRestMethodInternal
+            Invoke-TeamViewerJsonRestMethod `
+                -APIToken $APIToken `
+                -Uri $Resource_Uri `
+                -Method Delete `
+                -Body $Body `
+                -CallerCmdlet $PSCmdlet | Out-Null
             $MembersToRemove = @()
         }
     }
@@ -94,7 +87,12 @@
     end {
         # A request needs to be send if there were less than 100 members
         if ($MembersToRemove.Length -gt 0) {
-            Invoke-TeamViewerRestMethodInternal
+            Invoke-TeamViewerJsonRestMethod `
+                -APIToken $APIToken `
+                -Uri $Resource_Uri `
+                -Method Delete `
+                -Body $Body `
+                -CallerCmdlet $PSCmdlet | Out-Null
         }
     }
 }
