@@ -4,23 +4,23 @@
     [OutputType([void])]
 
     param(
-        [Parameter(Mandatory = $true, ParameterSetName = 'Default')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'ChangeName')]
         [Parameter(Mandatory = $true, ParameterSetName = 'ByPolicyId')]
         [Parameter(Mandatory = $true, ParameterSetName = 'ByManagedGroupId')]
         [Parameter(Mandatory = $true, ParameterSetName = 'UpdateDescription')]
         [securestring]
         $APIToken,
 
-        [Parameter(Mandatory = $true, ParameterSetName = 'Default', ValueFromPipeline = $true)]
+        [Parameter(Mandatory = $true, ParameterSetName = 'ChangeName', ValueFromPipeline = $true)]
         [Parameter(Mandatory = $true, ParameterSetName = 'ByPolicyId', ValueFromPipeline = $true)]
         [Parameter(Mandatory = $true, ParameterSetName = 'ByManagedGroupId', ValueFromPipeline = $true)]
         [Parameter(Mandatory = $true, ParameterSetName = 'UpdateDescription', ValueFromPipeline = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerManagedDeviceId } )]
-        [Alias('DeviceId')]
+        [Alias('Id', 'DeviceId', 'ManagedDeviceId', 'ManagedDevice')]
         [object]
         $Device,
 
-        [Parameter(Mandatory = $false, ParameterSetName = 'Default')]
+        [Parameter(Mandatory = $false, ParameterSetName = 'ChangeName')]
         [Parameter(Mandatory = $false, ParameterSetName = 'ByPolicyId')]
         [Parameter(Mandatory = $false, ParameterSetName = 'ByManagedGroupId')]
         [Parameter(Mandatory = $false, ParameterSetName = 'UpdateDescription')]
@@ -36,7 +36,7 @@
 
         [Parameter(Mandatory = $true, ParameterSetName = 'ByManagedGroupId')]
         [ValidateScript( { $_ | Resolve-TeamViewerManagedGroupId } )]
-        [Alias('ManagedGroupId')]
+        [Alias('GroupId', 'ManagedGroupId')]
         [object]
         $ManagedGroup,
 
@@ -74,18 +74,18 @@
 
     process {
         $DeviceId = $Device | Resolve-TeamViewerManagedDeviceId
-        $ResourceUri = "$(Get-TeamViewerAPIUri)/managed/devices/$DeviceId"
+        $Resource_Uri = "$(Get-TeamViewerAPIUri)/managed/devices/$DeviceId"
 
         switch ($PsCmdlet.ParameterSetName) {
             'UpdateDescription' {
-                $ResourceUri += '/description'
+                $Resource_Uri += '/description'
             }
         }
 
         if ($PSCmdlet.ShouldProcess($Device.ToString(), 'Change managed device entry')) {
             Invoke-TeamViewerRestMethod `
                 -APIToken $APIToken `
-                -Uri $ResourceUri `
+                -Uri $Resource_Uri `
                 -Method Put `
                 -ContentType 'application/json; charset=utf-8' `
                 -Body ([System.Text.Encoding]::UTF8.GetBytes(($Body | ConvertTo-Json))) `

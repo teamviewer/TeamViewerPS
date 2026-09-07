@@ -15,14 +15,15 @@
         $Domain
     )
 
-    $DomainId = $Domain | Resolve-TeamViewerSSODomainId
-    $ResourceUri = "$(Get-TeamViewerAPIUri)/ssoDomain/$DomainId/exclusion"
+    $Domain_Id = $Domain | Resolve-TeamViewerSSODomainId
+
+    $Resource_Uri = "$(Get-TeamViewerAPIUri)/ssoDomain/$Domain_Id/exclusion"
     $Parameters = @{ }
 
     do {
         $Response = Invoke-TeamViewerRestMethod `
             -APIToken $APIToken `
-            -Uri $ResourceUri `
+            -Uri $Resource_Uri `
             -Method Get `
             -Body $Parameters `
             -WriteErrorTo $PSCmdlet `

@@ -22,7 +22,7 @@
 }
 Describe 'Add-TeamViewerUserToRole' {
     It 'Should call the correct API endpoint' {
-        Add-TeamViewerUserToRole -APIToken $testAPIToken -RoleId $testRoleId -Accounts $testAccount
+        Add-TeamViewerUserToRole -APIToken $testAPIToken -Role $testRoleId -User $testAccount
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $APIToken -eq $testAPIToken -and $Uri -eq '//unit.test/userroles/assign/account' -and $Method -eq 'Post'
@@ -30,7 +30,7 @@ Describe 'Add-TeamViewerUserToRole' {
     }
 
     It 'Should assign the given account to the user role' {
-        Add-TeamViewerUserToRole -APIToken $testAPIToken -RoleId $testRoleId -Accounts $testAccount
+        Add-TeamViewerUserToRole -APIToken $testAPIToken -Role $testRoleId -User $testAccount
         $mockArgs.Body | Should -Not -BeNullOrEmpty
         $Body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
         $Body.UserIds | Should -HaveCount 2
@@ -43,7 +43,7 @@ Describe 'Add-TeamViewerUserToRole' {
     }
 
     It 'Should accept pipeline input' {
-        $testAccount | Add-TeamViewerUserToRole -APIToken $testAPIToken -RoleId $testRoleId
+        $testAccount | Add-TeamViewerUserToRole -APIToken $testAPIToken -Role $testRoleId
         $mockArgs.Body | Should -Not -BeNullOrEmpty
         $Body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
         $Body.UserIds | Should -HaveCount 2
@@ -58,13 +58,13 @@ Describe 'Add-TeamViewerUserToRole' {
     It 'Should batch pipeline input after 100 accounts' {
         $TestAccounts = 1..101 | ForEach-Object { "u$_" }
 
-        $TestAccounts | Add-TeamViewerUserToRole -APIToken $testAPIToken -RoleId $testRoleId
+        $TestAccounts | Add-TeamViewerUserToRole -APIToken $testAPIToken -Role $testRoleId
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 2 -Scope It
     }
 
     It 'Should not invoke REST when WhatIf is used' {
-        Add-TeamViewerUserToRole -APIToken $testAPIToken -RoleId $testRoleId -Accounts $testAccount -WhatIf
+        Add-TeamViewerUserToRole -APIToken $testAPIToken -Role $testRoleId -User $testAccount -WhatIf
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 0 -Scope It
     }

@@ -18,12 +18,12 @@
 
     process {
         $GroupId = $Group | Resolve-TeamViewerGroupId
-        $ResourceUri = "$(Get-TeamViewerAPIUri)/groups/$GroupId"
+        $Resource_Uri = "$(Get-TeamViewerAPIUri)/groups/$GroupId"
 
         if ($PSCmdlet.ShouldProcess($GroupId, 'Remove group')) {
             Invoke-TeamViewerRestMethod `
                 -APIToken $APIToken `
-                -Uri $ResourceUri `
+                -Uri $Resource_Uri `
                 -Method Delete `
                 -WriteErrorTo $PSCmdlet | `
                 Out-Null

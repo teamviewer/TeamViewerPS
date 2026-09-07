@@ -6,24 +6,24 @@
 
         [Parameter()]
         [ValidateSet('All', 'Minimal')]
-        $PropertiesToLoad = 'Minimal'
+        $Properties = 'Minimal'
     )
 
     process {
-        $Properties = @{
+        $Output_Properties = @{
             Id    = $InputObject.id
             Name  = $InputObject.name
             Email = $InputObject.email
         }
 
         if ($InputObject.userRoleId) {
-            $Properties += @{
+            $Output_Properties += @{
                 Role_Id = $InputObject.userRoleId
             }
         }
 
-        if ($PropertiesToLoad -eq 'All') {
-            $Properties += @{
+        if ($Properties -eq 'All') {
+            $Output_Properties += @{
                 Active            = $InputObject.active
                 LastAccess_Date   = $InputObject.last_access_date | ConvertTo-DateTime
                 Log_Sessions      = $InputObject.log_sessions
@@ -34,7 +34,7 @@
             }
 
             if ($InputObject.activated_license_id) {
-                $Properties += @{
+                $Output_Properties += @{
                     ActivatedLicense_Id      = [guid]$InputObject.activated_license_id
                     ActivatedLicense_Name    = $InputObject.activated_license_name
                     ActivatedSubLicense_Name = $InputObject.activated_subLicense_name
@@ -42,31 +42,31 @@
             }
 
             if ($InputObject.activated_meeting_license_key) {
-                $Properties += @{
+                $Output_Properties += @{
                     ActivatedMeetingLicense_Id = [guid]$InputObject.activated_meeting_license_key
                 }
             }
 
             if ($InputObject.online_state) {
-                $Properties += @{
+                $Output_Properties += @{
                     OnlineState = $InputObject.online_state
                 }
             }
 
             if ($InputObject.custom_quicksupport_id) {
-                $Properties += @{
+                $Output_Properties += @{
                     CustomQuickSupport_Id = $InputObject.custom_quicksupport_id
                 }
             }
 
             if ($InputObject.custom_quickjoin_id) {
-                $Properties += @{
+                $Output_Properties += @{
                     CustomQuickJoin_Id = $InputObject.custom_quickjoin_id
                 }
             }
         }
 
-        $Result = New-Object -TypeName PSObject -Property $Properties
+        $Result = New-Object -TypeName PSObject -Property $Output_Properties
         $Result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.User')
 
         Write-Output $Result

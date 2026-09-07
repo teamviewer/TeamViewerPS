@@ -18,6 +18,16 @@
 }
 
 Describe 'Move-TeamViewerManagedDevice' {
+    Context 'Parameter aliases' {
+        It 'Should expose <Alias> as an alias of the <Param> parameter' -ForEach @(
+            @{ Param = 'Device'; Alias = 'Id' }
+            @{ Param = 'Device'; Alias = 'DeviceId' }
+            @{ Param = 'Device'; Alias = 'ManagedDeviceId' }
+            @{ Param = 'Device'; Alias = 'ManagedDevice' }
+        ) {
+            (Get-Command -Name Move-TeamViewerManagedDevice).Parameters[$Param].Aliases | Should -Contain $Alias
+        }
+    }
     It 'Should call the correct API endpoint to move a managed device from one group to another' {
         Move-TeamViewerManagedDevice -APIToken $testAPIToken -Device $testDeviceId -SourceGroup $testSourceGroupId -TargetGroup $testTargetGroupId
 

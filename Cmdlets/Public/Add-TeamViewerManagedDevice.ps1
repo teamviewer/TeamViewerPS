@@ -10,29 +10,29 @@
 
         [Parameter(Mandatory = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerManagedDeviceId } )]
-        [Alias('DeviceId')]
+        [Alias('Id', 'DeviceId', 'ManagedDeviceId', 'ManagedDevice')]
         [object]
         $Device,
 
         [Parameter(Mandatory = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerManagedGroupId } )]
-        [Alias('GroupId')]
+        [Alias('GroupId', 'ManagedGroupId', 'ManagedGroup')]
         [object]
         $Group
     )
 
-    $DeviceId = $Device | Resolve-TeamViewerManagedDeviceId
-    $GroupId = $Group | Resolve-TeamViewerManagedGroupId
-    $ResourceUri = "$(Get-TeamViewerAPIUri)/managed/groups/$GroupId/devices"
+    $Device_Id = $Device | Resolve-TeamViewerManagedDeviceId
+    $Group_Id = $Group | Resolve-TeamViewerManagedGroupId
+    $Resource_Uri = "$(Get-TeamViewerAPIUri)/managed/groups/$Group_Id/devices"
 
     $Body = @{
-        Id = $DeviceId.ToString()
+        Id = $Device_Id.ToString()
     }
 
-    if ($PSCmdlet.ShouldProcess($DeviceId, 'Add device to managed group')) {
+    if ($PSCmdlet.ShouldProcess($Device_Id, 'Add device to managed group')) {
         Invoke-TeamViewerRestMethod `
             -APIToken $APIToken `
-            -Uri $ResourceUri `
+            -Uri $Resource_Uri `
             -Method Post `
             -ContentType 'application/json; charset=utf-8' `
             -Body ([System.Text.Encoding]::UTF8.GetBytes(($Body | ConvertTo-Json))) `

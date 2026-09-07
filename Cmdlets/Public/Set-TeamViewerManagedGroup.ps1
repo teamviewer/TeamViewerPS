@@ -12,6 +12,7 @@
         [ValidateScript( { $_ | Resolve-TeamViewerManagedGroupId })]
         [Alias('GroupId')]
         [Alias('Id')]
+        [Alias('ManagedGroupId', 'ManagedGroup')]
         [object]
         $Group,
 
@@ -35,9 +36,7 @@
     )
 
     begin {
-        # Warning suppression doesn't seem to work.
-        # See https://github.com/PowerShell/PSScriptAnalyzer/issues/1472
-        $null = $Property
+        $null = $Property # https://github.com/PowerShell/PSScriptAnalyzer/issues/1472
 
         $Body = @{}
 
@@ -85,12 +84,12 @@
 
     process {
         $GroupId = $Group | Resolve-TeamViewerManagedGroupId
-        $ResourceUri = "$(Get-TeamViewerAPIUri)/managed/groups/$GroupId"
+        $Resource_Uri = "$(Get-TeamViewerAPIUri)/managed/groups/$GroupId"
 
         if ($PSCmdlet.ShouldProcess($GroupId, 'Update managed group')) {
             Invoke-TeamViewerRestMethod `
                 -APIToken $APIToken `
-                -Uri $ResourceUri `
+                -Uri $Resource_Uri `
                 -Method Put `
                 -ContentType 'application/json; charset=utf-8' `
                 -Body ([System.Text.Encoding]::UTF8.GetBytes(($Body | ConvertTo-Json))) `

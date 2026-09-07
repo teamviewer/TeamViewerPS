@@ -10,18 +10,19 @@
 
         [Parameter(Mandatory = $true, ValueFromPipeline = $true )]
         [ValidateScript({ $_ | Resolve-TeamViewerRoleId })]
+        [Alias('Id', 'Role')]
         [object]
         $RoleId
     )
 
     process {
         $Role = $RoleId | Resolve-TeamViewerRoleId
-        $ResourceUri = "$(Get-TeamViewerAPIUri)/userroles/$Role/predefined"
+        $Resource_Uri = "$(Get-TeamViewerAPIUri)/userroles/$Role/predefined"
 
         if ($PSCmdlet.ShouldProcess($Role, 'Set Default Role')) {
             Invoke-TeamViewerRestMethod `
                 -APIToken $APIToken `
-                -Uri $ResourceUri `
+                -Uri $Resource_Uri `
                 -Method Put `
                 -ContentType 'application/json; charset=utf-8' `
                 -WriteErrorTo $PSCmdlet `

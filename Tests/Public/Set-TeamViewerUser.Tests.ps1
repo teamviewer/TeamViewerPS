@@ -32,7 +32,7 @@ Describe 'Set-TeamViewerUser' {
         $testPassword = 'Test1234' | ConvertTo-TestPassword
         $testSSOCustomerId = 'SSOTest' | ConvertTo-TestPassword
 
-        Set-TeamViewerUser -APIToken $testAPIToken -User 'u1234' -Name 'Updated User Name' -Email 'foo@bar.com' -Password $testPassword -SSOCustomerIdentifier $testSSOCustomerId -Active $false
+        Set-TeamViewerUser -APIToken $testAPIToken -User 'u1234' -Name 'Updated User Name' -Email 'foo@bar.com' -Password $testPassword -SSO_CustomerIdentifier $testSSOCustomerId -Active $false
 
         $mockArgs.Body | Should -Not -BeNullOrEmpty
         $Body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
@@ -54,7 +54,7 @@ Describe 'Set-TeamViewerUser' {
             -Name 'Updated User Name' `
             -Email 'foo@bar.com' `
             -Password $testPassword `
-            -SSOCustomerIdentifier $testSSOCustomerId `
+            -SSO_CustomerIdentifier $testSSOCustomerId `
             -Active $false `
             -LogSessions $true `
             -ShowCommentWindow $true `
@@ -62,8 +62,8 @@ Describe 'Set-TeamViewerUser' {
             -CustomQuickSupportId 'quick-id' `
             -CustomQuickJoinId 'join-id' `
             -LicenseKey 'license-xyz'`
-            -AssignRoleId @('11111111-1111-1111-1111-111111111111')`
-            -UnassignRoleId @('22222222-2222-2222-2222-222222222222')
+            -AddRole @('11111111-1111-1111-1111-111111111111')`
+            -RemoveRole @('22222222-2222-2222-2222-222222222222')
 
         $mockArgs.Body | Should -Not -BeNullOrEmpty
 
@@ -88,7 +88,7 @@ Describe 'Set-TeamViewerUser' {
         Set-TeamViewerUser `
             -APIToken $testAPIToken `
             -User 'u1234' `
-            -Property @{
+            -Properties @{
             name                   = 'Updated User Name'
             email                  = 'foo@bar.com'
             password               = 'Test1234'
@@ -127,6 +127,6 @@ Describe 'Set-TeamViewerUser' {
     }
 
     It 'Should throw if hashtable does not contain any valid change' {
-        { Set-TeamViewerUser -APIToken $testAPIToken -User 'u1234' -Property @{ foo = 'bar' } } | Should -Throw
+        { Set-TeamViewerUser -APIToken $testAPIToken -User 'u1234' -Properties @{ foo = 'bar' } } | Should -Throw
     }
 }

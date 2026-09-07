@@ -73,7 +73,7 @@ The role to be set as Default Role.
 ```yaml
 Type: Object
 Parameter Sets: (All)
-Aliases: Role
+Aliases: Id, Role
 
 Required: True
 Position: 1

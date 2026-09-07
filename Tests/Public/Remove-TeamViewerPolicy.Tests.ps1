@@ -14,6 +14,14 @@
 }
 
 Describe 'Remove-TeamViewerPolicy' {
+    Context 'Parameter aliases' {
+        It 'Should expose <Alias> as an alias of the <Param> parameter' -ForEach @(
+            @{ Param = 'Policy'; Alias = 'Id' }
+            @{ Param = 'Policy'; Alias = 'PolicyId' }
+        ) {
+            (Get-Command -Name Remove-TeamViewerPolicy).Parameters[$Param].Aliases | Should -Contain $Alias
+        }
+    }
     It 'Should call the correct API endpoint' {
         Remove-TeamViewerPolicy -APIToken $testAPIToken -PolicyId $testPolicyId
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {

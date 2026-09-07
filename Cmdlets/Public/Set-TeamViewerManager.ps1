@@ -25,14 +25,14 @@
         [Parameter(ParameterSetName = 'Device_ByParameters')]
         [Parameter(ParameterSetName = 'Device_ByProperties')]
         [ValidateScript( { $_ | Resolve-TeamViewerManagedDeviceId } )]
-        [Alias('DeviceId')]
+        [Alias('DeviceId', 'ManagedDeviceId', 'ManagedDevice')]
         [object]
         $Device,
 
         [Parameter(ParameterSetName = 'Group_ByParameters')]
         [Parameter(ParameterSetName = 'Group_ByProperties')]
         [ValidateScript( { $_ | Resolve-TeamViewerManagedGroupId })]
-        [Alias('GroupId')]
+        [Alias('GroupId', 'ManagedGroupId', 'ManagedGroup')]
         [object]
         $Group,
 
@@ -49,9 +49,7 @@
     )
 
     begin {
-        # Warning suppression doesn't seem to work.
-        # See https://github.com/PowerShell/PSScriptAnalyzer/issues/1472
-        $null = $Property
+        $null = $Property # https://github.com/PowerShell/PSScriptAnalyzer/issues/1472
 
         $Body = @{}
 
@@ -70,8 +68,8 @@
         }
     }
     process {
-        $DeviceId = $null
-        $GroupId = $null
+        $Device_Id = $null
+        $Group_Id = $null
 
         if ($Manager.PSObject.TypeNames -contains 'TeamViewerPS.Manager') {
             if ($Device -or $Group) {
@@ -80,17 +78,17 @@
             }
 
             if ($Manager.Device_Id) {
-                $DeviceId = $Manager.Device_Id
+                $Device_Id = $Manager.Device_Id
             }
             elseif ($Manager.Group_Id) {
-                $GroupId = $Manager.Group_Id
+                $Group_Id = $Manager.Group_Id
             }
         }
         elseif ($Device) {
-            $DeviceId = $Device | Resolve-TeamViewerManagedDeviceId
+            $Device_Id = $Device | Resolve-TeamViewerManagedDeviceId
         }
         elseif ($Group) {
-            $GroupId = $Group | Resolve-TeamViewerManagedGroupId
+            $Group_Id = $Group | Resolve-TeamViewerManagedGroupId
         }
         else {
             $PSCmdlet.ThrowTerminatingError(
@@ -99,19 +97,19 @@
 
         $managerId = $Manager | Resolve-TeamViewerManagerId
 
-        if ($DeviceId) {
-            $ResourceUri = "$(Get-TeamViewerAPIUri)/managed/devices/$DeviceId/managers/$managerId"
+        if ($Device_Id) {
+            $Resource_Uri = "$(Get-TeamViewerAPIUri)/managed/devices/$Device_Id/managers/$managerId"
             $Process_Message = 'Update managed device manager'
         }
-        elseif ($GroupId) {
-            $ResourceUri = "$(Get-TeamViewerAPIUri)/managed/groups/$GroupId/managers/$managerId"
+        elseif ($Group_Id) {
+            $Resource_Uri = "$(Get-TeamViewerAPIUri)/managed/groups/$Group_Id/managers/$managerId"
             $Process_Message = 'Update managed group manager'
         }
 
         if ($PSCmdlet.ShouldProcess($managerId, $Process_Message)) {
             Invoke-TeamViewerRestMethod `
                 -APIToken $APIToken `
-                -Uri $ResourceUri `
+                -Uri $Resource_Uri `
                 -Method Put `
                 -ContentType 'application/json; charset=utf-8' `
                 -Body ([System.Text.Encoding]::UTF8.GetBytes(($Body | ConvertTo-Json))) `

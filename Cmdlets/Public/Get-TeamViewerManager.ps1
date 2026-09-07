@@ -1,5 +1,5 @@
 ﻿function Get-TeamViewerManager {
-    [CmdletBinding(DefaultParameterSetName = 'ByDevice')]
+    [CmdletBinding(DefaultParameterSetName = 'ByDeviceId')]
 
     [OutputType('TeamViewerPS.Manager')]
 
@@ -8,44 +8,44 @@
         [securestring]
         $APIToken,
 
-        [Parameter(Mandatory = $true, ParameterSetName = 'ByDevice')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'ByDeviceId')]
         [ValidateScript( { $_ | Resolve-TeamViewerManagedDeviceId } )]
         [Alias('Id', 'DeviceId', 'ManagedDeviceId', 'ManagedDevice')]
         [object]
         $Device,
 
-        [Parameter(Mandatory = $true, ParameterSetName = 'ByGroup')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'ByGroupId')]
         [ValidateScript( { $_ | Resolve-TeamViewerManagedGroupId } )]
         [Alias('GroupId', 'ManagedGroupId', 'ManagedGroup')]
         [object]
         $Group
     )
 
-    $ResourceUri = $null
+    $Resource_Uri = $null
 
     switch ($PsCmdlet.ParameterSetName) {
-        'ByDevice' {
+        'ByDeviceId' {
             $DeviceId = $Device | Resolve-TeamViewerManagedDeviceId
-            $ResourceUri = "$(Get-TeamViewerAPIUri)/managed/devices/$DeviceId/managers"
+            $Resource_Uri = "$(Get-TeamViewerAPIUri)/managed/devices/$DeviceId/managers"
         }
-        'ByGroup' {
+        'ByGroupId' {
             $GroupId = $Group | Resolve-TeamViewerManagedGroupId
-            $ResourceUri = "$(Get-TeamViewerAPIUri)/managed/groups/$GroupId/managers"
+            $Resource_Uri = "$(Get-TeamViewerAPIUri)/managed/groups/$GroupId/managers"
         }
     }
 
     $Response = Invoke-TeamViewerRestMethod `
         -APIToken $APIToken `
-        -Uri $ResourceUri `
+        -Uri $Resource_Uri `
         -Method Get `
         -WriteErrorTo $PSCmdlet `
         -ErrorAction Stop
 
     switch ($PsCmdlet.ParameterSetName) {
-        'ByDevice' {
+        'ByDeviceId' {
             Write-Output ($Response.resources | ConvertTo-TeamViewerManager -DeviceId $DeviceId )
         }
-        'ByGroup' {
+        'ByGroupId' {
             Write-Output ($Response.resources | ConvertTo-TeamViewerManager -GroupId $GroupId)
         }
     }

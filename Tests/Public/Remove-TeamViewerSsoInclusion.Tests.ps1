@@ -14,6 +14,16 @@
 }
 
 Describe 'Remove-TeamViewerSSOInclusion' {
+    Context 'Parameter aliases' {
+        It 'Should expose <Alias> as an alias of the <Param> parameter' -ForEach @(
+            @{ Param = 'DomainId'; Alias = 'Id' }
+            @{ Param = 'DomainId'; Alias = 'Domain' }
+            @{ Param = 'DomainId'; Alias = 'SSODomainId' }
+            @{ Param = 'DomainId'; Alias = 'SSODomain' }
+        ) {
+            (Get-Command -Name Remove-TeamViewerSSOInclusion).Parameters[$Param].Aliases | Should -Contain $Alias
+        }
+    }
     It 'Should call the correct API endpoint' {
         Remove-TeamViewerSSOInclusion -APIToken $testAPIToken -DomainId $testDomainId -Email 'foo@example.test'
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {

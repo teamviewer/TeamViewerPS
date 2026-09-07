@@ -24,13 +24,13 @@
 
         [Parameter(ParameterSetName = 'ByDeviceId')]
         [ValidateScript( { $_ | Resolve-TeamViewerManagedDeviceId } )]
-        [Alias('DeviceId')]
+        [Alias('DeviceId', 'ManagedDeviceId', 'ManagedDevice')]
         [object]
         $Device,
 
         [Parameter(ParameterSetName = 'ByGroupId')]
         [ValidateScript( { $_ | Resolve-TeamViewerManagedGroupId })]
-        [Alias('GroupId')]
+        [Alias('GroupId', 'ManagedGroupId', 'ManagedGroup')]
         [object]
         $Group
     )
@@ -68,16 +68,16 @@
         $managerId = $Manager | Resolve-TeamViewerManagerId
 
         if ($DeviceId) {
-            $ResourceUri = "$(Get-TeamViewerAPIUri)/managed/devices/$DeviceId/managers/$managerId"
+            $Resource_Uri = "$(Get-TeamViewerAPIUri)/managed/devices/$DeviceId/managers/$managerId"
             $Process_Message = 'Remove manager from managed device'
         }
         elseif ($GroupId) {
-            $ResourceUri = "$(Get-TeamViewerAPIUri)/managed/groups/$GroupId/managers/$managerId"
+            $Resource_Uri = "$(Get-TeamViewerAPIUri)/managed/groups/$GroupId/managers/$managerId"
             $Process_Message = 'Remove manager from managed group'
         }
 
         if ($PSCmdlet.ShouldProcess($managerId, $Process_Message)) {
-            Invoke-TeamViewerRestMethod -APIToken $APIToken -Uri $ResourceUri -Method Delete -WriteErrorTo $PSCmdlet | Out-Null
+            Invoke-TeamViewerRestMethod -APIToken $APIToken -Uri $Resource_Uri -Method Delete -WriteErrorTo $PSCmdlet | Out-Null
         }
     }
 }

@@ -10,28 +10,29 @@
 
         [Parameter(Mandatory = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerSSODomainId } )]
-        [Alias('Domain')]
+        [Alias('Id', 'Domain', 'SSODomainId', 'SSODomain')]
         [object]
         $DomainId,
 
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
+        [Alias('EmailAddress')]
         [string[]]
         $Email
     )
 
     begin {
         $Id = $DomainId | Resolve-TeamViewerSSODomainId
-        $ResourceUri = "$(Get-TeamViewerAPIUri)/ssoDomain/$Id/inclusion"
+        $Resource_Uri = "$(Get-TeamViewerAPIUri)/ssoDomain/$Id/inclusion"
         $EmailsToRemove = @()
-        $null = $APIToken   # https://github.com/PowerShell/PSScriptAnalyzer/issues/1472
+        $null = $APIToken # https://github.com/PowerShell/PSScriptAnalyzer/issues/1472
 
-        function Invoke-RequestInternal {
+        function Invoke-TeamViewerRestMethodInternal {
             $Body = @{
                 emails = @($EmailsToRemove)
             }
             Invoke-TeamViewerRestMethod `
                 -APIToken $APIToken `
-                -Uri $ResourceUri `
+                -Uri $Resource_Uri `
                 -Method Delete `
                 -ContentType 'application/json; charset=utf-8' `
                 -Body ([System.Text.Encoding]::UTF8.GetBytes(($Body | ConvertTo-Json))) `
@@ -47,14 +48,14 @@
         }
 
         if ($EmailsToRemove.Length -eq 100) {
-            Invoke-RequestInternal
+            Invoke-TeamViewerRestMethodInternal
             $EmailsToRemove = @()
         }
     }
 
     end {
         if ($EmailsToRemove.Length -gt 0) {
-            Invoke-RequestInternal
+            Invoke-TeamViewerRestMethodInternal
         }
     }
 }

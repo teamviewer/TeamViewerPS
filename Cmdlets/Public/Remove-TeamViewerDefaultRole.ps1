@@ -11,14 +11,14 @@
 
     begin {
         $Parameters = @{}
-        $ResourceUri = "$(Get-TeamViewerAPIUri)/userroles/predefined"
+        $Resource_Uri = "$(Get-TeamViewerAPIUri)/userroles/predefined"
     }
 
     process {
         if ($PSCmdlet.ShouldProcess('DefaultRole', 'Remove Default role')) {
             Invoke-TeamViewerRestMethod `
                 -APIToken $APIToken `
-                -Uri $ResourceUri `
+                -Uri $Resource_Uri `
                 -Method DELETE `
                 -Body $Parameters `
                 -WriteErrorTo $PSCmdlet `

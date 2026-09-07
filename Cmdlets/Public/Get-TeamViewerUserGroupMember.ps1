@@ -16,8 +16,9 @@
     )
 
     begin {
-        $Id = $UserGroup | Resolve-TeamViewerUserGroupId
-        $ResourceUri = "$(Get-TeamViewerAPIUri)/usergroups/$Id/members"
+        $UserGroup_Id = $UserGroup | Resolve-TeamViewerUserGroupId
+
+        $Resource_Uri = "$(Get-TeamViewerAPIUri)/usergroups/$UserGroup_Id/members"
         $Parameters = @{ }
     }
 
@@ -25,7 +26,7 @@
         do {
             $Response = Invoke-TeamViewerRestMethod `
                 -APIToken $APIToken `
-                -Uri $ResourceUri `
+                -Uri $Resource_Uri `
                 -Method Get `
                 -Body $Parameters `
                 -WriteErrorTo $PSCmdlet `

@@ -1,5 +1,5 @@
 ﻿function Add-TeamViewerManager {
-    [CmdletBinding(SupportsShouldProcess = $true, DefaultParameterSetName = 'Device_ByAccountId')]
+    [CmdletBinding(SupportsShouldProcess = $true, DefaultParameterSetName = 'DeviceByAccount')]
 
     [OutputType([void])]
 
@@ -8,46 +8,46 @@
         [securestring]
         $APIToken,
 
-        [Parameter(Mandatory = $true, ParameterSetName = 'Device_ByAccountId')]
-        [Parameter(Mandatory = $true, ParameterSetName = 'Group_ByAccountId')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'DeviceByAccount')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'GroupByAccount')]
         [string]
         $AccountId,
 
-        [Parameter(Mandatory = $true, ParameterSetName = 'Device_ByManagerId')]
-        [Parameter(Mandatory = $true, ParameterSetName = 'Group_ByManagerId')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'DeviceByManager')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'GroupByManager')]
         [ValidateScript( { $_ | Resolve-TeamViewerManagerId } )]
         [Alias('ManagerId')]
         [object]
         $Manager,
 
-        [Parameter(Mandatory = $true, ParameterSetName = 'Device_ByUserObject')]
-        [Parameter(Mandatory = $true, ParameterSetName = 'Group_ByUserObject')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'DeviceByUser')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'GroupByUser')]
         [ValidateScript( { $_ | Resolve-TeamViewerUserId } )]
         [object]
         $User,
 
-        [Parameter(Mandatory = $true, ParameterSetName = 'Group_ByUserGroupId')]
-        [Parameter(Mandatory = $true, ParameterSetName = 'Device_ByUserGroupId')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'GroupByUserGroup')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'DeviceByUserGroup')]
         [ValidateScript( { $_ | Resolve-TeamViewerUserGroupId })]
         [Alias('UserGroupId')]
         [object]
         $UserGroup,
 
-        [Parameter(Mandatory = $true, ParameterSetName = 'Group_ByAccountId')]
-        [Parameter(Mandatory = $true, ParameterSetName = 'Group_ByManagerId')]
-        [Parameter(Mandatory = $true, ParameterSetName = 'Group_ByUserObject')]
-        [Parameter(Mandatory = $true, ParameterSetName = 'Group_ByUserGroupId')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'GroupByAccount')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'GroupByManager')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'GroupByUser')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'GroupByUserGroup')]
         [ValidateScript( { $_ | Resolve-TeamViewerManagedGroupId } )]
-        [Alias('GroupId')]
+        [Alias('GroupId', 'ManagedGroupId', 'ManagedGroup')]
         [object]
         $Group,
 
-        [Parameter(Mandatory = $true, ParameterSetName = 'Device_ByAccountId')]
-        [Parameter(Mandatory = $true, ParameterSetName = 'Device_ByManagerId')]
-        [Parameter(Mandatory = $true, ParameterSetName = 'Device_ByUserObject')]
-        [Parameter(Mandatory = $true, ParameterSetName = 'Device_ByUserGroupId')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'DeviceByAccount')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'DeviceByManager')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'DeviceByUser')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'DeviceByUserGroup')]
         [ValidateScript( { $_ | Resolve-TeamViewerManagedDeviceId } )]
-        [Alias('DeviceId')]
+        [Alias('DeviceId', 'ManagedDeviceId', 'ManagedDevice')]
         [object]
         $Device,
 
@@ -57,17 +57,17 @@
         $Permissions
     )
 
-    $ResourceUri = $null
+    $Resource_Uri = $null
 
     switch -Wildcard ($PSCmdlet.ParameterSetName) {
         'Device*' {
             $DeviceId = $Device | Resolve-TeamViewerManagedDeviceId
-            $ResourceUri = "$(Get-TeamViewerAPIUri)/managed/devices/$DeviceId/managers"
+            $Resource_Uri = "$(Get-TeamViewerAPIUri)/managed/devices/$DeviceId/managers"
             $Process_Message = 'Add manager to managed device'
         }
         'Group*' {
             $GroupId = $Group | Resolve-TeamViewerManagedGroupId
-            $ResourceUri = "$(Get-TeamViewerAPIUri)/managed/groups/$GroupId/managers"
+            $Resource_Uri = "$(Get-TeamViewerAPIUri)/managed/groups/$GroupId/managers"
             $Process_Message = 'Add manager to managed group'
         }
     }
@@ -75,16 +75,16 @@
     $Body = @{}
 
     switch -Wildcard ($PSCmdlet.ParameterSetName) {
-        '*ByAccountId' {
+        '*ByAccount' {
             $Body['accountId'] = $AccountId.TrimStart('u')
         }
-        '*ByManagerId' {
+        '*ByManager' {
             $Body['id'] = ($Manager | Resolve-TeamViewerManagerId).ToString()
         }
-        '*ByUserObject' {
+        '*ByUser' {
             $Body['accountId'] = ( $User | Resolve-TeamViewerUserId ).TrimStart('u')
         }
-        '*ByUserGroupId' {
+        '*ByUserGroup' {
             $Body['usergroupId'] = $UserGroup | Resolve-TeamViewerUserGroupId
         }
     }
@@ -99,7 +99,7 @@
     if ($PSCmdlet.ShouldProcess($managerId, $Process_Message)) {
         Invoke-TeamViewerRestMethod `
             -APIToken $APIToken `
-            -Uri $ResourceUri `
+            -Uri $Resource_Uri `
             -Method Post `
             -ContentType 'application/json; charset=utf-8' `
             -Body ([System.Text.Encoding]::UTF8.GetBytes((ConvertTo-Json -InputObject @($Body)))) `

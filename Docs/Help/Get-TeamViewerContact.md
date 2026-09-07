@@ -13,7 +13,7 @@ Returns the contacts of the current account's Computers & Contacts list.
 
 ## SYNTAX
 
-### FilteredList (Default)
+### List (Default)
 
 ```powershell
 Get-TeamViewerContact -APIToken <SecureString> [-Name <String>] [-FilterBy_OnlineState <String>] [-Group <Object>]
@@ -80,7 +80,7 @@ Optional filter for contacts in a certain online state.
 
 ```yaml
 Type: String
-Parameter Sets: FilteredList
+Parameter Sets: List
 Aliases:
 Accepted values: Online, Busy, Away, Offline
 
@@ -99,7 +99,7 @@ If given, the command only returns contacts that are part of that group.
 
 ```yaml
 Type: Object
-Parameter Sets: FilteredList
+Parameter Sets: List
 Aliases: GroupId
 
 Required: False
@@ -131,7 +131,7 @@ Optional filter that can be used to retrieve only those contact list entries tha
 
 ```yaml
 Type: String
-Parameter Sets: FilteredList
+Parameter Sets: List
 Aliases: PartialName
 
 Required: False

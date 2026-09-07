@@ -20,6 +20,18 @@
 }
 
 Describe 'Add-TeamViewerManager' {
+    Context 'Parameter aliases' {
+        It 'Should expose <Alias> as an alias of the <Param> parameter' -ForEach @(
+            @{ Param = 'Device'; Alias = 'DeviceId' }
+            @{ Param = 'Device'; Alias = 'ManagedDeviceId' }
+            @{ Param = 'Device'; Alias = 'ManagedDevice' }
+            @{ Param = 'Group'; Alias = 'GroupId' }
+            @{ Param = 'Group'; Alias = 'ManagedGroupId' }
+            @{ Param = 'Group'; Alias = 'ManagedGroup' }
+        ) {
+            (Get-Command -Name Add-TeamViewerManager).Parameters[$Param].Aliases | Should -Contain $Alias
+        }
+    }
     Context 'Group' {
         It 'Should call the correct API endpoint to add managed group managers' {
             Add-TeamViewerManager -APIToken $testAPIToken -GroupId $testGroupId -AccountId $testAccountId

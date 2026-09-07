@@ -10,20 +10,20 @@
 
         [Parameter(Mandatory = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerRoleId } )]
-        [Alias('Role')]
+        [Alias('Id', 'RoleId')]
         [object]
-        $RoleId,
+        $Role,
 
         [Parameter(Mandatory = $true, ValueFromPipeline = $true, ValueFromPipelineByPropertyName = $true)]
-        [Alias('Id', 'UserIds')]
+        [Alias('UserId', 'UserIds')]
         [string[]]
-        $Accounts
+        $User
     )
 
     begin {
-        $Id = $RoleId | Resolve-TeamViewerRoleId
-        $null = $APIToken
-        $ResourceUri = "$(Get-TeamViewerAPIUri)/userroles/unassign/account"
+        $Id = $Role | Resolve-TeamViewerRoleId
+        $null = $APIToken # https://github.com/PowerShell/PSScriptAnalyzer/issues/1472
+        $Resource_Uri = "$(Get-TeamViewerAPIUri)/userroles/unassign/account"
         $AccountsToRemove = @()
         $Body = @{
             UserIds    = @()
@@ -33,7 +33,7 @@
         function Invoke-TeamViewerRestMethodInternal {
             $Result = Invoke-TeamViewerRestMethod `
                 -APIToken $APIToken `
-                -Uri $ResourceUri `
+                -Uri $Resource_Uri `
                 -Method Post `
                 -ContentType 'application/json; charset=utf-8' `
                 -Body ([System.Text.Encoding]::UTF8.GetBytes(($Body | ConvertTo-Json))) `
@@ -44,11 +44,11 @@
     }
 
     process {
-        if ($PSCmdlet.ShouldProcess($Accounts, 'Unassign Account from user role')) {
-            if (($Accounts -notmatch 'u[0-9]+') -and ($Accounts -match '[0-9]+')) {
-                $Accounts = $Accounts | ForEach-Object { $_.Insert(0, 'u') }
+        if ($PSCmdlet.ShouldProcess($User, 'Unassign Account from user role')) {
+            if (($User -notmatch 'u[0-9]+') -and ($User -match '[0-9]+')) {
+                $User = $User | ForEach-Object { $_.Insert(0, 'u') }
             }
-            foreach ($Account in $Accounts) {
+            foreach ($Account in $User) {
                 $AccountsToRemove += $Account
                 $Body.UserIds = @($AccountsToRemove)
             }

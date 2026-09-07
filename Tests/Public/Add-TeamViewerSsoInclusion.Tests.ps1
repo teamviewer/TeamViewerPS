@@ -14,6 +14,16 @@
 }
 
 Describe 'Add-TeamViewerSSOInclusion' {
+    Context 'Parameter aliases' {
+        It 'Should expose <Alias> as an alias of the <Param> parameter' -ForEach @(
+            @{ Param = 'Domain'; Alias = 'Id' }
+            @{ Param = 'Domain'; Alias = 'DomainId' }
+            @{ Param = 'Domain'; Alias = 'SSODomainId' }
+            @{ Param = 'Domain'; Alias = 'SSODomain' }
+        ) {
+            (Get-Command -Name Add-TeamViewerSSOInclusion).Parameters[$Param].Aliases | Should -Contain $Alias
+        }
+    }
     It 'Should call the correct API endpoint' {
         Add-TeamViewerSSOInclusion -APIToken $testAPIToken -DomainId $testDomainId -Email 'foo@example.test'
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {

@@ -13,16 +13,10 @@ Un-assigns one or many users from a role.
 
 ## SYNTAX
 
-### ByRoleIdMemberId (All)
+### All
 
 ```powershell
-Remove-TeamViewerUserFromRole [-APIToken] <SecureString>  [-RoleId] <Object[]> [-Accounts] <Object> [-WhatIf] [-Confirm] [<CommonParameters>]
-```
-
-### ByUserId
-
-```powershell
-Remove-TeamViewerUserFromRole [-APIToken] <SecureString> [-RoleId] <Object> [-Accounts] <Object[]> [-WhatIf] [-Confirm] [<CommonParameters>]
+Remove-TeamViewerUserFromRole [-APIToken] <SecureString> [-Role] <Object> [-User] <string[]> [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -34,7 +28,7 @@ Un-assigns one or many users from a role. A role belongs to the TeamViewer compa
 ### Example 1
 
 ```powershell
-Remove-TeamViewerUserFromRole -RoleId '9b465ea2-2f75-4101-a057-58a81ed0e57b' -Accounts @('123', '456', '789')
+Remove-TeamViewerUserFromRole -Role '9b465ea2-2f75-4101-a057-58a81ed0e57b' -User @('123', '456', '789')
 ```
 
 Un-assigns users with id `123`, `456`, `789` from the role with id `9b465ea2-2f75-4101-a057-58a81ed0e57b`.
@@ -42,7 +36,7 @@ Un-assigns users with id `123`, `456`, `789` from the role with id `9b465ea2-2f7
 ### Example 2
 
 ```powershell
-@('123', '456', '789') | Remove-TeamViewerUserFromRole -RoleId '9b465ea2-2f75-4101-a057-58a81ed0e57b'
+@('123', '456', '789') | Remove-TeamViewerUserFromRole -Role '9b465ea2-2f75-4101-a057-58a81ed0e57b'
 ```
 
 Un-assigns users with id `123`, `456`, `789` from role with id `9b465ea2-2f75-4101-a057-58a81ed0e57b`.
@@ -51,10 +45,10 @@ Ids are passed as pipeline input.
 ### Example 3
 
 ```powershell
-Remove-TeamViewerUserFromRole -Role '9b465ea2-2f75-4101-a057-58a81ed0e57b' -Accounts 'u123'
+Remove-TeamViewerUserFromRole -Role '9b465ea2-2f75-4101-a057-58a81ed0e57b' -User 'u123'
 ```
 
-Un-assigns a single user identified by the `u`-prefixed account Id from the role, using the `Role` alias.
+Un-assigns a single user identified by the `u`-prefixed account Id from the role.
 
 ## PARAMETERS
 
@@ -90,14 +84,14 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -RoleId
+### -Role
 
 The role where users will be unassigned from.
 
 ```yaml
 Type: Object
 Parameter Sets: (All)
-Aliases: Role
+Aliases:
 
 Required: True
 Position: Named
@@ -106,14 +100,14 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Accounts
+### -User
 
-Users to be unassigned from a user role.
+Users to remove from a user role.
 
 ```yaml
 Type: Object[]
 Parameter Sets: (All)
-Aliases: Id, UserId
+Aliases:
 
 Required: True
 Position: Named

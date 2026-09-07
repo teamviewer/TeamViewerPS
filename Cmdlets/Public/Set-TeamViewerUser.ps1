@@ -10,8 +10,7 @@
 
         [Parameter(Mandatory = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerUserId } )]
-        [Alias('UserId')]
-        [Alias('Id')]
+        [Alias('Id', 'UserId')]
         [object]
         $User,
 
@@ -35,7 +34,7 @@
 
         [Parameter(ParameterSetName = 'ByParameters')]
         [securestring]
-        $SSOCustomerIdentifier,
+        $SSO_CustomerIdentifier,
 
         [Parameter(ParameterSetName = 'ByParameters')]
         [bool]
@@ -63,19 +62,17 @@
 
         [Parameter(Mandatory = $true, ParameterSetName = 'ByProperties')]
         [hashtable]
-        $Property,
+        $Properties,
 
         [Parameter()]
-        [Alias('AssignRole')]
         [ValidateScript({ $_ | Resolve-TeamViewerRoleId })]
         [string[]]
-        $AssignRoleId,
+        $AddRole,
 
         [Parameter()]
-        [Alias('UnassignRole')]
         [ValidateScript({ $_ | Resolve-TeamViewerRoleId })]
         [string[]]
-        $UnassignRoleId
+        $RemoveRole
     )
 
     $Body = @{}
@@ -100,18 +97,18 @@
                 [System.Runtime.InteropServices.Marshal]::ZeroFreeBSTR($bstr) | Out-Null
             }
 
-            if ($SSOCustomerIdentifier) {
-                $bstr = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($SSOCustomerIdentifier)
+            if ($SSO_CustomerIdentifier) {
+                $bstr = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($SSO_CustomerIdentifier)
                 $Body['sso_customer_id'] = [System.Runtime.InteropServices.Marshal]::PtrToStringBSTR($bstr)
                 [System.Runtime.InteropServices.Marshal]::ZeroFreeBSTR($bstr) | Out-Null
             }
 
-            if ($AssignRoleId) {
-                $Body['assignUserRoleIds'] = @($AssignRoleId)
+            if ($AddRole) {
+                $Body['assignUserRoleIds'] = @($AddRole)
             }
 
-            if ($UnassignRoleId) {
-                $Body['unassignUserRoleIds'] = @($UnassignRoleId)
+            if ($RemoveRole) {
+                $Body['unassignUserRoleIds'] = @($RemoveRole)
             }
 
             if ($PSBoundParameters.ContainsKey('LogSessions')) {
@@ -140,23 +137,22 @@
 
         }
         'ByProperties' {
-            @('active', 'email', 'name', 'password', 'sso_customer_id', 'permissions', 'tfa_enforcement' , 'license_key', 'custom_quickjoin_id', 'custom_quicksupport_id', 'show_comment_window', 'log_sessions' , 'AssignUserRoleIds', 'UnassignUserRoleIds') | `
-                Where-Object { $Property[$_] } | `
-                ForEach-Object { $Body[$_] = $Property[$_] }
+            @('active', 'email', 'name', 'password', 'sso_customer_id', 'permissions', 'tfa_enforcement' , 'license_key', 'custom_quickjoin_id', 'custom_quicksupport_id', 'show_comment_window', 'log_sessions' , 'assignUserRoleIds', 'unassignUserRoleIds') | `
+                Where-Object { $Properties[$_] } | `
+                ForEach-Object { $Body[$_] = $Properties[$_] }
         }
     }
 
     if ($Body.Count -eq 0) {
         $PSCmdlet.ThrowTerminatingError(
-            ('The given input does not change the user.' | `
-                ConvertTo-ErrorRecord -ErrorCategory InvalidArgument))
+            ('The given input does not change the user.' | ConvertTo-ErrorRecord -ErrorCategory InvalidArgument))
     }
 
     $userId = Resolve-TeamViewerUserId -User $User
-    $ResourceUri = "$(Get-TeamViewerAPIUri)/users/$userId"
+    $Resource_Uri = "$(Get-TeamViewerAPIUri)/users/$userId"
 
     if ($PSCmdlet.ShouldProcess($userId, 'Update user')) {
-        Invoke-TeamViewerRestMethod -APIToken $APIToken -Uri $ResourceUri -Method Put -ContentType 'application/json; charset=utf-8' `
+        Invoke-TeamViewerRestMethod -APIToken $APIToken -Uri $Resource_Uri -Method Put -ContentType 'application/json; charset=utf-8' `
             -Body ([System.Text.Encoding]::UTF8.GetBytes(($Body | ConvertTo-Json))) -WriteErrorTo $PSCmdlet | Out-Null
     }
 }

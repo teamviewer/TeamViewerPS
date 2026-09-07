@@ -11,13 +11,13 @@
 
     begin {
         $Parameters = @{}
-        $ResourceUri = "$(Get-TeamViewerAPIUri)/userroles/predefined"
+        $Resource_Uri = "$(Get-TeamViewerAPIUri)/userroles/predefined"
     }
 
     process {
         $Response = Invoke-TeamViewerRestMethod `
             -APIToken $APIToken `
-            -Uri $ResourceUri `
+            -Uri $Resource_Uri `
             -Method Get `
             -Body $Parameters `
             -WriteErrorTo $PSCmdlet `

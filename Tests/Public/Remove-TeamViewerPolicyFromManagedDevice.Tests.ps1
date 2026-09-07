@@ -15,6 +15,16 @@
 }
 
 Describe 'Remove-TeamViewerPolicyFromManagedDevice' {
+    Context 'Parameter aliases' {
+        It 'Should expose <Alias> as an alias of the <Param> parameter' -ForEach @(
+            @{ Param = 'Device'; Alias = 'Id' }
+            @{ Param = 'Device'; Alias = 'DeviceId' }
+            @{ Param = 'Device'; Alias = 'ManagedDeviceId' }
+            @{ Param = 'Device'; Alias = 'ManagedDevice' }
+        ) {
+            (Get-Command -Name Remove-TeamViewerPolicyFromManagedDevice).Parameters[$Param].Aliases | Should -Contain $Alias
+        }
+    }
     It 'Should call the correct API endpoint to remove a policy from the managed device' {
         Remove-TeamViewerPolicyFromManagedDevice -APIToken $testAPIToken -Device $testDeviceId -PolicyType TeamViewer
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {

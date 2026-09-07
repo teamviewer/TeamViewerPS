@@ -15,6 +15,16 @@
 }
 
 Describe 'Set-TeamViewerManagedGroup' {
+    Context 'Parameter aliases' {
+        It 'Should expose <Alias> as an alias of the <Param> parameter' -ForEach @(
+            @{ Param = 'Group'; Alias = 'Id' }
+            @{ Param = 'Group'; Alias = 'GroupId' }
+            @{ Param = 'Group'; Alias = 'ManagedGroupId' }
+            @{ Param = 'Group'; Alias = 'ManagedGroup' }
+        ) {
+            (Get-Command -Name Set-TeamViewerManagedGroup).Parameters[$Param].Aliases | Should -Contain $Alias
+        }
+    }
     It 'Should call the correct API endpoint to update managed group' {
         Set-TeamViewerManagedGroup -APIToken $testAPIToken -GroupId $testGroupId -Name 'Foo Bar'
 

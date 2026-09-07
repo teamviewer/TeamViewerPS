@@ -147,10 +147,10 @@
         $Body['meeting_license_key'] = $MeetingLicenseKey
     }
 
-    $ResourceUri = "$(Get-TeamViewerAPIUri)/users"
+    $Resource_Uri = "$(Get-TeamViewerAPIUri)/users"
 
     if ($PSCmdlet.ShouldProcess("$Name <$Email>", 'Create user')) {
-        $Response = Invoke-TeamViewerRestMethod -APIToken $APIToken -Uri $ResourceUri -Method Post -ContentType 'application/json; charset=utf-8' `
+        $Response = Invoke-TeamViewerRestMethod -APIToken $APIToken -Uri $Resource_Uri -Method Post -ContentType 'application/json; charset=utf-8' `
             -Body ([System.Text.Encoding]::UTF8.GetBytes(($Body | ConvertTo-Json))) -WriteErrorTo $PSCmdlet -ErrorAction Stop
         $Result = ($Response | ConvertTo-TeamViewerUser)
         $Result.Email = $Email

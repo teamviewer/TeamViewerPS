@@ -42,8 +42,8 @@ Describe 'Get-TeamViewerUserByRole' {
         It 'Should return assigned users' {
             $Result = Get-TeamViewerRoleByUser -APIToken $testAPIToken -UserId $testUserId
             $Result | Should -HaveCount 2
-            $Result[0].PSObject.TypeNames[0] | Should -Be 'TeamViewerPS.UserAssignedRole'
-            $Result[0].Role_Id | Should -Be 'f37001f9-bc3e-452e-9533-d81b0916be09'
+            $Result[0].PSObject.TypeNames[0] | Should -Be 'TeamViewerPS.UserRoleMembership'
+            $Result[0].RoleId | Should -Be 'f37001f9-bc3e-452e-9533-d81b0916be09'
         }
 
         It 'Should return an empty list if no roles are assigned' {

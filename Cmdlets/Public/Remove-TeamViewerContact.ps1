@@ -18,12 +18,12 @@
 
     process {
         $contactId = $Contact | Resolve-TeamViewerContactId
-        $ResourceUri = "$(Get-TeamViewerAPIUri)/contacts/$contactId"
+        $Resource_Uri = "$(Get-TeamViewerAPIUri)/contacts/$contactId"
 
         if ($PSCmdlet.ShouldProcess($contactId, 'Remove contact')) {
             Invoke-TeamViewerRestMethod `
                 -APIToken $APIToken `
-                -Uri $ResourceUri `
+                -Uri $Resource_Uri `
                 -Method Delete `
                 -WriteErrorTo $PSCmdlet `
                 -ErrorAction Stop | `

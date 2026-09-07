@@ -148,7 +148,7 @@
         $RemoteControlSession
     )
 
-    $ResourceUri = "$(Get-TeamViewerAPIUri)/EventLogging"
+    $Resource_Uri = "$(Get-TeamViewerAPIUri)/EventLogging"
 
     $Limit = if ($Limit -lt 0) {
         $null
@@ -197,7 +197,7 @@
     do {
         $Response = Invoke-TeamViewerRestMethod `
             -APIToken $APIToken `
-            -Uri $ResourceUri `
+            -Uri $Resource_Uri `
             -Method Post `
             -ContentType 'application/json; charset=utf-8' `
             -Body ([System.Text.Encoding]::UTF8.GetBytes(($Parameters | ConvertTo-Json))) `

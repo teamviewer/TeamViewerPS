@@ -38,7 +38,7 @@ The unique identifier of the managed device. Can be a device Id string or a Team
 
 ```yaml
 Type: Object
-Aliases: ManagedDevice, Device, DeviceId
+Aliases: Id, ManagedDevice, Device, DeviceId
 Required: True
 ```
 

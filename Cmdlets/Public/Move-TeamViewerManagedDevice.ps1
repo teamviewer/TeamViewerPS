@@ -10,37 +10,38 @@
 
         [Parameter(Mandatory = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerManagedDeviceId } )]
-        [Alias('DeviceId')]
+        [Alias('Id', 'DeviceId', 'ManagedDeviceId', 'ManagedDevice')]
         [object]
         $Device,
 
         [Parameter(Mandatory = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerManagedGroupId } )]
-        [Alias('Source GroupId')]
+        [Alias('SourceGroup', 'Source_Group', 'Source_GroupId')]
         [object]
-        $SourceGroup,
+        $Source,
 
         [Parameter(Mandatory = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerManagedGroupId } )]
-        [Alias('Target GroupId')]
+        [Alias('TargetGroup', 'Target_Group', 'Target_GroupId')]
         [object]
-        $TargetGroup
+        $Target
     )
 
-    $DeviceId = $Device | Resolve-TeamViewerManagedDeviceId
-    $SourceGroupId = $SourceGroup | Resolve-TeamViewerManagedGroupId
-    $TargetGroupId = $TargetGroup | Resolve-TeamViewerManagedGroupId
-    $ResourceUri = "$(Get-TeamViewerAPIUri)/managed/devices/$DeviceId/groups"
+    $Device_Id = $Device | Resolve-TeamViewerManagedDeviceId
+    $Source_Id = $Source | Resolve-TeamViewerManagedGroupId
+    $Target_Id = $Target | Resolve-TeamViewerManagedGroupId
+
+    $Resource_Uri = "$(Get-TeamViewerAPIUri)/managed/devices/$Device_Id/groups"
 
     $Body = @{
-        AddedChainIds   = @($TargetGroupId.ToString())
-        RemovedChainIds = @($SourceGroupId.ToString())
+        AddedChainIds   = @($Target_Id.ToString())
+        RemovedChainIds = @($Source_Id.ToString())
     }
 
-    if ($PSCmdlet.ShouldProcess($DeviceId, 'Move a device from one group to another')) {
+    if ($PSCmdlet.ShouldProcess($Device_Id, 'Move a device from one device group to another')) {
         Invoke-TeamViewerRestMethod `
             -APIToken $APIToken `
-            -Uri $ResourceUri `
+            -Uri $Resource_Uri `
             -Method Put `
             -ContentType 'application/json; charset=utf-8' `
             -Body ([System.Text.Encoding]::UTF8.GetBytes(($Body | ConvertTo-Json))) `

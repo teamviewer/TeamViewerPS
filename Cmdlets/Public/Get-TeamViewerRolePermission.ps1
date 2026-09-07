@@ -9,10 +9,11 @@
         $APIToken
     )
 
-    $ResourceUri = "$(Get-TeamViewerAPIUri)/userroles/permissions"
+    $Resource_Uri = "$(Get-TeamViewerAPIUri)/userroles/permissions"
+
     $Response = Invoke-TeamViewerRestMethod `
         -APIToken $APIToken `
-        -Uri $ResourceUri `
+        -Uri $Resource_Uri `
         -Method Get `
         -Body @{ } `
         -WriteErrorTo $PSCmdlet `

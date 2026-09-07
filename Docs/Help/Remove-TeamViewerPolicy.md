@@ -87,7 +87,7 @@ This can either be the policy Id (as string or GUID) or a policy object that has
 ```yaml
 Type: Object
 Parameter Sets: (All)
-Aliases: PolicyId
+Aliases: Id, PolicyId
 
 Required: True
 Position: 1

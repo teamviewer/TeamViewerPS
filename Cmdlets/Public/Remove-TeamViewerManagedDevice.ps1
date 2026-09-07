@@ -10,13 +10,13 @@
 
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerManagedDeviceId } )]
-        [Alias('DeviceId')]
+        [Alias('Id', 'DeviceId', 'ManagedDeviceId', 'ManagedDevice')]
         [object]
         $Device,
 
         [Parameter(Mandatory = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerManagedGroupId } )]
-        [Alias('GroupId')]
+        [Alias('GroupId', 'ManagedGroupId', 'ManagedGroup')]
         [object]
         $Group
     )
@@ -24,12 +24,12 @@
     process {
         $GroupId = $Group | Resolve-TeamViewerManagedGroupId
         $DeviceId = $Device | Resolve-TeamViewerManagedDeviceId
-        $ResourceUri = "$(Get-TeamViewerAPIUri)/managed/groups/$GroupId/devices/$DeviceId"
+        $Resource_Uri = "$(Get-TeamViewerAPIUri)/managed/groups/$GroupId/devices/$DeviceId"
 
         if ($PSCmdlet.ShouldProcess($DeviceId, 'Remove device from managed group')) {
             Invoke-TeamViewerRestMethod `
                 -APIToken $APIToken `
-                -Uri $ResourceUri `
+                -Uri $Resource_Uri `
                 -Method Delete `
                 -WriteErrorTo $PSCmdlet | `
                 Out-Null

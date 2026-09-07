@@ -8,49 +8,48 @@
         [securestring]
         $APIToken,
 
-        [Parameter(ParameterSetName = 'ByGroup')]
+        [Parameter(ParameterSetName = 'ByGroupId')]
         [ValidateScript( { $_ | Resolve-TeamViewerManagedGroupId } ) ]
         [Alias('Id', 'GroupId', 'ManagedGroupId', 'ManagedGroup')]
         [guid]
         $Group,
 
-        [Parameter(ParameterSetName = 'ByDevice')]
+        [Parameter(ParameterSetName = 'ByDeviceId')]
         [ValidateScript( { $_ | Resolve-TeamViewerManagedDeviceId } )]
         [Alias('DeviceId', 'ManagedDeviceId', 'ManagedDevice')]
         [object]
         $Device
     )
 
-    $ResourceUri = "$(Get-TeamViewerAPIUri)/managed/groups"
+    $Resource_Uri = "$(Get-TeamViewerAPIUri)/managed/groups"
     $Parameters = @{ }
 
     switch ($PsCmdlet.ParameterSetName) {
-        'ByGroup' {
-            $ResourceUri += "/$Group"
+        'ByGroupId' {
+            $Resource_Uri += "/$Group"
             $Parameters = $null
         }
-        'ByDevice' {
+        'ByDeviceId' {
             $DeviceId = $Device | Resolve-TeamViewerManagedDeviceId
-            $ResourceUri = "$(Get-TeamViewerAPIUri)/managed/devices/$DeviceId/groups"
+            $Resource_Uri = "$(Get-TeamViewerAPIUri)/managed/devices/$DeviceId/groups"
         }
     }
 
     do {
         $Response = Invoke-TeamViewerRestMethod `
             -APIToken $APIToken `
-            -Uri $ResourceUri `
+            -Uri $Resource_Uri `
             -Method Get `
             -Body $Parameters `
             -WriteErrorTo $PSCmdlet `
             -ErrorAction Stop
 
-        if ($PsCmdlet.ParameterSetName -eq 'ByGroup') {
+        if ($PsCmdlet.ParameterSetName -eq 'ByGroupId') {
             Write-Output ($Response | ConvertTo-TeamViewerManagedGroup)
         }
         else {
             $Parameters.paginationToken = $Response.nextPaginationToken
             Write-Output ($Response.resources | ConvertTo-TeamViewerManagedGroup)
         }
-    } while ($PsCmdlet.ParameterSetName -in @('List', 'ByDevice') `
-            -and $Parameters.paginationToken)
+    } while ($PsCmdlet.ParameterSetName -in @('List', 'ByDeviceId') -and $Parameters.paginationToken)
 }

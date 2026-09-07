@@ -100,7 +100,7 @@ This can either be the managed group Id (as string or GUID) or a managed group o
 ```yaml
 Type: Object
 Parameter Sets: (All)
-Aliases: Id, GroupId
+Aliases: Id, GroupId, ManagedGroupId, ManagedGroup
 
 Required: True
 Position: Named

@@ -31,9 +31,7 @@
     )
 
     begin {
-        # Warning suppresion doesn't seem to work.
-        # See https://github.com/PowerShell/PSScriptAnalyzer/issues/1472
-        $null = $Property
+        $null = $Property # https://github.com/PowerShell/PSScriptAnalyzer/issues/1472
 
         $Body = @{}
 
@@ -60,12 +58,12 @@
 
     process {
         $GroupId = $Group | Resolve-TeamViewerGroupId
-        $ResourceUri = "$(Get-TeamViewerAPIUri)/groups/$GroupId"
+        $Resource_Uri = "$(Get-TeamViewerAPIUri)/groups/$GroupId"
 
         if ($PSCmdlet.ShouldProcess($GroupId, 'Update group')) {
             Invoke-TeamViewerRestMethod `
                 -APIToken $APIToken `
-                -Uri $ResourceUri `
+                -Uri $Resource_Uri `
                 -Method Put `
                 -ContentType 'application/json; charset=utf-8' `
                 -Body ([System.Text.Encoding]::UTF8.GetBytes(($Body | ConvertTo-Json))) `

@@ -1,5 +1,5 @@
 ﻿function Remove-TeamViewerUserGroupMember {
-    [CmdletBinding(SupportsShouldProcess = $true, DefaultParameterSetName = 'ByUserGroupMemberId')]
+    [CmdletBinding(SupportsShouldProcess = $true)]
 
     [OutputType('TeamViewerPS.UserGroupMember')]
 
@@ -22,13 +22,14 @@
         [Alias('MemberId')]
         [Alias('UserId')]
         [Alias('User')]
+        [Alias('UserGroupMemberIds', 'MemberIds', 'UserIds')]
         [object[]]
         $UserGroupMember
     )
 
     begin {
         $Id = $UserGroup | Resolve-TeamViewerUserGroupId
-        $ResourceUri = "$(Get-TeamViewerAPIUri)/usergroups/$Id/members"
+        $Resource_Uri = "$(Get-TeamViewerAPIUri)/usergroups/$Id/members"
         $MembersToRemove = @()
         $null = $APIToken # https://github.com/PowerShell/PSScriptAnalyzer/issues/1472
         $null = $UserGroupMember
@@ -36,7 +37,7 @@
         function Invoke-TeamViewerRestMethodInternal {
             Invoke-TeamViewerRestMethod `
                 -APIToken $APIToken `
-                -Uri $ResourceUri `
+                -Uri $Resource_Uri `
                 -Method Delete `
                 -ContentType 'application/json; charset=utf-8' `
                 -Body ([System.Text.Encoding]::UTF8.GetBytes(($Body))) `

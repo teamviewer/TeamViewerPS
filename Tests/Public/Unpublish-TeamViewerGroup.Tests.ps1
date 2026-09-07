@@ -11,6 +11,16 @@
 }
 
 Describe 'Unpublish-TeamViewerGroup' {
+    Context 'Parameter aliases' {
+        It 'Should expose <Alias> as an alias of the <Param> parameter' -ForEach @(
+            @{ Param = 'Group'; Alias = 'Id' }
+            @{ Param = 'Group'; Alias = 'GroupId' }
+            @{ Param = 'User'; Alias = 'UserId' }
+            @{ Param = 'User'; Alias = 'UserIds' }
+        ) {
+            (Get-Command -Name Unpublish-TeamViewerGroup).Parameters[$Param].Aliases | Should -Contain $Alias
+        }
+    }
     It 'Should call the correct API endpoint' {
         Unpublish-TeamViewerGroup -APIToken $testAPIToken -Group 'g1234' -User 'u1234'
 

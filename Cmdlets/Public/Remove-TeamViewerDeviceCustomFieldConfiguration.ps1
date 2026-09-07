@@ -15,12 +15,12 @@
     )
 
     process {
-        $ResourceUri = "$(Get-TeamViewerAPIUri)/device-custom-fields/$Id"
+        $Resource_Uri = "$(Get-TeamViewerAPIUri)/device-custom-fields/$Id"
 
         if ($PSCmdlet.ShouldProcess($Id, 'Delete device custom field')) {
             Invoke-TeamViewerRestMethod `
                 -APIToken $APIToken `
-                -Uri $ResourceUri `
+                -Uri $Resource_Uri `
                 -Method Delete `
                 -WriteErrorTo $PSCmdlet `
                 -ErrorAction Stop | `

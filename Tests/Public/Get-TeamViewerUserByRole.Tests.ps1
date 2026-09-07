@@ -19,7 +19,7 @@
 Describe 'Get-TeamViewerUserByRole' {
     Context 'When retrieving role assignments' {
         It 'Should call the correct API endpoint' {
-            Get-TeamViewerUserByRole -APIToken $testAPIToken -RoleId $testRoleId
+            Get-TeamViewerUserByRole -APIToken $testAPIToken -Role $testRoleId
 
             Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
                 $APIToken -eq $testAPIToken -and $Uri -eq "//unit.test/userroles/assignments/account?userRoleId=$testRoleId" -and $Method -eq 'Get'
@@ -27,7 +27,7 @@ Describe 'Get-TeamViewerUserByRole' {
         }
 
         It 'Should return assigned users' {
-            $Result = Get-TeamViewerUserByRole -APIToken $testAPIToken -RoleId $testRoleId
+            $Result = Get-TeamViewerUserByRole -APIToken $testAPIToken -Role $testRoleId
             $Result | Should -HaveCount 2
         }
 

@@ -88,7 +88,7 @@ This can either be the group Id or a group object that has been received using o
 ```yaml
 Type: Object
 Parameter Sets: (All)
-Aliases: GroupId
+Aliases: Id, GroupId
 
 Required: True
 Position: 1
@@ -105,7 +105,7 @@ This can either be the user Id or a user object that has been received using oth
 ```yaml
 Type: Object[]
 Parameter Sets: (All)
-Aliases: UserId
+Aliases: UserId, UserIds
 
 Required: True
 Position: 2

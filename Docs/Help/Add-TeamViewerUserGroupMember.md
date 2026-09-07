@@ -14,7 +14,7 @@ Add a list of accountIds to a user group.
 ## SYNTAX
 
 ```powershell
-Add-TeamViewerUserGroupMember [-APIToken] <SecureString> [-UserGroup] <Object> [-Member] <Int32[]> [-WhatIf]
+Add-TeamViewerUserGroupMember [-APIToken] <SecureString> [-UserGroup] <Object> [-User] <Object[]> [-WhatIf]
  [-Confirm] [<CommonParameters>]
 ```
 
@@ -84,14 +84,14 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Member
+### -User
 
 The list of accounts Ids to be added as member of the group.
 
 ```yaml
 Type: Int32[]
 Parameter Sets: (All)
-Aliases:
+Aliases: UserId, UserIds
 
 Required: True
 Position: 2

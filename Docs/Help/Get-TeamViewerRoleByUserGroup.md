@@ -91,9 +91,9 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### TeamViewerPS.UserGroupAssignedRole
+### TeamViewerPS.UserGroupRoleMembership
 
-An array of `TeamViewerPS.UserGroupAssignedRole` objects.
+An array of `TeamViewerPS.UserGroupRoleMembership` objects with a `RoleId` property.
 
 ## NOTES
 

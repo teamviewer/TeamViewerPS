@@ -124,7 +124,7 @@ This can either be the managed device Id (as string or GUID) or a managed device
 ```yaml
 Type: Object
 Parameter Sets: Device_ByParameters, Device_ByProperties
-Aliases: DeviceId
+Aliases: DeviceId, ManagedDeviceId, ManagedDevice
 
 Required: False
 Position: Named
@@ -141,7 +141,7 @@ This can either be the managed group Id (as string or GUID) or a managed group o
 ```yaml
 Type: Object
 Parameter Sets: Group_ByProperties, Group_ByParameters
-Aliases: GroupId
+Aliases: GroupId, ManagedGroupId, ManagedGroup
 
 Required: False
 Position: Named

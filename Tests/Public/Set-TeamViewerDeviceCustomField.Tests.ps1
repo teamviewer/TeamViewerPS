@@ -7,6 +7,16 @@
 }
 
 Describe 'Set-TeamViewerDeviceCustomField' {
+    Context 'Parameter aliases' {
+        It 'Should expose <Alias> as an alias of the <Param> parameter' -ForEach @(
+            @{ Param = 'ManagedDeviceId'; Alias = 'Id' }
+            @{ Param = 'ManagedDeviceId'; Alias = 'ManagedDevice' }
+            @{ Param = 'ManagedDeviceId'; Alias = 'Device' }
+            @{ Param = 'ManagedDeviceId'; Alias = 'DeviceId' }
+        ) {
+            (Get-Command -Name Set-TeamViewerDeviceCustomField).Parameters[$Param].Aliases | Should -Contain $Alias
+        }
+    }
     It 'Should set a device custom field value' {
         Mock Get-TeamViewerAPIUri { '//unit.test' }
         Mock Resolve-TeamViewerManagedDeviceId { 'd12345678' }

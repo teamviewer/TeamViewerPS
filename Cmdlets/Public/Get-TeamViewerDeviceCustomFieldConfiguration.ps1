@@ -10,13 +10,13 @@
     )
 
     begin {
-        $ResourceUri = "$(Get-TeamViewerAPIUri)/device-custom-fields"
+        $Resource_Uri = "$(Get-TeamViewerAPIUri)/device-custom-fields"
     }
 
     process {
         $Response = Invoke-TeamViewerRestMethod `
             -APIToken $APIToken `
-            -Uri $ResourceUri `
+            -Uri $Resource_Uri `
             -Method Get `
             -WriteErrorTo $PSCmdlet `
             -ErrorAction Stop

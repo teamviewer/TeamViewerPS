@@ -19,13 +19,13 @@ Retrieves TeamViewer managed devices.
 Get-TeamViewerManagedDevice -APIToken <SecureString> [<CommonParameters>]
 ```
 
-### ByDevice
+### ByDeviceId
 
 ```powershell
 Get-TeamViewerManagedDevice -APIToken <SecureString> [-Device <Guid>] [<CommonParameters>]
 ```
 
-### ListGroup
+### ByManagedGroupId
 
 ```powershell
 Get-TeamViewerManagedDevice -APIToken <SecureString> -Group <Object> [-FilterBy_Pending] [<CommonParameters>]
@@ -98,7 +98,7 @@ If given, the command returns managed devices of that group.
 
 ```yaml
 Type: Object
-Parameter Sets: ListGroup
+Parameter Sets: ByManagedGroupId
 Aliases: GroupId, ManagedGroupId, ManagedGroup
 
 Required: True
@@ -114,8 +114,8 @@ Optional managed device Id. If given, the command retrieves a single managed dev
 
 ```yaml
 Type: Guid
-Parameter Sets: ByDevice
-Aliases: Id, DeviceId
+Parameter Sets: ByDeviceId
+Aliases: Id, DeviceId, ManagedDeviceId, ManagedDevice
 
 Required: False
 Position: Named
@@ -132,7 +132,7 @@ The pending operation is indicated by the `PendingOperation` object member.
 
 ```yaml
 Type: SwitchParameter
-Parameter Sets: ListGroup
+Parameter Sets: ByManagedGroupId
 Aliases:
 
 Required: False

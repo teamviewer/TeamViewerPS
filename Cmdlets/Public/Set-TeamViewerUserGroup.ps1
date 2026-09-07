@@ -10,28 +10,27 @@
 
         [Parameter(Mandatory = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerUserGroupId } )]
-        [Alias('UserGroupId')]
-        [Alias('Id')]
+        [Alias('Id', 'UserGroupId')]
         [object]
         $UserGroup,
 
         [Parameter(Mandatory = $true)]
-        [Alias('UserGroupName')]
         [string]
         $Name
     )
 
     begin {
-        $Id = $UserGroup | Resolve-TeamViewerUserGroupId
-        $ResourceUri = "$(Get-TeamViewerAPIUri)/usergroups/$id"
+        $UserGroup_Id = $UserGroup | Resolve-TeamViewerUserGroupId
+
+        $Resource_Uri = "$(Get-TeamViewerAPIUri)/usergroups/$UserGroup_Id"
         $Body = @{ name = $Name }
     }
 
     process {
-        if ($PSCmdlet.ShouldProcess($UserGroup.ToString(), 'Change user group')) {
+        if ($PSCmdlet.ShouldProcess($UserGroup_Id, 'Change user group')) {
             $Response = Invoke-TeamViewerRestMethod `
                 -APIToken $APIToken `
-                -Uri $ResourceUri `
+                -Uri $Resource_Uri `
                 -Method Put `
                 -ContentType 'application/json; charset=utf-8' `
                 -Body ([System.Text.Encoding]::UTF8.GetBytes(($Body | ConvertTo-Json))) `

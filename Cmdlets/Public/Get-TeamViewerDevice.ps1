@@ -1,5 +1,5 @@
 ﻿function Get-TeamViewerDevice {
-    [CmdletBinding(DefaultParameterSetName = 'FilteredList')]
+    [CmdletBinding(DefaultParameterSetName = 'List')]
 
     [OutputType('TeamViewerPS.Device')]
 
@@ -8,38 +8,38 @@
         [securestring]
         $APIToken,
 
-        [Parameter(ParameterSetName = 'ByDevice')]
+        [Parameter(ParameterSetName = 'ByDeviceId')]
         [ValidateScript( { $_ | Resolve-TeamViewerDeviceId } )]
         [Alias('Id', 'DeviceId')]
         [string]
         $Device,
 
-        [Parameter(ParameterSetName = 'FilteredList')]
+        [Parameter(ParameterSetName = 'List')]
         [ValidateRange(1, [int]::MaxValue)]
         [int]
         $TeamViewerId,
 
-        [Parameter(ParameterSetName = 'FilteredList')]
+        [Parameter(ParameterSetName = 'List')]
         [ValidateSet('Online', 'Busy', 'Away', 'Offline')]
         [string]
         $FilterBy_OnlineState,
 
-        [Parameter(ParameterSetName = 'FilteredList')]
+        [Parameter(ParameterSetName = 'List')]
         [ValidateScript( { $_ | Resolve-TeamViewerGroupId } )]
         [Alias('GroupId')]
         [object]
         $Group
     )
 
-    $ResourceUri = "$(Get-TeamViewerAPIUri)/devices"
+    $Resource_Uri = "$(Get-TeamViewerAPIUri)/devices"
     $Parameters = @{ }
 
     switch ($PsCmdlet.ParameterSetName) {
-        'ByDevice' {
-            $ResourceUri += "/$Device"
+        'ByDeviceId' {
+            $Resource_Uri += "/$Device"
             $Parameters = $null
         }
-        'FilteredList' {
+        'List' {
             if ($TeamViewerId) {
                 $Parameters['remotecontrol_id'] = "r$TeamViewerId"
             }
@@ -55,7 +55,7 @@
 
     $Response = Invoke-TeamViewerRestMethod `
         -APIToken $APIToken `
-        -Uri $ResourceUri `
+        -Uri $Resource_Uri `
         -Method Get `
         -Body $Parameters `
         -WriteErrorTo $PSCmdlet `

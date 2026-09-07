@@ -59,14 +59,14 @@ Describe 'Get-TeamViewerUser' {
     }
 
     It 'Should allow to retrieve all properties' {
-        Get-TeamViewerUser -APIToken $testAPIToken -PropertiesToLoad 'All'
+        Get-TeamViewerUser -APIToken $testAPIToken -Properties 'All'
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $Body -and $Body['full_list'] -eq $true }
     }
 
     It 'Should allow to retrieve a minimal set of properties' {
-        Get-TeamViewerUser -APIToken $testAPIToken -PropertiesToLoad 'Minimal'
+        Get-TeamViewerUser -APIToken $testAPIToken -Properties 'Minimal'
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $Body -and $Body['full_list'] -eq $null }

@@ -21,7 +21,7 @@
 
 Describe 'Remove-TeamViewerUserFromRole' {
     It 'Should call the correct API endpoint' {
-        Remove-TeamViewerUserFromRole -APIToken $testAPIToken -RoleId $testRoleId -Accounts $testAccount
+        Remove-TeamViewerUserFromRole -APIToken $testAPIToken -Role $testRoleId -User $testAccount
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $APIToken -eq $testAPIToken -and $Uri -eq '//unit.test/userroles/unassign/account' -and $Method -eq 'Post'
@@ -29,7 +29,7 @@ Describe 'Remove-TeamViewerUserFromRole' {
     }
 
     It 'Should unassign the given account from the user role' {
-        Remove-TeamViewerUserFromRole -APIToken $testAPIToken -RoleId $testRoleId -Accounts $testAccount
+        Remove-TeamViewerUserFromRole -APIToken $testAPIToken -Role $testRoleId -User $testAccount
         $mockArgs.Body | Should -Not -BeNullOrEmpty
         $Body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
         $Body.UserIds | Should -HaveCount 2
@@ -42,7 +42,7 @@ Describe 'Remove-TeamViewerUserFromRole' {
     }
 
     It 'Should accept pipeline input' {
-        $testAccount | Remove-TeamViewerUserFromRole -APIToken $testAPIToken -RoleId $testRoleId
+        $testAccount | Remove-TeamViewerUserFromRole -APIToken $testAPIToken -Role $testRoleId
 
         $mockArgs.Body | Should -Not -BeNullOrEmpty
         $Body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json

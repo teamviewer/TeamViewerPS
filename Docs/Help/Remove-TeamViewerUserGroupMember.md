@@ -122,7 +122,7 @@ User group members to be removed from a user group.
 ```yaml
 Type: Object[]
 Parameter Sets: (ByUserGroupMemberId)
-Aliases: MemberId, UserGroupMemberId, UserId, User
+Aliases: UserGroupMemberId, MemberId, UserId, User, UserGroupMemberIds, MemberIds, UserIds
 
 Required: True
 Position: Named

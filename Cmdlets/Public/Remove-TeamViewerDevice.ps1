@@ -18,12 +18,12 @@
 
     process {
         $DeviceId = $Device | Resolve-TeamViewerDeviceId
-        $ResourceUri = "$(Get-TeamViewerAPIUri)/devices/$DeviceId"
+        $Resource_Uri = "$(Get-TeamViewerAPIUri)/devices/$DeviceId"
 
         if ($PSCmdlet.ShouldProcess($DeviceId, 'Remove device entry')) {
             Invoke-TeamViewerRestMethod `
                 -APIToken $APIToken `
-                -Uri $ResourceUri `
+                -Uri $Resource_Uri `
                 -Method Delete `
                 -WriteErrorTo $PSCmdlet `
                 -ErrorAction Stop | `

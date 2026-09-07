@@ -52,12 +52,12 @@
         [System.Runtime.InteropServices.Marshal]::ZeroFreeBSTR($bstr) | Out-Null
     }
 
-    $ResourceUri = "$(Get-TeamViewerAPIUri)/devices"
+    $Resource_Uri = "$(Get-TeamViewerAPIUri)/devices"
 
     if ($PSCmdlet.ShouldProcess($TeamViewerId, 'Create device entry')) {
         $Response = Invoke-TeamViewerRestMethod `
             -APIToken $APIToken `
-            -Uri $ResourceUri `
+            -Uri $Resource_Uri `
             -Method Post `
             -ContentType 'application/json; charset=utf-8' `
             -Body ([System.Text.Encoding]::UTF8.GetBytes(($Body | ConvertTo-Json))) `

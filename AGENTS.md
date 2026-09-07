@@ -20,9 +20,8 @@ Targets Windows PowerShell 5.1 and PowerShell 6+ on Windows.
 Run commands from the repository root:
 
 ```powershell
-Invoke-ScriptAnalyzer -Path . -Recurse -Settings .\Linters\PSScriptAnalyzer.psd1
-Invoke-Pester -Path .
-Invoke-Build -Task Build
+Invoke-ScriptAnalyzer -Path '${workspaceFolder}' -Recurse -Settings '${workspaceFolder}/Linters/PSScriptAnalyzer.psd1'
+Invoke-Pester -Path '${workspaceFolder}'
 ```
 
 - Do not hardcode tokens, credentials, or machine-specific values.
@@ -45,8 +44,14 @@ Invoke-Build -Task Build
 
 - Validate stable constraints at the boundary with `ValidateSet`, `ValidateRange`, or `ValidateScript`.
 - Prefer existing `Resolve-*` helpers for flexible identifiers. Do not reject valid API values with overly strict validation.
-- Keep parameter-set names descriptive, such as `ByParameters`, `FilteredList`, or `ByUserId`.
-- Use established aliases such as `Id`, `DisplayName`, and `EmailAddress` where they improve a cmdlet's normal use.
+- Keep parameter-set names descriptive, such as `List`, `Filtered`, `By<Parameter>`, or `By<Entity>`.
+- Use established aliases such as `Id`, or `<Entity>Id` where they improve a cmdlet's normal use.
+- Add aliases for entity parameters so callers can pipe and reference them naturally. For an entity parameter, add:
+  - `Id`, when the entity is the cmdlet's primary target and no other parameter already claims `Id`.
+  - The suffixed singular form `<Entity>Id`, such as `UserGroupId`, `DeviceId`, `RoleId`, or `PolicyId`.
+  - The suffixed plural form `<Entity>Ids`, such as `UserGroupIds`, only when the parameter accepts multiple identifiers.
+  - The bare entity noun, such as `ManagedDevice`, `SSODomain`, or `Domain`, when it reads naturally and does not collide with another parameter.
+  - Reuse the same alias set across cmdlets that target the same entity so behavior stays consistent.
 
 ## API, Errors, And Objects
 

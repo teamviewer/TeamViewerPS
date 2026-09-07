@@ -8,50 +8,49 @@
         [securestring]
         $APIToken,
 
-        [Parameter(ParameterSetName = 'ByDevice')]
+        [Parameter(ParameterSetName = 'ByDeviceId')]
         [ValidateScript( { $_ | Resolve-TeamViewerManagedDeviceId } )]
-        [Alias('Id', 'DeviceId')]
+        [Alias('Id', 'DeviceId', 'ManagedDeviceId', 'ManagedDevice')]
         [guid]
         $Device,
 
-        [Parameter(Mandatory = $true, ParameterSetName = 'ListGroup')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'ByManagedGroupId')]
         [ValidateScript( { $_ | Resolve-TeamViewerManagedGroupId } )]
         [Alias('GroupId', 'ManagedGroupId', 'ManagedGroup')]
         [object]
         $Group,
 
-        [Parameter(ParameterSetName = 'ListGroup')]
+        [Parameter(ParameterSetName = 'ByManagedGroupId')]
         [switch]
         $FilterBy_Pending
     )
 
-    # default is 'List':
-    $ResourceUri = "$(Get-TeamViewerAPIUri)/managed/devices"
+    $Resource_Uri = "$(Get-TeamViewerAPIUri)/managed/devices"
     $Parameters = @{ }
     $IsListOperation = $true
 
     switch ($PsCmdlet.ParameterSetName) {
-        'ByDevice' {
-            $ResourceUri += "/$Device"
+        'ByDeviceId' {
+            $Resource_Uri += "/$Device"
             $Parameters = $null
             $IsListOperation = $false
         }
-        'ListGroup' {
+        'ByManagedGroupId' {
             $GroupId = $Group | Resolve-TeamViewerManagedGroupId
-            $ResourceUri = "$(Get-TeamViewerAPIUri)/managed/groups/$GroupId/$(if ($FilterBy_Pending) { 'pending-' })devices"
+            $Resource_Uri = "$(Get-TeamViewerAPIUri)/managed/groups/$GroupId/$(if ($FilterBy_Pending) { 'pending-' })devices"
         }
     }
 
     do {
         $Response = Invoke-TeamViewerRestMethod `
             -APIToken $APIToken `
-            -Uri $ResourceUri `
+            -Uri $Resource_Uri `
             -Method Get `
             -Body $Parameters `
             -WriteErrorTo $PSCmdlet `
             -ErrorAction Stop
 
-        if ($PsCmdlet.ParameterSetName -eq 'ByDevice') {
+        if ($PsCmdlet.ParameterSetName -eq 'ByDeviceId') {
             Write-Output ($Response | ConvertTo-TeamViewerManagedDevice)
         }
         else {

@@ -22,7 +22,7 @@
 
 Describe 'Add-TeamViewerUserGroupToRole' {
     It 'Should call the correct API endpoint' {
-        Add-TeamViewerUserGroupToRole -APIToken $testAPIToken -RoleId $testRoleId -UserGroup $testUserGroup
+        Add-TeamViewerUserGroupToRole -APIToken $testAPIToken -Role $testRoleId -UserGroup $testUserGroup
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $APIToken -eq $testAPIToken -and $Uri -eq '//unit.test/userroles/assign/usergroup' -and $Method -eq 'Post'

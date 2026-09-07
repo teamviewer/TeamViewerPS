@@ -16,13 +16,13 @@
     )
 
     begin {
-        $ResourceUri = "$(Get-TeamViewerAPIUri)/usergroups"
+        $Resource_Uri = "$(Get-TeamViewerAPIUri)/usergroups"
         $Parameters = @{ }
         $IsListOperation = $true
 
         if ($UserGroup) {
             $GroupId = $UserGroup | Resolve-TeamViewerUserGroupId
-            $ResourceUri += "/$GroupId"
+            $Resource_Uri += "/$GroupId"
             $Parameters = $null
             $IsListOperation = $false
         }
@@ -32,7 +32,7 @@
         do {
             $Response = Invoke-TeamViewerRestMethod `
                 -APIToken $APIToken `
-                -Uri $ResourceUri `
+                -Uri $Resource_Uri `
                 -Method Get `
                 -Body $Parameters `
                 -WriteErrorTo $PSCmdlet `

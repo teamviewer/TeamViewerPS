@@ -25,6 +25,19 @@
 }
 
 Describe 'Remove-TeamViewerUserGroupMember' {
+    Context 'Parameter aliases' {
+        It 'Should expose <Alias> as an alias of the <Param> parameter' -ForEach @(
+            @{ Param = 'UserGroupMember'; Alias = 'UserGroupMemberId' }
+            @{ Param = 'UserGroupMember'; Alias = 'MemberId' }
+            @{ Param = 'UserGroupMember'; Alias = 'UserId' }
+            @{ Param = 'UserGroupMember'; Alias = 'User' }
+            @{ Param = 'UserGroupMember'; Alias = 'UserGroupMemberIds' }
+            @{ Param = 'UserGroupMember'; Alias = 'MemberIds' }
+            @{ Param = 'UserGroupMember'; Alias = 'UserIds' }
+        ) {
+            (Get-Command -Name Remove-TeamViewerUserGroupMember).Parameters[$Param].Aliases | Should -Contain $Alias
+        }
+    }
     Context 'Should  remove members ByUserGroupMember' {
 
         It 'Should call the correct API endpoint' {

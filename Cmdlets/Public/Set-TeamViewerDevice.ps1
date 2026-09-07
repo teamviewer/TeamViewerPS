@@ -1,5 +1,5 @@
 ﻿function Set-TeamViewerDevice {
-    [CmdletBinding(SupportsShouldProcess = $true, DefaultParameterSetName = 'Default')]
+    [CmdletBinding(SupportsShouldProcess = $true, DefaultParameterSetName = 'ChangeProperties')]
 
     [OutputType([void])]
 
@@ -75,12 +75,12 @@
 
     process {
         $DeviceId = $Device | Resolve-TeamViewerDeviceId
-        $ResourceUri = "$(Get-TeamViewerAPIUri)/devices/$DeviceId"
+        $Resource_Uri = "$(Get-TeamViewerAPIUri)/devices/$DeviceId"
 
         if ($PSCmdlet.ShouldProcess($DeviceId, 'Change device entry')) {
             Invoke-TeamViewerRestMethod `
                 -APIToken $APIToken `
-                -Uri $ResourceUri `
+                -Uri $Resource_Uri `
                 -Method Put `
                 -ContentType 'application/json; charset=utf-8' `
                 -Body ([System.Text.Encoding]::UTF8.GetBytes(($Body | ConvertTo-Json))) `

@@ -10,30 +10,32 @@
 
         [Parameter(Mandatory = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerRoleId } )]
-        [Alias('Role')]
+        [Alias('Id', 'RoleId')]
         [object]
-        $RoleId,
+        $Role,
 
         [Parameter(Mandatory = $true, ValueFromPipeline = $true, ValueFromPipelineByPropertyName = $true)]
-        [Alias('Id', 'UserIds')]
+        [Alias('UserId', 'UserIds')]
         [string[]]
-        $Accounts
+        $User
     )
 
     begin {
-        $Id = $RoleId | Resolve-TeamViewerRoleId
-        $null = $APIToken
-        $ResourceUri = "$(Get-TeamViewerAPIUri)/userroles/assign/account"
-        $AccountsToAdd = @()
+        $Role_Id = $Role | Resolve-TeamViewerRoleId
+
+        $null = $APIToken # https://github.com/PowerShell/PSScriptAnalyzer/issues/1472
+
+        $Resource_Uri = "$(Get-TeamViewerAPIUri)/userroles/assign/account"
+        $Users_ToAdd = @()
         $Body = @{
             UserIds    = @()
-            UserRoleId = $id
+            UserRoleId = $Role_Id
         }
 
         function Invoke-TeamViewerRestMethodInternal {
             $Result = Invoke-TeamViewerRestMethod `
                 -APIToken $APIToken `
-                -Uri $ResourceUri `
+                -Uri $Resource_Uri `
                 -Method Post `
                 -ContentType 'application/json; charset=utf-8' `
                 -Body ([System.Text.Encoding]::UTF8.GetBytes(($Body | ConvertTo-Json))) `
@@ -44,26 +46,24 @@
         }
     }
 
-
     process {
-        if ($PSCmdlet.ShouldProcess($Accounts, 'Assign Account to Role')) {
-            if (($Accounts -notmatch 'u[0-9]+') -and ($Accounts -match '[0-9]+')) {
-                $Accounts = $Accounts | ForEach-Object { $_.Insert(0, 'u') }
+        if ($PSCmdlet.ShouldProcess($User, 'Add user to role')) {
+            if (($User -notmatch 'u[0-9]+') -and ($User -match '[0-9]+')) {
+                $User = $User | ForEach-Object { $_.Insert(0, 'u') }
             }
-            foreach ($Account in $Accounts) {
-                $AccountsToAdd += $Account
-                $Body.UserIds = @($AccountsToAdd)
+            foreach ($Account in $User) {
+                $Users_ToAdd += $Account
+                $Body.UserIds = @($Users_ToAdd)
             }
         }
-        if ($AccountsToAdd.Length -eq 100) {
+        if ($Users_ToAdd.Length -eq 100) {
             Invoke-TeamViewerRestMethodInternal
-            $AccountsToAdd = @()
+            $Users_ToAdd = @()
         }
     }
     end {
-        if ($AccountsToAdd.Length -gt 0) {
+        if ($Users_ToAdd.Length -gt 0) {
             Invoke-TeamViewerRestMethodInternal
         }
     }
 }
-

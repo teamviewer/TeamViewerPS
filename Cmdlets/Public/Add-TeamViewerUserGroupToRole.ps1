@@ -10,35 +10,34 @@
 
         [Parameter(Mandatory = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerRoleId } )]
-        [Alias('RoleId')]
+        [Alias('Id', 'RoleId')]
         [object]
         $Role,
 
         [Parameter(Mandatory = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerUserGroupId } )]
         [Alias('UserGroupId')]
-        [Alias('Id')]
         [object]
         $UserGroup
     )
 
     begin {
-        $RoleId = $Role | Resolve-TeamViewerRoleId
-        $null = $APIToken
-        $ResourceUri = "$(Get-TeamViewerAPIUri)/userroles/assign/usergroup"
+        $Role_Id = $Role | Resolve-TeamViewerRoleId
+
+        $null = $APIToken # https://github.com/PowerShell/PSScriptAnalyzer/issues/1472
+        $Resource_Uri = "$(Get-TeamViewerAPIUri)/userroles/assign/usergroup"
         $Body = @{
-            UserRoleId  = $RoleId
+            UserRoleId  = $Role_Id
             UserGroupId = $UserGroup
 
         }
     }
 
-
     process {
-        if ($PSCmdlet.ShouldProcess($UserGroup, 'Assign Role to User Group')) {
+        if ($PSCmdlet.ShouldProcess($UserGroup, 'Add user group to role')) {
             $Result = Invoke-TeamViewerRestMethod `
                 -APIToken $APIToken `
-                -Uri $ResourceUri `
+                -Uri $Resource_Uri `
                 -Method Post `
                 -ContentType 'application/json; charset=utf-8' `
                 -Body ([System.Text.Encoding]::UTF8.GetBytes(($Body | ConvertTo-Json))) `

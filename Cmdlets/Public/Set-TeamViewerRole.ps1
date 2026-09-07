@@ -10,28 +10,27 @@ function Set-TeamViewerRole {
         $APIToken,
 
         [Parameter(Mandatory = $true)]
-        [Alias('RoleName')]
         [string]
         $Name,
+
+        [Parameter(Mandatory = $true)]
+        [ValidateScript( { $_ | Resolve-TeamViewerRoleId } )]
+        [Alias('Id', 'RoleId')]
+        [object]
+        $Role,
 
         [Parameter(Mandatory = $false)]
         [AllowEmptyCollection()]
         [object[]]
-        $Permissions,
-
-        [Parameter(Mandatory = $true)]
-        [ValidateScript( { $_ | Resolve-TeamViewerRoleId } )]
-        [Alias('Role')]
-        [object]
-        $RoleId
+        $Permissions
     )
 
     begin {
-        $ResourceUri = "$(Get-TeamViewerAPIUri)/userroles"
+        $Resource_Uri = "$(Get-TeamViewerAPIUri)/userroles"
         $Body = @{
             Name        = $Name
             Permissions = @()
-            UserRoleId  = $RoleId
+            UserRoleId  = $Role
 
         }
 
@@ -44,7 +43,7 @@ function Set-TeamViewerRole {
         if ($PSCmdlet.ShouldProcess($Name, 'Update Role')) {
             $Response = Invoke-TeamViewerRestMethod `
                 -APIToken $APIToken `
-                -Uri $ResourceUri `
+                -Uri $Resource_Uri `
                 -Method Put `
                 -ContentType 'application/json; charset=utf-8' `
                 -Body ([System.Text.Encoding]::UTF8.GetBytes(($Body | ConvertTo-Json))) `
@@ -56,5 +55,4 @@ function Set-TeamViewerRole {
             Write-Output $Result
         }
     }
-
 }

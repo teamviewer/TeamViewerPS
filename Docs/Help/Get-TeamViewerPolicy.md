@@ -13,7 +13,7 @@ Retrieve policies created by the account.
 
 ## SYNTAX
 
-### FilteredList (Default)
+### List (Default)
 
 ```powershell
 Get-TeamViewerPolicy -APIToken <SecureString> [<CommonParameters>]

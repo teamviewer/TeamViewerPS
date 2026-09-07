@@ -13,6 +13,16 @@
 }
 
 Describe 'Remove-TeamViewerGroup' {
+    Context 'Parameter aliases' {
+        It 'Should expose <Alias> as an alias of the <Param> parameter' -ForEach @(
+            @{ Param = 'Group'; Alias = 'Id' }
+            @{ Param = 'Group'; Alias = 'GroupId' }
+            @{ Param = 'Group'; Alias = 'ManagedGroupId' }
+            @{ Param = 'Group'; Alias = 'ManagedGroup' }
+        ) {
+            (Get-Command -Name Remove-TeamViewerManagedGroup).Parameters[$Param].Aliases | Should -Contain $Alias
+        }
+    }
     It 'Should call the correct API endpoint' {
         Remove-TeamViewerManagedGroup -APIToken $testAPIToken -Id $testGroupId
 

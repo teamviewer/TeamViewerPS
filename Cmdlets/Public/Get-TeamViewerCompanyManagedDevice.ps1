@@ -9,13 +9,13 @@
         $APIToken
     )
 
-    $ResourceUri = "$(Get-TeamViewerAPIUri)/managed/devices/company"
+    $Resource_Uri = "$(Get-TeamViewerAPIUri)/managed/devices/company"
     $Parameters = @{}
 
     do {
         $Response = Invoke-TeamViewerRestMethod `
             -APIToken $APIToken `
-            -Uri $ResourceUri `
+            -Uri $Resource_Uri `
             -Method Get `
             -Body $Parameters `
             -WriteErrorTo $PSCmdlet `

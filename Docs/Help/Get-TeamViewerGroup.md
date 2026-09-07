@@ -13,7 +13,7 @@ Returns TeamViewer groups.
 
 ## SYNTAX
 
-### FilteredList (Default)
+### List (Default)
 
 ```powershell
 Get-TeamViewerGroup -APIToken <SecureString> [-Name <String>] [-FilterBy_Shared <String>] [<CommonParameters>]
@@ -79,7 +79,7 @@ Optional filter parameter to return either only groups that are shared or not sh
 
 ```yaml
 Type: String
-Parameter Sets: FilteredList
+Parameter Sets: List
 Aliases:
 Accepted values: OnlyShared, OnlyNotShared
 
@@ -112,7 +112,7 @@ Optional name filter parameter that can be used to only list groups that have th
 
 ```yaml
 Type: String
-Parameter Sets: FilteredList
+Parameter Sets: List
 Aliases: PartialName
 
 Required: False

@@ -19,7 +19,7 @@
 Describe 'Get-TeamViewerUserGroupByRole' {
     Context 'When retrieving role assignments' {
         It 'Should call the correct API endpoint' {
-            Get-TeamViewerUserGroupByRole -APIToken $testAPIToken -RoleId $testRoleId
+            Get-TeamViewerUserGroupByRole -APIToken $testAPIToken -Role $testRoleId
 
             Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
                 $APIToken -eq $testAPIToken -and $Uri -eq "//unit.test/userroles/assignments/usergroups?userRoleId=$testRoleId" -and $Method -eq 'Get'
@@ -27,7 +27,7 @@ Describe 'Get-TeamViewerUserGroupByRole' {
         }
 
         It 'Should return assigned groups' {
-            $Result = Get-TeamViewerUserGroupByRole -APIToken $testAPIToken -RoleId $testRoleId
+            $Result = Get-TeamViewerUserGroupByRole -APIToken $testAPIToken -Role $testRoleId
             $Result | Should -HaveCount 2
         }
     }

@@ -22,16 +22,16 @@
 
     process {
         $userId = $User | Resolve-TeamViewerUserId
-        $ResourceUri = "$(Get-TeamViewerAPIUri)/users/$userId"
+        $Resource_Uri = "$(Get-TeamViewerAPIUri)/users/$userId"
 
         if ($Permanent) {
-            $ResourceUri += '?isPermanentDelete=true'
+            $Resource_Uri += '?isPermanentDelete=true'
         }
 
         if ($PSCmdlet.ShouldProcess($userId, 'Remove user')) {
             Invoke-TeamViewerRestMethod `
                 -APIToken $APIToken `
-                -Uri $ResourceUri `
+                -Uri $Resource_Uri `
                 -Method Delete `
                 -WriteErrorTo $PSCmdlet | `
                 Out-Null

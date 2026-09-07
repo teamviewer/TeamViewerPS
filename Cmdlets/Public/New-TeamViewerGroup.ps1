@@ -24,12 +24,12 @@
         $Body['policy_id'] = ($Policy | Resolve-TeamViewerPolicyId).ToString()
     }
 
-    $ResourceUri = "$(Get-TeamViewerAPIUri)/groups"
+    $Resource_Uri = "$(Get-TeamViewerAPIUri)/groups"
 
     if ($PSCmdlet.ShouldProcess($Name, 'Create group')) {
         $Response = Invoke-TeamViewerRestMethod `
             -APIToken $APIToken `
-            -Uri $ResourceUri `
+            -Uri $Resource_Uri `
             -Method Post `
             -ContentType 'application/json; charset=utf-8' `
             -Body ([System.Text.Encoding]::UTF8.GetBytes(($Body | ConvertTo-Json))) `

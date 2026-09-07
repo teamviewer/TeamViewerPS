@@ -10,22 +10,22 @@
 
         [Parameter(Mandatory = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerUserGroupId } )]
-        [Alias('UserGroupId')]
-        [Alias('Id')]
+        [Alias('Id', 'UserGroupId')]
         [object]
         $UserGroup
     )
 
     begin {
-        $Id = $UserGroup | Resolve-TeamViewerUserGroupId
-        $ResourceUri = "$(Get-TeamViewerAPIUri)/usergroups/$id"
+        $UserGroup_Id = $UserGroup | Resolve-TeamViewerUserGroupId
+
+        $Resource_Uri = "$(Get-TeamViewerAPIUri)/usergroups/$UserGroup_Id"
     }
 
     process {
-        if ($PSCmdlet.ShouldProcess($UserGroup.ToString(), 'Remove user group')) {
+        if ($PSCmdlet.ShouldProcess($UserGroup_Id, 'Remove user group')) {
             Invoke-TeamViewerRestMethod `
                 -APIToken $APIToken `
-                -Uri $ResourceUri `
+                -Uri $Resource_Uri `
                 -Method Delete `
                 -WriteErrorTo $PSCmdlet `
                 -ErrorAction Stop | `

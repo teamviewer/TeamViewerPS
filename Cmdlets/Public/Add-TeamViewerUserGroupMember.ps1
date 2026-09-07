@@ -10,32 +10,28 @@
 
         [Parameter(Mandatory = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerUserGroupId } )]
-        [Alias('UserGroupId')]
-        [Alias('Id')]
+        [Alias('Id', 'UserGroupId')]
         [object]
         $UserGroup,
 
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
         [object[]]
-        [Alias('UserGroupMemberId')]
-        [Alias('UserGroupMember')]
-        [Alias('MemberId')]
-        [Alias('UserId')]
-        [Alias('User')]
-        $Member
+        [Alias('UserId', 'UserIds')]
+        $User
     )
 
     begin {
-        $Id = $UserGroup | Resolve-TeamViewerUserGroupId
-        $ResourceUri = "$(Get-TeamViewerAPIUri)/usergroups/$Id/members"
-        $MembersToAdd = @()
+        $UserGroup_Id = $UserGroup | Resolve-TeamViewerUserGroupId
+
+        $Resource_Uri = "$(Get-TeamViewerAPIUri)/usergroups/$UserGroup_Id/members"
+        $Members_ToAdd = @()
         $Body = @()
         $null = $APIToken # https://github.com/PowerShell/PSScriptAnalyzer/issues/1472
 
         function Invoke-TeamViewerRestMethodInternal {
             $Result = Invoke-TeamViewerRestMethod `
                 -APIToken $APIToken `
-                -Uri $ResourceUri `
+                -Uri $Resource_Uri `
                 -Method Post `
                 -ContentType 'application/json; charset=utf-8' `
                 -Body ([System.Text.Encoding]::UTF8.GetBytes(($Body))) `
@@ -49,39 +45,39 @@
     process {
         # when members are provided as pipeline input, each member is provided as a separate statement,
         # thus the members should be combined into one array in order to send a single request.
-        if ($PSCmdlet.ShouldProcess($Member, 'Add user groups member')) {
-            if ($Member -notmatch 'u[0-9]+') {
+        if ($PSCmdlet.ShouldProcess($User, 'Add user(s) to user group')) {
+            if ($User -notmatch 'u[0-9]+') {
                 ForEach-Object {
-                    $Member = [int[]]$Member
+                    $User = [int[]]$User
                 }
             }
             else {
                 ForEach-Object {
-                    $Member = [int[]]$Member.trim('u')
+                    $User = [int[]]$User.trim('u')
                 }
             }
 
-            if ($Member -isnot [array]) {
-                $MembersToAdd = @([UInt32]$Member)
+            if ($User -isnot [array]) {
+                $Members_ToAdd = @([UInt32]$User)
             }
             else {
-                $MembersToAdd += [UInt32[]]$Member
+                $Members_ToAdd += [UInt32[]]$User
             }
 
-            $Payload = $MembersToAdd -join ', '
+            $Payload = $Members_ToAdd -join ', '
             $Body = "[$Payload]"
         }
 
         # Web API accepts a maximum of 100 accounts. Thus we send a request and reset the `membersToAdd` in order to accept more members
-        if ($MembersToAdd.Length -eq 100) {
+        if ($Members_ToAdd.Length -eq 100) {
             Invoke-TeamViewerRestMethodInternal
-            $MembersToAdd = @()
+            $Members_ToAdd = @()
         }
     }
 
     end {
         # A request needs to be sent if there were less than 100 members
-        if ($MembersToAdd.Length -gt 0) {
+        if ($Members_ToAdd.Length -gt 0) {
             Invoke-TeamViewerRestMethodInternal
         }
     }

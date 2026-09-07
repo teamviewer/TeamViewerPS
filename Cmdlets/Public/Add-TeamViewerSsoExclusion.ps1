@@ -10,29 +10,31 @@
 
         [Parameter(Mandatory = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerSSODomainId } )]
-        [Alias('Domain')]
+        [Alias('Id', 'DomainId', 'SSODomainId', 'SSODomain')]
         [object]
-        $DomainId,
+        $Domain,
 
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
+        [Alias('EmailAddress')]
         [string[]]
         $Email
     )
 
     begin {
-        $Id = $DomainId | Resolve-TeamViewerSSODomainId
-        $ResourceUri = "$(Get-TeamViewerAPIUri)/ssoDomain/$Id/exclusion"
-        $EmailsToAdd = @()
-        $null = $APIToken   # https://github.com/PowerShell/PSScriptAnalyzer/issues/1472
+        $Domain_Id = $Domain | Resolve-TeamViewerSSODomainId
 
-        function Invoke-RequestInternal {
+        $Resource_Uri = "$(Get-TeamViewerAPIUri)/ssoDomain/$Domain_Id/exclusion"
+        $Emails_ToAdd = @()
+        $null = $APIToken # https://github.com/PowerShell/PSScriptAnalyzer/issues/1472
+
+        function Invoke-TeamViewerRestMethodInternal {
             $Body = @{
-                emails = @($EmailsToAdd)
+                emails = @($Emails_ToAdd)
             }
 
             Invoke-TeamViewerRestMethod `
                 -APIToken $APIToken `
-                -Uri $ResourceUri `
+                -Uri $Resource_Uri `
                 -Method Post `
                 -ContentType 'application/json; charset=utf-8' `
                 -Body ([System.Text.Encoding]::UTF8.GetBytes(($Body | ConvertTo-Json))) `
@@ -44,17 +46,17 @@
 
     process {
         if ($PSCmdlet.ShouldProcess($Email, 'Add SSO exclusion')) {
-            $EmailsToAdd += $Email
+            $Emails_ToAdd += $Email
         }
-        if ($EmailsToAdd.Length -eq 100) {
-            Invoke-RequestInternal
-            $EmailsToAdd = @()
+        if ($Emails_ToAdd.Length -eq 100) {
+            Invoke-TeamViewerRestMethodInternal
+            $Emails_ToAdd = @()
         }
     }
 
     end {
-        if ($EmailsToAdd.Length -gt 0) {
-            Invoke-RequestInternal
+        if ($Emails_ToAdd.Length -gt 0) {
+            Invoke-TeamViewerRestMethodInternal
         }
     }
 }

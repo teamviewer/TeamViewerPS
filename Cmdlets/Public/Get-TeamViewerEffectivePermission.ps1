@@ -1,5 +1,5 @@
 ﻿function Get-TeamViewerEffectivePermission {
-    [CmdletBinding(DefaultParameterSetName = '')]
+    [CmdletBinding()]
 
     [OutputType([pscustomobject])]
 
@@ -10,13 +10,13 @@
     )
 
     begin {
-        $ResourceUri = "$(Get-TeamViewerAPIUri)/users/effectivepermissions"
+        $Resource_Uri = "$(Get-TeamViewerAPIUri)/users/effectivepermissions"
     }
 
     process {
         $Response = Invoke-TeamViewerRestMethod `
             -APIToken $APIToken `
-            -Uri $ResourceUri `
+            -Uri $Resource_Uri `
             -Method Get `
             -WriteErrorTo $PSCmdlet `
             -ErrorAction Stop

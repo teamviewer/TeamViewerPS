@@ -14,7 +14,7 @@ Update properties of a user role.
 ## SYNTAX
 
 ```powershell
-Set-TeamViewerRole [-APIToken] <SecureString> [-Name] <String> [-RoleId] <Object> [-Permissions] <Array> [-WhatIf] [-Confirm]  [<CommonParameters>]
+Set-TeamViewerRole [-APIToken] <SecureString> [-Name] <String> [-Role] <Object> [-Permissions] <Array> [-WhatIf] [-Confirm]  [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -83,14 +83,14 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -RoleId
+### -Role
 
 The role to be updated.
 
 ```yaml
 Type: Object
 Parameter Sets: (All)
-Aliases: Role
+Aliases: Id, RoleId
 
 Required: True
 Position: 2

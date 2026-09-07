@@ -13,17 +13,17 @@ Retrieve users of a TeamViewer company.
 
 ## SYNTAX
 
-### FilteredList (Default)
+### List (Default)
 
 ```powershell
 Get-TeamViewerUser -APIToken <SecureString> [-Name <String>] [-Email <String[]>]
- [-Permissions <String[]>] [-PropertiesToLoad <Object>] [<CommonParameters>]
+ [-Permissions <String[]>] [-Properties <Object>] [<CommonParameters>]
 ```
 
 ### ByUserId
 
 ```powershell
-Get-TeamViewerUser -APIToken <SecureString> [-Id <String>] [-PropertiesToLoad <Object>] [<CommonParameters>]
+Get-TeamViewerUser -APIToken <SecureString> [-Id <String>] [-Properties <Object>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -52,7 +52,7 @@ Retrieve a single user entry with the given Id.
 ### Example 3
 
 ```powershell
-Get-TeamViewerUser -Name 'Test' -PropertiesToLoad 'All'
+Get-TeamViewerUser -Name 'Test' -Properties 'All'
 ```
 
 List all users of the company that have the string `Test` in their name.
@@ -82,7 +82,7 @@ Optional list of email addresses. Can be used to only return users that exactly 
 
 ```yaml
 Type: String[]
-Parameter Sets: FilteredList
+Parameter Sets: List
 Aliases:
 
 Required: False
@@ -98,7 +98,7 @@ Optional list of permissions. Can be used to only return users that exactly matc
 
 ```yaml
 Type: String[]
-Parameter Sets: FilteredList
+Parameter Sets: List
 Aliases:
 
 Required: False
@@ -130,7 +130,7 @@ Optional name filter parameter that can be used to only list users that have the
 
 ```yaml
 Type: String
-Parameter Sets: FilteredList
+Parameter Sets: List
 Aliases: PartialName
 
 Required: False
@@ -140,7 +140,7 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -PropertiesToLoad
+### -Properties
 
 Can be used to retrieve all available properties of a user or just a stripped-down minimal set of user properties.
 

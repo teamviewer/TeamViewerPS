@@ -13,56 +13,56 @@ Add a manager to a managed device or managed group.
 
 ## SYNTAX
 
-### Device_ByAccountId (Default)
+### DeviceByAccount (Default)
 
 ```powershell
 Add-TeamViewerManager -APIToken <SecureString> -AccountId <String> -Device <Object> [-Permissions <String[]>]
  [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
-### Group_ByAccountId
+### GroupByAccount
 
 ```powershell
 Add-TeamViewerManager -APIToken <SecureString> -AccountId <String> -Group <Object> [-Permissions <String[]>]
  [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
-### Group_ByManagerId
+### GroupByManager
 
 ```powershell
 Add-TeamViewerManager -APIToken <SecureString> -Manager <Object> -Group <Object> [-Permissions <String[]>]
  [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
-### Device_ByManagerId
+### DeviceByManager
 
 ```powershell
 Add-TeamViewerManager -APIToken <SecureString> -Manager <Object> -Device <Object> [-Permissions <String[]>]
  [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
-### Group_ByUserObject
+### GroupByUser
 
 ```powershell
 Add-TeamViewerManager -APIToken <SecureString> -User <Object> -Group <Object> [-Permissions <String[]>]
  [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
-### Device_ByUserObject
+### DeviceByUser
 
 ```powershell
 Add-TeamViewerManager -APIToken <SecureString> -User <Object> -Device <Object> [-Permissions <String[]>]
  [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
-### Device_ByUserGroupId
+### DeviceByUserGroup
 
 ```powershell
 Add-TeamViewerManager -APIToken <SecureString> -UserGroup <Object> -Device <Object> [-Permissions <String[]>]
  [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
-### Group_ByUserGroupId
+### GroupByUserGroup
 
 ```powershell
 Add-TeamViewerManager -APIToken <SecureString> -UserGroup <Object> -Group <Object> [-Permissions <String[]>]
@@ -124,7 +124,7 @@ TeamViewer account Id used to identify the manager to add.
 
 ```yaml
 Type: String
-Parameter Sets: Device_ByAccountId, Group_ByAccountId
+Parameter Sets: DeviceByAccount, GroupByAccount
 Aliases:
 
 Required: True
@@ -173,8 +173,8 @@ This can either be the managed device Id(as string or GUID) or a managed device 
 
 ```yaml
 Type: Object
-Parameter Sets: Device_ByAccountId, Device_ByManagerId, Device_ByUserObject, Device_ByUserGroupId
-Aliases: DeviceId
+Parameter Sets: DeviceByAccount, DeviceByManager, DeviceByUser, DeviceByUserGroup
+Aliases: DeviceId, ManagedDeviceId, ManagedDevice
 
 Required: True
 Position: Named
@@ -190,8 +190,8 @@ This can either be the managed group Id (as string or GUID) or a managed group o
 
 ```yaml
 Type: Object
-Parameter Sets: Group_ByAccountId, Group_ByManagerId, Group_ByUserObject, Group_ByUserGroupId
-Aliases: GroupId
+Parameter Sets: GroupByAccount, GroupByManager, GroupByUser, GroupByUserGroup
+Aliases: GroupId, ManagedGroupId, ManagedGroup
 
 Required: True
 Position: Named
@@ -207,7 +207,7 @@ This can either be the manager Id (as string or GUID) or a manager object that h
 
 ```yaml
 Type: Object
-Parameter Sets: Group_ByManagerId, Device_ByManagerId
+Parameter Sets: GroupByManager, DeviceByManager
 Aliases: ManagerId
 
 Required: True
@@ -251,7 +251,7 @@ User object received by the `Get-TeamViewerUser` cmdlet. It can be used to ident
 
 ```yaml
 Type: Object
-Parameter Sets: Group_ByUserObject, Device_ByUserObject
+Parameter Sets: GroupByUser, DeviceByUser
 Aliases:
 
 Required: True
@@ -267,7 +267,7 @@ UserGroup object as returned from `Get-TeamViewerUserGroup` or Id of the UserGro
 
 ```yaml
 Type: Object
-Parameter Sets: Device_ByUserGroupId, Group_ByUserGroupId
+Parameter Sets: DeviceByUserGroup, GroupByUserGroup
 Aliases: UserGroupId
 
 Required: True

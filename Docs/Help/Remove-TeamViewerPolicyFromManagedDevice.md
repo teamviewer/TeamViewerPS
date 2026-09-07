@@ -89,7 +89,7 @@ The managed device from which you want to remove the policy.
 ```yaml
 Type: Object
 Parameter Sets: (All)
-Aliases: DeviceId
+Aliases: Id, DeviceId, ManagedDeviceId, ManagedDevice
 Required: True
 Position: 1
 Default value: None

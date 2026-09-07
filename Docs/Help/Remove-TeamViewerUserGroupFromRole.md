@@ -35,14 +35,6 @@ The given user group `1001` gets unassigned from the role.
 ### Example 2
 
 ```powershell
-Remove-TeamViewerUserGroupFromRole -Id 1001
-```
-
-Uses the `Id` alias to unassign the user group `1001` from its role.
-
-### Example 3
-
-```powershell
 Get-TeamViewerUserGroup -Name 'Support Team' | Remove-TeamViewerUserGroupFromRole
 ```
 
@@ -89,7 +81,7 @@ The user group from which role should be unassigned.
 ```yaml
 Type: Object
 Parameter Sets: (All)
-Aliases: Id, UserGroupId
+Aliases:
 
 Required: True
 Position: 1

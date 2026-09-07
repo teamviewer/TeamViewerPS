@@ -10,13 +10,13 @@
 
         [Parameter(Mandatory = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerGroupId } )]
-        [Alias('GroupId')]
+        [Alias('Id', 'GroupId')]
         [object]
         $Group,
 
         [Parameter(Mandatory = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerUserId } )]
-        [Alias('UserId')]
+        [Alias('UserId', 'UserIds')]
         [object[]]
         $User,
 
@@ -25,13 +25,11 @@
         $Permissions = 'read'
     )
 
-    # Warning suppresion doesn't seem to work.
-    # See https://github.com/PowerShell/PSScriptAnalyzer/issues/1472
-    $null = $Permissions
+    $null = $Permissions # https://github.com/PowerShell/PSScriptAnalyzer/issues/1472
 
     $GroupId = $Group | Resolve-TeamViewerGroupId
     $UserIds = $User | Resolve-TeamViewerUserId
-    $ResourceUri = "$(Get-TeamViewerAPIUri)/groups/$GroupId/share_group"
+    $Resource_Uri = "$(Get-TeamViewerAPIUri)/groups/$GroupId/share_group"
     $Body = @{
         users = @($UserIds | ForEach-Object { @{
                     userid      = $_
@@ -42,7 +40,7 @@
     if ($PSCmdlet.ShouldProcess($UserIds, 'Add group share')) {
         Invoke-TeamViewerRestMethod `
             -APIToken $APIToken `
-            -Uri $ResourceUri `
+            -Uri $Resource_Uri `
             -Method Post `
             -ContentType 'application/json; charset=utf-8' `
             -Body ([System.Text.Encoding]::UTF8.GetBytes(($Body | ConvertTo-Json))) `

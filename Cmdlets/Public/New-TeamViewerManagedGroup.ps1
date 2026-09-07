@@ -14,12 +14,12 @@
     )
 
     $Body = @{ name = $Name }
-    $ResourceUri = "$(Get-TeamViewerAPIUri)/managed/groups"
+    $Resource_Uri = "$(Get-TeamViewerAPIUri)/managed/groups"
 
     if ($PSCmdlet.ShouldProcess($Name, 'Create managed group')) {
         $Response = Invoke-TeamViewerRestMethod `
             -APIToken $APIToken `
-            -Uri $ResourceUri `
+            -Uri $Resource_Uri `
             -Method Post `
             -ContentType 'application/json; charset=utf-8' `
             -Body ([System.Text.Encoding]::UTF8.GetBytes(($Body | ConvertTo-Json))) `

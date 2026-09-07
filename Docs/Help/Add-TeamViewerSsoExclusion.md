@@ -14,7 +14,7 @@ Add emails to the exclusion list of a TeamViewer Single Sign-On domain.
 ## SYNTAX
 
 ```powershell
-Add-TeamViewerSSOExclusion [-APIToken] <SecureString> [-DomainId] <Object> [-Email] <String[]> [-WhatIf]
+Add-TeamViewerSSOExclusion [-APIToken] <SecureString> [-Domain] <Object> [-Email] <String[]> [-WhatIf]
  [-Confirm] [<CommonParameters>]
 ```
 
@@ -83,7 +83,7 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -DomainId
+### -Domain
 
 Object that can be used to identify the SSO domain to add exclusion entries to.
 This can either be the SSO domain Id (as string or GUID) or a SSODomain object that has been received using the `Get-TeamViewerSSODomain` function.
@@ -91,7 +91,7 @@ This can either be the SSO domain Id (as string or GUID) or a SSODomain object t
 ```yaml
 Type: Object
 Parameter Sets: (All)
-Aliases: Domain
+Aliases: Id, DomainId, SSODomainId, SSODomain
 
 Required: True
 Position: 1

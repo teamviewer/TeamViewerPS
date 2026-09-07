@@ -85,7 +85,7 @@
         $Limit
     )
 
-    $ResourceUri = "$(Get-TeamViewerAPIUri)/reports/connections"
+    $Resource_Uri = "$(Get-TeamViewerAPIUri)/reports/connections"
 
     $Parameters = @{}
 
@@ -138,7 +138,7 @@
     do {
         $Response = Invoke-TeamViewerRestMethod `
             -APIToken $APIToken `
-            -Uri $ResourceUri `
+            -Uri $Resource_Uri `
             -Method Get `
             -Body $Parameters `
             -WriteErrorTo $PSCmdlet `

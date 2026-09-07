@@ -4,9 +4,10 @@
     [OutputType([void])]
 
     param (
-        [Parameter(Mandatory = $true, ParameterSetName = 'ById')]
+        [Parameter(Mandatory = $true, ParameterSetName = 'ByCustomizationId')]
+        [Alias('Id', 'CustomizationId')]
         [object]
-        $Id,
+        $Customization,
 
         [Parameter(Mandatory = $true, ParameterSetName = 'ByPath')]
         [object]
@@ -16,15 +17,15 @@
         $RestartGUI,
 
         [switch]
-        $RemoveExisting
+        $Force
     )
 
     begin {
         $TV_ApplicationFilePath = (Join-Path -Path (Get-TeamViewerInstallationDirectory) -ChildPath 'TeamViewer.exe')
         $TV_AssignmentParams = 'customize'
 
-        if ($Id) {
-            $TV_AssignmentParams += " --id $Id"
+        if ($Customization) {
+            $TV_AssignmentParams += " --id $Customization"
         }
 
         if ($Path) {
@@ -35,7 +36,7 @@
             $TV_AssignmentParams += ' --restart-gui'
         }
 
-        if ($RemoveExisting) {
+        if ($Force) {
             $TV_AssignmentParams += ' --remove'
         }
     }
@@ -48,8 +49,8 @@
         }
 
         if ($PSCmdlet.ShouldProcess($TV_ApplicationFilePath, 'Add customization')) {
-            $process = Start-Process -FilePath $TV_ApplicationFilePath -ArgumentList $TV_AssignmentParams -Wait -PassThru
-            $process.ExitCode | Resolve-TeamViewerCustomizationErrorCode
+            $TV_Process = Start-Process -FilePath $TV_ApplicationFilePath -ArgumentList $TV_AssignmentParams -Wait -PassThru
+            $TV_Process.ExitCode | Resolve-TeamViewerCustomizationErrorCode
         }
     }
 }

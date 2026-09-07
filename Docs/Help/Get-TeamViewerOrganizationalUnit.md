@@ -22,7 +22,7 @@ Returns a single or multiple TeamViewer organizational units of the associated T
 Get-TeamViewerOrganizationalUnit -APIToken <SecureString> [-Recursive <Switch>] [-Parent <String>] [-Filter <String>] [-SortBy <String>] [-SortOrder <String>] [-PageSize <int>] [-PageNumber <int>][<CommonParameters>]
 ```
 
-### ById
+### ByOrganizationalUnitId
 
 ```powershell
 Get-TeamViewerOrganizationalUnit -APIToken <SecureString> [-OrganizationalUnit <PSObject>] [<CommonParameters>]
@@ -80,7 +80,7 @@ that has been received using other module functions.
 
 ```yaml
 Type: PSObject
-Parameter Sets: ById
+Parameter Sets: ByOrganizationalUnitId
 Aliases: Id, OrganizationalUnitId
 
 Required: True

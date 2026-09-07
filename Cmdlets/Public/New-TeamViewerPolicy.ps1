@@ -32,11 +32,11 @@
         $Body.settings = @($Settings)
     }
 
-    $ResourceUri = "$(Get-TeamViewerAPIUri)/teamviewerpolicies"
+    $Resource_Uri = "$(Get-TeamViewerAPIUri)/teamviewerpolicies"
     if ($PSCmdlet.ShouldProcess($Name, 'Create policy')) {
         Invoke-TeamViewerRestMethod `
             -APIToken $APIToken `
-            -Uri $ResourceUri `
+            -Uri $Resource_Uri `
             -Method Post `
             -ContentType 'application/json; charset=utf-8' `
             -Body ([System.Text.Encoding]::UTF8.GetBytes(($Body | ConvertTo-Json))) `

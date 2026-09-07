@@ -9,10 +9,11 @@
         $APIToken
     )
 
-    $ResourceUri = "$(Get-TeamViewerAPIUri)/ping"
+    $Resource_Uri = "$(Get-TeamViewerAPIUri)/ping"
+
     $Result = Invoke-TeamViewerRestMethod `
         -APIToken $APIToken `
-        -Uri $ResourceUri `
+        -Uri $Resource_Uri `
         -Method Get `
         -WriteErrorTo $PSCmdlet `
         -ErrorAction Stop

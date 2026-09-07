@@ -13,7 +13,7 @@ Change a device entry in the Computers & Contacts list.
 
 ## SYNTAX
 
-### Default (Default)
+### ChangeProperties (Default)
 
 ```powershell
 Set-TeamViewerDevice -APIToken <SecureString> -Device <Object> [-Name <String>] [-Description <String>]

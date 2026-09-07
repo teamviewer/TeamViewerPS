@@ -6,6 +6,7 @@
     param(
         [Parameter(Mandatory = $true)]
         [ValidateSet('Full', 'Host', 'MSI32', 'MSI64', 'Portable', 'QuickJoin', 'QuickSupport', 'Full64Bit')]
+        [Alias('Package')]
         [string]
         $PackageType,
 
@@ -13,24 +14,24 @@
         [ValidateScript( {
                 if ($PackageType -eq 'MSI32' -or $PackageType -eq 'MSI64') {
                     $PSCmdlet.ThrowTerminatingError(
-                        ('MajorVersion parameter is not supported for MSI packages' | `
-                            ConvertTo-ErrorRecord -ErrorCategory InvalidArgument))
+                        ('MajorVersion parameter is not supported for MSI packages!' | ConvertTo-ErrorRecord -ErrorCategory InvalidArgument))
                 }
                 if ($_ -ne 0 -and $_ -lt 14) {
                     $PSCmdlet.ThrowTerminatingError(
-                        ("Unsupported TeamViewer version $_" | `
-                            ConvertTo-ErrorRecord -ErrorCategory InvalidArgument))
+                        ("Unsupported TeamViewer version $_" | ConvertTo-ErrorRecord -ErrorCategory InvalidArgument))
                 }
 
                 return $true
             } )]
+        [Alias('Version')]
         [int]
         $MajorVersion,
 
         [Parameter()]
         [ValidateScript({ Test-Path -LiteralPath $_ -PathType Container })]
+        [Alias('Destination')]
         [string]
-        $TargetDirectory = (Get-Location).Path,
+        $Path = (Get-Location).Path,
 
         [Parameter()]
         [switch]
@@ -38,7 +39,7 @@
     )
 
     begin {
-        $Filename = switch ($PackageType) {
+        $Endpoint_Filename = switch ($PackageType) {
             'Full' {
                 'TeamViewer_Setup.exe'
             }
@@ -65,18 +66,18 @@
             }
         }
 
-        $VersionEndpoint = ''
+        $Endpoint_Version = ''
 
         if ($MajorVersion) {
-            $VersionEndpoint = "/version_$($MajorVersion)x"
+            $Endpoint_Version = "/version_$($MajorVersion)x"
         }
 
         if ($PackageType -eq 'MSI32' -or $PackageType -eq 'MSI64') {
-            $VersionEndpoint = '/version_15x'
+            $Endpoint_Version = '/version_15x'
         }
 
-        $Download_Url = "https://dl.teamviewer.com/download$VersionEndpoint/$Filename"
-        $Target_FilePath = Join-Path -Path $TargetDirectory -ChildPath $Filename
+        $Endpoint_Url = "https://dl.teamviewer.com/download$Endpoint_Version/$Endpoint_Filename"
+        $Target_FilePath = Join-Path -Path $Path -ChildPath $Endpoint_Filename
     }
 
     process {
@@ -86,10 +87,10 @@
             Write-Output $null
         }
         else {
-            Write-Verbose "Downloading $Download_Url to $Target_FilePath..."
+            Write-Verbose "Downloading $Endpoint_Url to $Target_FilePath..."
 
             try {
-                Invoke-WebRequest -Uri $Download_Url -OutFile $Target_FilePath -UseBasicParsing -ErrorAction Stop
+                Invoke-WebRequest -Uri $Endpoint_Url -OutFile $Target_FilePath -UseBasicParsing -ErrorAction Stop
 
                 Write-Output $Target_FilePath
             }

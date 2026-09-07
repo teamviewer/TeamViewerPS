@@ -14,7 +14,7 @@ Lists all user group assignments of a user role.
 ## SYNTAX
 
 ```powershell
-Get-TeamViewerUserGroupByRole [-APIToken] <SecureString> [-RoleId] <Object> [<CommonParameters>]
+Get-TeamViewerUserGroupByRole [-APIToken] <SecureString> [-Role] <Object> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -26,7 +26,7 @@ Lists all user groups of role in the TeamViewer company associated with the API 
 ### Example 1
 
 ```powershell
-Get-TeamViewerUserGroupByRole -RoleId '72abbedc-9853-4fc8-9d28-fa35e207b048'
+Get-TeamViewerUserGroupByRole -Role '72abbedc-9853-4fc8-9d28-fa35e207b048'
 ```
 
 Lists all user groups of the role `72abbedc-9853-4fc8-9d28-fa35e207b048`.
@@ -34,10 +34,10 @@ Lists all user groups of the role `72abbedc-9853-4fc8-9d28-fa35e207b048`.
 ### Example 2
 
 ```powershell
-Get-TeamViewerUserGroupByRole -Role 'c0cb303a-8a85-4e54-b657-a4757c791aef'
+Get-TeamViewerUserGroupByRole -RoleId 'c0cb303a-8a85-4e54-b657-a4757c791aef'
 ```
 
-Lists all user groups of the given role using the `Role` alias.
+Lists all user groups of the given role using the `RoleId` alias.
 
 ### Example 3
 
@@ -65,14 +65,14 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -RoleId
+### -Role
 
 Role to list its assigned users.
 
 ```yaml
 Type: Object
 Parameter Sets: (All)
-Aliases: Role
+Aliases: Id, RoleId
 
 Required: True
 Position: 1
@@ -91,9 +91,9 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### System.Object
+### TeamViewerPS.RoleUserGroupMembership
 
-An array of `TeamViewerPS.RoleAssignedUserGroup` objects.
+An array of `TeamViewerPS.RoleUserGroupMembership` objects with a `UserGroupId` property.
 
 ## NOTES
 

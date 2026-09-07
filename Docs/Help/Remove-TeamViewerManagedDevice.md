@@ -90,7 +90,7 @@ This can either be the managed device Id (as string or GUID) or a managed device
 ```yaml
 Type: Object
 Parameter Sets: (All)
-Aliases: DeviceId
+Aliases: Id, DeviceId, ManagedDeviceId, ManagedDevice
 
 Required: True
 Position: 1
@@ -107,7 +107,7 @@ This can either be the managed group Id (as string or GUID) or a managed group o
 ```yaml
 Type: Object
 Parameter Sets: (All)
-Aliases: GroupId
+Aliases: GroupId, ManagedGroupId, ManagedGroup
 
 Required: True
 Position: 2

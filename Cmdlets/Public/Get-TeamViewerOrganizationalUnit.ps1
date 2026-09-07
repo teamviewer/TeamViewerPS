@@ -8,7 +8,7 @@
                 [securestring]
                 $APIToken,
 
-                [Parameter(ValueFromPipeline = $true, Mandatory = $true, ParameterSetName = 'ById')]
+                [Parameter(ValueFromPipeline = $true, Mandatory = $true, ParameterSetName = 'ByOrganizationalUnitId')]
                 [ValidateScript({ $_ | Resolve-TeamViewerOrganizationalUnitId })]
                 [Alias('Id', 'OrganizationalUnitId')]
                 [object]
@@ -58,7 +58,7 @@
                 $Body = @{}
 
                 switch ($PSCmdlet.ParameterSetName) {
-                        'ById' {
+                        'ByOrganizationalUnitId' {
                                 $OrganizationalUnitId = $OrganizationalUnit | Resolve-TeamViewerOrganizationalUnitId
                                 $Uri += "/$OrganizationalUnitId"
                                 $Body = $null
@@ -89,7 +89,7 @@
                         -WriteErrorTo $PSCmdlet `
                         -ErrorAction Stop
 
-                if ($PSCmdlet.ParameterSetName -eq 'ById') {
+                if ($PSCmdlet.ParameterSetName -eq 'ByOrganizationalUnitId') {
                         $Response | ConvertTo-TeamViewerOrganizationalUnit
                 }
                 else {

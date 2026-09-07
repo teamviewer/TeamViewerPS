@@ -13,14 +13,14 @@ Returns the devices of the current account's Computers & Contacts list.
 
 ## SYNTAX
 
-### FilteredList (Default)
+### List (Default)
 
 ```powershell
 Get-TeamViewerDevice -APIToken <SecureString> [-TeamViewerId <Int32>] [-FilterBy_OnlineState <String>]
  [-Group <Object>] [<CommonParameters>]
 ```
 
-### ByDevice
+### ByDeviceId
 
 ```powershell
 Get-TeamViewerDevice -APIToken <SecureString> [-Device <String>] [<CommonParameters>]
@@ -80,7 +80,7 @@ Optional filter for devices in a certain online state.
 
 ```yaml
 Type: String
-Parameter Sets: FilteredList
+Parameter Sets: List
 Aliases:
 Accepted values: Online, Busy, Away, Offline
 
@@ -99,7 +99,7 @@ If given, the command only returns device entries that are part of that group.
 
 ```yaml
 Type: Object
-Parameter Sets: FilteredList
+Parameter Sets: List
 Aliases: GroupId
 
 Required: False
@@ -115,7 +115,7 @@ Device identifier used to get only a single specific device list entry.
 
 ```yaml
 Type: String
-Parameter Sets: ByDevice
+Parameter Sets: ByDeviceId
 Aliases: Id, DeviceId
 
 Required: False
@@ -131,7 +131,7 @@ Optional return only the device that has the given TeamViewer Remote control Id.
 
 ```yaml
 Type: Int32
-Parameter Sets: FilteredList
+Parameter Sets: List
 Aliases:
 
 Required: False

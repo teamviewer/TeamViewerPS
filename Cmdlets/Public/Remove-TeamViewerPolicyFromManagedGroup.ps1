@@ -10,7 +10,7 @@
 
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerManagedGroupId } )]
-        [Alias('GroupId')]
+        [Alias('Id', 'GroupId', 'ManagedGroupId', 'ManagedGroup')]
         [object]
         $Group,
 
@@ -27,12 +27,12 @@
 
     process {
         $GroupId = $Group | Resolve-TeamViewerManagedGroupId
-        $ResourceUri = "$(Get-TeamViewerAPIUri)/managed/groups/$GroupId/policy/remove"
+        $Resource_Uri = "$(Get-TeamViewerAPIUri)/managed/groups/$GroupId/policy/remove"
 
         if ($PSCmdlet.ShouldProcess($Group.ToString(), 'Change managed group entry')) {
             Invoke-TeamViewerRestMethod `
                 -APIToken $APIToken `
-                -Uri $ResourceUri `
+                -Uri $Resource_Uri `
                 -Method Put `
                 -ContentType 'application/json; charset=utf-8' `
                 -Body ([System.Text.Encoding]::UTF8.GetBytes(($Body | ConvertTo-Json))) `

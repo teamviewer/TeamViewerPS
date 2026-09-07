@@ -75,7 +75,7 @@ This can either be the SSO domain Id (as string or GUID) or a SSODomain object t
 ```yaml
 Type: Object
 Parameter Sets: (All)
-Aliases: Domain
+Aliases: Id, Domain, SSODomainId, SSODomain
 
 Required: True
 Position: 1

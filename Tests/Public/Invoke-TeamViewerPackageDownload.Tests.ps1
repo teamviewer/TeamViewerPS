@@ -11,7 +11,7 @@ Describe 'Invoke-TeamViewerPackageDownload' {
     It 'Should download the selected package' {
         Mock Invoke-WebRequest { }
 
-        $Result = Invoke-TeamViewerPackageDownload -PackageType Full -TargetDirectory $testTargetDirectory
+        $Result = Invoke-TeamViewerPackageDownload -PackageType Full -Path $testTargetDirectory
 
         $Result | Should -Be (Join-Path $testTargetDirectory 'TeamViewer_Setup.exe')
 
@@ -27,7 +27,7 @@ Describe 'Invoke-TeamViewerPackageDownload' {
         Mock Invoke-WebRequest { throw 'download failed' }
         Mock Write-Verbose { }
 
-        $Result = Invoke-TeamViewerPackageDownload -PackageType Full -TargetDirectory $testTargetDirectory
+        $Result = Invoke-TeamViewerPackageDownload -PackageType Full -Path $testTargetDirectory
 
         $Result | Should -BeNullOrEmpty
 
@@ -41,7 +41,7 @@ Describe 'Invoke-TeamViewerPackageDownload' {
 
         Mock Invoke-WebRequest { }
 
-        $Result = Invoke-TeamViewerPackageDownload -PackageType Full -TargetDirectory $testTargetDirectory
+        $Result = Invoke-TeamViewerPackageDownload -PackageType Full -Path $testTargetDirectory
 
         $Result | Should -BeNullOrEmpty
 

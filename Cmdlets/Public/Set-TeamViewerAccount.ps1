@@ -36,9 +36,7 @@
         $Property
     )
 
-    # Warning suppresion doesn't seem to work.
-    # See https://github.com/PowerShell/PSScriptAnalyzer/issues/1472
-    $null = $Property
+    $null = $Property # https://github.com/PowerShell/PSScriptAnalyzer/issues/1472
 
     $Body = @{}
 
@@ -85,12 +83,12 @@
                 ConvertTo-ErrorRecord -ErrorCategory InvalidArgument))
     }
 
-    $ResourceUri = "$(Get-TeamViewerAPIUri)/account"
+    $Resource_Uri = "$(Get-TeamViewerAPIUri)/account"
 
     if ($PSCmdlet.ShouldProcess('TeamViewer account')) {
         Invoke-TeamViewerRestMethod `
             -APIToken $APIToken `
-            -Uri $ResourceUri `
+            -Uri $Resource_Uri `
             -Method Put `
             -ContentType 'application/json; charset=utf-8' `
             -Body ([System.Text.Encoding]::UTF8.GetBytes(($Body | ConvertTo-Json))) `

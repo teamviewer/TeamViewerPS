@@ -10,7 +10,7 @@
 
         [Parameter(Mandatory = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerManagedDeviceId } )]
-        [Alias('ManagedDevice', 'Device', 'DeviceId')]
+        [Alias('Id', 'ManagedDevice', 'Device', 'DeviceId')]
         [object]
         $ManagedDeviceId,
 
@@ -22,12 +22,12 @@
 
     process {
         $ManagedDeviceId_Resolved = $ManagedDeviceId | Resolve-TeamViewerManagedDeviceId
-        $ResourceUri = "$(Get-TeamViewerAPIUri)/managed/devices/$ManagedDeviceId_Resolved/custom-fields/$FieldConfigurationId"
+        $Resource_Uri = "$(Get-TeamViewerAPIUri)/managed/devices/$ManagedDeviceId_Resolved/custom-fields/$FieldConfigurationId"
 
         if ($PSCmdlet.ShouldProcess($FieldConfigurationId, 'Delete device custom field value')) {
             Invoke-TeamViewerRestMethod `
                 -APIToken $APIToken `
-                -Uri $ResourceUri `
+                -Uri $Resource_Uri `
                 -Method Delete `
                 -WriteErrorTo $PSCmdlet `
                 -ErrorAction Stop | `

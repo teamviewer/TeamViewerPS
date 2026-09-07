@@ -10,25 +10,26 @@
 
         [Parameter(Mandatory = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerGroupId } )]
-        [Alias('GroupId')]
+        [Alias('Id', 'GroupId')]
         [object]
         $Group,
 
         [Parameter(Mandatory = $true)]
-        [Alias('UserId')]
+        [Alias('UserId', 'UserIds')]
         [object[]]
         $User
     )
 
-    $GroupId = $Group | Resolve-TeamViewerGroupId
-    $UserIds = $User | Resolve-TeamViewerUserId
-    $ResourceUri = "$(Get-TeamViewerAPIUri)/groups/$GroupId/unshare_group"
-    $Body = @{users = @($UserIds) }
+    $Group_Id = $Group | Resolve-TeamViewerGroupId
+    $User_Ids = $User | Resolve-TeamViewerUserId
 
-    if ($PSCmdlet.ShouldProcess($UserIds, 'Remove group share')) {
+    $Resource_Uri = "$(Get-TeamViewerAPIUri)/groups/$Group_Id/unshare_group"
+    $Body = @{users = @($User_Ids) }
+
+    if ($PSCmdlet.ShouldProcess($User_Ids, 'Unpublish group')) {
         Invoke-TeamViewerRestMethod `
             -APIToken $APIToken `
-            -Uri $ResourceUri `
+            -Uri $Resource_Uri `
             -Method Post `
             -ContentType 'application/json; charset=utf-8' `
             -Body ([System.Text.Encoding]::UTF8.GetBytes(($Body | ConvertTo-Json))) `

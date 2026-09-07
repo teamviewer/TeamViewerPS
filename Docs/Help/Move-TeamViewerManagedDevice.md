@@ -93,7 +93,7 @@ A string representing the management Id of the device.
 ```yaml
 Type: Object
 Parameter Sets: (All)
-Aliases: DeviceId
+Aliases: Id, DeviceId, ManagedDeviceId, ManagedDevice
 
 Required: True
 Position: 1

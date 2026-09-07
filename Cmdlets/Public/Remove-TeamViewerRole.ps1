@@ -17,14 +17,14 @@
     )
 
     begin {
-        $ResourceUri = "$(Get-TeamViewerAPIUri)/userroles?userRoleId=$RoleId"
+        $Resource_Uri = "$(Get-TeamViewerAPIUri)/userroles?userRoleId=$RoleId"
     }
 
     process {
         if ($PSCmdlet.ShouldProcess($RoleId.ToString(), 'Remove Role')) {
             Invoke-TeamViewerRestMethod `
                 -APIToken $APIToken `
-                -Uri $ResourceUri `
+                -Uri $Resource_Uri `
                 -Method Delete `
                 -WriteErrorTo $PSCmdlet `
                 -ErrorAction Stop | `

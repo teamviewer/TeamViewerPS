@@ -14,7 +14,7 @@ Assign a list of accountIds to a role.
 ## SYNTAX
 
 ```powershell
-Add-TeamViewerUserToRole [-APIToken] <SecureString> [-RoleId] <Object> [-Accounts] <string[]> [-WhatIf] [-Confirm] [<CommonParameters>]
+Add-TeamViewerUserToRole [-APIToken] <SecureString> [-Role] <Object> [-User] <string[]> [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -26,7 +26,7 @@ Assigns one or many users to a role. A role should belong to the TeamViewer comp
 ### Example 1
 
 ```powershell
-Add-TeamViewerUserToRole -RoleId  '9b465ea2-2f75-4101-a057-58a81ed0e57b' -Accounts @('123', '456', '789')
+Add-TeamViewerUserToRole -Role '9b465ea2-2f75-4101-a057-58a81ed0e57b' -User @('123', '456', '789')
 ```
 
 Assigns role with id `9b465ea2-2f75-4101-a057-58a81ed0e57b` to users with id `123`, `456`, `789`.
@@ -43,10 +43,10 @@ Ids are passed as pipeline input.
 ### Example 3
 
 ```powershell
-Add-TeamViewerUserToRole -Role '9b465ea2-2f75-4101-a057-58a81ed0e57b' -Accounts 'u123'
+Add-TeamViewerUserToRole -Role '9b465ea2-2f75-4101-a057-58a81ed0e57b' -User 'u123'
 ```
 
-Assigns the role with id `9b465ea2-2f75-4101-a057-58a81ed0e57b` to a single user identified by the `u`-prefixed account Id, using the `Role` alias.
+Assigns the role with id `9b465ea2-2f75-4101-a057-58a81ed0e57b` to a single user identified by the `u`-prefixed account Id.
 
 ## PARAMETERS
 
@@ -82,14 +82,14 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -RoleId
+### -Role
 
 the role to which users will be assigned to.
 
 ```yaml
 Type: Object
 Parameter Sets: (All)
-Aliases: Role
+Aliases:
 
 Required: True
 Position: 1
@@ -98,9 +98,9 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Accounts
+### -User
 
-Users to be assigned to a user role.
+Users to add as members of a user role.
 
 ```yaml
 Type: string[]

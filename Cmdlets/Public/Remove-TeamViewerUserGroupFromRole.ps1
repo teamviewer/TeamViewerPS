@@ -10,15 +10,14 @@
 
         [Parameter(Mandatory = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerUserGroupId } )]
-        [Alias('UserGroupId')]
-        [Alias('Id')]
+        [Alias('Id', 'UserGroupId')]
         [object]
         $UserGroup
     )
 
     begin {
-        $null = $APIToken
-        $ResourceUri = "$(Get-TeamViewerAPIUri)/userroles/unassign/usergroup"
+        $null = $APIToken # https://github.com/PowerShell/PSScriptAnalyzer/issues/1472
+        $Resource_Uri = "$(Get-TeamViewerAPIUri)/userroles/unassign/usergroup"
         $Body = @{
             UserGroupId = $UserGroup
         }
@@ -29,7 +28,7 @@
         if ($PSCmdlet.ShouldProcess($UserGroupId, 'Unassign User Group from user role')) {
             $Result = Invoke-TeamViewerRestMethod `
                 -APIToken $APIToken `
-                -Uri $ResourceUri `
+                -Uri $Resource_Uri `
                 -Method Post `
                 -ContentType 'application/json; charset=utf-8' `
                 -Body ([System.Text.Encoding]::UTF8.GetBytes(($Body | ConvertTo-Json))) `

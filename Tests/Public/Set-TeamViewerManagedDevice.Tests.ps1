@@ -14,6 +14,18 @@
 }
 
 Describe 'Set-TeamViewerManagedDevice' {
+    Context 'Parameter aliases' {
+        It 'Should expose <Alias> as an alias of the <Param> parameter' -ForEach @(
+            @{ Param = 'Device'; Alias = 'Id' }
+            @{ Param = 'Device'; Alias = 'DeviceId' }
+            @{ Param = 'Device'; Alias = 'ManagedDeviceId' }
+            @{ Param = 'Device'; Alias = 'ManagedDevice' }
+            @{ Param = 'ManagedGroup'; Alias = 'GroupId' }
+            @{ Param = 'ManagedGroup'; Alias = 'ManagedGroupId' }
+        ) {
+            (Get-Command -Name Set-TeamViewerManagedDevice).Parameters[$Param].Aliases | Should -Contain $Alias
+        }
+    }
 
     It 'Should call the correct API endpoint to update a managed device' {
         Set-TeamViewerManagedDevice -APIToken $testAPIToken -Device $testDeviceId -Name 'Foo Bar'

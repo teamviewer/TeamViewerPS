@@ -10,7 +10,7 @@
 
         [Parameter(Mandatory = $true)]
         [ValidateScript( { $_ | Resolve-TeamViewerManagedDeviceId } )]
-        [Alias('ManagedDevice', 'Device', 'DeviceId')]
+        [Alias('Id', 'ManagedDevice', 'Device', 'DeviceId')]
         [object]
         $ManagedDeviceId,
 
@@ -26,7 +26,7 @@
 
     begin {
         $ManagedDeviceId_Resolved = $ManagedDeviceId | Resolve-TeamViewerManagedDeviceId
-        $ResourceUri = "$(Get-TeamViewerAPIUri)/managed/devices/$ManagedDeviceId_Resolved/custom-fields/$FieldConfigurationId"
+        $Resource_Uri = "$(Get-TeamViewerAPIUri)/managed/devices/$ManagedDeviceId_Resolved/custom-fields/$FieldConfigurationId"
 
         $Body = @{
             value = $Value
@@ -37,7 +37,7 @@
         if ($PSCmdlet.ShouldProcess($FieldConfigurationId, 'Set device custom field value')) {
             $Response = Invoke-TeamViewerRestMethod `
                 -APIToken $APIToken `
-                -Uri $ResourceUri `
+                -Uri $Resource_Uri `
                 -Method Post `
                 -ContentType 'application/json; charset=utf-8' `
                 -Body ([System.Text.Encoding]::UTF8.GetBytes(($Body | ConvertTo-Json))) `

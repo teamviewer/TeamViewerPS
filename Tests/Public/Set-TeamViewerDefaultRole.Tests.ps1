@@ -13,6 +13,14 @@
 }
 
 Describe 'Set-TeamViewerDefaultRole' {
+    Context 'Parameter aliases' {
+        It 'Should expose <Alias> as an alias of the <Param> parameter' -ForEach @(
+            @{ Param = 'RoleId'; Alias = 'Id' }
+            @{ Param = 'RoleId'; Alias = 'Role' }
+        ) {
+            (Get-Command -Name Set-TeamViewerDefaultRole).Parameters[$Param].Aliases | Should -Contain $Alias
+        }
+    }
     It 'Should call the correct API endpoint' {
         Set-TeamViewerDefaultRole -APIToken $testAPIToken -RoleId $testRoleId
 

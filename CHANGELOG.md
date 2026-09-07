@@ -8,6 +8,7 @@
 
 ### Added
 
+- Adds `Get-TeamViewerMemberByRole` to list direct and indirect role members.
 - Adds `Get-TeamViewerOrganizationalUnit` to retrieve the organizational unit details (beta phase, available only for specific tenants).
 - Adds `New-TeamViewerOrganizationalUnit` to add a new organizational unit (beta phase, available only for specific tenants).
 - Adds `Remove-TeamViewerOrganizationalUnit` to delete the organizational unit (beta phase, available only for specific tenants).
@@ -23,6 +24,8 @@
 
 ### Changed
 
+- Renames role assignment output types to role membership types and standardizes their identifier properties.
+- Standardizes role membership mutation parameters to `Role`, `User`, and `UserGroup` without compatibility aliases.
 - Renames `Get-TeamViewerPredefinedRole` to `Get-TeamViewerDefaultRole`, `Set-TeamViewerPredefinedRole` to `Set-TeamViewerDefaultRole`, and `Remove-TeamViewerPredefinedRole` to `Remove-TeamViewerDefaultRole`.
 - Renames `Get-TeamViewerCustomModuleId` to `Get-TeamViewerCustomizationId`.
 - Normalizes acronym casing in command, parameter, and type names (`Api` to `API`, `Sso` to `SSO`).
@@ -34,6 +37,8 @@
 - Creates, expands, and hardens all private functions tests.
 - Automate release module versioning.
 - Separates role retrieval from available role permission retrieval by moving permissions to `Get-TeamViewerRolePermission`.
+- Standardizes entity parameter aliases across cmdlets, adding `Id`, singular `<Entity>Id`, plural `<Entity>Ids`, and bare entity-noun aliases where applicable.
+- Renames parameter set names to describe their purpose, using `By<Entity>Id` for single-entity lookups, `List` for list queries, and `ByParameters`/`ByProperties` for property mutations.
 
 ### Fixed
 

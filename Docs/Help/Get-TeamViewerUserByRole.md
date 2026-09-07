@@ -14,7 +14,7 @@ Lists users assigned to one specific role.
 ## SYNTAX
 
 ```powershell
-Get-TeamViewerUserByRole [-APIToken] <SecureString> [-RoleId] <Object> [<CommonParameters>]
+Get-TeamViewerUserByRole [-APIToken] <SecureString> [-Role] <Object> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -65,14 +65,14 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -RoleId
+### -Role
 
 Role to list its assigned users.
 
 ```yaml
 Type: Object
 Parameter Sets: (All)
-Aliases: Role
+Aliases: Id, RoleId
 
 Required: True
 Position: 1
@@ -91,9 +91,9 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### System.Object
+### TeamViewerPS.RoleUserMembership
 
-An array of `TeamViewerPS.RoleAssignedUser` objects.
+An array of `TeamViewerPS.RoleUserMembership` objects with a `UserId` property.
 
 ## NOTES
 

@@ -18,24 +18,32 @@
 }
 
 Describe 'Add-TeamViewerUserGroupMember' {
+    Context 'Parameter aliases' {
+        It 'Should expose <Alias> as an alias of the <Param> parameter' -ForEach @(
+            @{ Param = 'User'; Alias = 'UserId' }
+            @{ Param = 'User'; Alias = 'UserIds' }
+        ) {
+            (Get-Command -Name Add-TeamViewerUserGroupMember).Parameters[$Param].Aliases | Should -Contain $Alias
+        }
+    }
     It 'Should call the correct API endpoint' {
         Add-TeamViewerUserGroupMember `
             -APIToken $testAPIToken `
             -UserGroup $testUserGroupId `
-            -Member $testMembers
+            -User $testMembers
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $APIToken -eq $testAPIToken -and $Uri -eq "//unit.test/usergroups/$testUserGroupId/members" -and $Method -eq 'Post' }
     }
 
     It 'Should handle domain object as input' {
         $testUserGroup = @{Id = $testUserGroupId; Name = 'test user group' } | ConvertTo-TeamViewerUserGroup
-        Add-TeamViewerUserGroupMember -APIToken $testAPIToken -UserGroup $testUserGroup -Member $testMembers
+        Add-TeamViewerUserGroupMember -APIToken $testAPIToken -UserGroup $testUserGroup -User $testMembers
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $APIToken -eq $testAPIToken -and $Uri -eq "//unit.test/usergroups/$testUserGroupId/members" -and $Method -eq 'Post' }
     }
 
     It 'Should add a single member to the user group with format u[0-9]+' {
-        Add-TeamViewerUserGroupMember -APIToken $testAPIToken -UserGroup $testUserGroupId -Member $testMemberWithU
+        Add-TeamViewerUserGroupMember -APIToken $testAPIToken -UserGroup $testUserGroupId -User $testMemberWithU
         $mockArgs.Body | Should -Not -BeNullOrEmpty
         $Body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
         $Body | Should -HaveCount 1
@@ -43,7 +51,7 @@ Describe 'Add-TeamViewerUserGroupMember' {
     }
 
     It 'Should add the given members to the user group' {
-        Add-TeamViewerUserGroupMember -APIToken $testAPIToken -UserGroup $testUserGroupId -Member $testMembers
+        Add-TeamViewerUserGroupMember -APIToken $testAPIToken -UserGroup $testUserGroupId -User $testMembers
         $mockArgs.Body | Should -Not -BeNullOrEmpty
         $Body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
         $Body | Should -HaveCount 3

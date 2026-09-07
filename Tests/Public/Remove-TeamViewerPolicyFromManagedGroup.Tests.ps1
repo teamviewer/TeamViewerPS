@@ -15,6 +15,16 @@
 }
 
 Describe 'Remove-TeamViewerPolicyFromManagedGroup' {
+    Context 'Parameter aliases' {
+        It 'Should expose <Alias> as an alias of the <Param> parameter' -ForEach @(
+            @{ Param = 'Group'; Alias = 'Id' }
+            @{ Param = 'Group'; Alias = 'GroupId' }
+            @{ Param = 'Group'; Alias = 'ManagedGroupId' }
+            @{ Param = 'Group'; Alias = 'ManagedGroup' }
+        ) {
+            (Get-Command -Name Remove-TeamViewerPolicyFromManagedGroup).Parameters[$Param].Aliases | Should -Contain $Alias
+        }
+    }
 
     It 'Should call the correct API endpoint to remove a policy from the managed group' {
         Remove-TeamViewerPolicyFromManagedGroup -APIToken $testAPIToken -Group $testGroupId -PolicyType TeamViewer

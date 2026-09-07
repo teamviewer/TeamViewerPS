@@ -1,4 +1,4 @@
-﻿function ConvertTo-TeamViewerUserAssignedRole {
+﻿function ConvertTo-TeamViewerUserRoleMembership {
     param(
         [Parameter(ValueFromPipeline)]
         [object]
@@ -7,11 +7,11 @@
 
     process {
         $Properties = @{
-            Role_Id = $InputObject
+            RoleId = $InputObject
         }
 
         $Result = New-Object -TypeName PSObject -Property $Properties
-        $Result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.UserAssignedRole')
+        $Result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.UserRoleMembership')
 
         Write-Output $Result
     }

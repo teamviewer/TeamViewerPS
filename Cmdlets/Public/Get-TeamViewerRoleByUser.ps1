@@ -1,7 +1,7 @@
 ﻿function Get-TeamViewerRoleByUser {
     [CmdletBinding()]
 
-    [OutputType('TeamViewerPS.UserAssignedRole')]
+    [OutputType('TeamViewerPS.UserRoleMembership')]
 
     param(
         [Parameter(Mandatory = $true)]
@@ -16,18 +16,18 @@
     )
 
     begin {
-        $ResourceUri_Copy = "$(Get-TeamViewerAPIUri)/users/$User/userroles"
+        $Resource_Uri_Copy = "$(Get-TeamViewerAPIUri)/users/$User/userroles"
         $Parameters = $null
         $list = @()
     }
 
     process {
-        $ResourceUri = $ResourceUri_Copy
+        $Resource_Uri = $Resource_Uri_Copy
 
         do {
             $Response = Invoke-TeamViewerRestMethod `
                 -APIToken $APIToken `
-                -Uri $ResourceUri `
+                -Uri $Resource_Uri `
                 -Method Get `
                 -Body $Parameters `
                 -WriteErrorTo $PSCmdlet `
@@ -38,12 +38,12 @@
             }
 
             if ($Response.nextPaginationToken) {
-                $ResourceUri = $ResourceUri_Copy + '?paginationToken=' + $Response.nextPaginationToken
+                $Resource_Uri = $Resource_Uri_Copy + '?paginationToken=' + $Response.nextPaginationToken
             }
         } while ($Response.nextPaginationToken)
 
         if ($list.Count -gt 0) {
-            Write-Output ($list | ConvertTo-TeamViewerUserAssignedRole)
+            Write-Output ($list | ConvertTo-TeamViewerUserRoleMembership)
         }
     }
 }

@@ -90,7 +90,7 @@ This can either be the managed device Id (as string or GUID) or a managed device
 ```yaml
 Type: Object
 Parameter Sets: (All)
-Aliases: DeviceId
+Aliases: Id, DeviceId, ManagedDeviceId, ManagedDevice
 
 Required: True
 Position: 1

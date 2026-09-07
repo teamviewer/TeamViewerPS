@@ -32,14 +32,14 @@
             $Body['description'] = $Description
         }
 
-        $ResourceUri = "$(Get-TeamViewerAPIUri)/device-custom-fields/$Id"
+        $Resource_Uri = "$(Get-TeamViewerAPIUri)/device-custom-fields/$Id"
     }
 
     process {
         if ($PSCmdlet.ShouldProcess($Id, 'Update device custom field')) {
             $Response = Invoke-TeamViewerRestMethod `
                 -APIToken $APIToken `
-                -Uri $ResourceUri `
+                -Uri $Resource_Uri `
                 -Method Put `
                 -ContentType 'application/json; charset=utf-8' `
                 -Body ([System.Text.Encoding]::UTF8.GetBytes(($Body | ConvertTo-Json))) `
