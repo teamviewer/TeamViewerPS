@@ -3,6 +3,7 @@
     . "$PSScriptRoot\..\..\Cmdlets\Public\Remove-TeamViewerConditionalAccessRule.ps1"
 
     $TestAPIToken = [securestring]@{}
+    $null = $TestAPIToken
     $Script:RequestBody = $null
     Mock Get-TeamViewerAPIUri { '//unit.test' }
     Mock Invoke-TeamViewerRestMethod { $Script:RequestBody = $Body }

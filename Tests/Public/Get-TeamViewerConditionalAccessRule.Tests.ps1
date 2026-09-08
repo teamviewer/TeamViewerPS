@@ -4,6 +4,7 @@
     . "$PSScriptRoot\..\..\Cmdlets\Public\Get-TeamViewerConditionalAccessRule.ps1"
 
     $TestAPIToken = [securestring]@{}
+    $null = $TestAPIToken
     Mock Get-TeamViewerAPIUri { '//unit.test' }
     Mock Invoke-TeamViewerRestMethod { @{ rules = @(@{ ruleId = 'rule-1'; sourceId = 'source'; sourceType = 0; targetId = 'target'; targetType = 1; state = 0; expirations = @() }); continuation_token = $null } }
 }

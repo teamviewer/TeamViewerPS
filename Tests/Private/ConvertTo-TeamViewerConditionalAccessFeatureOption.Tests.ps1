@@ -14,6 +14,7 @@ Describe 'ConvertTo-TeamViewerConditionalAccessFeatureOption' {
                 fileTransfer         = 2
             }
         }
+        $null = $InputObject
     }
 
     It 'Should return a ConditionalAccessFeatureOption object' {
