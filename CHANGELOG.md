@@ -23,6 +23,8 @@
 - Adds `Remove-TeamViewerDeviceCustomFieldConfiguration` to delete one specific device custom field definition.
 - Adds `Get-TeamViewerAddressBook` and `Set-TeamViewerAddressBook` to retrieve and configure the company address book.
 - Adds `Get-TeamViewerAddressBookHiddenMember`, `Add-TeamViewerAddressBookHiddenMember`, and `Remove-TeamViewerAddressBookHiddenMember` to manage hidden address book members.
+- Adds Conditional Access feature, time, and approval option management through `Get-TeamViewerConditionalAccess*Option`, `New-TeamViewerConditionalAccess*Option`, `Set-TeamViewerConditionalAccess*Option`, and `Remove-TeamViewerConditionalAccess*Option`.
+- Adds Conditional Access rule management through `Get-TeamViewerConditionalAccessRule`, `New-TeamViewerConditionalAccessRule`, `Set-TeamViewerConditionalAccessRule`, and `Remove-TeamViewerConditionalAccessRule`.
 
 ### Changed
 
