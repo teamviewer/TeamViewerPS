@@ -72,7 +72,7 @@ Describe 'Get-TeamViewerAddressBook' {
                 continuation_token          = $null
             } } -ParameterFilter { $Body -and $Body['ct'] -eq 'token123' }
 
-        $Result = Get-TeamViewerAddressBook -APIToken $testAPIToken
+        Get-TeamViewerAddressBook -APIToken $testAPIToken
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 2 -Scope It
     }

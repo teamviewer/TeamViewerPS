@@ -51,7 +51,7 @@ Describe 'Get-TeamViewerAddressBookHiddenMember' {
                 continuation_token  = $null
             } } -ParameterFilter { $Body -and $Body['ct'] -eq 'token456' }
 
-        $Result = Get-TeamViewerAddressBookHiddenMember -APIToken $testAPIToken
+        Get-TeamViewerAddressBookHiddenMember -APIToken $testAPIToken
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 2 -Scope It
     }
