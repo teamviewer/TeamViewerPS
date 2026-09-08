@@ -16,18 +16,18 @@
     )
 
     begin {
-        $Resource_Uri_Copy = "$(Get-TeamViewerAPIUri)/users/$User/userroles"
+        $Resource_Uri = "$(Get-TeamViewerAPIUri)/users/$User/userroles"
         $Parameters = $null
         $list = @()
     }
 
     process {
-        $Resource_Uri = $Resource_Uri_Copy
+        $Resource_UriPage = $Resource_Uri
 
         do {
             $Response = Invoke-TeamViewerRestMethod `
                 -APIToken $APIToken `
-                -Uri $Resource_Uri `
+                -Uri $Resource_UriPage `
                 -Method Get `
                 -Body $Parameters `
                 -WriteErrorTo $PSCmdlet `
@@ -38,7 +38,10 @@
             }
 
             if ($Response.nextPaginationToken) {
-                $Resource_Uri = $Resource_Uri_Copy + '?paginationToken=' + $Response.nextPaginationToken
+                $Resource_UriPage = Get-TeamViewerPaginationUri `
+                    -Uri $Resource_Uri `
+                    -ParameterName 'paginationToken' `
+                    -Token $Response.nextPaginationToken
             }
         } while ($Response.nextPaginationToken)
 

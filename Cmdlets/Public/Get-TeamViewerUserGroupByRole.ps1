@@ -33,7 +33,10 @@
                 -ErrorAction Stop
 
             if ($Response.ContinuationToken) {
-                $Resource_UriPage = $Resource_Uri + '&continuationToken=' + $Response.ContinuationToken
+                $Resource_UriPage = Get-TeamViewerPaginationUri `
+                    -Uri $Resource_Uri `
+                    -ParameterName 'continuationToken' `
+                    -Token $Response.ContinuationToken
             }
 
             Write-Output ($Response.AssignedToGroups | ConvertTo-TeamViewerRoleUserGroupMembership )
