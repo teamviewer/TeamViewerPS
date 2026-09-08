@@ -10,8 +10,8 @@ Describe 'ConvertTo-TeamViewerAddressBook' {
     It 'Adds address book types without changing response properties' {
         $InputObject = [pscustomobject]@{
             companyAddressBookSettings = @{ addressBookAvailable = $true }
-            users                       = @([pscustomobject]@{ accountId = 'abc123'; email = 'user@example.com' })
-            continuation_token          = $null
+            users                      = @([pscustomobject]@{ accountId = 'abc123'; email = 'user@example.com' })
+            continuation_token         = $null
         }
 
         $Result = ConvertTo-TeamViewerAddressBook -InputObject $InputObject
@@ -23,5 +23,18 @@ Describe 'ConvertTo-TeamViewerAddressBook' {
         $Result.users[0].UserId | Should -Be 'abc123'
         $Result.users[0].AccountId | Should -Be 'abc123'
         $Result.users[0].Email | Should -Be 'user@example.com'
+    }
+
+    It 'Handles a missing users property without throwing' {
+        $InputObject = [pscustomobject]@{
+            companyAddressBookSettings = @{ addressBookAvailable = $false }
+            continuation_token         = $null
+        }
+
+        $Result = ConvertTo-TeamViewerAddressBook -InputObject $InputObject
+
+        $Result.PSObject.TypeNames[0] | Should -Be 'TeamViewerPS.AddressBook'
+        $Result.Enabled | Should -BeFalse
+        $Result.users | Should -BeNullOrEmpty
     }
 }
