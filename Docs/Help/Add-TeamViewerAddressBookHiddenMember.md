@@ -57,7 +57,7 @@ The account ID(s) to hide from the address book.
 ```yaml
 Type: String[]
 Parameter Sets: (All)
-Aliases: Id, UserId, Emailaddress
+Aliases: Id, UserId, Email, Emailaddress
 
 Required: True
 Position: Named

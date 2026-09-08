@@ -26,6 +26,8 @@
         <View><Name>TeamViewerPS-User-ListView</Name><ViewSelectedBy><TypeName>TeamViewerPS.User</TypeName></ViewSelectedBy><ListControl><ListEntries><ListEntry><ListItems><ListItem><PropertyName>Id</PropertyName></ListItem><ListItem><PropertyName>Name</PropertyName></ListItem><ListItem><PropertyName>Email</PropertyName></ListItem></ListItems></ListEntry></ListEntries></ListControl></View>
         <View><Name>TeamViewerPS-UserGroup-ListView</Name><ViewSelectedBy><TypeName>TeamViewerPS.UserGroup</TypeName></ViewSelectedBy><ListControl><ListEntries><ListEntry><ListItems><ListItem><PropertyName>Id</PropertyName></ListItem><ListItem><PropertyName>Name</PropertyName></ListItem></ListItems></ListEntry></ListEntries></ListControl></View>
         <View><Name>TeamViewerPS-UserGroupMember-ListView</Name><ViewSelectedBy><TypeName>TeamViewerPS.UserGroupMember</TypeName></ViewSelectedBy><ListControl><ListEntries><ListEntry><ListItems><ListItem><PropertyName>Id</PropertyName></ListItem><ListItem><PropertyName>Name</PropertyName></ListItem></ListItems></ListEntry></ListEntries></ListControl></View>
+        <View><Name>TeamViewerPS-AddressBook-ListView</Name><ViewSelectedBy><TypeName>TeamViewerPS.AddressBook</TypeName></ViewSelectedBy><ListControl><ListEntries><ListEntry><ListItems><ListItem><PropertyName>Enabled</PropertyName></ListItem><ListItem><PropertyName>Users</PropertyName></ListItem></ListItems></ListEntry></ListEntries></ListControl></View>
+        <View><Name>TeamViewerPS-AddressBookUser-ListView</Name><ViewSelectedBy><TypeName>TeamViewerPS.AddressBookUser</TypeName></ViewSelectedBy><ListControl><ListEntries><ListEntry><ListItems><ListItem><PropertyName>UserId</PropertyName></ListItem><ListItem><PropertyName>Name</PropertyName></ListItem><ListItem><PropertyName>Email</PropertyName></ListItem></ListItems></ListEntry></ListEntries></ListControl></View>
         <View>
             <Name>TeamViewerPS-Account-TableView</Name>
             <ViewSelectedBy><TypeName>TeamViewerPS.Account</TypeName></ViewSelectedBy>
@@ -228,6 +230,16 @@
                 <TableHeaders><TableColumnHeader><Label>Id</Label><Width>20</Width></TableColumnHeader><TableColumnHeader><Label>Name</Label></TableColumnHeader></TableHeaders>
                 <TableRowEntries><TableRowEntry><TableColumnItems><TableColumnItem><PropertyName>Id</PropertyName></TableColumnItem><TableColumnItem><PropertyName>Name</PropertyName></TableColumnItem></TableColumnItems></TableRowEntry></TableRowEntries>
             </TableControl>
+        </View>
+        <View>
+            <Name>TeamViewerPS-AddressBook-TableView</Name>
+            <ViewSelectedBy><TypeName>TeamViewerPS.AddressBook</TypeName></ViewSelectedBy>
+            <TableControl><TableHeaders><TableColumnHeader><Label>Enabled</Label></TableColumnHeader><TableColumnHeader><Label>Users</Label></TableColumnHeader></TableHeaders><TableRowEntries><TableRowEntry><TableColumnItems><TableColumnItem><PropertyName>Enabled</PropertyName></TableColumnItem><TableColumnItem><PropertyName>Users</PropertyName></TableColumnItem></TableColumnItems></TableRowEntry></TableRowEntries></TableControl>
+        </View>
+        <View>
+            <Name>TeamViewerPS-AddressBookUser-TableView</Name>
+            <ViewSelectedBy><TypeName>TeamViewerPS.AddressBookUser</TypeName></ViewSelectedBy>
+            <TableControl><TableHeaders><TableColumnHeader><Label>UserId</Label><Width>36</Width></TableColumnHeader><TableColumnHeader><Label>Name</Label></TableColumnHeader><TableColumnHeader><Label>Email</Label></TableColumnHeader></TableHeaders><TableRowEntries><TableRowEntry><TableColumnItems><TableColumnItem><PropertyName>UserId</PropertyName></TableColumnItem><TableColumnItem><PropertyName>Name</PropertyName></TableColumnItem><TableColumnItem><PropertyName>Email</PropertyName></TableColumnItem></TableColumnItems></TableRowEntry></TableRowEntries></TableControl>
         </View>
     </ViewDefinitions>
 </Configuration>

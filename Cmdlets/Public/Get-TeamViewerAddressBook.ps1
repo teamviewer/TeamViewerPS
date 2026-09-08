@@ -1,7 +1,7 @@
 ﻿function Get-TeamViewerAddressBook {
     [CmdletBinding()]
 
-    [OutputType([psobject])]
+    [OutputType('TeamViewerPS.AddressBook', 'TeamViewerPS.AddressBookUser')]
 
     param(
         [Parameter(Mandatory = $true)]
@@ -21,7 +21,7 @@
             -WriteErrorTo $PSCmdlet `
             -ErrorAction Stop
 
-        Write-Output $Response
+        Write-Output ($Response | ConvertTo-TeamViewerAddressBook)
 
         $Parameters.ct = $Response.continuation_token
     } while ($Parameters.ct)

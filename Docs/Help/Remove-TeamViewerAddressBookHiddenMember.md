@@ -56,7 +56,7 @@ The account ID(s) to unhide from the address book.
 ```yaml
 Type: String[]
 Parameter Sets: ById
-Aliases: Id, UserId, Emailaddress
+Aliases: Id, UserId, Email, Emailaddress
 
 Required: True
 Position: Named

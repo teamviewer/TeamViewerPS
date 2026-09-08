@@ -47,4 +47,12 @@ Describe 'Add-TeamViewerAddressBookHiddenMember' {
         { Add-TeamViewerAddressBookHiddenMember -APIToken $testAPIToken -User 'account123' -WhatIf } | Should -Not -Throw
         Should -Invoke Invoke-TeamViewerJsonRestMethod -Times 0 -Scope It
     }
+
+    It 'Should accept Email as a user alias' {
+        Add-TeamViewerAddressBookHiddenMember -APIToken $testAPIToken -Email 'user@example.com'
+
+        Should -Invoke Invoke-TeamViewerJsonRestMethod -Times 1 -Scope It -ParameterFilter {
+            ($Body | ConvertFrom-Json).accountIds -contains 'user@example.com'
+        }
+    }
 }

@@ -9,7 +9,7 @@
         $APIToken,
 
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
-        [Alias('Id', 'UserId', 'Emailaddress')]
+        [Alias('Id', 'UserId', 'Email', 'Emailaddress')]
         [string[]]
         $User
     )

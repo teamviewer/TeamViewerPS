@@ -67,9 +67,11 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### System.Object
+### TeamViewerPS.AddressBook
 
-Address book data including settings and member list.
+Address book data including the `Enabled` setting and `Users` collection. The original API properties `companyAddressBookSettings` and `users` are also preserved.
+
+Users are returned as `TeamViewerPS.AddressBookUser` objects with `UserId`, `AccountId`, `Name`, and `Email` properties.
 
 ## NOTES
 

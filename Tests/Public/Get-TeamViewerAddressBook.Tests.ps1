@@ -39,8 +39,13 @@ Describe 'Get-TeamViewerAddressBook' {
     It 'Should return address book data' {
         $Result = Get-TeamViewerAddressBook -APIToken $testAPIToken
         $Result | Should -Not -BeNullOrEmpty
+        $Result.PSObject.TypeNames[0] | Should -Be 'TeamViewerPS.AddressBook'
+        $Result.Enabled | Should -BeTrue
         $Result.companyAddressBookSettings | Should -Not -BeNullOrEmpty
         $Result.users | Should -HaveCount 2
+        $Result.users[0].PSObject.TypeNames[0] | Should -Be 'TeamViewerPS.AddressBookUser'
+        $Result.users[0].UserId | Should -Be 'abc123'
+        $Result.users[0].AccountId | Should -Be 'abc123'
     }
 
     It 'Should fetch consecutive pages' {
