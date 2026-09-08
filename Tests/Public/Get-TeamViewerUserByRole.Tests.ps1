@@ -31,5 +31,23 @@ Describe 'Get-TeamViewerUserByRole' {
             $Result | Should -HaveCount 2
         }
 
+        It 'Should follow pagination without accumulating continuation tokens' {
+            $Responses = [System.Collections.Queue]::new()
+            $Responses.Enqueue([PSCustomObject]@{ ContinuationToken = 'page2'; AssignedToUsers = @('u1') })
+            $Responses.Enqueue([PSCustomObject]@{ ContinuationToken = 'page3'; AssignedToUsers = @('u2') })
+            $Responses.Enqueue([PSCustomObject]@{ ContinuationToken = $null; AssignedToUsers = @('u3') })
+            Mock Invoke-TeamViewerRestMethod -MockWith { $Responses.Dequeue() }
+
+            $Result = Get-TeamViewerUserByRole -APIToken $testAPIToken -Role $testRoleId
+
+            $Result | Should -HaveCount 3
+            Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+                $Uri -eq "//unit.test/userroles/assignments/account?userRoleId=$testRoleId&continuationToken=page2"
+            }
+            Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+                $Uri -eq "//unit.test/userroles/assignments/account?userRoleId=$testRoleId&continuationToken=page3"
+            }
+        }
+
     }
 }

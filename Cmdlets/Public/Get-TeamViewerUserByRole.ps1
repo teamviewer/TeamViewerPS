@@ -9,28 +9,34 @@
         $APIToken,
 
         [Parameter(Mandatory = $true)]
-        [ValidateScript( { $_ | Resolve-TeamViewerRoleId } )]
+        [ValidateScript({ $_ | Resolve-TeamViewerRoleId })]
         [Alias('Id', 'RoleId')]
         [string]
         $Role
     )
 
-    $Resource_Uri = "$(Get-TeamViewerAPIUri)/userroles/assignments/account?userRoleId=$Role"
-    $Parameters = $null
+    begin {
+        $Resource_Uri = "$(Get-TeamViewerAPIUri)/userroles/assignments/account?userRoleId=$Role"
+        $Parameters = $null
+    }
 
-    do {
-        $Response = Invoke-TeamViewerRestMethod `
-            -APIToken $APIToken `
-            -Uri $Resource_Uri `
-            -Method Get `
-            -Body $Parameters `
-            -WriteErrorTo $PSCmdlet `
-            -ErrorAction Stop
+    process {
+        $Resource_UriPage = $Resource_Uri
 
-        if ($Response.ContinuationToken) {
-            $Resource_Uri += '&continuationToken=' + $Response.ContinuationToken
-        }
+        do {
+            $Response = Invoke-TeamViewerRestMethod `
+                -APIToken $APIToken `
+                -Uri $Resource_UriPage `
+                -Method Get `
+                -Body $Parameters `
+                -WriteErrorTo $PSCmdlet `
+                -ErrorAction Stop
 
-        Write-Output ($Response.AssignedToUsers | ConvertTo-TeamViewerRoleUserMembership )
-    } while ($Response.ContinuationToken)
+            if ($Response.ContinuationToken) {
+                $Resource_UriPage = $Resource_Uri + '&continuationToken=' + $Response.ContinuationToken
+            }
+
+            Write-Output ($Response.AssignedToUsers | ConvertTo-TeamViewerRoleUserMembership )
+        } while ($Response.ContinuationToken)
+    }
 }

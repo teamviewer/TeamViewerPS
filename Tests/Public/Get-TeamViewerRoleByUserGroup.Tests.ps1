@@ -30,5 +30,23 @@ Describe 'Get-TeamViewerUserGroupByRole' {
             $Result.PSObject.TypeNames[0] | Should -Be 'TeamViewerPS.UserGroupRoleMembership'
             $Result.RoleId | Should -Be 15
         }
+
+        It 'Should follow pagination with a well-formed continuation URI' {
+            $Responses = [System.Collections.Queue]::new()
+            $Responses.Enqueue([PSCustomObject]@{ ContinuationToken = 'page2'; assignedRoleId = 15 })
+            $Responses.Enqueue([PSCustomObject]@{ ContinuationToken = 'page3'; assignedRoleId = 16 })
+            $Responses.Enqueue([PSCustomObject]@{ ContinuationToken = $null; assignedRoleId = 17 })
+            Mock Invoke-TeamViewerRestMethod -MockWith { $Responses.Dequeue() }
+
+            $Result = Get-TeamViewerRoleByUserGroup -APIToken $testAPIToken -UserGroup $testGroupId
+
+            $Result | Should -HaveCount 3
+            Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+                $Uri -eq "//unit.test/usergroups/$testGroupId/userroles?continuationToken=page2"
+            }
+            Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
+                $Uri -eq "//unit.test/usergroups/$testGroupId/userroles?continuationToken=page3"
+            }
+        }
     }
 }
