@@ -38,6 +38,20 @@ Manage company / tenant details for the TeamViewer company associated with the A
 
 [`Set-TeamViewerCompany`](Help/Set-TeamViewerCompany.md)
 
+## Company Address Book
+
+Manage the company address book and control member visibility.
+
+[`Add-TeamViewerAddressBookHiddenMember`](Help/Add-TeamViewerAddressBookHiddenMember.md)
+
+[`Get-TeamViewerAddressBook`](Help/Get-TeamViewerAddressBook.md)
+
+[`Get-TeamViewerAddressBookHiddenMember`](Help/Get-TeamViewerAddressBookHiddenMember.md)
+
+[`Remove-TeamViewerAddressBookHiddenMember`](Help/Remove-TeamViewerAddressBookHiddenMember.md)
+
+[`Set-TeamViewerAddressBook`](Help/Set-TeamViewerAddressBook.md)
+
 ## Organizational Units
 
 Manage organizational units of a TeamViewer company via the TeamViewer web API.

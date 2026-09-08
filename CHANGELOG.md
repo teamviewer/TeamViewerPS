@@ -21,6 +21,8 @@
 - Adds `New-TeamViewerDeviceCustomFieldConfiguration` to create a new device custom field definition.
 - Adds `Set-TeamViewerDeviceCustomFieldConfiguration` to modify one specific device custom field definition.
 - Adds `Remove-TeamViewerDeviceCustomFieldConfiguration` to delete one specific device custom field definition.
+- Adds `Get-TeamViewerAddressBook` and `Set-TeamViewerAddressBook` to retrieve and configure the company address book.
+- Adds `Get-TeamViewerAddressBookHiddenMember`, `Add-TeamViewerAddressBookHiddenMember`, and `Remove-TeamViewerAddressBookHiddenMember` to manage hidden address book members.
 
 ### Changed
 
