@@ -209,7 +209,7 @@
 
 ### Added
 
-- Adds `Get-TeamViewerEventLog` to fetch event log entries.
+- Adds `Get-TeamViewerAuditEvent` to fetch event log entries.
 - Adds user group commands to remotely manage user groups of a TeamViewer company.
 
 ## 1.2.0 (2021-07-19)

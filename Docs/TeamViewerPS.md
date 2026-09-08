@@ -240,11 +240,11 @@ Manage Single Sign-On (SSO) configurations via the TeamViewer web API.
 
 ## Event Logs & Reporting
 
-Retrieve event log entries or connection-reports of a TeamViewer company / tenant via the TeamViewer web API.
+Retrieve audit log entries or connection-reports of a TeamViewer company / tenant via the TeamViewer web API.
 
 [`Get-TeamViewerConnectionReport`](Help/Get-TeamViewerConnectionReport.md)
 
-[`Get-TeamViewerEventLog`](Help/Get-TeamViewerEventLog.md)
+[`Get-TeamViewerAuditEvent`](Help/Get-TeamViewerAuditEvent.md)
 
 ## Local Client Utilities
 

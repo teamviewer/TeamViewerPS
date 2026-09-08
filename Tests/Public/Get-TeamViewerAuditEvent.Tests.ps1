@@ -1,5 +1,5 @@
 ﻿BeforeAll {
-    . "$PSScriptRoot\..\..\Cmdlets\Public\Get-TeamViewerEventLog.ps1"
+    . "$PSScriptRoot\..\..\Cmdlets\Public\Get-TeamViewerAuditEvent.ps1"
 
     @(Get-ChildItem -Path "$PSScriptRoot\..\..\Cmdlets\Private\*.ps1") | ForEach-Object { . $_.FullName }
 
@@ -21,20 +21,20 @@
         } }
 }
 
-Describe 'Get-TeamViewerEventLog' {
+Describe 'Get-TeamViewerAuditEvent' {
     It 'Should reject a negative limit' {
-        { Get-TeamViewerEventLog -APIToken $testAPIToken -Limit -1 } | Should -Throw
+        { Get-TeamViewerAuditEvent -APIToken $testAPIToken -Limit -1 } | Should -Throw
     }
 
     It 'Should call the correct API endpoint to get audit-log events' {
-        Get-TeamViewerEventLog -APIToken $testAPIToken
+        Get-TeamViewerAuditEvent -APIToken $testAPIToken
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
             $APIToken -eq $testAPIToken -and $Uri -eq '//unit.test/EventLogging' -and $Method -eq 'Post' }
     }
 
     It 'Should return AuditEvent objects' {
-        $Result = Get-TeamViewerEventLog -APIToken $testAPIToken
+        $Result = Get-TeamViewerAuditEvent -APIToken $testAPIToken
         $Result | Should -Not -BeNullOrEmpty
         $Result | Should -HaveCount 5
         $Result[0].PSObject.TypeNames | Should -Contain 'TeamViewerPS.AuditEvent'
@@ -74,14 +74,14 @@ Describe 'Get-TeamViewerEventLog' {
             ([System.Text.Encoding]::UTF8.GetString($Body) | ConvertFrom-Json).ContinuationToken -eq 'foo'
         }
 
-        $Result = Get-TeamViewerEventLog -APIToken $testAPIToken
+        $Result = Get-TeamViewerAuditEvent -APIToken $testAPIToken
         $Result | Should -HaveCount 9
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 2 -Scope It
     }
 
     It 'Should filter by event names' {
-        Get-TeamViewerEventLog -APIToken $testAPIToken -EventNames 'UserDeleted', 'UserGroupUpdated'
+        Get-TeamViewerAuditEvent -APIToken $testAPIToken -EventNames 'UserDeleted', 'UserGroupUpdated'
 
         $mockArgs.Body | Should -Not -BeNullOrEmpty
         $Body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
@@ -91,7 +91,7 @@ Describe 'Get-TeamViewerEventLog' {
     }
 
     It 'Should filter by event types' {
-        Get-TeamViewerEventLog -APIToken $testAPIToken -EventTypes 'CustomModules', 'Session'
+        Get-TeamViewerAuditEvent -APIToken $testAPIToken -EventTypes 'CustomModules', 'Session'
 
         $mockArgs.Body | Should -Not -BeNullOrEmpty
         $Body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
@@ -101,7 +101,7 @@ Describe 'Get-TeamViewerEventLog' {
     }
 
     It 'Should forward additional filters' {
-        Get-TeamViewerEventLog -APIToken $testAPIToken -AccountEmails 'foo@unit.test', 'bar@unit.test' -AffectedItem 'my item' -RemoteControlSessionId '6a5e870b-03d2-4e96-ac21-1d45c40c471b'
+        Get-TeamViewerAuditEvent -APIToken $testAPIToken -AccountEmails 'foo@unit.test', 'bar@unit.test' -AffectedItem 'my item' -RemoteControlSessionId '6a5e870b-03d2-4e96-ac21-1d45c40c471b'
 
         $mockArgs.Body | Should -Not -BeNullOrEmpty
         $Body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
@@ -112,7 +112,7 @@ Describe 'Get-TeamViewerEventLog' {
     }
 
     It 'Should optionally limit the number of returned results' {
-        $Result = Get-TeamViewerEventLog -APIToken $testAPIToken -Limit 3
+        $Result = Get-TeamViewerAuditEvent -APIToken $testAPIToken -Limit 3
         $Result | Should -Not -BeNullOrEmpty
         $Result | Should -HaveCount 3
     }
@@ -150,14 +150,14 @@ Describe 'Get-TeamViewerEventLog' {
         }
 
         It 'Should use relative dates by default' {
-            Get-TeamViewerEventLog -APIToken $testAPIToken
+            Get-TeamViewerAuditEvent -APIToken $testAPIToken
 
             $dates = Get-TestStartEndDate
             $dates.Diff.TotalHours | Should -Be 1
         }
 
         It 'Should set start date months in the past' {
-            Get-TeamViewerEventLog -APIToken $testAPIToken -Months 3
+            Get-TeamViewerAuditEvent -APIToken $testAPIToken -Months 3
 
             $dates = Get-TestStartEndDate
             $dates.Diff.TotalDays | Should -BeLessOrEqual (3 * 31)
@@ -165,28 +165,28 @@ Describe 'Get-TeamViewerEventLog' {
         }
 
         It 'Should set start date days in the past' {
-            Get-TeamViewerEventLog -APIToken $testAPIToken -Days 7
+            Get-TeamViewerAuditEvent -APIToken $testAPIToken -Days 7
 
             $dates = Get-TestStartEndDate
             $dates.Diff.TotalDays | Should -Be 7
         }
 
         It 'Should set start date hours in the past' {
-            Get-TeamViewerEventLog -APIToken $testAPIToken -Hours 12
+            Get-TeamViewerAuditEvent -APIToken $testAPIToken -Hours 12
 
             $dates = Get-TestStartEndDate
             $dates.Diff.TotalHours | Should -Be 12
         }
 
         It 'Should set start date minutes in the past' {
-            Get-TeamViewerEventLog -APIToken $testAPIToken -Minutes 45
+            Get-TeamViewerAuditEvent -APIToken $testAPIToken -Minutes 45
 
             $dates = Get-TestStartEndDate
             $dates.Diff.TotalMinutes | Should -Be 45
         }
 
         It 'Should set exact start-end dates' {
-            Get-TeamViewerEventLog -APIToken $testAPIToken -StartDate '1999-12-31' -EndDate '2021-11-09'
+            Get-TeamViewerAuditEvent -APIToken $testAPIToken -StartDate '1999-12-31' -EndDate '2021-11-09'
 
             $dates = Get-TestStartEndDate
             $dates.StartDate | Should -Be ([datetime]'1999-12-31')

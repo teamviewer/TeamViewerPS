@@ -1,11 +1,11 @@
 ﻿---
 external help file: TeamViewerPS-help.xml
 Module Name: TeamViewerPS
-online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/Get-TeamViewerEventLog.md
+online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/Get-TeamViewerAuditEvent.md
 schema: 2.0.0
 ---
 
-# Get-TeamViewerEventLog
+# Get-TeamViewerAuditEvent
 
 ## SYNOPSIS
 
@@ -16,7 +16,7 @@ Returns TeamViewer audit log events for the current account's company.
 ### RelativeDates (Default)
 
 ```powershell
-Get-TeamViewerEventLog -APIToken <SecureString> [-EndDate <DateTime>] [-Months <Int32>] [-Days <Int32>]
+Get-TeamViewerAuditEvent -APIToken <SecureString> [-EndDate <DateTime>] [-Months <Int32>] [-Days <Int32>]
  [-Hours <Int32>] [-Minutes <Int32>] [-Limit <Int32>] [-EventNames <String[]>] [-EventTypes <String[]>]
  [-AccountEmails <Object[]>] [-AffectedItem <String>] [-RemoteControlSessionId <Guid>] [<CommonParameters>]
 ```
@@ -24,7 +24,7 @@ Get-TeamViewerEventLog -APIToken <SecureString> [-EndDate <DateTime>] [-Months <
 ### AbsoluteDates
 
 ```powershell
-Get-TeamViewerEventLog -APIToken <SecureString> -StartDate <DateTime> [-EndDate <DateTime>] [-Limit <Int32>]
+Get-TeamViewerAuditEvent -APIToken <SecureString> -StartDate <DateTime> [-EndDate <DateTime>] [-Limit <Int32>]
  [-EventNames <String[]>] [-EventTypes <String[]>] [-AccountEmails <Object[]>] [-AffectedItem <String>]
  [-RemoteControlSessionId <Guid>] [<CommonParameters>]
 ```
@@ -41,7 +41,7 @@ The list can optionally be filtered.
 ### Example 1
 
 ```powershell
-Get-TeamViewerEventLog
+Get-TeamViewerAuditEvent
 ```
 
 Gets all audit log events of the current company that were created in the last
@@ -50,7 +50,7 @@ hour.
 ### Example 2
 
 ```powershell
-Get-TeamViewerEventLog -Days 7
+Get-TeamViewerAuditEvent -Days 7
 ```
 
 Gets all audit log events of the current company that were created in the last
@@ -59,7 +59,7 @@ seven days.
 ### Example 3
 
 ```powershell
-Get-TeamViewerEventLog -StartDate "2021-10-01" -EventNames "UserCreated","UserDeleted"
+Get-TeamViewerAuditEvent -StartDate "2021-10-01" -EventNames "UserCreated","UserDeleted"
 ```
 
 Gets user creation & deletion audit log events of the current company that were
@@ -68,7 +68,7 @@ created since October 1st, 2021.
 ### Example 4
 
 ```powershell
-Get-TeamViewerEventLog -Months 1 -EventTypes "LicenseManagement","Policy" -Limit 100
+Get-TeamViewerAuditEvent -Months 1 -EventTypes "LicenseManagement","Policy" -Limit 100
 ```
 
 Gets up to 100 license management and policy related audit log events of the
@@ -77,7 +77,7 @@ current company that were created in the last month.
 ### Example 5
 
 ```powershell
-Get-TeamViewerEventLog -StartDate "2021-10-01" -EndDate "2021-10-31" -AccountEmails "john.doe@example.com"
+Get-TeamViewerAuditEvent -StartDate "2021-10-01" -EndDate "2021-10-31" -AccountEmails "john.doe@example.com"
 ```
 
 Gets all audit log events that were created by the given account within the
