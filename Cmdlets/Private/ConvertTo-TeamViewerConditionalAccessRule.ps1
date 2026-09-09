@@ -25,23 +25,33 @@
             TargetId         = $InputObject.targetId
             TargetType       = [ConditionalAccessSourceTargetType]$InputObject.targetType
             State            = [ConditionalAccessRuleState]$InputObject.state
-            OptionSetId      = if ($InputObject.optionSetId) {
-                [guid]$InputObject.optionSetId 
-            }
-            FeaturesOptionId = if ($InputObject.featuresOptionId) {
-                [guid]$InputObject.featuresOptionId 
-            }
-            TimeOptionId     = if ($InputObject.timeOptionId) {
-                [guid]$InputObject.timeOptionId 
-            }
-            LocationOptionId = if ($InputObject.locationOptionId) {
-                [guid]$InputObject.locationOptionId 
-            }
-            ApprovalOptionId = if ($InputObject.approvalOptionId) {
-                [guid]$InputObject.approvalOptionId 
-            }
+            OptionSetId      = $null
+            FeaturesOptionId = $null
+            TimeOptionId     = $null
+            LocationOptionId = $null
+            ApprovalOptionId = $null
             Expirations      = $Expirations
             Comment          = $InputObject.comment
+        }
+
+        if ($InputObject.optionSetId) {
+            $Properties.OptionSetId = [guid]$InputObject.optionSetId
+        }
+
+        if ($InputObject.featuresOptionId) {
+            $Properties.FeaturesOptionId = [guid]$InputObject.featuresOptionId
+        }
+
+        if ($InputObject.timeOptionId) {
+            $Properties.TimeOptionId = [guid]$InputObject.timeOptionId
+        }
+
+        if ($InputObject.locationOptionId) {
+            $Properties.LocationOptionId = [guid]$InputObject.locationOptionId
+        }
+
+        if ($InputObject.approvalOptionId) {
+            $Properties.ApprovalOptionId = [guid]$InputObject.approvalOptionId
         }
 
         $Result = New-Object -TypeName PSObject -Property $Properties
