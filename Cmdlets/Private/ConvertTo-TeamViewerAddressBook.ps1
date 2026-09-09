@@ -8,7 +8,7 @@
     process {
         $Result = $InputObject.PSObject.Copy()
         $Users = if ($InputObject.users) {
-            @($InputObject.users | ConvertTo-TeamViewerAddressBookUser)
+            @($InputObject.Users | ConvertTo-TeamViewerAddressBookUser)
         }
         else {
             @()
@@ -17,7 +17,7 @@
         $Result | Add-Member -MemberType NoteProperty -Name users -Value $Users -Force
 
         $Enabled = if ($InputObject.PSObject.Properties['state']) {
-            $InputObject.state
+            $InputObject.State
         }
         else {
             $InputObject.companyAddressBookSettings.addressBookAvailable

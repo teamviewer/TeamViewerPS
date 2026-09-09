@@ -6,8 +6,10 @@
     )
 
     process {
+        $Role_Id = $InputObject.PredefinedUserRoleId
+
         $Properties = @{
-            RoleId = $InputObject.PredefinedUserRoleId
+            RoleId = $Role_Id
         }
 
         $Result = New-Object -TypeName PSObject -Property $Properties
