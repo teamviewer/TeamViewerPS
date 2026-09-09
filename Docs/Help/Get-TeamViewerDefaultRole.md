@@ -34,7 +34,7 @@ Retrieves the Default Role Id.
 ### Example 2
 
 ```powershell
-forEach-Object { Get-TeamViewerRole | Where-Object { $_.RoleId -eq (Get-TeamViewerDefaultRole).Role_Id } }
+forEach-Object { Get-TeamViewerRole | Where-Object { $_.RoleId -eq (Get-TeamViewerDefaultRole).RoleId } }
 ```
 
 Retrieves the complete information about the default role.
