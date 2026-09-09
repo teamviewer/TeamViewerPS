@@ -11,9 +11,9 @@ Describe 'Get-TeamViewerDeviceCustomField' {
         Mock Get-TeamViewerAPIUri { '//unit.test' }
         Mock Resolve-TeamViewerManagedDeviceId { 'd12345678' }
         Mock Invoke-TeamViewerRestMethod {
-            @{ customFieldValues = @(
-                    @{ fieldKeyId = '00000000-0000-0000-0000-000000000001'; value = 'AssetTag001' },
-                    @{ fieldKeyId = '00000000-0000-0000-0000-000000000002'; value = 'SerialNumber123' }
+            @{ resources = @(
+                    @{ id = '00000000-0000-0000-0000-000000000010'; fieldKeyId = '00000000-0000-0000-0000-000000000001'; value = 'AssetTag001'; createdAt = '2026-01-01T00:00:00+00:00'; updatedAt = '2026-01-02T00:00:00+00:00' },
+                    @{ id = '00000000-0000-0000-0000-000000000020'; fieldKeyId = '00000000-0000-0000-0000-000000000002'; value = 'SerialNumber123'; createdAt = '2026-01-03T00:00:00+00:00'; updatedAt = '2026-01-04T00:00:00+00:00' }
                 )
             }
         }
@@ -21,7 +21,10 @@ Describe 'Get-TeamViewerDeviceCustomField' {
         $Result = Get-TeamViewerDeviceCustomField -APIToken $testAPIToken -ManagedDeviceId 'd12345678'
 
         $Result.Count | Should -Be 2
+        $Result[0].Id | Should -Be '00000000-0000-0000-0000-000000000010'
+        $Result[0].Field_Id | Should -Be '00000000-0000-0000-0000-000000000001'
         $Result[0].Value | Should -Be 'AssetTag001'
+        $Result[0].UpdatedAt | Should -BeOfType ([datetime])
         $Result[0].PSObject.TypeNames | Should -Contain 'TeamViewerPS.DeviceCustomField'
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
@@ -35,7 +38,7 @@ Describe 'Get-TeamViewerDeviceCustomField' {
         Mock Get-TeamViewerAPIUri { '//unit.test' }
         Mock Resolve-TeamViewerManagedDeviceId { 'd12345678' }
         Mock Invoke-TeamViewerRestMethod {
-            @{ customFieldValues = @(@{ fieldKeyId = '00000000-0000-0000-0000-000000000001'; value = 'Test' }) }
+            @{ resources = @(@{ fieldKeyId = '00000000-0000-0000-0000-000000000001'; value = 'Test' }) }
         }
 
         'd12345678' | Get-TeamViewerDeviceCustomField -APIToken $testAPIToken

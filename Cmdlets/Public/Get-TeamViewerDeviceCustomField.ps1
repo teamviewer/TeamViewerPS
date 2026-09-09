@@ -26,6 +26,6 @@
             -WriteErrorTo $PSCmdlet `
             -ErrorAction Stop
 
-        $Response.customFieldValues | ConvertTo-TeamViewerDeviceCustomField
+        $Response.resources | ConvertTo-TeamViewerDeviceCustomField
     }
 }
