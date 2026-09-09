@@ -39,7 +39,7 @@ Describe 'Set-TeamViewerManager' {
         }
 
         It 'Should accept Manager objects' {
-            $testManager = @{id = $testManagerId } | ConvertTo-TeamViewerManager -GroupId $testGroupId
+            $testManager = @{id = $testManagerId } | ConvertTo-TeamViewerManager -Group $testGroupId
 
             Set-TeamViewerManager -APIToken $testAPIToken -Manager $testManager -Permissions 'ManagerAdministration', 'EasyAccess'
 
@@ -48,9 +48,9 @@ Describe 'Set-TeamViewerManager' {
         }
 
         It 'Should throw if Manager object and group are specified' {
-            $testManager = @{id = $testManagerId } | ConvertTo-TeamViewerManager -GroupId $testGroupId
+            $testManager = @{id = $testManagerId } | ConvertTo-TeamViewerManager -Group $testGroupId
 
-            { Set-TeamViewerManager -APIToken $testAPIToken -Manager $testManager -GroupId $testGroupId -Permissions 'ManagerAdministration', 'EasyAccess'
+            { Set-TeamViewerManager -APIToken $testAPIToken -Manager $testManager -Group $testGroupId -Permissions 'ManagerAdministration', 'EasyAccess'
             } | Should -Throw
         }
     }
@@ -64,7 +64,7 @@ Describe 'Set-TeamViewerManager' {
         }
 
         It 'Should accept Manager objects' {
-            $testManager = @{id = $testManagerId } | ConvertTo-TeamViewerManager -DeviceId $testDeviceId
+            $testManager = @{id = $testManagerId } | ConvertTo-TeamViewerManager -Device $testDeviceId
 
             Set-TeamViewerManager -APIToken $testAPIToken -Manager $testManager -Permissions 'ManagerAdministration', 'EasyAccess'
 
@@ -73,7 +73,7 @@ Describe 'Set-TeamViewerManager' {
         }
 
         It 'Should throw if Manager object and device are specified' {
-            $testManager = @{id = $testManagerId } | ConvertTo-TeamViewerManager -DeviceId $testDeviceId
+            $testManager = @{id = $testManagerId } | ConvertTo-TeamViewerManager -Device $testDeviceId
 
             { Set-TeamViewerManager -APIToken $testAPIToken -Manager $testManager -DeviceId $testDeviceId -Permissions 'ManagerAdministration', 'EasyAccess'
             } | Should -Throw
@@ -114,7 +114,7 @@ Describe 'Set-TeamViewerManager' {
     }
 
     It 'Should accept pipeline objects' {
-        $testManager = @{id = $testManagerId } | ConvertTo-TeamViewerManager -GroupId $testGroupId
+        $testManager = @{id = $testManagerId } | ConvertTo-TeamViewerManager -Group $testGroupId
         $testManager | Set-TeamViewerManager -APIToken $testAPIToken -Permissions 'ManagerAdministration', 'EasyAccess'
 
         Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {

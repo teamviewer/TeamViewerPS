@@ -14,13 +14,13 @@
             Name               = $InputObject.alias
             Description        = $InputObject.description
             OnlineState        = $InputObject.online_state
-            Group_Id           = $InputObject.groupid
-            Assigned_To        = $InputObject.assigned_to
+            GroupId            = $InputObject.groupid
+            AssignedTo         = $InputObject.assigned_to
             Features_Supported = $InputObject.supported_features
         }
 
         if ($InputObject.policy_id) {
-            $Properties['Policy_Id'] = $InputObject.policy_id
+            $Properties['PolicyId'] = $InputObject.policy_id
         }
 
         if ($InputObject.last_seen) {

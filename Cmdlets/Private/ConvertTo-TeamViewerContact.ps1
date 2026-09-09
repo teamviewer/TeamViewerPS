@@ -10,8 +10,8 @@
             Id                 = $InputObject.contact_id
             Name               = $InputObject.name
             Description        = $InputObject.description
-            User_Id            = $InputObject.user_id
-            Group_Id           = $InputObject.groupid
+            UserId            = $InputObject.user_id
+            GroupId           = $InputObject.groupid
             OnlineState        = $InputObject.online_state
             ProfilePicture_Url = $InputObject.profilepicture_url
             Features_Supported = $InputObject.supported_features

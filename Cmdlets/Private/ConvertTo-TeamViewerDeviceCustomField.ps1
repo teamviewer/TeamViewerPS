@@ -8,7 +8,7 @@
     process {
         $Properties = @{
             Id        = $InputObject.id
-            Field_Id  = $InputObject.fieldKeyId
+            FieldId  = $InputObject.fieldKeyId
             Value     = $InputObject.value
             CreatedAt = $InputObject.createdAt | ConvertTo-DateTime
             UpdatedAt = $InputObject.updatedAt | ConvertTo-DateTime

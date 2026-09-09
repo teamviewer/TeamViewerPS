@@ -18,7 +18,7 @@
         }
 
         if ($InputObject.teamviewerPolicyId) {
-            $Properties['Policy_Id'] = [guid]$InputObject.teamviewerPolicyId
+            $Properties['PolicyId'] = [guid]$InputObject.teamviewerPolicyId
         }
 
         $Result = New-Object -TypeName PSObject -Property $Properties

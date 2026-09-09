@@ -10,7 +10,7 @@
             Id          = $InputObject.id
             Name        = $InputObject.name
             Permissions = $InputObject.permissions
-            Policy_Id   = $InputObject.policy_id
+            PolicyId   = $InputObject.policy_id
             Shared_With = @($InputObject.shared_with | ConvertTo-TeamViewerGroupShare)
         }
 

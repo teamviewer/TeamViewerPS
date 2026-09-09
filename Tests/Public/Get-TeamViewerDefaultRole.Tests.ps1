@@ -29,7 +29,7 @@ Describe 'Get-TeamViewerDefaultRole' {
 
         $Result | Should -BeOfType [PSCustomObject]
         $Result.PSObject.TypeNames | Should -Contain 'TeamViewerPS.DefaultRole'
-        $Result.Role_Id | Should -Be 'a9c9435d-8544-4e6a-9830-9337078c9aab'
+            $Result.RoleId | Should -Be 'a9c9435d-8544-4e6a-9830-9337078c9aab'
     }
 
     It 'Should return DefaultRole objects' {

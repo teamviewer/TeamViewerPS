@@ -13,7 +13,7 @@
                 userCanCreatePersonalGroups = $true
                 addressBookAvailable        = $true
             }
-            users                       = @(
+            users                      = @(
                 @{
                     accountId = 'abc123'
                     email     = 'test1@example.com'
@@ -23,7 +23,7 @@
                     email     = 'test2@example.com'
                 }
             )
-            continuation_token          = $null
+            continuation_token         = $null
         }
     }
 }
@@ -45,7 +45,7 @@ Describe 'Get-TeamViewerAddressBook' {
         $Result.users | Should -HaveCount 2
         $Result.users[0].PSObject.TypeNames[0] | Should -Be 'TeamViewerPS.AddressBookUser'
         $Result.users[0].UserId | Should -Be 'abc123'
-        $Result.users[0].AccountId | Should -Be 'abc123'
+        $Result.users[0].PSObject.Properties.Name | Should -Not -Contain 'AccountId'
     }
 
     It 'Should fetch consecutive pages' {
@@ -54,13 +54,13 @@ Describe 'Get-TeamViewerAddressBook' {
                     userCanCreatePersonalGroups = $true
                     addressBookAvailable        = $true
                 }
-                users                       = @(
+                users                      = @(
                     @{
                         accountId = 'ghi789'
                         email     = 'test3@example.com'
                     }
                 )
-                continuation_token          = 'token123'
+                continuation_token         = 'token123'
             } }
 
         Mock Invoke-TeamViewerRestMethod { @{
@@ -68,13 +68,13 @@ Describe 'Get-TeamViewerAddressBook' {
                     userCanCreatePersonalGroups = $true
                     addressBookAvailable        = $true
                 }
-                users                       = @(
+                users                      = @(
                     @{
                         accountId = 'jkl012'
                         email     = 'test4@example.com'
                     }
                 )
-                continuation_token          = $null
+                continuation_token         = $null
             } } -ParameterFilter { $Body -and $Body['ct'] -eq 'token123' }
 
         Get-TeamViewerAddressBook -APIToken $testAPIToken

@@ -8,11 +8,11 @@
     process {
         $Properties = @{
             Id               = $InputObject.id
-            User_Id          = $InputObject.userid
+            UserId          = $InputObject.userid
             User_Name        = $InputObject.username
-            Device_Id        = $InputObject.deviceid
+            DeviceId        = $InputObject.deviceid
             Device_Name      = $InputObject.devicename
-            Group_Id         = $InputObject.groupid
+            GroupId         = $InputObject.groupid
             Group_Name       = $InputObject.groupname
             Session_Type     = [TeamViewerConnectionReportSessionType]$InputObject.support_session_type
             Datetime_Start   = $InputObject.start_date | ConvertTo-DateTime

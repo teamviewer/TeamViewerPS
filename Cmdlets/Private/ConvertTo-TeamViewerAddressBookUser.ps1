@@ -6,20 +6,19 @@
     )
 
     process {
-        $AccountId = $InputObject.accountId
+        $UserId = $InputObject.accountId
         $Email = $InputObject.email
         $Name = $InputObject.name
 
         if ($InputObject -is [System.Collections.IDictionary]) {
-            $AccountId = $InputObject['accountId']
+            $UserId = $InputObject['accountId']
             $Email = $InputObject['email']
             $Name = $InputObject['name']
         }
 
         $Output_Properties = @{
-            UserId    = $AccountId
-            AccountId = $AccountId
-            Email     = $Email
+            UserId = $UserId
+            Email  = $Email
         }
 
         if ($null -ne $Name) {

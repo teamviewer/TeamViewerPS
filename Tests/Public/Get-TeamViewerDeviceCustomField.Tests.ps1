@@ -22,7 +22,7 @@ Describe 'Get-TeamViewerDeviceCustomField' {
 
         $Result.Count | Should -Be 2
         $Result[0].Id | Should -Be '00000000-0000-0000-0000-000000000010'
-        $Result[0].Field_Id | Should -Be '00000000-0000-0000-0000-000000000001'
+            $Result[0].FieldId | Should -Be '00000000-0000-0000-0000-000000000001'
         $Result[0].Value | Should -Be 'AssetTag001'
         $Result[0].UpdatedAt | Should -BeOfType ([datetime])
         $Result[0].PSObject.TypeNames | Should -Contain 'TeamViewerPS.DeviceCustomField'

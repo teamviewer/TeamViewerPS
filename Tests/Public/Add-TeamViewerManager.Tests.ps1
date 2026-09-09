@@ -99,7 +99,7 @@ Describe 'Add-TeamViewerManager' {
     }
 
     It 'Should accept manager objects as input' {
-        $managerObj = @{id = $testManagerId } | ConvertTo-TeamViewerManager -DeviceId (New-Guid)
+        $managerObj = @{id = $testManagerId } | ConvertTo-TeamViewerManager -Device (New-Guid)
 
         Add-TeamViewerManager -APIToken $testAPIToken -GroupId $testGroupId -Manager $managerObj
 

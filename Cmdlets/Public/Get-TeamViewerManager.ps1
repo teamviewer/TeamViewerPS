@@ -43,10 +43,10 @@
 
     switch ($PsCmdlet.ParameterSetName) {
         'ByDeviceId' {
-            Write-Output ($Response.resources | ConvertTo-TeamViewerManager -DeviceId $DeviceId )
+            Write-Output ($Response.resources | ConvertTo-TeamViewerManager -Device $DeviceId )
         }
         'ByGroupId' {
-            Write-Output ($Response.resources | ConvertTo-TeamViewerManager -GroupId $GroupId)
+            Write-Output ($Response.resources | ConvertTo-TeamViewerManager -Group $GroupId)
         }
     }
 }

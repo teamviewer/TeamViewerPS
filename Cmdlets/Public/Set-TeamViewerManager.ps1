@@ -10,7 +10,7 @@
 
         [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
         [ValidateScript( {
-                if (($_.PSObject.TypeNames -contains 'TeamViewerPS.Manager') -and -not $_.Group_Id -and -not $_.Device_Id) {
+                if (($_.PSObject.TypeNames -contains 'TeamViewerPS.Manager') -and -not $_.GroupId -and -not $_.DeviceId) {
                     $PSCmdlet.ThrowTerminatingError(
                         ('Invalid manager object. Manager must be a group or device manager.' | `
                             ConvertTo-ErrorRecord -ErrorCategory InvalidArgument))
@@ -77,11 +77,11 @@
                     ('Device or Group parameter must not be specified if a [TeamViewerPS.Manager] object is given.' | ConvertTo-ErrorRecord -ErrorCategory InvalidArgument))
             }
 
-            if ($Manager.Device_Id) {
-                $Device_Id = $Manager.Device_Id
+            if ($Manager.DeviceId) {
+                $Device_Id = $Manager.DeviceId
             }
-            elseif ($Manager.Group_Id) {
-                $Group_Id = $Manager.Group_Id
+            elseif ($Manager.GroupId) {
+                $Group_Id = $Manager.GroupId
             }
         }
         elseif ($Device) {

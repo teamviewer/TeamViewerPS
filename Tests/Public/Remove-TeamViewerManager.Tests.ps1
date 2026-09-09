@@ -38,7 +38,7 @@ Describe 'Remove-TeamViewerManager' {
         }
 
         It 'Should accept group Manager objects' {
-            $testManager = @{id = $testManagerId } | ConvertTo-TeamViewerManager -GroupId $testGroupId
+            $testManager = @{id = $testManagerId } | ConvertTo-TeamViewerManager -Group $testGroupId
 
             Remove-TeamViewerManager -APIToken $testAPIToken -Manager $testManager
             Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
@@ -46,7 +46,7 @@ Describe 'Remove-TeamViewerManager' {
         }
 
         It 'Should accept pipeline objects' {
-            $testManager = @{id = $testManagerId } | ConvertTo-TeamViewerManager -GroupId $testGroupId
+            $testManager = @{id = $testManagerId } | ConvertTo-TeamViewerManager -Group $testGroupId
             $testManager | Remove-TeamViewerManager -APIToken $testAPIToken
 
             Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
@@ -54,8 +54,8 @@ Describe 'Remove-TeamViewerManager' {
         }
 
         It 'Should throw if Manager object and group are specified' {
-            $testManager = @{id = $testManagerId } | ConvertTo-TeamViewerManager -GroupId $testGroupId
-            { Remove-TeamViewerManager -APIToken $testAPIToken -Manager $testManager -GroupId $testGroupId
+            $testManager = @{id = $testManagerId } | ConvertTo-TeamViewerManager -Group $testGroupId
+            { Remove-TeamViewerManager -APIToken $testAPIToken -Manager $testManager -Group $testGroupId
             } | Should -Throw
         }
     }
@@ -68,7 +68,7 @@ Describe 'Remove-TeamViewerManager' {
         }
 
         It 'Should accept device Manager objects' {
-            $testManager = @{id = $testManagerId } | ConvertTo-TeamViewerManager -DeviceId $testDeviceId
+            $testManager = @{id = $testManagerId } | ConvertTo-TeamViewerManager -Device $testDeviceId
             Remove-TeamViewerManager -APIToken $testAPIToken -Manager $testManager
 
             Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
@@ -76,7 +76,7 @@ Describe 'Remove-TeamViewerManager' {
         }
 
         It 'Should accept pipeline objects' {
-            $testManager = @{id = $testManagerId } | ConvertTo-TeamViewerManager -DeviceId $testDeviceId
+            $testManager = @{id = $testManagerId } | ConvertTo-TeamViewerManager -Device $testDeviceId
             $testManager | Remove-TeamViewerManager -APIToken $testAPIToken
 
             Should -Invoke Invoke-TeamViewerRestMethod -Times 1 -Scope It -ParameterFilter {
@@ -84,9 +84,9 @@ Describe 'Remove-TeamViewerManager' {
         }
 
         It 'Should throw if Manager object and device are specified' {
-            $testManager = @{id = $testManagerId } | ConvertTo-TeamViewerManager -DeviceId $testDeviceId
+            $testManager = @{id = $testManagerId } | ConvertTo-TeamViewerManager -Device $testDeviceId
 
-            { Remove-TeamViewerManager -APIToken $testAPIToken -Manager $testManager -DeviceId $testDeviceId
+            { Remove-TeamViewerManager -APIToken $testAPIToken -Manager $testManager -Device $testDeviceId
             } | Should -Throw
         }
     }

@@ -18,7 +18,7 @@
 
         if ($InputObject.userRoleId) {
             $Output_Properties += @{
-                Role_Id = $InputObject.userRoleId
+                RoleId = $InputObject.userRoleId
             }
         }
 
@@ -35,7 +35,7 @@
 
             if ($InputObject.activated_license_id) {
                 $Output_Properties += @{
-                    ActivatedLicense_Id      = [guid]$InputObject.activated_license_id
+                    ActivatedLicenseId       = [guid]$InputObject.activated_license_id
                     ActivatedLicense_Name    = $InputObject.activated_license_name
                     ActivatedSubLicense_Name = $InputObject.activated_subLicense_name
                 }
@@ -43,7 +43,7 @@
 
             if ($InputObject.activated_meeting_license_key) {
                 $Output_Properties += @{
-                    ActivatedMeetingLicense_Id = [guid]$InputObject.activated_meeting_license_key
+                    ActivatedMeetingLicenseId = [guid]$InputObject.activated_meeting_license_key
                 }
             }
 
@@ -55,13 +55,13 @@
 
             if ($InputObject.custom_quicksupport_id) {
                 $Output_Properties += @{
-                    CustomQuickSupport_Id = $InputObject.custom_quicksupport_id
+                    CustomQuickSupportId = $InputObject.custom_quicksupport_id
                 }
             }
 
             if ($InputObject.custom_quickjoin_id) {
                 $Output_Properties += @{
-                    CustomQuickJoin_Id = $InputObject.custom_quickjoin_id
+                    CustomQuickJoinId = $InputObject.custom_quickjoin_id
                 }
             }
         }

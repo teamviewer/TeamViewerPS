@@ -10,19 +10,19 @@ Describe 'ConvertTo-TeamViewerManager' {
         $GroupId = [guid]::NewGuid()
         $InputObject = [pscustomobject]@{ id = [guid]::NewGuid().ToString(); type = 'account'; name = 'mgr'; permissions = 'all'; accountId = 'u123' }
 
-        $Result = ConvertTo-TeamViewerManager -InputObject $InputObject -GroupId $GroupId
+        $Result = ConvertTo-TeamViewerManager -InputObject $InputObject -Group $GroupId
 
         $Result.PSObject.TypeNames[0] | Should -Be 'TeamViewerPS.Manager'
-        $Result.Group_Id | Should -Be $GroupId
+        $Result.GroupId | Should -Be $GroupId
     }
 
     It 'Sets DeviceId when using DeviceManager parameter set' {
         $DeviceId = [guid]::NewGuid()
         $InputObject = [pscustomobject]@{ id = [guid]::NewGuid().ToString(); type = 'company'; name = 'mgr'; permissions = 'all'; companyId = 'c123' }
 
-        $Result = ConvertTo-TeamViewerManager -InputObject $InputObject -DeviceId $DeviceId
+        $Result = ConvertTo-TeamViewerManager -InputObject $InputObject -Device $DeviceId
 
         $Result.PSObject.TypeNames[0] | Should -Be 'TeamViewerPS.Manager'
-        $Result.Device_Id | Should -Be $DeviceId
+        $Result.DeviceId | Should -Be $DeviceId
     }
 }

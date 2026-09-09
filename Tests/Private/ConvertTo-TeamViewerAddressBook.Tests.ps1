@@ -21,8 +21,8 @@ Describe 'ConvertTo-TeamViewerAddressBook' {
         $Result.companyAddressBookSettings.addressBookAvailable | Should -BeTrue
         $Result.users[0].PSObject.TypeNames[0] | Should -Be 'TeamViewerPS.AddressBookUser'
         $Result.users[0].UserId | Should -Be 'abc123'
-        $Result.users[0].AccountId | Should -Be 'abc123'
         $Result.users[0].Email | Should -Be 'user@example.com'
+        $Result.users[0].PSObject.Properties.Name | Should -Not -Contain 'AccountId'
     }
 
     It 'Handles a missing users property without throwing' {

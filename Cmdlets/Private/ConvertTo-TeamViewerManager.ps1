@@ -6,11 +6,11 @@
 
         [Parameter(Mandatory = $true, ParameterSetName = 'GroupManager')]
         [guid]
-        $GroupId,
+        $Group,
 
         [Parameter(Mandatory = $true, ParameterSetName = 'DeviceManager')]
         [guid]
-        $DeviceId
+        $Device
     )
 
     process {
@@ -23,19 +23,19 @@
 
         switch ($InputObject.type) {
             'account' {
-                $Properties.User_Id = $InputObject.accountId
+                $Properties.UserId = $InputObject.accountId
             }
             'company' {
-                $Properties.Company_Id = $InputObject.companyId
+                $Properties.CompanyId = $InputObject.companyId
             }
         }
 
         switch ($PsCmdlet.ParameterSetName) {
             'GroupManager' {
-                $Properties.Group_Id = $GroupId
+                $Properties.GroupId = $Group
             }
             'DeviceManager' {
-                $Properties.Device_Id = $DeviceId
+                $Properties.DeviceId = $Device
             }
         }
 

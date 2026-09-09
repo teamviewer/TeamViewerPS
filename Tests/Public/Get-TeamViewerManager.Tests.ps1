@@ -45,14 +45,14 @@ Describe 'Get-TeamViewerManager' {
             $Result | Should -HaveCount 2
             $Result[0].PSObject.TypeNames | Should -Contain 'TeamViewerPS.Manager'
             $Result[0].Name | Should -Be 'test manager 1'
-            $Result[0].Group_Id | Should -Be $testGroupId
+            $Result[0].GroupId | Should -Be $testGroupId
         }
 
         It 'Should handle group objects as input' {
             $testGroup = @{id = $testGroupId; name = 'test managed group' } | ConvertTo-TeamViewerManagedGroup
             $Result = Get-TeamViewerManager -APIToken $testAPIToken -Group $testGroup
             $Result | Should -HaveCount 2
-            $Result[0].Group_Id | Should -Be $testGroupId
+            $Result[0].GroupId | Should -Be $testGroupId
         }
     }
 
@@ -69,14 +69,14 @@ Describe 'Get-TeamViewerManager' {
             $Result | Should -HaveCount 2
             $Result[0].PSObject.TypeNames | Should -Contain 'TeamViewerPS.Manager'
             $Result[0].Name | Should -Be 'test manager 1'
-            $Result[0].Device_Id | Should -Be $testDeviceId
+            $Result[0].DeviceId | Should -Be $testDeviceId
         }
 
         It 'Should handle device objects as input' {
             $testDevice = @{id = $testDeviceId; name = 'test managed device' } | ConvertTo-TeamViewerManagedDevice
             $Result = Get-TeamViewerManager -APIToken $testAPIToken -Device $testDevice
             $Result | Should -HaveCount 2
-            $Result[0].Device_Id | Should -Be $testDeviceId
+            $Result[0].DeviceId | Should -Be $testDeviceId
         }
     }
 }

@@ -14,8 +14,8 @@ Describe 'ConvertTo-TeamViewerAddressBookUser' {
 
         $Result.PSObject.TypeNames[0] | Should -Be 'TeamViewerPS.AddressBookUser'
         $Result.UserId | Should -Be 'abc123'
-        $Result.AccountId | Should -Be 'abc123'
         $Result.Email | Should -Be 'user@example.com'
         $Result.Name | Should -Be 'User'
+        $Result.PSObject.Properties.Name | Should -Not -Contain 'AccountId'
     }
 }
