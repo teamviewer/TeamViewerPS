@@ -37,4 +37,16 @@ Describe 'ConvertTo-TeamViewerAddressBook' {
         $Result.Enabled | Should -BeFalse
         $Result.users | Should -BeNullOrEmpty
     }
+
+    It 'Maps the top-level state field to Enabled' {
+        $InputObject = [pscustomobject]@{
+            state = $true
+        }
+
+        $Result = ConvertTo-TeamViewerAddressBook -InputObject $InputObject
+
+        $Result.PSObject.TypeNames[0] | Should -Be 'TeamViewerPS.AddressBook'
+        $Result.Enabled | Should -BeTrue
+        $Result.users | Should -BeNullOrEmpty
+    }
 }
