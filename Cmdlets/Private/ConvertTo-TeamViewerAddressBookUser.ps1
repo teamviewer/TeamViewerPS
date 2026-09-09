@@ -16,17 +16,17 @@
             $Name = $InputObject['name']
         }
 
-        $Output_Properties = @{
+        $Properties = @{
             UserId    = $AccountId
             AccountId = $AccountId
             Email     = $Email
         }
 
         if ($null -ne $Name) {
-            $Output_Properties.Name = $Name
+            $Properties.Name = $Name
         }
 
-        $Result = New-Object -TypeName PSObject -Property $Output_Properties
+        $Result = New-Object -TypeName PSObject -Property $Properties
         $Result.PSObject.TypeNames.Insert(0, 'TeamViewerPS.AddressBookUser')
 
         Write-Output $Result
