@@ -173,7 +173,7 @@ Permissions to give to the manager.
 An empty set of permissions still allows read-only access on the device/group data. Multiple values can be specified.
 
 `ManagerAdministration` allows the manager to change other managers on the given device or group.
-`DeviceAdministration` (only for managed devices) allows the manager to change device-specific properties, e.g. the device name. Also reqruied to add devices to managed groups.
+`DeviceAdministration` (only for managed devices) allows the manager to change device-specific properties, e.g. the device name. Also required to add devices to managed groups.
 `GroupAdministration` (only for managed groups) allows the manager to change group-specific properties, e.g. the group name. Also required to add managed devices to the group.
 `PolicyAdministration` (only for managed devices) allows the manager to change the policy that has been assigned to the managed device.
 `EasyAccess` allows the manager to connect to the device (or the devices of the group) via "EasyAccess" (without additional password).
