@@ -30,7 +30,7 @@
     "powershell.codeFormatting.whitespaceBeforeOpenParen": true,
     "powershell.codeFormatting.whitespaceBetweenParameters": true,
     "powershell.codeFormatting.whitespaceInsideBrace": true,
-    "terminal.integrated.defaultProfile.windows": "PowerShell",
+    "terminal.integrated.defaultProfile.windows": "PowerShell 7",
     "[yaml]": {
         "editor.tabSize": 2
     },
