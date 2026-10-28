@@ -44,6 +44,8 @@ Manage the company address book and control member visibility.
 
 [`Add-TeamViewerAddressBookHiddenMember`](Help/Add-TeamViewerAddressBookHiddenMember.md)
 
+Accepts numeric account IDs, prefixed user IDs, email addresses, or `TeamViewerPS.User` objects.
+
 [`Get-TeamViewerAddressBook`](Help/Get-TeamViewerAddressBook.md)
 
 [`Get-TeamViewerAddressBookHiddenMember`](Help/Get-TeamViewerAddressBookHiddenMember.md)

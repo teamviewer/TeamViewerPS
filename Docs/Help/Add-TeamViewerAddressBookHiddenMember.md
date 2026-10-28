@@ -14,19 +14,22 @@ Hide members from the company address book.
 ## SYNTAX
 
 ```powershell
-Add-TeamViewerAddressBookHiddenMember -APIToken <SecureString> -User <String[]> [-WhatIf] [-Confirm] [<CommonParameters>]
+Add-TeamViewerAddressBookHiddenMember -APIToken <SecureString> -User <Object[]> [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 
 Hides one or more accounts from the company address book. Hidden accounts will not appear in address book listings.
+Account identifiers are sent as a JSON array of unsigned 32-bit numbers, as required by the API.
+Accepts numeric account IDs, prefixed user IDs, email addresses, and `TeamViewerPS.User` objects.
+Email addresses are resolved using `Get-TeamViewerUser` and require permission to list users.
 
 ## EXAMPLES
 
 ### Example 1
 
 ```powershell
-Add-TeamViewerAddressBookHiddenMember -APIToken $token -User 'user123'
+Add-TeamViewerAddressBookHiddenMember -APIToken $token -User 303950
 ```
 
 Hide a single account from the address book.
@@ -34,7 +37,7 @@ Hide a single account from the address book.
 ### Example 2
 
 ```powershell
-'user1', 'user2', 'user3' | Add-TeamViewerAddressBookHiddenMember -APIToken $token
+303950, 303951, 303952 | Add-TeamViewerAddressBookHiddenMember -APIToken $token
 ```
 
 Hide multiple accounts from the address book using pipeline input.
@@ -42,20 +45,41 @@ Hide multiple accounts from the address book using pipeline input.
 ### Example 3
 
 ```powershell
-$users = @('user1', 'user2', 'user3')
+$users = @(303950, 303951, 303952)
 Add-TeamViewerAddressBookHiddenMember -APIToken $token -User $users
 ```
 
 Hide multiple accounts from the address book using an array.
 
+### Example 4
+
+```powershell
+Add-TeamViewerAddressBookHiddenMember -APIToken $token -Email 'user@example.com'
+```
+
+Resolve an email address and hide the matching account.
+
+### Example 5
+
+```powershell
+Get-TeamViewerUser -APIToken $token -Email 'user@example.com' |
+ Add-TeamViewerAddressBookHiddenMember -APIToken $token
+```
+
+Hide user objects received through the pipeline without an additional user lookup.
+
 ## PARAMETERS
 
 ### -User
 
-The account ID(s) to hide from the address book.
+The account(s) to hide from the address book. Accepts numeric account IDs in the range 0 through 4294967295,
+numeric strings, prefixed user IDs (such as `u303950`), email addresses, or `TeamViewerPS.User` objects.
+Input forms may be mixed in an array. User objects supply their `Id` without another lookup.
+Email lookup requires exactly one case-insensitive exact address match; missing or ambiguous matches raise an error.
+Repeated email addresses are looked up only once per invocation.
 
 ```yaml
-Type: String[]
+Type: Object[]
 Parameter Sets: (All)
 Aliases: Id, UserId, Email, Emailaddress
 
@@ -121,9 +145,9 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### System.String[]
+### System.Object[]
 
-Account IDs to hide from the address book.
+Account IDs, prefixed user IDs, email addresses, or `TeamViewerPS.User` objects to hide from the address book.
 
 ## OUTPUTS
 
@@ -132,7 +156,8 @@ Account IDs to hide from the address book.
 ## NOTES
 
 This cmdlet supports batching of up to 100 accounts per API request.
-Accepts account IDs via the pipeline.
+Accepts accounts via the pipeline or an array, including arrays larger than 100 entries.
+With `-WhatIf`, no email lookups or mutation requests are performed.
 
 ## RELATED LINKS
 
