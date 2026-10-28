@@ -148,6 +148,8 @@ Company or tenant users receive permissions through roles assigned to them or th
 
 [`Get-TeamViewerDefaultRole`](Help/Get-TeamViewerDefaultRole.md)
 
+[`Get-TeamViewerMemberByRole`](Help/Get-TeamViewerMemberByRole.md) lists role members, preferring indirect membership over matching direct user entries and retaining each user group relationship.
+
 [`Get-TeamViewerRole`](Help/Get-TeamViewerRole.md)
 
 [`Get-TeamViewerUserByRole`](Help/Get-TeamViewerUserByRole.md)

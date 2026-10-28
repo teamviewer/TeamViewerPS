@@ -19,7 +19,7 @@ Get-TeamViewerMemberByRole [-APIToken] <SecureString> [-Role] <Object> [<CommonP
 
 ## DESCRIPTION
 
-Lists users and user groups that are direct members of the role, and users that are indirect members through a role member user group. A separate object is returned for each relationship.
+Lists users and user groups that are direct members of the role, and users that are indirect members through a role member user group. Users found in a role member user group are returned only as indirect members, suppressing any matching direct user entry. A separate indirect object is returned for each user group relationship. If a user has both direct and group membership, the direct relationship is not shown separately.
 
 ## EXAMPLES
 

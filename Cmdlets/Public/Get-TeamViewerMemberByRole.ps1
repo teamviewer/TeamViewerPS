@@ -43,23 +43,28 @@
 
     process {
         $Users_Direct = Get-TeamViewerUserByRole -APIToken $APIToken -Role $Role_Id
+        $Groups_Direct = Get-TeamViewerUserGroupByRole -APIToken $APIToken -Role $Role_Id
+        $Users_IndirectIds = @{}
+
+        $Group_Members = @(foreach ($Group in $Groups_Direct) {
+                $UserGroupId = $Group.UserGroupId
+
+                Out-RoleMember -Member_Id $UserGroupId -Member_Type 'UserGroup' -Membership_Type 'Direct' -Via_UserGroupId $null
+
+                $UserGroup_Members = Get-TeamViewerUserGroupMember -APIToken $APIToken -UserGroup $UserGroupId
+
+                foreach ($UserGroup_Member in $UserGroup_Members) {
+                    $Users_IndirectIds[[string]$UserGroup_Member.Id] = $true
+                    Out-RoleMember -Member_Id $UserGroup_Member.Id -Member_Type 'User' -Membership_Type 'Indirect' -Via_UserGroupId $UserGroupId
+                }
+            })
 
         foreach ($User in $Users_Direct) {
-            Out-RoleMember -Member_Id $User.UserId -Member_Type 'User' -Membership_Type 'Direct' -Via_UserGroupId $null
-        }
-
-        $Groups_Direct = Get-TeamViewerUserGroupByRole -APIToken $APIToken -Role $Role_Id
-
-        foreach ($Group in $Groups_Direct) {
-            $UserGroupId = $Group.UserGroupId
-
-            Out-RoleMember -Member_Id $UserGroupId -Member_Type 'UserGroup' -Membership_Type 'Direct' -Via_UserGroupId $null
-
-            $UserGroup_Members = Get-TeamViewerUserGroupMember -APIToken $APIToken -UserGroup $UserGroupId
-
-            foreach ($UserGroup_Member in $UserGroup_Members) {
-                Out-RoleMember -Member_Id $UserGroup_Member.Id -Member_Type 'User' -Membership_Type 'Indirect' -Via_UserGroupId $UserGroupId
+            if (-not $Users_IndirectIds.ContainsKey([string]$User.UserId)) {
+                Out-RoleMember -Member_Id $User.UserId -Member_Type 'User' -Membership_Type 'Direct' -Via_UserGroupId $null
             }
         }
+
+        Write-Output -InputObject $Group_Members
     }
 }

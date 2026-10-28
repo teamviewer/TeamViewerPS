@@ -44,6 +44,7 @@
 
 ### Fixed
 
+- Prevents overlapping direct and indirect user entries in `Get-TeamViewerMemberByRole` by preferring indirect membership while retaining each user group relationship.
 - Converts user last-access and device custom field timestamps to `DateTime` values.
 
 ## 3.0.2 (2026-08-13)
