@@ -4,7 +4,7 @@ Comprehensive guidance for AI coding agents and developers working in this repos
 
 ## Project Overview
 
-TeamViewerPS is a PowerShell module for the TeamViewer Web API and local TeamViewer client management.
+TeamViewerPS is a PowerShell module for the TeamViewer web API and local TeamViewer client management.
 Targets Windows PowerShell 5.1 and PowerShell 6+ on Windows.
 
 | Path | Purpose |

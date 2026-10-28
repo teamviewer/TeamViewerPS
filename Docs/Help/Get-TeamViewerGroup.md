@@ -27,7 +27,7 @@ Get-TeamViewerGroup -APIToken <SecureString> [-Id <String>] [<CommonParameters>]
 
 ## DESCRIPTION
 
-Returns either a list of TeamViewer groups or a single TeamViewer group entry that are associated to the current account (API access token).
+Returns either a list of TeamViewer groups or a single TeamViewer group entry associated with the current account (API access token).
 
 ## EXAMPLES
 

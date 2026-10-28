@@ -151,7 +151,7 @@ Accept wildcard characters: False
 ### -EndDate
 
 Sets the end for the date range of connection reports to fetch. Defaults to now.
-To be included in the results the connection is required to be ended before this date/time.
+To be included in the results, a connection must have ended before this date and time.
 
 ```yaml
 Type: DateTime
@@ -267,7 +267,7 @@ Accept wildcard characters: False
 ### -StartDate
 
 Sets the start for the date range of connection reports to get.
-To be included in the results the connection is required to be started on or after this date/time.
+To be included in the results, a connection must have started on or after this date and time.
 
 ```yaml
 Type: DateTime
@@ -348,7 +348,7 @@ Accept wildcard characters: False
 
 ### -WithoutSessionCode
 
-Filter the list of connection reports to only contain entries that do not have a session code associated to.
+Filters the connection reports to include only entries that do not have an associated session code.
 
 ```yaml
 Type: SwitchParameter

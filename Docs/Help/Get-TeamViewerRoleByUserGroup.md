@@ -67,7 +67,7 @@ Accept wildcard characters: False
 
 ### -UserGroup
 
-Group to list its assigned role.
+Lists the role assigned to the specified user group.
 
 ```yaml
 Type: Object

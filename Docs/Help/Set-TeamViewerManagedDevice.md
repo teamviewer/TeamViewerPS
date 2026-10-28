@@ -21,7 +21,7 @@ Set-TeamViewerManagedDevice [-APIToken] <SecureString> [-Device] <Object> [[-Nam
 ## DESCRIPTION
 
 Changes properties of a managed device. For example, the name of the managed device or the policy or the description can be changed.
-You cannot combine any of those  three parameters together.
+You cannot combine any of those three parameters.
 
 For changing the device name, the current account needs `DeviceAdministration`
 manager permissions on the device.

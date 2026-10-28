@@ -19,8 +19,8 @@ Remove-TeamViewerUser [-APIToken] <SecureString> [-User] <Object> [-Permanent] [
 
 ## DESCRIPTION
 
-Removes an existing user from the TeamViewer company / tenant.
-If the switch -Permanent is added the user is delete from TeamViewer completely, otherwise it is only removed from the tenant.
+Removes an existing user from the TeamViewer company or tenant.
+If the `-Permanent` switch is specified, the user is deleted from TeamViewer completely; otherwise, the user is removed only from the tenant.
 
 ## EXAMPLES
 

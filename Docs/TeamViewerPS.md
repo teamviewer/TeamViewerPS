@@ -6,11 +6,11 @@ Interact with the TeamViewer web API as well as a locally installed TeamViewer c
 
 # LONG DESCRIPTION
 
-TeamViewerPS is a PowerShell module for interacting with the TeamViewer Web API and managing a locally installed TeamViewer client.
+TeamViewerPS is a PowerShell module for interacting with the TeamViewer web API and managing a locally installed TeamViewer client.
 
 ## Device Assignment
 
-Assign or unassign a device to a company / tenant.
+Assign a device to or unassign it from a company or tenant.
 
 [`Add-TeamViewerAssignment`](Help/Add-TeamViewerAssignment.md)
 
@@ -28,7 +28,7 @@ Manage the customization (Custom Module) of the locally installed TeamViewer cli
 
 ## Company Management
 
-Manage company / tenant details for the TeamViewer company associated with the API token.
+Manage details for the TeamViewer company or tenant associated with the API token.
 
 [`Get-TeamViewerCompany`](Help/Get-TeamViewerCompany.md)
 
@@ -54,8 +54,8 @@ Manage the company address book and control member visibility.
 
 ## Organizational Units
 
-Manage organizational units of a TeamViewer company via the TeamViewer web API.
-Have organizational units to further group / organize / structure users and user groups.
+Manage a TeamViewer company's organizational units through the TeamViewer web API.
+Use organizational units to group, organize, and structure users and user groups.
 
 [`Get-TeamViewerOrganizationalUnit`](Help/Get-TeamViewerOrganizationalUnit.md)
 
@@ -67,7 +67,7 @@ Have organizational units to further group / organize / structure users and user
 
 ## Computers & Contacts
 
-Manage the devices & contacts via the TeamViewer web API.
+Manage devices and contacts through the TeamViewer web API.
 
 [`Get-TeamViewerContact`](Help/Get-TeamViewerContact.md)
 
@@ -97,7 +97,7 @@ Manage the devices & contacts via the TeamViewer web API.
 
 ## User Management
 
-Manage the user accounts of a TeamViewer company / tenant via the TeamViewer web API.
+Manage the user accounts of a TeamViewer company or tenant through the TeamViewer web API.
 
 [`Get-TeamViewerAccount`](Help/Get-TeamViewerAccount.md)
 
@@ -119,7 +119,7 @@ Manage the user accounts of a TeamViewer company / tenant via the TeamViewer web
 
 ## User Groups
 
-Manage the user groups of a TeamViewer company / tenant via the TeamViewer web API.
+Manage the user groups of a TeamViewer company or tenant through the TeamViewer web API.
 
 [`Add-TeamViewerUserGroupMember`](Help/Add-TeamViewerUserGroupMember.md)
 
@@ -139,8 +139,8 @@ Manage the user groups of a TeamViewer company / tenant via the TeamViewer web A
 
 ## Roles
 
-Manage the roles of a TeamViewer company / tenant via the TeamViewer web API.
-Company / tenant users receive permissions by roles that are assigned to them or their groups.
+Manage the roles of a TeamViewer company or tenant through the TeamViewer web API.
+Company or tenant users receive permissions through roles assigned to them or their groups.
 
 [`Add-TeamViewerUserGroupToRole`](Help/Add-TeamViewerUserGroupToRole.md)
 
@@ -170,7 +170,7 @@ Company / tenant users receive permissions by roles that are assigned to them or
 
 ## Managed Groups & Managed Devices
 
-Manage the managed groups and managed devices of an account / company / tenant via the TeamViewer web API.
+Manage the managed groups and managed devices of an account, company, or tenant through the TeamViewer web API.
 
 [`Add-TeamViewerManagedDevice`](Help/Add-TeamViewerManagedDevice.md)
 
@@ -224,7 +224,7 @@ Manage the managed groups and managed devices of an account / company / tenant v
 
 ## Policy Management
 
-Manage the policies of a TeamViewer company / tenant via the TeamViewer web API.
+Manage the policies of a TeamViewer company or tenant through the TeamViewer web API.
 
 [`Get-TeamViewerPolicy`](Help/Get-TeamViewerPolicy.md)
 
@@ -254,7 +254,7 @@ Manage Single Sign-On (SSO) configurations via the TeamViewer web API.
 
 ## Event Logs & Reporting
 
-Retrieve audit log entries or connection-reports of a TeamViewer company / tenant via the TeamViewer web API.
+Retrieve audit log entries or connection reports for a TeamViewer company or tenant through the TeamViewer web API.
 
 [`Get-TeamViewerConnectionReport`](Help/Get-TeamViewerConnectionReport.md)
 

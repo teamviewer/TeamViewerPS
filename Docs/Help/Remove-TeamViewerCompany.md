@@ -9,8 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Delete the TeamViewer company / tenant associated with the API token.
-The action cannot be reverted, use with care!
+Deletes the TeamViewer company or tenant associated with the API token. This action cannot be undone; use with care.
 
 ## SYNTAX
 
@@ -21,8 +20,7 @@ Remove-TeamViewerCompany [-APIToken] <SecureString> [-WhatIf] [-Confirm] [<Commo
 ## DESCRIPTION
 
 Deletes the TeamViewer company associated with the TeamViewer API access token.
-The account should be the last user with admin permissions in the company / tenant.
-The action cannot be reverted, use with care!
+The account should be the last user with admin permissions in the company or tenant. This action cannot be undone; use with care.
 
 ## EXAMPLES
 

@@ -9,10 +9,10 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Returns a single or multiple TeamViewer organizational units of the associated TeamViewer company.
+Returns one or more TeamViewer organizational units for the associated TeamViewer company.
 
 > [!NOTE]
-> This command is in beta phase and available only for specific tenants.
+> This command is in beta and is available only to specific tenants.
 
 ## SYNTAX
 
@@ -36,7 +36,7 @@ Get-TeamViewerOrganizationalUnit -APIToken <SecureString> [-OrganizationalUnit <
 PS /> Get-TeamViewerOrganizationalUnit
 ```
 
-Lists all TeamViewer organizational units that are associated to the TV company.
+Lists all TeamViewer organizational units associated with the TeamViewer company.
 
 ### Example 2
 
@@ -52,7 +52,7 @@ Gets one specific TeamViewer organizational unit with the given Id `1cbae0b5-8a2
 PS /> Get-TeamViewerOrganizationalUnit -Filter 'test'
 ```
 
-Lists all TeamViewer organizational units of the TV company that have the string `test` in their name or description.
+Lists all TeamViewer organizational units associated with the TeamViewer company that have the string `test` in their name or description.
 
 ## PARAMETERS
 
@@ -172,7 +172,7 @@ Accept wildcard characters: False
 
 ### -PageSize
 
-The number of results per page. The default is 100. The minimum is 50, the maximum is 250.
+The number of results per page. The default is 100, the minimum is 50, and the maximum is 250.
 
 ```yaml
 Type: Integer

@@ -67,7 +67,7 @@ Accept wildcard characters: False
 
 ### -UserId
 
-User to list its assigned roles.
+Lists the roles assigned to the specified user.
 
 ```yaml
 Type: Object

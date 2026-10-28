@@ -20,7 +20,7 @@ Remove-TeamViewerContact [-APIToken] <SecureString> [-Contact] <Object> [-WhatIf
 
 ## DESCRIPTION
 
-Deletes a contact from the Computers & Contacts list of the account associated to the API access token.
+Deletes a contact from the Computers & Contacts list of the account associated with the API access token.
 
 ## EXAMPLES
 

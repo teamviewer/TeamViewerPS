@@ -70,7 +70,7 @@ Describe 'New-TeamViewerUser' {
         $Body.password | Should -Be 'Test1234'
     }
 
-    It 'Should allow to create a SSO-enabled user' {
+    It 'Should allow creation of an SSO-enabled user' {
         $testSSOCustomerId = 'my-sso-customer-id' | ConvertTo-TestPassword
 
         New-TeamViewerUser -APIToken $testAPIToken -Name 'Unit Test User' -Email 'user1@unit.test' -WithoutPassword -SSOCustomerIdentifier $testSSOCustomerId
@@ -85,12 +85,11 @@ Describe 'New-TeamViewerUser' {
         $testCulture = [cultureinfo]'en-US'
         $testRoleId = '00000000-0000-0000-0000-000000000000'
 
-
         # Aufruf der Funktion mit allen Parametern
         New-TeamViewerUser `
             -APIToken $testAPIToken `
             -Email 'user1@unit.test' `
-            -Name 'Unit Test User' `
+            -name 'Unit Test User' `
             -WithoutPassword `
             -SSOCustomerIdentifier $testSSOCustomerId `
             -Culture $testCulture `

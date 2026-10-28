@@ -9,7 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Retrieves company / tenant details of the TeamViewer company associated with the API token.
+Retrieves details for the TeamViewer company or tenant associated with the API token.
 
 ## SYNTAX
 
@@ -19,7 +19,7 @@ Get-TeamViewerCompany [-APIToken] <SecureString> [<CommonParameters>]
 
 ## DESCRIPTION
 
-Retrieves the company / tenant details of the TeamViewer company associated with the TeamViewer API access token.
+Retrieves details for the TeamViewer company or tenant associated with the TeamViewer API access token.
 
 ## EXAMPLES
 

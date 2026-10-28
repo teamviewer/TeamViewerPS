@@ -19,7 +19,7 @@ Remove-TeamViewerDevice [-APIToken] <SecureString> [-Device] <Object> [-WhatIf] 
 
 ## DESCRIPTION
 
-Deletes a device from the Computers & Contacts list of the account associated to the API access token.
+Deletes a device from the Computers & Contacts list of the account associated with the API access token.
 
 ## EXAMPLES
 

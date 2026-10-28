@@ -20,7 +20,7 @@ New-TeamViewerContact [-APIToken] <SecureString> [-Email] <String> [-Group] <Obj
 
 ## DESCRIPTION
 
-Adds a new contact to the Computers & Contacts list of the account that is associated to the TeamViewer API access token. 
+Adds a new contact to the Computers & Contacts list for the account associated with the TeamViewer API access token.
 
 ## EXAMPLES
 

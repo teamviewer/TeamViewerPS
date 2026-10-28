@@ -19,7 +19,7 @@ Get-TeamViewerUserGroupByRole [-APIToken] <SecureString> [-Role] <Object> [<Comm
 
 ## DESCRIPTION
 
-Lists all user groups of role in the TeamViewer company associated with the API access token.
+Lists all user groups assigned to a role in the TeamViewer company associated with the API access token.
 
 ## EXAMPLES
 
@@ -67,7 +67,7 @@ Accept wildcard characters: False
 
 ### -Role
 
-Role to list its assigned users.
+Lists the user groups assigned to the specified role.
 
 ```yaml
 Type: Object

@@ -32,7 +32,7 @@ Get-TeamViewerAuditEvent -APIToken <SecureString> -StartDate <DateTime> [-EndDat
 ## DESCRIPTION
 
 Fetches audit log events for the TeamViewer company that is associated with the
-given TeamViewer Web API token.
+given TeamViewer web API token.
 
 The list can optionally be filtered.
 

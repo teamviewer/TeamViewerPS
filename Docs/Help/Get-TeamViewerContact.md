@@ -38,7 +38,7 @@ Returns a list of contacts in the user’s Computers & Contacts list that match 
 Get-TeamViewerContact
 ```
 
-List all contacts of the account associated to the TeamViewer API access token.
+Lists all contacts for the account associated with the TeamViewer API access token.
 
 ### Example 2
 
@@ -54,7 +54,7 @@ Gets the contact entry with the given Id.
 Get-TeamViewerContact -Name 'test' -FilterBy_OnlineState 'Away'
 ```
 
-List all contacts of the account associated to the TeamViewer API access token that contain the string `test` in their name and are in the `Away` online state.
+Lists all contacts for the account associated with the TeamViewer API access token whose names contain the string `test` and whose online state is `Away`.
 
 ## PARAMETERS
 

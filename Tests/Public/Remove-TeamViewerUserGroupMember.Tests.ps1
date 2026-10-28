@@ -35,10 +35,10 @@ Describe 'Remove-TeamViewerUserGroupMember' {
             @{ Param = 'UserGroupMember'; Alias = 'MemberIds' }
             @{ Param = 'UserGroupMember'; Alias = 'UserIds' }
         ) {
-            (Get-Command -Name Remove-TeamViewerUserGroupMember).Parameters[$Param].Aliases | Should -Contain $Alias
+            (Get-Command -name Remove-TeamViewerUserGroupMember).Parameters[$Param].Aliases | Should -Contain $Alias
         }
     }
-    Context 'Should  remove members ByUserGroupMember' {
+    Context 'Should remove members ByUserGroupMember' {
 
         It 'Should call the correct API endpoint' {
             Remove-TeamViewerUserGroupMember -APIToken $testAPIToken -UserGroup $testUserGroupId -UserGroupMember $testUserGroupMember

@@ -68,7 +68,7 @@ Accept wildcard characters: False
 
 ### -UserGroup
 
-UserGroup to list its members.
+Lists the members of the specified user group.
 
 ```yaml
 Type: Object

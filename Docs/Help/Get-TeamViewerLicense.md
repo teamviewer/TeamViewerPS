@@ -9,7 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Retrieves company / tenant license details of the TeamViewer company associated with the API token.
+Retrieves license details for the TeamViewer company or tenant associated with the API token.
 
 ## SYNTAX
 

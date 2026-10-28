@@ -19,8 +19,8 @@ Add-TeamViewerAssignment [-AssignmentId] [-DeviceAlias] [-Retries] [-WhatIf] [-C
 
 ## DESCRIPTION
 
-Assigns the local / current device to a TeamViewer company where it's listed in "managed devices".
-The Assignment Id can be obtained from the Management Console (MCO) under Design & Deploy.
+Assigns the local device to a TeamViewer company, where it appears in the Managed Devices list.
+The assignment ID can be obtained from the Management Console (MCO) under Design & Deploy.
 
 ## EXAMPLES
 
@@ -71,7 +71,7 @@ Accept wildcard characters: False
 
 ### -DeviceAlias
 
-The alias for a device that is set. If omitted the host-name is used.
+The alias to assign to the device. If omitted, the hostname is used.
 
 ```yaml
 Type: String

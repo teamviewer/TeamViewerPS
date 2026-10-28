@@ -109,8 +109,8 @@
 ### Added
 
 - Adds `Get-TeamViewerRoleByUserGroup` to retrieve the role associated with a certain user group.
-- Adds `Get-TeamViewerSSOInclusion` to retrieve the sso inclusion list.
-- Adds `Remove-TeamViewerSSOInclusion` to remove an entry from the sso inclusion list.
+- Adds `Get-TeamViewerSSOInclusion` to retrieve the SSO inclusion list.
+- Adds `Remove-TeamViewerSSOInclusion` to remove an entry from the SSO inclusion list.
 
 ## 2.2.0 (2025-03-11)
 

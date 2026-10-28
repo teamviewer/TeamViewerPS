@@ -58,8 +58,8 @@
     }
 
     process {
-        # when members are provided as pipeline input, each member is provided as separate statement,
-        # thus the members should  be combined to one array in order to send a single request
+        # When members are provided as pipeline input, each member is provided as a separate statement,
+        # so they must be combined into one array to send a single request.
         if ($PSCmdlet.ShouldProcess((Get-MemberId), 'Remove user group member')) {
             if (Get-MemberId -isnot [array]) {
                 $MembersToRemove += @(Get-MemberId)
@@ -72,7 +72,7 @@
             $Body = "[$Payload]"
         }
 
-        # Web API accepts max 100 accounts. Thus we send a request, and reset the `membersToRemove` in order to accept more members
+        # The web API accepts a maximum of 100 accounts, so we send a request and reset `membersToRemove` to accept more members.
         if ($MembersToRemove.Length -eq 100) {
             Invoke-TeamViewerJsonRestMethod `
                 -APIToken $APIToken `
@@ -85,7 +85,7 @@
     }
 
     end {
-        # A request needs to be send if there were less than 100 members
+        # Send a request if there are fewer than 100 members.
         if ($MembersToRemove.Length -gt 0) {
             Invoke-TeamViewerJsonRestMethod `
                 -APIToken $APIToken `

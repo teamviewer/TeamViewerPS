@@ -9,7 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Change TeamViewer company / tenant details.
+Changes TeamViewer company or tenant details.
 
 ## SYNTAX
 

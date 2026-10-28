@@ -20,7 +20,7 @@ New-TeamViewerDevice [-APIToken] <SecureString> [-TeamViewerId] <Int32> [-Group]
 
 ## DESCRIPTION
 
-Adds a new device entry to the Computers & Contacts list of the account that is associated to the TeamViewer API access token. 
+Adds a new device entry to the Computers & Contacts list for the account associated with the TeamViewer API access token.
 
 ## EXAMPLES
 

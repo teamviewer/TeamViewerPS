@@ -12,7 +12,7 @@ schema: 2.0.0
 Creates a TeamViewer organizational unit in the associated TeamViewer company.
 
 > [!NOTE]
-> This command is in beta phase and available only for specific tenants.
+> This command is in beta and is available only to specific tenants.
 
 ## SYNTAX
 

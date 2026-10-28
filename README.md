@@ -2,7 +2,7 @@
 
 ![CI](https://github.com/teamviewer/TeamViewerPS/workflows/CI/badge.svg)
 
-TeamViewerPS is a PowerShell module for interacting with the TeamViewer Web API and managing a locally installed TeamViewer client.
+TeamViewerPS is a PowerShell module for interacting with the TeamViewer web API and managing a locally installed TeamViewer client.
 
 ## Installation
 
@@ -34,7 +34,7 @@ TeamViewerPS supports:
 
 ## Quick Start
 
-### Connect to the TeamViewer Web API
+### Connect to the TeamViewer web API
 
 Create a TeamViewer API access token in the [TeamViewer user profile](https://web.teamviewer.com/settings/profile/apps), then connect:
 
@@ -43,7 +43,7 @@ $apiToken = Read-Host -Prompt 'TeamViewer API token' -AsSecureString
 Connect-TeamViewerAPI -APIToken $apiToken
 ```
 
-Once connected, you can call Web API commands without specifying the token again:
+Once connected, you can call web API commands without specifying the token again:
 
 ```powershell
 Get-TeamViewerUser
@@ -51,7 +51,7 @@ Get-TeamViewerGroup
 Get-TeamViewerPolicy
 ```
 
-### Disconnect from the Web API
+### Disconnect from the web API
 
 ```powershell
 Disconnect-TeamViewerAPI
@@ -151,5 +151,5 @@ Please see the file `LICENSE.md`.
 
 - [TeamViewerPS on GitHub](https://github.com/teamviewer/TeamViewerPS)
 - [TeamViewerPS on PowerShell Gallery](https://www.powershellgallery.com/packages/TeamViewerPS)
-- [TeamViewer Web API docs](https://webapi.teamviewer.com/api/v1/docs/index)
+- [TeamViewer web API docs](https://webapi.teamviewer.com/api/v1/docs/index)
 - [TeamViewer company website](https://www.teamviewer.com/)

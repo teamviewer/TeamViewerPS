@@ -29,7 +29,7 @@ New-TeamViewerUser -APIToken <SecureString> -Email <String> -Name <String> [-Wit
 
 ## DESCRIPTION
 
-Creates a new user for the company that is associated to the API access token.
+Creates a new user for the company associated with the API access token.
 
 ## EXAMPLES
 
