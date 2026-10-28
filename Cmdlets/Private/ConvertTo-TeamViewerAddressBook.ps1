@@ -7,14 +7,7 @@
 
     process {
         $Result = $InputObject.PSObject.Copy()
-        $Users = if ($InputObject.users) {
-            @($InputObject.Users | ConvertTo-TeamViewerAddressBookUser)
-        }
-        else {
-            @()
-        }
-
-        $Result | Add-Member -MemberType NoteProperty -Name users -Value $Users -Force
+        $null = $Result.PSObject.Properties.Remove('users')
 
         $Enabled = if ($InputObject.PSObject.Properties['state']) {
             $InputObject.State

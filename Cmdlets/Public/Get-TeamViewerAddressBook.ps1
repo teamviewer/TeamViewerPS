@@ -1,7 +1,7 @@
 ﻿function Get-TeamViewerAddressBook {
     [CmdletBinding()]
 
-    [OutputType('TeamViewerPS.AddressBook', 'TeamViewerPS.AddressBookUser')]
+    [OutputType('TeamViewerPS.AddressBook')]
 
     param(
         [Parameter(Mandatory = $true)]

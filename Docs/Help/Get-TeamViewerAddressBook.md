@@ -9,7 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Get company address book settings and members.
+Get the company address book activation state.
 
 ## SYNTAX
 
@@ -19,7 +19,7 @@ Get-TeamViewerAddressBook -APIToken <SecureString> [<CommonParameters>]
 
 ## DESCRIPTION
 
-Retrieves the company address book settings and members list for the TeamViewer company associated with the API access token.
+Retrieves the activation state of the company address book for the TeamViewer company associated with the API access token.
 
 ## EXAMPLES
 
@@ -69,9 +69,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ### TeamViewerPS.AddressBook
 
-Address book data including the `Enabled` setting and `Users` collection. The original API properties `companyAddressBookSettings` and `users` are also preserved.
-
-Users are returned as `TeamViewerPS.AddressBookUser` objects with `UserId`, `AccountId`, `Name`, and `Email` properties.
+Address book data with a normalized `Enabled` property. The original API response properties are preserved except for `users`, which is not part of this endpoint's documented response.
 
 ## NOTES
 

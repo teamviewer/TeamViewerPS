@@ -42,10 +42,7 @@ Describe 'Get-TeamViewerAddressBook' {
         $Result.PSObject.TypeNames[0] | Should -Be 'TeamViewerPS.AddressBook'
         $Result.Enabled | Should -BeTrue
         $Result.companyAddressBookSettings | Should -Not -BeNullOrEmpty
-        $Result.users | Should -HaveCount 2
-        $Result.users[0].PSObject.TypeNames[0] | Should -Be 'TeamViewerPS.AddressBookUser'
-        $Result.users[0].UserId | Should -Be 'abc123'
-        $Result.users[0].PSObject.Properties.Name | Should -Not -Contain 'AccountId'
+        $Result.PSObject.Properties.Name | Should -Not -Contain 'users'
     }
 
     It 'Should fetch consecutive pages' {
