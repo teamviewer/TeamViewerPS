@@ -9,6 +9,9 @@
         if ($UserGroupMember.PSObject.TypeNames -contains 'TeamViewerPS.UserGroupMember') {
             Write-Output $UserGroupMember.Id
         }
+        elseif ($UserGroupMember.PSObject.TypeNames -contains 'TeamViewerPS.User') {
+            Write-Output $UserGroupMember.Id
+        }
         elseif ($UserGroupMember -match 'u[0-9]+') {
             Write-Output $UserGroupMember
         }
@@ -19,7 +22,7 @@
             Write-Output $UserGroupMember
         }
         else {
-            throw "Invalid user group identifier '$UserGroupMember'. Must be either a [TeamViewerPS.UserGroupMember],[TeamViewerPS.User] or [int] ."
+            throw "Invalid user group member identifier '$UserGroupMember'. Must be either a [TeamViewerPS.UserGroupMember], [TeamViewerPS.User], a user ID string or [int]."
         }
     }
 }

@@ -13,6 +13,13 @@ Describe 'Resolve-TeamViewerUserGroupMemberId' {
         Resolve-TeamViewerUserGroupMemberId -UserGroupMember $member | Should -Be 'u123456'
     }
 
+    It 'Returns Id from TeamViewerPS.User object' {
+        $User = [pscustomobject]@{ Id = 'u123456' }
+        $User.PSObject.TypeNames.Insert(0, 'TeamViewerPS.User')
+
+        Resolve-TeamViewerUserGroupMemberId -UserGroupMember $User | Should -Be 'u123456'
+    }
+
     It 'Returns user id pattern unchanged' {
         Resolve-TeamViewerUserGroupMemberId -UserGroupMember 'u123456' | Should -Be 'u123456'
     }

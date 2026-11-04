@@ -44,6 +44,8 @@
 
 ### Fixed
 
+- Resolves role objects to their IDs when updating a role and suppresses the API response, which does not contain a role object.
+- Accepts `TeamViewerPS.User` objects when adding or removing user group members and reports no output for member removals.
 - Prevents overlapping direct and indirect user entries in `Get-TeamViewerMemberByRole` by preferring indirect membership while retaining each user group relationship.
 - Converts user last-access and device custom field timestamps to `DateTime` values.
 

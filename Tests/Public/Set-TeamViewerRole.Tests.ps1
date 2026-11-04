@@ -58,6 +58,22 @@ Describe 'Set-TeamViewerRole' {
         $Body.Permissions | Should -Be $testPermissions
     }
 
+    It 'Should resolve a TeamViewerPS.Role object to its ID' {
+        $Role = [pscustomobject]@{ Id = $testRoleId }
+        $Role.PSObject.TypeNames.Insert(0, 'TeamViewerPS.Role')
+
+        Set-TeamViewerRole -APIToken $testAPIToken -Name $testRoleName -Role $Role
+
+        $Body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
+        $Body.UserRoleId | Should -Be $testRoleId
+    }
+
+    It 'Should not emit the REST response' {
+        $Result = Set-TeamViewerRole -APIToken $testAPIToken -Name $testRoleName -RoleId $testRoleId
+
+        $Result | Should -BeNullOrEmpty
+    }
+
     # It 'Should return a Role object' {
     #Request doesn't return a response body
     # }

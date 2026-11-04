@@ -60,6 +60,18 @@ Describe 'Add-TeamViewerUserGroupMember' {
         $Body | Should -Contain $testMembers[2]
     }
 
+    It 'Should accept a TeamViewerPS.User object' {
+        $User = [pscustomobject]@{ Id = 'u123' }
+        $User.PSObject.TypeNames.Insert(0, 'TeamViewerPS.User')
+
+        Add-TeamViewerUserGroupMember -APIToken $testAPIToken -UserGroup $testUserGroupId -User $User
+
+        $mockArgs.Body | Should -Not -BeNullOrEmpty
+        $Body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
+        $Body | Should -HaveCount 1
+        $Body | Should -Contain 123
+    }
+
     It 'Should accept pipeline input' {
         $testMembers | Add-TeamViewerUserGroupMember -APIToken $testAPIToken -UserGroup $testUserGroupId
         $mockArgs.Body | Should -Not -BeNullOrEmpty

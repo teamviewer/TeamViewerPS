@@ -1,7 +1,7 @@
 ﻿function Remove-TeamViewerUserGroupMember {
     [CmdletBinding(SupportsShouldProcess = $true)]
 
-    [OutputType('TeamViewerPS.UserGroupMember')]
+    [OutputType([void])]
 
     param(
         [Parameter(Mandatory = $true)]
@@ -35,24 +35,8 @@
         $null = $UserGroupMember
 
         function Get-MemberId {
-            switch ($UserGroupMember) {
-                { $UserGroupMember[0].PSObject.TypeNames -contains 'TeamViewerPS.UserGroupMember' } {
-                    $UserGroupMember = $UserGroupMember | Resolve-TeamViewerUserGroupMemberId
-                    return $UserGroupMember
-                }
-                default {
-                    if ($UserGroupMember -notmatch 'u[0-9]+') {
-                        ForEach-Object {
-                            $UserGroupMember = [int[]]$UserGroupMember
-                        }
-                    }
-                    else {
-                        ForEach-Object {
-                            $UserGroupMember = [int[]]$UserGroupMember.trim('u')
-                        }
-                    }
-                    return $UserGroupMember
-                }
+            $UserGroupMember | Resolve-TeamViewerUserGroupMemberId | ForEach-Object {
+                [int]([string]$_ -replace '^u', '')
             }
         }
     }

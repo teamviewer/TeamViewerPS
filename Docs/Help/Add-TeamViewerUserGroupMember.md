@@ -21,6 +21,7 @@ Add-TeamViewerUserGroupMember [-APIToken] <SecureString> [-UserGroup] <Object> [
 ## DESCRIPTION
 
 Adds a list of accountIds to a user groups of the TeamViewer company associated with the API access token.
+The `User` parameter also accepts `TeamViewerPS.User` objects.
 
 ## EXAMPLES
 
@@ -87,9 +88,10 @@ Accept wildcard characters: False
 ### -User
 
 The list of accounts Ids to be added as member of the group.
+Accepts account IDs, `u`-prefixed IDs, or `TeamViewerPS.User` objects.
 
 ```yaml
-Type: Int32[]
+Type: Object[]
 Parameter Sets: (All)
 Aliases: UserId, UserIds
 
@@ -139,9 +141,9 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### System.Int32[]
+### System.Object[]
 
-An array of account Ids.
+Account IDs, `u`-prefixed IDs, or `TeamViewerPS.User` objects.
 
 ## OUTPUTS
 

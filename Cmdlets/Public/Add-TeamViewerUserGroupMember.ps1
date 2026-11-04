@@ -33,23 +33,12 @@
         # when members are provided as pipeline input, each member is provided as a separate statement,
         # thus the members should be combined into one array in order to send a single request.
         if ($PSCmdlet.ShouldProcess($User, 'Add user(s) to user group')) {
-            if ($User -notmatch 'u[0-9]+') {
-                ForEach-Object {
-                    $User = [int[]]$User
+            $ResolvedUserIds = @(
+                $User | Resolve-TeamViewerUserGroupMemberId | ForEach-Object {
+                    [UInt32]([string]$_ -replace '^u', '')
                 }
-            }
-            else {
-                ForEach-Object {
-                    $User = [int[]]$User.trim('u')
-                }
-            }
-
-            if ($User -isnot [array]) {
-                $Members_ToAdd = @([UInt32]$User)
-            }
-            else {
-                $Members_ToAdd += [UInt32[]]$User
-            }
+            )
+            $Members_ToAdd += $ResolvedUserIds
 
             $Payload = $Members_ToAdd -join ', '
             $Body = "[$Payload]"

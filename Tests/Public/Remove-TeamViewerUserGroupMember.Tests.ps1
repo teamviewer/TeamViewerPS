@@ -35,7 +35,7 @@ Describe 'Remove-TeamViewerUserGroupMember' {
             @{ Param = 'UserGroupMember'; Alias = 'MemberIds' }
             @{ Param = 'UserGroupMember'; Alias = 'UserIds' }
         ) {
-            (Get-Command -name Remove-TeamViewerUserGroupMember).Parameters[$Param].Aliases | Should -Contain $Alias
+            (Get-Command -Name Remove-TeamViewerUserGroupMember).Parameters[$Param].Aliases | Should -Contain $Alias
         }
     }
     Context 'Should remove members ByUserGroupMember' {
@@ -96,6 +96,17 @@ Describe 'Remove-TeamViewerUserGroupMember' {
             $Body | Should -Contain $testMembers[0]
             $Body | Should -Contain $testMembers[1]
             $Body | Should -Contain $testMembers[2]
+        }
+
+        It 'Should accept a TeamViewerPS.User object' {
+            $User = [pscustomobject]@{ Id = 'u123' }
+            $User.PSObject.TypeNames.Insert(0, 'TeamViewerPS.User')
+
+            Remove-TeamViewerUserGroupMember -APIToken $testAPIToken -UserGroup $testUserGroupId -UserGroupMember $User
+
+            $Body = [System.Text.Encoding]::UTF8.GetString($mockArgs.Body) | ConvertFrom-Json
+            $Body | Should -HaveCount 1
+            $Body | Should -Contain 123
         }
 
         It 'Should create chunks' {

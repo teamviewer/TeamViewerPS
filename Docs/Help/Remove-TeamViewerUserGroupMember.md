@@ -118,6 +118,7 @@ Accept wildcard characters: False
 ### -UserGroupMember
 
 User group members to be removed from a user group.
+Accepts account IDs, `u`-prefixed IDs, `TeamViewerPS.User` objects, and `TeamViewerPS.UserGroupMember` objects.
 
 ```yaml
 Type: Object[]
@@ -160,7 +161,17 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 An array of account Ids.
 
+### TeamViewerPS.User
+
+A user object whose account ID identifies the member to remove.
+
+### TeamViewerPS.UserGroupMember
+
+A user group member object identifying the member to remove.
+
 ## OUTPUTS
+
+### None
 
 ## NOTES
 
