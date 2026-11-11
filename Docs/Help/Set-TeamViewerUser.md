@@ -175,7 +175,7 @@ Accept wildcard characters: False
 ### -SSOCustomerIdentifier
 
 Optional TeamViewer SSO customer identifier. If given, the user will be updated with SSO activation step already done.
-With this option, the user must not enter the TeamViewer password at when doing Single Sign-On.
+With this option, the user must not enter the TeamViewer password at all when doing Single Sign-On.
 
 ```yaml
 Type: SecureString
@@ -306,7 +306,7 @@ Accept wildcard characters: False
 ### -SSOCustomerIdentifier
 
 Optional TeamViewer SSO customer identifier. If given, the user will be updated with SSO activation step already done.
-With this option, the user must not enter the TeamViewer password at when doing Single Sign-On.
+With this option, the user must not enter the TeamViewer password at all when doing Single Sign-On.
 
 ```yaml
 Type: SecureString
