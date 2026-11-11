@@ -3,6 +3,24 @@
     "version": "2.0.0",
     "tasks": [
         {
+            "label": "Check PowerShell needed modules",
+            "type": "shell",
+            "command": "& \"${workspaceFolder}/.vscode/Test-PowerShellModules.ps1\"",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "runOptions": {
+                "instanceLimit": 1,
+                "runOn": "folderOpen"
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "dedicated",
+                "clear": true
+            },
+            "problemMatcher": []
+        },
+        {
             "label": "Lint (via PSScriptAnalyzer)",
             "type": "shell",
             "command": "& Invoke-ScriptAnalyzer -Path \\\"${workspaceFolder}\\\" -Recurse -Settings \\\"${workspaceFolder}/Linters/PSScriptAnalyzer.psd1\\\"",
