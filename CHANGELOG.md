@@ -8,6 +8,7 @@
 
 ### Added
 
+- Adds `Get-TeamViewerUserGroupByUser` to list the user groups a user is a member of.
 - Adds `Get-TeamViewerMemberByRole` to list direct and indirect role members.
 - Adds `Get-TeamViewerOrganizationalUnit` to retrieve the organizational unit details (beta phase, available only for specific tenants).
 - Adds `New-TeamViewerOrganizationalUnit` to add a new organizational unit (beta phase, available only for specific tenants).
