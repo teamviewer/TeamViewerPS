@@ -129,6 +129,8 @@ Manage the user groups of a TeamViewer company or tenant through the TeamViewer 
 
 [`Get-TeamViewerUserGroup`](Help/Get-TeamViewerUserGroup.md)
 
+[`Get-TeamViewerUserGroupByUser`](Help/Get-TeamViewerUserGroupByUser.md)
+
 [`Get-TeamViewerUserGroupMember`](Help/Get-TeamViewerUserGroupMember.md)
 
 [`New-TeamViewerUserGroup`](Help/New-TeamViewerUserGroup.md)
