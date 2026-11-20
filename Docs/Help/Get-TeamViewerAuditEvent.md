@@ -1,11 +1,11 @@
 ﻿---
 external help file: TeamViewerPS-help.xml
 Module Name: TeamViewerPS
-online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/Get-TeamViewerAuditEvent.md
+online version: https://github.com/teamviewer/TeamViewerPS/blob/main/Docs/Help/Get-TeamViewerEventLog.md
 schema: 2.0.0
 ---
 
-# Get-TeamViewerAuditEvent
+# Get-TeamViewerEventLog
 
 ## SYNOPSIS
 
@@ -16,7 +16,7 @@ Returns TeamViewer audit log events for the current account's company.
 ### RelativeDates (Default)
 
 ```powershell
-Get-TeamViewerAuditEvent -APIToken <SecureString> [-EndDate <DateTime>] [-Months <Int32>] [-Days <Int32>]
+Get-TeamViewerEventLog -APIToken <SecureString> [-EndDate <DateTime>] [-Months <Int32>] [-Days <Int32>]
  [-Hours <Int32>] [-Minutes <Int32>] [-Limit <Int32>] [-EventNames <String[]>] [-EventTypes <String[]>]
  [-AccountEmails <Object[]>] [-AffectedItem <String>] [-RemoteControlSessionId <Guid>] [<CommonParameters>]
 ```
@@ -24,7 +24,7 @@ Get-TeamViewerAuditEvent -APIToken <SecureString> [-EndDate <DateTime>] [-Months
 ### AbsoluteDates
 
 ```powershell
-Get-TeamViewerAuditEvent -APIToken <SecureString> -StartDate <DateTime> [-EndDate <DateTime>] [-Limit <Int32>]
+Get-TeamViewerEventLog -APIToken <SecureString> -StartDate <DateTime> [-EndDate <DateTime>] [-Limit <Int32>]
  [-EventNames <String[]>] [-EventTypes <String[]>] [-AccountEmails <Object[]>] [-AffectedItem <String>]
  [-RemoteControlSessionId <Guid>] [<CommonParameters>]
 ```
@@ -41,7 +41,7 @@ The list can optionally be filtered.
 ### Example 1
 
 ```powershell
-Get-TeamViewerAuditEvent
+Get-TeamViewerEventLog
 ```
 
 Gets all audit log events of the current company that were created in the last
@@ -50,7 +50,7 @@ hour.
 ### Example 2
 
 ```powershell
-Get-TeamViewerAuditEvent -Days 7
+Get-TeamViewerEventLog -Days 7
 ```
 
 Gets all audit log events of the current company that were created in the last
@@ -59,7 +59,7 @@ seven days.
 ### Example 3
 
 ```powershell
-Get-TeamViewerAuditEvent -StartDate "2021-10-01" -EventNames "UserCreated","UserDeleted"
+Get-TeamViewerEventLog -StartDate "2021-10-01" -EventNames "UserCreated","UserDeleted"
 ```
 
 Gets user creation & deletion audit log events of the current company that were
@@ -68,7 +68,7 @@ created since October 1st, 2021.
 ### Example 4
 
 ```powershell
-Get-TeamViewerAuditEvent -Months 1 -EventTypes "LicenseManagement","Policy" -Limit 100
+Get-TeamViewerEventLog -Months 1 -EventTypes "LicenseManagement","Policy" -Limit 100
 ```
 
 Gets up to 100 license management and policy related audit log events of the
@@ -77,7 +77,7 @@ current company that were created in the last month.
 ### Example 5
 
 ```powershell
-Get-TeamViewerAuditEvent -StartDate "2021-10-01" -EndDate "2021-10-31" -AccountEmails "john.doe@example.com"
+Get-TeamViewerEventLog -StartDate "2021-10-01" -EndDate "2021-10-31" -AccountEmails "john.doe@example.com"
 ```
 
 Gets all audit log events that were created by the given account within the
@@ -175,24 +175,84 @@ company. Multiple values can be specified, separated by comma.
 
 Possible values are:
 
+- `ActiveConnectionsDisabled`
+- `ActiveConnectionsEnabled`
 - `AddRemoteWorkerDevice`
+- `AISettingsEnduserStopSummaryDisabled`
+- `AISettingsEnduserStopSummaryEnabled`
+- `AISettingsIncomingConnectionsDisabled`
+- `AISettingsIncomingConnectionsEnabled`
+- `AISettingsIncomingConnectionsSelectionChanged`
+- `AISettingsIntelligenceSuiteDisabled`
+- `AISettingsIntelligenceSuiteEnabled`
+- `AISettingsOutgoingConnectionsConfigurationModeChanged`
+- `AISettingsOutgoingConnectionsDisabled`
+- `AISettingsOutgoingConnectionsEnabled`
+- `AISettingsOutgoingConnectionsSelectionChanged`
+- `AISettingsSupporterStopSummaryDisabled`
+- `AISettingsSupporterStopSummaryEnabled`
+- `AISettingsUserGroupsDefaultDataCollectionModeChanged`
+- `AISettingsUserGroupSettingAdded`
+- `AISettingsUserGroupSettingChanged`
+- `AISettingsUserGroupSettingRemoved`
+- `AzureIntegrationEntraConnected`
+- `AzureIntegrationEntraDisconnected`
+- `AzureIntegrationLapsAccountCredentialsDisabled`
+- `AzureIntegrationLapsAccountCredentialsEnabled`
+- `AzureIntegrationLapsConnected`
+- `AzureIntegrationLapsDisconnected`
+- `AzureIntegrationLapsRotationDisabled`
+- `AzureIntegrationLapsRotationEnabled`
 - `ChangedDisabledRemoteInput`
 - `ChangedShowBlackScreen`
 - `CompanyAddressBookDisabled`
 - `CompanyAddressBookEnabled`
 - `CompanyAddressBookMembersHid`
 - `CompanyAddressBookMembersUnhid`
+- `CompanyDeviceGroupSetting`
+- `CompanyRelationExternalAccessDeleted`
+- `CompanyRelationExternalAccessRequestCreated`
+- `CompanyRelationExternalAccessRequestUpdated`
+- `CompanyRelationInvitationCreated`
+- `CompanyRelationInvitationUpdated`
+- `CompanyRelationRequestCreated`
+- `CompanyRelationRequestDeleted`
+- `CompanyRelationRequestUpdated`
+- `CompanyRelationTerminated`
 - `ConditionalAccessBlockMeetingStateChanged`
 - `ConditionalAccessDirectoryGroupAdded`
 - `ConditionalAccessDirectoryGroupDeleted`
 - `ConditionalAccessDirectoryGroupMembersAdded`
 - `ConditionalAccessDirectoryGroupMembersDeleted`
+- `ConditionalAccessPreApprovedSessionRequestApproved`
+- `ConditionalAccessPreApprovedSessionRequestDenied`
 - `ConditionalAccessRuleAdded`
 - `ConditionalAccessRuleDeleted`
 - `ConditionalAccessRuleModified`
 - `ConditionalAccessRuleVerificationStateChanged`
+- `ConditionalAccessSessionApproval`
+- `ConditionalAccessUseSessionCodeGroupIDStateChanged`
+- `ConnectionTerminated`
+- `ConnectionTerminationRequest`
 - `CreateCustomHost`
 - `DeleteCustomHost`
+- `DeviceAddedToGroup`
+- `DeviceAliasUpdated`
+- `DeviceDescriptionUpdated`
+- `DeviceGroupCreated`
+- `DeviceGroupDeleted`
+- `DeviceGroupManagerAdded`
+- `DeviceGroupManagerRemoved`
+- `DeviceGroupManagerUpdated`
+- `DeviceGroupNameUpdated`
+- `DeviceGroupPolicyUpdated`
+- `DeviceManaged`
+- `DeviceManagerAdded`
+- `DeviceManagerRemoved`
+- `DeviceManagerUpdated`
+- `DevicePolicyUpdated`
+- `DeviceRemovedFromGroup`
+- `DeviceUnmanaged`
 - `EditOwnProfile`
 - `EditTFAUsage`
 - `EditUserPermissions`
@@ -200,16 +260,38 @@ Possible values are:
 - `EmailConfirmed`
 - `EndedRecording`
 - `EndedSession`
+- `EventLogActivated`
+- `EventLogDeactivated`
+- `FailedChatTranscript`
 - `GroupAdded`
 - `GroupDeleted`
 - `GroupShared`
 - `GroupUpdated`
 - `IncomingSession`
+- `IntuneAutoDeployGroupActivated`
+- `IntuneAutoDeployIntegrationConnected`
+- `IntuneAutoDeployIntegrationDisconnected`
+- `IntuneAutoDeployRolloutConfigurationSet`
+- `IntuneDeviceSyncConfigurationChanged`
+- `IntuneDeviceSyncGroupAdded`
+- `IntuneDeviceSyncGroupRemoved`
+- `IntuneDeviceSyncIntegrationConnected`
+- `IntuneDeviceSyncIntegrationDisconnected`
+- `IntuneDeviceSyncOwnerChanged`
 - `JoinCompany`
+- `JoinCompanyDenied`
 - `JoinedSession`
 - `LeftSession`
+- `OrganizationalUnitCreated`
+- `OrganizationalUnitDeleted`
+- `OrganizationalUnitRootCreated`
+- `OrganizationalUnitUpdated`
 - `ParticipantJoinedSession`
 - `ParticipantLeftSession`
+- `PasswordChanged`
+- `PasswordResetEmailRequesed`
+- `PausedRecording`
+- `PermissionInheritanceSetting`
 - `PausedRecording`
 - `PolicyAdded`
 - `PolicyDeleted`
@@ -217,15 +299,28 @@ Possible values are:
 - `ReceivedDisabledLocalInput`
 - `ReceivedFile`
 - `ReceivedShowBlackScreen`
+- `RemovedTFAEnforcementFromAccounts`
 - `RemoveRemoteWorkerDevice`
 - `ResumedRecording`
 - `ScriptTokenAdded`
 - `ScriptTokenDeleted`
 - `ScriptTokenUpdated`
 - `SentFile`
+- `SingleSignOnDomainAccessLevelUpdated`
+- `SingleSignOnDomainCreated`
+- `SingleSignOnDomainDeleted`
+- `SingleSignOnDomainUpdated`
+- `SingleSignOnDomainUpdated`
+- `SingleSignOnExclusionRemoved`
+- `SingleSignOnInclusionAdded`
+- `SingleSignOnInclusionRemoved`
+- `SingleSignOnOwnerAdded`
+- `SingleSignOnOwnerRemoved`
+- `StartedChatTranscript`
 - `StartedRecording`
 - `StartedSession`
 - `SwitchedSides`
+- `TFAEnforcedOnAccounts`
 - `UpdateCustomHost`
 - `UserCreated`
 - `UserDeleted`
@@ -234,7 +329,17 @@ Possible values are:
 - `UserGroupMembersAdded`
 - `UserGroupMembersRemoved`
 - `UserGroupUpdated`
+- `UserInvitationAccepted`
+- `UserInvitationCreated`
+- `UserInvitationDeleted`
+- `UserInvitationResent`
+- `UserInvitationUpdated`
 - `UserRemovedFromCompany`
+- `UserRoleAssigned`
+- `UserRoleCreated`
+- `UserRoleCreated`
+- `UserRoleUnassigned`
+- `UserRoleUpdated`
 
 ```yaml
 Type: String[]
@@ -256,16 +361,30 @@ Multiple values can be specified, separated by comma.
 
 Possible values are:
 
+- `ActiveConnections`
+- `AISettings`
+- `AzureIntegration`
 - `CompanyAddressBook`
 - `CompanyAdministration`
+- `CompanyRelation`
+- `CompanySettings`
 - `ConditionalAccess`
 - `CustomModules`
+- `DeviceGroupManagement`
+- `DeviceManagement`
 - `GroupManagement`
+- `IntuneAutoDeploy`
+- `IntuneDeviceSync`
 - `LicenseManagement`
+- `OrganizationalUnit`
 - `Policy`
 - `Session`
+- `SingleSignOnManagement`
+- `TFAEnforcement`
 - `UserGroups`
+- `UserInvitation`
 - `UserProfile`
+- `UserRole`
 
 ```yaml
 Type: String[]
