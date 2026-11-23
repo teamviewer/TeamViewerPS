@@ -32,6 +32,7 @@
 - Renames `Get-TeamViewerCustomModuleId` to `Get-TeamViewerCustomizationId`.
 - Normalizes acronym casing in command, parameter, and type names (`Api` to `API`, `Sso` to `SSO`).
 - Fixes, completes, and improves help file `TeamViewerPS.md`.
+- Updates the supported event names and types in the `Get-TeamViewerAuditEvent.md` help documentation.
 - Adds `OutputType` to public commands.
 - Adds `CmdletBinding` to public commands.
 - Standardizes pipeline emission on Write-Output.
