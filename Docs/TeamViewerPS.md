@@ -262,7 +262,7 @@ Retrieve audit log entries or connection reports for a TeamViewer company or ten
 
 [`Get-TeamViewerConnectionReport`](Help/Get-TeamViewerConnectionReport.md)
 
-[`Get-TeamViewerEventLog`](Help/Get-TeamViewerEventLog.md)
+[`Get-TeamViewerAuditEvent`](Help/Get-TeamViewerAuditEvent.md)
 
 ## Local Client Utilities
 
